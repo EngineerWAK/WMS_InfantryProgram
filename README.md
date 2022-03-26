@@ -34,4 +34,4 @@ For any part of this work for which the license is applicable, this work is lice
 
 Any part of this work for which the CC-BY-NC-ND-4.0 license is not applicable is licensed under the [Mozilla Public License 2.0](https://www.mozilla.org/en-US/MPL/2.0/). See LICENSE.MPL-2.0.
 
-Any part of this work that is known to be derived from an existing work is licensed under the license of that existing work. Where such license is known
+Any part of this work that is known to be derived from an existing work is licensed under the license of that existing work.
