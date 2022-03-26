@@ -7,6 +7,7 @@ class CfgFunctions
 			file = "Fonctions";
 			class haloJump {};
 			class rocketman {};
+			class displayKillStats {};
 		};
 	};
 	class WMS_IP
@@ -23,5 +24,4 @@ class CfgFunctions
 
 		};
 	};
-	#include "CHVD\CfgFunctions.hpp"
 };
