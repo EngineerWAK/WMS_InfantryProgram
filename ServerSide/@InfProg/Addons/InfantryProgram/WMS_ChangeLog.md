@@ -22,7 +22,10 @@
 // - Skill Convert for all AI //DONE
 // - Capture zone //DONE
 //////////////////////////////////////////////////////////////////
+v2.548a_2022MAR26_PreRelease on GitHub to try to get back some ExileMod compatibility
+
 v2.528 2022MAR09 converting WAK_ to WMS_, unfortunatly, (OFPEC)
+
 v2.0 InfantryProgram is not developed with Exile Mod in mind anymore (moving to TheLastCartridges), old functions (DB access) will stay but will be filtered
 v1.366 2021FEB17
     ADDED WMS_AMS_LumberYard mission
