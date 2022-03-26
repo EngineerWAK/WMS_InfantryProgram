@@ -5,7 +5,9 @@ v2.548a_2022MAR26_PreRelease on GitHub to try to get back some ExileMod compatib
 InfantryProgram (from the original name 3 years ago...) is a Dynamic AI/Mission system for Arma 3 dedicated servers.
 It used to run with Exile Mod but not anymore (It might be compatible again).
 It runs now on custom mpmission with CBA and ACE3.
-SetUp is in WMS_InitSystem.sqf (mostly)
+
+SetUp is in WMS_InitSystem.sqf (mostly):
+
     WMS_serverCMDpwd    = "CHANGEME"; //IObviously important
     WMS_CustomizedMap	= []; //Maps custom setup I made, if your map is in it, check WMS_customMapsSettings.sqf, it mostly change loadouts, AI counts, missions counts. check for ClassNames if you don't use the same Mod(s)
     WMS_exileToastMsg 	= false; //Exile compatibility is broken right now
