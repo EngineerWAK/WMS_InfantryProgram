@@ -6,7 +6,7 @@ InfantryProgram (from the original name 3 years ago...) is a Dynamic AI/Mission 
 It used to run with Exile Mod but not anymore (It might be compatible again).<br/>
 It runs now on custom mpmission with CBA and ACE3.<br/>
 Note that the all system is not optimized for big servers with tons of players.<br/>
-Yes there is some old weird way to do things and old funtions, but it works even if it's not perfect, which is enough for me.<br/>
+Yes there is some old\weird way to do things and old functions, but it works even if it's not perfect, which is enough for me.<br/>
 I strongly suggest to use LambsDanger (server side only), it help a lot with the retarded Bohemia's NPCs: https://github.com/nk3nny/LambsDanger<br/>
 
 SetUp is in WMS_InitSystem.sqf (mostly):
