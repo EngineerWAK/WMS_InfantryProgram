@@ -9,7 +9,13 @@
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 * Do Not Re-Upload
 */
-WMS_System_Version 			= "v2.548a_2022MAR26_PreRelease";
+
+WMS_serverCMDpwd			= "CHANGEME";
+WMS_InfantryProgram_list = [ //list of player's UID autorised to use InfantryProgram Functions
+	//"76561197965501020" //WAKeupneo
+];
+
+WMS_System_Version 			= "v2.55_2022MAR27_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -25,20 +31,13 @@ WMS_ServRestart 			= true;
 WMS_forceNoRain 			= false;
 WMS_forceNoFog				= false;
 WMS_ServRestartSeconds 		= 18000; //5h
-WMS_serverCMDpwd			= "CHANGEME";
 WMS_Thread_Start			= 30;
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Namalsk","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!!
+	WMS_exileFireAndForget 		= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
 	WMS_exileToastMsg 			= false;
-	WMS_exileFireAndForget 		= false; //FireAndForget is ONLY for Exile DB means Exile mod is running
 
 WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch launch, about 2 minutes after start
 {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]}foreach allPlayers;
-
-//(getplayerUID player) in WMS_InfantryProgram_list;
-WMS_InfantryProgram_list = [ //list of player's UID autorised to use InfantryProgram Functions
-	//"76561197965501020" //WAKeupneo
-];
-WMS_IP_Active_list = [];//nothing in there
 
 WMS_BlackList = [  //list of player's UID "BlackListed" //fatigue/Stamina for now
 
@@ -155,7 +154,7 @@ WMS_HumaniDropDelay 	= 1200; //+random 60
 WMS_ReconMission		= true;
 WMS_ReconMissionCount	= 1; //0 or 1, not more Recon Mission at the same time
 WMS_ReconMissionDelay	= 600;
-	WMS_Recon_Type 			= ["crate","none","safe","none"];//Not used yet
+	//WMS_Recon_Type 			= ["crate","none","safe","none"];//Not used yet
 WMS_Recon_Steps 		= [3,6,9,12]; //randomSelect
 WMS_Recon_Rewards		= [[6,1,3],[3,1,2],[6,1,2],[1,3,3],[0,0,0]]; //[_weap,_bag,_items,_ammoList,_mag]
 WMS_Recon_Border_Radius = 300;
@@ -254,13 +253,13 @@ WMS_DynAI_stealDist 		= 250;
 WMS_DynAI_Steal_Cooldown 	= 120; //General cooldown in secondes
 WMS_DynAI_Steal_last 		= 60; //first/last time function checked for vehicles //if (time > (WMS_DynAI_Steal_last + WMS_DynAI_Steal_Cooldown)) then {fnc};
 WMS_DynAI_sysChatMsg 		= 1; //0: nothing, 1: general, 2: group, 3: player
-	WMS_DynAI_ShowFragMsg 		= false; //EXILE System
+WMS_DynAI_ShowFragMsg 		= true;
 WMS_DynAI_RespectRwdOnKill 	= true;
 WMS_DynAI_respectBonus 		= 100;
 WMS_DynAI_distBonusMax 		= 300;
 WMS_DynAI_distBonusCoef 	= 0.333;
 WMS_DynAI_distToFlag 		= 100;
-	WMS_DynAI_distToBuildings = 50;
+	//WMS_DynAI_distToBuildings = 50;
 WMS_DynAI_distToPlayers 	= 250; //Minimum distance to spawn AI from player
 WMS_DynAI_traderDistance	= 200; 
 WMS_DynAI_BuildingCount 	= 5;
@@ -269,8 +268,8 @@ WMS_DynAI_MinDistBuildgs 	= 75;
 WMS_DynAI_DestroyVHL 		= 50; //chance to destroy vehicles if killed is group leader
 WMS_DynAI_remRPG 			= false; //(_this select 0) removeWeapon (secondaryWeapon (_this select 0));
 WMS_DynAI_LauncherChance 	= 15;
-	WMS_DynAI_MaxRunning	= 5;
-	WMS_DynAI_RunningCount 	= 0;
+WMS_DynAI_MaxRunning		= 5;
+WMS_DynAI_RunningCount 		= 0; //DO NOT CHANGE
 WMS_DynAI_Running 			= [];
 WMS_DynAI_LastTarget 		= [];
 WMS_DynAI_LastTime 			= time;
@@ -311,13 +310,13 @@ WMS_AMS_VHL_KillMoney	= 3000;
 WMS_AMS_Reinforce  		= true;
 WMS_AMS_LastReinforce 	= 0;
 WMS_AMS_ReinforceCoolD 	= 300;
-	WMS_AMS_AdjustedSkills = false; //Not Used Yet, include VCOM functions
-	WMS_AMS_AdjustSkillsDist = 399;
+	//WMS_AMS_AdjustedSkills = false; //Not Used Yet, include VCOM functions
+	//WMS_AMS_AdjustSkillsDist = 399;
 WMS_AMS_addPoptabsUnits = false;
 WMS_AMS_poptabsUnits 	= [25,25];
 WMS_AMS_addPoptabsRwd 	= false; //Add poptabs in the mission reward crate/vehicle
 WMS_AMS_PoptabsRwd 		= [1000,500]; //Add poptabs in the mission reward crate/vehicle
-	//skills : "spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"//,"endurance"
+			   //skills = "spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"//,"endurance"
 WMS_AMS_skillsMin 		= [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0, 0.1, 0.1];
 WMS_AMS_skillsMax 		= [1, 0.85, 0.85, 0.7, 0.8, 0.8, 0, 1, 0.85];
 WMS_AMS_skilleasy 		= [0.80, 0.8, 0.3, 0.3, 0.3, 0.6, 0, 0.6, 0.6];
@@ -326,7 +325,7 @@ WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.6, 0.5, 0.5, 0.8, 0, 0.8, 1];
 WMS_AMS_skillhardcore 	= [0.95, 1, 0.7, 0.6, 0.6, 1, 0, 1, 1];
 WMS_AMS_skillstatic 	= [1, 1, 0.075, 0.5, 0.2, 0.5, 0, 0.2, 0.8];
 //WMS_AMS_skillsniper 	= [1,0.95,0.95,0.95];  //set in fn_DynAI_SetUnitOPF and fn_AMS_SetUnits
-WMS_AMS_sniperList		= [
+WMS_AMS_sniperList		= [ //This list can contain mods weapon, it's just a check
 							"srifle_LRR_F","srifle_LRR_camo_F","srifle_LRR_tna_F",
 							"srifle_GM6_ghex_F","srifle_GM6_camo_F","srifle_GM6_F",
 							"rhs_weap_m24sws_blk","rhs_weap_m24sws_d","rhs_weap_m24sws_wd","rhs_weap_m24sws",
@@ -347,7 +346,7 @@ WMS_AMS_MineAP 			= "APERSTripMine"; //"APERSMine"
 WMS_AMS_MineAT 			= "ATMine"; //BWA3_DM31AT
 WMS_AMS_MineSign 		= "Land_Sign_MinesTall_English_F";
 WMS_AMS_ToRun 			= 3;
-	WMS_AMS_MinFPS 		= 15; //diag_fps
+WMS_AMS_MinFPS 		= 15; //diag_fps
 WMS_AMS_WaitToStart 	= 30; //300
 WMS_AMS_LastSpawn 		= -600;
 WMS_AMS_MissionTimeout 	= [9600, 500];//[1800, 600]
@@ -355,7 +354,7 @@ WMS_AMS_TbtwMissions 	= [240, 120];
 WMS_AMS_MaxGrad 		= 0.15;
 WMS_AMS_RangeList 		= [300,500,750,1000,1500]; //Killer distance for AI reinforcement
 WMS_AMS_sysChatMsg 		= 1; //0: nothing, 1: general, 2: group, 3: player
-	WMS_AMS_ShowFragMsg 	= true;
+WMS_AMS_ShowFragMsg 	= true;
 WMS_AMS_RespectRwdOnKill = true; //150|750|0.2 //100|750|0.133
 WMS_AMS_respectBonus	= 100;
 WMS_AMS_distBonusMax 	= 750;
@@ -368,7 +367,7 @@ WMS_AMS_SpnDistTerrit 	= 200;
 WMS_AMS_SpnDistMission 	= 950;
 WMS_AMS_ClnObj 			= true;
 WMS_AMS_ClnObjT 		= 60; //objects cleaning delay after unlock the mission
-	WMS_AMS_AlarmSpawn 	= true;
+	//WMS_AMS_AlarmSpawn 	= true;
 WMS_AMS_AlarmCln 		= true;
 WMS_AMS_TimeToWatch 	= 25;
 WMS_AMS_Running_Array 	= []; //super big array with all missions running
@@ -504,7 +503,7 @@ WMS_para_small			= "NonSteerable_Parachute_F"; //rhs_d6_Parachute
 WMS_BombList 			= ["Bomb_03_F", "Bomb_04_F"]; //DynAI bombing is (select 0)
 WMS_ATMines				= "ATMine"; //"ATMine";"BWA3_DM31AT";
 WMS_DirectionnalMines 	= ["APERSTripMine"];
-WMS_WaterSource			= "Land_ConcreteWell_02_F";
+WMS_WaterSource			= "Land_ConcreteWell_02_F"; //ACE
 
 WMS_MapName = worldname;
 MISSION_ROOT = format ["mpmissions\%1.%2\", "__cur_mp", WMS_MapName]; //I should remove this
@@ -548,24 +547,21 @@ publicVariable "WMS_WDtrader_LastTime";
 publicVariable "WMS_WDtrader_CoolDown";
 publicVariable "WMS_MoveInCargo_C130_LastTime";
 publicVariable "WMS_InfantryProgram_C130CoolDown";
-/*
-publicVariable "WMS_Loadout_AOR2";
-publicVariable "WMS_Loadout_M90";
-publicVariable "WMS_Loadout_Scorpion";
-publicVariable "WMS_Loadout_Tiger";
-publicVariable "WMS_Loadout_UKtmp";
-publicVariable "WMS_Loadout_UKwdl";
-publicVariable "WMS_Loadout_FRce";
-publicVariable "WMS_Loadout_DEfleck";
-publicVariable "WMS_Loadout_Assault";
-publicVariable "WMS_Loadout_AssaultPlus";
-publicVariable "WMS_Loadout_DMR";
-publicVariable "WMS_Loadout_MG";
-publicVariable "WMS_Loadout_Sniper";
-publicVariable "WMS_Loadout_SMG";*/
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Variables override for Exile Users
+if (WMS_exileFireAndForget) then {
+	WMS_exileToastMsg 		= true;
+	WMS_PlayerEntity		= "Exile_Unit_Player";
+	WMS_AMS_MkrEasy 		= "ExileMissionEasyIcon";
+	WMS_AMS_MkrModerate 	= "ExileMissionModerateIcon";
+	WMS_AMS_MkrDifficult 	= "ExileMissionDifficultIcon";
+	WMS_AMS_MkrHardcore 	= "ExileMissionHardcoreIcon";
+	WMS_CaptureZone_mkr		= "ExileMissionCapturePointIcon";
+	WMS_AMS_TradersIcons 	= ["ExileTraderZoneIcon","ExileAircraftTraderIcon"];
+	WMS_DynAI_BaseFlag 		= "Exile_Construction_Flag_static";
+};
 // Random server start time
 if (WMS_RandomStartTime) then {
 	WMS_Date = [(WMS_Date select 0), (WMS_Date select 1), (WMS_Date select 2), WMS_RandomStart_Hour+floor (random WMS_RandomStart_Random), 00];
@@ -595,6 +591,7 @@ if (WMS_AMS)			then {execVM "\InfantryProgram\Scripts\WMS_AMS_Start.sqf"};
 WMS_markerFPS = objNull;
 WMS_markerUnits = objNull;
 WMS_markerDeads = objNull;
+WMS_IP_Active_list = [];//nothing in there
 if (WMS_ServerMarkers) then {execVM "\InfantryProgram\Scripts\WMS_ServerMarkers.sqf"};
 // Init System Watchs
 []spawn WMS_fnc_sys_Init_Watchs;

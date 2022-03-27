@@ -31,7 +31,7 @@ params[
 	_payload 		= [[format ["KILLED %1",toUpper(name _killed)],_bonus]];
 	_msgx 			= "";
 
-	if (((random 100) < WMS_DynAI_DestroyVHL) && (_killed == leader _killed)) then {vehicle _killed setDammage 1};
+	if (((random 100) < WMS_DynAI_DestroyVHL) && (_killed == leader _killed)) then {vehicle _killed setDamage 1};
 
 	if (WMS_DynAI_remRPG) then {_killed removeWeapon (secondaryWeapon _killed)};
 
@@ -138,7 +138,13 @@ params[
 			};
 		};
 		if (WMS_DynAI_ShowFragMsg) then {
-			[_killer, "showFragRequest", [_payload]] call ExileServer_system_network_send_to;
+			//[_killer, "showFragRequest", [_payload]] call ExileServer_system_network_send_to;
+			if (WMS_exileFireAndForget) then {
+				[_killer, "showFragRequest", [_payload]] call ExileServer_system_network_send_to;
+			} else {
+				if (WMS_DynAI_LOGs) then {diag_log format ["[DynAI_KILLED_MESSAGE]|WAK|TNA|WMS|Killer:%1, Payload: %2",_killer, _payload]};
+				[_payload,"NotAMS"] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)];
+			};
 		};
 		if (WMS_DynAI_ejectDeads) then {moveout _killed};
 		//saveProfileNamespace;

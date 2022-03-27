@@ -22,6 +22,21 @@
 // - Skill Convert for all AI //DONE
 // - Capture zone //DONE
 //////////////////////////////////////////////////////////////////
+v2.55_2022MAR27_GitHub 
+    ADDED Variables override for Exile Users in WMS_initsystem
+    if (WMS_exileFireAndForget) then {
+	    WMS_exileToastMsg 		= true;
+	    WMS_PlayerEntity		= "Exile_Unit_Player";
+	    WMS_AMS_MkrEasy 		= "ExileMissionEasyIcon";
+	    WMS_AMS_MkrModerate 	= "ExileMissionModerateIcon";
+	    WMS_AMS_MkrDifficult 	= "ExileMissionDifficultIcon";
+	    WMS_AMS_MkrHardcore 	= "ExileMissionHardcoreIcon";
+	    WMS_CaptureZone_mkr		= "ExileMissionCapturePointIcon";
+	    WMS_AMS_TradersIcons 	= ["ExileTraderZoneIcon","ExileAircraftTraderIcon"];
+	    WMS_DynAI_BaseFlag 		= "Exile_Construction_Flag_static";
+    };
+    ADDED WMS_DynAI_ShowFragMsg in WMS_fnc_DynAI_RwdMsgOnKill
+    
 v2.548a_2022MAR26_PreRelease on GitHub to try to get back some ExileMod compatibility
 
 v2.528 2022MAR09 converting WAK_ to WMS_, unfortunatly, (OFPEC)

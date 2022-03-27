@@ -58,7 +58,7 @@ if (WMS_MapName == "ruha") then {
 										WMS_Forests_CoolD			= 1200;
 										WMS_Military_CoolD			= 400;
 										};
-if (WMS_MapName == "xcam_taunus") then {	
+if (WMS_MapName == "xcam_taunus") then {	//NOTE THAT TAUNUS IS VERY LAGGY SERVER<>CLIENT
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										WMS_forceNoRain 			= false;
