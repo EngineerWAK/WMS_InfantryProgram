@@ -9,6 +9,18 @@
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 * Do Not Re-Upload
 */
+if !(WMS_exileFireAndForget) then {
+WMS_AI_inventory = [
+	"Antimalaricum","Antibiotic",//"AntimalaricumVaccine",
+	"ACE_bloodIV_250","ACE_plasmaIV_250","ACE_bloodIV_500","ACE_plasmaIV_500","ACE_salineIV_250","ACE_splint",
+	"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
+	"Laserbatteries","Laserbatteries",
+	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",
+	"FilesSecret","FileNetworkStructure","FileTopSecret","DocumentsSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys",
+	"ACE_Can_Franta","ACE_Can_RedGull","ACE_Can_Spirit","ACE_Canteen","ACE_Canteen_Empty","ACE_Canteen_Half","ACE_WaterBottle","ACE_WaterBottle_Empty","ACE_WaterBottle_Half",
+	"ACE_Humanitarian_Ration","ACE_MRE_BeefStew","ACE_MRE_ChickenTikkaMasala","ACE_MRE_ChickenHerbDumplings","ACE_MRE_CreamChickenSoup","ACE_MRE_CreamTomatoSoup","ACE_MRE_LambCurry","ACE_MRE_MeatballsPasta","ACE_MRE_SteakVegetables"
+];
+};
 /////////////////////////////////
 //			LOADOUTS - DEFAULT IS "VANILLA"
 /////////////////////////////////
@@ -281,17 +293,6 @@ WMS_Weaps_LivoniaMix = [
 	 "optic_DMS_weathered_Kir_F"
 	 ],
 	 ["hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","hlc_pistol_DL44"] //_pistols
-];
-WMS_AI_inventory = [ //ADD ACE3 ITEMS LATER
-	"Antimalaricum","Antibiotic",//"AntimalaricumVaccine",
-	"ACE_bloodIV_250","ACE_plasmaIV_250","ACE_bloodIV_500","ACE_plasmaIV_500","ACE_salineIV_250","ACE_splint",
-	"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
-	"Laserbatteries","Laserbatteries",
-	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",
-	"FilesSecret","FileNetworkStructure","FileTopSecret","DocumentsSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys",
-	"ACE_Can_Franta","ACE_Can_RedGull","ACE_Can_Spirit","ACE_Canteen","ACE_Canteen_Empty","ACE_Canteen_Half","ACE_WaterBottle","ACE_WaterBottle_Empty","ACE_WaterBottle_Half",
-	"ACE_Humanitarian_Ration","ACE_MRE_BeefStew","ACE_MRE_ChickenTikkaMasala","ACE_MRE_ChickenHerbDumplings","ACE_MRE_CreamChickenSoup","ACE_MRE_CreamTomatoSoup","ACE_MRE_LambCurry","ACE_MRE_MeatballsPasta","ACE_MRE_SteakVegetables"
-	
 ];
 
 publicVariable "WMS_Loadout_AOR2";

@@ -54,6 +54,17 @@ WMS_MeatList = [
 	"Exile_Item_TunaFilet_Raw",
 	"Exile_Item_TurtleFilet_Raw"
 ];
+WMS_medsList = [
+	"Exile_Item_Bandage",
+	"Exile_Item_Bandage",
+	"Exile_Item_Bandage",
+	"Exile_Item_Bandage",
+	"Exile_Item_Bandage",
+	"Exile_Item_Vishpirin",
+	"Exile_Item_Vishpirin",
+	"Exile_Item_Vishpirin",
+	"Exile_Item_InstaDoc"
+];
 /////
 WMS_IP_ToolKit = [
 	["Exile_Item_OldChestKit",1,0],

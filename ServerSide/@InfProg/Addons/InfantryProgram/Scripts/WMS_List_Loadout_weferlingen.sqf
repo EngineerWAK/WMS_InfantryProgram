@@ -9,6 +9,16 @@
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 * Do Not Re-Upload
 */
+if !(WMS_exileFireAndForget) then {
+WMS_AI_inventory = [ //ADD ACE3 ITEMS LATER
+	"Antimalaricum","AntimalaricumVaccine","Antibiotic",
+	"ACE_bloodIV_250","ACE_plasmaIV_250","ACE_salineIV_250","ACE_splint",
+	"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
+	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",
+	"FilesSecret","FileNetworkStructure","FileTopSecret","DocumentsSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys",
+	"ACE_Can_Franta","ACE_Can_RedGull","ACE_Can_Spirit","ACE_Canteen","ACE_Canteen_Empty","ACE_Canteen_Half","ACE_WaterBottle","ACE_WaterBottle_Empty","ACE_WaterBottle_Half",
+	"ACE_Humanitarian_Ration","ACE_MRE_BeefStew","ACE_MRE_ChickenTikkaMasala","ACE_MRE_ChickenHerbDumplings","ACE_MRE_CreamChickenSoup","ACE_MRE_CreamTomatoSoup","ACE_MRE_LambCurry","ACE_MRE_MeatballsPasta","ACE_MRE_SteakVegetables"
+];};
 /////////////////////////////////
 //			LOADOUTS - DEFAULT IS "VANILLA"
 /////////////////////////////////
@@ -301,25 +311,6 @@ WMS_Weaps_LivoniaMix = [
 	 "optic_DMS_weathered_Kir_F"
 	 ],
 	 ["hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","Exile_Weapon_Taurus","hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","Exile_Weapon_Taurus","hlc_pistol_DL44"] //_pistols
-];
-WMS_AI_inventory = [ //ADD ACE3 ITEMS LATER
-	"Antimalaricum","AntimalaricumVaccine","Antibiotic",
-	"ACE_bloodIV_250","ACE_plasmaIV_250","ACE_salineIV_250","ACE_splint",
-	//"Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc",
-	"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
-	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",
-	"FilesSecret","FileNetworkStructure","FileTopSecret","DocumentsSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys",
-	"ACE_Can_Franta","ACE_Can_RedGull","ACE_Can_Spirit","ACE_Canteen","ACE_Canteen_Empty","ACE_Canteen_Half","ACE_WaterBottle","ACE_WaterBottle_Empty","ACE_WaterBottle_Half",
-	"ACE_Humanitarian_Ration","ACE_MRE_BeefStew","ACE_MRE_ChickenTikkaMasala","ACE_MRE_ChickenHerbDumplings","ACE_MRE_CreamChickenSoup","ACE_MRE_CreamTomatoSoup","ACE_MRE_LambCurry","ACE_MRE_MeatballsPasta","ACE_MRE_SteakVegetables"
-	/*"Exile_Item_CordlessScrewdriver","Exile_Item_Hammer","Exile_Item_BurlapSack","Exile_Headgear_GasMask","Exile_Item_Wrench","Exile_Item_OilCanister",
-	"Exile_Item_CatSharkFilet_Raw","Exile_Item_TunaFilet_Raw","Exile_Item_AlsatianSteak_Raw","Exile_Item_TurtleFilet_Raw","Exile_Item_SheepSteak_Raw",
-	"Exile_Item_FinSteak_Raw","Exile_Item_GoatSteak_Raw","Exile_Item_ChickenFilet_Raw","Exile_Item_RoosterFilet_Raw","Exile_Item_MackerelFilet_Raw",
-	"Exile_Item_MulletFilet_Raw","Exile_Item_OrnateFilet_Raw","Exile_Item_RabbitSteak_Raw","Exile_Item_SalemaFilet_Raw","Exile_Item_SnakeFilet_Raw",
-	"Exile_Item_Raisins","Exile_Item_EMRE","Exile_Item_Moobar","Exile_Item_SeedAstics","Exile_Item_Noodles","Exile_Item_Cheathas",
-	"Exile_Item_PlasticBottleCoffee","Exile_Item_PlasticBottleFreshWater","Exile_Item_PowerDrink","Exile_Item_EnergyDrink","Exile_Item_MountainDupe","Exile_Item_Beer","Exile_Item_ChocolateMilk",
-	"Exile_Item_WaterCanisterDirtyWater","Exile_Item_Storagecratekit","Exile_Item_Sand","Exile_Item_MetalScrews","Exile_Item_CanOpener","Exile_Item_CampFireKit",
-	"Exile_Item_ToiletPaper","Exile_Item_Matches","Exile_Item_Knife","Exile_Item_CookingPot",
-	"Exile_Item_RubberDuck","Exile_Item_Rope","Exile_Item_MobilePhone","Exile_Item_FireExtinguisher","Exile_Item_DuctTape",*/
 ];
 
 publicVariable "WMS_Loadout_AOR2";

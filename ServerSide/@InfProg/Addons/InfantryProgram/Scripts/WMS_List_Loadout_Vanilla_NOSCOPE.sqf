@@ -9,6 +9,15 @@
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 * Do Not Re-Upload
 */
+if !(WMS_exileFireAndForget) then {
+WMS_AI_inventory = [
+	"Antimalaricum","Antibiotic",//"AntimalaricumVaccine",
+	"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
+	"Laserbatteries","Laserbatteries",
+	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",
+	"FilesSecret","FileNetworkStructure","FileTopSecret","DocumentsSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys"	
+];
+};
 /////////////////////////////////
 //			LOADOUTS - DEFAULT IS "VANILLA"
 /////////////////////////////////
@@ -643,13 +652,6 @@ WMS_Weaps_LivoniaMix = [
 	 ],
 	 ["hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","Exile_Weapon_Taurus","hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","Exile_Weapon_Taurus"
 	 ] //_pistols
-];
-WMS_AI_inventory = [
-	 "Exile_Item_FinSteak_Raw","Exile_Item_SalemaFilet_Raw","Exile_Item_SnakeFilet_Raw","Exile_Item_Raisins","Exile_Item_EMRE","Exile_Item_CampFireKit",
-	 "Exile_Item_WaterCanisterDirtyWater","Exile_Item_Storagecratekit","Exile_Item_Sand","Exile_Item_MetalScrews","Exile_Item_CanOpener","Land_TentDome_F_Kit",
-	 "Exile_Item_Vishpirin","Exile_Item_ToiletPaper","Exile_Item_PowerDrink","Exile_Item_Matches","Exile_Item_Knife","Exile_Item_CookingPot",
-	 "Exile_Item_RubberDuck","Exile_Item_Rope","Exile_Item_PlasticBottleCoffee","Exile_Item_MobilePhone","Exile_Item_FireExtinguisher","Exile_Item_DuctTape",
-	 "Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc"
 ];
 
 publicVariable "WMS_Loadout_AOR2";

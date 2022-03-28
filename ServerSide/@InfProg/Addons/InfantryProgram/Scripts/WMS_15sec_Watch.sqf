@@ -15,11 +15,13 @@ diag_log format ["[Infantry Program Watch Thread]|WAK|TNA|WMS| 15sec Watch start
 private _unlockServer = true;
 
 //Make Blue Water pumps water Objects for Ace:
-private _pumpList = [(worldSize/2), (worldSize/2), 0] nearObjects [WMS_WaterSource, worldSize];
-{
-	private _sphere = createVehicle ["Sign_Sphere10cm_F", getPos _x, [], 0, "CAN_COLLIDE"];
-	[_sphere, 200] call acex_field_rations_fnc_setRemainingWater;
-}forEach _pumpList;
+if!(WMS_exileFireAndForget) then {
+	private _pumpList = [(worldSize/2), (worldSize/2), 0] nearObjects [WMS_WaterSource, worldSize];
+	{
+		private _sphere = createVehicle ["Sign_Sphere10cm_F", getPos _x, [], 0, "CAN_COLLIDE"];
+		[_sphere, 200] call acex_field_rations_fnc_setRemainingWater;
+	}forEach _pumpList;
+};
 
 while {true} do {
 	if (_unlockServer && {(time > 120)}) then {

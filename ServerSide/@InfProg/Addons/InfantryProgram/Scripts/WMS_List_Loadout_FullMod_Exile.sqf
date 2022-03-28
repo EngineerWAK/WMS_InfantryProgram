@@ -280,21 +280,6 @@ WMS_Weaps_LivoniaMix = [
 	 ],
 	 ["hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","Exile_Weapon_Taurus","hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","Exile_Weapon_Taurus","hlc_pistol_DL44"] //_pistols
 ];
-WMS_AI_inventory = [
-	"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
-	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",
-	"FilesSecret","FileNetworkStructure","DocumentsSecret","FileTopSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys",
-	"Exile_Item_CordlessScrewdriver","Exile_Item_Hammer","Exile_Item_BurlapSack","Exile_Headgear_GasMask","Exile_Item_Wrench","Exile_Item_OilCanister",
-	"Exile_Item_CatSharkFilet_Raw","Exile_Item_TunaFilet_Raw","Exile_Item_AlsatianSteak_Raw","Exile_Item_TurtleFilet_Raw","Exile_Item_SheepSteak_Raw",
-	"Exile_Item_FinSteak_Raw","Exile_Item_GoatSteak_Raw","Exile_Item_ChickenFilet_Raw","Exile_Item_RoosterFilet_Raw","Exile_Item_MackerelFilet_Raw",
-	"Exile_Item_MulletFilet_Raw","Exile_Item_OrnateFilet_Raw","Exile_Item_RabbitSteak_Raw","Exile_Item_SalemaFilet_Raw","Exile_Item_SnakeFilet_Raw",
-	"Exile_Item_Raisins","Exile_Item_EMRE","Exile_Item_Moobar","Exile_Item_SeedAstics","Exile_Item_Noodles","Exile_Item_Cheathas",
-	"Exile_Item_PlasticBottleCoffee","Exile_Item_PlasticBottleFreshWater","Exile_Item_PowerDrink","Exile_Item_EnergyDrink","Exile_Item_MountainDupe","Exile_Item_Beer","Exile_Item_ChocolateMilk",
-	"Exile_Item_WaterCanisterDirtyWater","Exile_Item_Storagecratekit","Exile_Item_Sand","Exile_Item_MetalScrews","Exile_Item_CanOpener","Land_TentDome_F_Kit","Exile_Item_CampFireKit",
-	"Exile_Item_ToiletPaper","Exile_Item_Matches","Exile_Item_Knife","Exile_Item_CookingPot",
-	"Exile_Item_RubberDuck","Exile_Item_Rope","Exile_Item_MobilePhone","Exile_Item_FireExtinguisher","Exile_Item_DuctTape",
-	"Antimalaricum","AntimalaricumVaccine","Antibiotic","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc"
-];
 
 publicVariable "WMS_Loadout_AOR2";
 publicVariable "WMS_Loadout_M90";

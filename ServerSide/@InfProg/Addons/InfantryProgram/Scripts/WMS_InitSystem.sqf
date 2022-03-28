@@ -14,8 +14,11 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_InfantryProgram_list = [ //list of player's UID autorised to use InfantryProgram Functions
 	//"76561197965501020" //WAKeupneo
 ];
+WMS_BlackList = [  //list of player's UID "BlackListed" //fatigue/Stamina for now
 
-WMS_System_Version 			= "v2.55_2022MAR27_GitHub";
+];
+
+WMS_System_Version 			= "v2.554_2022MAR28_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -38,10 +41,6 @@ WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","N
 
 WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch launch, about 2 minutes after start
 {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]}foreach allPlayers;
-
-WMS_BlackList = [  //list of player's UID "BlackListed" //fatigue/Stamina for now
-
-];
 
 WMS_InfantryProgram_Vehicles = [ //Maybe add _vehicle setvariable ["IP_ExtractionVehicle", true, true]; to the extraction vehicles at spawn and use it to filter
 	//"Exile_Bike_MountainBike", //bike from XM8
@@ -67,7 +66,7 @@ WMS_InfantryProgram_Vehicles = [ //Maybe add _vehicle setvariable ["IP_Extractio
 /////////////////////////////////
 //			CRATES ITEMS
 /////////////////////////////////
-execVM "\InfantryProgram\Scripts\WMS_List_Crates_Vanilla.sqf";
+if !(WMS_exileFireAndForget) then {execVM "\InfantryProgram\Scripts\WMS_List_Crates_Vanilla.sqf"}else{execVM "\InfantryProgram\Scripts\WMS_List_Crates_Exile.sqf"};
 /////////////////////////////////
 //			OPFOR Vehicles
 /////////////////////////////////
@@ -505,6 +504,10 @@ WMS_ATMines				= "ATMine"; //"ATMine";"BWA3_DM31AT";
 WMS_DirectionnalMines 	= ["APERSTripMine"];
 WMS_WaterSource			= "Land_ConcreteWell_02_F"; //ACE
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 WMS_MapName = worldname;
 MISSION_ROOT = format ["mpmissions\%1.%2\", "__cur_mp", WMS_MapName]; //I should remove this
 
@@ -515,6 +518,35 @@ if (WMS_MapName in WMS_CustomizedMap) then {
 	execVM "\InfantryProgram\Scripts\WMS_List_Loadout_Vanilla.sqf";
 };
 
+//Variables override for Exile Users
+if (WMS_exileFireAndForget) then {
+	WMS_exileToastMsg 		= true;
+	WMS_PlayerEntity		= "Exile_Unit_Player";
+	WMS_AMS_MkrEasy 		= "ExileMissionEasyIcon";
+	WMS_AMS_MkrModerate 	= "ExileMissionModerateIcon";
+	WMS_AMS_MkrDifficult 	= "ExileMissionDifficultIcon";
+	WMS_AMS_MkrHardcore 	= "ExileMissionHardcoreIcon";
+	WMS_CaptureZone_mkr		= "ExileMissionCapturePointIcon";
+	WMS_AMS_TradersIcons 	= ["ExileTraderZoneIcon","ExileAircraftTraderIcon"];
+	WMS_DynAI_BaseFlag 		= "Exile_Construction_Flag_static";
+	WMS_Utility_Item_1 		= "Exile_Item_FireExtinguisher"; //used for haloJump in Exile
+	WMS_Utility_Item_2 		= "Exile_Item_OldChestKit"; //Used for InfantryProgram Action in Exile
+	WMS_AI_inventory = [
+		"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
+		"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",
+		"FilesSecret","FileNetworkStructure","DocumentsSecret","FileTopSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys",
+		"Exile_Item_CordlessScrewdriver","Exile_Item_Hammer","Exile_Item_BurlapSack","Exile_Headgear_GasMask","Exile_Item_Wrench","Exile_Item_OilCanister",
+		"Exile_Item_CatSharkFilet_Raw","Exile_Item_TunaFilet_Raw","Exile_Item_AlsatianSteak_Raw","Exile_Item_TurtleFilet_Raw","Exile_Item_SheepSteak_Raw",
+		"Exile_Item_FinSteak_Raw","Exile_Item_GoatSteak_Raw","Exile_Item_ChickenFilet_Raw","Exile_Item_RoosterFilet_Raw","Exile_Item_MackerelFilet_Raw",
+		"Exile_Item_MulletFilet_Raw","Exile_Item_OrnateFilet_Raw","Exile_Item_RabbitSteak_Raw","Exile_Item_SalemaFilet_Raw","Exile_Item_SnakeFilet_Raw",
+		"Exile_Item_Raisins","Exile_Item_EMRE","Exile_Item_Moobar","Exile_Item_SeedAstics","Exile_Item_Noodles","Exile_Item_Cheathas",
+		"Exile_Item_PlasticBottleCoffee","Exile_Item_PlasticBottleFreshWater","Exile_Item_PowerDrink","Exile_Item_EnergyDrink","Exile_Item_MountainDupe","Exile_Item_Beer","Exile_Item_ChocolateMilk",
+		"Exile_Item_WaterCanisterDirtyWater","Exile_Item_Storagecratekit","Exile_Item_Sand","Exile_Item_MetalScrews","Exile_Item_CanOpener","Land_TentDome_F_Kit","Exile_Item_CampFireKit",
+		"Exile_Item_ToiletPaper","Exile_Item_Matches","Exile_Item_Knife","Exile_Item_CookingPot",
+		"Exile_Item_RubberDuck","Exile_Item_Rope","Exile_Item_MobilePhone","Exile_Item_FireExtinguisher","Exile_Item_DuctTape",
+		"Antimalaricum","AntimalaricumVaccine","Antibiotic","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc"
+	];
+};
 Resistance setFriend [East, 0];
 East setFriend [Resistance, 0];
 Resistance setFriend [WEST, 1];
@@ -547,21 +579,6 @@ publicVariable "WMS_WDtrader_LastTime";
 publicVariable "WMS_WDtrader_CoolDown";
 publicVariable "WMS_MoveInCargo_C130_LastTime";
 publicVariable "WMS_InfantryProgram_C130CoolDown";
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Variables override for Exile Users
-if (WMS_exileFireAndForget) then {
-	WMS_exileToastMsg 		= true;
-	WMS_PlayerEntity		= "Exile_Unit_Player";
-	WMS_AMS_MkrEasy 		= "ExileMissionEasyIcon";
-	WMS_AMS_MkrModerate 	= "ExileMissionModerateIcon";
-	WMS_AMS_MkrDifficult 	= "ExileMissionDifficultIcon";
-	WMS_AMS_MkrHardcore 	= "ExileMissionHardcoreIcon";
-	WMS_CaptureZone_mkr		= "ExileMissionCapturePointIcon";
-	WMS_AMS_TradersIcons 	= ["ExileTraderZoneIcon","ExileAircraftTraderIcon"];
-	WMS_DynAI_BaseFlag 		= "Exile_Construction_Flag_static";
-};
 // Random server start time
 if (WMS_RandomStartTime) then {
 	WMS_Date = [(WMS_Date select 0), (WMS_Date select 1), (WMS_Date select 2), WMS_RandomStart_Hour+floor (random WMS_RandomStart_Random), 00];
