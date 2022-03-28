@@ -67,7 +67,7 @@ if (_paraGroup == 0) then {
 } else {
 	{
 		[_x, _vehic] remoteExec ['moveinCargo',(owner _x)];
-	} foreach (units(group _target));
+	} foreach (units(group _target)); //I think this shit never worked xD
 };
 
 if (WMS_InfantryProgram_LOGs) then {

@@ -19,7 +19,12 @@ if (_ammoType == "HE" ) then {_amount = 10000} else {
 		};
 	};
 };
-_lockerMoney = _target getVariable ['ExileMoney', 0];
+_lockerMoney = 0;
+if (WMS_exileFireAndForget) then {
+	_lockerMoney = _target getVariable ['ExileLocker', 0];
+}else{
+	_lockerMoney = _target getVariable ['ExileMoney', 0];
+};
 if(_lockerMoney > _amount) then {
 	systemchat "5 secondes to AIM target";
 	uisleep 2;
@@ -29,7 +34,7 @@ if(_lockerMoney > _amount) then {
 	uisleep 1;
 	systemchat "1";
 	uisleep 1;
-	waituntil {!(isnull cursorObject)};
+	waituntil {!(isnull cursorObject)}; //Definitely need to replace this with laserTarget
 	_artyTarget = cursorObject;
 	_artyTargetPos = position _artyTarget;
 	_artyTargetDist = _target distance2d _artyTarget;

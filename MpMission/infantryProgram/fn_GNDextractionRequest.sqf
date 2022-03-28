@@ -13,10 +13,11 @@ openMap true;
 		private _targetUID = getplayerUID player;
 		private _targetGroup = group player;
 		if (isnull group player) then {_targetGroup == _targetUID};
-		private _vehicVarName = format["Extraction_%1_%2", _targetGroup, time];
-		[player,_pos,"",_vehicVarName] remoteExec ["WMS_fnc_infantryProgram_GNDextraction"];
+		//private _vehicVarName = format["Extraction_%1_%2", _targetGroup, time];
+		//[player,_pos,"",_vehicVarName] remoteExec ["WMS_fnc_infantryProgram_GNDextraction"];
+		[player,_pos] remoteExec ["WMS_fnc_infantryProgram_GNDextraction"];
 		WMS_Loc_InfProg_GNDextraction_Last = time;
-		systemchat format ["%1 extraction requested %2", player, _vehicVarName];
+		systemchat format ["%1 extraction requested, %2", player, _targetGroup];
 		openMap false;
 		true 
 	};
