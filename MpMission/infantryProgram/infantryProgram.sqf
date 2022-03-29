@@ -142,7 +142,7 @@ WMS_IP_buildComputer = {
 	[
 		"<t size='0.9' color='#068604'>Request C130</t>",
 		"
-			[] call WMS_IP_fnc_c130_Request;
+			[] call WMS_fnc_IP_c130_Request;
 		", 
 		[],
 		1,
@@ -166,7 +166,7 @@ WMS_IP_buildComputer = {
 	[
 		"<t size='0.9' color='#068604'>Request Extraction Chopper</t>",
 		"
-			[] call WMS_IP_fnc_ExtractionRequest;
+			[] call WMS_fnc_IP_ExtractionRequest;
 		", 
 		[],
 		1,
@@ -190,7 +190,7 @@ WMS_IP_buildComputer = {
 	[
 		"<t size='0.9' color='#068604'>Request Ground Extraction</t>",
 		"
-			[] call WMS_IP_fnc_GNDextractionRequest;
+			[] call WMS_fnc_IP_GNDextractionRequest;
 		", 
 		[],
 		1,
@@ -214,7 +214,7 @@ WMS_IP_buildComputer = {
 	[
 		"<t size='0.9' color='#068604'>Artillery HE, 10k$ </t>",
 		"
-			[_this select 1,'HE',10000] spawn WMS_IP_fnc_ArtySupport;
+			[_this select 1,'HE',10000] spawn WMS_fnc_IP_ArtySupport;
 		", 
 		[],
 		1,
@@ -237,7 +237,7 @@ WMS_IP_buildComputer = {
 	[
 		"<t size='0.9' color='#068604'>BlackFish Support 30k$ </t>",
 		"
-			[(_this select 1)] spawn WMS_IP_fnc_BlackFishSupport;
+			[(_this select 1)] spawn WMS_fnc_IP_BlackFishSupport;
 		", 
 		[],
 		1,
@@ -334,7 +334,7 @@ WMS_IP_buildComputer = {
 		"
 			_target = _this select 0; _caller = _this select 1;
 			systemChat 'calling';
-			[300, 'chest', _caller] spawn WMS_IP_fnc_OpforVHL_Radar; 
+			[300, 'chest', _caller] spawn WMS_fnc_IP_OpforVHL_Radar; 
 			_caller removeMagazine 'FilesSecret'; 
 			_caller removeMagazine 'FileNetworkStructure'; 
 			_caller removeMagazine 'FileTopSecret';
@@ -365,7 +365,7 @@ WMS_IP_buildComputer = {
 		"
 			_target = _this select 0; _caller = _this select 1;
 			systemChat 'calling';
-			[300, 'chest', _caller] spawn WMS_IP_fnc_OpforVHL_Radar; 
+			[300, 'chest', _caller] spawn WMS_fnc_IP_OpforVHL_Radar; 
 			_caller removeMagazine 'FlashDisk';
 			systemChat 'Action called';
 		", 

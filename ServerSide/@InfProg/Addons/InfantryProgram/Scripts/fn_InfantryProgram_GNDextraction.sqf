@@ -17,7 +17,7 @@
 //[player,_pos,"",_vehicVarName] remoteExec ["WMS_fnc_infantryProgram_GNDextraction"];
 
 diag_log format ["[EXTRACTION GND]|TNA|TNA|TNA|TNA|TNA| VEHICLE Transport _this check, _this = %1 ", _this];
-private ["_taxi","_backupPos","_RandomPosSpawn","_footPath","","","",""];
+private ["_taxi","_backupPos","_RandomPosSpawn","_footPath"];
 params [
   "_target",
   "_pos"

@@ -100,5 +100,10 @@ if (WMS_exileToastMsg) then {["toastRequest", ["InfoTitleAndText", [format ["%1 
 	uisleep (60+random 30);
 	{deleteVehicle _x} forEach units _grp;
 	deleteVehicle _c130;
-	[(_this select 2),[],[],[_WPT_paradrop,_WPT_paradrop2]] call WMS_fnc_lvl2_cleanup;
+	//[(_this select 2),[],[],[_WPT_paradrop,_WPT_paradrop2]] call WMS_fnc_lvl2_cleanup;
+	[_grp,[],[],[_WPT_paradrop,_WPT_paradrop2]] call WMS_fnc_lvl2_cleanup;
+	
+
+//16:12:37   Error units: Type Number, expected Object,Side,Group
+//16:12:37 File InfantryProgram\scripts\fn_lvl2_cleanUp.sqf..., line 13
 //};

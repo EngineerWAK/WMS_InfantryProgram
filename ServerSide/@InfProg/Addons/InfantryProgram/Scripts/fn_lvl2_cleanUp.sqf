@@ -15,3 +15,6 @@
 {deleteMarker _x} foreach (_this select 2);
 {deleteWaypoint _x} foreach (_this select 3);
 //deleteGroup (_this select 0);
+
+//16:12:37   Error units: Type Number, expected Object,Side,Group
+//16:12:37 File InfantryProgram\scripts\fn_lvl2_cleanUp.sqf..., line 13

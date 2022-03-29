@@ -9,6 +9,10 @@
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 * Do Not Re-Upload
 */
+/*
+MODS LIST:
+RHSAFRF, RHSUSAF, RHSGREF, 3CB (+RKSL), R3F, BWMod, NIarms all in one, VSM National Gear Pack
+*/
 /////////////////////////////////
 //			LOADOUTS - DEFAULT IS "VANILLA"
 /////////////////////////////////
@@ -168,6 +172,13 @@ WMS_Loadout_ABU = [
 	 ["G_Balaclava_oli","G_Balaclava_blk"]  //_googles/_facewear
 ];
 
+WMS_Loadout_Scientist = [ //NEED SPECCIFIC STUFF !!!
+	 ["U_C_Poloshirt_burgundy","U_C_Poloshirt_stripped","U_Competitor","U_C_man_sport_2_F","U_C_Man_casual_3_F","U_C_Man_casual_5_F"], //_uniforms
+	 ["V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests
+	 ["H_Cap_blu","H_MilCap_blue","H_Hat_blue","H_RacingHelmet_1_F","H_RacingHelmet_2_F","H_HeadBandage_bloody_F"], //_helmets
+	 ["B_FieldPack_oucamo","B_FieldPack_blk","B_Messenger_IDAP_F"], //_Backpacks
+	 []  //_googles/_facewear
+];
 WMS_Loadout_Civilian = [
 	 ["U_C_Poloshirt_burgundy","U_C_Poloshirt_stripped","U_Competitor","U_C_man_sport_2_F","U_C_Man_casual_3_F","U_C_Man_casual_5_F"], //_uniforms
 	 ["V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests

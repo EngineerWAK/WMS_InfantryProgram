@@ -18,7 +18,7 @@
 //private _mission = [missionNamespace getVariable format ["WMS_AMS_Mission_%1",_this param [0,selectRandom WMS_AMS_Missions, [""]]]] param [0, "no",[{}]];
 private _mission = (_this select 0);
 //[_missionToSpawn] call WMS_fnc_AMS_SpawnMission;
-if (true) then {diag_log format ["[AMS MISSION SPAWN]|WAK|TNA|WMS| _this: %1 || _mission: %2", _this, _mission]};
+if (WMS_AMS_LOGs) then {diag_log format ["[AMS MISSION SPAWN]|WAK|TNA|WMS| _this: %1 || _mission: %2", _this, _mission]};
 private _debugTime1 = time;
 if (_mission == "no") then { //obiously dan not work anymore
 	if (WMS_AMS_LOGs) then {diag_log "Mission name fucked-up"};

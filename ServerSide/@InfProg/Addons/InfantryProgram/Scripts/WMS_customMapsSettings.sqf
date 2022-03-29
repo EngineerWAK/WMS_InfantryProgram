@@ -28,6 +28,7 @@ if (WMS_MapName == "ruha") then {
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
+										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","ACE_acc_pointer_red"];
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
 										WMS_IP_Extract_Alt 			= 100;
 										WMS_C130_Altitude 			= 150;
@@ -49,7 +50,6 @@ if (WMS_MapName == "ruha") then {
 										WMS_AI_CargoUnits	 		= 4;
 										WMS_AMS_ClnObj 				= true;
 										WMS_AMS_DelMissionFlag 		= true;
-										WMS_Date 					= [2022,8,25,7,00];//full moon
 										WMS_FastNight_Morning 		= 4; //morning start at
 										WMS_FastNight_Evening		= 18.5; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
@@ -109,7 +109,6 @@ if (WMS_MapName == "xcam_taunus") then {	//NOTE THAT TAUNUS IS VERY LAGGY SERVER
 										WMS_AI_CargoUnits	 		= 2;
 										WMS_AMS_ClnObj 				= false;
 										WMS_AMS_DelMissionFlag 		= true;
-										WMS_Date 					= [2022,8,25,7,00];//full moon
 										WMS_FastNight_Morning 		= 5; //morning start at
 										WMS_FastNight_Evening		= 18; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
@@ -136,6 +135,7 @@ if (WMS_MapName == "Lythium") then {
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
+										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","ACE_acc_pointer_red"];
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
 										WMS_IP_Extract_Alt 			= 350;
 										WMS_C130_Altitude 			= 350;
@@ -157,7 +157,6 @@ if (WMS_MapName == "Lythium") then {
 										WMS_AI_CargoUnits	 		= 2;
 										WMS_AMS_ClnObj 				= false;
 										WMS_AMS_DelMissionFlag 		= true;
-										WMS_Date 					= [2022,8,25,7,00];//full moon
 										WMS_FastNight_Morning 		= 5; //morning start at
 										WMS_FastNight_Evening		= 18; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
@@ -287,6 +286,7 @@ if (WMS_MapName == "Altis") then {
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
+										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","ACE_acc_pointer_red"];
 										WMS_IP_Extract_Alt 			= 50;
 										WMS_C130_Altitude 			= 100;
 										WMS_Pos_Forests 			= [[4358.39,18767.3,0],[3681.54,18395.7,0],[2889.47,19979.5,0],[3302.02,20703.5,0],[3826.2,21799.7,0],[3956.3,21254.3,0],[5549.58,21388,0],[4228.95,22215.2,0],[6616.83,19200.7,0],[8338.43,23208.9,0],
@@ -308,7 +308,6 @@ if (WMS_MapName == "Altis") then {
 										WMS_AI_RoamingVHLcount 		= 16; //10
 										WMS_AMS_ClnObj 				= false;
 										WMS_AMS_DelMissionFlag 		= false;
-										WMS_Date 					= [2022,8,25,7,00];//full moon
 										WMS_FastNight_Morning 		= 5; //morning start at
 										WMS_FastNight_Evening		= 18; //evening start at
 										WMS_FastNight_Night 		= 25;  //time speed
@@ -367,10 +366,10 @@ if (WMS_MapName == "Tanoa") then {
 										WMS_AI_Para_remRPG 			= false;
 										WMS_AI_INFpatrol_remRPG 	= true;
 										WMS_DynAI_remRPG 			= true;
-										WMS_AI_CargoUnits	 	= 2;
+										WMS_AI_CargoUnits	 		= 2;
 										WMS_AMS_ToRun 				= 4;
-										WMS_AMS_CustomPos		= ["random"];
-										WMS_AMS_sysChatMsg 		= 3; //0: nothing, 1: general, 2: group, 3: player //PVP SERVER
+										WMS_AMS_CustomPos			= ["random"];
+										WMS_AMS_sysChatMsg 			= 3; //0: nothing, 1: general, 2: group, 3: player //PVP SERVER
 										WMS_AMS_MissionList = [
 											["MissionTest1",2],
 											["MissionTest2",1],
@@ -506,7 +505,6 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										WMS_DynAI_GunshipLight 		= ["R3F_AH6_FS_ARMED",[],[[],[]]];
 										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_DynAI_GunshipHeavy 		= ["RHS_UH1Y_d_GS",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
-										WMS_Date 					= [2021,10,25]; //big moon at night
 										WMS_AI_RoamingVHLcount 		= 14; //10
 										WMS_RandomStart_Hour 		= 4;
 										WMS_RandomStart_Random 		= 6;

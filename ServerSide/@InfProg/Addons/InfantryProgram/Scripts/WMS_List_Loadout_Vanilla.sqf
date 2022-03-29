@@ -9,6 +9,10 @@
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 * Do Not Re-Upload
 */
+/*
+MODS LIST:
+NONE
+*/
 if !(WMS_exileFireAndForget) then {
 WMS_AI_inventory = [
 	"Antimalaricum","Antibiotic",//"AntimalaricumVaccine",
@@ -555,10 +559,17 @@ WMS_Loadout_SURPAT = [ //URBAN
 	 ["G_Balaclava_blk"]  //_googles/_facewear
 ];
 
+WMS_Loadout_Scientist = [ //NEED SPECCIFIC STUFF !!!
+	 ["U_C_Poloshirt_burgundy","U_C_Poloshirt_stripped","U_Competitor","U_C_man_sport_2_F","U_C_Man_casual_3_F","U_C_Man_casual_5_F"], //_uniforms
+	 ["V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests
+	 ["H_Cap_blu","H_MilCap_blue","H_Hat_blue","H_RacingHelmet_1_F","H_RacingHelmet_2_F","H_HeadBandage_bloody_F"], //_helmets
+	 ["B_FieldPack_oucamo","B_FieldPack_blk","B_Messenger_IDAP_F"], //_Backpacks
+	 []  //_googles/_facewear
+];
 WMS_Loadout_Civilian = [
 	 ["U_C_Poloshirt_burgundy","U_C_Poloshirt_stripped","U_Competitor","U_C_man_sport_2_F","U_C_Man_casual_3_F","U_C_Man_casual_5_F"], //_uniforms
 	 ["V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests
-	 ["H_Cap_blu","H_MilCap_blue","H_Hat_blue","H_RacingHelmet_1_F","H_RacingHelmet_2_F","Exile_Headgear_SafetyHelmet","H_HeadBandage_bloody_F"], //_helmets
+	 ["H_Cap_blu","H_MilCap_blue","H_Hat_blue","H_RacingHelmet_1_F","H_RacingHelmet_2_F","H_HeadBandage_bloody_F"], //_helmets
 	 ["B_FieldPack_oucamo","B_FieldPack_blk","B_Messenger_IDAP_F"], //_Backpacks
 	 []  //_googles/_facewear
 ];
@@ -570,10 +581,10 @@ WMS_Loadout_Bandit = [
 	 []  //_googles/_facewear
 ];
 WMS_Loadout_LightWeaps = [
-	 ["arifle_Mk20_plain_F","arifle_TRG20_F","hgun_PDW2000_F","SMG_03C_TR_camo","arifle_AKS_F","arifle_SPAR_01_khk_F","Exile_Weapon_AK74","Exile_Weapon_M1014","sgun_HunterShotgun_01_F"], //_mainWeaps,
+	 ["arifle_Mk20_plain_F","arifle_TRG20_F","hgun_PDW2000_F","SMG_03C_TR_camo","arifle_AKS_F","arifle_SPAR_01_khk_F","sgun_HunterShotgun_01_F"], //_mainWeaps,
 	 [], //_mainWeapsAmmo,
 	 ["optic_Holosight","optic_ACO_grn","optic_MRCO","optic_Arco","optic_Holosight_khk_F","optic_Holosight_blk_F"], //_scopes
-	 ["hgun_P07_F","hgun_Rook40_F","Exile_Weapon_Makarov"] //_pistols
+	 ["hgun_P07_F","hgun_Rook40_F"] //_pistols
 ];
 WMS_Loadout_HeavyBandit = [
 	 ["U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F","U_I_C_Soldier_Para_5_F","U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_5_F","U_I_L_Uniform_01_camo_F","U_I_L_Uniform_01_deserter_F","U_I_L_Uniform_01_tshirt_skull_F","U_I_L_Uniform_01_tshirt_black_F","U_I_L_Uniform_01_tshirt_olive_F","U_C_E_LooterJacket_01_F"], //_uniforms
@@ -618,7 +629,7 @@ WMS_Weaps_HeavyBandit = [
 	 "optic_LRPS",
 	 "optic_AMS"
 	 ],
-	 ["hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","Exile_Weapon_Taurus","hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","Exile_Weapon_Taurus"
+	 ["hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F"
 	 ] //_pistols
 ];
 WMS_Loadout_Livonia = [
@@ -661,7 +672,7 @@ WMS_Weaps_LivoniaMix = [
 	 "optic_Arco_AK_arid_F",
 	 "optic_DMS_weathered_Kir_F"
 	 ],
-	 ["hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","Exile_Weapon_Taurus","hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","Exile_Weapon_Taurus"
+	 ["hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F"
 	 ] //_pistols
 ];
 

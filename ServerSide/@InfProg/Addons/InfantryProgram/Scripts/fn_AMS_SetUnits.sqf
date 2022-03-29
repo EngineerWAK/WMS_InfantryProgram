@@ -170,7 +170,7 @@ switch (toLower _unitFunction) do {
 
 	
 if (random 100 > 50) then {
-	_unit addPrimaryWeaponItem (selectrandom ["acc_flashlight","acc_pointer_IR","ACE_acc_pointer_red"])
+	_unit addPrimaryWeaponItem (selectrandom WMS_AI_Attachements);
 };
 
 if((random 100) <= _launcherChance) then { 

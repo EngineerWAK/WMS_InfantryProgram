@@ -9,7 +9,19 @@ class CfgFunctions
 			class rocketman {};
 			class displayKillStats {};
 		};
+		class myCategory_IP
+		{
+			file = "infantryProgram";
+			class IP_ArtySupport {};
+			class IP_BlackFishSupport {};
+			class IP_C130_request {};
+			class IP_ExtractionRequest {};
+			class IP_GNDextractionRequest {};
+			class IP_OpforVHL_radar {};
+
+		};
 	};
+	/*
 	class WMS_IP
 	{
 		class myCategory
@@ -23,5 +35,5 @@ class CfgFunctions
 			class OpforVHL_radar {};
 
 		};
-	};
+	};*/
 };

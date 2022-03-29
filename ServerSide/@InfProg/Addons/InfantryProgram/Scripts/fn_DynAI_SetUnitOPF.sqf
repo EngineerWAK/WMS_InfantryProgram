@@ -169,7 +169,7 @@ _sniper = [1,0.95,0.95,0.95];
 	};
 	
 	if (random 100 > 50) then {
-		_unit addPrimaryWeaponItem (selectrandom ["acc_flashlight","acc_pointer_IR","ACE_acc_pointer_red"])
+		_unit addPrimaryWeaponItem (selectrandom WMS_AI_Attachements);
 	};
 
 	if((random 100) <= 50) then {_unit additem selectRandom WMS_AI_grenades};

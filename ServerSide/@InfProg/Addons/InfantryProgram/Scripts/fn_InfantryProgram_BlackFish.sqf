@@ -68,8 +68,8 @@ if(_lockerMoney > _amount) then {
   _vehic flyInHeight 300;
   if (worldName == "Tanoa") then {_vehic flyInHeight 400};
 
-  WMS_BlackFishSupport_Last = time;
-  publicVariable "WMS_BlackFishSupport_Last";
+  WMS_IP_BlackFishSup_LastT = time;
+  publicVariable "WMS_IP_BlackFishSup_LastT";
 
   {
     removeAllItems _x;

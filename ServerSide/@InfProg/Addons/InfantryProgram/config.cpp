@@ -23,6 +23,8 @@ class CfgFunctions {
 			class lvl2_cleanUp	            {}; //Old InfantryProgram cleanup, should update this crap...
 			class AirStrikeOnNPC			{};
 			class Pull_BUY_Push				{};
+			class HideObjectGlobal			{};
+			class getuid_remote				{}; //EXILE //used for custom respawn I think
 			class Paradrop_RLA_unified		{};
 			class Event_SupplyDrop			{};
 			class Event_HumaniDrop			{};

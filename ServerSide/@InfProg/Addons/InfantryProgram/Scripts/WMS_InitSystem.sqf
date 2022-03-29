@@ -18,7 +18,7 @@ WMS_BlackList = [  //list of player's UID "BlackListed" //fatigue/Stamina for no
 
 ];
 
-WMS_System_Version 			= "v2.555_2022MAR28_GitHub";
+WMS_System_Version 			= "v2.563_2022MAR29_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -114,7 +114,7 @@ WMS_ThanksForRiding = "Exile_bike_MountainBike"; //NOT ANYMORE
 WMS_RandomStartTime 	= true;
 WMS_RandomStart_Hour 	= 5;
 WMS_RandomStart_Random 	= 4;
-WMS_Date 				= [2022,9,1,7,00];
+WMS_Date 				= [2022,8,25,7,00];//full moon
 WMS_FastNight 			= true;
 WMS_FastNight_Morning 	= 7; //morning start at
 WMS_FastNight_Evening 	= 15; //morning start at
@@ -189,6 +189,7 @@ WMS_AI_HMG 				= "O_HMG_02_high_F";
 WMS_AI_HMG_Scope 		= "O_HMG_01_high_F";
 WMS_AI_HMG_Shield		= "B_G_HMG_02_high_F";
 WMS_AI_GMG 				= "O_GMG_01_high_F"; //AMS AA battery //"RHS_ZU23_VDV"
+WMS_AI_Attachements		= ["acc_flashlight","acc_pointer_IR"];
 WMS_AI_Units_Class 		= selectRandom ["O_G_Soldier_F","O_Soldier_F","O_T_Soldier_A_F","O_R_Gorka_F"];//,"O_G_Engineer_F","O_T_Engineer_F","O_Engineer_F" "C_man_p_fugitive_F_afro"
 WMS_AI_Additems 		= [1,2];
 WMS_AI_MaxUnits_A 		= 100; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
@@ -609,6 +610,8 @@ WMS_markerFPS = objNull;
 WMS_markerUnits = objNull;
 WMS_markerDeads = objNull;
 WMS_IP_Active_list = [];//nothing in there
+publicVariable "WMS_IP_Active_list";
+publicVariable "WMS_exileFireAndForget";
 if (WMS_ServerMarkers) then {execVM "\InfantryProgram\Scripts\WMS_ServerMarkers.sqf"};
 // Init System Watchs
 []spawn WMS_fnc_sys_Init_Watchs;
