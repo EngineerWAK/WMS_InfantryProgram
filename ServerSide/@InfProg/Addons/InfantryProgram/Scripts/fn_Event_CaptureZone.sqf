@@ -51,11 +51,7 @@ _startR = 15;
 _cooldR = 60;
 _cumulCoolD = _startR;
 _distR = [150, 300];
-_rewards = [[3,1,1],
-	[1,1,2],
-	[3,1,2],
-	[1,3,3],
-	[0,0,0]];//[_weap,_bag,_items,_ammoList,_mag]
+_rewards = [[3,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]];//[_weap,_bag,_items,_ammoList,_mag]
 WMS_captureZoneEvents = [[_startR,'ground']]; //[[time, event], [time, event], [time, event]]
 
 if (_type == "random") then {_type = selectRandom ["easy", "moderate", "difficult", "hardore"]};
@@ -70,11 +66,13 @@ switch (tolower _type) do
 		if (typeName _timer == "ARRAY") then {
 			_timer = (_timer select 0);
 		};
-		_rewards = [[2,1,2],
-	[1,1,2],
-	[3,1,2],
-	[1,3,3],
-	[0,0,0]];
+		_rewards = [
+			[2,1,2],
+			[1,1,2],
+			[3,1,2],
+			[1,3,3],
+			[0,0,0]
+			];
 	};
 	case "moderate": {
 		_unitsR = 3 + round random 2;
@@ -84,11 +82,12 @@ switch (tolower _type) do
 		if (typeName _timer == "ARRAY") then {
 			_timer = (_timer select 1);
 		};
-		_rewards = [[3,1,2],
-	[2,1,2],
-	[3,1,2],
-	[1,3,3],
-	[0,0,0]];
+		_rewards = [
+			[3,1,2],
+			[2,1,2],
+			[3,1,2],
+			[1,3,3],
+			[0,0,0]];
 	};
 	case "difficult": {
 		_unitsR = 4 + round random 1;
@@ -98,11 +97,12 @@ switch (tolower _type) do
 		if (typeName _timer == "ARRAY") then {
 			_timer = (_timer select 2);
 		};
-		_rewards = [[4,1,2],
-	[2,1,2],
-	[4,1,2],
-	[1,3,3],
-	[0,0,0]];
+		_rewards = [
+			[4,1,2],
+			[2,1,2],
+			[4,1,2],
+			[1,3,3],
+			[0,0,0]];
 	};
 	case "hardcore": {
 		_unitsR = 3 + round random 3;
@@ -112,11 +112,12 @@ switch (tolower _type) do
 		if (typeName _timer == "ARRAY") then {
 			_timer = (_timer select 3);
 		};
-		_rewards = [[5,1,2],
-	[3,1,2],
-	[4,1,2],
-	[1,3,3],
-	[0,0,0]];
+		_rewards = [
+			[5,1,2],
+			[3,1,2],
+			[4,1,2],
+			[1,3,3],
+			[0,0,0]];
 	};
 	default {
 		_unitsR = 5;
@@ -124,11 +125,12 @@ switch (tolower _type) do
 		_cooldR = 60;
 		_timer = 300;
 		_distR = [150, 300];
-		_rewards = [[4,1,2],
-	[1,1,2],
-	[2,1,2],
-	[1,2,2],
-	[0,0,0]];
+		_rewards = [
+			[4,1,2],
+			[1,1,2],
+			[2,1,2],
+			[1,2,2],
+			[0,0,0]];
 	};
 };
 _iterations = round _timer/_cooldR;

@@ -18,7 +18,7 @@ params[
 	"_pos",
 	"_paraGroup",
 	"_vehicVarName",
-	["_plane", "RHS_C130J"] //"sab_C130_J"
+	["_plane", WMS_C130_Type] //"sab_C130_J"
 ];
 _RandomPosPlane = [];
 if (worldName == "Tanoa") then { _RandomPosPlane = [_pos, 3000, 7000, 0, 2] call BIS_fnc_findSafePos } else {

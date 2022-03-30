@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.564_2022MAR29_GitHub";
+WMS_System_Version 			= "v2.566_2022MAR29_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -40,6 +40,7 @@ WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch la
 
 WMS_InfantryProgram_Vehicles = [ //Maybe add _vehicle setvariable ["IP_ExtractionVehicle", true, true]; to the extraction vehicles at spawn and use it to filter
 	//"Exile_Bike_MountainBike", //bike from XM8
+	//"B_Quadbike_01_F",
 	"Steerable_Parachute_F", //parachute
 
 	"UK3CB_BAF_Static_M6_Deployed", //mortar
@@ -51,9 +52,9 @@ WMS_InfantryProgram_Vehicles = [ //Maybe add _vehicle setvariable ["IP_Extractio
 	"I_APC_tracked_03_cannon_F", //Extraction vehicle test
 
 	"UK3CB_BAF_RHIB_GPMG", //boat
-	"sab_C130_J", //Paradrop plane
-	"RHS_C130J", //Paradrop plane
-	"B_Quadbike_01_F"
+	"sab_C130_J", //Paradrop plane if SAB
+	"RHS_C130J", //Paradrop plane if RHS
+	"B_T_VTOL_01_infantry_blue_F" //Paradrop plane default, yeah, that's the Bohemia C130...
 ];
 /////////////////////////////////
 //			CRATES ITEMS
@@ -63,31 +64,32 @@ if !(WMS_exileFireAndForget) then {execVM "\InfantryProgram\Scripts\WMS_List_Cra
 //			VARIABLES
 /////////////////////////////////
 //C130 variables
-WMS_MoveInCargo_C130_LastTime 		= 0;
+WMS_MoveInCargo_C130_LastTime 		= time;
 WMS_InfantryProgram_C130CoolDown 	= 300;
 WMS_C130_Altitude 					= 150;
+WMS_C130_Type 						= "B_T_VTOL_01_infantry_blue_F"; // WMS_MoveInCargo_C130_LastTime = WMS_ServRestartSeconds to hide C130 call
 //Camps Variables
-WMS_Compo_BunkerCamp_LastTime 		= 0;
+WMS_Compo_BunkerCamp_LastTime 		= time;
 WMS_Compo_BunkerCamp_CoolDown 		= 750;
 //ArtySupport variables
-WMS_IP_ArtySup_LastT 		= 0;
+WMS_IP_ArtySup_LastT 		= time;
 WMS_IP_ArtySup_CoolD 		= 600; //600
 //BlackFich Support variables
 WMS_IP_BlackFishSup_LastT 	= time;
 WMS_IP_BlackFishSup_CoolD 	= 1200;
 //Extraction variables 
-WMS_IP_ExtractChop_LastT 	= 0;
+WMS_IP_ExtractChop_LastT 	= time;
 WMS_IP_ExtractChop_CoolD 	= 300;
 WMS_IP_Extract_Alt 			= 150; //Default
-WMS_Extraction_GND_LastTime = 0;
+WMS_Extraction_GND_LastTime = time;
 WMS_Extraction_GND_CoolDown = 400;
 WMS_ExtractionChopper_Type 	= ["I_E_Heli_light_03_unarmed_F"]; //Default //hellcat
 WMS_ExtractionVehicle_Type 	= ["I_APC_tracked_03_cannon_F"]; //Default
 WMS_DeliveryChopper_Type 	= ["I_E_Heli_light_03_unarmed_F"]; //Default
 //Infantry chopper variables
-WMS_INFbyChopper_LastTime 	= 0;
+WMS_INFbyChopper_LastTime 	= time;
 WMS_INFbyChopper_CoolDown 	= 300;
-WMS_INFsquad_LastTime 		= 0;
+WMS_INFsquad_LastTime 		= time;
 WMS_INFsquad_CoolDown 		= 900;
 WMS_WDtrader_LastTime 		= time;
 WMS_WDtrader_CoolDown 		= 400;
@@ -113,8 +115,8 @@ WMS_FastNight_Night 	= 38;  //time speed
 //Camp/events spawns
 //////////////////////////////
 WMS_Events 				= true;
-WMS_Events_list 		= []; //for events scheduler
-WMS_Events_Running		= []; //for events manager/cleanup
+WMS_Events_list 		= [];//Leave it empty //for events scheduler
+WMS_Events_Running		= [];//Leave it empty //for events manager/cleanup
 
 WMS_RepairCamp 			= true;
 WMS_RepairCampCount 	= 1;
@@ -149,24 +151,24 @@ WMS_Recon_Cap_Radius 	= 20;
 WMS_Recon_Guards 		= true;
 WMS_Recon_Guards_Chance = 75;
 WMS_Recon_Guards_Skill 	= 0.6;
-WMS_Recon_AllCities 	= [];
-WMS_Recon_pos_list 		= [];
-WMS_Recon_AIgrps 		= [];
-WMS_Recon_Objects 		= [];
+WMS_Recon_AllCities 	= [];//Leave it empty
+WMS_Recon_pos_list 		= [];//Leave it empty
+WMS_Recon_AIgrps 		= [];//Leave it empty
+WMS_Recon_Objects 		= [];//Leave it empty
 
-WMS_CaptureZone			= true;
+WMS_CaptureZone			= true; //many stuff is setup in the function itself WMS_fnc_CaptureZone
 WMS_CaptureZoneDelay	= 300;
-WMS_CaptureZone_Rad 	= [25,35,50]; //Capture zone Radius
+WMS_CaptureZone_Rad 	= [25,35,50]; //Capture zone Radius //only _radius select 0 is used
 WMS_CaptureZone_Tmr		= [240, 400, 600, 900]; //time to capture the zone //easy, moderate, difficult, hardcore
 	//WMS_CaptureZone_Wav		= [5,7,9]; //AI Waves to come
 	//WMS_CaptureZone_Dis		= [100,300]; //AI waves spawn distances
-WMS_CaptureZone_Obj 	= []; //layout + sphere for cleanup
+WMS_CaptureZone_Obj 	= [];//Leave it empty //layout + sphere for cleanup
 WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 	//WMS_CaptureZone_Bdr 	= []; //Sign_Sphere25cm_F objects
 //////////////////////////////
 //AI variables
 //////////////////////////////
-WMS_AI_forceInfKillCount= false; //ACE fuckup infantry kill on the scoreBoard
+WMS_AI_forceInfKillCount= false; //ACE fuckedup infantry kill on the scoreBoard
 WMS_AI_LaunchersOPF 	= [["launch_RPG7_F","launch_RPG7_F","launch_RPG7_F","launch_RPG7_F","launch_RPG32_F","launch_MRAWS_sand_rail_F"],["launch_O_Titan_F"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 WMS_AI_LaunchersBLU 	= [["launch_RPG7_F","launch_RPG32_F","launch_MRAWS_sand_rail_F"],["launch_B_Titan_F"],["launch_B_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 WMS_AI_Planes			= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //sab_C130_J_C // NO AN2_A2 without EXILE
@@ -194,13 +196,13 @@ WMS_AI_Paradrop_Watch 			= [];
 WMS_AI_OPFORPatrol_LastTime 	= time;
 WMS_AI_OPFORpatrol_CoolDown 	= 900;
 WMS_AI_INFpatrol_remRPG 		= false; //(_this select 0) removeWeapon (secondaryWeapon (_this select 0));
-WMS_AI_OPFORpatrol_Running 		= []; //WMS_OPFORpatrol_Running pushBack [time,(time+(_patrolTimer+(random _patrolTimer))),[_paraGrp],[],[],[],[],""];
-WMS_AI_OPFORpatrol_LastTarget	= []; //WMS_OPFORpatrol_LastTarget set [0,_target];
+WMS_AI_OPFORpatrol_Running 		= [];//Leave it empty //WMS_OPFORpatrol_Running pushBack [time,(time+(_patrolTimer+(random _patrolTimer))),[_paraGrp],[],[],[],[],""];
+WMS_AI_OPFORpatrol_LastTarget	= [];//Leave it empty //WMS_OPFORpatrol_LastTarget set [0,_target];
 WMS_AI_PlayerDistToDespawnINF 	= 300;
 WMS_AI_grenades 				= ["HandGrenade","MiniGrenade","SmokeShellRed"];
 WMS_AI_bluforPatrol_LastTime 	= time;
 WMS_AI_bluforPatrol_CoolDown 	= 900;
-WMS_AI_bluforPatrol_Running 	= []; //WMS_OPFORpatrol_Running pushBack [time,(time+(_patrolTimer+(random _patrolTimer))),[_paraGrp],[],_PatrolVRmkrList,[],[],""];
+WMS_AI_bluforPatrol_Running 	= [];//Leave it empty //WMS_OPFORpatrol_Running pushBack [time,(time+(_patrolTimer+(random _patrolTimer))),[_paraGrp],[],_PatrolVRmkrList,[],[],""];
 //Vehicle Ground:
 WMS_AI_RoamingVHL				= true;
 WMS_AI_RoamingVHL_KillRep		= 250;
@@ -208,7 +210,7 @@ WMS_AI_RoamingVHL_KillMoney		= 1500;
 WMS_AI_RoamingVHL_LastTime 		= time;
 WMS_AI_RoamingVHL_Skill			= [0.25, 0.35]; //skill + selectRandom
 WMS_AI_RoamingVHL_remRPG 		= true; //(_this select 0) removeWeapon (secondaryWeapon (_this select 0));
-WMS_AI_RoamingVHL_Running 		= []; //for cleanup
+WMS_AI_RoamingVHL_Running 		= [];//Leave it empty //for cleanup
 WMS_AI_RoamingVHLcount 			= 10; //10
 WMS_AI_RoamingVHL_MaxKick 		= 8; // 8 //_vhl setVariable ["KickVehAss",0,true];
 WMS_AI_PatrolTimer_VHL 			= 1500; //+(random 300)
@@ -218,7 +220,7 @@ WMS_AI_VHLwptDist 				= 5000;
 WMS_AI_RoamingAIR				= true;
 WMS_AI_RoamingAIR_LastTime 		= time;
 WMS_AI_RoamingAIR_Skill			= [0.25, 0.35]; //skill + selectRandom
-WMS_AI_RoamingAIR_Running 		= []; //for cleanup
+WMS_AI_RoamingAIR_Running 		= [];//Leave it empty //for cleanup
 WMS_AI_RoamingAIRcount 			= 2; //2
 WMS_AI_PatrolTimer_AIR 			= 2500; //+(random 300)
 WMS_AI_PlayerDistToDespawnAIR 	= 1000;
@@ -245,7 +247,7 @@ WMS_DynAI_ShowFragMsg 		= true;
 WMS_DynAI_RespectRwdOnKill 	= true;
 WMS_DynAI_respectBonus 		= 100;
 WMS_DynAI_distBonusMax 		= 300;
-WMS_DynAI_distBonusCoef 	= 0.333;
+WMS_DynAI_distBonusCoef 	= 0.333; //bonus = respectBonus - (distance*distBonusCoef)
 WMS_DynAI_distToFlag 		= 100;
 	//WMS_DynAI_distToBuildings = 50;
 WMS_DynAI_distToPlayers 	= 250; //Minimum distance to spawn AI from player
@@ -258,10 +260,10 @@ WMS_DynAI_remRPG 			= false; //(_this select 0) removeWeapon (secondaryWeapon (_
 WMS_DynAI_LauncherChance 	= 15;
 WMS_DynAI_MaxRunning		= 5;
 WMS_DynAI_RunningCount 		= 0; //DO NOT CHANGE
-WMS_DynAI_Running 			= [];
-WMS_DynAI_LastTarget 		= [];
+WMS_DynAI_Running 			= [];//Leave it empty
+WMS_DynAI_LastTarget 		= [];//Leave it empty
 WMS_DynAI_LastTime 			= time;
-WMS_DynAI_TargetList 		= [];
+WMS_DynAI_TargetList 		= [];//Leave it empty
 WMS_DynAI_GunshipLight 		= ["B_Heli_Light_01_dynamicLoadout_F",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]];
 WMS_DynAI_GunshipMedium 	= ["B_CTRG_Heli_Transport_01_sand_F",[],[[],[]]];
 WMS_DynAI_GunshipHeavy 		= ["B_Heli_Attack_01_dynamicLoadout_F",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]]; //Mi-48 is fucking too heavy but nothing else for now
@@ -270,18 +272,18 @@ WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F"];
 //Base attack:
 WMS_DynAI_useBaseAtk 		= true;
 WMS_DynAI_BaseFlag 			= "rhsgref_serhat_radar"; //will try to do something with the RHS "radar" object
-WMS_DynAI_BaseAtkLast 		= 0;
+WMS_DynAI_BaseAtkLast 		= time;
 WMS_DynAI_BaseAtkCoolDown	= 2700; //45 minutes
 WMS_DynAI_BaseATKReinforce	= true;
-WMS_DynAI_BaseATKReinforce_Last = 0;
+WMS_DynAI_BaseATKReinforce_Last = time;
 WMS_DynAI_BaseATKReinforce_CD = 120; //cooldown between reinforce
-WMS_DynAI_BaseAtkUIDList 	= []; //Players UID list already spoted
-WMS_DynAI_BaseAtkTList 		= []; //Territories already spoted
+WMS_DynAI_BaseAtkUIDList 	= [];//Leave it empty //Players UID list already spoted
+WMS_DynAI_BaseAtkTList 		= [];//Leave it empty //Territories already spoted
 WMS_DynAI_BaseAtkRunning 	= 0;
 WMS_DynAI_BaseAtkMax 		= 1;
 //Cities Invasion
-WMS_Invasion 				= true;
-WMS_Invasion_Array 			= [];
+WMS_Invasion 				= false; //very far from ready...
+WMS_Invasion_Array 			= [];//Leave it empty
 ////////////////////
 //MISSION AI
 ////////////////////
@@ -290,15 +292,15 @@ WMS_AMS_Steal 			= true;
 WMS_AMS_AllowMissiles 	= true;
 WMS_AMS_DelMissionFlag 	= true; //mission Flag prevent another mission to spawn at the same place
 WMS_AMS_ejectDeads		= true;
-WMS_AMS_DestroyStatics 	= true;
+WMS_AMS_DestroyStatics 	= true; //with ACE, this one need a variable on the NPC to destroy the static when the NPC die
 WMS_AMS_AddActionOnReward = true;
 WMS_AMS_DestroyVHL 		= 90;
 WMS_AMS_VHL_KillRep		= 300;
 WMS_AMS_VHL_KillMoney	= 3000;
 WMS_AMS_Reinforce  		= true;
-WMS_AMS_LastReinforce 	= 0;
+WMS_AMS_LastReinforce 	= time;
 WMS_AMS_ReinforceCoolD 	= 300;
-	//WMS_AMS_AdjustedSkills = false; //Not Used Yet, include VCOM functions
+	//WMS_AMS_AdjustedSkills = false; //Not Used Yet
 	//WMS_AMS_AdjustSkillsDist = 399;
 WMS_AMS_addPoptabsUnits = false;
 WMS_AMS_poptabsUnits 	= [25,25];
@@ -335,9 +337,9 @@ WMS_AMS_MineAT 			= "ATMine"; //BWA3_DM31AT
 WMS_AMS_MineSign 		= "Land_Sign_MinesTall_English_F";
 WMS_AMS_ToRun 			= 3;
 WMS_AMS_MinFPS 			= 15; //diag_fps
-WMS_AMS_WaitToStart 	= 30; //300
+WMS_AMS_WaitToStart 	= 30; //better spawn the first mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_AMS_LastSpawn 		= -600;
-WMS_AMS_MissionTimeout 	= [9600, 500];//[1800, 600]
+WMS_AMS_MissionTimeout 	= [9600, 900];//[1800, 600]
 WMS_AMS_TbtwMissions 	= [240, 120];
 WMS_AMS_MaxGrad 		= 0.15;
 WMS_AMS_RangeList 		= [300,500,750,1000,1500]; //Killer distance for AI reinforcement
@@ -346,7 +348,7 @@ WMS_AMS_ShowFragMsg 	= true;
 WMS_AMS_RespectRwdOnKill = true; //150|750|0.2 //100|750|0.133
 WMS_AMS_respectBonus	= 100;
 WMS_AMS_distBonusMax 	= 750;
-WMS_AMS_distBonusCoef 	= 0.133;
+WMS_AMS_distBonusCoef 	= 0.133; //bonus = respectBonus - (distance*distBonusCoef)
 WMS_AMS_PlayerDistDelete = 1200;
 WMS_AMS_PlayerDistSucces = 100;
 WMS_AMS_SpnDistPlayer 	= 750;
@@ -357,10 +359,10 @@ WMS_AMS_ClnObj 			= true;
 WMS_AMS_ClnObjT 		= 60; //objects cleaning delay after unlock the mission
 	//WMS_AMS_AlarmSpawn 	= true;
 WMS_AMS_AlarmCln 		= true;
-WMS_AMS_TimeToWatch 	= 25;
-WMS_AMS_Running_Array 	= []; //super big array with all missions running
-WMS_AMS_Missions 		= []; //processed/weighted missions list
-WMS_AMS_Missions_Running = []; //Mission actualy running to be sure all running missions are different
+	//WMS_AMS_TimeToWatch 	= 25; //AMS missions are checked from the 15 secondes loop WMS_15sec_Watch.sqf
+WMS_AMS_Running_Array 	= [];//Leave it empty //super big array with all missions running
+WMS_AMS_Missions 		= [];//Leave it empty //processed/weighted missions list
+WMS_AMS_Missions_Running = [];//Leave it empty //Mission actualy running to be sure all running missions are different
 WMS_AMS_MissionsCount 	= 0;
 WMS_AMS_Mission_ID 		= 0;
 WMS_AMS_MkrEasy 		= "Contact_circle1"; //"ExileMissionEasyIcon";
@@ -414,7 +416,7 @@ WMS_AMS_MissionList 	= [
 ////////////////////
 WMS_DynAI_triggers 		= true;
 WMS_Pos_AutoScan 		= true;
-WMS_activatedTriggs 	= [];
+WMS_activatedTriggs 	= [];//Leave it empty
 WMS_Trigg_Reinforce		= true;
 WMS_trigMaxSpeed		= 100;
 WMS_triggCheck			= 600;
@@ -515,11 +517,15 @@ if (WMS_exileFireAndForget) then {
 	WMS_AMS_MkrModerate 	= "ExileMissionModerateIcon";
 	WMS_AMS_MkrDifficult 	= "ExileMissionDifficultIcon";
 	WMS_AMS_MkrHardcore 	= "ExileMissionHardcoreIcon";
-	WMS_CaptureZone_mkr		= "ExileMissionCapturePointIcon";
+	//WMS_CaptureZone_mkr		= "ExileMissionCapturePointIcon"; //this messup with the marker color
 	WMS_AMS_TradersIcons 	= ["ExileTraderZoneIcon","ExileAircraftTraderIcon"];
 	WMS_DynAI_BaseFlag 		= "Exile_Construction_Flag_static";
 	WMS_Utility_Item_1 		= "Exile_Item_FireExtinguisher"; //used for haloJump in Exile
-	WMS_Utility_Item_2 		= "Exile_Item_OldChestKit"; //Used for InfantryProgram Action in Exile
+	WMS_Utility_Item_2 		= "Exile_Item_OldChestKit"; //Used for InfantryProgram Action in Exile	
+	WMS_DynAI_addPoptabsINF = true;
+	WMS_DynAI_addPoptabsVHL = true;
+	WMS_AMS_addPoptabsUnits = true;
+	WMS_AMS_addPoptabsRwd 	= true;
 	WMS_AI_inventory = [
 		"Money_bunch","Money_roll","Money_stack","Money_stack_quest", //give a price at the trader to those
 		//"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05", //used to "Claim reward" in TheLastCartridges
@@ -597,7 +603,7 @@ if (WMS_AMS)			then {execVM "\InfantryProgram\Scripts\WMS_AMS_Start.sqf"};
 WMS_markerFPS = objNull;
 WMS_markerUnits = objNull;
 WMS_markerDeads = objNull;
-WMS_IP_Active_list = [];//nothing in there
+WMS_IP_Active_list = [];
 publicVariable "WMS_IP_Active_list";
 publicVariable "WMS_exileFireAndForget";
 if (WMS_ServerMarkers) then {execVM "\InfantryProgram\Scripts\WMS_ServerMarkers.sqf"};

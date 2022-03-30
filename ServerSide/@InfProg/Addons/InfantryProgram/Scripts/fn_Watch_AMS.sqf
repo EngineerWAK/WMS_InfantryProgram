@@ -17,6 +17,16 @@ if (WMS_AMS_LOGs) then {
 	diag_log format ["[AMS WATCH]|WAK|TNA|WMS| %1 Missions Running, Server fps: %2", _AMSRunningMissions, _fps];
 	//diag_log format ["[AMS WATCH]|WAK|TNA|WMS| %1 Missions Running, Server fps: %2", WMS_AMS_MissionsCount, _fps];
 };
+
+//Missions spawn
+if ((WMS_AMS_MissionsCount < WMS_AMS_ToRun) && {_fps > WMS_AMS_MinFPS} && {time > (WMS_AMS_LastSpawn + (WMS_AMS_TbtwMissions select 0) + (random (WMS_AMS_TbtwMissions select 1)))}) then {
+	_missionToSpawn = selectRandom WMS_AMS_Missions;
+	if (_missionToSpawn in WMS_AMS_Missions_Running) then {
+		diag_log format ["[AMS WATCH]|WAK|TNA|WMS| Mission %1 Already Running", _missionToSpawn];
+	} else {[_missionToSpawn] call WMS_fnc_AMS_SpawnMission;};
+	
+};
+
 //Missions Cleanup 
 if (_AMSRunningMissions > 0) then {
 	{
@@ -64,13 +74,4 @@ if (_AMSRunningMissions > 0) then {
 			};
 		};
 	} foreach WMS_AMS_Running_Array;
-};
-
-//Missions spawn
-if ((WMS_AMS_MissionsCount < WMS_AMS_ToRun) && {_fps > WMS_AMS_MinFPS} && {time > (WMS_AMS_LastSpawn + (WMS_AMS_TbtwMissions select 0) + (random (WMS_AMS_TbtwMissions select 1)))}) then {
-	_missionToSpawn = selectRandom WMS_AMS_Missions;
-	if (_missionToSpawn in WMS_AMS_Missions_Running) then {
-		diag_log format ["[AMS WATCH]|WAK|TNA|WMS| Mission %1 Already Running", _missionToSpawn];
-	} else {[_missionToSpawn] call WMS_fnc_AMS_SpawnMission;};
-	
 };
