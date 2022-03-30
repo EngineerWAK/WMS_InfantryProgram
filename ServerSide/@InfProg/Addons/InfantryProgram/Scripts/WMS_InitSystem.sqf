@@ -9,16 +9,11 @@
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 * Do Not Re-Upload
 */
-
 WMS_serverCMDpwd			= "CHANGEME";
-WMS_InfantryProgram_list = [ //list of player's UID autorised to use InfantryProgram Functions
-	//"76561197965501020" //WAKeupneo
-];
-WMS_BlackList = [  //list of player's UID "BlackListed" //fatigue/Stamina for now
-
-];
-
-WMS_System_Version 			= "v2.563_2022MAR29_GitHub";
+WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
+WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
+//////////
+WMS_System_Version 			= "v2.564_2022MAR29_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -36,8 +31,9 @@ WMS_forceNoFog				= false;
 WMS_ServRestartSeconds 		= 18000; //5h
 WMS_Thread_Start			= 30;
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Namalsk","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!!
-	WMS_exileFireAndForget 		= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
-	WMS_exileToastMsg 			= false;
+
+WMS_exileFireAndForget 		= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
+WMS_exileToastMsg 			= false;
 
 WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch launch, about 2 minutes after start
 {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]}foreach allPlayers;
@@ -60,17 +56,9 @@ WMS_InfantryProgram_Vehicles = [ //Maybe add _vehicle setvariable ["IP_Extractio
 	"B_Quadbike_01_F"
 ];
 /////////////////////////////////
-//			LOADOUTS - IP and AI
-/////////////////////////////////
-//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_Vanilla.sqf"; //for whatever reason, map override doesnt work on the default loadouts
-/////////////////////////////////
 //			CRATES ITEMS
 /////////////////////////////////
 if !(WMS_exileFireAndForget) then {execVM "\InfantryProgram\Scripts\WMS_List_Crates_Vanilla.sqf"}else{execVM "\InfantryProgram\Scripts\WMS_List_Crates_Exile.sqf"};
-/////////////////////////////////
-//			OPFOR Vehicles
-/////////////////////////////////
-//execVM "\InfantryProgram\Scripts\WMS_List_VHL_Vanilla.sqf";
 /////////////////////////////////
 //			VARIABLES
 /////////////////////////////////
@@ -325,7 +313,7 @@ WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.6, 0.5, 0.5, 0.8, 0, 0.8, 1];
 WMS_AMS_skillhardcore 	= [0.95, 1, 0.7, 0.6, 0.6, 1, 0, 1, 1];
 WMS_AMS_skillstatic 	= [1, 1, 0.075, 0.5, 0.2, 0.5, 0, 0.2, 0.8];
 //WMS_AMS_skillsniper 	= [1,0.95,0.95,0.95];  //set in fn_DynAI_SetUnitOPF and fn_AMS_SetUnits
-WMS_AMS_sniperList		= [ //This list can contain mods weapon, it's just a check
+WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check, it will modify NPC skills if they have a weapon from this list
 							"srifle_LRR_F","srifle_LRR_camo_F","srifle_LRR_tna_F",
 							"srifle_GM6_ghex_F","srifle_GM6_camo_F","srifle_GM6_F",
 							"rhs_weap_m24sws_blk","rhs_weap_m24sws_d","rhs_weap_m24sws_wd","rhs_weap_m24sws",
@@ -346,7 +334,7 @@ WMS_AMS_MineAP 			= "APERSTripMine"; //"APERSMine"
 WMS_AMS_MineAT 			= "ATMine"; //BWA3_DM31AT
 WMS_AMS_MineSign 		= "Land_Sign_MinesTall_English_F";
 WMS_AMS_ToRun 			= 3;
-WMS_AMS_MinFPS 		= 15; //diag_fps
+WMS_AMS_MinFPS 			= 15; //diag_fps
 WMS_AMS_WaitToStart 	= 30; //300
 WMS_AMS_LastSpawn 		= -600;
 WMS_AMS_MissionTimeout 	= [9600, 500];//[1800, 600]
@@ -359,7 +347,7 @@ WMS_AMS_RespectRwdOnKill = true; //150|750|0.2 //100|750|0.133
 WMS_AMS_respectBonus	= 100;
 WMS_AMS_distBonusMax 	= 750;
 WMS_AMS_distBonusCoef 	= 0.133;
-WMS_AMS_PlayerDistDelete = 800;
+WMS_AMS_PlayerDistDelete = 1200;
 WMS_AMS_PlayerDistSucces = 100;
 WMS_AMS_SpnDistPlayer 	= 750;
 WMS_AMS_SpnDistTrader 	= 400;
@@ -395,7 +383,7 @@ WMS_AMS_MissionList 	= [
 							["AmazonWH",1],
 							["TransmissionTower",1],
 							["GunsX3",1],
-							["Arena",0],
+							["Arena",0], //this one is pretty hardcore on the objects and NPCs xD
 							["LightArmoredSteal",1],
 							["HeliSteal",1],
 							["AABattery",1],
@@ -408,10 +396,10 @@ WMS_AMS_MissionList 	= [
 							["OldPowerPlant",1],
 							["Market",1],
 							["GrandPaJoe",1],
-							["LumberYard",3],
-							["Factory",3],
-							["FieldHospital",3],
-							["Object172M",3],
+							["LumberYard",2],
+							["Factory",2],
+							["FieldHospital",2],
+							["Object172M",2],
 							//OUTPOSTS
 							["OutpostAlpha",1],
 							["OutpostBravo",1],
@@ -533,8 +521,8 @@ if (WMS_exileFireAndForget) then {
 	WMS_Utility_Item_1 		= "Exile_Item_FireExtinguisher"; //used for haloJump in Exile
 	WMS_Utility_Item_2 		= "Exile_Item_OldChestKit"; //Used for InfantryProgram Action in Exile
 	WMS_AI_inventory = [
-		"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
-		"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",
+		"Money_bunch","Money_roll","Money_stack","Money_stack_quest", //give a price at the trader to those
+		//"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05", //used to "Claim reward" in TheLastCartridges
 		"FilesSecret","FileNetworkStructure","DocumentsSecret","FileTopSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys",
 		"Exile_Item_CordlessScrewdriver","Exile_Item_Hammer","Exile_Item_BurlapSack","Exile_Headgear_GasMask","Exile_Item_Wrench","Exile_Item_OilCanister",
 		"Exile_Item_CatSharkFilet_Raw","Exile_Item_TunaFilet_Raw","Exile_Item_AlsatianSteak_Raw","Exile_Item_TurtleFilet_Raw","Exile_Item_SheepSteak_Raw",
@@ -545,7 +533,7 @@ if (WMS_exileFireAndForget) then {
 		"Exile_Item_WaterCanisterDirtyWater","Exile_Item_Storagecratekit","Exile_Item_Sand","Exile_Item_MetalScrews","Exile_Item_CanOpener","Land_TentDome_F_Kit","Exile_Item_CampFireKit",
 		"Exile_Item_ToiletPaper","Exile_Item_Matches","Exile_Item_Knife","Exile_Item_CookingPot",
 		"Exile_Item_RubberDuck","Exile_Item_Rope","Exile_Item_MobilePhone","Exile_Item_FireExtinguisher","Exile_Item_DuctTape",
-		"Antimalaricum","AntimalaricumVaccine","Antibiotic","Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc"
+		"Exile_Item_Bandage","Exile_Item_Vishpirin","Exile_Item_InstaDoc"
 	];
 };
 Resistance setFriend [East, 0];

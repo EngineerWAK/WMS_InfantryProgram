@@ -67,8 +67,6 @@ class Exile_Container_OldChest
 			{
 				title = "Request C130";
 				condition =  "((getplayerUID player) in WMS_InfantryProgram_list && ((getplayerUID player) in WMS_IP_Active_list)) && (time > (WMS_MoveInCargo_C130_LastTime + WMS_InfantryProgram_C130CoolDown)) && (time > (WMS_Loc_InfProg_C130_Last + WMS_Loc_InfProg_C130_CoolDown))";
-				//action = "execVM 'Custom\InfantryOnlyProgram\WMS_C130_Request.sqf'";
-				//action = "[] call WMS_fnc_IP_C130_Request";
 				action = "[] execvm 'infantryProgram\fn_IP_C130_Request.sqf'";
 			};
 			/* //I think ths never worked
@@ -82,8 +80,6 @@ class Exile_Container_OldChest
 			{
 				title = "Request Extraction Chopper";
 				condition =  "((getplayerUID player) in WMS_InfantryProgram_list && ((getplayerUID player) in WMS_IP_Active_list)) && (time > (WMS_IP_ExtractChop_LastT + WMS_IP_ExtractChop_CoolD)) && (time > (WMS_Loc_InfProg_Extraction_Last + WMS_Loc_InfProg_Extraction_CoolDown))";
-				//action = "execVM 'Custom\InfantryOnlyProgram\WMS_ExtractionRequest.sqf'";
-				//action = "[] call WMS_fnc_IP_ExtractionRequest";
 				action = "[] execvm 'infantryProgram\fn_IP_ExtractionRequest.sqf'";
 			};
 			/* //function not converted yet
@@ -133,8 +129,6 @@ class Exile_Container_OldChest
 			{
 				title = "Request Extraction Ground";
 				condition =  "((getplayerUID player) in WMS_InfantryProgram_list && ((getplayerUID player) in WMS_IP_Active_list)) && (time > (WMS_Extraction_GND_LastTime + WMS_Extraction_GND_CoolDown)) && (time > (WMS_Loc_InfProg_GNDextraction_Last + WMS_Loc_InfProg_GNDextraction_CoolDown))";
-				//action = "execVM 'Custom\InfantryOnlyProgram\WMS_GNDextractionRequest.sqf'";
-				//action = "[] call WMS_fnc_IP_ExtractionRequest";
 				action = "[] execvm 'infantryProgram\fn_IP_GNDextractionRequest.sqf'";
 			};
 			class OldChestSeparateur3: ExileAbstractAction
@@ -254,32 +248,24 @@ class Exile_Container_OldChest
 			{
 				title = "Artillery HE, 10000";
 				condition =  "((getplayerUID player) in WMS_InfantryProgram_list && ((getplayerUID player) in WMS_IP_Active_list)) && (time > (WMS_IP_ArtySup_LastT + WMS_IP_ArtySup_CoolD))";
-				//action = "[player,'HE',10000] execVM 'Custom\InfantryOnlyProgram\WMS_ArtySupport.sqf'";
-				//action = "[player,'HE',10000] call WMS_fnc_IP_ArtySupport";
 				action = "[player,'HE',10000] execvm 'infantryProgram\fn_IP_ArtySupport.sqf'";
 			};
 			class OldChestRequestArtySupportSMOKE: ExileAbstractAction
 			{
 				title = "Artillery Smoke, 500";
 				condition =  "((getplayerUID player) in WMS_InfantryProgram_list && ((getplayerUID player) in WMS_IP_Active_list)) && (time > (WMS_IP_ArtySup_LastT + WMS_IP_ArtySup_CoolD))";
-				//action = "[player,'SMOKE',500] execVM 'Custom\InfantryOnlyProgram\WMS_ArtySupport.sqf'";
-				//action = "[player,'SMOKE',500] call WMS_fnc_IP_ArtySupport";
 				action = "[player,'SMOKE',500] execvm 'infantryProgram\fn_IP_ArtySupport.sqf'";
 			};
 			class OldChestRequestArtySupportFLARE: ExileAbstractAction
 			{
 				title = "Artillery Flare, 300";
 				condition =  "((getplayerUID player) in WMS_InfantryProgram_list && ((getplayerUID player) in WMS_IP_Active_list)) && (time > (WMS_IP_ArtySup_LastT + WMS_IP_ArtySup_CoolD))";
-				//action = "[player,'FLARE',300] execVM 'Custom\InfantryOnlyProgram\WMS_ArtySupport.sqf'";
-				//action = "[player,'FLARE',300] call WMS_fnc_IP_ArtySupport";
 				action = "[player,'FLARE',300] execvm 'infantryProgram\fn_IP_ArtySupport.sqf'";
 			};
 			class OldChestRequestBlackFishSupport: ExileAbstractAction
 			{
 				title = "BlackFish Support 30k";
 				condition =  "((getplayerUID player) in WMS_InfantryProgram_list && ((getplayerUID player) in WMS_IP_Active_list)) && (time > (WMS_IP_BlackFishSup_LastT + WMS_IP_BlackFishSup_CoolD))";
-				//action = "execVM 'Custom\InfantryOnlyProgram\WMS_BlackFishSupport.sqf'";
-				//action = "[player] call WMS_fnc_IP_BlackFishSupport";
 				action = "[player] execvm 'infantryProgram\fn_IP_BlackFishSupport.sqf'";
 			};
 			class OldChestSeparateur6: ExileAbstractAction
@@ -313,16 +299,12 @@ class Exile_Container_OldChest
 			class OldChestQuantumRadar: ExileAbstractAction
 			{
 				title = "Quantum Radar";
-				//condition = (((getplayerUID player) in WMS_InfantryProgram_list) && ('Exile_Item_MobilePhone' in (magazines player)));
-				//condition = ((getplayerUID player) in WMS_InfantryProgram_list);
 				condition =  "(magazines player find 'Exile_Item_Magazine01' >= 0) && (magazines player find 'Exile_Item_Magazine02' >= 0) && (magazines player find 'Exile_Item_Magazine03' >= 0) && (magazines player find 'Exile_Item_Magazine04' >= 0) && (backpack player == 'B_RadioBag_01_wdl_F')";
 				action = "systemChat 'calling';[300, 'chest', player] execvm 'infantryProgram\fn_IP_OpforVHL_Radar.sqf'; player removeitem 'Exile_Item_Magazine01'; player removeitem 'Exile_Item_Magazine02'; player removeitem 'Exile_Item_Magazine03'; player removeitem 'Exile_Item_Magazine04';systemChat 'called';";//player removeitem 'Exile_Item_MobilePhone'
 			};
 			class OldChestQuantumComputer: ExileAbstractAction //TEST, NEED A NEW FUNCTION AT THE RIGHT PLACE
 			{
 				title = "Build Quantum Computer";
-				//condition = (((getplayerUID player) in WMS_InfantryProgram_list) && ('Exile_Item_MobilePhone' in (magazines player)));
-				//condition = ((getplayerUID player) in WMS_InfantryProgram_list);
 				condition =  ((getplayerUID player) == '76561197965501020');
 				action = "systemChat 'Admin calling';[player, (_this select 0)]execVM 'Custom\InfantryOnlyProgram\WMS_QuantumComputer.sqf'; systemChat 'Admin called';";//player removeitem 'Exile_Item_MobilePhone'
 			};

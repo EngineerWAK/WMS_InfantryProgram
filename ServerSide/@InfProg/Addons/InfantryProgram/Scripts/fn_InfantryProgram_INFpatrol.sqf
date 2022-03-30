@@ -63,16 +63,16 @@ if (_FrontSpawn) then {
 _leaderGrp = Leader _patrolGrp;
 
 _posDZ = position _leaderGrp;
-if (WMS_DynAI_RdoChatter) then {
-	_number = selectRandom [12,11,2,1,6,8];
-	_sound = format ["A3\sounds_f\sfx\radio\ambient_radio%1.wss",_number];
-	playSound3D [_sound, player, false, _posDZ, 2, 1, 0];
-};
 
 WMS_ParadropAI_LastTime = time;
 publicVariable "WMS_ParadropAI_LastTime";
 
 if (_grpSide == OPFOR ) then {
+	if (WMS_DynAI_RdoChatter) then {
+		_number = selectRandom [12,11,2,1,6,8];
+		_sound = format ["A3\sounds_f\sfx\radio\ambient_radio%1.wss",_number];
+		playSound3D [_sound, player, false, _posDZ, 2, 1, 0];
+	};
 	if (WMS_InfantryProgram_LOGs) then {diag_log format ["[INFANTRY PATROL GROUP]|TNA|TNA|TNA|TNA|TNA| Side = %1", _grpSide]};
 	_smokeGrenade = "SmokeShellRed";
 	[(units _patrolGrp),'Random',_launcherChance,_skill,_loadout,nil,nil,_difficulty] call WMS_fnc_DynAI_SetUnitOPF;

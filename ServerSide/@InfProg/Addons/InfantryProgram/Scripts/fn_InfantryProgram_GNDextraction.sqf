@@ -68,6 +68,7 @@ private _gunUnit = _drvGrp createUnit ["B_crew_F", position _vehic, [], 0, "NONE
 _gunUnit setSkill 0.5;
 _gunUnit allowFleeing 0;
 _gunUnit moveInGunner _vehic;
+_drvGrp selectLeader _drvUnit;
 {
   removeAllItems _x;
   removeAllWeapons _x;
