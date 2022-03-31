@@ -22,7 +22,7 @@ while {true} do {
 	if (WMS_FastNight) then {call WMS_fnc_sys_FastNights};
 	//Server restart 
 	if (WMS_ServRestart && {serverTime > (WMS_ServRestartSeconds-900)}) then {
-		[] spawn WMS_fnc_sys_ServerRestart;
+		[] spawn WMS_fnc_sys_ServerRestart; //I don't like this "spawn"
 		};
 uisleep 59; //uisleep 14, uisleep 31, uisleep 59, uisleep 91, uisleep 120, uisleep 239
 };

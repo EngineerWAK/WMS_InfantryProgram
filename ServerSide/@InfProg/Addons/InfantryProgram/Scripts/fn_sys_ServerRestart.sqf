@@ -18,7 +18,11 @@ if (serverTime > (WMS_ServRestartSeconds)) then {
 		["EventWarning", ["SERVER RESTART", "The server will restart in 30 secondes"]] remoteExec ["BIS_fnc_showNotification", -2];
 		uisleep 20;
 		{WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)];}foreach allPlayers;
-		[] call WMS_fnc_permanentVehiclesLastUpdate;
+		if !(WMS_exileFireAndForget) then {
+			[] call WMS_fnc_permanentVehiclesLastUpdate; //TheLastCartridges permanent vehicles
+			private _dataToSave = serverNameSpace getvariable["WMS_customRespawnList",[]];
+			profileNamespace setVariable ["WMS_customRespawnList",_dataToSave];
+		};
 		uisleep 10;
 		WMS_serverCMDpwd serverCommand "#shutdown";
 	} else {

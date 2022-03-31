@@ -39,11 +39,11 @@ if(_lockerMoney > _amount) then {
 	removeHeadgear _target;
 	removeGoggles _target;
 	removeBackpackGlobal _target;
-	removeAllAssignedItems _target;
+	removeAllAssignedItems _target; //that also remove the infantryProgram radio...
 	_target linkItem "ItemCompass";
 	_target linkItem "ItemGPS";
 	_target linkItem "ItemMap";
-	_target linkItem "ItemRadio";
+	//_target linkItem "ItemRadio"; //NOOOOOOOOO!
 	_target linkItem "NVGoggles_INDEP";
 	_target forceaddUniform selectrandom (_loadout select 0);
 	_target addVest selectrandom (_loadout select 1);
@@ -54,6 +54,7 @@ if(_lockerMoney > _amount) then {
 	if (WMS_exileFireAndForget) then {
 		//Exile
 		_target linkItem "Exile_Item_XM8";
+		_target linkItem "ItemRadio";
 		_target additem  "Exile_Item_Bandage";
 		_target additem  "Exile_Item_InstaDoc";
 		_target additem  "Exile_Item_EMRE";
@@ -71,6 +72,7 @@ if(_lockerMoney > _amount) then {
  		};
 	}else{ 
 		//TheLastCartridge/ACE
+		_target linkItem WMS_Utility_Item_2;
 		_target additem  "ACE_bloodIV_250";
 		_target additem  "ACE_EarPlugs";
 		_target additem  "ACE_morphine";
