@@ -27,4 +27,4 @@ WMS_markerDeads setMarkerText (format ["%1 Deads", count allDeadMen]);
 WMS_markerSystem = createMarker ["markerSystem", [(worldsize /2),-200]];
 WMS_markerSystem setMarkerType "mil_triangle";
 WMS_markerSystem setMarkerColor "ColorKhaki";
-WMS_markerSystem setMarkerText (format ["Missions/AI System %1 ", WMS_System_Version]);//WMS_System_Version
+WMS_markerSystem setMarkerText (format ["Infantry Program %1 ", WMS_System_Version]);//WMS_System_Version

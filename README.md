@@ -1,6 +1,6 @@
 # WMS_InfantryProgram
-
-v2.548a_2022MAR26_PreRelease on GitHub to try to get back some ExileMod compatibility<br/>
+v2.569_2022APR02_GitHub Exile Mod is fully compatible again<br/>
+v2.548a_2022MAR26_PreRelease on GitHub to try to get back some Exile Mod compatibility<br/>
 
 InfantryProgram (from the original name 3 years ago...) is a Dynamic AI/Mission system for Arma 3 dedicated servers.<br/>
 It used to run with Exile Mod but not anymore (It might be compatible again).<br/>
