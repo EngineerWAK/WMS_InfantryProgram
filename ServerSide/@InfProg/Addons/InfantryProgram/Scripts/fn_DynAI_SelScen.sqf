@@ -455,9 +455,9 @@ switch (_threatScenario) do {
 	};
 	case "rain" : {
 		private _alti = 80;
-		if (_load == "rhs_ammo_nspn_red") then {_alti = 1};
+		if (_load == "rhs_ammo_nspn_red") then {_alti = 150};
 		if (_load == "rhs_ammo_fakels") then {_alti = 65};
-		if (_load == "rhs_ammo_m397") then {_delay = 0.9};
+		if (_load == "rhs_ammo_m397" || _load == "rhs_rpg7v2_type63_airburst") then {_delay = 0.9; _alti = 500};
 		[_pos,_load,_radius,_alti,_iterO,_delay] spawn WMS_fnc_DynAI_RainObjects; //optional: _load,_radius,_altitude,_iterations,_delay
 	};
 	case "EOD" : {//FOREST ONLY

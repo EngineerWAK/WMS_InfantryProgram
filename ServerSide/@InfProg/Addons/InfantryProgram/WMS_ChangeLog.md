@@ -22,6 +22,10 @@
 // - Skill Convert for all AI //DONE
 // - Capture zone //DONE
 //////////////////////////////////////////////////////////////////
+v2.57_2022APR04_GitHub minor update on WMS_fnc_DynAI_RainObjects
+
+v2.569_2022APR02_GitHub Exile Mod is fully compatible again
+
 v2.55_2022MAR27_GitHub 
     ADDED Variables override for Exile Users in WMS_initsystem
     if (WMS_exileFireAndForget) then {

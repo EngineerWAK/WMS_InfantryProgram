@@ -24,7 +24,7 @@ if (WMS_MapName == "ruha") then {
 																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_plamyam","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag"];
 										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "Bomb_03_F", "Bomb_04_F", "ammo_Bomb_SDB", "rhs_ammo_fab500_m54", "Bo_Mk82"]; //DynAI bombing is (select 0)										
 										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","rhs_ammo_kab500","rhs_ammo_fab500_m54"];
-										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
+										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
@@ -131,7 +131,7 @@ if (WMS_MapName == "Lythium") then {
 																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_plamyam","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag"];
 										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "Bomb_03_F", "Bomb_04_F", "ammo_Bomb_SDB", "rhs_ammo_fab500_m54", "Bo_Mk82"]; //DynAI bombing is (select 0)										
 										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","rhs_ammo_kab500","rhs_ammo_fab500_m54"];
-										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
+										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
@@ -283,7 +283,7 @@ if (WMS_MapName == "Altis") then {
 																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_plamyam","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag"];
 										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "Bomb_03_F", "Bomb_04_F", "ammo_Bomb_SDB", "rhs_ammo_fab500_m54", "Bo_Mk82"]; //DynAI bombing is (select 0)										
 										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","rhs_ammo_kab500","rhs_ammo_fab500_m54"];
-										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
+										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
@@ -334,7 +334,7 @@ if (WMS_MapName == "Tanoa") then {
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
 										WMS_Humanicrate 			= "R3F_WeaponStock"; //"CargoNet_01_box_F"
-										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000]]
+										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
 										WMS_DeliveryChopper_Type 	= ["R3F_AH6_FS"];
 										WMS_CamoNet_Small 			= "CamoNet_ghex_F";
 										WMS_CamoNet_Open 			= "CamoNet_ghex_open_F";
@@ -490,7 +490,7 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
 										WMS_Humanicrate 			= "R3F_WeaponStock"; //"CargoNet_01_box_F"
-										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000]]
+										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
 										WMS_DeliveryChopper_Type 	= ["R3F_AH6_FS"];
 										WMS_CamoNet_Small 			= "CamoNet_wdl_F";
 										WMS_CamoNet_Open 			= "CamoNet_wdl_open_F";
