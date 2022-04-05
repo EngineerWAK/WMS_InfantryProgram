@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.57_2022APR04_GitHub";
+WMS_System_Version 			= "v2.572_2022APR05_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 

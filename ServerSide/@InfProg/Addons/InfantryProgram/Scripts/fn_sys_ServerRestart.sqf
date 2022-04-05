@@ -20,8 +20,9 @@ if (serverTime > (WMS_ServRestartSeconds)) then {
 		{WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)];}foreach allPlayers;
 		if !(WMS_exileFireAndForget) then {
 			[] call WMS_fnc_permanentVehiclesLastUpdate; //TheLastCartridges permanent vehicles
-			private _dataToSave = serverNameSpace getvariable["WMS_customRespawnList",[]];
-			profileNamespace setVariable ["WMS_customRespawnList",_dataToSave];
+
+			//private _dataToSave = serverNameSpace getvariable["WMS_customRespawnList",[]]; //no need anymore, server save tp profileNameSpace directly at each modification
+			//profileNamespace setVariable ["WMS_customRespawnList",_dataToSave];
 		};
 		uisleep 10;
 		WMS_serverCMDpwd serverCommand "#shutdown";

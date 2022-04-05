@@ -22,6 +22,8 @@
 // - Skill Convert for all AI //DONE
 // - Capture zone //DONE
 //////////////////////////////////////////////////////////////////
+v2.572_2022APR05_GitHub Altis Bunkers position with high loot to push players to go at some "deserted" places
+
 v2.57_2022APR04_GitHub minor update on WMS_fnc_DynAI_RainObjects
 
 v2.569_2022APR02_GitHub Exile Mod is fully compatible again
