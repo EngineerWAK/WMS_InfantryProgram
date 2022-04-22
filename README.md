@@ -13,11 +13,11 @@ SetUp is in WMS_InitSystem.sqf (mostly):
 
     WMS_serverCMDpwd    = "CHANGEME"; //Obviously important
     WMS_CustomizedMap	= []; //Maps custom setup I made, if your map is in it, check WMS_customMapsSettings.sqf, it mostly change loadouts, AI counts, missions counts. Check for ClassNames if you don't use the same Mod(s)
-    WMS_exileToastMsg 	= false; //Exile compatibility is broken right now
-    WMS_exileFireAndForget 	= false; //Exile compatibility is broken right now
+    WMS_exileToastMsg 	= false; //Exile Mod only
+    WMS_exileFireAndForget 	= false; //Exile Mod only
     WMS_InfantryProgram_list = []; //this is the original array using the functions I made for Exile some time ago, it add some stuff you can do (like call a trader or artillery support) and a lot you can not (like using vehicles).
 
-    By default, the system should run with the old Vanilla setUp, no mods required (beside CBA):
+    By default, the system should run with the old Vanilla setUp, no mods required (beside CBA and ACE3/Exile Mod):
 	execVM "\InfantryProgram\Scripts\WMS_List_VHL_Vanilla.sqf";
 	execVM "\InfantryProgram\Scripts\WMS_List_Loadout_Vanilla.sqf";
     unless you use WMS_CustomizedMap.

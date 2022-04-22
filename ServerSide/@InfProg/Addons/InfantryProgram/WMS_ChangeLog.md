@@ -14,13 +14,17 @@
 // Infantry Program, Dynamic AI, AirAssistance, Events, Advanced Mission System
 //////////////////////////////////////////////////////////////////
 // Work In Progress:
+// - "Dynamic Flight Operations" (iceman/Project hatchet Discord): Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
 // - Cities Invasion
 // ToDo:
 // - Delete NPCs in SafeZone
 // - 'DynAI + Events' Player Check before spawn
 // - Integrated Messages Brodcast
-// - "Dynamic Flight Operations" (iceman/Project hatchet Discord): Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
 //////////////////////////////////////////////////////////////////
+v2.576_2022APR22_GitHub started to work on "Dynamic Flight Operations"
+    WMS_fnc_Watch_Events + WMS_InitSystem
+    ADDED WMS_fnc_Event_DFO
+
 v2.572_2022APR05_GitHub Altis Bunkers position with high loot to push players to go at some "deserted" places
 
 v2.57_2022APR04_GitHub minor update on WMS_fnc_DynAI_RainObjects
