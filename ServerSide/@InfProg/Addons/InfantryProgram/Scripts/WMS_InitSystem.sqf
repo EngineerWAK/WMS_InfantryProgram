@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.574_2022APR07_GitHub";
+WMS_System_Version 			= "v2.575_2022APR22_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -165,6 +165,23 @@ WMS_CaptureZone_Tmr		= [240, 400, 600, 900]; //time to capture the zone //easy, 
 WMS_CaptureZone_Obj 	= [];//Leave it empty //layout + sphere for cleanup
 WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 	//WMS_CaptureZone_Bdr 	= []; //Sign_Sphere25cm_F objects
+
+WMS_DynamicFlightOps	= false; //NOT READY YET
+WMS_DFO_Standalone		= false;
+WMS_DFO_CancelOnKIA		= false;
+WMS_DFO_Reinforcement	= false;
+WMS_DFO_createChopper	= false;
+WMS_DFO_MaxRunning		= 3;
+WMS_DFO_Timer			= 900; 
+WMS_DFO_MinDist			= 5000;
+WMS_DFO_reinfTriggDist	= 1000;
+WMS_DFO_cargoType		= ["CrateClassName"];
+WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar","maritime"];// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
+WMS_DFO_Choppers		= [[],[],[],[]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
+WMS_DFO_Markers			= []; //["mission","RTB"];
+WMS_DFO_Reward			= [500,2000]; //["rep","money"]
+WMS_DFO_Running			= []; //KEEP EMPTY //[["TimeToDelete","DFO","MissionHexaID",_playerObject]]
+
 //////////////////////////////
 //AI variables
 //////////////////////////////
