@@ -19,8 +19,7 @@
 // - Delete NPCs in SafeZone
 // - 'DynAI + Events' Player Check before spawn
 // - Integrated Messages Brodcast
-// - Skill Convert for all AI //DONE
-// - Capture zone //DONE
+// - "Dynamic Flight Operations" (iceman/Project hatchet Discord): Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
 //////////////////////////////////////////////////////////////////
 v2.572_2022APR05_GitHub Altis Bunkers position with high loot to push players to go at some "deserted" places
 

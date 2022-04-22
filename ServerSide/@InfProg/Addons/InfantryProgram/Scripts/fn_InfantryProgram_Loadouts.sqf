@@ -91,8 +91,8 @@ if(_lockerMoney > _amount) then {
 		_targetOwner = (owner _target);
 		_playerUID_ExileMoney = "ExileMoney_"+_targetUID;
 		_playerMoney = profileNamespace getVariable [_playerUID_Exilemoney,0];
-		_target setVariable ["ExileMoney", (_playerMoney-_lockerMoney), true];
-		profileNamespace setVariable [_playerUID_Exilemoney,(_playerMoney-_lockerMoney)];
+		_target setVariable ["ExileMoney", (_playerMoney-_amount), true];
+		profileNamespace setVariable [_playerUID_Exilemoney,(_playerMoney-_amount)];
 		if (WMS_InfantryProgram_LOGs) then {
  			diag_log format ["[LOADOUTS_TheLastCartridges]|WAK|TNA|WMS| _this = %1 |WAK|TNA|WMS|", _this];
  		};
