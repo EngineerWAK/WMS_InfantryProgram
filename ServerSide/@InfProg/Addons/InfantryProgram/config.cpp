@@ -26,11 +26,13 @@ class CfgFunctions {
 			class HideObjectGlobal			{};
 			class getuid_remote				{}; //EXILE //used for custom respawn I think
 			class Paradrop_RLA_unified		{};
+			class findClst_NamedLocation	{}; //should be used in Cities Occupation
+
 			class Event_SupplyDrop			{};
 			class Event_HumaniDrop			{};
 			class Event_CaptureZone			{};
 			class Event_HVT					{};
-			class findClst_NamedLocation	{}; //should be used un Cities Occupation
+			//class Event_DFO					{};
 
 			class sys_FastNights {};
 			class sys_roamingVHLspawn {};

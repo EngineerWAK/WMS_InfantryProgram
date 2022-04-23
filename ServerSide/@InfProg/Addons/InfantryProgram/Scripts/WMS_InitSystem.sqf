@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.576_2022APR22_GitHub";
+WMS_System_Version 			= "v2.577_2022APR23_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -170,17 +170,29 @@ WMS_DynamicFlightOps	= false; //NOT READY YET
 WMS_DFO_Standalone		= false;
 WMS_DFO_CancelOnKIA		= false;
 WMS_DFO_Reinforcement	= false;
-WMS_DFO_createChopper	= false;
+WMS_DFO_CreateChopper	= false;
+WMS_DFO_UseJVMF			= false;
 WMS_DFO_MaxRunning		= 3;
-WMS_DFO_Timer			= 900; 
-WMS_DFO_MinDist			= 5000;
-WMS_DFO_reinfTriggDist	= 1000;
-WMS_DFO_cargoType		= ["CrateClassName"];
+WMS_DFO_CoolDown		= 300;
+WMS_DFO_LastCall		= (time-WMS_DFO_CoolDown);
+WMS_DFO_Timer			= 900;
+WMS_DFO_MinMaxDist		= [4000,6000];
+WMS_DFO_ReinfTriggDist	= 1000;
+WMS_DFO_MkrRandomDist	= 500;
+WMS_DFO_CargoType		= ["CrateClassName"];
 WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar","maritime"];// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
-WMS_DFO_Choppers		= [[],[],[],[]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
-WMS_DFO_Markers			= []; //["mission","RTB"];
+WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
+WMS_DFO_Markers			= ["n_support","n_hq"]; //["mission","RTB"]; //["loc_heli","mil_end_noShadow"]
+WMS_DFO_MkrColors		= ["colorOrange","colorGreen"]; //["mission","RTB"];
 WMS_DFO_Reward			= [500,2000]; //["rep","money"]
-WMS_DFO_Running			= []; //KEEP EMPTY //[["TimeToDelete","DFO","MissionHexaID",_playerObject]]
+WMS_DFO_MissionPaths	= [["base","LZ1","Base"],["base","LZ1","LZ2"]]; // "takeoff/mission/complet"
+WMS_DFO_ObjToAddAction	= []; //KEEP EMPTY //will be pushed back from "somewhere"
+WMS_DFO_Running			= []; //KEEP EMPTY //[["TimeToDelete","MissionHexaID",_playerObject,_mission]]
+
+publicVariable "WMS_DFO_Running";
+publicVariable "WMS_DFO_MaxRunning";
+publicVariable "WMS_DFO_LastCall";
+publicVariable "WMS_DFO_CoolDown";
 
 //////////////////////////////
 //AI variables
@@ -614,6 +626,8 @@ if (WMS_DynAI_triggers) then {execVM "\InfantryProgram\Scripts\WMS_AI_Create_tri
 if (WMS_Events) 		then {execVM "\InfantryProgram\Scripts\WMS_Event_Start.sqf"};
 // Start Mission system
 if (WMS_AMS)			then {execVM "\InfantryProgram\Scripts\WMS_AMS_Start.sqf"};
+// Start DynamicFlightOps
+if (WMS_DynamicFlightOps)then {execVM "\InfantryProgram\Scripts\WMS_DFO_functions.sqf"};
 // Territory Protection system
 //if (true) 				then {execVM "\InfantryProgram\Scripts\WMS_TerritoryProtection.sqf"};
 //Server Info Markers
