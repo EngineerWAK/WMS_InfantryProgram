@@ -192,12 +192,130 @@ WMS_fnc_DFO_CreateTrigger = {
 	};
 	_triggList
 };
-WMS_fnc_DFO_nextStepMkrTrigg = { //probably RTB Or LZ2
+WMS_fnc_DFO_NextStepMkrTrigg = { //probably RTB Or LZ2
 	//(thisTrigger getVariable 'WMS_DFO_triggData') call WMS_fnc_DFO_nextStepMkrTrigg;
 	//need to auto-delete at succes/fail
 	//WMS_DFO_Markers select 1;
 	//WMS_DFO_MkrColors select 1;
 };
+WMS_fnc_DFO_CallForCleanup = {
+	private [
+		"_timeToDelete","_grpArrays","_grpOPFOR","_grpCIV","_vhl","_vhlOPFOR","_vhlCIV","_obj","_mkr","_cargo",
+		"_options","_MissionFinish","_succes","_cntOPFOR","_cntVhlOPFOR","_cntCIV"
+		];
+	_timeToDelete = (_this select 1);
+	_grpArrays = (_this select 2); //[[],[]]
+	_grpOPFOR = _grpArrays select 0; //[]
+	_grpCIV = _grpArrays select 1; //[]
+	_vhl = (_this select 3); //[[],[]]
+	_vhlOPFOR = _vhl select 0; //[]
+	_vhlCIV = _vhl select 1; //[]
+	_obj = (_this select 4); //[mines, signs, triggers, Jump Target, whatever]
+	_mkr = (_this select 5); //[]
+	_cargo = (_this select 6); //object //no waypoints, can be used for the cargoObject
+	_options = (_this select 8); //[_MissionHexaID,_playerObject,_mission,_MissionPathCoord] //_MissionFinish should be (_MissionPathCoord select 2)
+	_MissionFinish = _options select 3 select 2;
+	_playerObject =  _options select 1;
+	_succes = false;
+	_cntOPFOR = 0;
+	_cntVhlOPFOR = 0;
+	_cntCIV = 0;
+	{
+		_cntOPFOR = _cntOPFOR + ({alive _x} count units _x);
+	} foreach _grpOPFOR;
+	{
+		_cntCIV = _cntCIV + ({alive _x} count units _x);
+	} foreach _grpCIV;
+	switch (_options select 2) do {
+		case "inftransport": { //CIV Alive at _MissionFinish, _cntCIV != 0
+			if(_cntCIV != 0 && {(position (leader (_grpCIV select 0))) distance _MissionFinish < 50}) then {_succes = true};
+		};
+		case "cargotransport": { //_cargo at _MissionFinish, alive _cargo
+			if(alive _cargo && {(position _cargo) distance _MissionFinish < 50}) then {_succes = true};
+		};
+		case "airassault": { //destroy target or capture zone at _MissionFinish, _cntOPFOR = 0, _vhlOPFOR != alive //the capture will do a "call for Cleanup/victory"
+			if (count _vhlOPFOR != 0) then {
+				{if(alive _x)then{_cntVhlOPFOR = _cntVhlOPFOR+1}}forEach _vhlOPFOR;
+			};
+			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0} && {_cntCIV != 0}) then {_succes = true};
+		};
+		case "casinf": { //mission (LZ1) succes wen target destroyed, No RTB/LZ2, _cntOPFOR = 0
+			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0}) then {_succes = true};
+		};
+		case "casarmored": { //mission (LZ1) succes wen target destroyed, No RTB/LZ2, _cntOPFOR = 0
+			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0}) then {_succes = true};
+		};
+		case "cascombined": { //mission (LZ1) succes wen target destroyed, No RTB/LZ2, _cntOPFOR = 0
+			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0}) then {_succes = true};
+		};
+		case "sar": { //"LZ1"->"BASE" succes wen passenger at _MissionFinish, _cntCIV != 0
+			if(_cntCIV != 0 && {(position (leader (_grpCIV select 0))) distance _MissionFinish < 50}) then {_succes = true};
+		};
+		case "csar": { //"LZ1"->"BASE" succes wen passenger at _MissionFinish, no need to kill OPFOR, _cntCIV != 0
+			if(_cntCIV != 0 && {(position (leader (_grpCIV select 0))) distance _MissionFinish < 50}) then {_succes = true};
+		};
+		case "maritime": { //this one will definitly need way more work
+		};
+	};
+	if (_succes == true) then {
+				//VICTORY!!! cleanup
+		{
+			{moveOut _x; deleteVehicle _x;} forEach units _x;
+		} forEach _grpOPFOR; 
+		{
+			{moveOut _x; deleteVehicle _x;} forEach units _x;
+		} forEach _grpCIV;
+		{deleteVehicle _x;} forEach _vhlOPFOR; 
+		{deleteVehicle _x;} forEach _vhlCIV;
+		{deleteVehicle _x;} forEach _obj; 
+		{deleteMarker _x;} forEach _mkr; 
+		{deleteGroup _x;} forEach _grpOPFOR; 
+		{deleteGroup _x;} forEach _grpCIV;
+		//deleteVehicle _cargo; //I guess cargo can stay, its not a big deal
+		WMS_Events_Running deleteAt (WMS_Events_Running find _x); //BE SURE ABOUT THIS ONE, HexaID Check
+		//send victory message and rewards
+		if (WMS_DFO_UseJVMF) then {["blablablabla"] call WMS_fnc_DFO_JVMF};
+		if (WMS_exileToastMsg) then {
+			_sessionID = _playerObject getVariable ['ExileSessionID',''];
+			[_sessionID, 'toastRequest', ['SuccessTitleAndText', ['Dynamic Flight Ops', 'Mission SUCCES!!!']]] call ExileServer_system_network_send_to;
+		} else {
+			["TaskSucceeded", ["Dynamic Flight Ops", "Mission SUCCES!!!"]] remoteExec ["BIS_fnc_showNotification", (owner _playerObject)];
+		};
+		[_playerObject]call WMS_fnc_DFO_MissionSucces;
+	};
+	if (_timeToDelete > time) then {
+		//FAIL!!! cleanup
+		{
+			{moveOut _x; deleteVehicle _x;} forEach units _x;
+		} forEach _grpOPFOR; 
+		{
+			{moveOut _x; deleteVehicle _x;} forEach units _x;
+		} forEach _grpCIV;
+		{deleteVehicle _x;} forEach _vhlOPFOR; 
+		{deleteVehicle _x;} forEach _vhlCIV;
+		{deleteVehicle _x;} forEach _obj; 
+		{deleteMarker _x;} forEach _mkr; 
+		{deleteGroup _x;} forEach _grpOPFOR; 
+		{deleteGroup _x;} forEach _grpCIV;
+		//deleteVehicle _cargo; //I guess cargo can stay, its not a big deal
+		WMS_Events_Running deleteAt (WMS_Events_Running find _this); //BE SURE ABOUT THIS ONE, HexaID Check
+		//send fail message
+		if (WMS_DFO_UseJVMF) then {["blablablablaBOOOOOOOOOOHHHHHHH"] call WMS_fnc_DFO_JVMF};
+		if (WMS_exileToastMsg) then {
+			_sessionID = _playerObject getVariable ['ExileSessionID',''];
+			[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['Dynamic Flight Ops', 'Mission FAILED!!!']]] call ExileServer_system_network_send_to;
+		} else {
+			["TaskFailed", ["Dynamic Flight Ops", "Mission FAILED!!!"]] remoteExec ["BIS_fnc_showNotification", (owner _playerObject)];
+		};
+	};
+};
+WMS_fnc_DFO_MissionSucces = {
+	private [];
+	params [
+		"_playerObject"
+	];
+};
+WMS_fnc_DFO_PunishPunks = {}; //will be use to remind to those getting in the mission zone that it's not their mission, ACE broken legs and things like that
 WMS_fnc_DFO_JVMF = {};//if (WMS_DFO_UseJVMF) then {[blablablabla] call WMS_fnc_DFO_JVMF;};
 WMS_fnc_DFO_infLoad = {};
 WMS_fnc_DFO_infUnLoad = {};
@@ -212,8 +330,8 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		["_mission", (selectRandom WMS_DFO_MissionTypes)]
 	];
 	if ((count WMS_DFO_Running) > WMS_DFO_MaxRunning) exitWith {['Too many Flight Ops already running'] remoteExecCall ['SystemChat',_playerObject]}; //need some Diag_log too
-	_grps = []; //pushback
-	_vhls = []; //pushback
+	_grps = [[],[]]; //pushback [[OPFOR],[CIV]]
+	_vhls = [[],[]]; //pushback [[OPFOR],[CIV]]
 	_objs = []; //pushback
 	_mkrs = []; //pushback
 	_blackList = [];
@@ -265,18 +383,19 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			_MissionStart = "LZ1"; //pickup
 			_MissionFinish = "LZ2"; //drop/cover //those dudes will probably beed to be BLUFOR to be able to do something...
 			};
+			_createCIVinf = true; //military at _MissionStart or civilian at _MissionFinish
 			_createOPFORinf = true;
 			_createOPFORvhl = true; //light
 			};
-		case "casinf" : { //mission (LZ1) succes hen target destroyed, No RTB/LZ2
+		case "casinf" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
 			_MissionStart = "LZ1";
 			_createOPFORinf = true; //AA launchers //LMG
 			};
-		case "casarmored" : { //mission (LZ1) succes hen target destroyed, No RTB/LZ2
+		case "casarmored" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
 			_MissionStart = "LZ1";
 			_createOPFORvhl = true; //heavy
 		};
-		case "cascombined" : { //mission (LZ1) succes hen target destroyed, No RTB/LZ2
+		case "cascombined" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
 			_MissionStart = "LZ1";
 			_createOPFORvhl = true;
 			_createOPFORinf = true;
@@ -294,6 +413,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		};
 		case "maritime" : {}; //this one will definitly need way more work
 	};
+
 	//select mission position(s)
 		//can be random
 		//can be from one of the already registered zone like WMS_Pos_Villages or WMS_Pos_Forests or all mixed
@@ -317,7 +437,15 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		if (_createOPFORvhl) then {};
 	//create mission cargo (crate)
 		if (_createCargo) then {
-			//_cargo = selectRandom WMS_DFO_CargoType;
+			if (_MissionStart == "LZ1")then {_pos = _posLZ1};
+			if (_MissionStart == "BASE")then {_pos = _posBase};
+			_cargo = selectRandom WMS_DFO_CargoType;
+			_cargoObject = _cargo createVehicle [(_pos select 0), (_pos select 1), 2];
+			clearMagazineCargoGlobal _cargoObject; 
+			clearWeaponCargoGlobal _cargoObject; 
+			clearItemCargoGlobal _cargoObject; 
+			clearBackpackCargoGlobal _cargoObject; 
+			_cargoObject allowdamage false;
 		};
 	//create mission NPCs
 		//CIV
@@ -337,14 +465,14 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		if (WMS_DFO_UseJVMF) then {["blablablabla"] call WMS_fnc_DFO_JVMF};
 		if (WMS_exileToastMsg) then {
 			_sessionID = _playerObject getVariable ['ExileSessionID',''];
-			[_sessionID, 'toastRequest', ['SuccessTitleAndText', ['Dynamic Flight Ops', (format ["%1 @ %2",_mission, ([_posLZ1 select 0, _posLZ1 select 1])])]]] call ExileServer_system_network_send_to;
+			[_sessionID, 'toastRequest', ['InfoTitleAndText', ['Dynamic Flight Ops', (format ["%1 @ %2",_mission, ([_posLZ1 select 0, _posLZ1 select 1])])]]] call ExileServer_system_network_send_to;
 		} else {
 			["EventCustom", ["Dynamic Flight Ops", (format ["%1 @ %2",_mission, ([_posLZ1 select 0, _posLZ1 select 1])]), "\A3\ui_f\data\map\MapControl\taskiconcreated_ca.paa"]] remoteExec ["BIS_fnc_showNotification", (owner _playerObject)];
 		};
 	//System/Management
 	WMS_DFO_LastCall = time;
 	WMS_DFO_Running pushback [_timeToDelete,_MissionHexaID,_playerObject,_mission];
-	WMS_Events_Running pushBack [time,_timeToDelete,_grps,_vhls,_objs,_mkrs,[],"DFO",_MissionHexaID];
+	WMS_Events_Running pushBack [time,_timeToDelete,_grps,_vhls,_objs,_mkrs,_cargoObject,"DFO",[_MissionHexaID,_playerObject,_mission,_MissionPathCoord]];
 	publicVariable "WMS_DFO_Running";
 	publicVariable "WMS_DFO_LastCall";
 };

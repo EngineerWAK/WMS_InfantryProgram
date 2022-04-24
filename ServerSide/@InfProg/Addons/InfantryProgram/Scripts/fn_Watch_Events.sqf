@@ -68,8 +68,6 @@ if (count WMS_Events_Running != 0) then {
 			{
 				_cnt = _cnt + ({alive _x} count units _x);
 			} foreach (_x select 2);
-			//_opened = (_x select 3 select 0) getVariable ['opened', false];
-			//_openedTime = (_x select 3 select 0) getVariable ['openedTime', WMS_ServRestartSeconds];
 			_opened = (_x select 3 select 0) getVariable ['opened', false];
 			_openedTime = (_x select 3 select 0) getVariable ['openedTime', WMS_ServRestartSeconds];
 			if (WMS_Events_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP Watch]|WAK|TNA|WMS| Crate Opened: %1, Opened time: %2, %3 still alive", _opened,_openedTime,_cnt]};
@@ -81,7 +79,7 @@ if (count WMS_Events_Running != 0) then {
 				_mkr = (_x select 5);
 				_wps = (_x select 6);
 				_ref = (_x select 7);
-				if (_ref == "ALARM") then {
+				if (_ref == "ALARM") then {//that can not work obviously XD
 					PlaySound3D ["A3\Sounds_F\sfx\siren.wss", (_obj select 0), false, position (_obj select 0), 2, 1, 0];
 				};
 				//{
@@ -96,6 +94,8 @@ if (count WMS_Events_Running != 0) then {
 			};
 		};
 		
-		if (((_x select 7) == "DFO")) then {};
+		if (((_x select 7) == "DFO")) then {
+			_x call WMS_fnc_DFO_CallForCleanup;
+		};
 	} foreach WMS_Events_Running;
 };
