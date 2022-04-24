@@ -47,6 +47,10 @@ WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[
 						["O_Truck_02_medical_F","O_Truck_02_Ammo_F"],
 						["C_Hatchback_01_F","C_Offroad_02_unarmed_F","C_Van_02_medevac_F","C_Truck_02_transport_F"],
 						["O_static_AA_F","O_Mortar_01_F","O_GMG_01_high_F","O_HMG_01_high_F"]];//AA first
+WMS_DFO_NPCs			= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone version
+						["O_Soldier_AA_F","O_crew_F","O_Soldier_GL_F","O_soldier_M_F","O_Soldier_AR_F"], //AA first //crew second
+						["B_helicrew_F","B_soldier_AR_F","B_Soldier_GL_F","B_soldier_M_F","B_Soldier_F"], //crew first //in arma civillian can not have weapon...
+						["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 WMS_DFO_Markers			= ["n_support","n_hq"]; //["mission","RTB"]; //["loc_heli","mil_end_noShadow"]
 WMS_DFO_MkrColors		= ["colorOrange","colorGreen"]; //["mission","RTB"];
 WMS_DFO_Reward			= [500,2000]; //["rep","money"]
@@ -192,11 +196,264 @@ WMS_fnc_DFO_CreateTrigger = {
 	};
 	_triggList
 };
-WMS_fnc_DFO_NextStepMkrTrigg = { //probably RTB Or LZ2
+WMS_fnc_DFO_NextStepMkrTrigg = { //create last step to finish the mission RTB Or LZ2
 	//(thisTrigger getVariable 'WMS_DFO_triggData') call WMS_fnc_DFO_nextStepMkrTrigg;
 	//need to auto-delete at succes/fail
 	//WMS_DFO_Markers select 1;
 	//WMS_DFO_MkrColors select 1;
+};
+WMS_fnc_DFO_MissionSucces = {
+	private [];
+	params [
+		"_playerObject"
+	];
+};
+WMS_fnc_DFO_PunishPunks = {}; //will be use to remind to those getting in the mission zone that it's not their mission, ACE broken legs and things like that
+WMS_fnc_DFO_JVMF = {};//if (WMS_DFO_UseJVMF) then {[blablablabla] call WMS_fnc_DFO_JVMF;};
+WMS_fnc_DFO_SetUnits = { //For Standalone but not only //will use regular loadout from unit classname
+	private [];
+	params [
+		"_units",
+		["_infType","CIV"], //"OPFOR","CIV_ARMED","CIV"
+		["_skills",[0.80, 0.8, 0.3, 0.3, 0.3, 0.6, 0, 0.6, 0.6]] //WMS_AMS_skilleasy
+	];
+
+	{
+		//setSkill
+		_x setSkill ["spotDistance", 	(_skills select 0)];
+		_x setSkill ["spotTime", 		(_skills select 1)];
+		_x setSkill ["aimingAccuracy", 	(_skills select 2)];
+		_x setSkill ["aimingShake", 	(_skills select 3)];
+		_x setSkill ["aimingSpeed", 	(_skills select 4)];
+		_x setSkill ["reloadSpeed", 	(_skills select 5)];
+		_x setSkill ["courage", 		(_skills select 6)];
+		_x setSkill ["commanding", 		(_skills select 7)];
+		_x setSkill ["general", 		(_skills select 8)];
+		_x setVariable ["WMS_skills",_skills,true]; //will be used for AI killfeed on player EH killed
+		_x setVariable ["WMS_DFO_infType",_infType];
+		_x allowFleeing 0;
+
+		_x addEventHandler ["Killed", " 
+		[(_this select 0),(_this select 1)] call WMS_fnc_DFO_UnitEH;
+		"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
+	}forEach _units
+}; 
+WMS_fnc_DFO_UnitEH = { //For Standalone but not only
+		_infType = _unit getVariable ["WMS_DFO_infType","OPFOR"];
+		};
+WMS_fnc_DFO_infLoad = {}; //easy way: _unit moveInCargo _chopper;
+WMS_fnc_DFO_infUnLoad = {}; //easy way: moveOut _unit;
+WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_MaxRunning and probably diag_fps
+	private [
+		"_grps","_vhls","_objs","_mkrs","_launch","_pos","_radiusObjects","_MaxGrad","_posType","_createCIVinf","_createOPFORinf","_createCIVvhl","_createOPFORvhl","_MissionHexaID","_timeToDelete",
+		"_updatedTimer","_MissionPath","_MissionPathCoord","_posBase","_posLZ1","_posLZ2","_reinforce","_blackList","_mkrList","_triggList"
+		];
+	params [
+		"_playerObject", //event manager won't spawn a mission but acrivate the menu for player to call a mission
+		"_DFO_Object", //the object where the mission is called from
+		["_mission", (selectRandom WMS_DFO_MissionTypes)]
+	];
+	if ((count WMS_DFO_Running) > WMS_DFO_MaxRunning) exitWith {['Too many Flight Ops already running'] remoteExecCall ['SystemChat',_playerObject]}; //need some Diag_log too
+	_grps = [[],[]]; //pushback [[OPFOR],[CIV]]
+	_vhls = [[],[]]; //pushback [[OPFOR],[CIV]]
+	_objs = []; //pushback
+	_mkrs = []; //pushback
+	_MissionPathCoord = []; //pushback
+	_blackList = []; //KEEP EMPTY
+	_loadoutsCIV = []; //KEEP EMPTY
+	_infType = ""; //KEEP EMPTY //"OPFOR","CIV_ARMED","CIV"
+	_pos  = position _DFO_Object; //will need a safe position around to land/drop
+	_radiusObjects = 5;
+	_MaxGrad = WMS_AMS_MaxGrad;
+	_MissionPath = selectRandom WMS_DFO_MissionPaths;
+	_MissionStart = "BASE";  //define where is the pickup/infantry spawn //["AIR","BASE","LZ1"] //AIR will come later, JVMF or ACE function from pilot sit
+	_MissionFinish = "LZ1"; //where to bring them
+	_posBase = [_pos, 0, 100, 20, 0, _MaxGrad, 0, [], [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+	_posLZ1  = [worldsize/2,worldsize/2,0]; //default middle of the map
+	_posLZ2  = _posLZ1; //default middle of the map
+	_posType = "random"; //"random","forest","sea","buildings","military" //should be dynamic depending the mission
+	_civType = "unarmed"; //"armed"
+	_reinforce = WMS_DFO_Reinforcement;
+	_createCIVinf 	= false; //soldiers will be civilian as well for now, they are neutral
+	_createOPFORinf = false;
+	_createCIVvhl 	= false; //not used for now
+	_createOPFORvhl = false;
+	_createCargo 	= false;
+	_launch 		= false; //will be used as filter to prevent mission to be created if something is wrong: if !(_launch) exitWith {};
+	_updatedTimer = WMS_DFO_Timer;
+	_timeToDelete = (time+_updatedTimer);
+
+	if (WMS_DFO_Standalone) then { 
+		WMS_DFO_Standalone = false; //Standalone not ready yet
+		WMS_exileToastMsg = false;
+		_blackList = allPlayers select {alive _x} apply {[position _x, 900]};
+		//WMS_Events_Running = [];
+	}else {
+		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
+	};
+	//generate Mission Hexa ID
+	_MissionHexaID = [] call WMS_fnc_DFO_generateHexaID;
+	//setParameters depending the mission:
+	switch (_mission) do {
+		case "inftransport" : {
+			_missionStart = selectRandom ["BASE","LZ1"];
+			_missionFinish = (_MissionPath select ((count _MissionPath)-1) );
+			_createCIVinf = true;
+			_civType = selectRandom ["unarmed","armed"];
+			};
+		case "cargotransport" : {
+			_missionStart = selectRandom ["BASE","LZ1"];
+			_missionFinish = (_MissionPath select ((count _MissionPath)-1) );
+			_createCargo 	= true;
+		};
+		case "airassault" : { //destroy target or capture zone
+			if("LZ2" in _MissionPath) then {
+			_MissionStart = "LZ1"; //pickup
+			_MissionFinish = "LZ2"; //drop/cover //those dudes will probably beed to be BLUFOR to be able to do something...
+			};
+			_createCIVinf = true; //military at _MissionStart or civilian at _MissionFinish
+			_civType = "armed"; //only military for now
+			_createOPFORinf = true;
+			_createOPFORvhl = true; //light
+			};
+		case "casinf" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
+			_MissionStart = "LZ1";
+			_createOPFORinf = true; //AA launchers //LMG
+			};
+		case "casarmored" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
+			_MissionStart = "LZ1";
+			_createOPFORvhl = true; //heavy
+		};
+		case "cascombined" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
+			_MissionStart = "LZ1";
+			_createOPFORvhl = true;
+			_createOPFORinf = true;
+		};
+		case "sar" : { //"LZ1"->"BASE"
+			_MissionStart = "LZ1";
+			_MissionFinish = "BASE";
+			_createCIVinf = true; //not armed
+			};
+		case "csar" : { //"LZ1"->"BASE"
+			_MissionStart = "LZ1";
+			_MissionFinish = "BASE";
+			_createCIVinf = true; //not armed
+			_createOPFORvhl = selectRandom [true,false]; //light
+		};
+		case "maritime" : {}; //this one will definitly need way more work
+	};
+
+	//select mission position(s)
+		//can be from one of the already registered zone like WMS_Pos_Villages or WMS_Pos_Forests or all mixed
+		_MissionPathCoord pushBack _posBase;
+		_posLZ1 = [_posLZ1, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		_MissionPathCoord pushBack _posLZ1;
+		if ("LZ2" in _MissionPath) then {
+			_posLZ2 = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+			_MissionPathCoord pushBack _posLZ2;
+		}else {_MissionPathCoord pushBack _posBase};
+		if (_MissionStart == "BASE")then {_pos = _posBase};
+		if (_MissionStart == "LZ1")then {_pos = _posLZ1};
+		//if (_MissionFinish == "LZ2")then {_pos = _posLZ2}; //NOPE NOT HERE
+		//if (_MissionFinish == "BASE")then {_pos = _posBase}; //NOPE NOT HERE
+	//create mission/LZ marker
+		_mkrs = [_posLZ1,"LZ1"] call WMS_fnc_DFO_CreateMkr; //_options should contain [HexaID,pilote,mission markers,mission type,_MissionPathCoord]
+	//create mission vehicles
+		//chopper
+		if (WMS_DFO_createChopper) then { //should not be used with WMS_TheLastCartridges but anyway the chopper can not sell (addAction/sell), however Exile Mod will sell it (sell/Classname)
+			//do not pushback to _vhls but addAction on it "pack to get the reward" or something
+		};
+		//CIV
+		if (_createCIVvhl) then {};
+		//OPFOR
+		if (_createOPFORvhl) then {
+			//vehicle itself
+			//need to define what type of vehicle, depending what type of mission
+			_OPFORvhl = nil;
+			
+			clearMagazineCargoGlobal _OPFORvhl; 
+			clearWeaponCargoGlobal _OPFORvhl; 
+			clearItemCargoGlobal _OPFORvhl; 
+			clearBackpackCargoGlobal _OPFORvhl; 
+			//vehicle crew
+			_infType = "OPFOR";
+			_OPFORinfGrp = createGroup [OPFOR, false];
+			[(units _OPFORinfGrp),_infType] call WMS_fnc_DFO_SetUnits; //_infType will be used in the EH to get different result
+			for "_i" from 1 to 3 do { //GROUND = 3 AIR = 2
+				(WMS_DFO_NPCs select 0 select 0) createUnit [_pos, _OPFORinfGrp];
+			};
+			_OPFORinfGrp addvehicle _OPFORvhl;
+			leader _OPFORinfGrp assignAsDriver _OPFORvhl;
+			(units _OPFORinfGrp) orderGetIn true;
+			(_grps select 0) pushback _OPFORinfGrp;
+			[_OPFORinfGrp, _pos, 300, 4, "MOVE", "AWARE", "RED", "LIMITED", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+		};
+	//create mission cargo (crate)
+		if (_createCargo) then {
+			_cargo = selectRandom WMS_DFO_CargoType;
+			_cargoObject = _cargo createVehicle [(_pos select 0), (_pos select 1), 2];
+			clearMagazineCargoGlobal _cargoObject; 
+			clearWeaponCargoGlobal _cargoObject; 
+			clearItemCargoGlobal _cargoObject; 
+			clearBackpackCargoGlobal _cargoObject; 
+			_cargoObject allowdamage false;
+		};
+	//create mission NPCs
+		//CIV
+		if (_createCIVinf) then {
+			if(_civType == "armed") then {
+				_loadoutsCIV = (WMS_DFO_NPCs select 1);
+				_infType = "CIV_ARMED";
+			} else {
+				_loadoutsCIV = (WMS_DFO_NPCs select 2);
+				_infType = "CIV";
+			};	
+			_CIVinfGrp = createGroup [CIVILIAN, false];
+			for "_i" from 1 to (selectRandom [2,4,6,8]) do {
+				(selectRandom _loadoutsCIV) createUnit [_pos, _CIVinfGrp];
+			};
+			(_grps select 1) pushback _CIVinfGrp;
+			if (WMS_DFO_Standalone) then {
+				[(units _CIVinfGrp),_infType] call WMS_fnc_DFO_SetUnits; //_infType will be used in the EH to get different result
+			} else {
+
+				//[(units _CIVinfGrp),'Random',100,WMS_Recon_Guards_Skill,"army"] call WMS_fnc_DynAI_SetUnitOPF; //NOPE not for now
+			};
+		};
+		//OPFOR
+		if (_createOPFORinf) then {
+			_infType = "OPFOR";
+			_OPFORinfGrp = createGroup [OPFOR, false];
+			[(units _OPFORinfGrp),_infType] call WMS_fnc_DFO_SetUnits; //_infType will be used in the EH to get different result
+			for "_i" from 1 to (selectRandom [4,6,8,10]) do {
+				(selectRandom (WMS_DFO_NPCs select 0)) createUnit [_pos, _OPFORinfGrp];
+			};
+			(_grps select 0) pushback _OPFORinfGrp;
+			[_OPFORinfGrp, _pos, 75, 5, "MOVE", "AWARE", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+		};
+	//create mission zone trigger
+		_triggList = [_posLZ1,"LZ1",[_MissionHexaID,_playerObject,_mkrs,_mission,_MissionPathCoord]] call WMS_fnc_DFO_CreateTrigger; //_options should contain [HexaID,pilote,mission markers,mission type,_MissionPathCoord]
+		{_objs pushback _x}forEach _triggList;
+	//create reinforcement trigger
+		if (WMS_DFO_Reinforcement && _reinforce) then {
+			//auto delete at the first reinforcement
+			_triggList2 = [_posLZ1,"reinforcement",[_MissionHexaID,_playerObject,_mkrs,_mission,_MissionPathCoord]] call WMS_fnc_DFO_CreateTrigger; //_options should contain [HexaID,pilote,mission markers,mission type,_MissionPathCoord]
+			{_objs pushback _x}forEach _triggList2;
+		};
+	//Notifications
+		if (WMS_DFO_UseJVMF) then {["blablablabla"] call WMS_fnc_DFO_JVMF};
+		if (WMS_exileToastMsg) then {
+			_sessionID = _playerObject getVariable ['ExileSessionID',''];
+			[_sessionID, 'toastRequest', ['InfoTitleAndText', ['Dynamic Flight Ops', (format ["%1 @ %2",_mission, ([_posLZ1 select 0, _posLZ1 select 1])])]]] call ExileServer_system_network_send_to;
+		} else {
+			["EventCustom", ["Dynamic Flight Ops", (format ["%1 @ %2",_mission, ([_posLZ1 select 0, _posLZ1 select 1])]), "\A3\ui_f\data\map\MapControl\taskiconcreated_ca.paa"]] remoteExec ["BIS_fnc_showNotification", (owner _playerObject)];
+		};
+	//System/Management
+	WMS_DFO_LastCall = time;
+	WMS_DFO_Running pushback [_timeToDelete,_MissionHexaID,_playerObject,_mission];
+	WMS_Events_Running pushBack [time,_timeToDelete,_grps,_vhls,_objs,_mkrs,_cargoObject,"DFO",[_MissionHexaID,_playerObject,_mission,_MissionPathCoord]];
+	publicVariable "WMS_DFO_Running";
+	publicVariable "WMS_DFO_LastCall";
 };
 WMS_fnc_DFO_CallForCleanup = {
 	private [
@@ -308,173 +565,6 @@ WMS_fnc_DFO_CallForCleanup = {
 			["TaskFailed", ["Dynamic Flight Ops", "Mission FAILED!!!"]] remoteExec ["BIS_fnc_showNotification", (owner _playerObject)];
 		};
 	};
-};
-WMS_fnc_DFO_MissionSucces = {
-	private [];
-	params [
-		"_playerObject"
-	];
-};
-WMS_fnc_DFO_PunishPunks = {}; //will be use to remind to those getting in the mission zone that it's not their mission, ACE broken legs and things like that
-WMS_fnc_DFO_JVMF = {};//if (WMS_DFO_UseJVMF) then {[blablablabla] call WMS_fnc_DFO_JVMF;};
-WMS_fnc_DFO_infLoad = {};
-WMS_fnc_DFO_infUnLoad = {};
-WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_MaxRunning and probably diag_fps
-	private [
-		"_grps","_vhls","_objs","_mkrs","_launch","_pos","_radiusObjects","_MaxGrad","_posType","_createCIVinf","_createOPFORinf","_createCIVvhl","_createOPFORvhl","_MissionHexaID","_timeToDelete",
-		"_updatedTimer","_MissionPath","_MissionPathCoord","_posBase","_posLZ1","_posLZ2","_reinforce","_blackList","_mkrList","_triggList"
-		];
-	params [
-		"_playerObject", //event manager won't spawn a mission but acrivate the menu for player to call a mission
-		"_DFO_Object", //the object where the mission is called from
-		["_mission", (selectRandom WMS_DFO_MissionTypes)]
-	];
-	if ((count WMS_DFO_Running) > WMS_DFO_MaxRunning) exitWith {['Too many Flight Ops already running'] remoteExecCall ['SystemChat',_playerObject]}; //need some Diag_log too
-	_grps = [[],[]]; //pushback [[OPFOR],[CIV]]
-	_vhls = [[],[]]; //pushback [[OPFOR],[CIV]]
-	_objs = []; //pushback
-	_mkrs = []; //pushback
-	_blackList = [];
-	_pos  = position _DFO_Object; //will need a safe position around to land/drop
-	_radiusObjects = 5;
-	_MaxGrad = WMS_AMS_MaxGrad;
-	_MissionPath = selectRandom WMS_DFO_MissionPaths;
-	_MissionStart = "BASE";  //define where is the pickup/infantry spawn //["AIR","BASE","LZ1"] //AIR will come later, JVMF or ACE function from pilot sit
-	_MissionFinish = "LZ1"; //where to bring them
-	_MissionPathCoord = [];
-	_posBase = [_pos, 0, 100, 20, 0, _MaxGrad, 0, [], [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
-	_posLZ1  = [worldsize/2,worldsize/2,0]; //default middle of the map
-	_posLZ2  = _posLZ1; //default middle of the map
-	_posType = "random"; //"random","forest","sea","buildings","military" //should be dynamic depending the mission
-	_reinforce = WMS_DFO_Reinforcement;
-	_createCIVinf 	= false; //soldiers will be civilian as well for now, they are neutral
-	_createOPFORinf = false;
-	_createCIVvhl 	= false; //not used for now
-	_createOPFORvhl = false;
-	_createCargo 	= false;
-	_launch 		= false; //will be used as filter to prevent mission to be created if something is wrong: if !(_launch) exitWith {};
-	_updatedTimer = WMS_DFO_Timer;
-	_timeToDelete = (time+_updatedTimer);
-
-	if (WMS_DFO_Standalone) then { 
-		WMS_DFO_Standalone = false; //Standalone not ready yet
-		WMS_exileToastMsg = false;
-		_blackList = allPlayers select {alive _x} apply {[position _x, 900]};
-		//WMS_Events_Running = [];
-	}else {
-		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-	};
-	//generate Mission Hexa ID
-	_MissionHexaID = [] call WMS_fnc_DFO_generateHexaID;
-	//setParameters depending the mission:
-	switch (_mission) do {
-		case "inftransport" : {
-			_missionStart = selectRandom ["BASE","LZ1"];
-			_missionFinish = (_MissionPath select ((count _MissionPath)-1) );
-			_createCIVinf = true;
-			};
-		case "cargotransport" : {
-			_missionStart = selectRandom ["BASE","LZ1"];
-			_missionFinish = (_MissionPath select ((count _MissionPath)-1) );
-			_createCargo 	= true;
-		};
-		case "airassault" : { //destroy target or capture zone
-			if("LZ2" in _MissionPath) then {
-			_MissionStart = "LZ1"; //pickup
-			_MissionFinish = "LZ2"; //drop/cover //those dudes will probably beed to be BLUFOR to be able to do something...
-			};
-			_createCIVinf = true; //military at _MissionStart or civilian at _MissionFinish
-			_createOPFORinf = true;
-			_createOPFORvhl = true; //light
-			};
-		case "casinf" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
-			_MissionStart = "LZ1";
-			_createOPFORinf = true; //AA launchers //LMG
-			};
-		case "casarmored" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
-			_MissionStart = "LZ1";
-			_createOPFORvhl = true; //heavy
-		};
-		case "cascombined" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
-			_MissionStart = "LZ1";
-			_createOPFORvhl = true;
-			_createOPFORinf = true;
-		};
-		case "sar" : { //"LZ1"->"BASE"
-			_MissionStart = "LZ1";
-			_MissionFinish = "BASE";
-			_createCIVinf = true;
-			};
-		case "csar" : { //"LZ1"->"BASE"
-			_MissionStart = "LZ1";
-			_MissionFinish = "BASE";
-			_createCIVinf = true;
-			_createOPFORvhl = selectRandom [true,false]; //light
-		};
-		case "maritime" : {}; //this one will definitly need way more work
-	};
-
-	//select mission position(s)
-		//can be random
-		//can be from one of the already registered zone like WMS_Pos_Villages or WMS_Pos_Forests or all mixed
-		_MissionPathCoord pushBack _posBase;
-		_posLZ1 = [_posLZ1, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
-		_MissionPathCoord pushBack _posLZ1;
-		if ("LZ2" in _MissionPath) then {
-			_posLZ2 = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
-			_MissionPathCoord pushBack _posLZ2;
-		}else {_MissionPathCoord pushBack _posBase};
-	//create mission/LZ marker
-		_mkrs = [_posLZ1,"LZ1"] call WMS_fnc_DFO_CreateMkr; //_options should contain [HexaID,pilote,mission markers,mission type,_MissionPathCoord]
-	//create mission vehicles
-		//chopper
-		if (WMS_DFO_createChopper) then { //should not be used with WMS_TheLastCartridges but anyway the chopper can not sell (addAction/sell), however Exile Mod will sell it (sell/Classname)
-			//do not pushback to _vhls but addAction on it "pack to get the reward" or something
-		};
-		//CIV
-		if (_createCIVvhl) then {};
-		//OPFOR
-		if (_createOPFORvhl) then {};
-	//create mission cargo (crate)
-		if (_createCargo) then {
-			if (_MissionStart == "LZ1")then {_pos = _posLZ1};
-			if (_MissionStart == "BASE")then {_pos = _posBase};
-			_cargo = selectRandom WMS_DFO_CargoType;
-			_cargoObject = _cargo createVehicle [(_pos select 0), (_pos select 1), 2];
-			clearMagazineCargoGlobal _cargoObject; 
-			clearWeaponCargoGlobal _cargoObject; 
-			clearItemCargoGlobal _cargoObject; 
-			clearBackpackCargoGlobal _cargoObject; 
-			_cargoObject allowdamage false;
-		};
-	//create mission NPCs
-		//CIV
-		if (_createCIVinf) then {};
-		//OPFOR
-		if (_createOPFORinf) then {};
-	//create mission zone trigger
-		_triggList = [_posLZ1,"LZ1",[_MissionHexaID,_playerObject,_mkrs,_mission,_MissionPathCoord]] call WMS_fnc_DFO_CreateTrigger; //_options should contain [HexaID,pilote,mission markers,mission type,_MissionPathCoord]
-		{_objs pushback _x}forEach _triggList;
-	//create reinforcement trigger
-		if (WMS_DFO_Reinforcement && _reinforce) then {
-			//auto delete at the first reinforcement
-			_triggList2 = [_posLZ1,"reinforcement",[_MissionHexaID,_playerObject,_mkrs,_mission,_MissionPathCoord]] call WMS_fnc_DFO_CreateTrigger; //_options should contain [HexaID,pilote,mission markers,mission type,_MissionPathCoord]
-			{_objs pushback _x}forEach _triggList2;
-		};
-	//Notifications
-		if (WMS_DFO_UseJVMF) then {["blablablabla"] call WMS_fnc_DFO_JVMF};
-		if (WMS_exileToastMsg) then {
-			_sessionID = _playerObject getVariable ['ExileSessionID',''];
-			[_sessionID, 'toastRequest', ['InfoTitleAndText', ['Dynamic Flight Ops', (format ["%1 @ %2",_mission, ([_posLZ1 select 0, _posLZ1 select 1])])]]] call ExileServer_system_network_send_to;
-		} else {
-			["EventCustom", ["Dynamic Flight Ops", (format ["%1 @ %2",_mission, ([_posLZ1 select 0, _posLZ1 select 1])]), "\A3\ui_f\data\map\MapControl\taskiconcreated_ca.paa"]] remoteExec ["BIS_fnc_showNotification", (owner _playerObject)];
-		};
-	//System/Management
-	WMS_DFO_LastCall = time;
-	WMS_DFO_Running pushback [_timeToDelete,_MissionHexaID,_playerObject,_mission];
-	WMS_Events_Running pushBack [time,_timeToDelete,_grps,_vhls,_objs,_mkrs,_cargoObject,"DFO",[_MissionHexaID,_playerObject,_mission,_MissionPathCoord]];
-	publicVariable "WMS_DFO_Running";
-	publicVariable "WMS_DFO_LastCall";
 };
 //////////
 [] call WMS_fnc_DFO_createBaseAction;
