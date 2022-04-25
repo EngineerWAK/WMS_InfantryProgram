@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.584_2022APR25_GitHub";
+WMS_System_Version 			= "v2.585_2022APR25_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -167,6 +167,7 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 	//WMS_CaptureZone_Bdr 		= []; //Sign_Sphere25cm_F objects
 
 WMS_DynamicFlightOps	= false; //NOT READY YET
+WMS_fnc_DFO_LOGs		= true;
 WMS_DFO_Standalone		= false;
 WMS_DFO_CancelOnKIA		= false;
 WMS_DFO_Reinforcement	= false;
