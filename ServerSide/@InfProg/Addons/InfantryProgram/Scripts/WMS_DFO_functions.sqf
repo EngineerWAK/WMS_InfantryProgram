@@ -81,6 +81,57 @@ WMS_fnc_DFO_createBaseAction = {
 		[_x]call WMS_fnc_DFO_addAction;
 	}forEach WMS_DFO_ObjToAddAction;
 };
+WMS_fnc_DFO_BuildBase = {
+	params [
+		"_pos",
+		["_option", "FULL"]
+	];
+	_DFO_BaseObjects = [
+		["Sign_Arrow_Large_Green_F",[-12.5,0,0],0],
+		["Sign_Arrow_Large_Green_F",[0,-12.5,0],0],
+		["Sign_Arrow_Large_Green_F",[12.5,0,0],0],
+		["Sign_Arrow_Large_Green_F",[0,12.5,0],0],
+		["Sign_Arrow_Large_Green_F",[8.8,8.8,0],45],
+		["Sign_Arrow_Large_Green_F",[-8.9,8.8,0],45],
+		["Sign_Arrow_Large_Green_F",[-8.8,-8.9,0],45],
+		["Sign_Arrow_Large_Green_F",[8.8,-8.8,0],45]
+	];
+	if (_option == "FULL") then {
+		_DFO_BaseObjects = _DFO_BaseObjects + [["Land_HelipadCircle_F",[0,0,0],0]];
+	};
+	
+	private _compoRefPoint = createVehicle ["VR_Area_01_circle_4_yellow_F", _pos, [], 0, "CAN_COLLIDE"];
+	private _dirCompo = (Random 359);
+	_compoRefPoint setDir _dirCompo;
+	{
+		_object = createVehicle [(_x select 0), [0,0,4000], [], 0, "CAN_COLLIDE"];
+		_object setdir _dirCompo + (_x select 2);
+		_objectVectoriel = (_compoRefPoint modeltoworld  [(_x select 1 select 0),(_x select 1 select 1),0]);
+		_object setposATL [(_objectVectoriel select 0),(_objectVectoriel select 1),((_x select 1) select 2)];
+		_gradient = surfaceNormal position _object;
+		_object setvectorup _gradient;
+		_object allowDamage false;
+		_object enableSimulationGlobal true;
+		if ((_x select 0) == "Land_HelipadCircle_F") then {
+			_object setVariable ["WMS_DFO_BaseHelipad",true];
+		};
+	}forEach _DFO_BaseObjects;
+	private _triggMission = createTrigger ["EmptyDetector", _pos, true];  
+	_triggMission setTriggerActivation ["ANYPLAYER", "PRESENT", true];
+	_triggMission setTriggerArea [12.5, 12.5, 0, false];
+	_triggMission setTriggerStatements  
+	[ 
+  		"this",  
+  		"	
+	  		'Dynamic Flight Ops, Do not Park here' remoteExec ['hint', (owner (thisList select 0))]; 
+		",  
+  		"
+	  		'Dynamic Flight Ops, Thank you for your visit' remoteExec ['hint', (owner (thisList select 0))]; 
+		" 
+	];
+	deleteVehicle _compoRefPoint;
+		
+};
 WMS_fnc_DFO_addAction = { //can be called afterwards to add DFO action(s) to a new object
 	private ["_pos"];
 	params ["_objectToActivate"];
@@ -213,6 +264,13 @@ WMS_fnc_DFO_MissionSucces = {
 	];
 	//reward the pilote for the great job depending the mission
 	//WMS_DFO_Reward = [500,2000]; //["rep","money"]
+	if (WMS_DFO_UseJVMF) then {["blablablabla"] call WMS_fnc_DFO_JVMF};
+	if (WMS_exileToastMsg) then {
+		_sessionID = _playerObject getVariable ['ExileSessionID',''];
+		[_sessionID, 'toastRequest', ['SuccessTitleAndText', ['Dynamic Flight Ops', 'Mission SUCCES!!!']]] call ExileServer_system_network_send_to;
+	} else {
+			["TaskSucceeded", ["Dynamic Flight Ops", "Mission SUCCES!!!"]] remoteExec ["BIS_fnc_showNotification", (owner _playerObject)];
+	};
 
 };
 WMS_fnc_DFO_PunishPunks = {}; //will be use to remind to those getting in the mission zone that it's not their mission, ACE broken legs and things like that
@@ -308,24 +366,11 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		["_mission", (selectRandom WMS_DFO_MissionTypes)]
 	];
 	if ((count WMS_DFO_Running) > WMS_DFO_MaxRunning) exitWith {['Too many Flight Ops already running'] remoteExecCall ['SystemChat',_playerObject]}; //need some Diag_log too
-	_grps = [[],[]]; //pushback [[OPFOR],[CIV]]
-	_vhls = [[],[]]; //pushback [[OPFOR],[CIV]]
-	_objs = []; //pushback
-	_mkrs = []; //pushback
-	_MissionPathCoord = []; //pushback
-	_blackList = []; //KEEP EMPTY
-	_loadoutsCIV = []; //KEEP EMPTY
-	_infType = ""; //KEEP EMPTY //"OPFOR","CIV_ARMED","CIV"
-
-	_pos  = position _DFO_Object; //will need a safe position around to land/drop
 	_radiusObjects = 5;
 	_MaxGrad = WMS_AMS_MaxGrad;
 	_MissionPath = selectRandom WMS_DFO_MissionPaths;
 	_MissionStart = "BASE";  //define where is the pickup/infantry spawn //["AIR","BASE","LZ1"] //AIR will come later, JVMF or ACE function from pilot sit
 	_MissionFinish = "LZ1"; //where to bring them
-	_posBase = [_pos, 0, 100, 20, 0, _MaxGrad, 0, [], [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
-	_posLZ1  = [worldsize/2,worldsize/2,0]; //default middle of the map
-	_posLZ2  = _posLZ1; //default middle of the map
 		_posType = "random"; //"random","forest","sea","buildings","military" //should be dynamic depending the mission
 	_civType = "unarmed"; //"armed"
 	_OPFORvhlType = ["APC"];//[["AIR_HEAVY"],["AIR_LIGHT"],["AIR_UNARMED"],["HEAVY"],["APC"],["LIGHT"],["UNARMED"],["CIV"],["STATICS"]]
@@ -339,6 +384,41 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		_launch 		= false; //will be used as filter to prevent mission to be created if something is wrong: if !(_launch) exitWith {};
 	_updatedTimer = WMS_DFO_Timer;
 	_timeToDelete = (time+_updatedTimer);
+
+	_grps = [[],[]]; //pushback [[OPFOR],[CIV]]
+	_vhls = [[],[]]; //pushback [[OPFOR],[CIV]]
+	_objs = []; //pushback
+	_mkrs = []; //pushback
+	_MissionPathCoord = []; //pushback
+	_blackList = []; //KEEP EMPTY
+	_loadoutsCIV = []; //KEEP EMPTY
+	_infType = ""; //KEEP EMPTY //"OPFOR","CIV_ARMED","CIV"
+
+	_pos  = position _DFO_Object; //will need a safe position around to land/drop
+	_posBase = [worldsize/2,worldsize/2,0]; //default middle of the map
+	_posLZ1  = [0,worldsize,0];
+	_posLZ2  = [worldsize,0,0];
+	//look around if there is already a "BASE" position //"Land_HelipadSquare_F","Land_HelipadRescue_F","Land_HelipadEmpty_F","Land_HelipadCivil_F","Land_HelipadCircle_F"
+	private _helipadList =  nearestObjects [_pos, ["Land_HelipadSquare_F","Land_HelipadRescue_F","Land_HelipadCivil_F","Land_HelipadCircle_F"], 150];
+	private _DFO_BaseHelipads = [];
+	if (count _helipadList != 0) then {
+		{
+			private _DFO_status = _x getVariable ["WMS_DFO_BaseHelipad",false];
+			if (_DFO_status) then {_DFO_BaseHelipads pushBack _X};
+		}forEach _helipadList;
+		if (count _DFO_BaseHelipads != 0) then {
+			_posBase = position (_DFO_BaseHelipads select 0);
+		}else {
+			_posBase = position (_helipadList select 0);
+			[_posBase, "notFull"] call WMS_fnc_DFO_BuildBase;
+			(_helipadList select 0) setVariable ["WMS_DFO_BaseHelipad",true];
+		};
+
+	} else {
+		//if not, create one
+		_posBase = [_pos, 0, 150, 20, 0, _MaxGrad, 0, [], [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		[_posBase] call WMS_fnc_DFO_BuildBase;
+	};
 
 	if (WMS_DFO_Standalone) then { 
 		WMS_DFO_Standalone = false; //Standalone not ready yet
@@ -372,7 +452,6 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			_civType = "armed"; //only military for now
 			_createOPFORinf = true;
 			_createOPFORvhl = true; //light/APC
-			//_OPFORvhlType = ["LIGHT","APC"];//[["AIR_HEAVY"],["AIR_LIGHT"],["AIR_UNARMED"],["HEAVY"],["APC"],["LIGHT"],["UNARMED"],["CIV"],["STATICS"]]
 			_OPFORvhlType = [4,5];//[["AIR_HEAVY"],["AIR_LIGHT"],["AIR_UNARMED"],["HEAVY"],["APC"],["LIGHT"],["UNARMED"],["CIV"],["STATICS"]]
 			_OPFORvhlCnt = selectRandom [1,2];
 			};
@@ -383,14 +462,12 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		case "casarmored" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
 			_MissionStart = "LZ1";
 			_createOPFORvhl = true; //heavy
-			//_OPFORvhlType = ["HEAVY","APC"];//[["AIR_HEAVY"],["AIR_LIGHT"],["AIR_UNARMED"],["HEAVY"],["APC"],["LIGHT"],["UNARMED"],["CIV"],["STATICS"]]
 			_OPFORvhlType = [3,4];//[["AIR_HEAVY"],["AIR_LIGHT"],["AIR_UNARMED"],["HEAVY"],["APC"],["LIGHT"],["UNARMED"],["CIV"],["STATICS"]]
 			_OPFORvhlCnt = selectRandom [1,2,3];
 		};
 		case "cascombined" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
 			_MissionStart = "LZ1";
 			_createOPFORvhl = true;
-			//_OPFORvhlType = ["AIR_HEAVY","AIR_LIGHT","HEAVY","APC","LIGHT"];//[["AIR_HEAVY"],["AIR_LIGHT"],["AIR_UNARMED"],["HEAVY"],["APC"],["LIGHT"],["UNARMED"],["CIV"],["STATICS"]]
 			_OPFORvhlType = [0,1,3,4,5];//[["AIR_HEAVY"],["AIR_LIGHT"],["AIR_UNARMED"],["HEAVY"],["APC"],["LIGHT"],["UNARMED"],["CIV"],["STATICS"]]
 			_OPFORvhlCnt = selectRandom [2,3,4];
 			_createOPFORinf = true;
@@ -405,7 +482,6 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			_MissionFinish = "BASE";
 			_createCIVinf = true; //not armed
 			_createOPFORvhl = selectRandom [true,false]; //light
-			//_OPFORvhlType = ["LIGHT"];//[["AIR_HEAVY"],["AIR_LIGHT"],["AIR_UNARMED"],["HEAVY"],["APC"],["LIGHT"],["UNARMED"],["CIV"],["STATICS"]]
 			_OPFORvhlType = [5];//[["AIR_HEAVY"],["AIR_LIGHT"],["AIR_UNARMED"],["HEAVY"],["APC"],["LIGHT"],["UNARMED"],["CIV"],["STATICS"]]
 		};
 		case "maritime" : {}; //this one will definitly need way more work
@@ -610,16 +686,9 @@ WMS_fnc_DFO_CallForCleanup = {
 		//deleteVehicle _cargo; //I guess cargo can stay, its not a big deal
 		WMS_Events_Running deleteAt (WMS_Events_Running find _x); //BE SURE ABOUT THIS ONE, HexaID Check
 		//send victory message and rewards
-		if (WMS_DFO_UseJVMF) then {["blablablabla"] call WMS_fnc_DFO_JVMF};
-		if (WMS_exileToastMsg) then {
-			_sessionID = _playerObject getVariable ['ExileSessionID',''];
-			[_sessionID, 'toastRequest', ['SuccessTitleAndText', ['Dynamic Flight Ops', 'Mission SUCCES!!!']]] call ExileServer_system_network_send_to;
-		} else {
-			["TaskSucceeded", ["Dynamic Flight Ops", "Mission SUCCES!!!"]] remoteExec ["BIS_fnc_showNotification", (owner _playerObject)];
-		};
 		[_playerObject]call WMS_fnc_DFO_MissionSucces;
 	};
-	if (_timeToDelete > time) then {
+	if (time >= _timeToDelete) then {
 		//FAIL!!! cleanup
 		{
 			{moveOut _x; deleteVehicle _x;} forEach units _x;
