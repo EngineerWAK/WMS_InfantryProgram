@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.582_2022APR24_GitHub";
+WMS_System_Version 			= "v2.583_2022APR25_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -172,6 +172,7 @@ WMS_DFO_CancelOnKIA		= false;
 WMS_DFO_Reinforcement	= false;
 WMS_DFO_CreateChopper	= false;
 WMS_DFO_UseJVMF			= false;
+WMS_DFO_RemoveDup		= true; //delete dead NPC primary weapons and backpack
 WMS_DFO_MaxRunning		= 3;
 WMS_DFO_CoolDown		= 300;
 WMS_DFO_LastCall		= (time-WMS_DFO_CoolDown);
