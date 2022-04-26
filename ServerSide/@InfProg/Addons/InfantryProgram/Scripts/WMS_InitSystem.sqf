@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.585_2022APR25_GitHub";
+WMS_System_Version 			= "v2.587_2022APR26_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -166,13 +166,13 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 	//WMS_CaptureZone_Dis		= [100,300]; //AI waves spawn distances
 	//WMS_CaptureZone_Bdr 		= []; //Sign_Sphere25cm_F objects
 
-WMS_DynamicFlightOps	= false; //NOT READY YET
+WMS_DynamicFlightOps	= true; //NOT READY YET
 WMS_fnc_DFO_LOGs		= true;
-WMS_DFO_Standalone		= false;
-WMS_DFO_CancelOnKIA		= false;
-WMS_DFO_Reinforcement	= false;
-WMS_DFO_CreateChopper	= false;
-WMS_DFO_UseJVMF			= false;
+WMS_DFO_Standalone		= false; //NOT READY YET
+WMS_DFO_CancelOnKIA		= false; //NOT READY YET
+WMS_DFO_Reinforcement	= false; //NOT READY YET
+WMS_DFO_CreateChopper	= false; //NOT READY YET
+WMS_DFO_UseJVMF			= false; //NOT READY YET
 WMS_DFO_RemoveDup		= true; //delete dead NPC primary weapons and backpack
 WMS_DFO_MaxRunning		= 3;
 WMS_DFO_CoolDown		= 300;
@@ -182,7 +182,8 @@ WMS_DFO_MinMaxDist		= [4000,6000];
 WMS_DFO_ReinfTriggDist	= 1000;
 WMS_DFO_MkrRandomDist	= 500;
 WMS_DFO_CargoType		= ["CargoNet_01_barrels_F","C_IDAP_CargoNet_01_supplies_F","CargoNet_01_box_F"];
-WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar","maritime"];// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
+WMS_DFO_MissionTypes	= ["cargotransport"]; //first test
+//WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar","maritime"];// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
 WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
 //WMS_DFO_Choppers		= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS]]
@@ -204,8 +205,8 @@ WMS_DFO_MkrColors		= ["colorOrange","colorGreen"]; //["mission","RTB"];
 WMS_DFO_Reward			= [500,2000]; //["rep","money"]
 WMS_DFO_MissionPaths	= [["BASE","LZ1","BASE"],["BASE","LZ1","LZ2"]]; // "takeoff/mission/complet" //the first "BASE" could become "AIR" if mission called during flight
 WMS_DFO_BasePositions	= []; //KEEP EMPTY //will be pushed back from "somewhere"
-WMS_DFO_ObjToAddAction	= []; //KEEP EMPTY //will be pushed back from "somewhere"
 WMS_DFO_Running			= []; //KEEP EMPTY //[["TimeToDelete","MissionHexaID",_playerObject,_mission]]
+	//WMS_DFO_ObjToAddAction	= []; //No need anymore //will be pushed back from "somewhere"
 
 publicVariable "WMS_DFO_Running";
 publicVariable "WMS_DFO_MaxRunning";

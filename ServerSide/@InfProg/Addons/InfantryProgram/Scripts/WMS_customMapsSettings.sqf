@@ -16,6 +16,7 @@ if (WMS_MapName == "ruha") then {
 										WMS_AI_MaxUnits_A 			= 100; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
 										WMS_AI_MaxUnits_B 			= 115; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
 										WMS_AI_MaxUnits_C 			= 130; //stop Base attack and missions
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
@@ -67,6 +68,7 @@ if (WMS_MapName == "xcam_taunus") then {	//NOTE THAT TAUNUS IS VERY LAGGY SERVER
 										WMS_AI_MaxUnits_A 			= 150; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
 										WMS_AI_MaxUnits_B 			= 170; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
 										WMS_AI_MaxUnits_C 			= 190; //stop Base attack and missions
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
@@ -123,6 +125,7 @@ if (WMS_MapName == "Lythium") then {
 										WMS_AI_MaxUnits_A 			= 150; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
 										WMS_AI_MaxUnits_B 			= 170; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
 										WMS_AI_MaxUnits_C 			= 190; //stop Base attack and missions
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
@@ -167,6 +170,7 @@ if (WMS_MapName == "gm_weferlingen_summer") then {
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_weferlingen.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_weferlingen.sqf";
 										WMS_WaterSource				= "land_gm_euro_misc_waterpump_01";
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_AI_LaunchersOPF 		= [["gm_m72a3_oli","gm_pzf44_2_oli","rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded"],["rhs_weap_igla"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["R3F_STINGER"],["R3F_ERYX"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
@@ -275,6 +279,7 @@ if (WMS_MapName == "Altis") then {
 										WMS_AI_MaxUnits_A 			= 130; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
 										WMS_AI_MaxUnits_B 			= 150; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
 										WMS_AI_MaxUnits_C 			= 170; //stop Base attack and missions
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
@@ -325,6 +330,7 @@ if (WMS_MapName == "Tanoa") then {
 										WMS_AI_MaxUnits_C 			= 190; //stop Base attack and missions
 										WMS_IP_Extract_Alt 			= 100;
 										WMS_C130_Altitude 			= 150;
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["rhs_weap_igla"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["R3F_STINGER"],["R3F_ERYX"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
@@ -412,7 +418,7 @@ if (WMS_MapName == "Tanoa") then {
 											["OutpostGolf",2] //+V2
 										];
 										};
-if (WMS_MapName == "Malden") then {		
+if (WMS_MapName == "Malden") then {	//OUTDATED
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_Vanilla.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_Vanilla_NOSCOPE.sqf";
 										WMS_IP_Extract_Alt 			= 150;
@@ -481,6 +487,7 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										WMS_AI_MaxUnits_C 			= 200; //stop Base attack and missions
 										WMS_IP_Extract_Alt 			= 75;
 										WMS_C130_Altitude 			= 150;
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["rhs_weap_igla"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["R3F_STINGER"],["R3F_ERYX"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
@@ -524,9 +531,10 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										WMS_DynAI_remRPG 			= false;
 										WMS_AMS_ClnObj 				= false;
 										};
-if (WMS_MapName == "tem_kujari") then {	//Kujari
+if (WMS_MapName == "tem_kujari") then {	//OUTDATED
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["rhs_weap_igla"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["R3F_STINGER"],["R3F_ERYX"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
@@ -607,9 +615,10 @@ if (WMS_MapName == "tem_kujari") then {	//Kujari
 											["rhs_btr60_vv", ["3tone",1],[[],[]]]
 										];
 									};
-if (WMS_MapName == "vt7") then {			//Virolahti
+if (WMS_MapName == "vt7") then {//Virolahti
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";	
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["rhs_weap_igla"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["R3F_STINGER"],["R3F_ERYX"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C

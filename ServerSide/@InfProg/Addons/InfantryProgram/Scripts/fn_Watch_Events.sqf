@@ -95,7 +95,7 @@ if (count WMS_Events_Running != 0) then {
 		};
 		
 		if (((_x select 7) == "DFO")) then {
-			_x call WMS_fnc_DFO_CallForCleanup;
+			_x call WMS_fnc_DFO_Cleanup;
 		};
 	} foreach WMS_Events_Running;
 };
