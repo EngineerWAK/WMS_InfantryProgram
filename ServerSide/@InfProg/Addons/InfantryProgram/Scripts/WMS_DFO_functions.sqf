@@ -243,7 +243,7 @@ WMS_fnc_DFO_CreateTrigger = {
 	params [
 		"_pos",
 		["_triggType", "whatever"],
-		["_options",[]] //data need to transfer to next level should contain HexaID,pilot,mission marker,mission type,_MissionPathCoord
+		["_options",[]] //[_MissionHexaID,_playerObject,_mkrs,_mission,_MissionPathCoord,_missionName,_MissionFinish]
 	];
 	_triggList = [];
 	
@@ -258,7 +258,10 @@ WMS_fnc_DFO_CreateTrigger = {
   			"this && ({ (getPosATL _x) select 2 <= 10 } count thislist) > 0",   
   			"	
 		  		private _datas = (thisTrigger getVariable 'WMS_DFO_triggData');
-				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger LZ1 | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 |', (_datas select 0), name (_datas select 1), (_datas select 2), (_datas select 3), (_datas select 4)]};
+				private _pilot = (_datas select 1);
+				private _mission = (_datas select 3);
+				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger LZ1 | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 |', (_datas select 0), name _pilot , (_datas select 2), _mission, (_datas select 4)]};
+				if(_mission == 'sar' || _mission == 'csar' || _mission == 'airassault' || _mission == 'inftransport') then {[vehicle _pilot , _pilot ] call WMS_fnc_DFO_infLoad};
 				_datas call WMS_fnc_DFO_nextStepMkrTrigg;
 				{deleteMarker _x}forEach (_datas select 2);
 				deleteVehicle thisTrigger;
@@ -278,7 +281,7 @@ WMS_fnc_DFO_CreateTrigger = {
   			"this",  
   			"
 				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger REINFORCE | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 |', (_datas select 0), name (_datas select 1), (_datas select 2), (_datas select 3), (_datas select 4)]};
-				[] call WMS_fnc_DFO_Reinforce;
+				['LZ1'] call WMS_fnc_DFO_Reinforce;
 				deleteVehicle thisTrigger;
 			",  
   			"" 
@@ -338,8 +341,10 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
   		"	
 			private _datas = (thisTrigger getVariable 'WMS_DFO_triggData');
 			private _pilot = (_datas select 1);
+			private _mission = (_datas select 3);
 			if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger END | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 | ThisList %6', (_datas select 0), name (_datas select 1), (_datas select 2), (_datas select 3), (_datas select 4), thisList]};
-			if ((_pilot in thisList) && {(vehicle _pilot) isKindOf 'Helicopter'} && {speed _pilot < 15}) then {
+			if (((vehicle _pilot) in thisList) && {(vehicle _pilot) isKindOf 'Helicopter'} && {speed _pilot < 15}) then {
+				if(_mission == 'sar' || _mission == 'csar' || _mission == 'airassault' || _mission == 'inftransport') then {[vehicle _pilot, _pilot] call WMS_fnc_DFO_infUnLoad};
 				_datas call WMS_fnc_DFO_CallForCleanup;
 				deleteMarker (_datas select 2);
 				deleteVehicle thisTrigger;
@@ -464,11 +469,34 @@ WMS_fnc_DFO_UnitEH = { //For Standalone but not only
 	};
 	//////////
 };
-WMS_fnc_DFO_infLoad = {//easy way: _unit moveInCargo _chopper;
+WMS_fnc_DFO_infLoad = { //easy way: _unit moveInCargo _chopper;
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infLoad _this %1', _this]};
+	params [
+		"_vehiceObject", //should carry a variable with all units to load
+		"_pilotObject"
+	];
+		private _Units = _pilotObject getVariable ["WMS_DFO_UnitsToManage", []];
+		//{if (alive _x) then {_x moveInCargo _vehiceObject};}forEach _Units;
+		{
+			if (alive _x) then {
+				_x assignAsCargo _vehiceObject;
+				_x setUnitPos "AUTO";
+			};
+		}forEach _Units;
+		_Units orderGetIn true;
 	}; 
 WMS_fnc_DFO_infUnLoad = { //easy way: moveOut _unit;
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infUnLoad _this %1', _this]};
+	params [
+		"_vehiceObject",
+		"_pilotObject"
+	];
+		{
+			if !(isPlayer _x) then {
+				moveOut _x;
+				_x assignAsCargo _vehiceObject;
+			};
+		}forEach crew _vehiceObject;
 	};
 WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_MaxRunning and probably diag_fps
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_Event_DFO _this %1', _this]};
@@ -637,7 +665,6 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			};
 		};
 		
-		
 		//chopper
 		if (WMS_DFO_createChopper) then { //should not be used with WMS_TheLastCartridges but anyway the chopper can not sell (addAction/sell), however Exile Mod will sell it (sell/Classname)
 			//do not pushback to _vhls but addAction on it "pack to get the reward" or something
@@ -703,14 +730,17 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			_CIVinfGrp = createGroup [CIVILIAN, false];
 			for "_i" from 1 to (selectRandom [2,4,6,8]) do {
 				(selectRandom _loadoutsCIV) createUnit [_pos, _CIVinfGrp];
+				//deactivat2 LambsDanger
 			};
+			{_x setUnitPos "MIDDLE";}forEach units _CIVinfGrp;
 			(_grps select 1) pushback _CIVinfGrp;
 			if (WMS_DFO_Standalone) then {
 				[(units _CIVinfGrp),[_MissionHexaID,_playerObject,_mission,_infType]] call WMS_fnc_DFO_SetUnits;
 			} else {
-
+				[(units _CIVinfGrp),[_MissionHexaID,_playerObject,_mission,_infType]] call WMS_fnc_DFO_SetUnits;
 				//[(units _CIVinfGrp),'Random',100,WMS_Recon_Guards_Skill,"army"] call WMS_fnc_DynAI_SetUnitOPF; //NOPE not for now
 			};
+			_playerObject setVariable ["WMS_DFO_UnitsToManage", (units _CIVinfGrp)];
 		};
 		//OPFOR
 		if (_createOPFORinf) then {
@@ -745,7 +775,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 	//System/Management
 	WMS_DFO_LastCall = time;
 	//WMS_DFO_Running pushback [_timeToDelete,_MissionHexaID,_playerObject,_mission];
-	WMS_DFO_Running pushback [time,_timeToDelete,_grps,_vhls,_objs,_mkrs,_cargoObject,"DFO",[_MissionHexaID,_playerObject,_mission,_MissionPathCoord,_missionName,_MissionFinish]];
+	WMS_DFO_Running pushback [time,_timeToDelete,_grps,_vhls,_objs,_mkrs,_cargoObject,"DFO",[_MissionHexaID,_playerObject,_mission,_MissionPathCoord,_missionName,_MissionFinish],_MissionHexaID];
 	//WMS_Events_Running pushBack [time,_timeToDelete,_grps,_vhls,_objs,_mkrs,_cargoObject,"DFO",[_MissionHexaID,_playerObject,_mission,_MissionPathCoord]];
 	publicVariable "WMS_DFO_Running";
 	publicVariable "WMS_DFO_LastCall";
@@ -754,10 +784,21 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 WMS_fnc_DFO_CallForCleanup = {
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CallForCleanup _this %1', _this]};
 	params ["_MissionHexaID","_playerObject","_mkrName","_mission","_MissionPathCoord"];
-	private _DFOeventArrayRef = WMS_DFO_Running find _MissionHexaID;
-	if (_DFOeventArrayRef == -1) exitWith {if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CallForCleanup MissionID %1 doesnt exist', _MissionHexaID]};};
+	//private _DFOeventArrayRef = WMS_DFO_Running find _MissionHexaID;
+	private _result = []; 
+	{ 
+		_found = _x find _MissionHexaID;
+		_result pushback _found;
+	}forEach WMS_DFO_Running;
+	_DFOeventArrayRef = _result find 9; //NOT 0 FOR THIS ONE
+
+	if (_DFOeventArrayRef == -1) exitWith {if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CallForCleanup MissionID %1 doesnt exist, result', _MissionHexaID,_result]};};
 	private _DFOeventArray = WMS_DFO_Running select _DFOeventArrayRef;
-	_DFOeventArray call WMS_fnc_DFO_Cleanup;
+	[_DFOeventArray]spawn {
+		uisleep 5;
+		(_this select 0) call WMS_fnc_DFO_Cleanup;
+	};
+	
 };
 
 WMS_fnc_DFO_Cleanup = {
@@ -822,6 +863,77 @@ WMS_fnc_DFO_Cleanup = {
 	};
 	if (_succes == true) then {
 				//VICTORY!!! cleanup
+				//THOSE 2 BIG CHUNKS ARE INDENTICAL beside [_playerObject]call WMS_fnc_DFO_MissionSucces; and the fail massage, need to compact this
+		private _MarkerToDelete = missionNameSpace getVariable ["WMS_DFO_MarkerToDelete",[]];
+		if (count _MarkerToDelete != 0) then {
+			private _result = []; 
+			{ 
+				_found = _x find (_options select 0);
+				_result pushback _found;
+			}forEach _MarkerToDelete;
+			_MarkerToDeleteRef = _result find 0;
+			if (_MarkerToDeleteRef != -1) then {
+				private _MarkerToDeleteData = _MarkerToDelete select _MarkerToDeleteRef;
+				if (count _MarkerToDeleteData == 2) then {
+					if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup _MarkerToDeleteData %1', _MarkerToDeleteData]};
+					deleteMarker (_MarkerToDeleteData select 1);
+					_MarkerToDelete deleteAt _MarkerToDeleteRef;
+					missionNameSpace setVariable ["WMS_DFO_MarkerToDelete",_MarkerToDelete];
+				};
+			}else{
+				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup Mission HexaID not found %1 in %2', (_options select 0),_MarkerToDelete]};
+			};
+		}else{
+			if (WMS_fnc_DFO_LOGs) then {'|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup No Marker to Delete'};
+		};
+
+		private _TriggerToDelete = missionNameSpace getVariable ["WMS_DFO_TriggerToDelete",[]]; // [[_MissionHexaID,_triggName]]
+		if (count _TriggerToDelete != 0) then {
+			private _result = []; 
+			{ 
+				_found = _x find (_options select 0);
+				_result pushback _found;
+			}forEach _TriggerToDelete;
+			_TriggerToDeleteRef = _result find 0;
+			if (_TriggerToDeleteRef != -1) then {
+				private _TriggerToDeleteData = _TriggerToDelete select _TriggerToDeleteRef;
+				if (count _TriggerToDeleteData == 2) then {
+					if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup _TriggerToDeleteData %1', _TriggerToDeleteData]};
+					missionNameSpace setVariable ["WMS_DFO_TriggerToDelete",_TriggerToDelete];
+					deleteVehicle  (_TriggerToDeleteData select 1);
+					_TriggerToDelete deleteAt _TriggerToDeleteRef;
+				};
+			}else{
+				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup Mission HexaID not found %1 in %2', (_options select 0),_TriggerToDelete]};
+			};
+		}else{
+			if (WMS_fnc_DFO_LOGs) then {'|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup No Trigger to Delete'};
+		};
+
+		private _ObjectToDelete = missionNameSpace getVariable ["WMS_DFO_ObjectToDelete",[]]; // [[_MissionHexaID,_triggName]]
+		if (count _ObjectToDelete != 0) then {
+			private _result = []; 
+			{ 
+				_found = _x find (_options select 0);
+				_result pushback _found;
+			}forEach _ObjectToDelete;
+			_ObjectToDeleteRef = _result find 0;
+			if (_ObjectToDeleteRef != -1) then {
+				private _ObjectToDeleteData = _ObjectToDelete select _ObjectToDeleteRef;
+				if (count _ObjectToDeleteData == 2) then {
+					if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup _ObjectToDeleteData %1', _ObjectToDeleteData]};
+					missionNameSpace setVariable ["WMS_DFO_ObjectToDelete",_ObjectToDelete];
+					deleteVehicle  (_ObjectToDeleteData select 1);
+					_ObjectToDelete deleteAt _ObjectToDeleteRef;
+				};
+			}else{
+				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup Mission HexaID not found %1 in %2', (_options select 0),_ObjectToDelete]};
+			};
+		}else{
+			if (WMS_fnc_DFO_LOGs) then {'|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup No Object to Delete'};
+		};
+		//Units/Groups spawned at LZ2 will also need a custom cleanup
+		private _GroupToDelete = missionNameSpace getVariable ["WMS_DFO_GroupToDelete",[]]; // [[_MissionHexaID,group]]
 		{
 			{moveOut _x; deleteVehicle _x;} forEach units _x;
 		} forEach _grpOPFOR; 
@@ -835,7 +947,8 @@ WMS_fnc_DFO_Cleanup = {
 		{deleteGroup _x;} forEach _grpOPFOR; 
 		{deleteGroup _x;} forEach _grpCIV;
 		//deleteVehicle _cargo; //I guess cargo can stay, its not a big deal
-		WMS_DFO_Running deleteAt (WMS_DFO_Running find _x); //BE SURE ABOUT THIS ONE, HexaID Check
+		_playerObject setVariable ["WMS_DFO_UnitsToManage", nil];
+		WMS_DFO_Running deleteAt (WMS_DFO_Running find _this); //BE SURE ABOUT THIS ONE, HexaID Check
 		//send victory message and rewards
 		[_playerObject]call WMS_fnc_DFO_MissionSucces;
 	};
@@ -929,6 +1042,7 @@ WMS_fnc_DFO_Cleanup = {
 		{deleteGroup _x;} forEach _grpCIV;
 		//deleteVehicle _cargo; //I guess cargo can stay, its not a big deal
 		WMS_DFO_Running deleteAt (WMS_DFO_Running find _this); //BE SURE ABOUT THIS ONE, HexaID Check
+		_playerObject setVariable ["WMS_DFO_UnitsToManage", nil];
 		//send fail message
 		if (WMS_DFO_UseJVMF) then {["blablablablaBOOOOOOOOOOHHHHHHH"] call WMS_fnc_DFO_JVMF};
 		if (WMS_exileToastMsg) then {
