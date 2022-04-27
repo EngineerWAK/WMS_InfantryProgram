@@ -47,12 +47,6 @@ if (time > _timeToWait) then {
 		if (WMS_Events_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Processing Event: %1", _type];};
 		["random", (selectRandom ["layout1","layout2","layout3","layout4","layout5"])] spawn WMS_fnc_Event_CaptureZone;
 	};
-	
-	if (_type == "DFO") then {//one mission will be random spawn as event, player can request a mission from [need to be defined]
-		//event Manager could just "activate" the menu to call for a mission and not spawn one, with a general notification
-		if (WMS_Events_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Processing Event: %1", _type];};
-		//["random or playerObject", (selectRandom WMS_DFO_MissionTypes)] call WMS_fnc_Event_DFO;
-	};
 	WMS_Events_list deleteAt 0;
 };
 
@@ -94,8 +88,10 @@ if (count WMS_Events_Running != 0) then {
 			};
 		};
 		
-		if (((_x select 7) == "DFO")) then {
+	} foreach WMS_Events_Running;
+	{
+		if (((_x select 7) == "DFO")) then { //if it's not "DFO", it's really fuckedUp
 			_x call WMS_fnc_DFO_Cleanup;
 		};
-	} foreach WMS_Events_Running;
+	}forEach WMS_DFO_Running;
 };

@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.587_2022APR26_GitHub";
+WMS_System_Version 			= "v2.589_2022APR27_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -166,7 +166,10 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 	//WMS_CaptureZone_Dis		= [100,300]; //AI waves spawn distances
 	//WMS_CaptureZone_Bdr 		= []; //Sign_Sphere25cm_F objects
 
-WMS_DynamicFlightOps	= true; //NOT READY YET
+//////////////////////////////
+//Dynamic Flight Ops
+//////////////////////////////
+WMS_DynamicFlightOps	= true; //NOT READY YET, DEBUG
 WMS_fnc_DFO_LOGs		= true;
 WMS_DFO_Standalone		= false; //NOT READY YET
 WMS_DFO_CancelOnKIA		= false; //NOT READY YET
@@ -174,10 +177,11 @@ WMS_DFO_Reinforcement	= false; //NOT READY YET
 WMS_DFO_CreateChopper	= false; //NOT READY YET
 WMS_DFO_UseJVMF			= false; //NOT READY YET
 WMS_DFO_RemoveDup		= true; //delete dead NPC primary weapons and backpack
+WMS_DFO_PilotsList		= []; //if steamID in this, only them will see the Mission call action //NOT READY YET
 WMS_DFO_MaxRunning		= 3;
 WMS_DFO_CoolDown		= 300;
 WMS_DFO_LastCall		= (time-WMS_DFO_CoolDown);
-WMS_DFO_Timer			= 900;
+WMS_DFO_Timer			= 1800;
 WMS_DFO_MinMaxDist		= [4000,6000];
 WMS_DFO_ReinfTriggDist	= 1000;
 WMS_DFO_MkrRandomDist	= 500;
@@ -204,9 +208,9 @@ WMS_DFO_Markers			= ["n_support","n_hq"]; //["mission","RTB"]; //["loc_heli","mi
 WMS_DFO_MkrColors		= ["colorOrange","colorGreen"]; //["mission","RTB"];
 WMS_DFO_Reward			= [500,2000]; //["rep","money"]
 WMS_DFO_MissionPaths	= [["BASE","LZ1","BASE"],["BASE","LZ1","LZ2"]]; // "takeoff/mission/complet" //the first "BASE" could become "AIR" if mission called during flight
-WMS_DFO_BasePositions	= []; //KEEP EMPTY //will be pushed back from "somewhere"
-WMS_DFO_Running			= []; //KEEP EMPTY //[["TimeToDelete","MissionHexaID",_playerObject,_mission]]
-	//WMS_DFO_ObjToAddAction	= []; //No need anymore //will be pushed back from "somewhere"
+	WMS_DFO_BasePositions	= []; //KEEP EMPTY //will be pushed back from "somewhere"
+WMS_DFO_Running			= []; //KEEP EMPTY
+	//WMS_DFO_ObjToAddAction	= []; //No need anymore
 
 publicVariable "WMS_DFO_Running";
 publicVariable "WMS_DFO_MaxRunning";

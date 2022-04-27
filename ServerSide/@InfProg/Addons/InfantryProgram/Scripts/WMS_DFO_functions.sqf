@@ -20,23 +20,30 @@
 	4-Export a Standalone version
 */
 /*
-WMS_DynamicFlightOps	= false; //NOT READY YET
+//from WMS_initSystem (WMS_DynamicFlightOps) or initServer (true)
+// Start DynamicFlightOps
+if (true)then {execVM "\DFO\WMS_DFO_functions.sqf"};
+*/
+/*
+WMS_DynamicFlightOps	= true; //NOT READY YET, DEBUG
 WMS_fnc_DFO_LOGs		= true;
-WMS_DFO_Standalone		= false;
-WMS_DFO_CancelOnKIA		= false;
-WMS_DFO_Reinforcement	= false;
-WMS_DFO_CreateChopper	= false;
-WMS_DFO_UseJVMF			= false;
+WMS_DFO_Standalone		= true; //NOT READY YET
+WMS_DFO_CancelOnKIA		= false; //NOT READY YET
+WMS_DFO_Reinforcement	= true; //NOT READY YET
+WMS_DFO_CreateChopper	= false; //NOT READY YET
+WMS_DFO_UseJVMF			= true; //NOT READY YET
 WMS_DFO_RemoveDup		= true; //delete dead NPC primary weapons and backpack
+WMS_DFO_PilotsList		= []; //if steamID in this, only them will see the Mission call action //NOT READY YET
 WMS_DFO_MaxRunning		= 3;
 WMS_DFO_CoolDown		= 300;
 WMS_DFO_LastCall		= (time-WMS_DFO_CoolDown);
-WMS_DFO_Timer			= 900;
-WMS_DFO_MinMaxDist		= [4000,6000];
+WMS_DFO_Timer			= 1800;
+WMS_DFO_MinMaxDist		= [3000,6000];
 WMS_DFO_ReinfTriggDist	= 1000;
 WMS_DFO_MkrRandomDist	= 500;
 WMS_DFO_CargoType		= ["CargoNet_01_barrels_F","C_IDAP_CargoNet_01_supplies_F","CargoNet_01_box_F"];
-WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar","maritime"];// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
+WMS_DFO_MissionTypes	= ["cargotransport"]; //first test
+//WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar","maritime"];// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
 WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
 //WMS_DFO_Choppers		= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS]]
@@ -50,26 +57,29 @@ WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[
 						["C_Hatchback_01_F","C_Offroad_02_unarmed_F","C_Van_02_medevac_F","C_Truck_02_transport_F"],
 						["O_static_AA_F","O_Mortar_01_F","O_GMG_01_high_F","O_HMG_01_high_F"]];//AA first
 WMS_DFO_NPCs			= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone version
-						["O_Soldier_AA_F","O_crew_F","O_Soldier_GL_F","O_soldier_M_F","O_Soldier_AR_F"], //AA first //crew second
+						["O_crew_F","O_Soldier_AA_F","O_Soldier_GL_F","O_soldier_M_F","O_Soldier_AR_F"], //crew first //AA second
 						["B_helicrew_F","B_soldier_AR_F","B_Soldier_GL_F","B_soldier_M_F","B_Soldier_F"], //crew first //in arma civillian can not have weapon...
 						["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 WMS_DFO_Markers			= ["n_support","n_hq"]; //["mission","RTB"]; //["loc_heli","mil_end_noShadow"]
 WMS_DFO_MkrColors		= ["colorOrange","colorGreen"]; //["mission","RTB"];
 WMS_DFO_Reward			= [500,2000]; //["rep","money"]
-WMS_DFO_MissionPaths	= [["base","LZ1","Base"],["base","LZ1","LZ2"]]; // "takeoff/mission/complet"
-WMS_DFO_BasePositions	= []; //KEEP EMPTY //will be pushed back from "somewhere"
-//WMS_DFO_ObjToAddAction	= []; //No need anymore //will be pushed back from "somewhere"
-WMS_DFO_Running			= []; //KEEP EMPTY //[["TimeToDelete","MissionHexaID",_playerObject,_mission]]
+WMS_DFO_MissionPaths	= [["BASE","LZ1","BASE"],["BASE","LZ1","LZ2"]]; // "takeoff/mission/complet" //the first "BASE" could become "AIR" if mission called during flight
+	WMS_DFO_BasePositions	= []; //KEEP EMPTY //will be pushed back from "somewhere"
+WMS_DFO_Running			= []; //KEEP EMPTY
+
 publicVariable "WMS_DFO_Running";
 publicVariable "WMS_DFO_MaxRunning";
 publicVariable "WMS_DFO_LastCall";
 publicVariable "WMS_DFO_CoolDown";
-
-from WMS_initSystem (WMS_DynamicFlightOps) or initServer (true)
-// Start DynamicFlightOps
-if (WMS_DynamicFlightOps)then {execVM "\InfantryProgram\Scripts\WMS_DFO_functions.sqf"};
 */
-
+//STANDALONE MISSING VAR:
+if (WMS_DFO_Standalone) then {
+	WMS_AMS_MaxGrad 	= 0.15;
+	WMS_exileToastMsg 	= false;
+};
+////////////////////////////
+//FUNCTIONS:
+////////////////////////////
 WMS_fnc_DFO_createBaseAction = {
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_createBaseAction _this %1', _this]};
 	private _ObjToAddAction = missionNameSpace getVariable ["WMS_DFO_ObjToAddAction", []]; //objects from mission.sqm will push themself there
@@ -87,6 +97,17 @@ WMS_fnc_DFO_createBaseAction = {
 	{
 		[_x]call WMS_fnc_DFO_addAction;
 	}forEach _ObjToAddAction;
+
+	if (WMS_DFO_Standalone) then {
+		while {true} do {
+			{
+				if (((_x select 7) == "DFO")) then { //if it's not "DFO", it's really fuckedUp
+					_x call WMS_fnc_DFO_Cleanup;
+				};
+			}forEach WMS_DFO_Running;
+			uisleep 60;
+		};
+	};
 };
 WMS_fnc_DFO_BuildBase = {
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_BuildBase _this %1', _this]};
@@ -173,13 +194,13 @@ WMS_fnc_DFO_addAction = { //can be called afterwards to add DFO action(s) to a n
 	];
 };
 WMS_fnc_DFO_generateHexaID = {	//will be used to find the mission data in arrays
-	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_generateHexaID _this %1', _this]};
 	private _hexaBase = [0,1,2,3,4,5,6,7,8,9,"a","b","c","e","e","f"];
 	private _hexaArray = [];
 	for "_i" from 1 to 8 do {
 		_hexaArray pushBack	(selectRandom _hexaBase);
 	};
 	private _MissionHexaID = format ["%1%2%3%4%5%6%7%8",(_hexaArray select 0),(_hexaArray select 1),(_hexaArray select 2),(_hexaArray select 3),(_hexaArray select 4),(_hexaArray select 5),(_hexaArray select 6),(_hexaArray select 7)];
+	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_generateHexaID _MissionHexaID %1', _MissionHexaID]};
 	_MissionHexaID
 };
 WMS_fnc_DFO_CreateMkr = {
@@ -196,19 +217,6 @@ WMS_fnc_DFO_CreateMkr = {
 	_mission = _options select 3;
 	private _playerObject = _options select 1;
 	private _missionName = _options select 5;
-	//private _missionName = "DFO Mission";
-	/*switch (_mission) do {
-		case "inftransport" : { _missionName = "Infantry Transport";};
-		case "cargotransport" : { _missionName = "Cargo Delivery";};
-		case "airassault" : { _missionName = "Air Assault";};
-		case "casinf" : { _missionName = "CAS Infantry";};
-		case "casarmored" : { _missionName = "CAS Armored";};
-		case "cascombined" : { _missionName = "CAS Combined";};
-		case "sar" : { _missionName = "Search And Rescue";};
-		case "csar" : { _missionName = "Combat Search And Rescue";};
-		case "maritime" : { _missionName = "If you see this its fuckedUp";}; //this one will definitly need way more work
-		default {};
-	};*/
 	if !(_type == "BASE") then {
 		_mkrName = format ["DFO_markerBorder_%1",time];
 		_MkrBorder = createMarker [_mkrName, _pos];
@@ -290,27 +298,17 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
 		["_mkrs",[]], //useless in this case, the new marker could go here if needed
 		["_mission","sar"],
 		["_MissionPathCoord", [[0,0,0],[0,0,0],[0,0,0]]],
-		["_missionName","DFO Mission"]
+		["_missionName","DFO Mission"],
+		["_MissionFinish", [0,0,0]]
 		];
-	if (isnil _playerObject) exitWith {
-		if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_NextStepMkrTrigg params fuckedUp _playerObject %1', _playerObject]};
+	//if (isnil _playerObject) exitWith { //nope
+	if (_MissionHexaID ==  "zzzzzzzz") exitWith {
+		if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_NextStepMkrTrigg params fuckedUp _MissionHexaID %1', _MissionHexaID]};
 		};
 	//create last step to finish the mission RTB Or LZ2
-	private _pos = (_MissionPathCoord select 2);
+	//private _pos = (_MissionPathCoord select 2);
+	private _pos = _MissionFinish;
 	private _createTrigg = true;
-	/*private _missionName = "DFO Mission";
-	switch (_mission) do {
-		case "inftransport" : { _missionName = "Infantry Transport";};
-		case "cargotransport" : { _missionName = "Cargo Delivery";};
-		case "airassault" : { _missionName = "Air Assault";};
-		case "casinf" : { _missionName = "CAS Infantry";_createTrigg = false;}; //anyway CAS should NEVER call for endMission trigger
-		case "casarmored" : { _missionName = "CAS Armored";_createTrigg = false;}; //anyway CAS should NEVER call for endMission trigger
-		case "cascombined" : { _missionName = "CAS Combined";_createTrigg = false;}; //anyway CAS should NEVER call for endMission trigger
-		case "sar" : { _missionName = "Search And Rescue";};
-		case "csar" : { _missionName = "Combat Search And Rescue";};
-		case "maritime" : { _missionName = "If you see this its fuckedUp";}; //this one will definitly need way more work
-		default {};
-	};*/
 	//CREATE THE MARKER
 	private _mkrName = format ["DFO_markerEnd_%1",time];
 	_MkrLZ = createMarker [_mkrName, _pos];
@@ -329,9 +327,9 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
 	//_playerVarTrigg pushBack [_MissionHexaID,_mkrName];
 	//_playerObject setVariable ["WMS_DFO_TriggerToDelete",_playerVarTrigg]; //for CleanUp timeOut, death, disconnect, success? //or mayne in missionNameSpace since it include hexaID 
 	private _playerVarTrigg = missionNameSpace getVariable ["WMS_DFO_TriggerToDelete",[]];
-	_playerVarTrigg pushBack [_MissionHexaID,_mkrName];
+	_playerVarTrigg pushBack [_MissionHexaID,_triggMission];
 	missionNameSpace setVariable ["WMS_DFO_TriggerToDelete",_playerVarTrigg]; //for CleanUp timeOut, death, disconnect, success? //or mayne in missionNameSpace since it include hexaID
-	_triggMission setVariable ["WMS_DFO_triggData", [_MissionHexaID,_playerObject,_mkrName,_mission,_MissionPathCoord], false];  
+	_triggMission setVariable ["WMS_DFO_triggData", [_MissionHexaID,_playerObject,_mkrName,_mission,_MissionPathCoord,_missionName,_MissionFinish], false];  
 	_triggMission setTriggerActivation ["ANYPLAYER", "PRESENT", true]; //should be activated by the "pilot" only
 	_triggMission setTriggerArea [15, 15, 0, false];
 	_triggMission setTriggerStatements  
@@ -340,24 +338,25 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
   		"	
 			private _datas = (thisTrigger getVariable 'WMS_DFO_triggData');
 			private _pilot = (_datas select 1);
-			if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger END | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 |', (_datas select 0), name (_datas select 1), (_datas select 2), (_datas select 3), (_datas select 4)]};
-			if (_pilot in thisList && {vehicle _pilot isKindOf 'helicopter'} && {speed _pilot < 10}) then {
+			if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger END | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 | ThisList %6', (_datas select 0), name (_datas select 1), (_datas select 2), (_datas select 3), (_datas select 4), thisList]};
+			if ((_pilot in thisList) && {(vehicle _pilot) isKindOf 'Helicopter'} && {speed _pilot < 15}) then {
 				_datas call WMS_fnc_DFO_CallForCleanup;
 				deleteMarker (_datas select 2);
 				deleteVehicle thisTrigger;
+			}else{
+				'Dynamic Flight Ops, Do not Park here' remoteExec ['hint', (owner (thisList select 0))];
 			};
 		",  
   		"" 
 	];
 };
-WMS_fnc_DFO_MissionSucces = {
+WMS_fnc_DFO_MissionSucces = { //reward the pilot for the great job depending the mission
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_MissionSucces _this %1', _this]};
 	private [];
 	params [
 		"_playerObject",
 		["_typeOfMission", "sar"]
 	];
-	//reward the pilot for the great job depending the mission
 	//WMS_DFO_Reward = [500,2000]; //["rep","money"]
 	if (WMS_DFO_UseJVMF) then {["blablablabla"] call WMS_fnc_DFO_JVMF};
 	if (WMS_exileToastMsg) then {
@@ -368,9 +367,9 @@ WMS_fnc_DFO_MissionSucces = {
 	};
 
 };
-WMS_fnc_DFO_PunishPunks = {
+WMS_fnc_DFO_PunishPunks = { //will be use to remind to those getting in the mission zone that it's not their mission, ACE broken legs and things like that
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_PunishPunks _this %1', _this]};
-	}; //will be use to remind to those getting in the mission zone that it's not their mission, ACE broken legs and things like that
+	};
 WMS_fnc_DFO_JVMF = { //if (WMS_DFO_UseJVMF) then {[blablablabla] call WMS_fnc_DFO_JVMF;};
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_JVMF _this %1', _this]};
 	//Hatchet stuff as reference:
@@ -465,17 +464,17 @@ WMS_fnc_DFO_UnitEH = { //For Standalone but not only
 	};
 	//////////
 };
-WMS_fnc_DFO_infLoad = {
+WMS_fnc_DFO_infLoad = {//easy way: _unit moveInCargo _chopper;
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infLoad _this %1', _this]};
-	}; //easy way: _unit moveInCargo _chopper;
-WMS_fnc_DFO_infUnLoad = {
+	}; 
+WMS_fnc_DFO_infUnLoad = { //easy way: moveOut _unit;
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infUnLoad _this %1', _this]};
-	}; //easy way: moveOut _unit;
+	};
 WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_MaxRunning and probably diag_fps
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_Event_DFO _this %1', _this]};
 	private [
 		"_grps","_vhls","_objs","_mkrs","_launch","_pos","_radiusObjects","_MaxGrad","_posType","_createCIVinf","_createOPFORinf","_createCIVvhl","_createOPFORvhl","_MissionHexaID","_timeToDelete",
-		"_missionName","_updatedTimer","_MissionPath","_MissionPathCoord","_posBase","_posLZ1","_posLZ2","_reinforce","_blackList","_mkrList","_triggList"
+		"_cargoObject","_missionName","_updatedTimer","_MissionPath","_MissionPathCoord","_posBase","_posLZ1","_posLZ2","_reinforce","_blackList","_mkrList","_triggList"
 		];
 	params [
 		"_playerObject", //event manager won't spawn a mission but acrivate the menu for player to call a mission
@@ -491,6 +490,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		_posType = "random"; //"random","forest","sea","buildings","military" //should be dynamic depending the mission
 	_civType = "unarmed"; //Dynamic //"armed"
 	_missionName = "DFO Mission"; //Dynamic 
+	_cargoObject = objNull;
 	_OPFORvhlType = ["APC"]; //Dynamic //[["AIR_HEAVY"],["AIR_LIGHT"],["AIR_UNARMED"],["HEAVY"],["APC"],["LIGHT"],["UNARMED"],["CIV"],["STATICS"]]
 	_OPFORvhlCnt = 1;
 	_reinforce = WMS_DFO_Reinforcement;
@@ -538,11 +538,10 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		[_posBase] call WMS_fnc_DFO_BuildBase;
 	};
 
-	if (WMS_DFO_Standalone) then { 
-		WMS_DFO_Standalone = false; //Standalone not ready yet
+	if (WMS_DFO_Standalone) then {  //Standalone not ready yet
 		WMS_exileToastMsg = false;
 		_blackList = allPlayers select {alive _x} apply {[position _x, 900]};
-		//WMS_Events_Running = [];
+		//WMS_DFO_Running = [];
 	}else {
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 	};
@@ -553,14 +552,16 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		case "inftransport" : { //maybe add some bad dudes at _missionFinish
 			_missionName = "Infantry Transport";
 			_missionStart = selectRandom ["BASE","LZ1"];
-			_missionFinish = (_MissionPath select ((count _MissionPath)-1) );
+			if (_missionStart == "BASE") then {_missionFinish = _MissionPath select 1} else {_missionFinish = _MissionPath select 2};
+			//_missionFinish = (_MissionPath select ((count _MissionPath)-1) );
 			_createCIVinf = true;
 			_civType = selectRandom ["unarmed","armed"];
 			};
 		case "cargotransport" : {
 			_missionName = "Cargo Delivery";
 			_missionStart = selectRandom ["BASE","LZ1"];
-			_missionFinish = (_MissionPath select ((count _MissionPath)-1) );
+			if (_missionStart == "BASE") then {_missionFinish = _MissionPath select 1} else {_missionFinish = _MissionPath select 2};
+			//_missionFinish = (_MissionPath select ((count _MissionPath)-1) );
 			_createCargo 	= true;
 		};
 		case "airassault" : { //destroy target or capture zone
@@ -616,17 +617,27 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 	//select mission position(s)
 		//can be from one of the already registered zone like WMS_Pos_Villages or WMS_Pos_Forests or all mixed
 		_MissionPathCoord pushBack _posBase;
-		_posLZ1 = [_posLZ1, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		_posLZ1 = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
 		_MissionPathCoord pushBack _posLZ1;
 		if ("LZ2" in _MissionPath) then {
-			_posLZ2 = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+			_posLZ2 = [_posLZ1, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
 			_MissionPathCoord pushBack _posLZ2;
 		}else {_MissionPathCoord pushBack _posBase};
 		if (_MissionStart == "BASE")then {_pos = _posBase};
-		if (_MissionStart == "LZ1")then {_pos = _posLZ1};
-	//create mission/LZ marker
-		_mkrs = [_posLZ1,"LZ1",[_MissionHexaID,_playerObject,nil,_mission,_MissionPathCoord,_missionName]] call WMS_fnc_DFO_CreateMkr; //_options should contain [HexaID,pilot,mission markers,mission type,_MissionPathCoord]
-	//create mission vehicles
+		if (_MissionStart == "LZ1")then {_pos = _posLZ1};//create mission vehicles
+		if (_MissionFinish == "BASE")then {
+			_MissionFinish = _posBase
+		}else {
+			if (_MissionFinish == "LZ1")then {
+				_MissionFinish = _posLZ1
+			}else {
+				if (_MissionFinish == "LZ2")then {
+					_MissionFinish = _posLZ2
+				};
+			};
+		};
+		
+		
 		//chopper
 		if (WMS_DFO_createChopper) then { //should not be used with WMS_TheLastCartridges but anyway the chopper can not sell (addAction/sell), however Exile Mod will sell it (sell/Classname)
 			//do not pushback to _vhls but addAction on it "pack to get the reward" or something
@@ -712,13 +723,15 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			(_grps select 0) pushback _OPFORinfGrp;
 			[_OPFORinfGrp, _pos, 75, 5, "MOVE", "AWARE", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 		};
+	//create mission/LZ marker
+		_mkrs = [_pos,_MissionStart,[_MissionHexaID,_playerObject,nil,_mission,_MissionPathCoord,_missionName,_MissionFinish]] call WMS_fnc_DFO_CreateMkr; //_options should contain [HexaID,pilot,mission markers,mission type,_MissionPathCoord]
 	//create mission zone trigger
-		_triggList = [_posLZ1,"LZ1",[_MissionHexaID,_playerObject,_mkrs,_mission,_MissionPathCoord,_missionName]] call WMS_fnc_DFO_CreateTrigger; //_options should contain [HexaID,pilot,mission markers,mission type,_MissionPathCoord]
+		_triggList = [_pos,_MissionStart,[_MissionHexaID,_playerObject,_mkrs,_mission,_MissionPathCoord,_missionName,_MissionFinish]] call WMS_fnc_DFO_CreateTrigger; //_options should contain [HexaID,pilot,mission markers,mission type,_MissionPathCoord]
 		{_objs pushback _x}forEach _triggList;
 	//create reinforcement trigger
 		if (WMS_DFO_Reinforcement && _reinforce) then {
 			//auto delete at the first reinforcement
-			private _triggList2 = [_posLZ1,"reinforcement",[_MissionHexaID,_playerObject,_mkrs,_mission,_MissionPathCoord]] call WMS_fnc_DFO_CreateTrigger; //_options should contain [HexaID,pilot,mission markers,mission type,_MissionPathCoord]
+			private _triggList2 = [_posLZ1,"reinforcement",[_MissionHexaID,_playerObject,_mkrs,_mission,_MissionPathCoord,_missionName,_MissionFinish]] call WMS_fnc_DFO_CreateTrigger; //_options should contain [HexaID,pilot,mission markers,mission type,_MissionPathCoord]
 			{_objs pushback _x}forEach _triggList2;
 		};
 	//Notifications
@@ -727,12 +740,13 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			_sessionID = _playerObject getVariable ['ExileSessionID',''];
 			[_sessionID, 'toastRequest', ['InfoTitleAndText', ['Dynamic Flight Ops', (format ["%1 @ %2",_mission, ([_posLZ1 select 0, _posLZ1 select 1])])]]] call ExileServer_system_network_send_to;
 		} else {
-			["EventCustom", ["Dynamic Flight Ops", (format ["%1 @ %2",_mission, ([_posLZ1 select 0, _posLZ1 select 1])]), "\A3\ui_f\data\map\MapControl\taskiconcreated_ca.paa"]] remoteExec ["BIS_fnc_showNotification", (owner _playerObject)];
+			["EventCustom", ["Dynamic Flight Ops", (format ["%1 @ %2, %3min Timer",_mission, ([round(_posLZ1 select 0), round(_posLZ1 select 1)]),round (_updatedTimer/60)]), "\A3\ui_f\data\map\MapControl\taskiconcreated_ca.paa"]] remoteExec ["BIS_fnc_showNotification", (owner _playerObject)];
 		};
 	//System/Management
 	WMS_DFO_LastCall = time;
-	WMS_DFO_Running pushback [_timeToDelete,_MissionHexaID,_playerObject,_mission];
-	WMS_Events_Running pushBack [time,_timeToDelete,_grps,_vhls,_objs,_mkrs,_cargoObject,"DFO",[_MissionHexaID,_playerObject,_mission,_MissionPathCoord]];
+	//WMS_DFO_Running pushback [_timeToDelete,_MissionHexaID,_playerObject,_mission];
+	WMS_DFO_Running pushback [time,_timeToDelete,_grps,_vhls,_objs,_mkrs,_cargoObject,"DFO",[_MissionHexaID,_playerObject,_mission,_MissionPathCoord,_missionName,_MissionFinish]];
+	//WMS_Events_Running pushBack [time,_timeToDelete,_grps,_vhls,_objs,_mkrs,_cargoObject,"DFO",[_MissionHexaID,_playerObject,_mission,_MissionPathCoord]];
 	publicVariable "WMS_DFO_Running";
 	publicVariable "WMS_DFO_LastCall";
 };
@@ -740,9 +754,9 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 WMS_fnc_DFO_CallForCleanup = {
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CallForCleanup _this %1', _this]};
 	params ["_MissionHexaID","_playerObject","_mkrName","_mission","_MissionPathCoord"];
-	private _DFOeventArrayRef = WMS_Events_Running find _MissionHexaID;
+	private _DFOeventArrayRef = WMS_DFO_Running find _MissionHexaID;
 	if (_DFOeventArrayRef == -1) exitWith {if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CallForCleanup MissionID %1 doesnt exist', _MissionHexaID]};};
-	private _DFOeventArray = WMS_Events_Running select _DFOeventArrayRef;
+	private _DFOeventArray = WMS_DFO_Running select _DFOeventArrayRef;
 	_DFOeventArray call WMS_fnc_DFO_Cleanup;
 };
 
@@ -763,8 +777,8 @@ WMS_fnc_DFO_Cleanup = {
 	_mkr = (_this select 5); //[]
 	_cargo = (_this select 6); //object //no waypoints, can be used for the cargoObject
 	_options = (_this select 8); //[_MissionHexaID,_playerObject,_mission,_MissionPathCoord] //_MissionFinish should be (_MissionPathCoord select 2)
-	_MissionFinish = _options select 3 select 2;
 	_playerObject =  _options select 1;
+	_MissionFinish = _options select 5;
 	_succes = false;
 	_cntOPFOR = 0;
 	_cntVhlOPFOR = 0;
@@ -777,10 +791,10 @@ WMS_fnc_DFO_Cleanup = {
 	} foreach _grpCIV;
 	switch (_options select 2) do {
 		case "inftransport": { //CIV Alive at _MissionFinish, _cntCIV != 0
-			if(_cntCIV != 0 && {(position (leader (_grpCIV select 0))) distance _MissionFinish < 50}) then {_succes = true};
+			if(_cntCIV != 0 && {(position (leader (_grpCIV select 0))) distance _MissionFinish < 30}) then {_succes = true};
 		};
 		case "cargotransport": { //_cargo at _MissionFinish, alive _cargo
-			if(alive _cargo && {(position _cargo) distance _MissionFinish < 50}) then {_succes = true};
+			if(alive _cargo && {(position _cargo) distance _MissionFinish < 12.5}) then {_succes = true};
 		};
 		case "airassault": { //destroy target or capture zone at _MissionFinish, _cntOPFOR = 0, _vhlOPFOR != alive //the capture will do a "call for Cleanup/victory"
 			if (count _vhlOPFOR != 0) then {
@@ -821,7 +835,7 @@ WMS_fnc_DFO_Cleanup = {
 		{deleteGroup _x;} forEach _grpOPFOR; 
 		{deleteGroup _x;} forEach _grpCIV;
 		//deleteVehicle _cargo; //I guess cargo can stay, its not a big deal
-		WMS_Events_Running deleteAt (WMS_Events_Running find _x); //BE SURE ABOUT THIS ONE, HexaID Check
+		WMS_DFO_Running deleteAt (WMS_DFO_Running find _x); //BE SURE ABOUT THIS ONE, HexaID Check
 		//send victory message and rewards
 		[_playerObject]call WMS_fnc_DFO_MissionSucces;
 	};
@@ -829,17 +843,77 @@ WMS_fnc_DFO_Cleanup = {
 		//FAIL!!! cleanup
 		//private _MarkerToDelete = _playerObject getVariable ["WMS_DFO_MarkerToDelete",[]]; // [[_MissionHexaID,_mkrName]]
 		//private _TriggerToDelete = _playerObject getVariable ["WMS_DFO_TriggerToDelete",[]]; // [[_MissionHexaID,_triggName]]
-		private _MarkerToDelete = missionNameSpace getVariable ["WMS_DFO_MarkerToDelete",[]]; // [[_MissionHexaID,_mkrName]]
-		private _MarkerToDeleteRef = _MarkerToDelete find (_options select 0);
-		private _MarkerToDeleteData = _MarkerToDelete select _MarkerToDeleteRef;
-		_MarkerToDelete deleteAt _MarkerToDeleteRef;
-		missionNameSpace setVariable ["WMS_DFO_MarkerToDelete",_MarkerToDelete];
+		//private _MarkerToDeleteRef = _MarkerToDelete find (_options select 0);
+		private _MarkerToDelete = missionNameSpace getVariable ["WMS_DFO_MarkerToDelete",[]];
+		if (count _MarkerToDelete != 0) then {
+			private _result = []; 
+			{ 
+				_found = _x find (_options select 0);
+				_result pushback _found;
+			}forEach _MarkerToDelete;
+			_MarkerToDeleteRef = _result find 0;
+			if (_MarkerToDeleteRef != -1) then {
+				private _MarkerToDeleteData = _MarkerToDelete select _MarkerToDeleteRef;
+				if (count _MarkerToDeleteData == 2) then {
+					if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup _MarkerToDeleteData %1', _MarkerToDeleteData]};
+					deleteMarker (_MarkerToDeleteData select 1);
+					_MarkerToDelete deleteAt _MarkerToDeleteRef;
+					missionNameSpace setVariable ["WMS_DFO_MarkerToDelete",_MarkerToDelete];
+				};
+			}else{
+				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup Mission HexaID not found %1 in %2', (_options select 0),_MarkerToDelete]};
+			};
+		}else{
+			if (WMS_fnc_DFO_LOGs) then {'|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup No Marker to Delete'};
+		};
 
 		private _TriggerToDelete = missionNameSpace getVariable ["WMS_DFO_TriggerToDelete",[]]; // [[_MissionHexaID,_triggName]]
-		private _TriggerToDeleteRef = _TriggerToDelete find (_options select 0);
-		private _TriggerToDeleteData = _TriggerToDelete select _TriggerToDeleteRef;
-		_TriggerToDelete deleteAt _TriggerToDeleteRef;
-		missionNameSpace setVariable ["WMS_DFO_TriggerToDelete",_TriggerToDelete];
+		if (count _TriggerToDelete != 0) then {
+			private _result = []; 
+			{ 
+				_found = _x find (_options select 0);
+				_result pushback _found;
+			}forEach _TriggerToDelete;
+			_TriggerToDeleteRef = _result find 0;
+			if (_TriggerToDeleteRef != -1) then {
+				private _TriggerToDeleteData = _TriggerToDelete select _TriggerToDeleteRef;
+				if (count _TriggerToDeleteData == 2) then {
+					if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup _TriggerToDeleteData %1', _TriggerToDeleteData]};
+					missionNameSpace setVariable ["WMS_DFO_TriggerToDelete",_TriggerToDelete];
+					deleteVehicle  (_TriggerToDeleteData select 1);
+					_TriggerToDelete deleteAt _TriggerToDeleteRef;
+				};
+			}else{
+				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup Mission HexaID not found %1 in %2', (_options select 0),_TriggerToDelete]};
+			};
+		}else{
+			if (WMS_fnc_DFO_LOGs) then {'|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup No Trigger to Delete'};
+		};
+
+		private _ObjectToDelete = missionNameSpace getVariable ["WMS_DFO_ObjectToDelete",[]]; // [[_MissionHexaID,_triggName]]
+		if (count _ObjectToDelete != 0) then {
+			private _result = []; 
+			{ 
+				_found = _x find (_options select 0);
+				_result pushback _found;
+			}forEach _ObjectToDelete;
+			_ObjectToDeleteRef = _result find 0;
+			if (_ObjectToDeleteRef != -1) then {
+				private _ObjectToDeleteData = _ObjectToDelete select _ObjectToDeleteRef;
+				if (count _ObjectToDeleteData == 2) then {
+					if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup _ObjectToDeleteData %1', _ObjectToDeleteData]};
+					missionNameSpace setVariable ["WMS_DFO_ObjectToDelete",_ObjectToDelete];
+					deleteVehicle  (_ObjectToDeleteData select 1);
+					_ObjectToDelete deleteAt _ObjectToDeleteRef;
+				};
+			}else{
+				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup Mission HexaID not found %1 in %2', (_options select 0),_ObjectToDelete]};
+			};
+		}else{
+			if (WMS_fnc_DFO_LOGs) then {'|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup No Object to Delete'};
+		};
+		//Units/Groups spawned at LZ2 will also need a custom cleanup
+		private _GroupToDelete = missionNameSpace getVariable ["WMS_DFO_GroupToDelete",[]]; // [[_MissionHexaID,group]]
 
 		{
 			{moveOut _x; deleteVehicle _x;} forEach units _x;
@@ -853,10 +927,8 @@ WMS_fnc_DFO_Cleanup = {
 		{deleteMarker _x;} forEach _mkr;  
 		{deleteGroup _x;} forEach _grpOPFOR; 
 		{deleteGroup _x;} forEach _grpCIV;
-		deleteMarker  _MarkerToDeleteData select 1;
-		deleteVehicle  _TriggerToDeleteData select 1;
 		//deleteVehicle _cargo; //I guess cargo can stay, its not a big deal
-		WMS_Events_Running deleteAt (WMS_Events_Running find _this); //BE SURE ABOUT THIS ONE, HexaID Check
+		WMS_DFO_Running deleteAt (WMS_DFO_Running find _this); //BE SURE ABOUT THIS ONE, HexaID Check
 		//send fail message
 		if (WMS_DFO_UseJVMF) then {["blablablablaBOOOOOOOOOOHHHHHHH"] call WMS_fnc_DFO_JVMF};
 		if (WMS_exileToastMsg) then {
@@ -869,3 +941,4 @@ WMS_fnc_DFO_Cleanup = {
 };
 //////////
 [] call WMS_fnc_DFO_createBaseAction;
+if (WMS_fnc_DFO_LOGs) then {'|WAK|TNA|WMS|[DFO] WMS_DFO_Functions, System Started'};
