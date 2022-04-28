@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.591_2022APR28_GitHub";
+WMS_System_Version 			= "v2.592_2022APR28_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -168,29 +168,31 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 
 //////////////////////////////
 //Dynamic Flight Ops
-//////////////////////////////
-WMS_DynamicFlightOps	= true; //NOT READY YET, DEBUG
+//////////////////////////////WMS_DynamicFlightOps	= true; //DEBUG
+WMS_DynamicFlightOps	= true; //DEBUG
 WMS_fnc_DFO_LOGs		= true;
-WMS_DFO_Standalone		= false; //NOT READY YET
-WMS_DFO_CancelOnKIA		= false; //NOT READY YET
-WMS_DFO_Reinforcement	= false; //NOT READY YET
-WMS_DFO_CreateChopper	= false; //NOT READY YET
-WMS_DFO_UseJVMF			= false; //NOT READY YET
+WMS_DFO_Standalone		= true;
+WMS_DFO_CreateChopper	= true;
+WMS_DFO_Reinforcement	= true; //NOT READY YET
+WMS_DFO_UseJVMF			= true; //NOT READY YET
 WMS_DFO_RemoveDup		= true; //delete dead NPC primary weapons and backpack
-WMS_DFO_PilotsList		= []; //if steamID in this, only them will see the Mission call action //NOT READY YET
+WMS_DFO_CancelOnKIA		= false; //NOT READY YET
+WMS_DFO_UsePilotsList 	= true;
+WMS_DFO_PilotsList		= ["76561197965501020"]; //Only those players will be able to use DFO if WMS_DFO_UsePilotsList
 WMS_DFO_MaxRunning		= 3;
+WMS_DFO_SarWater		= 2; //0 - land only //1 - can either be in water or not //2 - must be in water
 WMS_DFO_CoolDown		= 300;
-WMS_DFO_LastCall		= (time-WMS_DFO_CoolDown);
-WMS_DFO_Timer			= 1800;
-WMS_DFO_MinMaxDist		= [4000,6000];
-WMS_DFO_ReinfTriggDist	= 1000;
-WMS_DFO_MkrRandomDist	= 500;
+WMS_DFO_Timer			= 1800; //timer before mission timeOut, no reset/extend
+WMS_DFO_MinMaxDist		= [3000,6000];
+WMS_DFO_ReinfTriggDist	= 1000; //distance trigger will call reinforcement
+WMS_DFO_MkrRandomDist	= 500; //random distance to place the marker from SAR CSAR missions otherwise there is no "search"
+WMS_DFO_OPFORcbtMod		= "YELLOW"; //Vehicle crew only //"WHITE" : Hold fire, engage at will/loose formation //"YELLOW" : Fire at will, keep formation //"RED" : Fire at will, engage at will/loose formation
 WMS_DFO_CargoType		= ["CargoNet_01_barrels_F","C_IDAP_CargoNet_01_supplies_F","CargoNet_01_box_F"];
-WMS_DFO_MissionTypes	= ["cargotransport"]; //first test
+WMS_DFO_MissionTypes	= ["cascombined"];
 //WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar","maritime"];// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
-WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
-//WMS_DFO_Choppers		= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
-WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS]]
+//WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
+WMS_DFO_Choppers		= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_MH60S_GAU21L","vtx_HH60","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
+WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
 						["O_Heli_Attack_02_dynamicLoadout_F"],
 						["O_Heli_Light_02_dynamicLoadout_F"],
 						["O_Heli_Transport_04_covered_F"],
@@ -199,18 +201,19 @@ WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[
 						["O_MRAP_02_hmg_F","O_LSV_02_armed_F","O_G_Offroad_01_armed_F"],
 						["O_Truck_02_medical_F","O_Truck_02_Ammo_F"],
 						["C_Hatchback_01_F","C_Offroad_02_unarmed_F","C_Van_02_medevac_F","C_Truck_02_transport_F"],
-						["O_static_AA_F","O_Mortar_01_F","O_GMG_01_high_F","O_HMG_01_high_F"]];//AA first
+						["O_static_AA_F","O_Mortar_01_F","O_GMG_01_high_F","O_HMG_01_high_F"],//AA first
+						["O_T_Boat_Armed_01_hmg_F"]];
 WMS_DFO_NPCs			= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone version
 						["O_crew_F","O_Soldier_AA_F","O_Soldier_GL_F","O_soldier_M_F","O_Soldier_AR_F"], //crew first //AA second
 						["B_helicrew_F","B_soldier_AR_F","B_Soldier_GL_F","B_soldier_M_F","B_Soldier_F"], //crew first //in arma civillian can not have weapon...
 						["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
-WMS_DFO_Markers			= ["n_support","n_hq"]; //["mission","RTB"]; //["loc_heli","mil_end_noShadow"]
-WMS_DFO_MkrColors		= ["colorOrange","colorGreen"]; //["mission","RTB"];
+WMS_DFO_Markers			= ["loc_heli","mil_end_noShadow"]; //["mission","RTB"]; //["n_support","n_hq"]; //["loc_heli","mil_end_noShadow"]
+WMS_DFO_MkrColors		= ["colorOrange","colorGreen","colorRed"]; //["mission","RTB", "bigDanger"];
 WMS_DFO_Reward			= [500,2000]; //["rep","money"]
 WMS_DFO_MissionPaths	= [["BASE","LZ1","BASE"],["BASE","LZ1","LZ2"]]; // "takeoff/mission/complet" //the first "BASE" could become "AIR" if mission called during flight
-	WMS_DFO_BasePositions	= []; //KEEP EMPTY //will be pushed back from "somewhere"
+WMS_DFO_LastCall		= (time-WMS_DFO_CoolDown);
+	WMS_DFO_BasePositions	= []; //KEEP EMPTY //will be pushed back from "somewhere" and used for mission call from choppers
 WMS_DFO_Running			= []; //KEEP EMPTY
-	//WMS_DFO_ObjToAddAction	= []; //No need anymore
 
 publicVariable "WMS_DFO_Running";
 publicVariable "WMS_DFO_MaxRunning";
