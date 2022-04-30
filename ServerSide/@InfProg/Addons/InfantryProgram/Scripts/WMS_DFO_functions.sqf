@@ -34,6 +34,53 @@ WMS_DFO_CollectPos = {
 	if (WMS_fnc_DFO_LOGs) then {Diag_log '|WAK|TNA|WMS|[DFO] collecting CAPITALS positions'};
 	{WMS_Pos_Capitals pushback position _x}forEach (nearestLocations [_worldCenter, ["nameCityCapital"],_worldDiameter]);
 };
+WMS_fnc_DFO_ConvertTypeToCoord = {
+	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_ConvertTypeToCoord _this %1', _this]};
+	params [
+		["_pos",[worldSize/2,worldSize/2]],
+		["_posType","random"],
+		["_radiusObjects",10],
+		["_MaxGrad",WMS_AMS_MaxGrad],
+		["_options",[]]
+
+	];
+	private _blackList = [];
+	private _return = [];
+	if (WMS_DFO_Standalone) then {
+		_blackList = allPlayers select {alive _x} apply {[position _x, 900]};
+	}else {
+		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
+	};
+	if (_posType == "random") then {
+		_return = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+	} else {
+		if(_posType == "forest" && {count WMS_Pos_Forests != 0})then{
+			_return = selectRandom WMS_Pos_Forests;
+		}else{
+			if(_posType == "city" && {count WMS_Pos_Villages+WMS_Pos_Cities+WMS_Pos_Capitals != 0})then{
+				_return = selectRandom WMS_Pos_Villages+WMS_Pos_Cities+WMS_Pos_Capitals;
+			}else{
+				if(_posType == "local" && {count WMS_Pos_Locals != 0})then{
+					_return = selectRandom WMS_Pos_Locals;
+				}else{
+					if(_posType == "military" && {count WMS_Pos_Military != 0})then{
+						_return = selectRandom WMS_Pos_Military;
+					}else{
+						if(_posType == "sea")then{
+							//use random but 2 "must be on water"
+							_return = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), 5, 2, 0.5, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+						}else{
+							//back to "random"
+							_return = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+						};
+					};
+				};
+			};
+		};
+	};
+	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_ConvertTypeToCoord _return %1', _return]};
+	_return
+};
 WMS_fnc_DFO_createBaseAction = {
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_createBaseAction _this %1', _this]};
 	
@@ -275,7 +322,7 @@ WMS_fnc_DFO_addAction = { //can be called afterwards to add DFO action(s) to a n
 WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_MaxRunning and probably diag_fps
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_Event_DFO _this %1', _this]};
 	private [
-		"_grps","_vhls","_objs","_mkrs","_pos","_radiusObjects","_MaxGrad","_posType","_createCIVinf","_createOPFORinf","_createCIVvhl","_createOPFORvhl","_MissionHexaID","_timeToDelete",
+		"_grps","_vhls","_objs","_mkrs","_pos","_radiusObjects","_MaxGrad","_posTypes","_createCIVinf","_createOPFORinf","_createCIVvhl","_createOPFORvhl","_MissionHexaID","_timeToDelete",
 		"_selectedChoppers","_crewCount","_OPFORvhlCnt","_OPFORvhlType","_CIVinfGrp","_CIVinfGrp2","_cargoObject","_missionName","_updatedTimer","_MissionPath","_MissionPathCoord","_posBase","_posLZ1","_posLZ2","_reinforce","_blackList","_mkrList","_triggList"
 		];
 	params [
@@ -289,7 +336,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 	_MissionPath 	= selectRandom WMS_DFO_MissionPaths;
 	_MissionStart 	= "BASE";  //Dynamic //define where is the pickup/infantry spawn //["AIR","BASE","LZ1"] //AIR will come later, JVMF or ACE function from pilot sit
 	_MissionFinish 	= "LZ1"; //Dynamic //where to bring them
-		_posType 	= ["random"]; //"random","forest","sea","buildings","military" //should be dynamic depending the mission
+	_posTypes 		= ["random"]; //"random","forest","city","local","military","sea"
 	_civType 		= "unarmed"; //Dynamic //"armed"
 	_missionName 	= "DFO Mission"; //Dynamic 
 	_cargoObject 	= objNull;
@@ -344,12 +391,12 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		_nil = [_posBase] call WMS_fnc_DFO_BuildBase;
 		WMS_DFO_BasePositions pushBack _posBase;
 	};
-
+	/*
 	if (WMS_DFO_Standalone) then {
 		_blackList = allPlayers select {alive _x} apply {[position _x, 900]};
 	}else {
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull; //WMS_InfantryProgram
-	};
+	};*/
 	//generate Mission Hexa ID
 	_MissionHexaID = [] call WMS_fnc_DFO_generateHexaID;
 	//setParameters depending the mission:
@@ -370,12 +417,14 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			if (_missionStart == "BASE") then {_missionFinish = _MissionPath select 1} else {_missionFinish = _MissionPath select 2};
 		};
 		case "casinf" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
+			_posTypes 		= ["random","local","military"]; //"random","forest","city","local","military","sea"
 			_missionName 	= "CAS Infantry";
 			_MissionStart 	= "LZ1";
 			_createOPFORinf = true; //AA launchers //LMG
 			_selectedChoppers = WMS_DFO_Choppers select 0;
 		};
 		case "casarmored" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
+			_posTypes 		= ["random","local","military"]; //"random","forest","city","local","military","sea"
 			_missionName 	= "CAS Armored";
 			_MissionStart 	= "LZ1";
 			_createOPFORvhl = true; //heavy
@@ -384,6 +433,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			_selectedChoppers = WMS_DFO_Choppers select 0;
 		};
 		case "cascombined" : { //mission (LZ1) succes wen target destroyed, No RTB/LZ2
+			_posTypes 		= ["random","local","military"]; //"random","forest","city","local","military","sea"
 			_missionName 	= "CAS Combined";
 			_MissionStart 	= "LZ1";
 			_createOPFORvhl = true;
@@ -393,6 +443,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			_selectedChoppers = WMS_DFO_Choppers select 0;
 		};
 		case "sar" : { //"LZ1"->"BASE"
+			_posTypes 		= ["random","sea","sea","forest"]; //"random","forest","city","local","military","sea"
 			_missionName 	= "Search And Rescue";
 			_MissionStart 	= "LZ1";
 			_MissionFinish 	= "BASE";
@@ -400,6 +451,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			_selectedChoppers = WMS_DFO_Choppers select 3;
 		};
 		case "csar" : { //"LZ1"->"BASE"
+			_posTypes 		= ["random","sea"]; //"random","forest","city","local","military","sea"
 			_missionName 	= "Combat Search And Rescue";
 			_MissionStart 	= "LZ1";
 			_MissionFinish 	= "BASE";
@@ -409,10 +461,9 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			_selectedChoppers = [WMS_DFO_Choppers select 1 select 0];
 		};
 		case "airassault" : { //destroy target or capture zone
-			//_posType 		= ["random","buildings","military"]; //"random","forest","sea","buildings","military" //NOT YET
+			_posTypes 		= ["local","city","military"]; //"random","forest","city","local","military","sea"
 			_missionName 	= "Air Assault";
 			_createCIVinf 	= true; //military at _MissionStart or civilian at _MissionFinish or both ?
-			//_civType 		= "armed"; //only military for now //KEEP DEFAULT!
 			_createOPFORinf = true;
 			_createOPFORvhl = true; //light/APC
 			_OPFORvhlType 	= [4,5];//[["AIR_HEAVY"],["AIR_LIGHT"],["AIR_UNARMED"],["HEAVY"],["APC"],["LIGHT"],["UNARMED"],["CIV"],["STATICS"]]
@@ -431,17 +482,29 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 	//select mission position(s)
 	//can be from one of the already registered zone like WMS_Pos_Villages or WMS_Pos_Forests or all mixed
 	_MissionPathCoord pushBack _posBase;
-	if (_Mission == "sar" || _Mission == "csar")then {
-		_posLZ1 = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, WMS_DFO_SARwater, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+	/*if (_Mission == "sar" || _Mission == "csar")then {
+		_posLZ1 = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 2, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
 	} else {
 		_posLZ1 = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+	};*/
+	private _posType = selectRandom _posTypes;
+	if (_mission == "airassault" && {_MissionStart == "LZ1"}) then {
+		_posLZ1 = [_pos] call WMS_fnc_DFO_ConvertTypeToCoord;
+		//_pozLZ2 = [_posLZ1,_posType] call WMS_fnc_DFO_ConvertTypeToCoord;
+	} else {
+		_posLZ1 = [_pos,_posType] call WMS_fnc_DFO_ConvertTypeToCoord;
 	};
-		
+	uisleep 1;
 	_MissionPathCoord pushBack _posLZ1;
 	if ("LZ2" in _MissionPath) then {
-		_posLZ2 = [_posLZ1, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
-		_MissionPathCoord pushBack _posLZ2;
-	}else {_MissionPathCoord pushBack _posBase};
+		if (_mission == "airassault") then {
+			_posLZ2 = [_posLZ1,_posType] call WMS_fnc_DFO_ConvertTypeToCoord;
+		}else{
+			_posLZ2 = [_posLZ1] call WMS_fnc_DFO_ConvertTypeToCoord;
+		};
+	};
+	uisleep 1;
+	if ("LZ2" in _MissionPath) then{_MissionPathCoord pushBack _posLZ2}else {_MissionPathCoord pushBack _posBase};
 	if (_MissionStart == "BASE")then {_pos = _posBase};
 	if (_MissionStart == "LZ1")then {_pos = _posLZ1};
 	if (_MissionFinish == "BASE")then {
