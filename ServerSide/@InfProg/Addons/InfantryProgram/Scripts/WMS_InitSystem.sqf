@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.593_2022APR30_GitHub";
+WMS_System_Version 			= "v2.594_2022APR30_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -169,7 +169,7 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WAK_DFO_Version			= "v0.14_2022APR230_GitHub";
+WAK_DFO_Version			= "v0.17_2022APR230_GitHub";
 WMS_DynamicFlightOps	= true; //NOT 100% READY YET, 90% of basics
 WMS_fnc_DFO_LOGs		= true;	//For Debug
 WMS_DFO_Standalone		= false; //keep true if you don't use WMS_InfantryProgram
@@ -219,6 +219,8 @@ publicVariable "WMS_DFO_Running";
 publicVariable "WMS_DFO_MaxRunning";
 publicVariable "WMS_DFO_LastCall";
 publicVariable "WMS_DFO_CoolDown";
+publicVariable "WMS_DFO_UsePilotsList";
+publicVariable "WMS_DFO_PilotsList";
 
 //////////////////////////////
 //AI variables

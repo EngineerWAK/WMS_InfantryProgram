@@ -19,76 +19,6 @@
 	3-Build and test each mission one by one
 	4-Export a Standalone version
 */
-/*
-//from WMS_initSystem (WMS_DynamicFlightOps) or initServer (true)
-// Start DynamicFlightOps
-if (true)then {execVM "\DFO\WMS_DFO_functions.sqf"};
-*/
-/*
-WAK_DFO_Version			= "v0.14_2022APR230_GitHub";
-WMS_DynamicFlightOps	= true; //NOT 100% READY YET, 90% of basics
-WMS_fnc_DFO_LOGs		= true;	//For Debug
-WMS_DFO_Standalone		= true; //keep true if you don't use WMS_InfantryProgram
-WMS_DFO_CreateChopper	= true; //if your mission file doesn't have choppers available
-WMS_DFO_Reinforcement	= true; //NOT READY YET
-WMS_DFO_UseJVMF			= true; //NOT READY YET //https://github.com/Project-Hatchet/H-60
-WMS_DFO_RemoveDup		= true; //delete dead NPC primary weapons and backpack
-WMS_DFO_CancelOnKIA		= false; //NOT READY YET //should Fail the mission when _pilot die, it's a bit hardcore especialy with AA vehicles
-WMS_DFO_UsePilotsList 	= true; //if you want to limit DFO use to some players
-WMS_DFO_PilotsList		= ["76561197965501020"]; //Only those players will be able to use DFO if WMS_DFO_UsePilotsList
-WMS_DFO_MaxRunning		= 1;
-WMS_DFO_SARwater		= 2; //0 - land only //1 - can either be in water or not //2 - must be in water //SAR would be nice in forest too WMS_Pos_Forests
-WMS_DFO_CoolDown		= 300;
-WMS_DFO_Timer			= 1800; //timer before mission timeOut, no reset/extend
-WMS_DFO_MinMaxDist		= [3000,6000];
-WMS_DFO_ReinfTriggDist	= 1000; //distance trigger will call reinforcement
-WMS_DFO_MkrRandomDist	= 500; //random distance to place the marker from SAR CSAR missions otherwise there is no "search"
-WMS_DFO_Reward			= [500,2000]; //["rep","money"]
-WMS_DFO_OPFORcbtMod		= "YELLOW"; //Vehicle crew only //"WHITE" : Hold fire, engage at will/loose formation //"YELLOW" : Fire at will, keep formation //"RED" : Fire at will, engage at will/loose formation
-WMS_DFO_CargoType		= ["CargoNet_01_barrels_F","C_IDAP_CargoNet_01_supplies_F","CargoNet_01_box_F"];
-//WMS_DFO_MissionTypes	= ["airassault"];
-WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar"];//"maritime"// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
-//WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
-WMS_DFO_Choppers		= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_HH60","vtx_MH60S_GAU21L","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
-WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
-						["O_Heli_Attack_02_dynamicLoadout_F"],
-						["O_Heli_Light_02_dynamicLoadout_F"],
-						["O_Heli_Transport_04_covered_F"],
-						["O_APC_Tracked_02_AA_F","O_MBT_02_cannon_F"],//AA first
-						["O_APC_Tracked_02_cannon_F","O_APC_Wheeled_02_rcws_v2_F"],//"AA" first
-						["O_MRAP_02_hmg_F","O_LSV_02_armed_F","O_G_Offroad_01_armed_F"],
-						["O_Truck_02_medical_F","O_Truck_02_Ammo_F"],
-						["C_Hatchback_01_F","C_Offroad_02_unarmed_F","C_Van_02_medevac_F","C_Truck_02_transport_F"],
-						["O_static_AA_F","O_Mortar_01_F","O_GMG_01_high_F","O_HMG_01_high_F"],//AA first
-						["O_T_Boat_Armed_01_hmg_F"]];
-WMS_DFO_NPCs			= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone version
-						["O_crew_F","O_Soldier_GL_F","O_soldier_M_F","O_Soldier_AR_F"], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
-						["B_helicrew_F","B_soldier_AR_F","B_Soldier_GL_F","B_soldier_M_F","B_Soldier_F"], //crew first //in arma civillian can not have weapon...
-						["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
-WMS_DFO_Markers			= ["loc_heli","mil_end_noShadow"]; //["mission","RTB"]; //["n_support","n_hq"]; //["loc_heli","mil_end_noShadow"]
-WMS_DFO_MkrColors		= ["colorOrange","colorGreen","colorRed"]; //["mission","RTB", "bigDanger"];
-WMS_DFO_MissionPaths	= [["BASE","LZ1","BASE"],["BASE","LZ1","LZ2"]]; // "takeoff/mission/complet" //the first "BASE" could become "AIR" if mission called during flight
-WMS_DFO_LastCall		= (time-WMS_DFO_CoolDown);
-WMS_DFO_Running			= []; //KEEP EMPTY
-
-publicVariable "WMS_DFO_Running";
-publicVariable "WMS_DFO_MaxRunning";
-publicVariable "WMS_DFO_LastCall";
-publicVariable "WMS_DFO_CoolDown";
-
-//STANDALONE MISSING VAR:
-if (WMS_DFO_Standalone) then {
-	WMS_AMS_MaxGrad 	= 0.15;
-	WMS_exileToastMsg 	= false; //Exile Mod Notifications
-	WMS_Pos_Locals 		= []; //AutoScan
-	WMS_Pos_Villages	= []; //AutoScan
-	WMS_Pos_Cities 		= []; //AutoScan
-	WMS_Pos_Capitals 	= []; //AutoScan
-	WMS_Pos_Forests 	= []; //DIY, if no position, back to random _pos
-	WMS_Pos_Military 	= []; //DIY, if no position, back to random _pos
-	WMS_Pos_Factory 	= []; //DIY, if no position, back to random _pos
-};
-*/
 ////////////////////////////
 //FUNCTIONS:
 ////////////////////////////
@@ -170,7 +100,7 @@ WMS_fnc_DFO_createBaseAction = {
 				"",
 				""
        		], //MSG TEXT //MUST BE AT LEAST 10 LINES
-       		_BasePositions, // MSG DATA //[]
+       		[_BasePositions select 0], // MSG DATA //[]
        		[
             	[
                 	format ["%1:%2",(date select 3),(date select 4)],
@@ -281,21 +211,23 @@ WMS_fnc_DFO_BuildBase = {
 			[_object]call WMS_fnc_DFO_addAction;
 		};
 	}forEach _DFO_BaseObjects;
-	private _triggMission = createTrigger ["EmptyDetector", _pos, true];  
-	_triggMission setTriggerActivation ["ANYPLAYER", "PRESENT", true];
-	_triggMission setTriggerArea [12.5, 12.5, 0, false];
-	_triggMission setTriggerStatements  
-	[ 
-  		"this && ({ (getPosATL _x) select 2 <= 10 } count thislist) > 0",  
-  		"	
-	  		'Dynamic Flight Ops, Do not Park here' remoteExec ['hint', (owner (thisList select 0))]; 
-	  		'Dynamic Flight Ops, Do not Park here' remoteExec ['systemChat', (owner (thisList select 0))]; 
-		",  
-  		"
-	  		'Dynamic Flight Ops, Thank you for your visit' remoteExec ['hint', (owner (thisList select 0))]; 
-	  		'Dynamic Flight Ops, Thank you for your visit' remoteExec ['systemChat', (owner (thisList select 0))]; 
-		" 
-	];
+	if !(_option == "NOTRIGGER") then {
+		private _triggMission = createTrigger ["EmptyDetector", _pos, true];  
+		_triggMission setTriggerActivation ["ANYPLAYER", "PRESENT", true];
+		_triggMission setTriggerArea [12.5, 12.5, 0, false];
+		_triggMission setTriggerStatements  
+		[ 
+  			"this && ({ (getPosATL _x) select 2 <= 10 } count thislist) > 0",  
+  			"	
+	  			'Dynamic Flight Ops, Do not Park here' remoteExec ['hint', (owner (thisList select 0))]; 
+	  			'Dynamic Flight Ops, Do not Park here' remoteExec ['systemChat', (owner (thisList select 0))]; 
+			",  
+  			"
+	  			'Dynamic Flight Ops, Thank you for your visit' remoteExec ['hint', (owner (thisList select 0))]; 
+	  			'Dynamic Flight Ops, Thank you for your visit' remoteExec ['systemChat', (owner (thisList select 0))]; 
+			" 
+		];
+	};
 	deleteVehicle _compoRefPoint;
 	_BaseObjects
 };
@@ -749,7 +681,6 @@ WMS_fnc_DFO_CreateTrigger = {
 	];
 	_triggList = [];
 	_mission = _options select 3;
-	if (_Mission == "sar")then{}; //"sar" trigger might need some work if _pos in water
 	if (_triggType isEqualTo "LZ1" || _triggType isEqualTo "BASE") then {
 		//trigger mission itself
 		if !(_mission == "casinf" || _mission == "casarmored" || _mission == "cascombined") then { //CAS do not need trigger, the cleanup is every minute check and no RTB
@@ -836,7 +767,7 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
 	missionNameSpace setVariable ["WMS_DFO_MarkerToDelete",_playerVarMkr];
 	//CREATE OBJECTS TO MARK THE ZONE
 	if !(_pos isEqualTo (_MissionPathCoord select 0)) then {
-		private _objects = [_pos,"notfull"]call WMS_fnc_DFO_BuildBase;
+		private _objects = [_pos,"NOTRIGGER"]call WMS_fnc_DFO_BuildBase;
 		private _playerVarObj = missionNameSpace getVariable ["WMS_DFO_MarkerToDelete",[]];
 		_playerVarObj pushBack [_MissionHexaID,_objects];
 		missionNameSpace setVariable ["WMS_DFO_ObjectToDelete",_playerVarObj];
@@ -936,7 +867,7 @@ WMS_fnc_DFO_SetUnits = { //For Standalone but not only //will use regular loadou
 		_x allowFleeing 0;
 
 		_x addEventHandler ["Killed", " 
-		[(_this select 0),(_this select 1)] call WMS_fnc_DFO_UnitEH;
+		[(_this select 0),(_this select 1),(_this select 2)] call WMS_fnc_DFO_UnitEH;
 		"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
 	}forEach _units
 }; 
@@ -945,12 +876,13 @@ WMS_fnc_DFO_UnitEH = { //For Standalone but not only
 	private ["_dist","_options","_payload"];
 	params [
 		"_killed",
-		"_killer"
+		"_killer",
+		"_instigator"
 	];
 	_options = _killed getVariable ["WMS_DFO_options",[]]; //[_MissionHexaID,_playerObject,_mission,_infType] //_infType= "OPFOR","CIV_ARMED","CIV"
 	if (isplayer _killer) then {
 		_dist = (_killer distance _killed);
-		_payload = [[format ["KIA %1, %2M AWAY, %3 ", toUpper(name _killed),round _dist, (side _killed)]]];//[[""KIA JABR MOHAMMADI, M AWAY,  "",3309.52,CIV],0] //BROKEN
+		_payload = [[format ["KIA %1, %2M AWAY, %3 ", toUpper(name _killed),round _dist, (_options select 3)]]];
 		if (_killer == (_options select 1) || vehicle _killer == vehicle (_options select 1)) then { //multi chopper missions will become a problem so no punishment on the player, just cleanup the bodies
 			if !(WMS_DFO_RemoveDup) then {
 				_killed removeWeapon (primaryWeapon _killed);
@@ -963,8 +895,8 @@ WMS_fnc_DFO_UnitEH = { //For Standalone but not only
 			}else {
 				[_payload,"DFO"] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)]; //NEED TO CHANGE THIS FOR STANDALONE 
 			};
-			//[format ["KIA %1, %2M AWAY, %3 ", toUpper(name _killed)],_dist, (side _killed)] remoteExecCall ['SystemChat',_killer];
-			[format ["Killed %1, %2m away, %3 ", (name _killed),_dist, (side _killed)]] remoteExec ['SystemChat',(owner _killer)];
+			//[format ["KIA %1, %2M AWAY, %3 ", toUpper(name _killed)],_dist, (_options select 3)] remoteExecCall ['SystemChat',_killer];
+			[format ["Killed %1, %2m away, %3 ", (name _killed),_dist, (_options select 3)]] remoteExec ['SystemChat',(owner _killer)];
 
 		} else {
 			removeAllItems _killed;
