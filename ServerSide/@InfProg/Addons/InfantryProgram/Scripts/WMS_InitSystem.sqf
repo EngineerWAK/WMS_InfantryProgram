@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.596_2022APR30_GitHub";
+WMS_System_Version 			= "v2.597_2022APR30_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -169,16 +169,17 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WAK_DFO_Version			= "v0.19_2022APR230_GitHub";
+WAK_DFO_Version			= "v0.23_2022MAI01_GitHub";
 WMS_DynamicFlightOps	= true; //NOT 100% READY YET, 90% of basics
-WMS_fnc_DFO_LOGs		= true;	//For Debug
-WMS_DFO_Standalone		= false; //keep true if you don't use WMS_InfantryProgram
-WMS_DFO_CreateChopper	= true; //if your mission file doesn't have choppers available
-WMS_DFO_Reinforcement	= true; //NOT READY YET
+WMS_fnc_DFO_LOGs		= false;	//For Debug
+WMS_DFO_Standalone		= true; //keep true if you don't use WMS_InfantryProgram
+WMS_DFO_CreateChopper	= false; //if your mission file doesn't have choppers available
+WMS_DFO_Reinforcement	= false; //NOT READY YET
 WMS_DFO_UseJVMF			= true; //https://github.com/Project-Hatchet/H-60
-WMS_DFO_RemoveDup		= true; //delete dead NPC primary weapons and backpack
+WMS_DFO_RemoveDup		= true; //delete dead NPC's primary weapon and backpack
+WMS_DFO_UsePilotsList 	= false; //if you want to limit DFO use to some players
+WMS_fnc_DFO_SmokeAtLZ	= true; //pop a smoke on the group you have to pickUp
 WMS_DFO_CancelOnKIA		= false; //NOT READY YET //should Fail the mission when _pilot die, it's a bit hardcore especialy with AA vehicles
-WMS_DFO_UsePilotsList 	= true; //if you want to limit DFO use to some players
 WMS_DFO_PilotsList		= ["76561197965501020"]; //Only those players will be able to use DFO if WMS_DFO_UsePilotsList
 WMS_DFO_MaxRunning		= 1;
 WMS_DFO_CoolDown		= 300;
@@ -186,11 +187,11 @@ WMS_DFO_Timer			= 1800; //timer before mission timeOut, no reset/extend
 WMS_DFO_MinMaxDist		= [3000,6000];
 WMS_DFO_ReinfTriggDist	= 1000; //distance trigger will call reinforcement
 WMS_DFO_MkrRandomDist	= 500; //random distance to place the marker from SAR CSAR missions otherwise there is no "search"
-WMS_DFO_Reward			= [500,2000]; //["rep","money"]
+WMS_DFO_Reward			= [500,2000,['ACE_Can_Franta','ACE_Can_RedGull','ACE_MRE_LambCurry','ACE_MRE_MeatballsPasta','ACE_bloodIV_500','ACE_morphine','ACE_quikclot']]; //["rep","money",items for chopper return]
 WMS_DFO_OPFORcbtMod		= "YELLOW"; //Vehicle crew only //"WHITE" : Hold fire, engage at will/loose formation //"YELLOW" : Fire at will, keep formation //"RED" : Fire at will, engage at will/loose formation
 WMS_DFO_CargoType		= ["CargoNet_01_barrels_F","C_IDAP_CargoNet_01_supplies_F","CargoNet_01_box_F"];
-WMS_DFO_MissionTypes	= ["airassault"]; //debugging new position stuff
-//WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar"];//"maritime"// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
+//WMS_DFO_MissionTypes	= ["airassault"];
+WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar"];// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
 //WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
 WMS_DFO_Choppers		= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_HH60","vtx_MH60S_GAU21L","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
