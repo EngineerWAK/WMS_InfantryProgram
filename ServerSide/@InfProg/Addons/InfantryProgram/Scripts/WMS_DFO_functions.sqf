@@ -141,6 +141,8 @@ WMS_fnc_DFO_createBaseAction = {
 	{
 		[_x]call WMS_fnc_DFO_addAction;
 	}forEach _ObjToAddAction;
+	
+	{if ("Advanced Combat Environment" in (_x select 0))then {WMS_DFO_AceIsRunning = true;}}forEach getLoadedModsInfo;
 
 	if(WMS_DFO_UseJVMF) then {
 		private _payload = "";
@@ -843,8 +845,14 @@ WMS_fnc_DFO_CreateTrigger = {
 					{deleteMarker _x}forEach (_datas select 2);
 					deleteVehicle thisTrigger;
 				}else{
-				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger LZ1 | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 |', (_datas select 0), name _pilot , (_datas select 2), _mission, (_datas select 4)]};
-					'Dynamic Flight Ops, mission is in progress' remoteExec ['hint', (owner (thisList select 0))];
+					if !((vehicle _pilot) in thisList) then {	
+						[(thisList select 0)] call WMS_fnc_DFO_PunishPunks;
+						'Dynamic Flight Ops, mission is in progress' remoteExec ['hint', (owner (thisList select 0))];
+					}else {
+						'Dynamic Flight Ops, Redo your Approach, maxSpeed 15km/h' remoteExec ['hint', (owner (thisList select 0))];
+					};
+					if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger LZ1 | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 |', (_datas select 0), name _pilot , (_datas select 2), _mission, (_datas select 4)]};
+					
 				};
 			",  
   			"" 
@@ -946,7 +954,7 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
 	missionNameSpace setVariable ["WMS_DFO_TriggerToDelete",_playerVarTrigg]; //for CleanUp timeOut, death, disconnect, success? //or mayne in missionNameSpace since it include hexaID
 	_triggMission setVariable ["WMS_DFO_triggData", [_MissionHexaID,_playerObject,_mkrName,_mission,_MissionPathCoord,_missionName,_MissionFinish], false];  
 	_triggMission setTriggerActivation ["ANYPLAYER", "PRESENT", true]; //should be activated by the "pilot" only
-	_triggMission setTriggerArea [15, 15, 0, false];
+	_triggMission setTriggerArea [12.5, 12.5, 0, false];
 	_triggMission setTriggerStatements  
 	[ 
   		"this && ({ (position _x) select 2 <= 10 } count thislist) > 0",   
@@ -960,7 +968,13 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
 				_datas call WMS_fnc_DFO_CallForCleanup;
 				deleteVehicle thisTrigger;
 			}else{
-				'Dynamic Flight Ops, Do not Park here' remoteExec ['hint', (owner (thisList select 0))];
+				if !((vehicle _pilot) in thisList) then {	
+					[(thisList select 0)] call WMS_fnc_DFO_PunishPunks;
+					'Dynamic Flight Ops, Do not Park here' remoteExec ['hint', (owner (thisList select 0))];
+				}else {
+					'Dynamic Flight Ops, Redo your Approach, maxSpeed 15km/h' remoteExec ['hint', (owner (thisList select 0))];
+				};
+				
 			};
 		",  
   		"" 
@@ -1029,8 +1043,36 @@ WMS_fnc_DFO_MissionSucces = { //reward the pilot for the great job depending the
 };
 WMS_fnc_DFO_PunishPunks = { //will be use to remind to those getting in the mission zone that it's not their mission, ACE broken legs and things like that
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_PunishPunks _this %1', _this]};
-	params ["_playerObject"];
+	params [
+		"_playerObject",
+		["_maxDamage",0.4],
+		["_parts", selectRandom ["head", "body", "leftarm", "rightarm", "leftleg", "rightleg"]], //["head", "body", "leftarm", "rightarm", "leftleg", "rightleg"] ACE
+		["_projectiles", selectRandom ["stab","bullet","grenade"]] //["stab","bullet","grenade"]
+		];
 
+	if (WMS_DFO_AceIsRunning) then {
+		//[_playerObject, [[0.5, "Body", 1]], "bullet"] call ace_medical_damage_fnc_woundsHandlerBase;
+		//[cursorTarget, 1, "body", "stab", player] call ace_medical_fnc_addDamageToUnit;
+		[_playerObject, _maxDamage, _parts, _projectiles, _playerObject] remoteExecCall ["ace_medical_fnc_addDamageToUnit",owner _playerObject];
+	} else {
+		//Bohemia:
+		/*_parts = [
+			"face_hub", //Unit dies at damage equal to or above 1
+			"neck", //Unit dies at damage equal to or above 1
+			"head", //Unit dies at damage equal to or above 1
+			"pelvis", //Unit dies at damage equal to or above 1
+			"spine1", //Unit dies at damage equal to or above 1
+			"spine2", //Unit dies at damage equal to or above 1
+			"spine3", //Unit dies at damage equal to or above 1
+			"body", //Unit dies at damage equal to or above 1
+			"arms", //Unit doesn't die with damage to this part
+			"hands", //Unit doesn't die with damage to this part
+			"legs" //Unit doesn't die with damage to this part 
+		];*/
+		//_playerObject setHit [selectRandom _parts,random 0.25,true,_playerObject];
+		private _dmg = damage _playerObject;
+		_playerObject setDamage _dmg+(random _maxDamage); //it's not sexy but it should do the job for now
+	};
 	};
 WMS_fnc_DFO_JVMF = { //if (WMS_DFO_UseJVMF) then {[blablablabla] call WMS_fnc_DFO_JVMF;};
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_JVMF _this %1', _this]};
@@ -1050,7 +1092,7 @@ WMS_fnc_DFO_SetUnits = { //For Standalone but not only //will use regular loadou
 		"_units",
 		//["_infType","CIV"], //"OPFOR","CIV_ARMED","CIV"
 		["_options", []], //[_MissionHexaID,_playerObject,_mission,_infType] //_infType= "OPFOR","CIV_ARMED","CIV"
-		["_skills",[0.80, 0.8, 0.3, 0.3, 0.3, 0.6, 0, 0.6, 0.6]] //WMS_AMS_skilleasy
+		["_skills",[0.80, 0.8, 0.25, 0.3, 0.3, 0.6, 0, 0.6, 0.6]] //WMS_AMS_skilleasy
 	];
 	{
 		//setSkill
@@ -1081,6 +1123,7 @@ WMS_fnc_DFO_UnitEH = { //For Standalone but not only
 		"_instigator"
 	];
 	_options = _killed getVariable ["WMS_DFO_options",[]]; //[_MissionHexaID,_playerObject,_mission,_infType] //_infType= "OPFOR","CIV_ARMED","CIV"
+	if (isPlayer _instigator) then {_killer = _instigator}; //TEST
 	if (isplayer _killer) then {
 		_dist = (_killer distance _killed);
 		_payload = [[format ["KIA %1, %2M AWAY, %3 ", toUpper(name _killed),round _dist, (_options select 3)]]];
@@ -1112,6 +1155,7 @@ WMS_fnc_DFO_UnitEH = { //For Standalone but not only
   				profileNamespace setVariable [_playerUID_ExileKills,_playerKills];
 			};
 		} else {
+			_killed removeWeapon (primaryWeapon _killed);
 			removeAllItems _killed;
 			removeAllWeapons _killed;
 			removeBackpackGlobal _killed;
@@ -1120,13 +1164,17 @@ WMS_fnc_DFO_UnitEH = { //For Standalone but not only
 		};
 		if !((_options select 3) == "OPFOR")then {
 			//here need a selectRandom broken limbs for the _killer
+			[_killer] call WMS_fnc_DFO_PunishPunks;
+			_killed removeWeapon (primaryWeapon _killed);
 			removeAllItems _killed;
 			removeAllWeapons _killed;
 			removeBackpackGlobal _killed;
 			removeVest _killed;
 			"SmokeShellYellow" createVehicle (position _killed);
 		};
+		
 	} else {
+		_killed removeWeapon (primaryWeapon _killed);
 		removeAllItems _killed;
 		removeAllWeapons _killed;
 		removeBackpackGlobal _killed;
