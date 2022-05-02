@@ -39,13 +39,10 @@ params[
 		if (WMS_AI_forceInfKillCount) then {_killer addPlayerScores [1,0,0,0,0]};
 		_killerUID 	= getPlayerUID _killer;
 		_playerRepUpdated = 0;
-		WMS_playerUID_ExileKills = "ExileKills_"+_killerUID;
-		//WMS_playerUID_ExileMoney = "ExileMoney_"+_killerUID;
-		WMS_playerUID_ExileScore = "ExileScore_"+_killerUID;
-		//_playerRep 	= _killer getVariable ["ExileScore", 0]; //will get 0 if not setup right at player respawn outside of Exile Mod
-  		_playerRep = profileNamespace getVariable [WMS_playerUID_ExileScore,0];
-		//_playerKills = _killer getVariable ["ExileKills", 0]; //will get 0 if not setup right at player respawn outside of Exile Mod
-  		_playerKills = profileNamespace getVariable [WMS_playerUID_ExileKills,0];
+		_playerUID_ExileKills = "ExileKills_"+_killerUID;
+		_playerUID_ExileScore = "ExileScore_"+_killerUID;
+  		_playerRep = profileNamespace getVariable [_playerUID_ExileScore,0];
+  		_playerKills = profileNamespace getVariable [_playerUID_ExileKills,0];
 		_playerKills = _playerKills + 1;
 		_killer setVariable ["ExileKills", _playerKills, true];
 		if (WMS_exileFireAndForget) then {
@@ -54,15 +51,9 @@ params[
 			(owner _killer) publicVariableClient "ExileClientPlayerKills";
 			ExileClientPlayerKills = nil;
 			} else {
-  				//_serverSide_ExileMoney = profileNamespace setVariable [_playerUID_ExileMoney,0];
-  				//_serverSide_ExileScore = profileNamespace setVariable [_playerUID_ExileScore,_playerRepUpdated];
-  				profileNamespace setVariable [WMS_playerUID_ExileKills,_playerKills];
-				ExileClientPlayerKills = _playerKills;
-				(owner _killer) publicVariableClient "ExileClientPlayerKills";
-				ExileClientPlayerKills = nil;
+  				profileNamespace setVariable [_playerUID_ExileKills,_playerKills];
 			};
 
-		//if (_info == 'BaseATK' && {WMS_DynAI_BaseATKReinforce} && {(time > WMS_DynAI_BaseATKReinforce_Last)} && {(_killed == leader _killed)}) then {
 		if (_info == 'BaseATK' && (WMS_DynAI_BaseATKReinforce) && (time > (WMS_DynAI_BaseATKReinforce_Last+WMS_DynAI_BaseATKReinforce_CD)) && (_killed == leader _killed)) then {
 			//[_killer] call WMS_fnc_DynAI_BaseATK_Reinforce;
 			WMS_DynAI_BaseATKReinforce_Last = time;
@@ -91,12 +82,7 @@ params[
 				(owner _killer) publicVariableClient "ExileClientPlayerScore";
 				ExileClientPlayerScore = nil;
 			} else {
-  				//_serverSide_ExileMoney = profileNamespace setVariable [_playerUID_ExileMoney,0];
-  				profileNamespace setVariable [WMS_playerUID_ExileScore,_playerRepUpdated];
-  				//_serverSide_ExileKills = profileNamespace setVariable [_playerUID_ExileKills,_playerKills];
-				ExileClientPlayerScore = _playerRepUpdated;
-				(owner _killer) publicVariableClient "ExileClientPlayerScore";
-				ExileClientPlayerScore = nil;
+  				profileNamespace setVariable [_playerUID_ExileScore,_playerRepUpdated];
 			};
 		} else {
 			_bonus = 0;
@@ -172,6 +158,6 @@ params[
 		false //JIP
 	];
 		if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAI PROFILENAMESPACE]|WAK|TNA|WMS| _killer VARs: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), _playerKills, ("ExileScore_"+_killerUID), _playerRepUpdated]};
-		//if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAI PROFILENAMESPACE]|WAK|TNA|WMS| _killer ProfileNameSpace: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), (profileNamespace getVariable WMS_playerUID_ExileKills), ("ExileScore_"+_killerUID), (profileNamespace getVariable WMS_playerUID_ExileScore)]};
+		//if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAI PROFILENAMESPACE]|WAK|TNA|WMS| _killer ProfileNameSpace: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), (profileNamespace getVariable _playerUID_ExileKills), ("ExileScore_"+_killerUID), (profileNamespace getVariable _playerUID_ExileScore)]};
 		//if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAI PLAYERVAR]|WAK|TNA|WMS| %1 VARs: ExileScore %2 | ExileMoney %3 | ExileKills %4", _killer, (_killer getVariable ["ExileScore", -1]), (_killer getVariable ["ExileMoney", -1]), (_killer getVariable ["ExileKills", -1])]};
 	};

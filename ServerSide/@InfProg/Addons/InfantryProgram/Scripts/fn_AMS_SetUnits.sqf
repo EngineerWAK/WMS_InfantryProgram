@@ -77,7 +77,8 @@ if ((primaryWeapon _unit) in WMS_AMS_sniperList) then {
 	_unit setSkill ["aimingAccuracy", 	(_sniper select 2)];
 	_unit setSkill ["aimingShake", 	(_sniper select 3)];
 	_unit setVariable ["WMS_skills",[(_sniper select 0),(_sniper select 1),(_sniper select 2),(_sniper select 3),(_skills select 4),(_skills select 5),(_skills select 5),(_skills select 6),(_skills select 8)],true]; //will be used for AI killfeed on player EH killed
-	_unit setName (selectRandom ["John McClane","John Rambo","Lucky Luke","Vasily Zaitsev","John Wick"]);
+	_unit setName selectRandom ["John McClane","John Rambo","Lucky Luke","Vasily Zaitsev","John Wick"];
+	
 } else {
 	_unit setSkill ["spotDistance", (_skills select 0)];
 	_unit setSkill ["spotTime", 	(_skills select 1)];

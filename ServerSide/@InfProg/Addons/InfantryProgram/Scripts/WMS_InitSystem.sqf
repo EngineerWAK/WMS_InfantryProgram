@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.597_2022APR30_GitHub";
+WMS_System_Version 			= "v2.598_2022MAY30_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -169,7 +169,7 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WAK_DFO_Version			= "v0.23_2022MAI01_GitHub";
+WAK_DFO_Version			= "v0.24_2022MAY02_GitHub";
 WMS_DynamicFlightOps	= true; //NOT 100% READY YET, 90% of basics
 WMS_fnc_DFO_LOGs		= false;	//For Debug
 WMS_DFO_Standalone		= true; //keep true if you don't use WMS_InfantryProgram
@@ -190,10 +190,8 @@ WMS_DFO_MkrRandomDist	= 500; //random distance to place the marker from SAR CSAR
 WMS_DFO_Reward			= [500,2000,['ACE_Can_Franta','ACE_Can_RedGull','ACE_MRE_LambCurry','ACE_MRE_MeatballsPasta','ACE_bloodIV_500','ACE_morphine','ACE_quikclot']]; //["rep","money",items for chopper return]
 WMS_DFO_OPFORcbtMod		= "YELLOW"; //Vehicle crew only //"WHITE" : Hold fire, engage at will/loose formation //"YELLOW" : Fire at will, keep formation //"RED" : Fire at will, engage at will/loose formation
 WMS_DFO_CargoType		= ["CargoNet_01_barrels_F","C_IDAP_CargoNet_01_supplies_F","CargoNet_01_box_F"];
-//WMS_DFO_MissionTypes	= ["airassault"];
 WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar"];// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
-//WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
-WMS_DFO_Choppers		= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_HH60","vtx_MH60S_GAU21L","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
+WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
 WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
 						["O_Heli_Attack_02_dynamicLoadout_F"],
 						["O_Heli_Light_02_dynamicLoadout_F"],
@@ -524,6 +522,7 @@ WMS_Pos_Forests 	= []; //not autoScan //No randomized positions //YOU NEED FORES
 WMS_Pos_Military 	= []; //not autoScan //No randomized positions //need enough space to land a chopper
 
 WMS_Pos_Factory 	= []; //used to spawn missions not for trigger, yet //YOU NEED FACTORIES POSITION FOR SOME AMS MISSIONS or use WMS_AMS_CustomPosFact = ["random"];
+WMS_Pos_Custom 		= []; //position ASLW //used in DFO for now
 //WMS_Pos_EntryPoint 	= []; //not autoScan //Just trigger WMS_trig_Glob_LastT to prevent player to get roaming AI while spawning in a trigger
 
 WMS_CustomTrig_activate 	= false; //if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD) && time > (WMS_CustomTrig_LastT + WMS_CustomTrig_CoolD) && (player distance2d trigPos) > (WMS_CustomTrig_Size/2)) then {};
