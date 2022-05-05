@@ -326,6 +326,19 @@ if (_triggType == "BaseATKreinforcement") then {
 		_threatScenario = _info;
 	};
 };
+if (_triggType == "DFO") then {
+	_load = selectRandom  (WMS_DynAI_RainObjects select 3);
+	if (_info == "random") then {
+		_threatScenario = selectRandomWeighted[
+			"paradrop",((_Vcoef select 8) +(_Rcoef select 8)),
+			"VHLpatrol",((_Vcoef select 9) +(_Rcoef select 9)),
+			"AIRpatrol",((_Vcoef select 10) +(_Rcoef select 10)),
+			"AIRassault",((_Vcoef select 11) +(_Rcoef select 11))
+		];
+	} else {
+		_threatScenario = _info;
+	};
+};
 };
 //calculate probabilities and select the scenario
 if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| _threatScenario = %1", _threatScenario]};
@@ -453,7 +466,7 @@ switch (_threatScenario) do {
 		if (damage _target > 0.1) then {_BoxType = "medic"} else {_BoxType = selectRandom ["medic","food","misc","weaps"]};
 		[_pos,_target,_BoxType,"ground",_crate,_dist1INF,_dist1PARA,_iterM] spawn WMS_fnc_DynAI_SpawnCrate; //Optionnal: _BoxType,_spawnType,_crate,_dist1,_dist2,_iterM
 	};
-	case "rain" : {
+	case "rain" : { //Rain is not "neutral" anymore xD
 		private _alti = 80;
 		if (_load == "rhs_ammo_nspn_red") then {_alti = 150};
 		if (_load == "rhs_ammo_fakels") then {_alti = 65};
