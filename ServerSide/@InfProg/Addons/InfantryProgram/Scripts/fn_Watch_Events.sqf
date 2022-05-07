@@ -89,9 +89,4 @@ if (count WMS_Events_Running != 0) then {
 		};
 		
 	} foreach WMS_Events_Running;
-	{
-		if (((_x select 7) == "DFO")) then { //if it's not "DFO", it's really fuckedUp
-			_x call WMS_fnc_DFO_Cleanup;
-		};
-	}forEach WMS_DFO_Running;
 };

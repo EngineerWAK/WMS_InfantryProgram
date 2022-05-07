@@ -23,6 +23,24 @@ while {true} do {
 	//Server restart 
 	if (WMS_ServRestart && {serverTime > (WMS_ServRestartSeconds-900)}) then {
 		[] spawn WMS_fnc_sys_ServerRestart; //I don't like this "spawn"
+	};
+	//DFO
+	if (WMS_DynamicFlightOps) then {
+		if (count WMS_DFO_Running != 0) then {
+			{
+				if (((_x select 7) == "DFO")) then { //if it's not "DFO", it's really fuckedUp
+					_x call WMS_fnc_DFO_Cleanup;
+				};
+			}forEach WMS_DFO_Running;
 		};
+		if (count WMS_DFO_RunReinforce != 0) then {
+			{
+				if ((_x select 7) == "REINF" && {time > (_x select 1)}) then { //do not call the reinforcement cleanup if time has not come
+					_x call WMS_fnc_DFO_RinforceCleanup; //["HexaID", time to delete, [_grps], [_vhls], [_objects],"","","REINF"]
+				};
+			}forEach WMS_DFO_RunReinforce;
+		};
+
+	};
 uisleep 59; //uisleep 14, uisleep 31, uisleep 59, uisleep 91, uisleep 120, uisleep 239
 };

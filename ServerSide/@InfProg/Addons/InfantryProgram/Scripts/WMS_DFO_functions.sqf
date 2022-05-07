@@ -50,13 +50,13 @@ WMS_DFO_CollectPos = {
 	private _worldCenter 	= [worldsize/2,worldsize/2,0]; 
 	private _worldDiameter 	= ((worldsize/2)*1.413);
 	if (WMS_fnc_DFO_LOGs) then {Diag_log '|WAK|TNA|WMS|[DFO] collecting LOCALS positions'};
-	{WMS_Pos_Locals pushback position _x}forEach (nearestLocations [_worldCenter, ["nameLocal"],_worldDiameter]);
+	{WMS_Pos_Locals pushback getPos _x}forEach (nearestLocations [_worldCenter, ["nameLocal"],_worldDiameter]);
 	if (WMS_fnc_DFO_LOGs) then {Diag_log '|WAK|TNA|WMS|[DFO] collecting VILLAGES positions'};
-	{WMS_Pos_Villages pushback position _x}forEach (nearestLocations [_worldCenter, ["nameVillage"],_worldDiameter]);
+	{WMS_Pos_Villages pushback getPos _x}forEach (nearestLocations [_worldCenter, ["nameVillage"],_worldDiameter]);
 	if (WMS_fnc_DFO_LOGs) then {Diag_log '|WAK|TNA|WMS|[DFO] collecting CITIES positions'};
-	{WMS_Pos_Cities pushback position _x}forEach (nearestLocations [_worldCenter, ["nameCity"],_worldDiameter]);
+	{WMS_Pos_Cities pushback getPos _x}forEach (nearestLocations [_worldCenter, ["nameCity"],_worldDiameter]);
 	if (WMS_fnc_DFO_LOGs) then {Diag_log '|WAK|TNA|WMS|[DFO] collecting CAPITALS positions'};
-	{WMS_Pos_Capitals pushback position _x}forEach (nearestLocations [_worldCenter, ["nameCityCapital"],_worldDiameter]);
+	{WMS_Pos_Capitals pushback getPos _x}forEach (nearestLocations [_worldCenter, ["nameCityCapital"],_worldDiameter]);
 };
 WMS_fnc_DFO_ConvertTypeToCoord = {
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_ConvertTypeToCoord _this %1', _this]};
@@ -71,7 +71,7 @@ WMS_fnc_DFO_ConvertTypeToCoord = {
 	private _blackList = [];
 	private _return = [];
 	if (WMS_DFO_Standalone) then {
-		_blackList = allPlayers select {alive _x} apply {[position _x, 900]};
+		_blackList = allPlayers select {alive _x} apply {[getPosATL _x, 900]};
 	}else {
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 	};
@@ -98,7 +98,7 @@ WMS_fnc_DFO_ConvertTypeToCoord = {
 							//use random but 2 "must be on water"
 							_return = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), 5, 2, 0.5, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
 						}else{
-							if(_posType == "custom")then{
+							if(_posType == "custom")then{ //NOT USED YET
 								_return = selectRandom WMS_Pos_Custom; //ASLW
 							}else{
 								//back to "random"
@@ -110,8 +110,16 @@ WMS_fnc_DFO_ConvertTypeToCoord = {
 			};
 		};
 	};
-	//player check here, if player, then fallback to "random": //NOT YET
-
+	//player check here, if player, then fallback to "random": //NOT YET	
+	private _result = false;
+	{
+		if((_return distance (getPosATL _x)) < 500) then {_result = true};
+	}forEach allPlayers;
+	if (_result) then {
+		//back to "random"
+		_return = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+	};
+	if (count _return != 3) then {_return pushBack 0}; //make sure position is 3D
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_ConvertTypeToCoord _return %1', _return]};
 	_return
 };
@@ -276,19 +284,24 @@ WMS_fnc_DFO_BuildBase = {
 	{
 		_object = createVehicle [(_x select 0), [0,0,4000], [], 0, "CAN_COLLIDE"];
 		_object setdir _dirCompo + (_x select 2);
-		_objectVectoriel = (_compoRefPoint modeltoworld  [(_x select 1 select 0),(_x select 1 select 1),0]);
-		_object setposATL [(_objectVectoriel select 0),(_objectVectoriel select 1),((_x select 1) select 2)];
-		_gradient = surfaceNormal position _object;
-		_object setvectorup _gradient;
+		//_objectVectoriel = (_compoRefPoint modeltoworld  [(_x select 1 select 0),(_x select 1 select 1),0]);
+		_objectVectoriel = (_compoRefPoint modeltoworld  [(_x select 1 select 0),(_x select 1 select 1),(_x select 1 select 2)]);
+		if (surfaceIsWater _pos) then {
+			_object setposASL [(_objectVectoriel select 0),(_objectVectoriel select 1),(_objectVectoriel select 2)];
+		} else {
+			_object setposATL [(_objectVectoriel select 0),(_objectVectoriel select 1),((_x select 1) select 2)];
+			_gradient = surfaceNormal getPosATL _object;
+			_object setvectorup _gradient;
+		};
 		_object allowDamage false;
 		_object enableSimulationGlobal true;
 		if ((_x select 0) == "Land_HelipadCircle_F") then {
 			_object setVariable ["WMS_DFO_BaseHelipad",true];
-			WMS_DFO_BasePositions pushBack (position _object);
+			WMS_DFO_BasePositions pushBack (getPosATL _object);
 			/*
 			if(isServer)then{
 				private _BasePositions = missionNameSpace getVariable ["WMS_DFO_BasePositions", []];
-				_BasePositions pushBack (position this);
+				_BasePositions pushBack (getPosATL this);
 				missionNameSpace setVariable ["WMS_DFO_BasePositions",_BasePositions];
 			};*/
 		};
@@ -299,12 +312,22 @@ WMS_fnc_DFO_BuildBase = {
 		};
 	}forEach _DFO_BaseObjects;
 	if !(_option == "NOTRIGGER") then {
-		private _triggMission = createTrigger ["EmptyDetector", _pos, true];  
+		private _triggMission = createTrigger ["EmptyDetector", _pos, true];
+		if (surfaceIsWater _pos)then{
+			//_fuckingPOS = ATLtoASL _pos;
+			//_triggMission setPos _fuckingPOS; //NOPE
+			//_triggMission setPosASL _fuckingPOS; //NOPE
+			private _helper = createVehicle ["VR_Area_01_circle_4_grey_F", [_pos select 0,_pos select 1,(_pos select 2)+0.1], [], 0, "CAN_COLLIDE"];
+			_helper setvectorup [0,0,1]; //[0,0,-1] will turn the helper upsidedown and hide it (from the top)
+			_triggMission attachTo [_helper,[0,0,0]];
+		};		
 		_triggMission setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 		_triggMission setTriggerArea [12.5, 12.5, 0, false];
 		_triggMission setTriggerStatements  
 		[ 
-  			"this && ({ (getPosATL _x) select 2 <= 10 } count thislist) > 0",  
+  			"
+			  this && ({ thisTrigger distance _x <= 12.5 } count thislist) > 0
+			",  
   			"	
 	  			'Dynamic Flight Ops, Do not Park here' remoteExec ['hint', (owner (thisList select 0))]; 
 	  			'Dynamic Flight Ops, Do not Park here' remoteExec ['systemChat', (owner (thisList select 0))]; 
@@ -314,6 +337,14 @@ WMS_fnc_DFO_BuildBase = {
 	  			'Dynamic Flight Ops, Thank you for your visit' remoteExec ['systemChat', (owner (thisList select 0))]; 
 			" 
 		];
+		/*
+			  this && {
+				  if (surfaceIsWater position thisTrigger) then {
+					  ({ (getPosASL _x) select 2 <= 10 } count thislist) > 0
+				  } else {
+					  ({ (getPosATL _x) select 2 <= 10 } count thislist) > 0
+				  }
+				}*/
 	};
 	publicVariable "WMS_DFO_ObjToAddAction";
 	publicVariable "WMS_DFO_BasePositions";
@@ -369,6 +400,7 @@ WMS_fnc_DFO_CreateVhls = {
 		private _OPFvehicles = []; //pushback
 		private _infType = "OPFOR";
 		private _crewCount = 3;
+		private _loadoutIndex = 0;
 		//define what type of vehicle, depending what type of mission
 		if (surfaceIsWater _pos) then {_OPFORvhlType = [9]};
 		private _veh = objNull;
@@ -390,12 +422,25 @@ WMS_fnc_DFO_CreateVhls = {
 			clearBackpackCargoGlobal _veh;
 		};
 		//vehicle crew
-		if (_faction != EAST) then {_infType = "CIV_ARMED"};
+		if (_faction != EAST) then {_infType = "CIV_ARMED"; _loadoutIndex = 1};
 		{	
 			private _OPFORinfGrp = createGroup [_faction, false];
 			if (_x iskindof "helicopter") then {_crewCount = 2};
 			for "_i" from 1 to _crewCount do { //GROUND = 3 AIR = 2
-				(WMS_DFO_NPCs select 0 select 0) createUnit [(position _x), _OPFORinfGrp]; //yes, vehicle crew are flying helicopters, what a shame
+				//(WMS_DFO_NPCs select 0 select 0) createUnit [(getPosATL _x), _OPFORinfGrp]; //yes, vehicle crew are flying helicopters, what a shame
+				//_unit = _OPFORinfGrp createUnit [(WMS_DFO_NPCs select 0 select 0), (getPosATL _x), [], 0, ""];
+				//_unit setVariable ["WMS_DFO_RealFuckingSide",_faction];
+				//////////
+				if (surfaceIsWater (getPosATL _x)) then { //works but messy	
+					_fuckingPOS = ATLtoASL (getPosATL _x);
+					private _unit = _OPFORinfGrp createUnit [(WMS_DFO_NPCs select _loadoutIndex select 0), _fuckingPOS, [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK, _fuckingPOS OK
+					//_unit setPosASL [(position _unit select 0),(position _unit select 1),_fuckingPOS select 2]; //NO NEED
+					_unit setVariable ["WMS_DFO_RealFuckingSide",_faction];
+					_unit disableAI "PATH";
+				}else{	
+					_unit = _OPFORinfGrp createUnit [(WMS_DFO_NPCs select _loadoutIndex select 0), (getPosATL _x), [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK
+					_unit setVariable ["WMS_DFO_RealFuckingSide",_faction];
+				};	
 			};
 			_OPFORinfGrp addvehicle _x;
 			(units _OPFORinfGrp) orderGetIn true;
@@ -460,7 +505,12 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 	_blackList 			= []; //KEEP EMPTY
 	_loadoutsCIV 		= []; //KEEP EMPTY
 
-	_pos  		= position _DFO_Object;  //default
+	_pos = getPosATL _DFO_Object;  //default
+
+	//if(surfaceIsWater _pos) then {
+	//	_pos = getPosASL _DFO_Object;
+	//};
+
 	_posBase 	= [worldsize/2,worldsize/2,0]; //default middle of the map
 	_posLZ1  	= [0,worldsize,0]; //default
 	_posLZ2  	= [worldsize,0,0]; //default
@@ -476,9 +526,15 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			if (_DFO_status) then {_DFO_BaseHelipads pushBack _X};
 		}forEach _helipadList;
 		if (count _DFO_BaseHelipads != 0) then {
-			_posBase = position (_DFO_BaseHelipads select 0);
+			_posBase = getPosATL (_DFO_BaseHelipads select 0);
+			//if(surfaceIsWater getPosATL (_DFO_BaseHelipads select 0)) then {
+			//	_posBase  = getPosASL (_DFO_BaseHelipads select 0);
+			//};
 		}else {
-			_posBase = position (_helipadList select 0);
+			_posBase = getPosATL (_helipadList select 0);
+			//if(surfaceIsWater getPosATL (_DFO_BaseHelipads select 0)) then {
+			//	_posBase  = getPosASL (_DFO_BaseHelipads select 0);
+			//};
 			_nil = [_posBase, "notFull"] call WMS_fnc_DFO_BuildBase;
 			(_helipadList select 0) setVariable ["WMS_DFO_BaseHelipad",true];
 			WMS_DFO_BasePositions pushBack _posBase;
@@ -499,8 +555,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			_createCIVinf	= true;
 			_civType 		= selectRandom ["unarmed","armed"];
 			_smokePickUp	= WMS_fnc_DFO_SmokeAtLZ;
-			_reinforce 		= selectRandom [false,true];
-			_reinforce 		= true;
+			_reinforce 		= selectRandom [false,true,false];
 			_selectedChoppers = WMS_DFO_Choppers select 2;
 			if (_missionStart == "BASE") then {_missionFinish = _MissionPath select 1;_civType = "armed";} else {_missionFinish = _MissionPath select 2};
 		};
@@ -621,8 +676,17 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 	//chopper, for the poors
 	if (_createChopper) then { //should not be used with WMS_TheLastCartridges but anyway the chopper can not sell (addAction/sell), however Exile Mod will sell it (sell/Classname)
 		//addAction on it "pack to get the reward" or something
-		private _choppa = (selectRandom _selectedChoppers) createVehicle _posBase;
+		//private _choppa = objNull;
+		// _choppa = (selectRandom _selectedChoppers) createVehicle _posBase;
+		//_choppa = (selectRandom _selectedChoppers) createVehicle [-500,-500,500];
+		_choppa = createVehicle [(selectRandom _selectedChoppers), _posBase, [], 0, "NONE"];
 		_choppa setDir (random 359);
+		/*if (surfaceIsWater _posBase) then {
+			//_choppa setPosATL [_posBase select 0,_posBase select 1,0.25]; //NOPE
+			_choppa setPosATL _posBase;
+		} else {
+			_choppa setPosATL _posBase;
+		};*/
 		clearMagazineCargoGlobal _choppa; 
 		clearWeaponCargoGlobal _choppa; 
 		clearItemCargoGlobal _choppa; 
@@ -633,7 +697,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 			"<t size='1' color='#068604'>Return Chopper to DFO HQ</t>",
 			"
 				_target = _this select 0; _caller = _this select 1;
-				_chopperPos = position _target;
+				_chopperPos = getPosATL _target;
 				_target enableDynamicSimulation false;
 				_target enableSimulation false;
 				_target setPos [worldSize,worldsize,-100];
@@ -700,14 +764,43 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		if (_mission == "airassault") then {
 			_CIVinfGrp = createGroup [CIVILIAN, false];
 			for "_i" from 1 to (selectRandom [4,6,8]) do {
-				(selectRandom (WMS_DFO_NPCs select 2)) createUnit [_missionFinish, _CIVinfGrp];		
+				//(selectRandom (WMS_DFO_NPCs select 2)) createUnit [_missionFinish, _CIVinfGrp];	
+				//_unit = _CIVinfGrp createUnit [selectRandom (WMS_DFO_NPCs select 2), [_missionFinish select 0,_missionFinish select 1,0], [], 0, ""];
+				//_unit setVariable ["WMS_DFO_RealFuckingSide",CIVILIAN];	
+				//////////
+				if (surfaceIsWater _missionFinish) then { //works but messy	
+					_fuckingPOS = ATLtoASL _missionFinish;
+					private _unit = _CIVinfGrp createUnit [(selectRandom (WMS_DFO_NPCs select 2)), _fuckingPOS, [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK, _fuckingPOS OK
+					//_unit setPosASL [(position _unit select 0),(position _unit select 1),_fuckingPOS select 2]; //NO NEED
+					_unit setVariable ["WMS_DFO_RealFuckingSide",CIVILIAN];
+					_unit disableAI "PATH";
+				}else{	
+					_unit = _CIVinfGrp createUnit [(selectRandom (WMS_DFO_NPCs select 2)), [_missionFinish select 0,_missionFinish select 1,0], [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK
+					_unit setVariable ["WMS_DFO_RealFuckingSide",CIVILIAN];
+				};	
 			};
 			[_CIVinfGrp, _missionFinish, 75, 5, "MOVE", "CARELESS", "BLUE", "NORMAL", "DIAMOND", "", [1,2,3]] call CBA_fnc_taskPatrol;
 			_CIVinfGrp2 = createGroup [WEST, false];
 			for "_i" from 1 to (selectRandom [3,4,5,6]) do {
-				(selectRandom (WMS_DFO_NPCs select 1)) createUnit [_pos, _CIVinfGrp2];		
+				//(selectRandom (WMS_DFO_NPCs select 1)) createUnit [_pos, _CIVinfGrp2];	
+				//_unit = _CIVinfGrp2 createUnit [selectRandom (WMS_DFO_NPCs select 1), [_pos select 0,_pos select 1,0], [], 0, ""];
+				//_unit setVariable ["WMS_DFO_RealFuckingSide",WEST];	
+				//////////
+				if (surfaceIsWater _pos) then { //works but messy	
+					_fuckingPOS = ATLtoASL _pos;
+					private _unit = _CIVinfGrp2 createUnit [(selectRandom (WMS_DFO_NPCs select 1)), _fuckingPOS, [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK, _fuckingPOS OK
+					//_unit setPosASL [(position _unit select 0),(position _unit select 1),_fuckingPOS select 2]; //NO NEED
+					_unit setVariable ["WMS_DFO_RealFuckingSide",WEST];
+					_unit disableAI "PATH";
+				}else{	
+					_unit = _CIVinfGrp2 createUnit [(selectRandom (WMS_DFO_NPCs select 1)), [_pos select 0,_pos select 1,0], [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK
+					_unit setVariable ["WMS_DFO_RealFuckingSide",WEST];
+				};			
 			};
 			{
+				//if (surfaceIsWater _pos) then { //works but messy
+				//	_x setPosATL [position _x select 0,position _x select 1,_pos select 2]; //0 at walkable surface
+				//};
 				_x setUnitPos "MIDDLE";
 				_x allowDamage false; //you don't want those dudes to get killed by roaming AI before you pick them up
 			}forEach units _CIVinfGrp2;
@@ -724,15 +817,29 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		}else{
 			_CIVinfGrp = createGroup [CIVILIAN, false];
 			for "_i" from 1 to (selectRandom [2,4,6,8]) do {
-				(selectRandom _loadoutsCIV) createUnit [_pos, _CIVinfGrp];		
+				//(selectRandom _loadoutsCIV) createUnit [_pos, _CIVinfGrp];
+				if (surfaceIsWater _pos) then { //works but messy	
+					_fuckingPOS = ATLtoASL _pos;
+					private _unit = _CIVinfGrp createUnit [(selectRandom _loadoutsCIV), _fuckingPOS, [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK, _fuckingPOS OK
+					//_unit setPosASL [(position _unit select 0),(position _unit select 1),_fuckingPOS select 2]; //NO NEED
+					_unit setVariable ["WMS_DFO_RealFuckingSide",CIVILIAN];
+					_unit disableAI "PATH";
+				}else{	
+					_unit = _CIVinfGrp createUnit [(selectRandom _loadoutsCIV), _pos, [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK
+					_unit setVariable ["WMS_DFO_RealFuckingSide",CIVILIAN];
+				};	
 			};
+			_CIVinfGrp setFormation "FILE"; //FUCKING USELESS
 			{
+				//if (surfaceIsWater _pos) then {
+				//	_x setPosATL [position _x select 0,position _x select 1,_pos select 2]; //0 at walkable surface
+				//};
 				_x setUnitPos "MIDDLE";
 				_x setVariable ["lambs_danger_disableAI", true];//deactivate LambsDanger
 			}forEach units _CIVinfGrp;
 			_CIVinfGrp setVariable ["lambs_danger_disableGroupAI", true];//deactivate LambsDanger
 			private _unitsDatas = missionNameSpace getVariable ["WMS_DFO_UnitsToManage", []];
-			_unitsDatas pushBack [_MissionHexaID,(units _CIVinfGrp2)];
+			_unitsDatas pushBack [_MissionHexaID,(units _CIVinfGrp)];
 			missionNameSpace setVariable ["WMS_DFO_UnitsToManage", _unitsDatas];
 		};
 		(_grps select 1) pushback _CIVinfGrp;
@@ -749,15 +856,46 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		_OPFORinfGrp = createGroup [EAST, false];
 		if (_mission == "airassault") then {
 			for "_i" from 1 to (selectRandom [4,6,8,10]) do {
-				(selectRandom (WMS_DFO_NPCs select 0)) createUnit [_MissionFinish, _OPFORinfGrp];
+				//(selectRandom (WMS_DFO_NPCs select 0)) createUnit [_MissionFinish, _OPFORinfGrp];	
+				//_unit = _OPFORinfGrp createUnit [selectRandom (WMS_DFO_NPCs select 0), [_missionFinish select 0,_missionFinish select 1,0], [], 0, ""];
+				//_unit setVariable ["WMS_DFO_RealFuckingSide",EAST];	
+				//////////
+				if (surfaceIsWater _missionFinish) then { //works but messy	
+					_fuckingPOS = ATLtoASL _missionFinish;
+					private _unit = _OPFORinfGrp createUnit [(selectRandom (WMS_DFO_NPCs select 0)), _fuckingPOS, [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK, _fuckingPOS OK
+					//_unit setPosASL [(position _unit select 0),(position _unit select 1),_fuckingPOS select 2]; //NO NEED
+					_unit setVariable ["WMS_DFO_RealFuckingSide",EAST];
+					_unit disableAI "PATH";
+				}else{	
+					_unit = _OPFORinfGrp createUnit [(selectRandom (WMS_DFO_NPCs select 0)), [_missionFinish select 0,_missionFinish select 1,0], [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK
+					_unit setVariable ["WMS_DFO_RealFuckingSide",EAST];
+				};			
 			};
 			[_OPFORinfGrp] call CBA_fnc_taskDefend; //GARRISON
 		}else{
 			for "_i" from 1 to (selectRandom [4,6,8,10]) do {
-				(selectRandom (WMS_DFO_NPCs select 0)) createUnit [_pos, _OPFORinfGrp];
+				//(selectRandom (WMS_DFO_NPCs select 0)) createUnit [_pos, _OPFORinfGrp];
+				//_unit = _OPFORinfGrp createUnit [selectRandom (WMS_DFO_NPCs select 0), [_pos select 0,_pos select 1,0], [], 0, ""];
+				//_unit setVariable ["WMS_DFO_RealFuckingSide",EAST];	
+				//////////
+				if (surfaceIsWater _pos) then { //works but messy	
+					_fuckingPOS = ATLtoASL _pos;
+					private _unit = _OPFORinfGrp createUnit [(selectRandom (WMS_DFO_NPCs select 0)), _fuckingPOS, [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK, _fuckingPOS OK
+					//_unit setPosASL [(position _unit select 0),(position _unit select 1),_fuckingPOS select 2]; //NO NEED
+					_unit setVariable ["WMS_DFO_RealFuckingSide",EAST];
+					_unit disableAI "PATH";
+				}else{	
+					_unit = _OPFORinfGrp createUnit [(selectRandom (WMS_DFO_NPCs select 0)), [_pos select 0,_pos select 1,0], [], 3, "NONE"];	//0 = WATER SURFACE, _POS = 69M ABOVE THE FUCKING DECK
+					_unit setVariable ["WMS_DFO_RealFuckingSide",EAST];
+				};			
 			};
 			[_OPFORinfGrp, _pos, 75, 5, "MOVE", "AWARE", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 		};
+		{
+			//if (surfaceIsWater _pos) then {
+			//	_x setPosATL [position _x select 0,position _x select 1,_pos select 2]; //0 at walkable surface
+			//};
+		}forEach units _OPFORinfGrp;
 		(_grps select 0) pushback _OPFORinfGrp;
 		[(units _OPFORinfGrp),[_MissionHexaID,_playerObject,_mission,_infType]] call WMS_fnc_DFO_SetUnits;
 	};
@@ -782,7 +920,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 	{_objs pushback _x}forEach _triggListREIN;
 	//create smoke pickup trigger
 	if(_smokePickUp)then{
-		_triggListSIGN = [position (leader ((_grps select 1) select 0)),"signal",[_MissionHexaID,_playerObject,_mkrs,_mission,_MissionPathCoord,_missionName,_MissionFinish,_reinforce,_smokePickUp,((_grps select 1) select 0)]] call WMS_fnc_DFO_CreateTrigger;
+		_triggListSIGN = [getPosATL (leader ((_grps select 1) select 0)),"signal",[_MissionHexaID,_playerObject,_mkrs,_mission,_MissionPathCoord,_missionName,_MissionFinish,_reinforce,_smokePickUp,((_grps select 1) select 0)]] call WMS_fnc_DFO_CreateTrigger;
 	};
 	{_objs pushback _x}forEach _triggListSIGN;
 	
@@ -866,7 +1004,7 @@ WMS_fnc_DFO_CreateMkr = {
 };
 WMS_fnc_DFO_CreateTrigger = {
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CreateTrigger _this %1', _this]};
-	private ["_triggList","_triggMission","_triggReinf","_mission"];
+	private ["_triggList","_triggMission","_triggReinf","_mission","_MissionHexaID"];
 	params [
 		"_pos",
 		["_triggType", "whatever"],
@@ -875,19 +1013,39 @@ WMS_fnc_DFO_CreateTrigger = {
 	];
 	_triggList = [];
 	_mission = _options select 3;
+	_MissionHexaID = _options select 0;
 	if (_triggType isEqualTo "LZ1" || _triggType isEqualTo "BASE") then {
 		if (_mission == 'airassault') then {_options pushBack _airassaultDatas};
 		//trigger mission itself
 		//[0,1,EAST,_pos,_OPFORvhlCnt,_OPFORvhlType,3,6] //"airassault" options to create the vehicles, numbers are regular option index
 		//_vhlReturns = [_MissionHexaID,_playerObject,EAST,_pos,_OPFORvhlCnt,_OPFORvhlType,_mission,_MissionFinish] call WMS_fnc_DFO_CreateVhls; //[_vhls,_grps,_faction] //[[],[],side]
 		if !(_mission == "casinf" || _mission == "casarmored" || _mission == "cascombined") then { //CAS do not need trigger, the cleanup is every minute check and no RTB
-		_triggMission = createTrigger ["EmptyDetector", _pos, true]; 
+		_triggMission = createTrigger ["EmptyDetector", _pos, true];
+		if (surfaceIsWater _pos)then{
+			_fuckingPOS = ATLtoASL _pos;
+			_triggMission setPosASL _fuckingPOS;
+			private _helper = createVehicle ["VR_Area_01_circle_4_yellow_F", [_pos select 0,_pos select 1,(_pos select 2)+0.15], [], 0, "CAN_COLLIDE"];
+			_helper setvectorup [0,0,1]; //[0,0,-1] will turn the helper upsidedown and hide it (from the top)
+			_triggMission attachTo [_helper,[0,0,0]];
+			[_MissionHexaID, _helper] spawn { //at this point, the mission is not yet in the array to check
+				uisleep 6;
+				private _result = []; 
+				{ 
+					_found = (_x select 9) find (_this select 0);
+					_result pushback _found;
+				}forEach WMS_DFO_Running;
+				private _RefIndex = _result find 0;
+				(WMS_DFO_Running select _RefIndex select 4) pushBack (_this select 1);
+			};
+		};		
 		_triggMission setVariable ["WMS_DFO_triggData", _options, false];  
 		_triggMission setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 		_triggMission setTriggerArea [12.5, 12.5, 0, false];
 		_triggMission setTriggerStatements  
 		[ 
-  			"this && ({ (position _x) select 2 <= 10 } count thislist) > 0",
+  			"
+			  this && ({ thisTrigger distance _x <= 10 } count thislist) > 0
+			",
   			"	
 		  		private _datas = (thisTrigger getVariable 'WMS_DFO_triggData');
 				private _pilot = (_datas select 1);
@@ -918,6 +1076,13 @@ WMS_fnc_DFO_CreateTrigger = {
 		if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CreateTrigger Creating Reinforcement Zone Trigger, %1 radius', WMS_DFO_ReinfTriggDist]};
 		//trigger reinforcement
 		_triggReinf = createTrigger ["EmptyDetector", _pos, true];
+		/*if (surfaceIsWater _pos)then{
+			_fuckingPOS = ATLtoASL _pos;
+			_triggReinf setPosASL _fuckingPOS;
+			private _helper = createVehicle ["VR_Area_01_circle_4_yellow_F", _pos, [], 0, "CAN_COLLIDE"];
+			_helper setvectorup [0,0,1];
+			_triggReinf attachTo [_helper,[0,0,0]];
+		};*/		
 		_triggReinf setVariable ["WMS_DFO_triggData", _options, false];
 		_triggReinf setTriggerActivation ["ANYPLAYER", "PRESENT", true]; 
 		_triggReinf setTriggerArea [WMS_DFO_ReinfTriggDist, WMS_DFO_ReinfTriggDist, 0, false];
@@ -930,22 +1095,29 @@ WMS_fnc_DFO_CreateTrigger = {
 				private _createSmoke = _options select 8;
 				private _smokeGroup = _options select 9;
 				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger REINFORCE | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 |', (_options select 0), name (_options select 1), (_options select 2), (_options select 3), (_options select 4)]};
-				if (_reinforce) then {[_options select 0,_options select 1,_options select 3,_options select 6,_smokeGroup,(position thisTrigger)] spawn WMS_fnc_DFO_Reinforce};
+				if (_reinforce) then {[_options select 0,_options select 1,_options select 3,_options select 6,_smokeGroup,(getPosATL thisTrigger)] spawn WMS_fnc_DFO_Reinforce};
 				deleteVehicle thisTrigger;
 			",  
   			"" 
-		];// && {position thisTrigger != (_options select 4 select 0)}
+		];// && {getPosATL thisTrigger != (_options select 4 select 0)}
 		_triggList pushBack _triggReinf;
 	};
 	if (_triggType == "signal") then {
-		if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CreateTrigger Creating Reinforcement Zone Trigger, %1 radius', WMS_DFO_ReinfTriggDist]};
+		if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CreateTrigger Creating Signal Zone Trigger, %1 radius', WMS_DFO_ReinfTriggDist]};
 		//trigger reinforcement
-		_triggReinf = createTrigger ["EmptyDetector", _pos, true];
-		_triggReinf setVariable ["WMS_DFO_triggData", _options, false];
-		_triggReinf setVariable ["WMS_DFO_pilot", _options select 1, false];
-		_triggReinf setTriggerActivation ["ANYPLAYER", "PRESENT", true]; 
-		_triggReinf setTriggerArea [WMS_DFO_ReinfTriggDist, WMS_DFO_ReinfTriggDist, 0, false];
-		_triggReinf setTriggerStatements  
+		_triggSign = createTrigger ["EmptyDetector", _pos, true];
+		/*if (surfaceIsWater _pos)then{
+			_fuckingPOS = ATLtoASL _pos;
+			_triggSign setPosASL _fuckingPOS;
+			private _helper = createVehicle ["VR_Area_01_circle_4_yellow_F", _pos, [], 0, "CAN_COLLIDE"];
+			_helper setvectorup [0,0,1];
+			_triggSign attachTo [_helper,[0,0,0]];
+		};*/	
+		_triggSign setVariable ["WMS_DFO_triggData", _options, false];
+		_triggSign setVariable ["WMS_DFO_pilot", _options select 1, false];
+		_triggSign setTriggerActivation ["ANYPLAYER", "PRESENT", true]; 
+		_triggSign setTriggerArea [WMS_DFO_ReinfTriggDist, WMS_DFO_ReinfTriggDist, 0, false];
+		_triggSign setTriggerStatements  
 		[ 
   			"(vehicle (thisTrigger getVariable 'WMS_DFO_pilot')) in thisList",  
   			"	
@@ -956,18 +1128,18 @@ WMS_fnc_DFO_CreateTrigger = {
 				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger SIGNAL | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 |', (_options select 0), name (_options select 1), (_options select 2), (_options select 3), (_options select 4)]};
 				if (_createSmoke) then {
 					if !(vehicle (leader _smokeGroup) == vehicle (_options select 1)) then {
-						_pos = (position leader _smokeGroup);
+						_pos = (getPosATL leader _smokeGroup);
 						_smoke = 'SmokeShellPurple' createVehicle _pos;
 						_smoke attachTo [(leader _smokeGroup), [0,0,0]];
 						_flare = 'F_40mm_Red' createVehicle [_pos select 0, _pos select 1, 150];
-						_flare setVelocity [0.01,-0.012,0];
+						_flare setVelocity [0.03,-0.01,0];
 					};
 				};
 				deleteVehicle thisTrigger;
 			",  
   			"" 
-		];// && {position thisTrigger != (_options select 4 select 0)}
-		_triggList pushBack _triggReinf;
+		];// && {getPosATL thisTrigger != (_options select 4 select 0)}
+		_triggList pushBack _triggSign;
 	};
 	_triggList
 };
@@ -999,7 +1171,7 @@ WMS_fnc_DFO_Reinforce = {
 		if (surfaceIsWater _pos) then {_typeOfReinforce = "AIRpatrol"};
 		if(WMS_DFO_Standalone)then{
 			//private _playerScore = _playerObject getVariable ["ExileScore", 5000]; //will be usefull later for reinforcement skill adjustment
-			_blackList = allPlayers select {alive _x} apply {[position _x, 900]};
+			_blackList = allPlayers select {alive _x} apply {[getPosATL _x, 900]};
 			//_typeOfReinforce = "VHLpatrol"; //TEST
 			if (_typeOfReinforce == "AIRpatrol") then {
 				_randomPos = [_pos, WMS_DFO_ReinfTriggDist+900, WMS_DFO_ReinfTriggDist+2500, 0, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
@@ -1042,7 +1214,9 @@ WMS_fnc_DFO_Reinforce = {
 			if (_typeOfReinforce == "paradrop") then {
 				_OPFORinfGrp = createGroup [EAST, false];
 				for "_i" from 1 to (selectRandom [4,5,6,7,8]) do {
-					(selectRandom (WMS_DFO_NPCs select 0)) createUnit [[0,0,3000], _OPFORinfGrp];
+					//(selectRandom (WMS_DFO_NPCs select 0)) createUnit [[0,0,3000], _OPFORinfGrp];
+					_unit = _OPFORinfGrp createUnit [selectRandom (WMS_DFO_NPCs select 0), [_pos select 0,_pos select 1,3000], [], 0, ""];
+					_unit setVariable ["WMS_DFO_RealFuckingSide",EAST];
 				};
 				[_OPFORinfGrp, _pos, 75, 5, "MOVE", "AWARE", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 				{
@@ -1102,7 +1276,9 @@ WMS_fnc_DFO_Reinforce = {
 				_OPFORinfGrp = createGroup [EAST, false];
 				_grps pushBack _OPFORinfGrp;
 				for "_i" from 1 to (selectRandom [4,5,6,7,8]) do {
-					(selectRandom (WMS_DFO_NPCs select 0)) createUnit [_randomPos, _OPFORinfGrp];
+					//(selectRandom (WMS_DFO_NPCs select 0)) createUnit [_randomPos, _OPFORinfGrp];
+					_unit = _OPFORinfGrp createUnit [selectRandom (WMS_DFO_NPCs select 0), _randomPos, [], 0, ""];
+					_unit setVariable ["WMS_DFO_RealFuckingSide",EAST];
 				};
 				[_OPFORinfGrp, _pos, 75, 4, "MOVE", "AWARE", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 				_units = units _OPFORinfGrp;
@@ -1118,8 +1294,8 @@ WMS_fnc_DFO_Reinforce = {
 				[ 
   					"(thistrigger getVariable '_vehic1') in thisList || (thistrigger getVariable '_vehic2') in thisList",
   					"	
-						if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] trigger AIRASSAULT | thisList %1 | position %2 |', thisList, position thisTrigger]};
-						[group (thistrigger getVariable '_vehic1'), position thisTrigger, 300, 4, 'MOVE', 'AWARE', WMS_DFO_OPFORcbtMod, 'LIMITED', 'COLUMN', '', [2,4,6]] call CBA_fnc_taskPatrol;
+						if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] trigger AIRASSAULT | thisList %1 | position %2 |', thisList, getPosATL thisTrigger]};
+						[group (thistrigger getVariable '_vehic1'), getPosATL thisTrigger, 300, 4, 'MOVE', 'AWARE', WMS_DFO_OPFORcbtMod, 'LIMITED', 'COLUMN', '', [2,4,6]] call CBA_fnc_taskPatrol;
 						deleteVehicle thisTrigger;
 					",  
   					"" 
@@ -1185,21 +1361,31 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
 		{(WMS_DFO_Running select _RefIndex select 4) pushBack _x;} forEach _objects;
 	};
 	//CREATE THE TRIGGER
-	private _triggMission = createTrigger ["EmptyDetector", _pos, true]; 
+	private _triggMission = createTrigger ["EmptyDetector", _pos, true];
+	if (surfaceIsWater _pos)then{
+		//_fuckingPOS = ATLtoASL _pos;
+		//_triggMission setPosATL _fuckingPOS;
+		private _helper = createVehicle ["VR_Area_01_circle_4_yellow_F", [_pos select 0,_pos select 1,(_pos select 2)+0.2], [], 0, "CAN_COLLIDE"];
+		_helper setvectorup [0,0,1]; //[0,0,-1] will turn the helper upsidedown and hide it (from the top)
+		_triggMission attachTo [_helper,[0,0,0]];
+		(WMS_DFO_Running select _RefIndex select 4) pushBack _helper;
+	};		
 	(WMS_DFO_Running select _RefIndex select 4) pushBack _triggMission;
 	_triggMission setVariable ["WMS_DFO_triggData", [_MissionHexaID,_playerObject,_mkrName,_mission,_MissionPathCoord,_missionName,_MissionFinish], false];  
 	_triggMission setTriggerActivation ["ANYPLAYER", "PRESENT", true]; //should be activated by the "pilot" only
 	_triggMission setTriggerArea [12.5, 12.5, 0, false];
 	_triggMission setTriggerStatements  
 	[ 
-  		"this && ({ (position _x) select 2 <= 10 } count thislist) > 0",   
+  		"
+			this && ({ thisTrigger distance _x <= 10 } count thislist) > 0
+		",   
   		"	
 			private _datas = (thisTrigger getVariable 'WMS_DFO_triggData');
 			private _pilot = (_datas select 1);
 			private _mission = (_datas select 3);
 			if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger END | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 | ThisList %6', (_datas select 0), name (_datas select 1), (_datas select 2), (_datas select 3), (_datas select 4), thisList]};
 			if (((vehicle _pilot) in thisList) && {(vehicle _pilot) isKindOf 'Helicopter'} && {speed _pilot < 15}) then {
-				if(_mission == 'sar' || _mission == 'csar' || _mission == 'airassault' || _mission == 'inftransport') then {[vehicle _pilot, _pilot] call WMS_fnc_DFO_infUnLoad};
+				if(_mission == 'sar' || _mission == 'csar' || _mission == 'airassault' || _mission == 'inftransport') then {[vehicle _pilot, _pilot] spawn WMS_fnc_DFO_infUnLoad};
 				_datas call WMS_fnc_DFO_CallForCleanup;
 				deleteVehicle thisTrigger;
 			}else{
@@ -1322,7 +1508,7 @@ WMS_fnc_DFO_SetUnits = { //For Standalone but not only //will use regular loadou
 	private [];
 	params [
 		"_units",
-		["_options", []], //[_MissionHexaID,_playerObject,_mission,_infType] //_infType= "OPFOR","CIV_ARMED","CIV"
+		["_options", []], //[_MissionHexaID,_playerObject,_mission,_infType, REALFUCKINGSIDE] //_infType= "OPFOR","CIV_ARMED","CIV"
 		["_skills",[0.80, 0.8, 0.25, 0.3, 0.3, 0.6, 0, 0.6, 0.6]] //WMS_AMS_skilleasy
 	];
 	{
@@ -1338,7 +1524,6 @@ WMS_fnc_DFO_SetUnits = { //For Standalone but not only //will use regular loadou
 		_x setSkill ["general", 		(_skills select 8)];
 		_x setVariable ["WMS_DFO_options",_options];
 		_x allowFleeing 0;
-
 		_x addEventHandler ["Killed", " 
 		[(_this select 0),(_this select 1),(_this select 2)] call WMS_fnc_DFO_UnitEH;
 		"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
@@ -1404,7 +1589,7 @@ WMS_fnc_DFO_UnitEH = { //For Standalone but not only
 			removeAllItems _killed;
 			removeBackpackGlobal _killed;
 			removeVest _killed;
-			"SmokeShellYellow" createVehicle (position _killed);
+			"SmokeShellYellow" createVehicle (getPosATL _killed);
 		};
 	} else {
 		_killed removeWeapon (primaryWeapon _killed);
@@ -1436,9 +1621,10 @@ WMS_fnc_DFO_infLoad = { //easy way: _unit moveInCargo _chopper;
 			_x assignAsCargo _vehiceObject;
 			_x setUnitPos "AUTO";
 			_x allowDamage true;
+			_x enableAI "PATH";
 		};
 	}forEach _Units;
-	if (surfaceIsWater (position _vehiceObject)) then {
+	if (surfaceIsWater (getPosATL _vehiceObject)) then {
 		{_x moveInCargo _vehiceObject}forEach _units;
 	}else {
 		//if (side (_units select 0) == WEST ) then { //That would be "airassault"
@@ -1462,10 +1648,21 @@ WMS_fnc_DFO_infUnLoad = { //easy way: moveOut _unit;
 			moveOut _x;
 			//[_vehiceObject] call AR_Rappel_All_Cargo; //need to test on dedi
 			unassignVehicle _x;
-			if (side _x == BLUFOR && {_x == Leader _x})then {;
-				[group _x, position _x, 75, 5, "MOVE", "AWARE", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
-			}
+			private _RealFuckingSide = _x getVariable ["WMS_DFO_RealFuckingSide",CIVILIAN];
+			//if (side _x == WEST && {_x == Leader _x})then { //FUCKING side doesnt return the side of the group but the side of the classname.... well done bohemia.
+			if (_RealFuckingSide == WEST && {_x == Leader _x})then {
+				[group _x, getPosATL _x, 100, 5, "MOVE", "AWARE", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infUnLoad %1 leader group %2 is now patroling', _x,group _x]};
+			};
+			//if (side _x == CIVILIAN && {_x == Leader _x}) then { //FUCKING side doesnt return the side of the group but the side of the classname.... well done bohemia.
+			if (_RealFuckingSide == CIVILIAN && {_x == Leader _x}) then {
+				//[group _x] call CBA_fnc_taskDefend;
+				_x disableAI "PATH";
+				_x disableAI "MOVE";
+				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infUnLoad %1 leader group %2 is now FUCKING GLUED TO THE FUCKING GROUND', _x,group _x]};
+			};
 		};
+		uisleep 0.3;
 	}forEach crew _vehiceObject;
 };
 WMS_fnc_DFO_CallForCleanup = {
@@ -1480,9 +1677,11 @@ WMS_fnc_DFO_CallForCleanup = {
 
 	if (_DFOeventArrayRef == -1) exitWith {if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CallForCleanup MissionID %1 doesnt exist, result', _MissionHexaID,_result]};};
 	private _DFOeventArray = WMS_DFO_Running select _DFOeventArrayRef;
-	[_DFOeventArray]spawn {
-		uisleep 15;
-		(_this select 0) call WMS_fnc_DFO_Cleanup;
+	if !(_mission == "inftransport" ||_mission == "sar" ||_mission == "csar") then { //ca eather wait for the cleaning loop or call for an immediat cleanup with else {(_this select 0) call WMS_fnc_DFO_Cleanup};
+		[_DFOeventArray]spawn {
+			uisleep 15; //if success conditions are "alive civilians" only, if the cleanup loop does a check during this time, that will be SUCCESS at first (proximity win) then FAIL at the end of the 15 secondes (no more units to win)
+			(_this select 0) call WMS_fnc_DFO_Cleanup;
+		};
 	};
 };
 WMS_fnc_DFO_RinforceCleanup = { //["HexaID", time to delete, [_grps], [_vhls], [_objects],"","","REINF"]
@@ -1541,11 +1740,11 @@ WMS_fnc_DFO_Cleanup = {
 	} foreach _grpCIV;
 	switch (_mission) do {
 		case "inftransport": { //CIV Alive at _MissionFinish, _cntCIV != 0
-			if(_cntCIV != 0 && {(position (leader (_grpCIV select 0))) distance _MissionFinish < 30}) then {_succes = true};
+			if(_cntCIV != 0 && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 30}) then {_succes = true};
 			if(_cntCIV == 0) then {_failed = true};
 		};
 		case "cargotransport": { //_cargo at _MissionFinish, alive _cargo
-			if(alive _cargo && {(position _cargo) distance _MissionFinish < 12.5}) then {_succes = true};
+			if(alive _cargo && {(getPosATL _cargo) distance _MissionFinish < 12.5}) then {_succes = true};
 		};
 		case "casinf": { //mission (LZ1) succes wen target destroyed, No RTB/LZ2, _cntOPFOR = 0
 			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0}) then {_succes = true};
@@ -1563,11 +1762,11 @@ WMS_fnc_DFO_Cleanup = {
 			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0}) then {_succes = true};
 		};
 		case "sar": { //"LZ1"->"BASE" succes wen passenger at _MissionFinish, _cntCIV != 0
-			if(_cntCIV != 0 && {(position (leader (_grpCIV select 0))) distance _MissionFinish < 25}) then {_succes = true};
+			if(_cntCIV != 0 && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 25}) then {_succes = true};
 			if(_cntCIV == 0) then {_failed = true};
 		};
 		case "csar": { //"LZ1"->"BASE" succes wen passenger at _MissionFinish, no need to kill OPFOR, _cntCIV != 0
-			if(_cntCIV != 0 && {(position (leader (_grpCIV select 0))) distance _MissionFinish < 25}) then {_succes = true};
+			if(_cntCIV != 0 && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 25}) then {_succes = true};
 			if(_cntCIV == 0) then {_failed = true};
 		};
 		case "airassault": { //destroy target or capture zone at _MissionFinish, _cntOPFOR = 0, _vhlOPFOR != alive //the capture will do a "call for Cleanup/victory"
@@ -1584,6 +1783,7 @@ WMS_fnc_DFO_Cleanup = {
 	//WMS_DFO_MarkerToDelete, WMS_DFO_TriggerToDelete, WMS_DFO_ObjectToDelete could be pushBack too
 	if (_failed) then {_timeToDelete = 0};
 	if (_succes == true || time >= _timeToDelete) then {
+		WMS_DFO_Running deleteAt (WMS_DFO_Running find _this); //BE SURE ABOUT THIS ONE, HexaID Check
 		{
 			{moveOut _x; deleteVehicle _x;} forEach units _x;
 		} forEach _grpCIV;
@@ -1595,7 +1795,6 @@ WMS_fnc_DFO_Cleanup = {
 		{deleteGroup _x;} forEach _grpCIV;
 		//deleteVehicle _cargo; //I guess cargo can stay, its not a big deal
 		//_playerObject setVariable ["WMS_DFO_UnitsToManage", nil];
-		WMS_DFO_Running deleteAt (WMS_DFO_Running find _this); //BE SURE ABOUT THIS ONE, HexaID Check
 	};
 	if (_succes == true) then {
 		//VICTORY!!!
