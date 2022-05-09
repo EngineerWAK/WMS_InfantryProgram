@@ -225,7 +225,6 @@ WMS_fnc_DFO_BuildBase = {
 		["_option", "HELIPAD"] //"FULL","HELIPAD"
 	];
 	_BaseObjects = []; //PUSHBACK
-	[];
 	_DFO_BaseObjects = [
 		["Sign_Arrow_Large_Green_F",[-12.5,0,0],0],
 		["Sign_Arrow_Large_Green_F",[0,-12.5,0],0],
@@ -277,7 +276,7 @@ WMS_fnc_DFO_BuildBase = {
 			["Land_SignM_WarningMilitaryArea_english_F",[-23.3,11.1,0],107]
 		];
 	};
-	if (_option = "DANGER") then {
+	if (_option == "DANGER") then {
 		_DFO_BaseObjects = [
 			["VR_3DSelector_01_incomplete_F",[-12.5,0,0],0],
 			["VR_3DSelector_01_incomplete_F",[0,-12.5,0],0],
@@ -300,7 +299,8 @@ WMS_fnc_DFO_BuildBase = {
 		if (surfaceIsWater _pos) then {
 			_object setposASL [(_objectVectoriel select 0),(_objectVectoriel select 1),(_objectVectoriel select 2)];
 		} else {
-			_object setposATL [(_objectVectoriel select 0),(_objectVectoriel select 1),((_x select 1) select 2)];
+			//_object setposATL [(_objectVectoriel select 0),(_objectVectoriel select 1),((_x select 1) select 2)];
+			_object setposATL [(_objectVectoriel select 0),(_objectVectoriel select 1),(_objectVectoriel select 2)];
 			_gradient = surfaceNormal getPosATL _object;
 			_object setvectorup _gradient;
 		};
@@ -324,14 +324,14 @@ WMS_fnc_DFO_BuildBase = {
 	}forEach _DFO_BaseObjects;
 	if !(_option == "NOTRIGGER") then {
 		private _triggMission = createTrigger ["EmptyDetector", _pos, true];
-		if (surfaceIsWater _pos)then{
+		//if (surfaceIsWater _pos)then{ //no need, just put the target everywhere and attach the trigger to it, work on land rooftop
 			//_fuckingPOS = ATLtoASL _pos;
 			//_triggMission setPos _fuckingPOS; //NOPE
 			//_triggMission setPosASL _fuckingPOS; //NOPE
 			private _helper = createVehicle ["VR_Area_01_circle_4_grey_F", [_pos select 0,_pos select 1,(_pos select 2)+0.1], [], 0, "CAN_COLLIDE"];
 			_helper setvectorup [0,0,1]; //[0,0,-1] will turn the helper upsidedown and hide it (from the top)
 			_triggMission attachTo [_helper,[0,0,0]];
-		};		
+		//};		
 		_triggMission setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 		_triggMission setTriggerArea [12.5, 12.5, 0, false];
 		_triggMission setTriggerStatements  
@@ -340,11 +340,11 @@ WMS_fnc_DFO_BuildBase = {
 			  this && ({ thisTrigger distance _x <= 12.5 } count thislist) > 0
 			",  
   			"	
-	  			'Dynamic Flight Ops, Do not Park here' remoteExec ['hint', (owner (thisList select 0))]; 
+	  			'Dynamic Flight Ops, Do not Park here' remoteExecCall ['hint', (owner (thisList select 0))]; 
 	  			'Dynamic Flight Ops, Do not Park here' remoteExec ['systemChat', (owner (thisList select 0))]; 
 			",  
   			"
-	  			'Dynamic Flight Ops, Thank you for your visit' remoteExec ['hint', (owner (thisList select 0))]; 
+	  			'Dynamic Flight Ops, Thank you for your visit' remoteExecCall ['hint', (owner (thisList select 0))]; 
 	  			'Dynamic Flight Ops, Thank you for your visit' remoteExec ['systemChat', (owner (thisList select 0))]; 
 			" 
 		];
@@ -529,7 +529,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 	//if the pilote is already in a chopper, no need to spawn one (call mission from chopper)
 	if(vehicle _playerObject != _playerObject) then {_createChopper = false;};
 	//look around if there is already a "BASE" position //"Land_HelipadSquare_F","Land_HelipadRescue_F","Land_HelipadEmpty_F","Land_HelipadCivil_F","Land_HelipadCircle_F"
-	_helipadList =  nearestObjects [_pos, ["Land_HelipadSquare_F","Land_HelipadRescue_F","Land_HelipadCivil_F","Land_HelipadCircle_F"], 150];
+	_helipadList =  nearestObjects [_pos, ["Land_HelipadSquare_F","Land_HelipadRescue_F","Land_HelipadCivil_F","Land_HelipadCircle_F"], 150, true];
 	_DFO_BaseHelipads = [];
 	if (count _helipadList != 0) then {
 		{
@@ -538,23 +538,29 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		}forEach _helipadList;
 		if (count _DFO_BaseHelipads != 0) then {
 			_posBase = getPosATL (_DFO_BaseHelipads select 0);
+			if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_Event_DFO helipad already initialized %1 @ %2', (_helipadList select 0),_posBase]};
 			//if(surfaceIsWater getPosATL (_DFO_BaseHelipads select 0)) then {
 			//	_posBase  = getPosASL (_DFO_BaseHelipads select 0);
 			//};
 		}else {
 			_posBase = getPosATL (_helipadList select 0);
+			if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_Event_DFO initializing helipad %1 @ %2', (_helipadList select 0),_posBase]};
 			//if(surfaceIsWater getPosATL (_DFO_BaseHelipads select 0)) then {
 			//	_posBase  = getPosASL (_DFO_BaseHelipads select 0);
 			//};
 			_nil = [_posBase, "notFull"] call WMS_fnc_DFO_BuildBase;
 			(_helipadList select 0) setVariable ["WMS_DFO_BaseHelipad",true];
-			WMS_DFO_BasePositions pushBack _posBase;
+			if !(_posBase in WMS_DFO_BasePositions)then{
+				WMS_DFO_BasePositions pushBack _posBase;
+			};
+			
 		};
 	} else {
 		//if not, create one
 		_posBase = [_pos, 0, 150, 20, 0, _MaxGrad, 0, [], [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
 		_nil = [_posBase] call WMS_fnc_DFO_BuildBase;
 		WMS_DFO_BasePositions pushBack _posBase;
+		if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_Event_DFO Creating helipad @ %1', _posBase]};
 	};
 	//generate Mission Hexa ID
 	_MissionHexaID = [] call WMS_fnc_DFO_generateHexaID;
@@ -755,7 +761,8 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 	//create mission cargo (crate)
 	if (_createCargo) then {
 		_cargo = selectRandom WMS_DFO_CargoType;
-		_cargoObject = _cargo createVehicle [(_pos select 0), (_pos select 1), 2];
+		//_cargoObject = _cargo createVehicle [(_pos select 0), (_pos select 1), 2]; //NOPE, no Z
+		_cargoObject = createVehicle [_cargo, _pos, [], 0, "NONE"];
 		clearMagazineCargoGlobal _cargoObject; 
 		clearWeaponCargoGlobal _cargoObject; 
 		clearItemCargoGlobal _cargoObject; 
@@ -1032,9 +1039,9 @@ WMS_fnc_DFO_CreateTrigger = {
 		//_vhlReturns = [_MissionHexaID,_playerObject,EAST,_pos,_OPFORvhlCnt,_OPFORvhlType,_mission,_MissionFinish] call WMS_fnc_DFO_CreateVhls; //[_vhls,_grps,_faction] //[[],[],side]
 		if !(_mission == "casinf" || _mission == "casarmored" || _mission == "cascombined") then { //CAS do not need trigger, the cleanup is every minute check and no RTB
 		_triggMission = createTrigger ["EmptyDetector", _pos, true];
-		if (surfaceIsWater _pos)then{
-			_fuckingPOS = ATLtoASL _pos;
-			_triggMission setPosASL _fuckingPOS;
+		//if (surfaceIsWater _pos)then{
+			//_fuckingPOS = ATLtoASL _pos;
+			//_triggMission setPosASL _fuckingPOS;
 			private _helper = createVehicle ["VR_Area_01_circle_4_yellow_F", [_pos select 0,_pos select 1,(_pos select 2)+0.15], [], 0, "CAN_COLLIDE"];
 			_helper setvectorup [0,0,1]; //[0,0,-1] will turn the helper upsidedown and hide it (from the top)
 			_triggMission attachTo [_helper,[0,0,0]];
@@ -1048,14 +1055,14 @@ WMS_fnc_DFO_CreateTrigger = {
 				private _RefIndex = _result find 0;
 				(WMS_DFO_Running select _RefIndex select 4) pushBack (_this select 1);
 			};
-		};		
+		//};		
 		_triggMission setVariable ["WMS_DFO_triggData", _options, false];  
 		_triggMission setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 		_triggMission setTriggerArea [12.5, 12.5, 0, false];
 		_triggMission setTriggerStatements  
 		[ 
   			"
-			  this && ({ thisTrigger distance _x <= 10 } count thislist) > 0
+			  this && ({ thisTrigger distance _x <= 15 } count thislist) > 0
 			",
   			"	
 		  		private _datas = (thisTrigger getVariable 'WMS_DFO_triggData');
@@ -1070,10 +1077,10 @@ WMS_fnc_DFO_CreateTrigger = {
 				}else{
 					if !((vehicle _pilot) in thisList) then {	
 						[(thisList select 0)] call WMS_fnc_DFO_PunishPunks;
-						'Dynamic Flight Ops, mission is in progress' remoteExec ['hint', (owner (thisList select 0))];
+						'Dynamic Flight Ops, mission is in progress' remoteExecCall ['hint', (owner (thisList select 0))];
 						'Dynamic Flight Ops, mission is in progress' remoteExec ['systemChat', (owner (thisList select 0))];
 					}else {
-						'Dynamic Flight Ops, Redo your Approach, maxSpeed 15km/h' remoteExec ['hint', (owner (thisList select 0))];
+						'Dynamic Flight Ops, Redo your Approach, maxSpeed 15km/h' remoteExecCall ['hint', (owner (thisList select 0))];
 						'Dynamic Flight Ops, Redo your Approach, maxSpeed 15km/h' remoteExec ['systemChat', (owner (thisList select 0))];
 					};
 					if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] DFO trigger LZ1 | MissionID %1 | Pilot %2 | Marker %3 | Mission %4 | Mission path %5 |', (_datas select 0), name _pilot , (_datas select 2), _mission, (_datas select 4)]};
@@ -1335,7 +1342,8 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
 		["_airassaultDatas",[]]//[0,1,EAST,_pos,_OPFORvhlCnt,_OPFORvhlType,3,6]
 		];
 	//if (isnil _playerObject) exitWith { //nope
-	private _triggerHeight = 10;
+	//private _triggerHeight = 15;
+	private _triggerHeight = 50; //test for rappel
 	if (_MissionHexaID ==  "zzzzzzzz") exitWith {
 		if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_NextStepMkrTrigg params fuckedUp _MissionHexaID %1', _MissionHexaID]};
 		};
@@ -1383,14 +1391,14 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
 	};
 	//CREATE THE TRIGGER
 	private _triggMission = createTrigger ["EmptyDetector", _pos, true];
-	if (surfaceIsWater _pos)then{
+	//if (surfaceIsWater _pos)then{
 		//_fuckingPOS = ATLtoASL _pos;
 		//_triggMission setPosATL _fuckingPOS;
 		private _helper = createVehicle ["VR_Area_01_circle_4_yellow_F", [_pos select 0,_pos select 1,(_pos select 2)+0.2], [], 0, "CAN_COLLIDE"];
 		_helper setvectorup [0,0,1]; //[0,0,-1] will turn the helper upsidedown and hide it (from the top)
 		_triggMission attachTo [_helper,[0,0,0]];
 		(WMS_DFO_Running select _RefIndex select 4) pushBack _helper;
-	};		
+	//};		
 	(WMS_DFO_Running select _RefIndex select 4) pushBack _triggMission;
 	_triggMission setVariable ["WMS_DFO_triggData", [_MissionHexaID,_playerObject,_mkrName,_mission,_MissionPathCoord,_missionName,_MissionFinish], false]; 
 	_triggMission setVariable ["WMS_DFO_triggerHeight", _triggerHeight, false]; 
@@ -1413,10 +1421,10 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
 			}else{
 				if !((vehicle _pilot) in thisList) then {	
 					[(thisList select 0)] call WMS_fnc_DFO_PunishPunks;
-					'Dynamic Flight Ops, Stay outside of this zone' remoteExec ['hint', (owner (thisList select 0))];
+					'Dynamic Flight Ops, Stay outside of this zone' remoteExecCall ['hint', (owner (thisList select 0))];
 					'Dynamic Flight Ops, Stay outside of this zone' remoteExec ['systemChat', (owner (thisList select 0))];
 				}else {
-					'Dynamic Flight Ops, Redo your Approach, maxSpeed 15km/h' remoteExec ['hint', (owner (thisList select 0))];
+					'Dynamic Flight Ops, Redo your Approach, maxSpeed 15km/h' remoteExecCall ['hint', (owner (thisList select 0))];
 					'Dynamic Flight Ops, Redo your Approach, maxSpeed 15km/h' remoteExec ['systemChat', (owner (thisList select 0))];
 				};
 				
@@ -1665,32 +1673,61 @@ WMS_fnc_DFO_infUnLoad = { //easy way: moveOut _unit;
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infUnLoad _this %1', _this]};
 	params [
 		"_vehiceObject",
-		"_pilotObject"
+		"_pilotObject",
+		["_unloadType", WMS_DFO_InfUnloadType] //0,1,2,3
 	];
 	private _dudes = [];
+	private _RealFuckingSide = CIVILIAN;
 	{
 		if (!(isPlayer _x) && {group _x != group _pilotObject}) then {
 			_dudes pushBack _x;
-			_x allowDamage false; //protect those little guys against broken legs...
-			moveOut _x;
-			//[_vehiceObject] call AR_Rappel_All_Cargo; //need to test on dedi
-			unassignVehicle _x;
-			private _RealFuckingSide = _x getVariable ["WMS_DFO_RealFuckingSide",CIVILIAN];
-			//if (side _x == WEST && {_x == Leader _x})then { //FUCKING side doesnt return the side of the group but the side of the classname.... well done bohemia.
-			if (_RealFuckingSide == WEST && {_x == Leader _x})then {
-				[group _x, getPosATL _x, 100, 5, "MOVE", "AWARE", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
-				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infUnLoad %1 leader group %2 is now patroling', _x,group _x]};
-			};
-			//if (side _x == CIVILIAN && {_x == Leader _x}) then { //FUCKING side doesnt return the side of the group but the side of the classname.... well done bohemia.
-			if (_RealFuckingSide == CIVILIAN && {_x == Leader _x}) then {
-				//[group _x] call CBA_fnc_taskDefend;
-				_x disableAI "PATH";
-				_x disableAI "MOVE";
-				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infUnLoad %1 leader group %2 is now FUCKING GLUED TO THE FUCKING GROUND', _x,group _x]};
-			};
 		};
-		uisleep 0.3;
 	}forEach crew _vehiceObject;
+	if (_unloadType == 2) then { //2: rappel
+		[_vehiceObject] call AR_Rappel_All_Cargo; //need to test on dedi// need Advanced Rappeling
+	} else {
+		if (_unloadType == 3) then { //3: FastRope
+			//fast rope will go here
+			[_vehiceObject] call ace_fastroping_fnc_equipFRIES; //work only on "selected" choppers, ACE decide for you...
+			uisleep 1;
+			[_vehiceObject] call ace_fastroping_fnc_prepareFRIES;
+			uisleep 1;
+			[_vehiceObject,false,false] call ace_fastroping_fnc_deployAI;
+		} else {
+			{
+				_x allowDamage false; //protect those little guys against broken legs...
+				if (_unloadType == 0) then { //0: dump
+					moveOut _x;
+				}else {
+					if (_unloadType == 1) then { //1: land
+						//waitUntil isTouchingGround _vehiceObject; //do not work on platform/roof
+						//waitUntil position _vehiceObject select 2 < 0.5;
+						doGetOut _x; //AI waits for execution until vehicle has stopped/is no longer flying (unclear if any timeout exists for order to be discarded) - unlike action "Eject" and moveOut
+					}else{
+						//What else?
+						moveOut _x;
+					};
+				};
+				unassignVehicle _x;
+				uisleep 0.2;
+			}forEach _dudes;
+			
+		};
+	};
+	{
+		_RealFuckingSide = _x getVariable ["WMS_DFO_RealFuckingSide",CIVILIAN];
+		if (_RealFuckingSide == WEST && {_x == Leader _x})then {
+			[group _x, getPosATL _x, 100, 5, "MOVE", "AWARE", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+			if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infUnLoad %1 leader group %2 is now patroling', _x,group _x]};
+		};
+		if (_RealFuckingSide == CIVILIAN && {_x == Leader _x}) then {
+			//[group _x] call CBA_fnc_taskDefend;
+			_x disableAI "PATH"; //STOP RUNNING EVERYWHERE!
+			_x disableAI "MOVE";
+			_x setUnitPos "MIDDLE";
+			if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infUnLoad %1 leader group %2 is now FUCKING GLUED TO THE FUCKING GROUND', _x,group _x]};
+		};
+	}forEach _dudes;
 	uisleep 3;
 	{_x allowDamage true}forEach _dudes;
 };
@@ -1769,7 +1806,7 @@ WMS_fnc_DFO_Cleanup = {
 	} foreach _grpCIV;
 	switch (_mission) do {
 		case "inftransport": { //CIV Alive at _MissionFinish, _cntCIV != 0
-			if(_cntCIV != 0 && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 30}) then {_succes = true};
+			if(_cntCIV != 0 && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 12.5}) then {_succes = true};
 			if(_cntCIV == 0) then {_failed = true};
 		};
 		case "cargotransport": { //_cargo at _MissionFinish, alive _cargo

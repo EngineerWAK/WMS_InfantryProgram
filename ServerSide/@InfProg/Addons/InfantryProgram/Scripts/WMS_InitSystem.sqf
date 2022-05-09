@@ -169,7 +169,7 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WAK_DFO_Version			= "v0.31_2022MAY08_GitHub";
+WAK_DFO_Version			= "v0.33_2022MAY09_GitHub";
 WMS_DynamicFlightOps	= true; //NOT 100% READY YET, 99%
 WMS_fnc_DFO_LOGs		= false;	//For Debug
 WMS_DFO_Standalone		= false; //keep true if you don't use WMS_InfantryProgram
@@ -188,6 +188,7 @@ WMS_DFO_MinMaxDist		= [3000,6000];
 WMS_DFO_ReinfTriggDist	= 1000; //distance trigger will call reinforcement
 WMS_DFO_MkrRandomDist	= 500; //random distance to place the marker from SAR CSAR missions otherwise there is no "search"
 WMS_DFO_Reward			= [500,2000,['ACE_Can_Franta','ACE_Can_RedGull','ACE_MRE_LambCurry','ACE_MRE_MeatballsPasta','ACE_bloodIV_500','ACE_morphine','ACE_quikclot']]; //["rep","money",items for chopper return]
+WMS_DFO_InfUnloadType 	= 0; //0: dump, 1: land, 2: rappel (Advanced Rappeling), 3: fastrope (not yet) //this will be dynamic
 WMS_DFO_SarSeaPosition	= "sea"; //"sea" or "random" //some maps doesnt have water
 WMS_DFO_OPFORcbtMod		= "YELLOW"; //Vehicle crew only //"WHITE" : Hold fire, engage at will/loose formation //"YELLOW" : Fire at will, keep formation //"RED" : Fire at will, engage at will/loose formation
 WMS_DFO_CargoType		= ["CargoNet_01_barrels_F","C_IDAP_CargoNet_01_supplies_F","CargoNet_01_box_F"];
