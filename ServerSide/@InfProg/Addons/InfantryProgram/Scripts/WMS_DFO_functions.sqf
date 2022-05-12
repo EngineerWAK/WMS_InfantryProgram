@@ -27,7 +27,7 @@ if (true)then {execVM "\DFO\WMS_DFO_functions.sqf"};
 //for maps like Livonia, Lythium, Weferlingen, use:
 	WMS_DFO_SarSeaPosition	= "random";
 */
-//WAK_DFO_Version			= "v0.43_2022MAY12_GitHub";
+//WAK_DFO_Version			= "v0.45_2022MAY12_GitHub";
 ////////////////////////////
 //FUNCTIONS:
 ////////////////////////////
@@ -388,7 +388,11 @@ WMS_fnc_DFO_BuildBase = {
 			",  
   			"	 
 	  			'Dynamic Flight Ops, Do not Park here' remoteExec ['systemChat', (owner (thisList select 0))];
-				[[['Dynamic Flight Ops, Do not Park here']],'NOTIRED'] remoteExec ['WMS_fnc_DFO_killStats',(owner (thisList select 0))];
+				if (WMS_DFO_Standalone) then {
+					[[['Dynamic Flight Ops, Do not Park here']],'NOTIRED'] remoteExec ['WMS_fnc_DFO_killStats',(owner (thisList select 0))];
+				} else {
+					[[['Dynamic Flight Ops, Do not Park here']],'NOTIRED'] remoteExec ['WMS_fnc_displaykillStats',(owner (thisList select 0))];
+				};
 			",  
   			"
 	  			'Dynamic Flight Ops, Thank you for your visit' remoteExec ['systemChat', (owner (thisList select 0))];
@@ -742,11 +746,11 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 				_target enableSimulation false;
 				_target setPos [worldSize,worldsize,-100];
 				_target setDamage 1;
-				_lootHolder = createVehicle ['WeaponHolderSimulated_scripted', _chopperPos, [], 0, 'CAN_COLLIDE'];
+				_lootHolder = createVehicle ['groundWeaponSimulated', _chopperPos, [], 0, 'CAN_COLLIDE'];
 				for '_i' from 1 to 6 do {
 					_lootHolder addItemCargoGlobal [selectRandom (WMS_DFO_Reward select 2),1];
 				};
-			",
+			",//_lootHolder = createVehicle ['WeaponHolderSimulated_scripted', _chopperPos, [], 0, 'CAN_COLLIDE'];
 			[], //argument accessible in the script (_this select 3)
 			1,
 			true,
@@ -1091,11 +1095,19 @@ WMS_fnc_DFO_CreateTrigger = {
 					if !(_pilotUID in _UIDlist) then {	
 						[(thisList select 0)] call WMS_fnc_DFO_PunishPunks;
 						vehicle (thisList select 0) setVelocity [-(sin (getDir (thisList select 0)))*6, -(cos (getDir (thisList select 0)))*6, 2];
-						[[['Dynamic Flight Ops, Stay outside of this zone']],'NOTIRED'] remoteExec ['WMS_fnc_DFO_killStats',(thisList select 0)];
+						if (WMS_DFO_Standalone) then {
+							[[['Dynamic Flight Ops, Stay outside of this zone']],'NOTIRED'] remoteExec ['WMS_fnc_DFO_killStats',(thisList select 0)];
+						} else {
+							[[['Dynamic Flight Ops, Stay outside of this zone']],'NOTIRED'] remoteExec ['WMS_fnc_displaykillStats',(thisList select 0)];
+						};
 						'Dynamic Flight Ops, Stay outside of this zone' remoteExec ['systemChat', (owner (thisList select 0))];
 					}else {
 						if (speed (thisList select 0) > WMS_DFO_TriggMaxSpeed) then{
-							[[[format ['Redo your Approach, maxSpeed %1 km/h',WMS_DFO_TriggMaxSpeed]]],'NOTIRED'] remoteExec ['WMS_fnc_DFO_killStats',(owner _pilot)];
+							if (WMS_DFO_Standalone) then {
+								[[[format ['Redo your Approach, maxSpeed %1 km/h',WMS_DFO_TriggMaxSpeed]]],'NOTIRED'] remoteExec ['WMS_fnc_DFO_killStats',(owner _pilot)];
+							} else {
+								[[[format ['Redo your Approach, maxSpeed %1 km/h',WMS_DFO_TriggMaxSpeed]]],'NOTIRED'] remoteExec ['WMS_fnc_displaykillStats',(owner _pilot)];
+							};
 							format ['Dynamic Flight Ops, Redo your Approach, maxSpeed %1 km/h',WMS_DFO_TriggMaxSpeed] remoteExec ['systemChat', (owner _pilot)];
 						}else{
 							'Dynamic Flight Ops, Get Back To Your Chopper, Pilot!' remoteExecCall ['hint', (owner _pilot)];
@@ -1254,16 +1266,28 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
 			if ((_pilotUID in _UIDlist) && {(vehicle (thislist select 0)) isKindOf 'Helicopter'} && {speed (vehicle (thislist select 0)) < WMS_DFO_TriggMaxSpeed}) then {
 				if(_mission == 'sar' || _mission == 'csar' || _mission == 'airassault' || _mission == 'inftransport') then {
 					if ((vehicle (thislist select 0)) distance thisTrigger > 25) then {
-						[[['Hold position for Fast Roping']],'NOTI'] remoteExec ['WMS_fnc_DFO_killStats',(owner _pilot)];
+						if (WMS_DFO_Standalone) then {
+							[[['Hold position for Fast Roping']],'NOTI'] remoteExec ['WMS_fnc_DFO_killStats',(owner _pilot)];
+						} else {
+							[[['Hold position for Fast Roping']],'NOTI'] remoteExec ['WMS_fnc_displaykillStats',(owner _pilot)];
+						};
 						'Dynamic Flight Ops, Hold position for Fast Roping' remoteExec ['systemChat', (owner _pilot)];
 						[(vehicle (thislist select 0)), _pilot,3] spawn WMS_fnc_DFO_infUnLoad;
 					}else{
 						if ((vehicle (thislist select 0)) distance thisTrigger > 15)then{
-							[[['Units Jumping Out']],'NOTI'] remoteExec ['WMS_fnc_DFO_killStats',(owner _pilot)];
+							if (WMS_DFO_Standalone) then {
+								[[['Units Jumping Out']],'NOTI'] remoteExec ['WMS_fnc_DFO_killStats',(owner _pilot)];
+							} else {
+								[[['Units Jumping Out']],'NOTI'] remoteExec ['WMS_fnc_displaykillStats',(owner _pilot)];
+							};
 							'Dynamic Flight Ops,  Units Jumping Out' remoteExec ['systemChat', (owner _pilot)];
 							[(vehicle (thislist select 0)), _pilot,0] spawn WMS_fnc_DFO_infUnLoad;
 						}else{
-							[[['Units Waiting for Landing']],'NOTI'] remoteExec ['WMS_fnc_DFO_killStats',(owner _pilot)];
+							if (WMS_DFO_Standalone) then {
+								[[['Units Waiting for Landing']],'NOTI'] remoteExec ['WMS_fnc_DFO_killStats',(owner _pilot)];
+							} else {
+								[[['Units Waiting for Landing']],'NOTI'] remoteExec ['WMS_fnc_displaykillStats',(owner _pilot)];
+							};
 							'Dynamic Flight Ops,  Units Waiting for Landing' remoteExec ['systemChat', (owner _pilot)];
 							[(vehicle (thislist select 0)), _pilot,1] spawn WMS_fnc_DFO_infUnLoad;
 						};
@@ -1274,11 +1298,19 @@ WMS_fnc_DFO_NextStepMkrTrigg = {
 				if !(_pilotUID in _UIDlist) then {	
 					[(thisList select 0)] call WMS_fnc_DFO_PunishPunks;
 					vehicle (thisList select 0) setVelocity [-(sin (getDir (thisList select 0)))*6, -(cos (getDir (thisList select 0)))*6, 2];
-					[[['Dynamic Flight Ops, Stay outside of this zone']],'NOTIRED'] remoteExec ['WMS_fnc_DFO_killStats',(thisList select 0)];
+					if (WMS_DFO_Standalone) then {
+						[[['Dynamic Flight Ops, Stay outside of this zone']],'NOTIRED'] remoteExec ['WMS_fnc_DFO_killStats',(thisList select 0)];
+					} else {
+						[[['Dynamic Flight Ops, Stay outside of this zone']],'NOTIRED'] remoteExec ['WMS_fnc_displaykillStats',(thisList select 0)];
+					};
 					'Dynamic Flight Ops, Stay outside of this zone' remoteExec ['systemChat', (owner (thisList select 0))];
 				}else {
 					if (speed (thisList select 0) > WMS_DFO_TriggMaxSpeed) then{
-						[[[format ['Redo your Approach, maxSpeed %1 km/h',WMS_DFO_TriggMaxSpeed]]],'NOTIRED'] remoteExec ['WMS_fnc_DFO_killStats',(owner _pilot)];
+						if (WMS_DFO_Standalone) then {
+							[[[format ['Redo your Approach, maxSpeed %1 km/h',WMS_DFO_TriggMaxSpeed]]],'NOTIRED'] remoteExec ['WMS_fnc_DFO_killStats',(owner _pilot)];
+						} else {
+							[[[format ['Redo your Approach, maxSpeed %1 km/h',WMS_DFO_TriggMaxSpeed]]],'NOTIRED'] remoteExec ['WMS_fnc_displaykillStats',(owner _pilot)];
+						};
 						format ['Dynamic Flight Ops, Redo your Approach, maxSpeed %1 km/h',WMS_DFO_TriggMaxSpeed] remoteExec ['systemChat', (owner _pilot)];
 					}else{
 						'Dynamic Flight Ops, Get Back To Your Chopper, Pilot!' remoteExecCall ['hint', (owner _pilot)];

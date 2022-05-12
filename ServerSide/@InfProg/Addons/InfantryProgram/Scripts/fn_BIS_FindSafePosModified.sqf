@@ -60,16 +60,15 @@
 	// support object for center pos as well
 	if (_checkPos isEqualType objNull) then {_checkPos = getPos _checkPos};
 	/// --- validate input
-	//#include "..\paramsCheck.inc"
-	#include "\a3\functions_f\paramsCheck.inc"
+	//#include "..\paramsCheck.inc" //from original function
+	/*#include "\a3\functions_f\paramsCheck.inc"
 	#define arr1 [_checkPos,_minDistance,_maxDistance,_objectProximity,_waterMode,_maxGradient,_shoreMode,_posBlacklist,_defaultPos]
 	#define arr2 [[],0,0,0,0,0,0,[],[]]
-	paramsCheck(arr1,isEqualTypeParams,arr2)
+	paramsCheck(arr1,isEqualTypeParams,arr2)*/
 
 	private _defaultMaxDistance = worldSize / 2;
 	private _defaultCenterPos = [_defaultMaxDistance, _defaultMaxDistance, 0];
-	private _fnc_defaultPos = 
-	{
+	private _fnc_defaultPos = {
 		_defaultPos = _defaultPos param [parseNumber _this, []];
 		if !(_defaultPos isEqualTo []) exitWith {_defaultPos};
 		_defaultPos = getArray (configFile >> "CfgWorlds" >> worldName >> "Armory" >> ["positionStart", "positionStartWater"] select _this);
@@ -136,5 +135,5 @@
 		};
 	};
 	// search failed, try default position
-	(_waterMode != 0) call _fnc_defaultPos 
-};
+	(_waterMode != 0) call _fnc_defaultPos
+//};
