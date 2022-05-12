@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.611_2022MAY08_GitHub";
+WMS_System_Version 			= "v2.613_2022MAY12_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
 WMS_DynAI_LOGs 				= false; 
@@ -169,7 +169,7 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WAK_DFO_Version			= "v0.33_2022MAY09_GitHub";
+WAK_DFO_Version			= "v0.43_2022MAY12_GitHub";
 WMS_DynamicFlightOps	= true; //NOT 100% READY YET, 99%
 WMS_fnc_DFO_LOGs		= false;	//For Debug
 WMS_DFO_Standalone		= false; //keep true if you don't use WMS_InfantryProgram
@@ -178,21 +178,26 @@ WMS_DFO_Reinforcement	= true; //Each mission has it's own type of reinforcement
 WMS_DFO_UseJVMF			= true; //https://github.com/Project-Hatchet/H-60
 WMS_DFO_RemoveDup		= true; //delete dead NPC's primary weapon and backpack
 WMS_DFO_UsePilotsList 	= true; //if you want to limit DFO use to some players
-WMS_fnc_DFO_SmokeAtLZ	= true; //pop a smoke on the group you have to pickUp
-WMS_DFO_CancelOnKIA		= false; //NOT READY YET //should Fail the mission when _pilot die, it's a bit hardcore especialy with AA vehicles
-WMS_DFO_PilotsList		= ["76561197965501020"]; //Only those players will be able to use DFO if WMS_DFO_UsePilotsList
-WMS_DFO_MaxRunning		= 3;
-WMS_DFO_CoolDown		= 600;
+WMS_fnc_DFO_SmokeAtLZ	= true; //pop a smoke/flare on the group you have to pickUp
+WMS_DFO_HideLZTarget	= false; //hide the target spawned at the LZ (actualy just return it, texture only on one side)
+WMS_DFO_InfUnlOverride	= false; //admins can force it "on the fly" in the console
+WMS_DFO_InfUnloadType 	= 3; //0: dump, 1: land, 2: rappel (Advanced Rappeling), 3: fastrope (not yet) //this should be dynamic unless override
+WMS_DFO_PilotsList		= ["76561197965501020"]; //Player UID, Only those players will be able to use DFO if WMS_DFO_UsePilotsList
+WMS_DFO_MaxRunning		= 3; //Max missions can run in the same time
+WMS_DFO_CoolDown		= 600; //time before the next mission can be called
 WMS_DFO_Timer			= 1800; //timer before mission timeOut, no reset/extend
-WMS_DFO_MinMaxDist		= [3000,6000];
+WMS_DFO_MinMaxDist		= [3000,6000]; //minimum and maximum distance the next step of the mission will be, unless "custom" position like "forest","cities", etc...
+WMS_DFO_TriggMaxSpeed	= 18; //Maximum speed in the trigger to unlock the next level of the mission
 WMS_DFO_ReinfTriggDist	= 1000; //distance trigger will call reinforcement
 WMS_DFO_MkrRandomDist	= 500; //random distance to place the marker from SAR CSAR missions otherwise there is no "search"
 WMS_DFO_Reward			= [500,2000,['ACE_Can_Franta','ACE_Can_RedGull','ACE_MRE_LambCurry','ACE_MRE_MeatballsPasta','ACE_bloodIV_500','ACE_morphine','ACE_quikclot']]; //["rep","money",items for chopper return]
-WMS_DFO_InfUnloadType 	= 0; //0: dump, 1: land, 2: rappel (Advanced Rappeling), 3: fastrope (not yet) //this will be dynamic
 WMS_DFO_SarSeaPosition	= "sea"; //"sea" or "random" //some maps doesnt have water
+WMS_DFO_NoSeaMaps 		= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Enoch","tem_kujari"];
 WMS_DFO_OPFORcbtMod		= "YELLOW"; //Vehicle crew only //"WHITE" : Hold fire, engage at will/loose formation //"YELLOW" : Fire at will, keep formation //"RED" : Fire at will, engage at will/loose formation
 WMS_DFO_CargoType		= ["CargoNet_01_barrels_F","C_IDAP_CargoNet_01_supplies_F","CargoNet_01_box_F"];
 WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar"];// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR
+WMS_DFO_Reinforcements	= ["paradrop","paradrop","paradrop","VHLpatrol","VHLpatrol","AIRpatrol","AIRassault"]; //["AIRpatrol","VHLpatrol","paradrop","AIRassault"] //TYPO!!!
+WMS_DFO_NPCskills		= [0.80, 0.8, 0.25, 0.3, 0.3, 0.6, 0, 0.6, 0.6]; //"spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"
 
 //VANILLA:
 WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
@@ -213,7 +218,12 @@ WMS_DFO_NPCs			= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone versi
 						["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 /*
 //RHS/HATCHET
-WMS_DFO_Choppers		= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_HH60","vtx_MH60S_GAU21L","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
+WMS_DFO_Choppers		= [
+							["vtx_MH60M_DAP","vtx_MH60S_Pylons"], //["pylons"]
+							["vtx_HH60","vtx_MH60S_GAU21L","vtx_MH60M","vtx_MH60S","vtx_UH60M"], //["doorGunners"] //GAU21L ONLY 5 cargo positions
+							["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"], //["transport"] //SLICK ONLY 4 cargo positions //"transport" will be used mainly for crates
+							["vtx_UH60M_MEDEVAC"] //["medevac"]
+							];//Hatchet
 WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
 						["RHS_Ka52_vvsc","RHS_Mi24V_vvsc","RHS_Mi8MTV3_vvsc"],
 						["RHS_Mi24Vt_vvsc","RHS_Mi8mt_vvsc"],
@@ -246,7 +256,10 @@ publicVariable "WMS_DFO_CoolDown";
 publicVariable "WMS_DFO_UsePilotsList";
 publicVariable "WMS_DFO_PilotsList";
 publicVariable "WMS_DFO_AceIsRunning";
-
+//Maps custom settings
+if (worldName in WMS_DFO_NoSeaMaps) then {
+	WMS_DFO_SarSeaPosition	= "random";
+};
 //////////////////////////////
 //AI variables
 //////////////////////////////

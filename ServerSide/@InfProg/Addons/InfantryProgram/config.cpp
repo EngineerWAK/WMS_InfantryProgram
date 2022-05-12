@@ -18,6 +18,8 @@ class CfgFunctions {
 		{
 			file = "InfantryProgram\scripts";
 			
+			class BIS_FindSafePosModified	{}; //no more position outside of the map
+			
 			class Halo_300					{};
 			class Set_on_fire 				{};
 			class lvl2_cleanUp	            {}; //Old InfantryProgram cleanup, should update this crap...
