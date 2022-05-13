@@ -136,4 +136,3 @@
 	};
 	// search failed, try default position
 	(_waterMode != 0) call _fnc_defaultPos
-//};

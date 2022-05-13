@@ -27,62 +27,9 @@ if (true)then {execVM "\DFO\WMS_DFO_functions.sqf"};
 //for maps like Livonia, Lythium, Weferlingen, use:
 	WMS_DFO_SarSeaPosition	= "random";
 */
-//WAK_DFO_Version			= "v0.45_2022MAY12_GitHub";
+//WAK_DFO_Version			= "v0.46_2022MAY13_GitHub";
 ////////////////////////////
 //FUNCTIONS:
-////////////////////////////
-//if local, keep this here, if multi/dedi move WMS_fnc_DFO_killStats to MPMission\Mission.map\init.sqf to remoteExec on the client(s)
-WMS_fnc_DFO_killStats = { //LOCAL ON CLIENT, SERVER->remoteExec->CLIENT
-	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_killStats _this %1', _this]};
-	params[
-		["_messages", [["ERROR",00]]],
-		["_option", "KILL"]
-		]; 
-	private _payload = "<t align='left' size='1.2'>";
-	if (_option == "NOTI") then { //#26e600
-		{ 
-			_payload = _payload + format ["<t color='#26e600' font='EtelkaMonospacePro'>%1</t><br/>", (_x select 0)]; //green
-		}forEach _messages;
-	} else {
-		if (_option == "NOTIRED") then {
-			{ 
-				_payload = _payload + format ["<t color='#d60000' font='EtelkaMonospacePro'>%1</t><br/>", (_x select 0)]; //red
-			}forEach _messages;
-		} else {
-			{ 
-				_payload = _payload + format ["<t color='#e57234' font='EtelkaMonospacePro'>%1</t><br/>", (_x select 0)]; //orange
-			}forEach _messages;
-		};
-	}; 
-	_payload = _payload + "</t>";
-	if("CIV" in _payload)then{
-		_payload = _payload + "<t align='left' color='#d60000' font='EtelkaMonospacePro' size='1.4'>FRIENDLY FIRE</t>"; //red
-	};
-	if(_option == "NOTI" || _option == "NOTIRED") then {
-		[
-			parseText _payload,
-			[
-				(0.3 - pixelW * pixelGrid),
-				(0.05 - pixelH * pixelGrid),
-				(pixelW * pixelGrid * 60),
-				(pixelH * pixelGrid * 15)
-			],
-			nil, 
-			7, 
-			0.7, 
-			0
-		] spawn BIS_fnc_textTiles;
-	} else {
-		[ 
-			parseText _payload,  
-			true,  //the display can be moved anywhere on the screen options/game/layout/mission/Scenario specific texts
-			nil,  
-			5,
-			[0.2,1.5],
-			0  
-		]spawn BIS_fnc_textTiles;
-	};
-};
 ////////////////////////////
 WMS_fnc_DFO_CollectPos = {
 	private _worldCenter 	= [worldsize/2,worldsize/2,0]; 
@@ -253,7 +200,7 @@ WMS_fnc_DFO_createBaseAction = {
 		//Cleanup loop
 		while {true} do {
 			{
-				if (((_x select 7) == "DFO")) then { //if it's not "DFO", it's really fuckedUp
+				if ((_x select 7) == "DFO") then { //if it's not "DFO", it's really fuckedUp
 					_x call WMS_fnc_DFO_Cleanup;
 				};
 			}forEach WMS_DFO_Running;
@@ -1363,7 +1310,8 @@ WMS_fnc_DFO_Reinforce = {
 			//private _playerScore = _playerObject getVariable ["ExileScore", 5000]; //will be usefull later for reinforcement skill adjustment
 			_blackList = allPlayers select {alive _x} apply {[getPosATL _x, 900]};
 			if (_typeOfReinforce == "AIRpatrol") then {
-				_randomPos = [_pos, WMS_DFO_ReinfTriggDist+900, WMS_DFO_ReinfTriggDist+2500, 0, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;
+				//_randomPos = [_pos, WMS_DFO_ReinfTriggDist+900, WMS_DFO_ReinfTriggDist+2500, 0, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;
+				_randomPos = [_pos, WMS_DFO_ReinfTriggDist+900, WMS_DFO_ReinfTriggDist+2500, 0, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_FindSafePos;
 				_vhl = [[_randomPos select 0,_randomPos select 1, 250], (random 359), selectRandom (WMS_DFO_NPCvehicles select 0), EAST] call bis_fnc_spawnvehicle;      
 				_vehic = (_vhl select 0);  
 				_units = (_vhl select 1);   
@@ -1384,7 +1332,8 @@ WMS_fnc_DFO_Reinforce = {
 				if(_mission == "csar"||_mission == "sar"||_mission == "inftransport"||_mission == "cargotransport") then {
 					_OPFPRvhl = selectRandom (WMS_DFO_NPCvehicles select 5); //light
 				};
-				_randomPos = [_pos, 300, WMS_DFO_ReinfTriggDist, 8, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;
+				//_randomPos = [_pos, 300, WMS_DFO_ReinfTriggDist, 8, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;
+				_randomPos = [_pos, 300, WMS_DFO_ReinfTriggDist, 8, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_FindSafePos;
 				_vhl = [[_randomPos select 0,_randomPos select 1, 2], (random 359), _OPFPRvhl, EAST] call bis_fnc_spawnvehicle;      
 				_vehic = (_vhl select 0);  
 				_units = (_vhl select 1);   
@@ -1418,7 +1367,8 @@ WMS_fnc_DFO_Reinforce = {
 				if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Reinforce "paradrop" %1', _OPFORinfGrp]};
 			};
 			if (_typeOfReinforce == "AIRassault") then {
-				_randomPos = [_pos, WMS_DFO_ReinfTriggDist+900, WMS_DFO_ReinfTriggDist+2500, 0, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;  
+				//_randomPos = [_pos, WMS_DFO_ReinfTriggDist+900, WMS_DFO_ReinfTriggDist+2500, 0, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;
+				_randomPos = [_pos, WMS_DFO_ReinfTriggDist+900, WMS_DFO_ReinfTriggDist+2500, 0, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_FindSafePos;  
 				_posLand = [_pos, 0, 250, 25, 0, 0, 0, [], [([[[_pos, 150]], []] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified; 
 				_Helipad = "Land_HelipadEmpty_F" createVehicle _posLand;
 				_objects pushBack _Helipad;
@@ -1687,6 +1637,28 @@ WMS_fnc_DFO_UnitEH = { //For Standalone but not only
 		removeAllWeapons _killed;
 		removeBackpackGlobal _killed;
 	};
+	[_killed,
+		[
+			"Hide Body", // title
+			{
+				params ["_target", "_caller", "_actionId", "_arguments"]; // script
+				hideBody _target;
+				_caller removeAction _actionId;
+				[_target]spawn{uisleep 5; deleteVehicle (_this select 0)};
+			},
+			nil,		// arguments
+			1.5,		// priority
+			true,		// showWindow
+			true,		// hideOnUse
+			"",			// shortcut
+			"!(alive _target)", // condition
+			1.5	// radius
+		]
+	] remoteExec [
+		"addAction",
+		0, //0 for all players
+		false //JIP
+	];
 };
 WMS_fnc_DFO_infLoad = { //easy way: _unit moveInCargo _chopper;
 	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_infLoad _this %1', _this]};
@@ -1713,8 +1685,8 @@ WMS_fnc_DFO_infLoad = { //easy way: _unit moveInCargo _chopper;
 			_x enableAI "PATH";
 		};
 	}forEach _Units;
-	if (surfaceIsWater (getPosATL _vehiceObject)) then {
-		{_x moveInCargo _vehiceObject}forEach _units;
+	if (surfaceIsWater (getPosATL _vehiceObject) && {(getPosATL (_units select 0)) select 2 > 0.1}) then {
+		{_x moveInCargo _vehiceObject}forEach _units; //teleport in the chopper
 	}else {
 		//if (side (_units select 0) == WEST ) then { //That would be "airassault"
 		if (false) then {
@@ -1919,25 +1891,6 @@ WMS_fnc_DFO_Cleanup = {
 		};
 	};
 };
-/*WMS_fnc_DFO_CallForCleanup = { //There is no more call for cleanup, sometime the timing was messing with the victory/fail
-	if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CallForCleanup _this %1', _this]};
-	params ["_MissionHexaID","_playerObject","_mkrName","_mission","_MsnPathCoord"];
-	private _result = []; 
-	{ 
-		_found = _x find _MissionHexaID;
-		_result pushback _found;
-	}forEach WMS_DFO_Running;
-	_DFOeventArrayRef = _result find 9;
-
-	if (_DFOeventArrayRef == -1) exitWith {if (WMS_fnc_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CallForCleanup MissionID %1 doesnt exist, result', _MissionHexaID,_result]};};
-	private _DFOeventArray = WMS_DFO_Running select _DFOeventArrayRef;
-	if !(_mission == "inftransport" ||_mission == "sar" ||_mission == "csar") then { //ca eather wait for the cleaning loop or call for an immediat cleanup with else {(_this select 0) call WMS_fnc_DFO_Cleanup};
-		[_DFOeventArray]spawn {
-			uisleep 15; //if success conditions are "alive civilians" only, if the cleanup loop does a check during this time, that will be SUCCESS at first (proximity win) then FAIL at the end of the 15 secondes (no more units to win)
-			(_this select 0) call WMS_fnc_DFO_Cleanup;
-		};
-	};
-};*/
 //////////
 [] call WMS_fnc_DFO_createBaseAction;
 if (WMS_fnc_DFO_LOGs) then {'|WAK|TNA|WMS|[DFO] WMS_DFO_Functions, System Started'};

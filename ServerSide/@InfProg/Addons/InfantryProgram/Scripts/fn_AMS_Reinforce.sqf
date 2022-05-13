@@ -49,11 +49,33 @@ if (vehicle _killer isKindOf "tank"||vehicle _killer isKindOf "APC") then {
 			//"AIRassault",
 			"arty",
 			"bombing","bombing",
-			"Annihilator"
-			//"random"
+			"Annihilator",
+			"random"
 		];
 	};
 }else {
+	if (vehicle _killer isKindOf "Heli_Attack_01_base_F"||vehicle _killer isKindOf "Heli_Attack_02_base_F") then {
+		if (_annihilatorChance*0.5 > random 100) then {
+			_info = "Annihilator";
+			_timer = 240;
+		} else {
+			_type = "reinforcementpunisher";
+			_info = selectRandom [
+				"rain",
+				//"INFpatrol",
+				//"runner",
+				"paradrop",
+				"VHLpatrol","VHLpatrol","VHLpatrol",
+				"AIRpatrol","AIRpatrol","AIRpatrol","AIRpatrol",
+				//"AIRassault",
+				//"arty",
+				"bombing",
+				//"Annihilator",
+				"random"
+			];
+		};
+	} else {
+//"Regular" reinforcement, by distance:
 if (_distance > ((WMS_AMS_RangeList select 0)+10) && _distance <= (WMS_AMS_RangeList select 1)  ) then {
 	_info = selectRandom [
 		"rain","rain","rain",
@@ -133,6 +155,7 @@ if (_distance > (WMS_AMS_RangeList select 4)) then {
 		"random","random"
 		];
 	};
+};
 };
 };
 
