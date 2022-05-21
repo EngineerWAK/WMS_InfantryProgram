@@ -13,7 +13,7 @@
 //////////
 //[_pos,_radius,_hight,_direction,"rhs_ammo_rbk500_ofab50"] spawn WMS_fnc_DynAI_Bombing;
 //////////////////////////////////////////////////////////////////
-if (WMS_DynAI_LOGs) then {diag_log format ["[HEAVY BOMBER]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[HEAVY BOMBER]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_smoke","_posStart","_posStop","_smoke3","_possafe","_smoke4","_possafe2","_smoke5","_plane","_veh2","_pos","_veh"];
 params[
 	"_posCenter",

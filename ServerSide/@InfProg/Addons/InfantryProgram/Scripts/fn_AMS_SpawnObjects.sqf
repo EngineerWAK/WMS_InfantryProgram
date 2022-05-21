@@ -11,7 +11,7 @@
 */
 
 //////////////////////////////////////////////////////////////////
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS SPAWN OBJECTS]|WAK|TNA|WMS| _this: %1,", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS SPAWN OBJECTS]|WAK|TNA|WMS| _this: %1,", _this]};
 private ["_objList","_compoRefPoint","_object","_objectVectoriel","_gradient"];
 params[  
 	"_pos",
@@ -51,7 +51,7 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 		//here create the dynamic skill set "static" with a "getin" and "getOut" EH
 		_object addEventHandler ["GetIn", {
 			params ["_vehicle", "_role", "_unit", "_turret"];
-			if (WMS_AMS_LOGs) then {diag_log format ["[AMS STATICS]|WAK|TNA|WMS| %1 Get IN %2", _unit, (typeOf _vehicle)]};
+			if (WMS_IP_LOGs) then {diag_log format ["[AMS STATICS]|WAK|TNA|WMS| %1 Get IN %2", _unit, (typeOf _vehicle)]};
 			if !(isPlayer _unit) then {
 				_skills = WMS_AMS_skillstatic;
 				_unit setSkill ["spotDistance", 	(_skills select 0)];
@@ -63,12 +63,12 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 				_unit setSkill ["courage", 			(_skills select 6)];
 				_unit setSkill ["commanding", 		(_skills select 7)];
 				_unit setSkill ["general", 			(_skills select 8)];
-				if (WMS_AMS_LOGs) then {diag_log format ["[AMS STATICS]|WAK|TNA|WMS| %1 new Skills %2", _unit, _skills]};
+				if (WMS_IP_LOGs) then {diag_log format ["[AMS STATICS]|WAK|TNA|WMS| %1 new Skills %2", _unit, _skills]};
 			};
 		}];
 		_object addEventHandler ["GetOut", {
 			params ["_vehicle", "_role", "_unit", "_turret"];
-			if (WMS_AMS_LOGs) then {diag_log format ["[AMS STATICS]|WAK|TNA|WMS| %1 Get OUTt %2", _unit, (typeOf _vehicle)]};
+			if (WMS_IP_LOGs) then {diag_log format ["[AMS STATICS]|WAK|TNA|WMS| %1 Get OUTt %2", _unit, (typeOf _vehicle)]};
 			if !(isPlayer _unit) then {
 				_skills = _unit getVariable ["WMS_skills",[0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]];	
 				_unit setSkill ["spotDistance", 	(_skills select 0)];
@@ -80,7 +80,7 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 				_unit setSkill ["courage", 			(_skills select 6)];
 				_unit setSkill ["commanding", 		(_skills select 7)];
 				_unit setSkill ["general", 			(_skills select 8)];
-				if (WMS_AMS_LOGs) then {diag_log format ["[AMS STATICS]|WAK|TNA|WMS| %1 new Skills %2", _unit, _skills]};
+				if (WMS_IP_LOGs) then {diag_log format ["[AMS STATICS]|WAK|TNA|WMS| %1 new Skills %2", _unit, _skills]};
 			};	
 		}];
 	};
@@ -88,5 +88,5 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 	_compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 	//[_object, (_dirCompo + (_x select 2))] remoteexec ['setDir',-2]; //test to force object direction with players, might lag
 } forEach _objects;
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS OBJECTS]|WAK|TNA|WMS| return _objList: %1", _objList]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS OBJECTS]|WAK|TNA|WMS| return _objList: %1", _objList]};
 _objList

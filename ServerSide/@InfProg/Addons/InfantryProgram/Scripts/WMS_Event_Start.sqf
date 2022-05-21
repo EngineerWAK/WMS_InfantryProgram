@@ -45,7 +45,7 @@ if (WMS_CaptureZone) then {
 	_selectedEventsList pushback [WMS_CaptureZoneDelay,"CaptureZone"];
 };
 
-if (WMS_Events_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Events Watch Selected: %1", _selectedEventsList];};
+if (WMS_IP_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Events Watch Selected: %1", _selectedEventsList];};
 
 WMS_Events_list pushback (_selectedEventsList select 0);
 _timeToWait = ((WMS_Events_list select 0) select 0);
@@ -58,4 +58,4 @@ for "i" from 1 to (count _selectedEventsList) do {
 	uisleep 0.1;	
 };
 
-if (WMS_Events_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Events Watch Planed: %1", WMS_Events_list];};
+if (WMS_IP_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Events Watch Planed: %1", WMS_Events_list];};

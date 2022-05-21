@@ -26,7 +26,7 @@ params[
 ];
 private _playerMoney = 0;
 private _playerScore = 0;
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS SPAWN AI VHL]|WAK|TNA|WMS| _this = %1 *****", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS SPAWN AI VHL]|WAK|TNA|WMS| _this = %1 *****", _this]};
 _vehicle = (_className select 0);
 _emptyPos = _pos findEmptyPosition [25,100,_vehicle];
 
@@ -73,7 +73,9 @@ _drvSits = _rwd emptyPositions "Driver";
 if (_drvSits != 0) then {
 	WMS_AI_Units_Class createUnit [_emptyPos, _VHLgrp, "this moveinDriver _rwd"];
 };
-[(units _VHLgrp),_unitFunction,20,_skill,_difficulty,_loadout] call WMS_fnc_AMS_SetUnits;
+//[(units _VHLgrp),_unitFunction,20,_skill,_difficulty,_loadout] call WMS_fnc_AMS_SetUnits;
+//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
+[(units _VHLgrp),_unitFunction,20,_skill,_difficulty,_loadout,nil,"AMS"] call WMS_fnc_SetUnits;
 
 _rwd setVariable ["AMS_MissionID",_missionID,true];
 _rwd setvehiclelock "LOCKEDPLAYER";
@@ -96,7 +98,7 @@ if (WMS_exileFireAndForget) then {
 	];
 };
 
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS AI VHL]|WAK|TNA|WMS| return _rwd: %1,", [_rwd,_VHLgrp]]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS AI VHL]|WAK|TNA|WMS| return _rwd: %1,", [_rwd,_VHLgrp]]};
 
 [_VHLgrp, _Pos, (_wpts select 0), (_wpts select 1), _typ, _beh, _cbt, _spd, _fmn, "", [1,2,3]] call CBA_fnc_taskPatrol;
 [_rwd,[_VHLgrp]]

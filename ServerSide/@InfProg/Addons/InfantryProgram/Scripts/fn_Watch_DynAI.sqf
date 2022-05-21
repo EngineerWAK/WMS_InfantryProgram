@@ -12,7 +12,7 @@
 
 private ["_playerCount","_waitingTime","_DynamicThreatTarget","_threatScenario","_flagList","_countFlag","_targetSpeed"];
 _playerCount = count allPlayers;
-if (WMS_DynAI_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| Player(s) connected: %1", _playerCount]};
+if (WMS_IP_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| Player(s) connected: %1", _playerCount]};
 _waitingTime = WMS_DynAI_threatFrequency;
 _DynamicThreatTarget = objNull;
 _threatScenario = "Nothing";
@@ -38,7 +38,7 @@ if (_playerCount > 0 && {(time > (WMS_DynAI_LastTime+_waitingTime))} && {((OPFOR
 		WMS_DynAI_LastTarget = [];
 		_threatScenario = "Nothing";
 		if (count WMS_DynAI_TargetList == 0) then {
-			if (WMS_DynAI_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| %1", _threatScenario]};
+			if (WMS_IP_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| %1", _threatScenario]};
 			//If nobody left nothing happen next
 		} else {
 			_threatScenario = "GoForIt";
@@ -56,14 +56,14 @@ if (_playerCount > 0 && {(time > (WMS_DynAI_LastTime+_waitingTime))} && {((OPFOR
 			_threatScenario = "BaseAtk";
 			WMS_DynAI_LastTime = time;
 			[_DynamicThreatTarget, (_flagList select 0), _threatScenario]spawn WMS_fnc_DynAI_baseATK; //WMS_fnc_DynAI_baseATK need to check if territory already under attack
-			if (WMS_DynAI_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| %1", _threatScenario]};
+			if (WMS_IP_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| %1", _threatScenario]};
 			} else {
 				_threatScenario = "dynamic";
 				WMS_DynAI_LastTime = time;
 				[_DynamicThreatTarget, (position _DynamicThreatTarget), _threatScenario]call WMS_fnc_DynAI_SelScen;
-				if (WMS_DynAI_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| scenario= %1, Target= %2", _threatScenario, _DynamicThreatTarget]};
+				if (WMS_IP_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| scenario= %1, Target= %2", _threatScenario, _DynamicThreatTarget]};
 			};
 	} else {_threatScenario = "Nothing"};
 };
 
-if (WMS_DynAI_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| %1 player(s) connected, waiting %2 secondes", _playerCount, _waitingTime]};
+if (WMS_IP_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| %1 player(s) connected, waiting %2 secondes", _playerCount, _waitingTime]};

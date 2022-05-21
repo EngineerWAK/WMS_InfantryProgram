@@ -17,7 +17,7 @@ params[
 	["_timer", 120, [0]]
 	];
 
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS ANNIHILATOR]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS ANNIHILATOR]|WAK|TNA|WMS| _this = %1", _this]};
 _pos = GetPosATL _ref;
 //private _target = _pos nearObjects ["building", 150] select 0;
 //systemchat format [str (TypeOf _target)];

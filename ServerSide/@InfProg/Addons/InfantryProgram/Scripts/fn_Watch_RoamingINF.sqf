@@ -19,12 +19,12 @@ _patrolAIrunningBL 	= (count WMS_AI_bluforPatrol_Running);
 _DynAIrunning 		= (count WMS_DynAI_Running);
 _cnt = 0;
 
-if (WMS_AI_RoamingINF_Logs) then {diag_log format ["[RoamingINF Watch]|WAK|TNA|WMS| paradrop: %1, infantry OPFOR: %2, infantry BLUFOR: %3, DynAI: %4", _paradropAIrunning,_patrolAIrunningOP,_patrolAIrunningBL,_DynAIrunning]};
+if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF Watch]|WAK|TNA|WMS| paradrop: %1, infantry OPFOR: %2, infantry BLUFOR: %3, DynAI: %4", _paradropAIrunning,_patrolAIrunningOP,_patrolAIrunningBL,_DynAIrunning]};
 //paradrop
 if !(_paradropAIrunning == 0) then { 
 	{ 
 		if (time > (_x select 1) && count ((position (leader (_x select 2 select 0))) nearEntities [WMS_PlayerEntity, WMS_AI_PlayerDistToDespawnINF]) == 0) then { //test player presence
-			if (WMS_AI_RoamingINF_Logs) then {diag_log format ["[RoamingINF Paradrop Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
+			if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF Paradrop Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 			_grpArray = (_x select 2);
 			_vhl = (_x select 3);
 			_obj = (_x select 4);
@@ -53,7 +53,7 @@ if !(_paradropAIrunning == 0) then {
 if !(_patrolAIrunningOP == 0) then { 
 	{ 
 		if (time > (_x select 1) && count ((position (leader (_x select 2 select 0))) nearEntities [WMS_PlayerEntity, WMS_AI_PlayerDistToDespawnINF]) == 0) then { //test player presence
-			if (WMS_AI_RoamingINF_Logs) then {diag_log format ["[RoamingINF patrol Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
+			if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF patrol Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 			_grpArray = (_x select 2);
 			_vhl = (_x select 3);
 			_obj = (_x select 4);
@@ -82,7 +82,7 @@ if !(_patrolAIrunningOP == 0) then {
 if !(_patrolAIrunningBL == 0) then { 
 	{ 
 		if (time > (_x select 1)) then {
-			if (WMS_AI_RoamingINF_Logs) then {diag_log format ["[RoamingINF patrol Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
+			if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF patrol Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 			_grpArray = (_x select 2);
 			_vhl = (_x select 3);
 			_obj = (_x select 4);
@@ -117,7 +117,7 @@ if !(_DynAIrunning == 0) then {
 			_x set [1, 0];
 		};
 		if (time > (_x select 1) && count ((position (leader (_x select 2 select 0))) nearEntities [WMS_PlayerEntity, WMS_AI_PlayerDistToDespawnINF]) == 0) then { //test player presence
-			if (WMS_AI_RoamingINF_Logs) then {diag_log format ["[RoamingINF patrol Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
+			if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF patrol Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 			_grpArray = (_x select 2);
 			_vhl = (_x select 3);
 			_obj = (_x select 4);

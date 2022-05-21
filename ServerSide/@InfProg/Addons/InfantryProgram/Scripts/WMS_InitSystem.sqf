@@ -13,21 +13,15 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.615_2022MAY13_GitHub";
+WMS_System_Version 			= "v2.619_2022MAY21_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
-WMS_InfantryProgram_LOGs 	= false; //include roamingVHL spawn
-WMS_DynAI_LOGs 				= false; 
-WMS_Events_LOGs 			= false;
-WMS_AMS_LOGs 				= false;
-WMS_AI_roamingVHLspawn_LOGs = false;
-WMS_AI_RoamingVhl_Logs 		= false; //AIR & GND
-WMS_AI_RoamingINF_Logs 		= false;
+WMS_IP_LOGs 				= false;
 WMS_Watch_Triggers_Logs		= false;
 WMS_magicSmoke 				= true;
 WMS_ServerMarkers 			= true;
-WMS_ServRestart 			= true;
 WMS_forceNoRain 			= false;
 WMS_forceNoFog				= false;
+WMS_ServRestart 			= true;
 WMS_ServRestartSeconds 		= 18000; //5h
 WMS_Thread_Start			= 30;
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Namalsk","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!!
@@ -169,36 +163,35 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WAK_DFO_Version			= "v0.54_2022MAY15_GitHub";
-WMS_DynamicFlightOps	= true; //NOT 100% READY YET, 99%
+WAK_DFO_Version			= "v1.03_2022MAY20_GitHub";
+WMS_DynamicFlightOps	= true;
 WMS_fnc_DFO_LOGs		= false;	//For Debug
 WMS_DFO_Standalone		= false; //keep true if you don't use WMS_InfantryProgram
 WMS_DFO_CreateChopper	= false; //if your mission file doesn't have choppers available
 WMS_DFO_Reinforcement	= true; //Each mission has it's own type of reinforcement
 WMS_DFO_UseJVMF			= true; //https://github.com/Project-Hatchet/H-60
 WMS_DFO_RemoveDup		= true; //delete dead NPC's primary weapon and backpack
-WMS_DFO_UsePilotsList 	= true; //if you want to limit DFO use to some players
+WMS_DFO_UsePilotsList 	= false; //if you want to limit DFO use to some players
 WMS_fnc_DFO_SmokeAtLZ	= true; //pop a smoke/flare on the group you have to pickUp
 WMS_DFO_HideLZTarget	= false; //hide the target spawned at the LZ (actualy just return it, texture only on one side)
 WMS_DFO_InfUnlOverride	= false; //admins can force it "on the fly" in the console
 WMS_DFO_InfUnloadType 	= 3; //0: dump, 1: land, 2: rappel (Advanced Rappeling), 3: fastrope (not yet) //this should be dynamic unless override
-WMS_DFO_PilotsList		= ["76561197965501020"]; //Player UID, Only those players will be able to use DFO if WMS_DFO_UsePilotsList
+WMS_DFO_PilotsList		= []; //Player UID, Only those players will be able to use DFO if WMS_DFO_UsePilotsList
 WMS_DFO_MaxRunning		= 3; //Max missions can run in the same time
 WMS_DFO_CoolDown		= 600; //time before the next mission can be called
 WMS_DFO_Timer			= 1800; //timer before mission timeOut, no reset/extend
 WMS_DFO_MinMaxDist		= [3000,6000]; //minimum and maximum distance the next step of the mission will be, unless "custom" position like "forest","cities", etc...
-WMS_DFO_TriggMaxSpeed	= 18; //Maximum speed in the trigger to unlock the next level of the mission
+WMS_DFO_TriggMaxSpeed	= 18; //Maximum speed in the trigger to unlock the next level of the mission *1.5 for Medevac
 WMS_DFO_ReinfTriggDist	= 1000; //distance trigger will call reinforcement
 WMS_DFO_MkrRandomDist	= 500; //random distance to place the marker from SAR CSAR missions otherwise there is no "search"
 WMS_DFO_Reward			= [500,2000,['ACE_Can_Franta','ACE_Can_RedGull','ACE_MRE_LambCurry','ACE_MRE_MeatballsPasta','ACE_bloodIV_500','ACE_morphine','ACE_quikclot']]; //["rep","money",items for chopper return]
 WMS_DFO_SarSeaPosition	= "sea"; //"sea" or "random" //some maps doesnt have water
-WMS_DFO_NoSeaMaps 		= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Enoch","tem_kujari"];
+WMS_DFO_NoSeaMaps 		= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Enoch","tem_kujari","juju_kalahari"];
 WMS_DFO_OPFORcbtMod		= "YELLOW"; //Vehicle crew only //"WHITE" : Hold fire, engage at will/loose formation //"YELLOW" : Fire at will, keep formation //"RED" : Fire at will, engage at will/loose formation
 WMS_DFO_CargoType		= ["CargoNet_01_barrels_F","C_IDAP_CargoNet_01_supplies_F","CargoNet_01_box_F"];
-WMS_DFO_MissionTypes	= ["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","sar","csar"];// Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR
+WMS_DFO_MissionTypes	= [["inftransport","cargotransport","sar","medevac"],["airassault","casinf","casarmored","cascombined","csar"],["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","csar","sar","medevac"]];// [[CHILL],[COMBAT],[RANDOM]]
 WMS_DFO_Reinforcements	= ["paradrop","paradrop","paradrop","VHLpatrol","VHLpatrol","AIRpatrol","AIRassault"]; //["AIRpatrol","VHLpatrol","paradrop","AIRassault"] //TYPO!!!
-WMS_DFO_NPCskills		= [0.80, 0.8, 0.25, 0.3, 0.3, 0.6, 0, 0.6, 0.6]; //"spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"
-
+WMS_DFO_NPCskills		= [0.8, 0.7, 0.2, 0.3, 0.3, 0.6, 0, 0.5, 0.5]; //"spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"
 //VANILLA:
 WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
 WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
@@ -216,23 +209,23 @@ WMS_DFO_NPCs			= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone versi
 						["O_crew_F","O_Soldier_GL_F","O_soldier_M_F","O_Soldier_AR_F"], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
 						["B_helicrew_F","B_soldier_AR_F","B_Soldier_GL_F","B_soldier_M_F","B_Soldier_F"], //crew first //in arma civillian can not have weapon...
 						["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
-
 WMS_DFO_Markers			= ["loc_heli","mil_end_noShadow"]; //["mission","RTB"]; //["n_support","n_hq"]; //["loc_heli","mil_end_noShadow"]
 WMS_DFO_MkrColors		= ["colorOrange","colorGreen","colorRed"]; //["mission","RTB", "bigDanger"];
 WMS_DFO_MissionPaths	= [["BASE","LZ1","BASE"],["BASE","LZ1","LZ2"]]; // "takeoff/mission/complet" //the first "BASE" could become "AIR" if mission called during flight
 WMS_DFO_LastCall		= (time-WMS_DFO_CoolDown);
 WMS_DFO_Running			= []; //KEEP EMPTY
 WMS_DFO_RunReinforce	= []; //KEEP EMPTY
-
+	//WMS_DFO_ToDelete		= []; //KEEP EMPTY //[timeToDelete,[objects]]
 WMS_DFO_AceIsRunning 	= false; //this should go in WMS_InfantryProgram
-
 publicVariable "WMS_DFO_Running";
 publicVariable "WMS_DFO_MaxRunning";
 publicVariable "WMS_DFO_LastCall";
 publicVariable "WMS_DFO_CoolDown";
 publicVariable "WMS_DFO_UsePilotsList";
 publicVariable "WMS_DFO_PilotsList";
+publicVariable "WMS_DFO_MissionTypes";
 publicVariable "WMS_DFO_AceIsRunning";
+publicVariable "WMS_DFO_Reward";
 //Maps custom settings
 if (worldName in WMS_DFO_NoSeaMaps) then {
 	WMS_DFO_SarSeaPosition	= "random";
@@ -487,7 +480,7 @@ WMS_AMS_MissionList 	= [
 // Create The Dynamic AI triggers
 ////////////////////
 WMS_DynAI_triggers 		= true;
-WMS_Pos_AutoScan 		= true;
+WMS_Pos_AutoScan 		= true; //KEEP TRUE UNLESS YOU KNOW WHAT YOU ARE DOING
 WMS_activatedTriggs 	= [];//Leave it empty
 WMS_Trigg_Reinforce		= true;
 WMS_trigMaxSpeed		= 100;
@@ -540,6 +533,8 @@ WMS_Pos_Military 	= []; //not autoScan //No randomized positions //need enough s
 
 WMS_Pos_Factory 	= []; //used to spawn missions not for trigger, yet //YOU NEED FACTORIES POSITION FOR SOME AMS MISSIONS or use WMS_AMS_CustomPosFact = ["random"];
 WMS_Pos_Custom 		= []; //position ASLW //used in DFO for now
+WMS_Roads			= []; //PushBack RoadObjects
+WMS_SeaPos			= []; //PushBack sea positions around coasts
 //WMS_Pos_EntryPoint 	= []; //not autoScan //Just trigger WMS_trig_Glob_LastT to prevent player to get roaming AI while spawning in a trigger
 
 WMS_CustomTrig_activate 	= false; //if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD) && time > (WMS_CustomTrig_LastT + WMS_CustomTrig_CoolD) && (player distance2d trigPos) > (WMS_CustomTrig_Size/2)) then {};
@@ -664,6 +659,8 @@ WMS_AMS_TradersArr = [];
 		WMS_AMS_TradersArr pushBack [_traderPos,WMS_AMS_SpnDistTrader];
 	};
 }forEach allMapMarkers;
+// Get position from location and water position
+[] call WMS_fnc_CollectPos;
 // Create triggers
 if (WMS_DynAI_triggers) then {execVM "\InfantryProgram\Scripts\WMS_AI_Create_triggers.sqf"};
 // Start Random Events system

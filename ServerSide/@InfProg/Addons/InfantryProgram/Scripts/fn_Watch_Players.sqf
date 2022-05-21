@@ -10,7 +10,7 @@
 * Do Not Re-Upload
 */
 
-if (WMS_InfantryProgram_LOGs) then {diag_log format ["[Players Watch]|WAK|TNA|WMS| %1 player(s) connected", count allPlayers];};
+if (WMS_IP_LOGs) then {diag_log format ["[Players Watch]|WAK|TNA|WMS| %1 player(s) connected", count allPlayers];};
 private ["_damage","_msgx","_rwdLevel","_lastPos","_riderUID","_riderRep"];
 {	//Healing camp
 	if (((getplayerUID _x) in WMS_InfantryProgram_list) && {(count (_x nearObjects ["Exile_Container_OldChest", 5])) == 1}) then {
@@ -41,7 +41,7 @@ private ["_damage","_msgx","_rwdLevel","_lastPos","_riderUID","_riderRep"];
 		moveout _x;
 		_msgx = format ['%1, NO VEHICLES WHEN YOU ARE IN THE INFANTRY PROGRAM', (name _x)];
 		[_msgx] remoteExecCall ['SystemChat',_x];
-		if (WMS_InfantryProgram_LOGs) then { diag_log format ["[Player Watch WARNING]|WAK|TNA|WMS| %1 is in a %2", _x, vehicle _x];};
+		if (WMS_IP_LOGs) then { diag_log format ["[Player Watch WARNING]|WAK|TNA|WMS| %1 is in a %2", _x, vehicle _x];};
 	};
 	//Kick out vehicle
 	//check if vehicle godmod

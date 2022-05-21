@@ -22,7 +22,7 @@
 		["_howMany",10, [0]]
 	];
 	_name = "Forest Camp";
-	if (WMS_AMS_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
+	if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 	_T = round servertime;
 	_forest = selectRandom WMS_Pos_Forests;
 	if (_pos == "forest" ) then {
@@ -75,7 +75,7 @@ _trigg setTriggerArea [25, 25, 0, false];
 _trigg setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 _trigg setTriggerStatements ["this", 
 	"
-	if (WMS_AMS_LOGs) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
+	if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
 	_CallBackAIgroup = thisTrigger getVariable ['_CallAIgroup',[[],[0,0,0]]];
 	_CallBackAIgroup call WMS_fnc_AMS_callBackAIgroups;
 	", 

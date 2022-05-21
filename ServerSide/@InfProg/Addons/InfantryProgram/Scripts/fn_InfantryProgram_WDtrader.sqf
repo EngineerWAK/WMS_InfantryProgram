@@ -14,7 +14,7 @@
 //[_target,_pos,_patrolTimer,_vhl]call TNA_fnc_InfantryProgram_WDtrader
 //////////////////////////////////////////////////////////////////
 
-if (WMS_InfantryProgram_LOGs) then {diag_log format ["[INFANTRY WD_TRADER]|TNA|TNA|TNA|TNA|TNA| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[INFANTRY WD_TRADER]|TNA|TNA|TNA|TNA|TNA| _this = %1", _this]};
 private _target = (_this select 0);
 private _LZPos = (_this select 1);
 private _patrolTimer = (_this select 2);

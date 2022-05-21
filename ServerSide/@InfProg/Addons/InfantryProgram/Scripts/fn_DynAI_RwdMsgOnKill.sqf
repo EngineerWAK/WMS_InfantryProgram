@@ -11,7 +11,7 @@
 */
 
 //[_killed,_killer,_unitFunction,_info] call WMS_fnc_DynAI_RwdMsgOnKill
-if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAI REWARDS]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[DYNAI REWARDS]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_unitFunction","_info","_unit","_msgx","_sessionID","_unitName","_payload","_bonus","_distanceKill","_playerRep","_bonusDist","_malusDist","_type"];
 params[
 	"_killed",
@@ -128,7 +128,7 @@ params[
 			if (WMS_exileFireAndForget) then {
 				[_killer, "showFragRequest", [_payload]] call ExileServer_system_network_send_to;
 			} else {
-				if (WMS_DynAI_LOGs) then {diag_log format ["[DynAI_KILLED_MESSAGE]|WAK|TNA|WMS|Killer:%1, Payload: %2",_killer, _payload]};
+				if (WMS_IP_LOGs) then {diag_log format ["[DynAI_KILLED_MESSAGE]|WAK|TNA|WMS|Killer:%1, Payload: %2",_killer, _payload]};
 				[_payload,"NotAMS"] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)];
 			};
 		};
@@ -157,7 +157,7 @@ params[
 		0, //0 for all players
 		false //JIP
 	];
-		if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAI PROFILENAMESPACE]|WAK|TNA|WMS| _killer VARs: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), _playerKills, ("ExileScore_"+_killerUID), _playerRepUpdated]};
-		//if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAI PROFILENAMESPACE]|WAK|TNA|WMS| _killer ProfileNameSpace: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), (profileNamespace getVariable _playerUID_ExileKills), ("ExileScore_"+_killerUID), (profileNamespace getVariable _playerUID_ExileScore)]};
-		//if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAI PLAYERVAR]|WAK|TNA|WMS| %1 VARs: ExileScore %2 | ExileMoney %3 | ExileKills %4", _killer, (_killer getVariable ["ExileScore", -1]), (_killer getVariable ["ExileMoney", -1]), (_killer getVariable ["ExileKills", -1])]};
+		if (WMS_IP_LOGs) then {diag_log format ["[DYNAI PROFILENAMESPACE]|WAK|TNA|WMS| _killer VARs: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), _playerKills, ("ExileScore_"+_killerUID), _playerRepUpdated]};
+		//if (WMS_IP_LOGs) then {diag_log format ["[DYNAI PROFILENAMESPACE]|WAK|TNA|WMS| _killer ProfileNameSpace: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), (profileNamespace getVariable _playerUID_ExileKills), ("ExileScore_"+_killerUID), (profileNamespace getVariable _playerUID_ExileScore)]};
+		//if (WMS_IP_LOGs) then {diag_log format ["[DYNAI PLAYERVAR]|WAK|TNA|WMS| %1 VARs: ExileScore %2 | ExileMoney %3 | ExileKills %4", _killer, (_killer getVariable ["ExileScore", -1]), (_killer getVariable ["ExileMoney", -1]), (_killer getVariable ["ExileKills", -1])]};
 	};

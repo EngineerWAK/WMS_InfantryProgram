@@ -11,7 +11,7 @@
 */
 
 //[_killer] call WMS_fnc_DynAI_baseATK_Reinforce;
-if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAI BASEATK REINFORCE]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[DYNAI BASEATK REINFORCE]|WAK|TNA|WMS| _this = %1", _this]};
 private [];
 params[
 	"_killer"

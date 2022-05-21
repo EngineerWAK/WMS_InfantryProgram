@@ -1,5 +1,5 @@
 /**
-* InfantryProgram
+* WMS_Event_ReconMission
 *
 * TNA-Community
 * https://discord.gg/Zs23URtjwF
@@ -22,7 +22,7 @@ WMS_Recon_Guards = true;
 WMS_Recon_Guards_Chance = 75;
 WMS_Recon_Guards_Skill = 0.6;*/
 diag_log format ["[Event]|WAK|TNA|WMS| Setting-up Recon Mission, %1", time];
-[] spawn {
+
 diag_log format ["[Event]|WAK|TNA|WMS| Recon Mission, %1 secondes to get positions", 60];
 private ["_nextRecon","_transport","_patrolGrp","_captureZone","_positions","_smokeBlue","_flag","_MkrBorder","_triggBorder","_markerName","_triggCapture","_posObjects","_object"];
 uisleep 60;
@@ -68,7 +68,7 @@ WMS_fnc_recon_Create_Guards = {
 	switch (_type) do { 
 		case  "infantry" : {
 			_patrolGrp = [_pos, OPFOR, (selectRandom [2,3,4,5])] call BIS_fnc_spawnGroup;
-			[(units _patrolGrp),'Random',100,WMS_Recon_Guards_Skill,"army"] call WMS_fnc_DynAI_SetUnitOPF;
+			[(units _patrolGrp),'Random',100,WMS_Recon_Guards_Skill,nil,"army",nil,"DYNAI"] call WMS_fnc_SetUnits;
 			[_patrolGrp, _pos, 75, 5, "MOVE", "AWARE", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 			WMS_Recon_AIgrps pushback _patrolGrp;
 		}; 
@@ -177,8 +177,9 @@ WMS_fnc_Recon_Delete_trigger = {
 		WMS_Recon_AIgrps = []; //reset the spawned group array
 		WMS_Recon_AllCities = []; //reset 
 		WMS_Recon_pos_list = []; //reset 
-		if (WMS_Events_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Processing Event: %1", "ReconMission"];};
-		execVM "\InfantryProgram\Scripts\WMS_Event_ReconMission.sqf";
+		if (WMS_IP_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Processing Event: %1", "ReconMission"];};
+		//execVM "\InfantryProgram\Scripts\WMS_Event_ReconMission.sqf";
+		[]spawn WMS_fnc_Event_ReconMission;
 	} else {
 		hint 'Next Level!';
 		['Next Level!'] remoteExecCall ['SystemChat',_target]; 
@@ -189,4 +190,3 @@ WMS_fnc_Recon_Delete_trigger = {
 };
 WMS_Recon_pos_list call WMS_fnc_Recon_Create_Trigger;
 diag_log format ["[Event]|WAK|TNA|WMS| Recon Mission Launched, %1", time];
-};

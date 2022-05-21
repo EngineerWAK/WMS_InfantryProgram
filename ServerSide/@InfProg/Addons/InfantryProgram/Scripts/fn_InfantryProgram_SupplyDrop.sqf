@@ -13,7 +13,7 @@
 //[player, position player, primaryWeapon player, handgunWeapon player, 3500, "mission"] remoteexec ["TNA_fnc_SupplyDrop"];
 
 
-if (WMS_InfantryProgram_LOGs) then {diag_log format ["[SUPPLYDROP]|TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA| Supplydrop request from %1 at %2, mission: %3 |TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA|", (_this select 0),(_this select 1),(_this select 5)]};
+if (WMS_IP_LOGs) then {diag_log format ["[SUPPLYDROP]|TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA| Supplydrop request from %1 at %2, mission: %3 |TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA|", (_this select 0),(_this select 1),(_this select 5)]};
 private _target 	= (_this select 0);
 private _pos 		= (_this select 1);
 private _weap1st	= (_this select 2); //change
@@ -32,7 +32,7 @@ if(_lockerMoney > _amount) then
 		_target setVariable ['ExileMoney', _playerMoney, true];
 		_target setVariable ['ExileLocker', _lockerMoney, true];
     	format['updateLocker:%1:%2', _lockerMoney, (getPlayerUID _target)] call ExileServer_system_database_query_fireAndForget;
- 	if (WMS_InfantryProgram_LOGs) then {
+ 	if (WMS_IP_LOGs) then {
  		diag_log format ["[SUPPLYDROP]|TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA| Supplydrop Accepted for %1 at %2 |TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA|", _target, _pos];
  	};
 
@@ -112,7 +112,7 @@ deletevehicle _light;
 
 
 } else {
-	if (WMS_InfantryProgram_LOGs) then {
+	if (WMS_IP_LOGs) then {
  	diag_log format ["[SUPPLYDROP]|TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA| %1 is too poor to get a supplydrop |TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA|", _target];
 	};
     //["ErrorTitleOnly", ["Dude! get some money!"]] call ExileClient_gui_toaster_addTemplateToast;

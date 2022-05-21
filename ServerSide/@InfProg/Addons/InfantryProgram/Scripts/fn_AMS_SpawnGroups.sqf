@@ -50,9 +50,10 @@ for "_i" from 1 to _grpCount do {
 	//if (HC1 in allPlayers) then {_INFgrp setGroupOwner (owner HC1)};
 };
 {
-	[(units _x),_unitFunction,_LauncherChance,_skill,_difficulty,_loadout] call WMS_fnc_AMS_SetUnits;
-	if (_behavType == ("defend")) then {
-		//[_x,_pos,50,3,true,true] call CBA_fnc_taskDefend; //error 2 elemnt provided, expected 3 // maybe from _pos	
+	//[(units _x),_unitFunction,_LauncherChance,_skill,_difficulty,_loadout] call WMS_fnc_AMS_SetUnits;
+	//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
+	[(units _x),_unitFunction,_LauncherChance,_skill,_difficulty,_loadout,nil,"AMS"] call WMS_fnc_SetUnits;
+	if (_behavType == ("defend")) then {	
 		_WPT_1 = _x addWaypoint [_pos, 50];
 		_WPT_1 setWaypointType _typ;
 		_WPT_1 setwaypointSpeed _spd;
@@ -61,8 +62,6 @@ for "_i" from 1 to _grpCount do {
 		[_x] call CBA_fnc_taskDefend;
 	} else {
 		if (_behavType == ("garrison")) then {
-			//_x addWaypoint [_Pos, 0] setWaypointScript "\x\cba\addons\ai\fnc_waypointGarrison.sqf []";
-			//[_x, _Pos] execVM "\x\cba\addons\ai\fnc_waypointGarrison.sqf";	
 			_WPT_1 = _x addWaypoint [_pos, 50];
 			_WPT_1 setWaypointType _typ;
 			_WPT_1 setwaypointSpeed _spd;
@@ -79,5 +78,5 @@ for "_i" from 1 to _grpCount do {
 	};	
 	{_x setVariable ["AMS_MissionID",_missionID,true]}forEach (units _x);
 }forEach _grps;
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS GROUP]|WAK|TNA|WMS| return _grps: %1,", _grps]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS GROUP]|WAK|TNA|WMS| return _grps: %1,", _grps]};
 _grps

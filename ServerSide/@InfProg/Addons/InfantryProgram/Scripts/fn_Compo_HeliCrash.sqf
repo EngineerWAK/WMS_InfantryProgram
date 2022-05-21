@@ -99,8 +99,8 @@ if (_guard > 0) then {
 		WMS_AMS_UnitClass createUnit [_pos, _Grp];
 		uisleep 0.2;
 	};
-
-	[(units _Grp),'Assault',15,_skill,_loadout] call WMS_fnc_DynAI_SetUnitOPF;
+	//[(units _Grp),'Assault',15,_skill,_loadout] call;
+	[(units _Grp),'Assault',15,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	if (_armed) then {
 		_staticList = [
 			[(selectRandom _statics),[-3.84341,0.221521,0],281.969,[true,true]],

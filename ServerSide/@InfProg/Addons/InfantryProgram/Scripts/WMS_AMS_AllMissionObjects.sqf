@@ -10,7 +10,7 @@
 * Do Not Re-Upload
 */
 
-if (WMS_AMS_LOGs) then {diag_log "[AMS OBJECTS]|WAK|TNA|WMS| Loading Objects Lists For Missions"};
+if (WMS_IP_LOGs) then {diag_log "[AMS OBJECTS]|WAK|TNA|WMS| Loading Objects Lists For Missions"};
 private _debugTime1 = time;
 WMS_AMS_Obj_Object172M = [ //Unified E
 	["B_Slingload_01_Repair_F",[5.3,-11.2,0],90,"damage"],
@@ -1765,5 +1765,5 @@ WMS_AMS_Obj_OutpostGolfV2 = [
 	["Land_ShellCrater_02_small_F",[11.1,2,0],286.6]
 ];
 
-if (WMS_AMS_LOGs) then {diag_log "[AMS OBJECTS]|WAK|TNA|WMS| All Missions Objects Loaded and Ready"};
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS DEBUG FIRST SPAWN TIME]|WAK|TNA|WMS| AMS_AllMissionObjects executed %1 secondes", (time - _debugTime1)]};
+if (WMS_IP_LOGs) then {diag_log "[AMS OBJECTS]|WAK|TNA|WMS| All Missions Objects Loaded and Ready"};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS DEBUG FIRST SPAWN TIME]|WAK|TNA|WMS| AMS_AllMissionObjects executed %1 secondes", (time - _debugTime1)]};

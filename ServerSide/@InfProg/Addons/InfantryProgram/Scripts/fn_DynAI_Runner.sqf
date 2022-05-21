@@ -13,7 +13,7 @@
 //////////
 //[_target,_pos, _timer, _spawnType, _iterations]spawn WMS_fnc_DynAI_Runner
 //////////////////////////////////////////////////////////////////
-if (WMS_DynAI_LOGs) then {diag_log format ["[SUICIDE BOMBER]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[SUICIDE BOMBER]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_run","_safePos","_grp","_runner","_sessionID","_expl1","_expl2","_expl3"];
 params[
 	"_target",
@@ -39,7 +39,7 @@ _runner allowFleeing 0;
 if (_spawnType == 'para') then {
 	_runner setPos [(position _runner select 0),(position _runner select 1),100];
 	};
-[(units _grp),"SuicideBomber",0,1,"bandit"] call WMS_fnc_DynAI_SetUnitOPF;
+[(units _grp),"SuicideBomber",0,1,nil,"bandit",nil,"DYNAI"] call WMS_fnc_SetUnits;
 
 _expl1 = 'ClaymoreDirectionalMine_Remote_Ammo_Scripted' createVehicle (position _runner);   
 _expl1 attachTo [_runner, [-0.15,0.08,0],'Pelvis'];   
@@ -55,16 +55,16 @@ playSound3D ["A3\Sounds_F\sfx\Alarm_BLUFOR.wss", player, false, position _runner
 if (WMS_exileToastMsg) then {
 	_sessionID = _target getVariable ['ExileSessionID',''];
 	for "_i" from 1 to _iterations do {
-		[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['Suicide Bomber', 'Incoming HalaSnackBar!!!']]] call ExileServer_system_network_send_to;
+		[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['Suicide Bomber', 'Incoming Runner!!!']]] call ExileServer_system_network_send_to;
 		sleep 1;
 	};
 } else {
-	for "_i" from 1 to _iterations do {
-		//[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['Suicide Bomber', 'Incoming HalaSnackBar!!!']]] call ExileServer_system_network_send_to;
+	//for "_i" from 1 to _iterations do {
+		//[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['Suicide Bomber', 'Incoming Runner!!!']]] call ExileServer_system_network_send_to;
 		//["EventWarning", ["Disable the nuke",""]] call BIS_fnc_showNotification;
-		["EventWarning", ["Suicide Bomber", "Incoming HalaSnackBar!!!"]] remoteExec ["BIS_fnc_showNotification", owner _target];
-		sleep 1;
-	};
+		["EventWarning", ["Suicide Bomber", "Incoming Runner!!!"]] remoteExec ["BIS_fnc_showNotification", owner _target];
+		//sleep 1;
+	//};
 };
 WMS_DynAI_Running pushback [time,(time+(_timer)),[_grp],[],[],[],[],""];
 

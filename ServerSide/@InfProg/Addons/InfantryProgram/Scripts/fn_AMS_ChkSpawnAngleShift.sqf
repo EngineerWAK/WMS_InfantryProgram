@@ -20,7 +20,7 @@ params [
 	["_shiftAngle",36, [0]], 
 	["_mdlToWorld",true] 
 ]; 
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS SPAWN ANGLESHIFT]|WAK|TNA|WMS| _this: %1,", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS SPAWN ANGLESHIFT]|WAK|TNA|WMS| _this: %1,", _this]};
 _safe = false; 
 _angleShift = true; 
 _iterations = 360/_shiftAngle; 
@@ -34,7 +34,7 @@ if (_mdlToWorld) then {
 	_spawnPos = _pos getpos [_radius, (_dir+(-_sideShift+(random (_sideShift+_sideShift))))];
 	_playerBlkList = allPlayers select {alive _x && (_x distance2D _spawnPos < _radPlayer)} apply {[GetPosATL _x, _radPlayer]};
 	if (count _playerBlkList == 0) then {
-		if (WMS_AMS_LOGs) then {diag_log format ["[AMS SPAWN ANGLESHIFT]|WAK|TNA|WMS| _playerBlkList: %1,", _playerBlkList]};  
+		if (WMS_IP_LOGs) then {diag_log format ["[AMS SPAWN ANGLESHIFT]|WAK|TNA|WMS| _playerBlkList: %1,", _playerBlkList]};  
 		_safe = true; 
 		_angleShift = false; 
 		_SafePosList pushBack [(_spawnPos select 0),(_spawnPos select 1),0]; 
@@ -51,7 +51,7 @@ while {_angleShift && (_iteration <= _iterations)} do {
 		_SafePosList pushBack _posFar; 
 		_safe = true; 
 	}; 
-	if (WMS_AMS_LOGs) then {diag_log format ["[AMS SPAWN ANGLESHIFT]|WAK|TNA|WMS| _iteration: %1, _pos: %2, _shiftedAngle: %3, shiftedPos: %4, position found: %5, safe: %6", _iteration, _pos, _shiftedAngle, _spawnPos, _posFar, _safe]}; 
+	if (WMS_IP_LOGs) then {diag_log format ["[AMS SPAWN ANGLESHIFT]|WAK|TNA|WMS| _iteration: %1, _pos: %2, _shiftedAngle: %3, shiftedPos: %4, position found: %5, safe: %6", _iteration, _pos, _shiftedAngle, _spawnPos, _posFar, _safe]}; 
 	_iteration = _iteration+1; 
 }; 
 [_safe,_SafePosList]

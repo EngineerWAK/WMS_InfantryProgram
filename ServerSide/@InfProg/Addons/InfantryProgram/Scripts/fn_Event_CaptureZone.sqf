@@ -19,7 +19,7 @@ WMS_CaptureZone_Dis		= [100,300]; //AI waves spawn distances
 WMS_CaptureZone_Obj 	= []; //layout + sphere for cleanup
 //WMS_CaptureZone_Bdr 	= []; //Sign_Sphere25cm_F objects //local to the function
 */
-if (WMS_Events_LOGs) then {diag_log format ["[EVENT CAPTUREZONE]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[EVENT CAPTUREZONE]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_textureR","_textureG","_textureB","_zoneStatus_Running","_posObjects","_object","_triggCapture","_triggContest","_CaptureZone_Bdr","_talk","_phone"];
 params[
 	["_pos", "random"],
@@ -423,7 +423,7 @@ WMS_fnc_captureZoneWaves = {
 		};
 	};
 	{
-		[(units _x),'assault',_launcherChance,_skill,_loadout] call WMS_fnc_DynAI_SetUnitOPF;
+		[(units _x),'assault',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 		_wpt = _x addWaypoint [_pos, 0];
 		_wpt setWaypointType "MOVE";
 		_wpt setWaypointCombatMode "YELLOW";

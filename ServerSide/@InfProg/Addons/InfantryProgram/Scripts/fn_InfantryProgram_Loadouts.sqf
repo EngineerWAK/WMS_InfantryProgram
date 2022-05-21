@@ -67,7 +67,7 @@ if(_lockerMoney > _amount) then {
 		_target setVariable ['ExileMoney', _playerMoney, true];
 		_target setVariable ['ExileLocker', _lockerMoney, true];
     	format['updateLocker:%1:%2', _lockerMoney, (getPlayerUID _target)] call ExileServer_system_database_query_fireAndForget;
-		if (WMS_InfantryProgram_LOGs) then {
+		if (WMS_IP_LOGs) then {
  			diag_log format ["[LOADOUTS_Exile]|WAK|TNA|WMS| _this = %1 |WAK|TNA|WMS|", _this];
  		};
 	}else{ 
@@ -93,13 +93,13 @@ if(_lockerMoney > _amount) then {
 		_playerMoney = profileNamespace getVariable [_playerUID_Exilemoney,0];
 		_target setVariable ["ExileMoney", (_playerMoney-_amount), true];
 		profileNamespace setVariable [_playerUID_Exilemoney,(_playerMoney-_amount)];
-		if (WMS_InfantryProgram_LOGs) then {
+		if (WMS_IP_LOGs) then {
  			diag_log format ["[LOADOUTS_TheLastCartridges]|WAK|TNA|WMS| _this = %1 |WAK|TNA|WMS|", _this];
  		};
 	};
 } else {
     systemChat "Nope! you are too poor!";
- 	if (WMS_InfantryProgram_LOGs) then {
+ 	if (WMS_IP_LOGs) then {
  		diag_log format ["[LOADOUTS]|WAK|TNA|WMS|  %1 too poor to get a loadout |WAK|TNA|WMS|", _target];
  	};
     //["ErrorTitleOnly", ["Dude! get some money!"]] call ExileClient_gui_toaster_addTemplateToast;

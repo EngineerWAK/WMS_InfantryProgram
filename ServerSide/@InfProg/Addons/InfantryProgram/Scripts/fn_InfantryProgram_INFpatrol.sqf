@@ -15,8 +15,8 @@
 //[_target,_RandomPosDest,(round(2+(random 3))),_patrolLoadout,600,250,_missionType,_vhl] call WMS_fnc_InfantryProgram_INFsquad; //Old
 //////////////////////////////////////////////////////////////////
 
-if (WMS_InfantryProgram_LOGs) then {diag_log format ["[INFANTRY PATROL]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_PatrolVRmkrList","_smokeGrenade","_patrolGrp","_leaderGrp","_posDZ","_sessionID","_smokeGrenade","_spawnPos"];
+if (WMS_IP_LOGs) then {diag_log format ["[INFANTRY PATROL]|WAK|TNA|WMS| _this = %1", _this]};
+private ["_PatrolVRmkrList","_smokeGrenade","_patrolGrp","_posDZ","_sessionID","_smokeGrenade","_spawnPos"];
 params[  
 	"_pos",
 	"_target",
@@ -41,7 +41,7 @@ params[
 
 _PatrolVRmkrList = [];
 _smokeGrenade = "SmokeShellOrange";
-_patrolGrp = nil;
+_patrolGrp = grpNull;
 _posFar = [_pos, 150, 400] call BIS_fnc_findSafePos;
 
 if (_FrontSpawn) then {
@@ -57,12 +57,11 @@ if (_FrontSpawn) then {
 } else {
 	_patrolGrp = [_pos, _grpSide, _grpSize] call BIS_fnc_spawnGroup;
 };
+{_x setVariable ["WMS_RealFuckingSide",_grpSide]}foreach units _patrolGrp;
 //if !(WMS_HeadlessOwnerID == 2) then {_patrolGrp setGroupOwner WMS_HeadlessOwnerID};
 //if (HC1 in allPlayers) then {_patrolGrp setGroupOwner (owner HC1)};
 
-_leaderGrp = Leader _patrolGrp;
-
-_posDZ = position _leaderGrp;
+_posDZ = position (Leader _patrolGrp);
 
 WMS_ParadropAI_LastTime = time;
 publicVariable "WMS_ParadropAI_LastTime";
@@ -73,9 +72,9 @@ if (_grpSide == OPFOR ) then {
 		_sound = format ["A3\sounds_f\sfx\radio\ambient_radio%1.wss",_number];
 		playSound3D [_sound, player, false, _posDZ, 2, 1, 0];
 	};
-	if (WMS_InfantryProgram_LOGs) then {diag_log format ["[INFANTRY PATROL GROUP]|TNA|TNA|TNA|TNA|TNA| Side = %1", _grpSide]};
+	if (WMS_IP_LOGs) then {diag_log format ["[INFANTRY PATROL GROUP]|TNA|TNA|TNA|TNA|TNA| Side = %1", _grpSide]};
 	_smokeGrenade = "SmokeShellRed";
-	[(units _patrolGrp),'Random',_launcherChance,_skill,_loadout,nil,nil,_difficulty] call WMS_fnc_DynAI_SetUnitOPF;
+	[(units _patrolGrp),'Random',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	WMS_AI_OPFORpatrol_Running pushback [time,(time+(_timer+(random _timer))),[_patrolGrp],[],[],[],[],""];
 	WMS_AI_OPFORpatrol_LastTarget set [0,_target];
 	WMS_AI_OPFORPatrol_LastTime = time;
@@ -90,9 +89,12 @@ if (_grpSide == OPFOR ) then {
 	};
 };
 if (_grpSide == BLUFOR ) then {
-	if (WMS_InfantryProgram_LOGs) then {diag_log format ["[INFANTRY PATROL GROUP]|TNA|TNA|TNA|TNA|TNA| Side = %1", _grpSide]};	
+	if (WMS_IP_LOGs) then {diag_log format ["[INFANTRY PATROL GROUP]|TNA|TNA|TNA|TNA|TNA| Side = %1", _grpSide]};	
 	_smokeGrenade = "SmokeShellGreen";
-	{[_x,'Random',_launcherChance,_skill,_loadout] call WMS_fnc_DynAI_SetUnitBLU}forEach (units _patrolGrp);
+	if (_loadout == "army") then {_loadout = "army_b"};
+	//[units _patrolGrp,'Random',_launcherChance,_skill,_loadout] call WMS_fnc_DynAI_SetUnitBLU;
+	//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
+	[units _patrolGrp,'Random',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	WMS_AI_bluforPatrol_Running pushback [time,(time+(_timer+(random _timer))),[_patrolGrp],[],_PatrolVRmkrList,[],[],""];
 	WMS_AI_bluforPatrol_LastTime = time;
 	publicVariable "WMS_AI_bluforPatrol_LastTime";
@@ -104,7 +106,6 @@ if (_grpSide == BLUFOR ) then {
 	} forEach units _patrolGrp ;
 };
 
-//[_patrolGrp, _pos, _WPDist, 5, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 if (_steal) then {
 	[_patrolGrp, _pos, _WPDist, 5, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
 	} else {

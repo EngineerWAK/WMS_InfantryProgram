@@ -122,7 +122,8 @@ _leaderParaGrp = Leader _paraGrp;
 	_randomSpawnPos = [[(_pos select 0),(_pos select 1),200] , 0, 100, 0, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
 	_x setpos [(_randomSpawnPos select 0),(_randomSpawnPos select 1),200]; 
 } forEach units _paraGrp ;
-[(units _paraGrp),'Para',_launcherChance,_skill,_loadout] call WMS_fnc_DynAI_SetUnitOPF; //'para' won't be enough, need a specific "OccPara" with EH
+
+[(units _paraGrp),'Para',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits; //'para' won't be enough, need a specific "OccPara" with EH
 
 //maybe paradrop a light vehicle for _paraGrp, LOCKPLAYER
 _parachute 	= createVehicle [WMS_para_Big,[_pos select 0, _pos select 1, _altitude], [], 5];

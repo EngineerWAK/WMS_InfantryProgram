@@ -191,7 +191,7 @@ v1.25 2019AUG27
 v1.24 2019AUG20
     ADDED Cleaner for empty group in WMS_AI_RoamingVhl_Watch
         if ((count units ((_x select 2) select 0)) < 1) then {
-				if (WMS_AI_RoamingVhl_Logs) then {diag_log format ["[30 sec AI VHL Watch]|WAK|TNA|WMS| %1 is no more, rest in peace and get the fuck out of the Array", _x]};
+				if (WMS_IP_LOGs) then {diag_log format ["[30 sec AI VHL Watch]|WAK|TNA|WMS| %1 is no more, rest in peace and get the fuck out of the Array", _x]};
 				_x set [1,0];
 			};
     ADDED WMS_fnc_AMS_CreateMarker

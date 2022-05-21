@@ -11,7 +11,7 @@
 */
 
 //[_killed,_killer,_unitFunction,_info] call WMS_fnc_DynAI_RwdMsgOnKill
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS REWARDS]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS REWARDS]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_unit","_msgx","_sessionID","_unitName","_payload","_bonus","_distanceKill","_playerRep","_bonusDist","_malusDist","_diffCoeff","_adjustedSkills"];
 params[
 	"_killed",
@@ -122,14 +122,14 @@ if (isplayer _killer) then {
 		if (WMS_exileFireAndForget) then {
 			[_killer, "showFragRequest", [_payload]] call ExileServer_system_network_send_to;
 		} else {
-			if (WMS_AMS_LOGs) then {diag_log format ["[AMS_AI_KILLED_MESSAGE]|WAK|TNA|WMS|Killer:%1, Payload: %2",_killer, _payload]};
+			if (WMS_IP_LOGs) then {diag_log format ["[AMS_AI_KILLED_MESSAGE]|WAK|TNA|WMS|Killer:%1, Payload: %2",_killer, _payload]};
 			//_payload remoteExecCall ['WMS_fnc_gui_hud_showKillDetails',(owner _killer)];
 			[_payload,"AMS"] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)];
 		};
 	};
 	if (WMS_AMS_ejectDeads) then {moveout _killed};
 	//saveProfileNamespace;
-	if (WMS_AMS_LOGs) then {diag_log format ["[AMS PROFILENAMESPACE]|WAK|TNA|WMS| _killer VARs: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), _playerKills, ("ExileScore_"+_killerUID), _playerRepUpdated]};
+	if (WMS_IP_LOGs) then {diag_log format ["[AMS PROFILENAMESPACE]|WAK|TNA|WMS| _killer VARs: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), _playerKills, ("ExileScore_"+_killerUID), _playerRepUpdated]};
 	//Add hideBody addaction here
 	[_killed,
 		[

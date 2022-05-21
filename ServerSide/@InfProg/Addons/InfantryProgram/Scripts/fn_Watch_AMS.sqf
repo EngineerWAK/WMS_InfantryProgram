@@ -13,7 +13,7 @@
 private ["_AMSRunningMissions","_fps","_missionToSpawn","_missionVarName","_pos","_clnT","_grps","_vhls","_objs","_Mines","_mkrs","_wps","_ref","_rwds","_name","_difficulty","_clnObj","_lootCount","_lootType","_mission","_flag","_cnt","_crateOwner","_msg"];
 _AMSRunningMissions = (count WMS_AMS_Running_Array);
 _fps = diag_fps;
-if (WMS_AMS_LOGs) then {
+if (WMS_IP_LOGs) then {
 	diag_log format ["[AMS WATCH]|WAK|TNA|WMS| %1 Missions Running, Server fps: %2", _AMSRunningMissions, _fps];
 	//diag_log format ["[AMS WATCH]|WAK|TNA|WMS| %1 Missions Running, Server fps: %2", WMS_AMS_MissionsCount, _fps];
 };
@@ -55,7 +55,7 @@ if (_AMSRunningMissions > 0) then {
 			_crateOwner = ([_pos, WMS_AMS_PlayerDistSucces] call WMS_fnc_AMS_ClstPlayer);
 			//if (_crateOwner != "none") then {
 			if (isPlayer _crateOwner) then { //NEED A FIX //////////////////////////////////////////////
-				if (WMS_AMS_LOGs) then {diag_log format ["[Advanced Mission System]|WAK|TNA|WMS| %1, %2 Completed!", _name, _ref]};
+				if (WMS_IP_LOGs) then {diag_log format ["[Advanced Mission System]|WAK|TNA|WMS| %1, %2 Completed!", _name, _ref]};
 				_msg = format ["%1 Captured %2", (name _crateOwner), _name];
 				[_objs,_Mines,_mkrs,_wps,_grps,_msg,_pos,_rwds,_difficulty,_clnObj,_lootCount,_lootType] call WMS_fnc_AMS_Succes;
 				WMS_AMS_Running_Array deleteAt (WMS_AMS_Running_Array find _x);
@@ -66,7 +66,7 @@ if (_AMSRunningMissions > 0) then {
 			_crateOwner = ([_pos, WMS_AMS_PlayerDistDelete] call WMS_fnc_AMS_ClstPlayer);
 			//if (_crateOwner == "none") then {
 			if (!isPlayer _crateOwner) then { //NEED A FIX //////////////////////////////////////////////
-				if (WMS_AMS_LOGs) then {diag_log format ["[Advanced Mission System]|WAK|TNA|WMS| %1, %2 timed out, to be deleted", _name, _ref]};
+				if (WMS_IP_LOGs) then {diag_log format ["[Advanced Mission System]|WAK|TNA|WMS| %1, %2 timed out, to be deleted", _name, _ref]};
 				_msg = format ["%1, moving away", _name];
 				[_grps,_vhls,_objs,_Mines,_mkrs,_wps,_rwds,_msg] call WMS_fnc_AMS_TimedOut;
 				WMS_AMS_Running_Array deleteAt (WMS_AMS_Running_Array find _x);

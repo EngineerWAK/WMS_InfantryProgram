@@ -20,30 +20,36 @@
 	] call WMS_fnc_DynAI_SetAI;
 
 */
-if (WMS_DynAI_LOGs) then {diag_log format ["[BLUFOR AI SETUP]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[BLUFOR AI SETUP]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_mainWeap","_pistol","_weapRandom"];
 params[
-	"_unit",
+	"_units", //[]
 	["_unitFunction","Assault",[""]],
 	["_launcherChance", 25,[0]],
 	["_skill", 0.5,[0]],
+	["_difficulty", "moderate"],
 	["_loadout", "AOR2",[""]],
-	["_weaps", WMS_Loadout_Assault]
+	["_weaps", WMS_Loadout_Assault],
+	["_info", 'AMS'], //"AMS","DYNAI","whatever"
+	["_options", []] //AL
 ];
+//[_units,_unitFunction,_launcherChance,_skill,_loadout,_weaps,_info,_difficulty]; //OLD
+//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
 switch _loadout do { //"civilian","bandit","army","AOR2","M90","scorpion","tiger","fleck"
 	case "civilian" : {_loadout = WMS_Loadout_Civilian; _weaps = WMS_Loadout_LightWeaps};
 	case "bandit" : {_loadout = WMS_Loadout_Bandit; _weaps = WMS_Loadout_LightWeaps};
-	case "army" : {_Loadout = selectrandom [WMS_Loadout_AOR2, WMS_Loadout_M90, WMS_Loadout_Scorpion, WMS_Loadout_Tiger, WMS_Loadout_DEfleck]};
+	case "army_b" : {_Loadout = selectrandom [WMS_Loadout_AOR2, WMS_Loadout_M90, WMS_Loadout_Scorpion, WMS_Loadout_Tiger, WMS_Loadout_DEfleck]};
 	case "AOR2" : {_Loadout = WMS_Loadout_AOR2};
 	case "M90" : {_Loadout = WMS_Loadout_M90};
 	case "scorpion" : {_Loadout = WMS_Loadout_Scorpion};
 	case "tiger" : {_Loadout = WMS_Loadout_Tiger};
 	case "fleck" : {_Loadout = WMS_Loadout_DEfleck};
 };
-if (WMS_DynAI_LOGs) then {diag_log format ["[BLUFOR AI SETUP]|WAK|TNA|WMS| _units = %1", _unit]};
+if (WMS_IP_LOGs) then {diag_log format ["[BLUFOR AI SETUP]|WAK|TNA|WMS| _units = %1", _units]};
 _weapRandom = [WMS_Loadout_Assault, WMS_Loadout_Assault, WMS_Loadout_SMG, WMS_Loadout_SMG, WMS_Loadout_DMR, WMS_Loadout_MG, WMS_Loadout_Sniper];
 _weapRandomNoSnipNoMG = [WMS_Loadout_Assault, WMS_Loadout_Assault, WMS_Loadout_SMG, WMS_Loadout_DMR];
-
+{
+	_unit = _x;
 _unit setSkill _skill;
 _unit allowFleeing 0;
 removeAllItems _unit;
@@ -104,3 +110,4 @@ if((random 100) <= _launcherChance) then { private _launcher = [_unit, selectran
 		[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['STOP doing that, Dick!', '-15% heath']]] call ExileServer_system_network_send_to;
 	};
 "];
+}forEach _units;

@@ -12,7 +12,7 @@
 
 //[_target, _pos, _triggType] call WMS_fnc_DynAI_selScen;
 //////////////////////////////////////////////////////////////////
-if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_armedVhlList","_posList","_vhlFull","_Rcoef","_Vcoef","_countPlayersAround","_targetSpeed","_targetDirection","_playerRep","_bonus","_markerType","_threatScenario","_FrontSpawn","_grpSize","_grpSide","_timer","_distanceWPT","_WPType","_combatMod","_behavior","_speed","_launcherChance","_backpackChance","_altitude","_nearestRoad","_nearestRoadPos","_radius","_direction","_load","_iterations","_delay","_artyChanceHE","_BoxType","_crate","_spawnType","_dist1","_dist2","_loadout","_choppa1","_choppa2","_lockPlayer","_useMarker"];
 params [
 		"_target", //player
@@ -81,7 +81,7 @@ _targetDirection = getDir _target;
 _playerRep = _target getVariable ['ExileScore', 25000];
 _bonus = (damage _target)*100; //player = _target
 
-if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| target speed = %1, direction = %2, respect = %3, bonus = %4", _targetSpeed, _targetDirection, _playerRep, _bonus]};
+if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| target speed = %1, direction = %2, respect = %3, bonus = %4", _targetSpeed, _targetDirection, _playerRep, _bonus]};
 
 //find if player is in traders or not
 {
@@ -341,7 +341,7 @@ if (_triggType == "DFO") then {
 };
 };
 //calculate probabilities and select the scenario
-if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| _threatScenario = %1", _threatScenario]};
+if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| _threatScenario = %1", _threatScenario]};
 
 switch (_threatScenario) do {
 	case "<null>" : {diag_log "[DYNAMIC THREAT ERROR]|WAK|TNA|WMS| ERROR IN SCENARIO SELECTION"};

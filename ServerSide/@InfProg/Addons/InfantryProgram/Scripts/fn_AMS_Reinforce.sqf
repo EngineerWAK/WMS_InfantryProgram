@@ -11,7 +11,7 @@
 */
 
 //[_killed,_killer,_playerRep,_distanceKill,_difficulty]call WMS_fnc_AMS_Reinforce;
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS REINFORCE]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS REINFORCE]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_flare","_info","_annihilatorChance","_DynAIList","_type"];
 params[  
 	"_killed",
@@ -166,7 +166,7 @@ if (_info == "Annihilator") then {
 	[_killer,_timer] spawn WMS_fnc_AMS_Annihilator;
 };
 
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS REINFORCE]|WAK|TNA|WMS| _info = %1", _info]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS REINFORCE]|WAK|TNA|WMS| _info = %1", _info]};
 WMS_AMS_LastReinforce = time;
 
 /*

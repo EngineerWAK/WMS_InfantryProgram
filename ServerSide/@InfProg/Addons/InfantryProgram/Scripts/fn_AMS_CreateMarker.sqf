@@ -55,5 +55,5 @@ if (_border) then {
 	_MkrBorder setMarkerBrush "border";
 	_MkrBorder setMarkerSize [300,300];
 };
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS MARKERS]|WAK|TNA|WMS| return [_Mkr,_MkrBorder]: %1,", [_Mkr,_MkrBorder]]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS MARKERS]|WAK|TNA|WMS| return [_Mkr,_MkrBorder]: %1,", [_Mkr,_MkrBorder]]};
 [_Mkr,_MkrBorder]

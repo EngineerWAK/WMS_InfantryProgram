@@ -26,7 +26,7 @@
 	_unitFunction = "HeavyBandit";
 	_launcherChance = 20;
 	_behavType = "patrol"; //NO CAP
-	if (WMS_AMS_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
+	if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 	_clnObj = WMS_AMS_ClnObj;
 	_T = round servertime;
 	if (_pos == "random" ) then {
@@ -87,7 +87,7 @@ _trigg setTriggerArea [25, 25, 0, false];
 _trigg setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 _trigg setTriggerStatements ["this", 
 	"
-	if (WMS_AMS_LOGs) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
+	if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
 	_CallBackAIgroup = thisTrigger getVariable ['_CallAIgroup',[[],[0,0,0]]];
 	_CallBackAIgroup call WMS_fnc_AMS_callBackAIgroups;
 	", 

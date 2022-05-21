@@ -1,27 +1,46 @@
 /**
-* InfantryProgram
+* WMS_DFO_SetUnits - InfantryProgram
 *
 * TNA-Community
 * https://discord.gg/Zs23URtjwF
-* © 2021 {|||TNA|||}WAKeupneo
+* © 2022 {|||TNA|||}WAKeupneo
 *
 * This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 * Do Not Re-Upload
 */
-
+//From AmbientLife
 /*
-[
-	_x, 			// the Unit to set
-	"random",			// Unit options // "BunkerMG", "Assault", "random", "suicideBomber"
-	_launcherChance,// 0~100 chance
-	_skill,			// 0.1~1
-	_loadout		// loadOut type, "bandit", "army", "civilian" or "BlackOps"
-	] call WMS_fnc_SetUnits;
-
+if (WMS_IP_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_setUnits _this %1', _this]};
+private [];
+params [
+	"_units",
+	["_options", []],
+	["_skills",WMS_AL_Skills]
+];
+{
+	//setSkill
+	_x setSkill ["spotDistance", 	(_skills select 0)];
+	_x setSkill ["spotTime", 		(_skills select 1)];
+	_x setSkill ["aimingAccuracy", 	(_skills select 2)];
+	_x setSkill ["aimingShake", 	(_skills select 3)];
+	_x setSkill ["aimingSpeed", 	(_skills select 4)];
+	_x setSkill ["reloadSpeed", 	(_skills select 5)];
+	_x setSkill ["courage", 		(_skills select 6)];
+	_x setSkill ["commanding", 		(_skills select 7)];
+	_x setSkill ["general", 		(_skills select 8)];
+	_x setVariable ["WMS_DFO_options",_options];
+	_x allowFleeing 0;
+	_x setVariable ["WMS_RealFuckingSide",WMS_AL_Faction];
+	_x addEventHandler ["Killed", " 
+	[(_this select 0),(_this select 1),(_this select 2)] call WMS_fnc_AL_UnitEH;
+	"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
+}forEach _units;
 */
+///////////////
+
 if (WMS_IP_LOGs) then {diag_log format ["[OPFOR AI SETUP]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_poptabs","_unit","_weapRandom","_weapRandomNoSnipNoMG","_mainWeap","_pistol","_expl1","_expl2","_expl3","_launcher","_sniper","_skills"];
+private ["_RealFuckingSide","_poptabs","_unit","_weapRandom","_weapRandomNoSnipNoMG","_mainWeap","_pistol","_expl1","_expl2","_expl3","_launcher","_sniper","_skills"];
 params[
 	["_units",[]],
 	["_unitFunction","Assault"],
@@ -30,7 +49,8 @@ params[
 	["_difficulty", "moderate"],
 	["_loadout", "army"],
 	["_weaps", WMS_Loadout_Assault],
-	["_info", 'AMS'] //"AMS","DYNAI","whatever"
+	["_info", 'AMS'], //"AMS","DYNAI","whatever"
+	["_options", []] //AL
 ];
 //[_units,_unitFunction,_launcherChance,_skill,_loadout,_weaps,_info,_difficulty]; //OLD
 //[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
@@ -52,6 +72,12 @@ switch (toLower _loadout) do {
 						_weapRandom = [WMS_Weaps_LivoniaMix];
 						_weapRandomNoSnipNoMG = [WMS_Weaps_LivoniaMix];
 						};
+	case "army_b" 		: {_Loadout = selectrandom [WMS_Loadout_AOR2, WMS_Loadout_M90, WMS_Loadout_Scorpion, WMS_Loadout_Tiger, WMS_Loadout_DEfleck]};
+	case "aor2" 		: {_Loadout = WMS_Loadout_AOR2};
+	case "m90" 			: {_Loadout = WMS_Loadout_M90};
+	case "scorpion" 	: {_Loadout = WMS_Loadout_Scorpion};
+	case "tiger" 		: {_Loadout = WMS_Loadout_Tiger};
+	case "fleck"		: {_Loadout = WMS_Loadout_DEfleck};
 };
 _skills = [_skill,_difficulty]call WMS_fnc_AMS_ConvertSkills;
 _sniper = [1,0.95,0.95,0.95];
@@ -63,8 +89,10 @@ _poptabs = 50;
 	removeBackpackGlobal _unit;
 	removeUniform _unit;
 	//
+	_RealFuckingSide = _unit getVariable ["WMS_RealFuckingSide",OPFOR];
 	if (_info == "AMS") then {_poptabs = (WMS_AMS_poptabsUnits select 0) + round (random(WMS_AMS_poptabsUnits select 1))};//for Exile Mod
 	if (_info == "DYNAI") then {_poptabs = (WMS_DynAI_poptabsINF select 0) + round (random(WMS_DynAI_poptabsINF select 1))}; //for Exile Mod
+	if (_info == "AL") then {_poptabs = (WMS_DynAI_poptabsINF select 0) + round (random(WMS_DynAI_poptabsINF select 1))}; //for Exile Mod
 	switch (toLower _difficulty) do {
 		case "easy"			: {_sniper = [1,0.8,0.9,0.8];};
 		case "moderate" 	: {_poptabs = round _poptabs*1.5;_sniper = [1,0.85,0.85,0.85];};
@@ -177,7 +205,7 @@ _poptabs = 50;
 	for "_i" from 1 to _items do {
 		_unit additem (selectRandom WMS_AI_inventory);
 	};
-////////////////AMS/DYNAI CHANGES
+////////////////AMS/DYNAI/WHATEVER CHANGES
 	if (_info == "AMS") then {
 		if((random 100) <= _launcherChance) then { 
 			if(WMS_AMS_AllowMissiles) then {
@@ -197,18 +225,37 @@ _poptabs = 50;
 	} else{
 		if (_info == "DYNAI") then {
 			if((random 100) <= _launcherChance) then { 
-			_launcher = [_unit, selectrandom (WMS_AI_LaunchersOPF select 0), 1] call BIS_fnc_addWeapon;
-		};
-		if (WMS_DynAI_addPoptabsINF) then {
-			_poptabs = (WMS_DynAI_poptabsINF select 0) + round (random(WMS_DynAI_poptabsINF select 1));
-			_unit setVariable ["ExileMoney",_poptabs,true];
-		};
-		//////////EVENTHANDLER(s)//////////
-		_unit addEventHandler ["Killed", " 
-			[(_this select 0),(_this select 1)] call WMS_fnc_DynAI_RwdMsgOnKill;
-		"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
+				_launcher = [_unit, selectrandom (WMS_AI_LaunchersOPF select 0), 1] call BIS_fnc_addWeapon;
+			};
+			if (WMS_DynAI_addPoptabsINF) then {
+				_poptabs = (WMS_DynAI_poptabsINF select 0) + round (random(WMS_DynAI_poptabsINF select 1));
+				_unit setVariable ["ExileMoney",_poptabs,true];
+			};
+			//////////EVENTHANDLER(s)//////////
+			if (_RealFuckingSide == OPFOR || _RealFuckingSide == EAST) then { //yes it's the same but you never know
+				_unit addEventHandler ["Killed", " 
+					[(_this select 0),(_this select 1)] call WMS_fnc_DynAI_RwdMsgOnKill;
+				"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
+			} else { //Need a "PunishPunk call here"
+				_unit addEventHandler ["killed", "
+					if (WMS_DynAI_remRPG) then {(_this select 0) removeWeapon (secondaryWeapon (_this select 0))};
+					if (isplayer (_this select 1) && (damage (_this select 1) < 0.9)) then {
+						removeAllWeapons (_this select 0);
+						deleteVehicle (_this select 0);
+						(_this select 1) setdamage (damage(_this select 1)+0.15);
+						private _msgx = format ['%2 is a Dick, he killed %1', (_this select 0), (_this select 1)];
+						[_msgx] remoteexec ['SystemChat',0];
+						private _sessionID = (_this select 1) getVariable ['ExileSessionID',''];
+						[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['STOP doing that, Dick!', '-15% heath']]] call ExileServer_system_network_send_to;
+					};
+				"];
+			};
 		} else{
-			if (_info == "whatever") then {} else{};
+			if (_info == "AL") then {
+
+			} else{
+				if (_info == "whatever") then {} else{};
+			};
 		};
 	};
 }forEach _units;

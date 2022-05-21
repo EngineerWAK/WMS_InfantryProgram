@@ -29,7 +29,7 @@ params[
 	["_LightColor","F_Signal_green", [""]] //"none"
 ];
 //[_smoke,[],[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],"military","Recon Mission Crate",nil,"hardcore",150] spawn WMS_fnc_AMS_SpawnRewards;
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS REWARDS]|WAK|TNA|WMS| _this = %1 *****", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS REWARDS]|WAK|TNA|WMS| _this = %1 *****", _this]};
 
 if (WMS_exileToastMsg) then {["toastRequest", ["InfoTitleAndText", ["AIR ASSISTANCE", format ["%1 on the way!",_Msg]]]] call ExileServer_system_network_send_broadcast;};
 

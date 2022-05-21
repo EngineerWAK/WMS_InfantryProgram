@@ -18,7 +18,7 @@ params[
 	["_canBlowUp", false, []],
 	["_pinCode", 0, [0]]
 ];
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS CREATE REWARD OBJECT]|WAK|TNA|WMS| _this = %1 *****", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS CREATE REWARD OBJECT]|WAK|TNA|WMS| _this = %1 *****", _this]};
 _emptyPos = _pos;
 _random = 3;
 _collide = "NONE";
@@ -67,6 +67,6 @@ if (_pinCode != 0) then {
 	_rwd setVariable ["ExileAccessDeniedExpiresAt", 999999];
 };
 _rwd allowDamage _canBlowUp;
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS REWARD OBJECT]|WAK|TNA|WMS| return _rwd: %1,", _rwd]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS REWARD OBJECT]|WAK|TNA|WMS| return _rwd: %1,", _rwd]};
 
 _rwd

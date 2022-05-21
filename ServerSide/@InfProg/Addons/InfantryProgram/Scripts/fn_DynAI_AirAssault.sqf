@@ -12,7 +12,7 @@
 
 //[_pos,_target,_skill,_loadout,_grpSize,_timer,_choppa1,_choppa2,_dist1,_dist2,_WPDist,_WPType,_WPBeha,_WPComb,_WPSpee] spawn WMS_fnc_DynAI_AirAssault;
 
-if (WMS_DynAI_LOGs) then {diag_log format ["[AIR ASSAULT]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AIR ASSAULT]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_posStart","_posLand","_Helipad","_gunship","_gunshipGRP","_vehic1","_transport","_transportGRP","_vehic2","_WPT_1","_WPT_1","_WPT_1b","_WPT_2b","_WPT_1c","_WPT_2c","_INFgrp"];
 params[  
  "_pos", 
@@ -54,7 +54,7 @@ _vehic1 lockDriver true;
 _vehic1 setVehicleLock "LOCKEDPLAYER";
 _vehic1 setUnloadInCombat [true, false];
 _vehic1 allowCrewInImmobile true;
-[(units _gunshipGRP), "SMG", 0, _skill, _loadout,nil,nil,_difficulty] call WMS_fnc_DynAI_SetUnitOPF; //'SMG' won't be enough, need a specific "OccSMG" with EH
+[(units _gunshipGRP), "SMG", 0, _skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits; //'SMG' won't be enough, need a specific "OccSMG" with EH
 _WPT_1 = _gunshipGRP addWaypoint [_pos, 50];         
 _WPT_1 setWaypointType "MOVE";  
 _WPT_1 setwaypointSpeed "NORMAL";  
@@ -86,7 +86,7 @@ _vehic2 lockDriver true;
 _vehic2 setVehicleLock "LOCKEDPLAYER";
 //_vehic2 setUnloadInCombat [true, false];
 //_vehic2 allowCrewInImmobile true;
-[(units _transportGRP), "SMG", 0, (0.5+(random 0.4)), _loadout,nil,nil,_difficulty] call WMS_fnc_DynAI_SetUnitOPF;  //'SMG' won't be enough, need a specific "OccSMG" with EH
+[(units _transportGRP), "SMG", 0, (0.5+(random 0.4)),_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;  //'SMG' won't be enough, need a specific "OccSMG" with EH
   
 _WPT_1b = _transportGRP addWaypoint [_posLand, 25];  
 _WPT_1b setWaypointType "TR UNLOAD";  
@@ -101,7 +101,7 @@ uisleep 1;
  _x moveInCargo _vehic2; 
 }forEach units _INFgrp;
 uisleep 1; 
-[(units _INFgrp), "Random", 15, _skill, _loadout,nil,nil,_difficulty] call WMS_fnc_DynAI_SetUnitOPF; //'Random' won't be enough, need a specific "OccRandom" with EH
+[(units _INFgrp), "Random", 15, _skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits; //'Random' won't be enough, need a specific "OccRandom" with EH
 
 uisleep 3;
 _WPT_1c = _INFgrp addWaypoint [_pos, 25];         
@@ -109,13 +109,6 @@ _WPT_1c setWaypointType "MOVE";
 _WPT_1c setwaypointSpeed "FULL";  
 _WPT_1c setWaypointCombatMode "YELLOW";  
 _WPT_1c setWaypointbehaviour  "COMBAT"; 
-   /*
-_WPT_2c = _INFgrp addWaypoint [_pos, 10];
-if (WMS_DynAI_Steal) then {_WPT_2c setWaypointStatements ["true","[(group this)] call WMS_fnc_DynAI_Steal"]}; 
-_WPT_2c setWaypointType "SAD";  
-_WPT_2c setwaypointSpeed "NORMAL";  
-_WPT_2c setWaypointCombatMode "RED";
-*/
 if (WMS_DynAI_Steal) then {
 	[_INFgrp, _pos, _WPDist, 5, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
 	} else {

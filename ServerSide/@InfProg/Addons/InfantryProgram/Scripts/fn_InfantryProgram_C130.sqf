@@ -11,7 +11,7 @@
 */
 
 //action = "openMap true; onMapSingleClick { onMapSingleClick {}; [player,_pos,'sab_C130_J',1] remoteExec ['WMS_fnc_ParadropMissionRequest']; openMap false; true };";
-if (WMS_InfantryProgram_LOGs) then {diag_log format ["[C130]|WAK|TNA|WMS| C130 Paradrop, _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[C130]|WAK|TNA|WMS| C130 Paradrop, _this = %1", _this]};
 private ["_RandomPosPlane","_RandomPosPlaneEnd","_vhl","_vehic","_grp","_WPT_paradrop","_WPT_paradrop2"];
 params[
 	"_target",
@@ -70,7 +70,7 @@ if (_paraGroup == 0) then {
 	} foreach (units(group _target)); //I think this shit never worked xD
 };
 
-if (WMS_InfantryProgram_LOGs) then {
+if (WMS_IP_LOGs) then {
 	diag_log format ["[C130]|WAK|TNA|WMS| %1 Halo Jump from C130 @ %2",(_this select 0),(_this select 1)];
 }; 
 

@@ -32,7 +32,7 @@ private _lockerMoney = _target getVariable ['ExileLocker', 0];
 		_target setVariable ['ExileMoney', _playerMoney, true];
 		_target setVariable ['ExileLocker', _lockerMoney, true];
     	format['updateLocker:%1:%2', _lockerMoney, (getPlayerUID _target)] call ExileServer_system_database_query_fireAndForget;
- if (WMS_InfantryProgram_LOGs) then {
+ if (WMS_IP_LOGs) then {
  		diag_log format ["[WEAPONS]|TNA|TNA|TNA|TNA|TNA| _this = %1 |TNA|TNA|TNA|TNA|TNA|", _this];
  };
 
@@ -57,7 +57,7 @@ private _lockerMoney = _target getVariable ['ExileLocker', 0];
 
     } else {
      systemChat "Nope! you are too poor!";
- if (WMS_InfantryProgram_LOGs) then {
+ if (WMS_IP_LOGs) then {
  	 diag_log format ["[WEAPONS]|TNA|TNA|TNA|TNA|TNA|  %1 too poor to get a Weapon |TNA|TNA|TNA|TNA|TNA|", _target];
  };
      //["ErrorTitleOnly", ["Dude! get some money!"]] call ExileClient_gui_toaster_addTemplateToast;

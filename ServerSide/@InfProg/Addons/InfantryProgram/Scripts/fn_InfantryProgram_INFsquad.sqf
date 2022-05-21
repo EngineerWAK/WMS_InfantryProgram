@@ -14,7 +14,7 @@
 //[_target,_pos,_soldiersInTheGrp,_patrolLoadout,_patrolTimer,_distanceWPT,_missionType,_vhl]call WMS_fnc_InfantryProgram_INFsquad
 //[_target,_startPatrolPos,(round(2+(random 3))),_patrolLoadout,600,250,_missionType,_vhl] call WMS_fnc_InfantryProgram_INFsquad;
 //////////////////////////////////////////////////////////////////
-if (WMS_InfantryProgram_LOGs) then {diag_log format ["[INFANTRY SQUAD]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[INFANTRY SQUAD]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_backpackChance","_launcherChance","_googleChance","_mkrType","_mkrColor","_PatrolVRmkr","_chopperPos","_GrpPatrol","_leaderGrp"];
 params[  
 	"_target",

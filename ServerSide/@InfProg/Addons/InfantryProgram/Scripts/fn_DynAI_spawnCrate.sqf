@@ -14,7 +14,7 @@
 //[_pos,_target,_BoxType,_spawnType,_crate,_dist1,_dist2,_iterations] spawn WMS_fnc_DynAI_SpawnCrate;
 //[position player, player, "IP_ammo",] spawn WMS_fnc_DynAI_SpawnCrate; //"IP_toolKit","IP_launcher","IP_ammo"
 //////////////////////////////////////////////////////////////////
-if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAMIC SPAWN CRATE]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC SPAWN CRATE]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_RandomPos","_Box","_smoke","_msgPayload","_msgx","_sessionID","_medicList","_foodList","_weapsList","_miscList","_para","_parachute"];
 params[
 	"_pos",

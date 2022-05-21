@@ -19,7 +19,7 @@ private _IncludeLoadout = (_this select 4); //true
 private _SmokeColor 	= (_this select 5); //"SmokeShellBlue"
 private _LightColor 	= (_this select 6); //"F_Signal_Red"
 
-if (WMS_InfantryProgram_LOGs) then {
+if (WMS_IP_LOGs) then {
 	diag_log format ["WAK|WAK|TNA|WMS|WAK ***** AIR ASSISTANCE ***** Paradropping %1 *****", _Msg];
 	diag_log format [str _this]};
 

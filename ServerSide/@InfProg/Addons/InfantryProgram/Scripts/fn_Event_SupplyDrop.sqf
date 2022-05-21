@@ -11,7 +11,7 @@
 */
 
 //[] spawn WMS_fnc_SupplyDrop;
-if (WMS_Events_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Supply Drop Called, %1",_this]};
+if (WMS_IP_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Supply Drop Called, %1",_this]};
 private ["_grps","_vhls","_objs","_mkrs","_posForest","_pos","_rad","_target", "_Mkr", "_Mkr2","_minePos","_mine","_randDirOffset","_sign","_posPara","_parachute","_cargo","_bagList","_weapList","_weap","_ammoList","_item","_itemList","_bag","_MkrName","_Mkr2Name","_Mkr","_Mkr2","_triggCapture","_paraGrp","_randomSpawnPos","_smoke","_Light"]; 
 params[
  ["_howMany", WMS_SupplyDropCount], //always be 1 from event manager
@@ -69,7 +69,7 @@ if (count _positions > 0) then {//Need to add a Player check
 	{_cargo addMagazineCargoGlobal [_x,(5+floor(random 8))]} forEach _ammoList;
 	{_cargo addBackpackCargoGlobal [(_x select 0),(_x select 1)]} forEach _bag;
 	{_cargo addWeaponCargoGlobal [(_x select 0),(_x select 1)]} forEach _weap;
-	if (WMS_Events_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Crate created and Filled, %1",_cargo]};
+	if (WMS_IP_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Crate created and Filled, %1",_cargo]};
 //Paradrop the crate and fil it
 //Create the Markers
 	_MkrName = format ["WMS_MkrDrop_%1",round time];
@@ -85,7 +85,7 @@ if (count _positions > 0) then {//Need to add a Player check
 	_Mkr2 setMarkerSize [_rad,_rad];
  	_Mkrs pushBack _MkrName;
  	_Mkrs pushBack _Mkr2Name;
-	if (WMS_Events_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Markers created, %1, %2",_MkrName,_Mkr2Name]};
+	if (WMS_IP_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Markers created, %1, %2",_MkrName,_Mkr2Name]};
 //Create the Markers
 //Create the triger on the crate (maybe at the end)
 	_triggCapture = createTrigger ["EmptyDetector", _pos, true]; 
@@ -111,7 +111,7 @@ if (count _positions > 0) then {//Need to add a Player check
   		"" 
 	];
 	_Objs pushBack _triggCapture;
-	if (WMS_Events_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Capture Trigger created, %1",_triggCapture]};
+	if (WMS_IP_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Capture Trigger created, %1",_triggCapture]};
 //Create the triger on the crate
 //Create the Infantry group
 	if (_INFpatrol) then {//change this for paradrop created in this fonction then pushback all elements for management
@@ -127,9 +127,9 @@ if (count _positions > 0) then {//Need to add a Player check
 			_randomSpawnPos = [[(_pos select 0),(_pos select 1),_altitude] , 5, 50, 0, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
 			_x setpos [(_randomSpawnPos select 0),(_randomSpawnPos select 1),_altitude]; 
 		} forEach units _paraGrp ;
-		[(units _paraGrp),'Para',30,(0.2 + random 0.4),"livonia"] call WMS_fnc_DynAI_SetUnitOPF; //paradrop
+		[(units _paraGrp),'Para',30,(0.2 + random 0.4),nil,"livonia",nil,"DYNAI"] call WMS_fnc_SetUnits; //paradrop
 		[_paraGrp, _Pos, 50, 4, "MOVE", "SAFE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
-		if (WMS_Events_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Infantry Patrol created, %1, %2 NPC",_paraGrp, _AIcount]};
+		if (WMS_IP_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Infantry Patrol created, %1, %2 NPC",_paraGrp, _AIcount]};
 	};
 //Create the Infantry group
 //Create the Mines field
@@ -141,7 +141,7 @@ if (count _positions > 0) then {//Need to add a Player check
 				EAST revealMine _mine;
 				_Objs pushBack _mine;
 			};
-			if (WMS_Events_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  MineField spawned, %1 mines created", _mines]};
+			if (WMS_IP_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  MineField spawned, %1 mines created", _mines]};
 			_randDirOffset = random 45;
 			for "_i" from 0 to 359 step 17 do {
 				_sign = createVehicle ["Land_Sign_MinesTall_English_F", [0,0,0], [], 0, "CAN_COLLIDE"];
@@ -150,7 +150,7 @@ if (count _positions > 0) then {//Need to add a Player check
 				_sign setVectorUp [0,0,1];
 				_Objs pushBack _sign;
 			};
-			if (WMS_Events_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  MineField signs created, %1m around", _rad/1.5]};
+			if (WMS_IP_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  MineField signs created, %1m around", _rad/1.5]};
 		};
 //Create the Mines field
 //PushBack for Management

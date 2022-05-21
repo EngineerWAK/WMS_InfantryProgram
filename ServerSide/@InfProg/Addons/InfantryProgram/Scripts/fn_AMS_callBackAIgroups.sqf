@@ -15,7 +15,7 @@ params [
 	"_grps",
 	"_pos"
 ];
-//if (WMS_AMS_LOGs) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| _this = %1", _this]};
+//if (WMS_IP_LOGs) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| _this = %1", _this]};
 if (true) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| _this = %1", _this]};
 
 {
@@ -43,7 +43,7 @@ if (true) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| _this = %1"
 	_newWaypoint setWaypointCombatMode "WHITE"; //Hold Fire, Engage At Will
 	_newWaypoint setWaypointSpeed "FULL";
 	(leader _grp) doMove _pos;
-	//if (WMS_AMS_LOGs) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| Group = %1 @ %4 | newWaypoint = %2 @ %3", _x, _newWaypoint, _pos, (position(leader _x))]};
+	//if (WMS_IP_LOGs) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| Group = %1 @ %4 | newWaypoint = %2 @ %3", _x, _newWaypoint, _pos, (position(leader _x))]};
 	if (true) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| Group = %1 @ %4 | newWaypoint = %2 @ %3", _x, _newWaypoint, _pos, (position(leader _x))]};
 }forEach _grps;
 

@@ -13,7 +13,7 @@
 //WMS_AMS_skillsMin 	= [0.1, 0.2, 0.1, 0.2, 0.1, 0.3, 0.1, 0.2];
 //WMS_AMS_skillsMax 	= [0.95, 0.9, 0.9, 1, 0.9, 1, 1, 0.95];
 //_skill * _Coeff * (_skillmax - _skillmin) + _skillmin
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS CONVERT SKILL]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS CONVERT SKILL]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_skills","_Coeff","_skillsCut","_result"];
 params[
 	"_skill",
@@ -62,5 +62,5 @@ if ((count _units) > 0) then {
 		_x setVariable ["WMS_Difficulty",_difficulty, true]; //will be used for AI killfeed on player EH killed
 	}forEach _units;
 };
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS CONVERT SKILL]|WAK|TNA|WMS| _difficulty = %1 | _skills = %2", _difficulty, _skillsCut]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS CONVERT SKILL]|WAK|TNA|WMS| _difficulty = %1 | _skills = %2", _difficulty, _skillsCut]};
 _skillsCut

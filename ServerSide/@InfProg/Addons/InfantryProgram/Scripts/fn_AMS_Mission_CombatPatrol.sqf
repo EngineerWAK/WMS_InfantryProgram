@@ -26,7 +26,7 @@
 	_unitFunction = "Random";
 	_launcherChance = 90;
 	_behavType = "CBTpatrol";
-	if (WMS_AMS_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
+	if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 	_clnObj = WMS_AMS_ClnObj;
 	_T = round servertime;
 	if (_pos == "forest" ) then {
@@ -44,7 +44,7 @@
 		};
 	};
 	if (count _pos == 3)exitwith {
-		if (WMS_AMS_LOGs) then {diag_log format ["[AMS POSITION ERROR %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
+		if (WMS_IP_LOGs) then {diag_log format ["[AMS POSITION ERROR %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 	};
 	_absc = floor (_pos select 0);
 	_ordo = floor (_pos select 1);
@@ -87,7 +87,7 @@ _trigg setTriggerArea [25, 25, 0, false];
 _trigg setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 _trigg setTriggerStatements ["this", 
 	"
-	if (WMS_AMS_LOGs) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
+	if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
 	_CallBackAIgroup = thisTrigger getVariable ['_CallAIgroup',[[],[0,0,0]]];
 	_CallBackAIgroup call WMS_fnc_AMS_callBackAIgroups;
 	", 

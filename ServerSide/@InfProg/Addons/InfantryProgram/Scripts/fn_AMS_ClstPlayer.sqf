@@ -22,5 +22,5 @@ _target = objNull;
 if (count _playerList != 0) then {
 	_target = (_playerList select 0 select 1);  
 };
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS CLOSEST PLAYER]|WAK|TNA|WMS| return _target: %1,", _target]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS CLOSEST PLAYER]|WAK|TNA|WMS| return _target: %1,", _target]};
 _target

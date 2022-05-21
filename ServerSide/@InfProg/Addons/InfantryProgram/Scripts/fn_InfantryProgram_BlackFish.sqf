@@ -19,7 +19,7 @@ params [
   "_amount",
   "_plane"
 ];
-if (WMS_InfantryProgram_LOGs) then {diag_log format ["[BLACKFISH SUPPORT]|TNA|TNA|TNA|TNA|TNA| _this check, _this = %1 ", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[BLACKFISH SUPPORT]|TNA|TNA|TNA|TNA|TNA| _this check, _this = %1 ", _this]};
 
 _timer = (300+(random 300));
 _lockerMoney = 0;

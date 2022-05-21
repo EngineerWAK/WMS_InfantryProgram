@@ -18,10 +18,10 @@
 //private _mission = [missionNamespace getVariable format ["WMS_AMS_Mission_%1",_this param [0,selectRandom WMS_AMS_Missions, [""]]]] param [0, "no",[{}]];
 private _mission = (_this select 0);
 //[_missionToSpawn] call WMS_fnc_AMS_SpawnMission;
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS MISSION SPAWN]|WAK|TNA|WMS| _this: %1 || _mission: %2", _this, _mission]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN]|WAK|TNA|WMS| _this: %1 || _mission: %2", _this, _mission]};
 private _debugTime1 = time;
 if (_mission == "no") then { //obiously dan not work anymore
-	if (WMS_AMS_LOGs) then {diag_log "Mission name fucked-up"};
+	if (WMS_IP_LOGs) then {diag_log "Mission name fucked-up"};
 } else {
 	//private _parameters = if ((count _this)>1) then {_this select 1} else {[]}; //Useless right now
 	//_parameters call compile _mission;
@@ -460,5 +460,5 @@ if (_mission == "no") then { //obiously dan not work anymore
 	};
 	WMS_AMS_LastSpawn = time;
 	
-	if (WMS_AMS_LOGs) then {diag_log format ["[AMS DEBUG FIRST SPAWN TIME]|WAK|TNA|WMS| fn_AMS_SpawnMission executed %1 secondes", (time - _debugTime1)]};
+	if (WMS_IP_LOGs) then {diag_log format ["[AMS DEBUG FIRST SPAWN TIME]|WAK|TNA|WMS| fn_AMS_SpawnMission executed %1 secondes", (time - _debugTime1)]};
 };

@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////
 //	[player, _amount, _lockerMoney, _artyTargetPos, _artyTargetDist, "HE"] spawn WMS_fnc_InfantryProgram_ArtySupport;
 //////////////////////////////////////////////////////////////////
-if (WMS_InfantryProgram_LOGs) then {diag_log format ["[ARTY SUPPORT]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[ARTY SUPPORT]|WAK|TNA|WMS| _this = %1", _this]};
 
 private ["_dist1","_dist2","_RandomPosSpawn","_RandomPosSpawnCounter","_Arty82mm"];
 params[
@@ -28,7 +28,7 @@ params[
 ];
 _dist1 = 500;
 _dist2 = 1000;
-if (WMS_InfantryProgram_LOGs) then {diag_log format ["[ARTY SUPPORT]|WAK|TNA|WMS|  _target= %1 _amount= %2 _lockerMoney= %3 _artyTargetPos= %4 _artyTargetDist= %5 _ammoType= %6 _ArtyCounterBatChance= %7 _ArtyCounterBatChanceHE= %8 _dist1= %9 _dist2= %10", _target, _amount, _lockerMoney, _artyTargetPos, _artyTargetDist, _ammoType, _ArtyCounterBatChance, _ArtyCounterBatChanceHE, _dist1, _dist2]};
+if (WMS_IP_LOGs) then {diag_log format ["[ARTY SUPPORT]|WAK|TNA|WMS|  _target= %1 _amount= %2 _lockerMoney= %3 _artyTargetPos= %4 _artyTargetDist= %5 _ammoType= %6 _ArtyCounterBatChance= %7 _ArtyCounterBatChanceHE= %8 _dist1= %9 _dist2= %10", _target, _amount, _lockerMoney, _artyTargetPos, _artyTargetDist, _ammoType, _ArtyCounterBatChance, _ArtyCounterBatChanceHE, _dist1, _dist2]};
 if (_artyTargetDist < 500 ) then {_dist1 = 900; _dist2 = 1500} else {
 	if (_artyTargetDist >= 500 && _artyTargetDist <= 1000 ) then {_dist1 = 1300; _dist2 = 1600};
 };
@@ -60,7 +60,7 @@ if(_lockerMoney > _amount) then{
 		profileNamespace setVariable [_playerUID_Exilemoney,(_playerMoney-_amount)];
 		_target setVariable ["ExileMoney", (_playerMoney-_amount), true];
 	};
- 	if (WMS_InfantryProgram_LOGs) then {
+ 	if (WMS_IP_LOGs) then {
  		diag_log format ["[ARTY SUPPORT]|WAK|TNA|WMS| Artillery support Accepted for %1 at %2", _target, _artyTargetPos];
  	};
 
@@ -82,7 +82,7 @@ if(_lockerMoney > _amount) then{
 		[_target, _RandomPosSpawnCounter, _ArtyCounterBatChanceHE] spawn WMS_fnc_DynAI_arty;
 	};
 } else {
-	if (WMS_InfantryProgram_LOGs) then {
+	if (WMS_IP_LOGs) then {
 		diag_log format ["[ARTY SUPPORT]|WAK|TNA|WMS|  %1 too poor to get artillery support", name _target];
 	};
 };

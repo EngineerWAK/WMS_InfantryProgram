@@ -47,5 +47,5 @@ for "_i" from 0 to 359 step _steps do {
 	_sign setPosATL (_Pos getPos [_radius, _randDirOffset+_i]);
 	_sign setVectorUp [0,0,1];
 };
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS MINEFIELD]|WAK|TNA|WMS| return _minelist: %1,", _minelist]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS MINEFIELD]|WAK|TNA|WMS| return _minelist: %1,", _minelist]};
 _minelist

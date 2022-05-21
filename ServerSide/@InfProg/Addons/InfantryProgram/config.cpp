@@ -18,7 +18,6 @@ class CfgFunctions {
 		{
 			file = "InfantryProgram\scripts";
 			
-			class BIS_FindSafePosModified	{}; //no more position outside of the map
 			
 			class Halo_300					{};
 			class Set_on_fire 				{};
@@ -30,25 +29,38 @@ class CfgFunctions {
 			class Paradrop_RLA_unified		{};
 			class findClst_NamedLocation	{}; //should be used in Cities Occupation
 
+			//Unifying stuff:
+			class BIS_FindSafePosModified	{}; //no more position outside of the map
+			class GenerateHexaID			{};
+			class ScanForWater				{};
+			class CollectPos				{};
+			class SetUnits					{};
+			class FindRoad					{};
+			class SetPatrol					{};
+			//not yet done:
+			class CreateUnits			{};
+			class CreateVehicle			{};
+			////////////////
+
 			class Event_SupplyDrop			{};
 			class Event_HumaniDrop			{};
 			class Event_CaptureZone			{};
+			class Event_ReconMission		{};
 			class Event_HVT					{};
-			//class Event_DFO					{};
 
-			class sys_FastNights {};
-			class sys_roamingVHLspawn {};
-			class sys_ServerMarkersUpdate {};
-			class sys_ServerRestart {};
-			class sys_Init_Watchs {};
+			class sys_FastNights 			{};
+			class sys_roamingVHLspawn 		{};
+			class sys_ServerMarkersUpdate 	{};
+			class sys_ServerRestart 		{};
+			class sys_Init_Watchs 			{};
 
-			class Watch_AMS 	{};
-			class Watch_DynAI 	{};
-			class Watch_Events 	{};
-			class Watch_Players {};
-			class Watch_RoamingINF {};
-			class Watch_RoamingVhl {};
-			class Watch_Triggers {};
+			class Watch_AMS 		{};
+			class Watch_DynAI 		{};
+			class Watch_Events 		{};
+			class Watch_Players 	{};
+			class Watch_RoamingINF 	{};
+			class Watch_RoamingVhl 	{};
+			class Watch_Triggers 	{};
 
 			class InfantryProgram_C130			{};
 			class InfantryProgram_Loadouts		{};
@@ -74,8 +86,8 @@ class CfgFunctions {
 			class Compo_RoadBlock	{};
 			
 			class DynAI_SelScen			{};
-			class DynAI_SetUnitOPF		{};
-			class DynAI_SetUnitBLU		{};
+				//class DynAI_SetUnitOPF		{};
+				//class DynAI_SetUnitBLU		{};
 			class DynAI_Escarmouche		{};
 			class DynAI_BBQcamp			{};
 			class DynAI_Runner			{};
@@ -105,7 +117,7 @@ class CfgFunctions {
 			class AMS_SpawnAiVHL		{};
 			class AMS_CreateReward		{};
 			class AMS_ConvertSkills		{};
-			class AMS_SetUnits			{};
+				//class AMS_SetUnits			{};
 			class AMS_EHonKilled		{};
 			class AMS_Reinforce			{};
 			class AMS_ChkSafeToSpawn	{};

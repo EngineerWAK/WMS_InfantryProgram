@@ -22,7 +22,7 @@
 	] call WMS_fnc_AMS_SetUnits;
 
 */
-if (WMS_AMS_LOGs) then {diag_log format ["[AMS AI SETUP]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS AI SETUP]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_skills","_poptabs","_unit","_weapRandom","_weapRandomNoSnipNoMG","_mainWeap","_pistol","_launcher","_sniper"];
 params[
 	["_units",[]],
@@ -31,7 +31,8 @@ params[
 	["_skill", 0.5],
 	["_difficulty", "Hardcore"],
 	["_loadout", "army"],
-	["_weaps", WMS_Weaps_HeavyBandit]
+	["_weaps", WMS_Weaps_HeavyBandit],
+	["_info", 'AMS'] //"AMS","DYNAI","whatever"
 ];
 _weapRandom = [WMS_Loadout_Assault, WMS_Loadout_Assault, WMS_Loadout_SMG, WMS_Loadout_DMR, WMS_Loadout_MG, WMS_Loadout_Sniper, WMS_Weaps_HeavyBandit];
 _weapRandomNoSnipNoMG = [WMS_Loadout_Assault, WMS_Loadout_Assault, WMS_Loadout_SMG, WMS_Loadout_DMR];
@@ -77,8 +78,8 @@ if ((primaryWeapon _unit) in WMS_AMS_sniperList) then {
 	_unit setSkill ["aimingAccuracy", 	(_sniper select 2)];
 	_unit setSkill ["aimingShake", 	(_sniper select 3)];
 	_unit setVariable ["WMS_skills",[(_sniper select 0),(_sniper select 1),(_sniper select 2),(_sniper select 3),(_skills select 4),(_skills select 5),(_skills select 5),(_skills select 6),(_skills select 8)],true]; //will be used for AI killfeed on player EH killed
-	_unit setName selectRandom ["John McClane","John Rambo","Lucky Luke","Vasily Zaitsev","John Wick"];
-	
+	//_unit setName selectRandom ["John McClane","John Rambo","Lucky Luke","Vasily Zaitsev","John Wick"];
+	_unit setName selectRandom [["John McClane","John","McClane"],["John Rambo","John","Rambo"],["Lucky Luke","Lucky","Luke"],["Vasily Zaitsev","Vasily","Zaitsev"],["John Wick","John","Wick"]];
 } else {
 	_unit setSkill ["spotDistance", (_skills select 0)];
 	_unit setSkill ["spotTime", 	(_skills select 1)];
@@ -99,7 +100,6 @@ _unit addVest selectrandom (_loadout select 1);
 _unit addHeadGear selectrandom (_loadout select 2);
 _unit addBackpack selectrandom (_loadout select 3);
 _unit additem "FirstAidKit";
-//_unit setVariable ["AMS_Difficulty",_difficulty];
 //_unit setVariable ["AMS_AdjustedSkills",WMS_AMS_AdjustedSkills]; //not used yet
 
 switch (toLower _unitFunction) do {
@@ -173,6 +173,10 @@ switch (toLower _unitFunction) do {
 if (random 100 > 50) then {
 	_unit addPrimaryWeaponItem (selectrandom WMS_AI_Attachements);
 };
+_items = (WMS_AI_Additems select 0) + round (random (WMS_AI_Additems select 1));
+for "_i" from 1 to _items do {
+	_unit additem (selectRandom WMS_AI_inventory);
+};
 
 if((random 100) <= _launcherChance) then { 
 	if(WMS_AMS_AllowMissiles) then {
@@ -181,10 +185,9 @@ if((random 100) <= _launcherChance) then {
 		_launcher = [_unit, selectrandom (WMS_AI_LaunchersOPF select 0), 1] call BIS_fnc_addWeapon;
 	};
 };
-
-_items = (WMS_AI_Additems select 0) + round (random (WMS_AI_Additems select 1));
-for "_i" from 1 to _items do {_unit additem (selectRandom WMS_AI_inventory);};
-if (WMS_AMS_addPoptabsUnits) then {_unit setVariable ["ExileMoney",(floor _poptabs),true];};
+if (WMS_AMS_addPoptabsUnits) then {
+	_unit setVariable ["ExileMoney",(floor _poptabs),true];
+};
 //////////EVENTHANDLER(s)//////////
 _unit addEventHandler ["Killed", "
 		[(_this select 0),(_this select 1),_unitFunction,_difficulty] call WMS_fnc_AMS_EHonKilled;	

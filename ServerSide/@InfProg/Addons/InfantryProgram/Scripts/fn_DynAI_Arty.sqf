@@ -12,7 +12,7 @@
 
 //[_target, _RandomPosSpawn, _artyChanceHE,rounds] spawn WMS_fnc_DynAI_arty;
 //////////////////////////////////////////////////////////////////
-if (WMS_DynAI_LOGs) then {diag_log format ["[ARTY COUNTER]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[ARTY COUNTER]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_posTargetCounter","_O_Arty82mm"];
 params[
 	"_target",

@@ -12,7 +12,7 @@
 
 // [[0,0,0],120, 2+random 2,50,(0.3+(random 0.55)),"bandit"] call WMS_fnc_DynAI_BBQcamp;
 //////////////////////////////////////////////////////////////////
-if (WMS_DynAI_LOGs) then {diag_log format ["[DYNAI BBQ Camp]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[DYNAI BBQ Camp]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_safePos","_safePos2","_grps","_InfGrp_O","_fire"];
 params[
 	"_pos",
@@ -37,7 +37,7 @@ _fire = createVehicle ["Campfire_burning_F", _safePos, [], 0, "NONE"];
 		];
 	uisleep 0.1;
 	};
-	[(units _InfGrp_O),'Assault',_launcherChance,_skill,_loadout,nil,nil,_difficulty] call WMS_fnc_DynAI_SetUnitOPF;
+	[(units _InfGrp_O),'Assault',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	[_InfGrp_O, _safePos, 10, 3, "SENTRY", "SAFE", "RED", "NORMAL", "DIAMOND", "", [1,2,3]] call CBA_fnc_taskPatrol;
 
 WMS_DynAI_Running pushback [time,(time+(_timer)),_grps,[],[_fire],[],[],""];

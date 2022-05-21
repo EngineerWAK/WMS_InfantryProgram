@@ -131,14 +131,14 @@ if (_armed==1) then {
 		_compoRefPoint modeltoworld [0,3.55,0],
 		_MGgrp1
 	];
-	[units _MGgrp1,'BunkerMG',_launcherChance,_skill,_loadout,nil,nil,_difficulty] call WMS_fnc_DynAI_SetUnitOPF;
+	[units _MGgrp1,'BunkerMG',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	uisleep 0.2;
 	_MGgrp1 setFormDir (_dirCompo);
 	WMS_AMS_UnitClass createUnit [
 		_compoRefPoint modeltoworld [0,-1,0], 
 		_MGgrp2
 	];
-	[units _MGgrp2,'BunkerMG',_launcherChance,_skill,_loadout,nil,nil,_difficulty] call WMS_fnc_DynAI_SetUnitOPF;
+	[units _MGgrp2,'BunkerMG',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	_MGgrp2 setFormDir (180 + _dirCompo);
 };
 if (_armed==2) then {
@@ -152,7 +152,7 @@ if (_armed==2) then {
 	];
 	_MGgrp1 addVehicle (_objList select 1);
 	((units _MGgrp1) select 0) moveInGunner (_objList select 1);
-	[units _MGgrp1,'assault',0,0.9,_loadout,nil,nil,_difficulty] call WMS_fnc_DynAI_SetUnitOPF;
+	[units _MGgrp1,'assault',0,0.9,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	uisleep 0.2;
 	_MGgrp1 setFormDir (_dirCompo);
 	WMS_AMS_UnitClass createUnit [
@@ -161,7 +161,7 @@ if (_armed==2) then {
 	];
 	_MGgrp2 addVehicle (_objList select 2);
 	((units _MGgrp2) select 0) moveInGunner (_objList select 2);
-	[units _MGgrp2,'assault',0,0.9,_loadout,nil,nil,_difficulty] call WMS_fnc_DynAI_SetUnitOPF;
+	[units _MGgrp2,'assault',0,0.9,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	_MGgrp2 setFormDir (180 + _dirCompo);
 };
 
@@ -175,7 +175,7 @@ if (_AIcount > 0) then {
 	];
 	uisleep 0.2;
 	};
-	[units _INFgrp,'Assault',_launcherChance,_skill,_loadout,nil,nil,_difficulty] call WMS_fnc_DynAI_SetUnitOPF;
+	[units _INFgrp,'Assault',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	//[_INFgrp, _Pos, 75, 4, "MOVE", "COMBAT", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 	if (WMS_DynAI_Steal) then {
 		[_INFgrp, _Pos, 75, 4, "MOVE", "COMBAT", "RED", "NORMAL", "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
