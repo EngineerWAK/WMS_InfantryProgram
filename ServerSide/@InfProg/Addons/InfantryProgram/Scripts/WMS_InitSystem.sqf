@@ -163,16 +163,16 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WAK_DFO_Version			= "v1.03_2022MAY20_GitHub";
+WAK_DFO_Version			= "v1.08_2022MAY28_GitHub";
 WMS_DynamicFlightOps	= true;
-WMS_fnc_DFO_LOGs		= false;	//For Debug
+WMS_DFO_LOGs			= false; //For Debug
 WMS_DFO_Standalone		= false; //keep true if you don't use WMS_InfantryProgram
 WMS_DFO_CreateChopper	= false; //if your mission file doesn't have choppers available
 WMS_DFO_Reinforcement	= true; //Each mission has it's own type of reinforcement
 WMS_DFO_UseJVMF			= true; //https://github.com/Project-Hatchet/H-60
 WMS_DFO_RemoveDup		= true; //delete dead NPC's primary weapon and backpack
 WMS_DFO_UsePilotsList 	= false; //if you want to limit DFO use to some players
-WMS_fnc_DFO_SmokeAtLZ	= true; //pop a smoke/flare on the group you have to pickUp
+WMS_DFO_SmokeAtLZ		= true; //pop a smoke/flare on the group you have to pickUp
 WMS_DFO_HideLZTarget	= false; //hide the target spawned at the LZ (actualy just return it, texture only on one side)
 WMS_DFO_InfUnlOverride	= false; //admins can force it "on the fly" in the console
 WMS_DFO_InfUnloadType 	= 3; //0: dump, 1: land, 2: rappel (Advanced Rappeling), 3: fastrope (not yet) //this should be dynamic unless override
