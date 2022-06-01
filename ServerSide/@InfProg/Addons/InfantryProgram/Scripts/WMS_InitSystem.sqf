@@ -163,7 +163,7 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WAK_DFO_Version			= "v1.08_2022MAY28_GitHub";
+WAK_DFO_Version			= "v1.09_2022JUN01_GitHub";
 WMS_DynamicFlightOps	= true;
 WMS_DFO_LOGs			= false; //For Debug
 WMS_DFO_Standalone		= false; //keep true if you don't use WMS_InfantryProgram

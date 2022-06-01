@@ -94,12 +94,12 @@ WMS_IP_buildComputer = {
 //JOIN THE PROGRAM
 	_IDnumber = _IPcomputer addAction
 	[
-		"<t size='0.9' color='#068604'>Join the Program</t>",
+		"<t size='0.9' color='#d60000'>Join the Program</t>",
 		"
 			WMS_IP_Active_list pushBack (getplayerUID player);
 			publicVariable 'WMS_IP_Active_list'; 
 			systemchat 'Welcome Back Soldier, remember to not get in vehicles'
-		", 
+		", //client modifying server variable, thats a weird solution
 		[_IPantenna],
 		1,
 		true,
@@ -107,6 +107,7 @@ WMS_IP_buildComputer = {
 		"",
 		"
 			(alive _target) &&
+			{stance player == 'CROUCH'} &&
 			{('rhs_radio_R187P1' in (assigneditems _this))} && 
 			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
 			{!((getplayerUID player) in WMS_IP_Active_list)} &&
@@ -116,6 +117,53 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
+//LOADOUT	
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>Equipement Scorpion 2.5k$</t>",
+		"
+			_target = _this select 0; _caller = _this select 1;
+			[_caller, [], (position _caller), WMS_Loadout_Scorpion, 2500] remoteExec ['WMS_fnc_InfantryProgram_loadouts'];
+		", 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{((getPlayerUID _this) in WMS_IP_Active_list)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>Equipement AOR2 3.5k$</t>",
+		"
+			_target = _this select 0; _caller = _this select 1;
+			[_caller, [], (position _caller), WMS_Loadout_AOR2, 3500] remoteExec ['WMS_fnc_InfantryProgram_loadouts'];
+		", 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{((getplayerUID player) in WMS_InfantryProgram_list)} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{!((getPlayerUID _this) in WMS_IP_Active_list)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+
 //SOUND TEST //playSound3D ['A3\Sounds_F\sfx\blip1.wss', _caller]
 	_IDnumber = _IPcomputer addAction
 	[
@@ -140,7 +188,7 @@ WMS_IP_buildComputer = {
 //REQUEST C130	
 	_IDnumber = _IPcomputer addAction
 	[
-		"<t size='0.9' color='#068604'>Request C130</t>",
+		"<t size='0.9' color='#068604'>Request C130, Need Parachute</t>",
 		"
 			[] call WMS_fnc_IP_c130_Request;
 		", 

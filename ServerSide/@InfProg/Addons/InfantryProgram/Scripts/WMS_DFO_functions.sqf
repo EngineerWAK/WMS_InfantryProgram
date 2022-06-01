@@ -27,7 +27,7 @@ if (true)then {execVM "\DFO\WMS_DFO_functions.sqf"};
 //for maps like Livonia, Lythium, Weferlingen, use:
 	WMS_DFO_SarSeaPosition	= "random";
 */
-//WAK_DFO_Version			= ""v1.07_2022MAY22_GitHub"";
+//WAK_DFO_Version			= ""v1.09_2022JUN01_GitHub"";
 ////////////////////////////
 //FUNCTIONS:
 ////////////////////////////
@@ -768,6 +768,7 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 		clearWeaponCargoGlobal _choppa; 
 		clearItemCargoGlobal _choppa; 
 		clearBackpackCargoGlobal _choppa;
+		_choppa setVariable ["WMS_StartPosition",_posBase];
 		if(_mission == "medevac") then {
 			_choppa addItemCargoGlobal ["ACE_personalAidKit",2];
 			_choppa addItemCargoGlobal ["ACE_bloodIV",5];
@@ -786,12 +787,25 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 				_choppa addItemCargoGlobal ["vtx_stretcher_item",4];
 			};
 		};
+		if (WMS_DFO_CreateChopper) then {
+			_choppa addMPEventHandler ["mpkilled", {
+			params ["_unit", "_killer", "_instigator", "_useEffects"];
+			if (true) then {diag_log format ['|WAK|TNA|WMS|[DFO][Vehicle EH] WMS_fnc_Event_DFO _this %1', _this]};
+			_posBase = _unit getVariable ["WMS_StartPosition",[]];
+			if !(count _posBase == 0) then {
+				[(typeOf _unit),_posBase]spawn WMS_fnc_RespawnMissionChopper;
+			}else{
+				if (true) then {diag_log format ['|WAK|TNA|WMS|[DFO][Vehicle EH] WMS_fnc_Event_DFO _this %1', _this]};
+			};}
+			];
+		};
 		[ //params ["_target", "_caller", "_actionId", "_arguments"];
 		_choppa,
 		[
 			"<t size='1' color='#068604'>Return Chopper to DFO HQ</t>",
 			"
 				_target = _this select 0; _caller = _this select 1;
+				_target removeAllMPEventHandlers 'MPKilled';
 				_chopperPos = getPosATL _target;
 				_target enableDynamicSimulation false;
 				_target enableSimulation false;
@@ -1069,6 +1083,36 @@ WMS_fnc_Event_DFO	= { //The one called by the addAction, filtered by WMS_DFO_Max
 	WMS_DFO_Running pushback [time,_timeToDelete,_grps,_vhls,_objs,_mkrs,_cargoObject,"DFO",[_MissionHexaID,_playerObject,_mission,_MsnPathCoord,_missionName,_MissionFinish],_MissionHexaID];
 	publicVariable "WMS_DFO_Running";
 	publicVariable "WMS_DFO_LastCall";
+};
+WMS_fnc_RespawnMissionChopper = {
+	if (true) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_RespawnMissionChopper _this %1', _this]};
+	params ["_unit","_posBase"];
+	uisleep 5;
+	if !(surfaceIsWater _posBase) then {
+		_posBase = [_posBase, 0, 100, 25, 0, 0, 0, [], [_posBase,[]]] call BIS_fnc_FindSafePos;
+	};
+	createVehicle ["smokeShellBlue", _posBase, [], 0, "NONE"];
+	uisleep 25;
+	_choppa = createVehicle [_unit, _posBase, [], 0, "NONE"];
+	_choppa setDir (windDir-180);
+	clearMagazineCargoGlobal _choppa; 
+	clearWeaponCargoGlobal _choppa; 
+	clearItemCargoGlobal _choppa; 
+	clearBackpackCargoGlobal _choppa;
+	_choppa setVariable ["WMS_StartPosition",_posBase];
+	
+	_choppa addMPEventHandler [
+		"mpkilled", {
+			params ["_unit", "_killer", "_instigator", "_useEffects"];
+			if (true) then {diag_log format ['|WAK|TNA|WMS|[DFO][Vehicle EH] WMS_fnc_RespawnMissionChopper _this %1', _this]};
+			_posBase = _unit getVariable ["WMS_StartPosition",[]];
+			if !(count _posBase == 0) then {
+				[(typeOf _unit),_posBase]spawn WMS_fnc_RespawnMissionChopper;
+			}else{
+				if (true) then {diag_log format ['|WAK|TNA|WMS|[DFO][Vehicle EH] WMS_fnc_RespawnMissionChopper _this %1', _this]};
+			};
+		}
+	];
 };
 WMS_fnc_DFO_CreateMkr = {
 	if (WMS_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_CreateMkr _this %1', _this]};
@@ -2135,4 +2179,4 @@ if (WMS_DFO_Standalone) then {
 };
 uisleep 15;
 [] call WMS_fnc_DFO_createBaseAction;
-if (true) then {format ['|WAK|TNA|WMS|[DFO] WMS_DFO_Functions, System Started, %1',WAK_DFO_Version]};
+if (true) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_DFO_Functions, System Started, %1',WAK_DFO_Version]};
