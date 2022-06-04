@@ -52,7 +52,7 @@ if !(_RoamingAIvhl == 0) then {
 						[ //params ["_target", "_caller", "_actionId", "_arguments"];
 							(_x select 0),
 							[
-								"<t size='1' color='#4b48f9'>Process Cargo Dump</t>",// #035c10"
+								"<t size='1' color='#4b48f9'>Sell Inventory</t>",// #035c10"
 								"
 									if !(count ((ItemCargo (_this select 0))+(WeaponCargo (_this select 0))+(MagazineCargo (_this select 0))+(backpackCargo (_this select 0))) == 0) then { 
 										[(_this select 1), (_this select 0)] remoteExec ['WMS_fnc_processCargoDump']; 
@@ -78,7 +78,7 @@ if !(_RoamingAIvhl == 0) then {
 						[ //params ["_target", "_caller", "_actionId", "_arguments"];
 							(_x select 0),
 							[
-								"<t size='1' color='#4b48f9'>Vehicle + Cargo Dump</t>",//_display, //"<t color='#4b48f9'>Resell the Vehicle</t>""#035c10"
+								"<t size='1' color='#4b48f9'>Sell Vehicle</t>",//_display, //"<t color='#4b48f9'>Resell the Vehicle</t>""#035c10"
 								"
 									if !(count ((ItemCargo (_this select 0))+(WeaponCargo (_this select 0))+(MagazineCargo (_this select 0))+(backpackCargo (_this select 0))) == 0) then { 
 										[(_this select 1), (_this select 0)] remoteExec ['WMS_fnc_processCargoDump']; 

@@ -38,7 +38,7 @@ class CfgRemoteExec
 		class WMS_fnc_BaseSafetyPerimeter { allowedTargets=2; };
 
 		class WMS_fnc_Event_HVT		   				{ allowedTargets=2; };
-		class WMS_fnc_Event_DFO		   				{ allowedTargets=2; };
+		class WMS_fnc_DFO_Event		   				{ allowedTargets=2; };
 		
 		class WMS_fnc_HideObjectGlobal				{ allowedTargets=2; };//InfantryProgram crates //EXILE
 		class WMS_fnc_Compo_BunkerCamp 				{ allowedTargets=2; }; //EXILE

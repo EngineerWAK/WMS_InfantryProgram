@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.619_2022MAY21_GitHub";
+WMS_System_Version 			= "v2.63_2022JUN04_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false;
 WMS_Watch_Triggers_Logs		= false;
@@ -163,7 +163,7 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WAK_DFO_Version			= "v1.09_2022JUN01_GitHub";
+WMS_DFO_Version			= "v1.10_2022JUN04_GitHub";
 WMS_DynamicFlightOps	= true;
 WMS_DFO_LOGs			= false; //For Debug
 WMS_DFO_Standalone		= false; //keep true if you don't use WMS_InfantryProgram
@@ -668,7 +668,7 @@ if (WMS_Events) 		then {execVM "\InfantryProgram\Scripts\WMS_Event_Start.sqf"};
 // Start Mission system
 if (WMS_AMS)			then {execVM "\InfantryProgram\Scripts\WMS_AMS_Start.sqf"};
 // Start DynamicFlightOps
-if (WMS_DynamicFlightOps)then {execVM "\InfantryProgram\Scripts\WMS_DFO_functions.sqf"};
+if (WMS_DynamicFlightOps)then {execVM "\InfantryProgram\Scripts\DFO\WMS_DFO_init.sqf"};
 // Territory Protection system
 //if (true) 				then {execVM "\InfantryProgram\Scripts\WMS_TerritoryProtection.sqf"};
 //Server Info Markers

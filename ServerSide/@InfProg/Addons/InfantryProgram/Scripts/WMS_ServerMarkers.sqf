@@ -33,4 +33,4 @@ WMS_markerSystem setMarkerText (format ["Infantry Program %1 ", WMS_System_Versi
 WMS_markerSystem = createMarker ["markerDFO", [(worldsize /2),-800]];
 WMS_markerSystem setMarkerType "loc_heli";
 WMS_markerSystem setMarkerColor "ColorKhaki";
-WMS_markerSystem setMarkerText (format [" Dynamic Flight Ops %1 ", WAK_DFO_Version]);
+WMS_markerSystem setMarkerText (format [" Dynamic Flight Ops %1 ", WMS_DFO_Version]);
