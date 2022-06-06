@@ -33,7 +33,8 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 	["rhsusf_M1232_usarmy_d",[],[[],[]]],
 	["rhsusf_M1078A1P2_B_D_fmtv_usarmy",[],[[],[]]],
 	["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
-	["C_SUV_01_F",[],[[],[]]],
+	["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
+	//["C_SUV_01_F",[],[[],[]]],
 	["rhs_gaz66_ammo_vv",[0,"rhsafrf\addons\rhs_gaz66_camo\data\gaz66_sand_co.paa",1,"rhsafrf\addons\rhs_gaz66\data\tentru_co.paa"],[[],[]]],
 	["rhs_gaz66_vv",[0,"rhsafrf\addons\rhs_gaz66_camo\data\gaz66_sand_co.paa",1,"rhsafrf\addons\rhs_gaz66\data\tentru_co.paa"],[[],[]]],
 	["B_LSV_01_unarmed_sand_F",[],[[],[]]],

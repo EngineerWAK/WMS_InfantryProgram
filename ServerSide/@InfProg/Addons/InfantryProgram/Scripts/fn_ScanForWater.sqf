@@ -38,5 +38,5 @@
 			};
 		}forEach _steps; //this steps become Y axis
 	}forEach _steps; //this steps become X axis
-	if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS|WMS_fnc_ScanForWater Scan finished  %1, %2 positions found', time, count WMS_SeaPos]};
+	if (true) then {Diag_log format ['|WAK|TNA|WMS|WMS_fnc_ScanForWater Scan finished  %1, %2 positions found', time, count WMS_SeaPos]};
 	(count WMS_SeaPos)

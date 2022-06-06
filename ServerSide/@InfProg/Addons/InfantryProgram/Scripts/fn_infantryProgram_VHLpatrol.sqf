@@ -117,19 +117,19 @@ if (_infoType != "ROAMING") then {
 };
 switch (_infoType) do {
 	case "ROAMING" : {
-		_vehic setVariable ["KickVehAss",0,true]; //for the unstick fonction
+		_vehic setVariable ["WMS_KickVehAss",0,true]; //for the unstick fonction
 		_wpts = [_hexaID,_pos,_VHLgrp,_vehic,false,true] call WMS_fnc_SetPatrol;
 	};
 	case "Occupation" : {
-		_vehic setVariable ["KickVehAss",999,true]; //No Kickass for occupation, not set yet in Wach&Destroy
+		_vehic setVariable ["WMS_KickVehAss",999,true]; //No Kickass for occupation, not set yet in Wach&Destroy
 		[_VHLgrp,_pos, _WPDist] call BIS_fnc_taskPatrol;
 	};
 	case "BaseATK" : {
-		_vehic setVariable ["KickVehAss",999,true];
+		_vehic setVariable ["WMS_KickVehAss",999,true];
 		[_VHLgrp,_pos, _WPDist] call BIS_fnc_taskPatrol;
 	};
 	case "PATROL" : {
-		_vehic setVariable ["KickVehAss",0,true]; //for the unstick fonction
+		_vehic setVariable ["WMS_KickVehAss",0,true]; //for the unstick fonction
 		[_VHLgrp,_pos, _WPDist] call BIS_fnc_taskPatrol;
 	};
 };

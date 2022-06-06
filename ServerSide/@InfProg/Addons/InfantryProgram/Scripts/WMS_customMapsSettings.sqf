@@ -569,7 +569,7 @@ if (WMS_MapName == "tem_kujari") then {	//OUTDATED
 										WMS_DynAI_DestroyVHL 		= 33;
 										WMS_AI_RoamingVHLcount 		= 15; //10
 										WMS_AI_CargoUnits	 		= 1; //2
-										WMS_AI_RoamingVHL_MaxKick	= 5; // 8 //_vhl setVariable ["KickVehAss",0,true];
+										WMS_AI_RoamingVHL_MaxKick	= 5; // 8 //_vhl setVariable ["WMS_KickVehAss",0,true];
 										WMS_AMS_ClnObj 				= false;
 										WMS_SupplyDrop 				= true;
 										WMS_DynAI_LauncherChance 	= 50;

@@ -27,9 +27,9 @@ if !(_RoamingAIvhl == 0) then {
 				_lastPos = (_x select 1);
 				_newPos = position _vhl;
 				if ((_newPos distance2d _lastPos) < 3) then {
-					_assKicked = _vhl getVariable "KickVehAss";
+					_assKicked = _vhl getVariable ["WMS_KickVehAss",0];
 					if (_assKicked < WMS_AI_RoamingVHL_MaxKick) then {
-						_vhl setVariable ["KickVehAss",_assKicked+1,true];
+						_vhl setVariable ["WMS_KickVehAss",_assKicked+1,true];
 						_emptyPos = _newPos findEmptyPosition [2,150,(typeOf _vhl)];
 						_closeSafePos = [(_emptyPos select 0), (_emptyPos select 1), 1];
 						_vhl setpos _closeSafePos;

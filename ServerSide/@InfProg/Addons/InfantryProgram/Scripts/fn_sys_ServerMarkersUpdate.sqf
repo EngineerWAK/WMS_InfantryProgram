@@ -13,11 +13,13 @@
 private _servFPS = round diag_fps;
 //private _servUnits = (count allUnits - count allPlayers);
 private _servUnits = (EAST countside allUnits);
+private _servUnitsCIV = (CIVILIAN countside allUnits);
 private _servDeads = count allDeadMen;
-if (WMS_IP_LOGs) then {diag_log format ["[SERVER MARKERS Update]|WAK|TNA|WMS| Server fps: %1, OPFOR Units: %2, %3 Deads", _servFPS,_servUnits,_servDeads]};
+if (WMS_IP_LOGs) then {diag_log format ["[SERVER MARKERS Update]|WAK|TNA|WMS| Server fps: %1, OPFOR Units: %2, Civilians: %3, %4 Deads", _servFPS,_servUnits,_servUnitsCIV,_servDeads]};
 
 WMS_markerFPS setMarkerText (format ["%1 fps", _servFPS]);
-WMS_markerUnits setMarkerText (format ["%1 NPC", _servUnits]);
+WMS_markerUnits setMarkerText (format ["%1 OPFOR", _servUnits]);
+WMS_markerUnitsCIV setMarkerText (format ["%1 Civilians", _servUnitsCIV]);
 WMS_markerDeads setMarkerText (format ["%1 Deads", _servDeads]);
 
 if (_servFPS > 35) then {

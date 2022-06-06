@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.63_2022JUN04_GitHub";
+WMS_System_Version 			= "v2.643_2022JUN06_GitHub";
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false;
 WMS_Watch_Triggers_Logs		= false;
@@ -25,6 +25,9 @@ WMS_ServRestart 			= true;
 WMS_ServRestartSeconds 		= 18000; //5h
 WMS_Thread_Start			= 30;
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Namalsk","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!!
+
+WMS_DynamicFlightOps		= true; //Module
+WMS_AmbientLife				= true; //Module //AL can spawn A LOT of units/vehicles/waypoints, be sure your box can handle it with other regular mission/roaming AI
 
 WMS_exileFireAndForget 		= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
 WMS_exileToastMsg 			= false;
@@ -159,12 +162,45 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 	//WMS_CaptureZone_Wav		= [5,7,9]; //AI Waves to come
 	//WMS_CaptureZone_Dis		= [100,300]; //AI waves spawn distances
 	//WMS_CaptureZone_Bdr 		= []; //Sign_Sphere25cm_F objects
+//////////////////////////////
+//AmbientLife
+//////////////////////////////
+WMS_AL_Version		= "v0.26_2022JUN06";
+if (WMS_AmbientLife) then {
+//WMS_AmbientLife		= true;
+WMS_AL_Standalone	= false; //Keep true if you don't use WMS_DFO or WMS_InfantryProgram
+WMS_AL_LOGs			= false; //Debug
+WMS_AL_IncludeLoc	= true; //will include "nameLocal" locations in the position list
+WMS_AL_StripOffUnit = false; //Remove or not NPC loadout when they die
+WMS_AL_LockVehicles = false; //lock vehicles for players
+WMS_AL_VHLmax		= 10; //Max vehicles (all included) running at the same time
+WMS_AL_UnitMax		= 5; //Max units (groups if _CombatBehav true) patroling at the same time
+WMS_AL_VhlBalance	= [2,1,0,1,1,2,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
+WMS_AL_Skills		= [0.8, 0.7, 0.2, 0.3, 0.3, 0.6, 0, 0.5, 0.5]; //"spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"
 
+WMS_AL_CombatBehav	= false;
+WMS_AL_Faction		= CIVILIAN;
+WMS_AL_Units		= [//infantry classname, do not mix factions!
+						"C_man_p_beggar_F","C_man_1","C_Man_casual_1_F","C_Man_casual_2_F","C_Man_casual_3_F","C_Man_casual_4_F","C_Man_casual_5_F","C_Man_casual_6_F","C_man_polo_1_F","C_man_polo_2_F","C_man_polo_3_F","C_man_polo_4_F","C_man_polo_5_F","C_man_polo_6_F",
+						"C_Man_ConstructionWorker_01_Black_F","C_Man_ConstructionWorker_01_Blue_F","C_Man_ConstructionWorker_01_Red_F","C_Man_ConstructionWorker_01_Vrana_F","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_hunter_1_F","C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F"
+					]; 
+WMS_AL_Vehicles		= [[ //[[AIR],[GROUND],[SEA]]
+						"C_Heli_Light_01_civil_F","C_IDAP_Heli_Transport_02_F","C_Heli_light_01_digital_F","C_Heli_light_01_shadow_F"
+					],[
+						"C_Van_01_fuel_F","C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_02_unarmed_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_01_F","C_Offroad_01_comms_F","C_Offroad_01_repair_F","C_Quadbike_01_F","C_SUV_01_F","C_Tractor_01_F","C_Van_01_transport_F","C_Van_01_box_F","C_Van_02_medevac_F","C_Van_02_transport_F"
+					],[
+						"C_Boat_Civil_01_F","C_Boat_Civil_01_police_F","C_Boat_Civil_01_rescue_F","C_Rubberboat","C_Boat_Transport_02_F","C_Scooter_Transport_01_F"
+					]];
+WMS_AL_AceIsRunning = true; //Automatic
+WMS_AL_LastUsedPos	= [0,0,0]; //Dynamic
+WMS_AL_Running		= [[],[]]; //array of arrays of data [[VEHICLES],[INFANTRY]] //[HexaID,time,group,vehicle]
+};
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
 WMS_DFO_Version			= "v1.10_2022JUN04_GitHub";
-WMS_DynamicFlightOps	= true;
+if (WMS_DynamicFlightOps) then {
+//WMS_DynamicFlightOps	= true;
 WMS_DFO_LOGs			= false; //For Debug
 WMS_DFO_Standalone		= false; //keep true if you don't use WMS_InfantryProgram
 WMS_DFO_CreateChopper	= false; //if your mission file doesn't have choppers available
@@ -230,6 +266,7 @@ publicVariable "WMS_DFO_Reward";
 if (worldName in WMS_DFO_NoSeaMaps) then {
 	WMS_DFO_SarSeaPosition	= "random";
 };
+};
 //////////////////////////////
 //AI variables
 //////////////////////////////
@@ -277,7 +314,7 @@ WMS_AI_RoamingVHL_Skill			= [0.25, 0.35]; //skill + selectRandom
 WMS_AI_RoamingVHL_remRPG 		= true; //(_this select 0) removeWeapon (secondaryWeapon (_this select 0));
 WMS_AI_RoamingVHL_Running 		= [];//Leave it empty //for cleanup
 WMS_AI_RoamingVHLcount 			= 10; //10
-WMS_AI_RoamingVHL_MaxKick 		= 8; // 8 //_vhl setVariable ["KickVehAss",0,true];
+WMS_AI_RoamingVHL_MaxKick 		= 8; // 8 //_vhl setVariable ["WMS_KickVehAss",0,true];
 WMS_AI_PatrolTimer_VHL 			= 1500; //+(random 300)
 WMS_AI_PlayerDistToDespawnVHL 	= 500;
 WMS_AI_VHLwptDist 				= 5000;
@@ -669,11 +706,14 @@ if (WMS_Events) 		then {execVM "\InfantryProgram\Scripts\WMS_Event_Start.sqf"};
 if (WMS_AMS)			then {execVM "\InfantryProgram\Scripts\WMS_AMS_Start.sqf"};
 // Start DynamicFlightOps
 if (WMS_DynamicFlightOps)then {execVM "\InfantryProgram\Scripts\DFO\WMS_DFO_init.sqf"};
+// Start Ambient Life
+if (WMS_AmbientLife)	then {execVM "\InfantryProgram\Scripts\AL\WMS_AL_Functions.sqf"};
 // Territory Protection system
 //if (true) 				then {execVM "\InfantryProgram\Scripts\WMS_TerritoryProtection.sqf"};
 //Server Info Markers
 WMS_markerFPS = objNull;
 WMS_markerUnits = objNull;
+WMS_markerUnitsCIV = objNull;
 WMS_markerDeads = objNull;
 WMS_IP_Active_list = [];
 publicVariable "WMS_IP_Active_list";

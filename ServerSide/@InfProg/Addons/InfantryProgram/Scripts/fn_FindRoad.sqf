@@ -23,4 +23,4 @@ if (true) then {_arrayOfPos+WMS_Pos_Locals};
 		if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS|WMS_fnc_FindRoad no road around %1', _x]};
 	};
 }forEach _arrayOfPos;
-if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS|WMS_fnc_FindRoad %1 roads found', (count WMS_Roads)]};
+if (true) then {Diag_log format ['|WAK|TNA|WMS|WMS_fnc_FindRoad %1 roads found', (count WMS_Roads)]};

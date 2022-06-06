@@ -14,12 +14,18 @@ WMS_markerFPS = createMarker ["markerFPS", [0,-200]];
 WMS_markerFPS setMarkerType "mil_dot";
 WMS_markerFPS setMarkerColor "ColorGreen";
 WMS_markerFPS setMarkerText (format ["%1 fps", round diag_fps]);
+
 WMS_markerUnits = createMarker ["markerUnits", [0,-400]];
 WMS_markerUnits setMarkerType "mil_dot";
 WMS_markerUnits setMarkerColor "ColorGreen";
-//WMS_markerUnits setMarkerText (format ["%1 NPC", (count allUnits - count allPlayers)]); //countSide
-WMS_markerUnits setMarkerText (format ["%1 NPC", (EAST countside allUnits)]); //countSide
-WMS_markerDeads = createMarker ["markerDeads", [0,-600]];
+WMS_markerUnits setMarkerText (format ["%1 OPFOR", (EAST countside allUnits)]); //countSide
+
+WMS_markerUnitsCIV = createMarker ["markerUnitsCIV", [0,-600]];
+WMS_markerUnitsCIV setMarkerType "mil_dot";
+WMS_markerUnitsCIV setMarkerColor "ColorGreen";
+WMS_markerUnitsCIV setMarkerText (format ["%1 Cvilians", (CIVILIAN countside allUnits)]); //countSide
+
+WMS_markerDeads = createMarker ["markerDeads", [0,-800]];
 WMS_markerDeads setMarkerType "mil_dot";
 WMS_markerDeads setMarkerColor "ColorGreen";
 WMS_markerDeads setMarkerText (format ["%1 Deads", count allDeadMen]);
