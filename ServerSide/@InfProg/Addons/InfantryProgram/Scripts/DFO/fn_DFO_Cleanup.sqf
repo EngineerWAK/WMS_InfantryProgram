@@ -13,7 +13,7 @@
 	if (WMS_DFO_LOGs) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_Cleanup _this %1', _this]};
 	private [
 		"_timeToDelete","_grpArrays","_grpOPFOR","_grpCIV","_vhl","_vhlOPFOR","_vhlCIV","_obj","_mkr","_cargo",
-		"_mission","_passenger","_options","_MissionFinish","_succes","_failed","_cntOPFOR","_cntVhlOPFOR","_cntCIV","_playerObject"
+		"_mission","_passenger","_options","_MissionFinish","_success","_failed","_cntOPFOR","_cntVhlOPFOR","_cntCIV","_playerObject"
 		];
 	_timeToDelete 	= (_this select 1);
 	_grpArrays 		= (_this select 2); //[[],[]]
@@ -29,7 +29,7 @@
 	_playerObject 	=  _options select 1;
 	_mission 		= _options select 2;
 	_MissionFinish 	= _options select 5;
-	_succes 		= false;
+	_success 		= false;
 	_failed 		= false;
 	_cntOPFOR 		= 0;
 	_cntVhlOPFOR 	= 0;
@@ -44,33 +44,33 @@
 	} foreach _grpCIV;
 	switch (_mission) do {
 		case "inftransport": { //CIV Alive at _MissionFinish, _cntCIV != 0
-			if(_cntCIV != 0 && {vehicle (leader (_grpCIV select 0)) == (leader (_grpCIV select 0))} && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 12.5}) then {_succes = true};
+			if(_cntCIV != 0 && {vehicle (leader (_grpCIV select 0)) == (leader (_grpCIV select 0))} && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 12.5}) then {_success = true};
 			if(_cntCIV == 0) then {_failed = true};
 		};
 		case "cargotransport": { //_cargo at _MissionFinish, alive _cargo
-			if(alive _cargo && {(getPosATL _cargo) distance _MissionFinish < 12.5}) then {_succes = true};
+			if(alive _cargo && {(getPosATL _cargo) distance _MissionFinish < 12.5}) then {_success = true};
 		};
 		case "casinf": { //mission (LZ1) succes wen target destroyed, No RTB/LZ2, _cntOPFOR = 0
-			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0}) then {_succes = true};
+			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0}) then {_success = true};
 		};
 		case "casarmored": { //mission (LZ1) succes wen target destroyed, No RTB/LZ2, _cntOPFOR = 0
 			if (count _vhlOPFOR != 0) then {
 				{if(alive _x)then{_cntVhlOPFOR = _cntVhlOPFOR+1}}forEach _vhlOPFOR;
 			};
-			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0}) then {_succes = true};
+			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0}) then {_success = true};
 		};
 		case "cascombined": { //mission (LZ1) succes wen target destroyed, No RTB/LZ2, _cntOPFOR = 0
 			if (count _vhlOPFOR != 0) then {
 				{if(alive _x)then{_cntVhlOPFOR = _cntVhlOPFOR+1}}forEach _vhlOPFOR;
 			};
-			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0}) then {_succes = true};
+			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0}) then {_success = true};
 		};
 		case "sar": { //"LZ1"->"BASE" succes wen passenger at _MissionFinish, _cntCIV != 0
-			if(_cntCIV != 0 && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 25}) then {_succes = true};
+			if(_cntCIV != 0 && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 25}) then {_success = true};
 			if(_cntCIV == 0) then {_failed = true};
 		};
 		case "csar": { //"LZ1"->"BASE" succes wen passenger at _MissionFinish, no need to kill OPFOR, _cntCIV != 0
-			if(_cntCIV != 0 && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 25}) then {_succes = true};
+			if(_cntCIV != 0 && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 25}) then {_success = true};
 			if(_cntCIV == 0) then {_failed = true};
 		};
 		case "airassault": { //destroy target or capture zone at _MissionFinish, _cntOPFOR = 0, _vhlOPFOR != alive //the capture will do a "call for Cleanup/victory"
@@ -78,16 +78,16 @@
 				{if(alive _x)then{_cntVhlOPFOR = _cntVhlOPFOR+1}}forEach _vhlOPFOR;
 			};
 
-			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0} && {_cntCIV != 0}) then {_succes = true};
+			if(_cntOPFOR == 0 && {_cntVhlOPFOR == 0} && {_cntCIV != 0}) then {_success = true};
 			if(_cntCIV == 0) then {_failed = true};
 		};
 		case "medevac": { //CANCELED
-			if(_cntCIV != 0 && {vehicle (leader (_grpCIV select 0)) == (leader (_grpCIV select 0))} && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 25}) then {_succes = true};
+			if(_cntCIV != 0 && {vehicle (leader (_grpCIV select 0)) == (leader (_grpCIV select 0))} && {(getPosATL (leader (_grpCIV select 0))) distance _MissionFinish < 25}) then {_success = true};
 			if(_cntCIV == 0) then {_failed = true};
 		};
 	};
 	if (_failed) then {_timeToDelete = 0};
-	if (_succes == true || time >= _timeToDelete) then {
+	if (_success == true || time >= _timeToDelete) then {
 		WMS_DFO_Running deleteAt (WMS_DFO_Running find _this);
 		{
 			{moveOut _x; deleteVehicle _x;} forEach units _x;
@@ -100,7 +100,7 @@
 		{deleteGroup _x;} forEach _grpCIV;
 		//deleteVehicle _cargo; //I guess cargo can stay, its not a big deal
 	};
-	if (_succes == true) then {
+	if (_success == true) then {
 		//VICTORY!!!
 		{
 			{_x setDamage 1} forEach units _x;

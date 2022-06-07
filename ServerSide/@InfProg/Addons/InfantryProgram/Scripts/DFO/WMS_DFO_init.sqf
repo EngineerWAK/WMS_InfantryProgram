@@ -21,7 +21,7 @@
 	if (true)then {execVM "\DFO\WMS_DFO_init.sqf"};
 */
 /*
-WMS_DFO_Version			= "v1.10_2022JUN04_GitHub";
+//WMS_DFO_Version			= "v1.11_2022JUN07_GitHub";
 */
 //////////////////////////////////////////
 uisleep 10;

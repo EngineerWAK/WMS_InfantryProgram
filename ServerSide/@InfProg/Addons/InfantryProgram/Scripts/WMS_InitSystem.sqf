@@ -198,7 +198,7 @@ WMS_AL_Running		= [[],[]]; //array of arrays of data [[VEHICLES],[INFANTRY]] //[
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WMS_DFO_Version			= "v1.10_2022JUN04_GitHub";
+WMS_DFO_Version			= "v1.11_2022JUN07_GitHub";
 if (WMS_DynamicFlightOps) then {
 //WMS_DynamicFlightOps	= true;
 WMS_DFO_LOGs			= false; //For Debug
