@@ -22,16 +22,6 @@ while {true} do {
 	if (WMS_AI_RoamingVHL || WMS_AI_RoamingAIR) then {call WMS_fnc_sys_RoamingVHLspawn};
 	if (WMS_AmbientLife) then {
 		if (true) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_AL_ManagementLoop Side: %1, Units: %4, server FPS %2, players %3', WMS_AL_Faction, diag_fps, count allPlayers, (WMS_AL_Faction countSide allUnits)]};
-		//respawn missing vehicles, ONE per loop
-		if (count (WMS_AL_Running select 0) < WMS_AL_VHLmax) then {
-			if (WMS_AL_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_AL_ManagementLoop spawning a new vehicle %1', time]};
-			[] call WMS_fnc_AL_createVHL;
-		};
-		//respawn missing dudes, ONE (group) per loop
-		if (count (WMS_AL_Running select 1) < WMS_AL_UnitMax) then {
-			if (WMS_AL_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_AL_ManagementLoop spawning a new little dude %1', time]};
-			[] call WMS_fnc_AL_createUnits;
-		};
 		{
 			//destroying stuck vehicles
 			if (speed ((_x select 3) select 0) < 3) then {
@@ -47,5 +37,15 @@ while {true} do {
 				}else {((_x select 3) select 0) setVariable ["WMS_AL_LastPos", position ((_x select 3)select 0)]};
 			};
 		}forEach (WMS_AL_Running select 0);
+		//respawn missing vehicles, ONE per loop
+		if (count (WMS_AL_Running select 0) < WMS_AL_VHLmax) then {
+			if (WMS_AL_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_AL_ManagementLoop spawning a new vehicle %1', time]};
+			[] call WMS_fnc_AL_createVHL;
+		};
+		//respawn missing dudes, ONE (group) per loop
+		if (count (WMS_AL_Running select 1) < WMS_AL_UnitMax) then {
+			if (WMS_AL_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_AL_ManagementLoop spawning a new little dude %1', time]};
+			[] call WMS_fnc_AL_createUnits;
+		};
 	};
 };
