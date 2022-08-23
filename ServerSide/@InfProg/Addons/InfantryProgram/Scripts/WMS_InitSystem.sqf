@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.643_2022JUN06_GitHub";
+WMS_System_Version 			= "v2.646_2022AUG23_GitHub"; //WMS_AllDeadsMgr
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false;
 WMS_Watch_Triggers_Logs		= false;
@@ -60,6 +60,12 @@ if !(WMS_exileFireAndForget) then {execVM "\InfantryProgram\Scripts\WMS_List_Cra
 /////////////////////////////////
 //			VARIABLES
 /////////////////////////////////
+WMS_AllDeadsMgr				= [];
+WMS_Player_AllDeads			= 1800; //Not Used Yet
+WMS_AMS_AllDeads			= 1200;
+WMS_DynAI_AllDeads			= 600;
+WMS_DFO_AllDeads			= 180;
+WMS_Others_AllDeads			= 90; //Not Used Yet
 //C130 variables
 WMS_MoveInCargo_C130_LastTime 		= time;
 WMS_InfantryProgram_C130CoolDown 	= 300;
@@ -198,7 +204,7 @@ WMS_AL_Running		= [[],[]]; //array of arrays of data [[VEHICLES],[INFANTRY]] //[
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WMS_DFO_Version			= "v1.11_2022JUN07_GitHub";
+WMS_DFO_Version			= "v1.13_2022JUL31_GitHub";
 if (WMS_DynamicFlightOps) then {
 //WMS_DynamicFlightOps	= true;
 WMS_DFO_LOGs			= false; //For Debug

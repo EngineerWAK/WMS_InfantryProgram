@@ -17,6 +17,7 @@
 		"_killer", //the registered _playerObject for the mission is the pilot who launched the mission, if the pilot die and come back, he doesnt match the registered anymore
 		"_instigator"
 	];
+	WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_DFO_AllDeads)];
 	_options = _killed getVariable ["WMS_DFO_options",[]]; //[_MissionHexaID,_playerObject,_mission,_infType,_pilotUID] //_infType= "OPFOR","CIV_ARMED","CIV"
 	private _pilotUID = (_options select 4);
 	if (isPlayer _instigator) then {_killer = _instigator}; //TEST

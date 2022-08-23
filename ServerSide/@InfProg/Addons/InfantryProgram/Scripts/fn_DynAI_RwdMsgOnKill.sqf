@@ -19,6 +19,7 @@ params[
 	//["_unitFunction","Assault"], //doesn't work, must get it from getvariable
 	//["_info", "nothingYet"] //doesn't work, must get it from getvariable
 ];
+	WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_DynAi_AllDeads)];
 	_unitFunction 	= _killed getVariable ["unitFunction", "Assault"];
 	_info 			= _killed getVariable ["info", "nothingYet"]; //BaseATK //
 	_killerName 	= name _killer;

@@ -19,19 +19,20 @@ if (WMS_DFO_AceIsRunning)then{
 	private _actionDFO = ["RequestDFOmission","Request Random DFO Mission","",{
 		if (WMS_DFO_UsePilotsList)then{
 			if((getPlayerUID player) in WMS_DFO_PilotsList)then{
-				[player,selectRandom WMS_DFO_ObjToAddAction] remoteExec ['WMS_fnc_Event_DFO', 2];
+				[player,selectRandom WMS_DFO_ObjToAddAction] remoteExec ['WMS_fnc_DFO_Event', 2];
 				hint 'Contacting Air Operations HQ';
 			}else{
 				hint 'DFO only for selected pilots, contact admins';
 			};
 		}else{
-			[player,selectRandom WMS_DFO_ObjToAddAction] remoteExec ['WMS_fnc_Event_DFO', 2];
+			[player,selectRandom WMS_DFO_ObjToAddAction] remoteExec ['WMS_fnc_DFO_Event', 2];
 			hint 'Contacting Air Operations HQ';
 		};
 	},{
 		(alive player) &&
 		//{(getPlayerUID player) in WMS_DFO_PilotsList} && //remove this if you don't use pilot list
 		{vehicle player isKindOf "helicopter"} &&
+		{!(vehicle player isKindOf "B_Parachute")} &&
 		{count WMS_DFO_BasePositions != 0} &&
 		{count WMS_DFO_ObjToAddAction != 0} &&
 		{(count WMS_DFO_Running) < WMS_DFO_MaxRunning} &&
@@ -43,19 +44,20 @@ if (WMS_DFO_AceIsRunning)then{
 	private _actionDFO1 = ["RequestDFOmissionL","Request Logistic/Rescue Mission","",{
 		if (WMS_DFO_UsePilotsList)then{
 			if((getPlayerUID player) in WMS_DFO_PilotsList)then{
-				[player,selectRandom WMS_DFO_ObjToAddAction,selectRandom (WMS_DFO_MissionTypes select 0)] remoteExec ['WMS_fnc_Event_DFO', 2];
+				[player,selectRandom WMS_DFO_ObjToAddAction,selectRandom (WMS_DFO_MissionTypes select 0)] remoteExec ['WMS_fnc_DFO_Event', 2];
 				hint 'Contacting Air Operations HQ';
 			}else{
 				hint 'DFO only for selected pilots, contact admins';
 			};
 		}else{
-			[player,selectRandom WMS_DFO_ObjToAddAction,selectRandom (WMS_DFO_MissionTypes select 0)] remoteExec ['WMS_fnc_Event_DFO', 2];
+			[player,selectRandom WMS_DFO_ObjToAddAction,selectRandom (WMS_DFO_MissionTypes select 0)] remoteExec ['WMS_fnc_DFO_Event', 2];
 			hint 'Contacting Air Operations HQ';
 		};
 	},{
 		(alive player) &&
 		//{(getPlayerUID player) in WMS_DFO_PilotsList} && //remove this if you don't use pilot list
 		{vehicle player isKindOf "helicopter"} &&
+		{!(vehicle player isKindOf "B_Parachute")} &&
 		{count WMS_DFO_BasePositions != 0} &&
 		{count WMS_DFO_ObjToAddAction != 0} &&
 		{(count WMS_DFO_Running) < WMS_DFO_MaxRunning} &&
@@ -67,19 +69,20 @@ if (WMS_DFO_AceIsRunning)then{
 	private _actionDFO2 = ["RequestDFOmissionC","Request Combat Mission","",{
 		if (WMS_DFO_UsePilotsList)then{
 			if((getPlayerUID player) in WMS_DFO_PilotsList)then{
-				[player,selectRandom WMS_DFO_ObjToAddAction,selectRandom (WMS_DFO_MissionTypes select 1)] remoteExec ['WMS_fnc_Event_DFO', 2];
+				[player,selectRandom WMS_DFO_ObjToAddAction,selectRandom (WMS_DFO_MissionTypes select 1)] remoteExec ['WMS_fnc_DFO_Event', 2];
 				hint 'Contacting Air Operations HQ';
 			}else{
 				hint 'DFO only for selected pilots, contact admins';
 			};
 		}else{
-			[player,selectRandom WMS_DFO_ObjToAddAction,selectRandom (WMS_DFO_MissionTypes select 1)] remoteExec ['WMS_fnc_Event_DFO', 2];
+			[player,selectRandom WMS_DFO_ObjToAddAction,selectRandom (WMS_DFO_MissionTypes select 1)] remoteExec ['WMS_fnc_DFO_Event', 2];
 			hint 'Contacting Air Operations HQ';
 		};
 	},{
 		(alive player) &&
 		//{(getPlayerUID player) in WMS_DFO_PilotsList} && //remove this if you don't use pilot list
 		{vehicle player isKindOf "helicopter"} &&
+		{!(vehicle player isKindOf "B_Parachute")} &&
 		{count WMS_DFO_BasePositions != 0} &&
 		{count WMS_DFO_ObjToAddAction != 0} &&
 		{(count WMS_DFO_Running) < WMS_DFO_MaxRunning} &&

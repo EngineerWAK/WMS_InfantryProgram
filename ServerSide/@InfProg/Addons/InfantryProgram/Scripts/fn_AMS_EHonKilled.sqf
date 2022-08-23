@@ -19,6 +19,7 @@ params[
 	["_unitFunction","Assault"], //not used yet
 	["_difficulty", "Hardcore"]
 ];
+WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_AMS_AllDeads)];
 _distanceKill = (round(_killer distance _killed));
 _bonus = WMS_DynAI_respectBonus;
 _difficulty = _killed getVariable "WMS_Difficulty";

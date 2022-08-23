@@ -246,7 +246,7 @@ _poptabs = 50;
 						private _msgx = format ['%2 is a Dick, he killed %1', (_this select 0), (_this select 1)];
 						[_msgx] remoteexec ['SystemChat',0];
 						private _sessionID = (_this select 1) getVariable ['ExileSessionID',''];
-						[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['STOP doing that, Dick!', '-15% heath']]] call ExileServer_system_network_send_to;
+						[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['STOP doing that, Fat Fuck', '-15% heath']]] call ExileServer_system_network_send_to;
 					};
 				"];
 			};

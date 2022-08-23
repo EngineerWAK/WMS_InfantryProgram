@@ -55,7 +55,11 @@ WMS_Loadout_Tiger = [
 	 ["Tiger_Backpack_Compact","Tiger_Backpack_KitBag"], //_Backpacks
 	 ["G_Balaclava_oli","G_Balaclava_blk"]  //_googles/_facewear
 ];
-WMS_Loadout_UKtmp = [
+WMS_Loadout_UKtmp = WMS_Loadout_AOR2;
+WMS_Loadout_UKwdl = WMS_Loadout_M90;
+WMS_Loadout_FRce = WMS_Loadout_Scorpion;
+WMS_Loadout_DEfleck = WMS_Loadout_Tiger;
+/*WMS_Loadout_UKtmp = [
 	 ["UK3CB_BAF_U_JumperUniform_DPMT","UK3CB_BAF_U_CombatUniform_DPMT_RM","UK3CB_BAF_U_Smock_DPMT"], //_uniforms
 	 ["UK3CB_BAF_V_Osprey_DPMT1","UK3CB_BAF_V_Osprey_DPMT2","UK3CB_BAF_V_Osprey_DPMT3","UK3CB_BAF_V_Osprey_DPMT4","UK3CB_BAF_V_Osprey_DPMT5","UK3CB_BAF_V_Osprey_DPMT6","UK3CB_BAF_V_Osprey_DPMT7","UK3CB_BAF_V_Osprey_DPMT8","UK3CB_BAF_V_Osprey_DPMT9"], //_vests
 	 ["UK3CB_BAF_H_Mk6_DPMT_A","UK3CB_BAF_H_Mk6_DPMT_C","UK3CB_BAF_H_Mk6_DPMT_D","UK3CB_BAF_H_Mk6_DPMT_F","UK3CB_BAF_H_Boonie_DPMT"], //_helmets
@@ -82,67 +86,65 @@ WMS_Loadout_DEfleck = [
 	 ["BWA3_OpsCore_Fleck","BWA3_OpsCore_Fleck_Patch","BWA3_OpsCore_Fleck_Camera","BWA3_M92_Fleck","BWA3_Booniehat_Fleck"], //_helmets
 	 ["BWA3_AssaultPack_Fleck","BWA3_Kitbag_Fleck","BWA3_Kitbag_Fleck_medic","BWA3_PatrolPack_Fleck","BWA3_CarryAll_Fleck"], //_Backpacks
 	 ["G_Balaclava_oli","G_Balaclava_blk"]  //_googles/_facewear
-];
+];*/
 
 //////////Weapons [WMS_Loadout_Assault, WMS_Loadout_DMR, WMS_Loadout_MG, WMS_Loadout_Sniper, WMS_Loadout_SMG];
 WMS_Loadout_Assault = [//545 556 57 58
 	 [
 		"SMG_03_TR_black","arifle_CTAR_blk_F","arifle_SPAR_01_blk_F",
-		//Contact DLC
-		"rhs_weap_ak105_zenitco01_b33","rhs_weap_ak74m_npz","rhs_weap_aks74n_npz","rhs_weap_hk416d10_LMT","rhs_weap_m16a4_imod","rhs_weap_m4a1_blockII","rhsusf_weap_MP7A2","rhs_weap_m21a_pr","rhs_weap_VHSd2", //RHS
-		"R3F_Famas_F1","R3F_Famas_G2","R3F_SCAR_L_BLACK","R3F_HK416M",//R3f
-		"hlc_rifle_RU556","hlc_rifle_bcmjack","hlc_rifle_G36CV","hlc_rifle_hk33ka3","hlc_rifle_aek971_mtk","hlc_rifle_ACR_full_Black","hlc_rifle_SG551SB_RIS","hlc_rifle_auga3_b", //NIarms
-		"UK3CB_BAF_L85A2_RIS","UK3CB_BAF_L85A3","UK3CB_BAF_L22A2" //3CB
+		"rhs_weap_ak105_zenitco01_b33","rhs_weap_ak74m_npz","rhs_weap_aks74n_npz","rhs_weap_hk416d10_LMT","rhs_weap_m16a4_imod","rhs_weap_m4a1_blockII","rhsusf_weap_MP7A2","rhs_weap_m21a_pr","rhs_weap_VHSd2" //RHS
 		], //_mainWeaps
 	 [], //_mainWeapsAmmo
-	 ["optic_mrco","rhsusf_acc_ACOG_USMC","rhs_acc_okp7_picatinny","rhsusf_acc_compm4","rhsusf_acc_su230","RKSL_optic_LDS","UK3CB_BAF_SUIT"], //_scopes
-	 ["hgun_p07_f","hlc_pistol_P239","rhs_weap_tt33"] //_pistols
+	 ["optic_mrco","rhsusf_acc_ACOG_USMC","rhs_acc_okp7_picatinny","rhsusf_acc_compm4","rhsusf_acc_su230"], //_scopes
+	 ["hgun_p07_f","rhs_weap_tt33"] //_pistols
 ];
 WMS_Loadout_AssaultPlus = [//66 68 762
 	 [
 		"arifle_Katiba_C_F","arifle_MX_Black_F","arifle_AK12_F",
-		"hlc_rifle_ACR68_mid_black","hlc_rifle_ACR68_Carb_black","hlc_rifle_vendimus","hlc_rifle_slr107u_MTK","hlc_rifle_G36KMLIC","hlc_rifle_g3ka4", //NIarms
 		"arifle_AK12U_F", "arifle_MSBS65_black_F", //Contact DLC
-		"rhs_weap_ak103_npz","rhs_weap_ak104_zenitco_b33","rhs_weap_akm_zenitco01_b33","rhs_weap_mk17_STD", //RHS
-		"r3f_SCAR_H_BLACK","r3f_HK417s_HG",//R3f
-		"BWA3_G27" //BWA 
+		"rhs_weap_l1a1","arifle_SPAR_03_blk_F",
+		"rhs_weap_ak103_npz","rhs_weap_ak104_zenitco_b33","rhs_weap_akm_zenitco01_b33","rhs_weap_mk17_STD" //RHS
 		], //_mainWeaps
 	 [], //_mainWeapsAmmo
-	 ["optic_mrco","rhsusf_acc_ACOG_USMC","rhs_acc_okp7_picatinny","rhsusf_acc_compm4","rhsusf_acc_su230","RKSL_optic_LDS","UK3CB_BAF_SUIT"], //_scopes
-	 ["hlc_pistol_P229R_Combat","hlc_pistol_P229R_40Combat","hlc_pistol_P229R_357Combat"] //_pistols
+	 ["optic_mrco","rhsusf_acc_ACOG_USMC","rhs_acc_okp7_picatinny","rhsusf_acc_compm4","rhsusf_acc_su230"], //_scopes
+	 ["hgun_p07_f"] //_pistols
 ];
 WMS_Loadout_DMR = [
-	 [
-		"UK3CB_BAF_L129A1","hlc_rifle_FAL5000Rail","hlc_rifle_g3sg1ris","hlc_rifle_M14_Bipod_Rail","hlc_rifle_M21_Rail","srifle_DMR_03_F","R3F_SCAR_H_PR_20pcs_TAN","rhs_weap_svdp_npz","rhs_weap_sr25_ec","BWA3_G28",
+	 [	"srifle_DMR_07_blk_F","srifle_EBR_F","srifle_DMR_01_F","srifle_DMR_06_hunter_F",
+		"rhs_weap_svdp_npz","rhs_weap_sr25_ec",
+		"srifle_DMR_03_F",
 		"arifle_MSBS65_Mark_black_F" //contact DLC
 		], //_mainWeaps,
 	 [], //_mainWeapsAmmo,
-	 ["rhsusf_acc_ACOG_USMC","rhsusf_acc_su230","RKSL_optic_LDS","R3F_SB_PM_BLACK","optic_DMS","BWA3_optic_PMII_ShortdotCC","BWA3_optic_PMII_DMR"], //_scopes
-	 ["hlc_pistol_P229R_Combat","hlc_pistol_P229R_40Combat","hlc_pistol_P229R_357Combat"] //_pistols
+	 ["rhsusf_acc_ACOG_USMC","rhsusf_acc_su230","optic_DMS"], //_scopes
+	 ["hgun_p07_f"] //_pistols
 ];
 WMS_Loadout_MG = [ //arifle_RPK12_F, LMG_Mk200_black_F
 	 [
-		"hlc_lmg_minimipara","hlc_rifle_RPK12","rhs_weap_m249","hlc_lmg_m60","rhs_weap_mg42","LMG_03_F","hlc_rifle_MG36","rhs_weap_pkp",
-		"R3F_FN_MAG58",//R3F
-		"BWA3_MG4",//BWmod
-		"arifle_RPK12_F", "LMG_Mk200_black_F", //contact DLC
-		"UK3CB_BAF_L110A2RIS" //3CB
+		"rhs_weap_fnmag","rhs_weap_m240G","rhs_weap_m240B","LMG_03_F","rhs_weap_m249","arifle_MX_SW_Black_F","rhs_weap_pkp","rhs_weap_rpk74m",
+		"rhs_weap_mg42","LMG_03_F","rhs_weap_pkp",
+		"arifle_RPK12_F", "LMG_Mk200_black_F" //contact DLC
 		], //_mainWeaps,
 	 [], //_mainWeapsAmmo,
 	 [], //_scopes
-	 ["hlc_pistol_P229R_Combat","hlc_pistol_P229R_40Combat","hlc_pistol_P229R_357Combat"] //_pistols
+	 ["hgun_p07_f"] //_pistols
 ];
 WMS_Loadout_Sniper = [
-	 ["hlc_rifle_awmagnum","hlc_rifle_awmagnum_BL","hlc_rifle_awmagnum_FDE","hlc_rifle_FN3011Modern","hlc_rifle_M1903A1_unertl","BWA3_G29","srifle_LRR_F","UK3CB_BAF_L115A3_DE"], //_mainWeaps,
+	 [
+		"rhs_weap_m24sws","rhs_weap_m40a5","rhs_weap_m38_rail","rhs_weap_t5000",
+		"srifle_LRR_F"
+		], //_mainWeaps,
 	 [], //_mainWeapsAmmo,
-	 ["optic_DMS","BWA3_optic_PMII_ShortdotCC","BWA3_optic_PMII_DMR","BWA3_optic_M5Xi_MSR","BWA3_optic_Hensoldt","optic_KHS_blk"], //_scopes
-	 ["hlc_smg_mp5k","hlc_pistol_P229R_40Combat","hlc_pistol_P229R_357Combat"] //_pistols
+	 ["optic_DMS","optic_KHS_blk"], //_scopes
+	 ["hgun_p07_f"] //_pistols
 ];
 WMS_Loadout_SMG = [
-	 ["hlc_smg_mp510","hlc_smg_mp5a3","hlc_smg_mp5sd6","hlc_smg_9mmar","hlc_smg_mp5k_PDW","hlc_rifle_auga2para_b","rhs_weap_pp2000"], //_mainWeaps,
+	 [
+		"rhs_weap_pp2000", "SMG_01_F", "SMG_02_F", "SMG_03C_black", "SMG_05_F", "rhsusf_weap_MP7A2","rhs_weap_m3a1","rhs_weap_savz61"
+	 ], //_mainWeaps,
 	 [], //_mainWeapsAmmo,
-	 ["optic_Aco_smg","optic_Holosight_smg_blk_F","BWA3_optic_MicroT2","BWA3_optic_CompM2","BWA3_optic_EOTech552"], //_scopes
-	 ["hlc_pistol_P229R_Combat","hlc_pistol_P229R_40Combat","hlc_pistol_P229R_357Combat"] //_pistols
+	 ["optic_Aco_smg","optic_Holosight_smg_blk_F"], //_scopes
+	 ["hgun_p07_f"] //_pistols
 ];
 
 //AI LOADOUTS
@@ -155,9 +157,9 @@ WMS_Loadout_SURPAT = [
 ];
 WMS_Loadout_AOR1 = [
 	["AOR1_Camo_SS","AOR1_TP_Camo","AOR1_Camo_Cyre","AOR1_Camo_Cyre_TS","AOR1_Camo_Cyre_TP","AOR1_Camo_Cyre_GP"],//Uniform
-	["AOR1_Vest_1","AOR1_Vest_2","AOR1_Vest_3","AOR1_Vest_4","AOR1_Vest_5","BWA3_Vest_JPC_Radioman_Tropen"],//Vest
+	["AOR1_Vest_1","AOR1_Vest_2","AOR1_Vest_3","AOR1_Vest_4","AOR1_Vest_5"],//Vest
 	["AOR1_Helmet1","AOR1_Helmet2","AOR1_Boonie"],//Helmet
-	["AOR1_Backpack_Kitbag","AOR1_Backpack_Compact","B_Kitbag_cbr","BWA3_AssaultPack_Tropen","BWA3_PatrolPack_Tropen","BWA3_Carryall_Tropen"],//Backpack
+	["AOR1_Backpack_Kitbag","AOR1_Backpack_Compact","B_Kitbag_cbr"],//Backpack
 	["G_Balaclava_oli","G_Balaclava_blk"]  //_googles//_facewear
 ];
 WMS_Loadout_MCB = [
@@ -182,14 +184,14 @@ WMS_Loadout_ABU = [
 	 ["G_Balaclava_oli","G_Balaclava_blk"]  //_googles/_facewear
 ];
 
-WMS_Loadout_Scientist = [ //NEED SPECCIFIC STUFF !!!
+WMS_Loadout_Civilian = [
 	 ["U_C_Poloshirt_burgundy","U_C_Poloshirt_stripped","U_Competitor","U_C_man_sport_2_F","U_C_Man_casual_3_F","U_C_Man_casual_5_F"], //_uniforms
 	 ["V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests
 	 ["H_Cap_blu","H_MilCap_blue","H_Hat_blue","H_RacingHelmet_1_F","H_RacingHelmet_2_F","H_HeadBandage_bloody_F"], //_helmets
 	 ["B_FieldPack_oucamo","B_FieldPack_blk","B_Messenger_IDAP_F"], //_Backpacks
 	 []  //_googles/_facewear
 ];
-WMS_Loadout_Civilian = [
+WMS_Loadout_Scientist = [ //NEED SPECCIFIC STUFF !!!
 	 ["U_C_Poloshirt_burgundy","U_C_Poloshirt_stripped","U_Competitor","U_C_man_sport_2_F","U_C_Man_casual_3_F","U_C_Man_casual_5_F"], //_uniforms
 	 ["V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests
 	 ["H_Cap_blu","H_MilCap_blue","H_Hat_blue","H_RacingHelmet_1_F","H_RacingHelmet_2_F","H_HeadBandage_bloody_F"], //_helmets
@@ -201,7 +203,7 @@ WMS_Loadout_Bandit = [
 	 [
 		 "gm_dk_army_vest_m00_m84","gm_dk_army_vest_m00_m84_machinegunner","gm_gc_vest_combatvest3_str","gm_ge_vest_90_demolition_flk","gm_ge_vest_armor_90_rifleman_flk",
 		 "V_BandollierB_khk","V_Chestrig_khk","V_TacVest_khk","V_TacVestCamo_khk","V_HarnessOSpec_brn","V_TacChestrig_cbr_F"], //_vests
-	 ["H_Booniehat_khk","H_Cap_headphones","H_Shemag_olive","H_Shemag_tan","H_Watchcap_khk","R3F_beret","H_MilCap_ghex_F"], //_helmets
+	 ["H_Booniehat_khk","H_Cap_headphones","H_Shemag_olive","H_Shemag_tan","H_Watchcap_khk","H_MilCap_ghex_F"], //_helmets
 	 [
 		 "gm_dk_army_backpack_73_oli","gm_ge_army_backpack_90_flk","gm_ge_army_backpack_90_trp","gm_ge_army_backpack_80_oli",
 		 "B_AssaultPack_khk","B_FieldPack_khk","B_OutdoorPack_tan"
@@ -223,7 +225,7 @@ WMS_Loadout_HeavyBandit = [
 		"gm_dk_army_vest_m00_m84","gm_dk_army_vest_m00_m84_machinegunner","gm_gc_vest_combatvest3_str","gm_ge_vest_90_demolition_flk","gm_ge_vest_armor_90_rifleman_flk",
 		"V_PlateCarrierGL_rgr","V_PlateCarrierGL_mtp","V_PlateCarrierSpec_rgr","V_PlateCarrierSpec_mtp","V_PlateCarrierIAGL_oli","V_PlateCarrier1_rgr_noflag_F","V_PlateCarrier2_rgr_noflag_F","V_EOD_coyote_F","V_CarrierRigKBT_01_EAF_F","V_CarrierRigKBT_01_heavy_EAF_F"
 	 ], //_vests	
-	 ["H_Booniehat_khk","H_Cap_headphones","H_Shemag_olive","H_Shemag_tan","H_Watchcap_khk","R3F_beret","H_MilCap_ghex_F","H_CrewHelmetHeli_O","H_PilotHelmetHeli_O","H_PilotHelmetFighter_O","H_HelmetCrew_O","H_HelmetB_light_desert","H_HelmetSpecO_ocamo","H_HelmetLeaderO_ocamo","H_HelmetB_camo","H_HelmetSpecB_paint2"], //_helmets
+	 ["H_Booniehat_khk","H_Cap_headphones","H_Shemag_olive","H_Shemag_tan","H_Watchcap_khk","H_MilCap_ghex_F","H_CrewHelmetHeli_O","H_PilotHelmetHeli_O","H_PilotHelmetFighter_O","H_HelmetCrew_O","H_HelmetB_light_desert","H_HelmetSpecO_ocamo","H_HelmetLeaderO_ocamo","H_HelmetB_camo","H_HelmetSpecB_paint2"], //_helmets
 	 [
 		 "gm_dk_army_backpack_73_oli","gm_ge_army_backpack_90_flk","gm_ge_army_backpack_90_trp","gm_ge_army_backpack_80_oli",
 		 "B_AssaultPack_khk","B_FieldPack_khk","B_OutdoorPack_tan","B_Carryall_ocamo","B_Carryall_taiga_F","B_Carryall_mcamo","B_Kitbag_mcamo","B_Kitbag_cbr"

@@ -15,6 +15,7 @@ diag_log format ["[Infantry Program Watch Thread]|WAK|TNA|WMS| 60sec Watch start
 WMS_ServRestart15minWarning = true; //allow the 15min "hint" warning message (1 time)
 while {true} do {
 	uisleep 59; //uisleep 14, uisleep 31, uisleep 59, uisleep 91, uisleep 120, uisleep 239
+	call WMS_fnc_AllDeadsMgr;
 	if (WMS_forceNoRain && {Rain != 0}) then{10 setRain 0};
 	if (WMS_forceNoFog && {fog != 0}) then{10 setFog 0};
 	//Player Watch, the Original one

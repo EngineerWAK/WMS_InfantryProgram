@@ -90,8 +90,12 @@ WMS_OPFOR_CustomAIR_Armed = [
 ["RHS_Mi8mt_vvsc",["Camo5",1],[[],[]]], //["Camo5",1],
 	["B_Heli_Light_01_dynamicLoadout_F",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]] //pawnee
 ];
-WMS_OPFOR_CustomAIR_Spec = [//attack choppers
-["RHS_Mi8MTV3_vvsc",["Camo5",1],[[],[]]] //["Camo5",1],
+WMS_OPFOR_CustomAIR_Spec = [
+	["RHS_Ka52_UPK23_vvsc",[],[[],[]]],
+	["O_T_VTOL_02_infantry_grey_F",[],[[],[]]],
+	["RHS_Mi24P_vvsc",[],[[],[]]],
+	["RHS_Mi8MTV3_vvsc",["Camo5",1],[[],[]]],
+	["RHS_Mi24V_FAB_vvsc",[],[[],[]]]
 ];
 WMS_AMS_LightArmed = [
 ["rhsgref_ins_uaz_dshkm",[0,"rhsafrf\addons\rhs_a2port_car\uaz\data\uaz_main_co.paa"],[[],[]]], // [0,"rhsafrf\addons\rhs_a2port_car\uaz\data\uaz_main_co.paa"];
@@ -189,6 +193,42 @@ WMS_AMS_LightArmedRwds = [
 	["B_G_Offroad_01_armed_F",[],[[],[]]],
 	["I_C_Offroad_02_LMG_F",[],[[],[]]]
 ];
+//NEW
+WMS_AMS_ArmoredREDRwds = [
+	["rhs_t72ba_tv",[],[[],[]]],
+	["rhs_t72bb_tv",[],[[],[]]],
+	["rhs_t72bc_tv",[],[[],[]]],
+	["rhs_t72bd_tv",[],[[],[]]],
+	["rhs_t72be_tv",[],[[],[]]],
+	["rhs_t80",[],[[],[]]],
+	["rhs_t80b",[],[[],[]]],
+	["rhs_t80bk",[],[[],[]]],
+	["rhs_t80bvk",[],[[],[]]],
+	["rhs_t80um",[],[[],[]]],
+	["rhs_t90_tv",[],[[],[]]],
+	["rhs_t90saa_tv",[],[[],[]]],
+	["rhs_t90sm_tv",[],[[],[]]],
+	["rhs_t90a_tv",[],[[],[]]],
+	["rhs_t90sab_tv",[],[[],[]]]
+];
+WMS_AMS_ArmoredBLUERwds = [
+	["rhsusf_m1a1aimwd_usarmy",[],[[],[]]],
+	["rhsusf_m1a2sep1tuskiiwd_usarmy",[],[[],[]]],
+	["rhsusf_m1a2sep2wd_usarmy",[],[[],[]]],
+	["rhsusf_m1a1fep_wd",[],[[],[]]],
+	["rhsusf_m1a1hc_wd",[],[[],[]]],
+	["B_T_APC_Wheeled_01_cannon_F",[],[[],[]]],
+	["rhsusf_stryker_m1134_d",[],[[],[]]],
+	["RHS_M2A2_wd",[],[[],[]]],
+	["RHS_M2A2_BUSKI_WD",[],[[],[]]],
+	["RHS_M2A3_wd",[],[[],[]]],
+	["RHS_M2A3_BUSKI_wd",[],[[],[]]],
+	["RHS_M2A3_BUSKIII_wd",[],[[],[]]],
+	["O_T_APC_Tracked_02_cannon_ghex_F",[],[[],[]]],
+	["B_APC_Wheeled_03_cannon_F",[],[[],[]]],
+	["B_T_AFV_Wheeled_01_cannon_F",[],[[],[]]]
+];
+//NEW
 WMS_AMS_ChopperRwds = [
 	["B_Heli_Light_01_F",[],[[],[]]],
 	["O_Heli_Light_02_unarmed_F",[],[[],[]]],
@@ -197,5 +237,17 @@ WMS_AMS_ChopperRwds = [
 	["O_Heli_Transport_04_F",[],[[],[]]],
 	["O_Heli_Transport_04_bench_F",[],[[],[]]],
 	["I_C_Heli_Light_01_civil_F",[],[[],[]]],
-	["I_E_Heli_light_03_unarmed_F",[],[[],[]]]
+	["I_E_Heli_light_03_unarmed_F",[],[[],[]]],
+	["vtx_UH60M_MEDEVAC",[],[[],[]]],
+	["vtx_UH60M_SLICK",[],[[],[]]],
+	["vtx_HH60",[],[[],[]]],
+	["vtx_UH60M",[],[[],[]]],
+	["vtx_MH60M",[],[[],[]]],
+	["vtx_MH60S",[],[[],[]]],
+	["vtx_MH60S_GAU21L",[],[[],[]]],
+	["vtx_MH60M_DAP",[],[[],[]]],
+	["vtx_MH60S_Pylons",[],[[],[]]],
+	["RHS_Mi24Vt_vvs",[],[[],[]]], //1 minigun
+	["RHS_Mi8mt_Cargo_vvs",[],[[],[]]],
+	["RHS_Mi8amt_civilian",[],[[],[]]]
 ];

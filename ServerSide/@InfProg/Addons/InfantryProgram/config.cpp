@@ -166,6 +166,8 @@ class CfgFunctions {
 			class AMS_Mission_Unified_D		{};
 			class AMS_Mission_Unified_E		{};
 			class AI_rewardOnVHLdestroy		{};
+
+			class AllDeadsMgr		{};
 		};
 	};
 };

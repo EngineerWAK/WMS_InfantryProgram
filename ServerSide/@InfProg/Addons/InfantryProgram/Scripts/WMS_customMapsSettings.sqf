@@ -167,27 +167,28 @@ if (WMS_MapName == "gm_weferlingen_summer") then {
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_weferlingen.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_weferlingen.sqf";
 										WMS_WaterSource				= "land_gm_euro_misc_waterpump_01";
-										WMS_AI_LaunchersOPF 		= [["gm_m72a3_oli","gm_pzf44_2_oli","rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded"],["rhs_weap_igla"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
-										WMS_AI_LaunchersBLU 		= [["BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["R3F_STINGER"],["R3F_ERYX"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
-										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","BWA3_DM51A1","SmokeShellRed","rhs_mag_m67","rhs_mag_m7a3_cs","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
-																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag"];
+										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","SmokeShellRed","rhs_mag_m67","rhs_mag_m7a3_cs","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
+																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag","ACE_M14",
+																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_plamyam","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag"];
 										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "Bomb_03_F", "Bomb_04_F", "ammo_Bomb_SDB", "rhs_ammo_fab500_m54", "Bo_Mk82"]; //DynAI bombing is (select 0)										
 										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","rhs_ammo_kab500","rhs_ammo_fab500_m54"];
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
-										WMS_Humanicrate 			= "R3F_WeaponStock"; //"CargoNet_01_box_F"
+										WMS_Humanicrate 			= "CargoNet_01_box_F"; //"CargoNet_01_box_F" R3F_WeaponStock
 										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000]]
-										WMS_DeliveryChopper_Type 	= ["R3F_AH6_FS"];
+										//WMS_DeliveryChopper_Type 	= ["R3F_AH6_FS"];
 										WMS_CamoNet_Small 			= "CamoNet_wdl_F";
 										WMS_CamoNet_Open 			= "CamoNet_wdl_open_F";
 										WMS_CamoNet_Big 			= "CamoNet_wdl_big_F";
-										WMS_AI_MaxUnits_A 			= 110;
-										WMS_AI_MaxUnits_B 			= 120;
-										WMS_AI_MaxUnits_C 			= 130;
-										WMS_AI_RoamingVHLcount 		= 14; //10
+										WMS_AI_MaxUnits_A 			= 125;
+										WMS_AI_MaxUnits_B 			= 140;
+										WMS_AI_MaxUnits_C 			= 155;
+										WMS_AI_RoamingVHLcount 		= 16; //10
 										WMS_RandomStart_Hour 		= 3;
 										WMS_RandomStart_Random 		= 6;
 										WMS_FastNight_Morning 		= 4; //morning start at
@@ -197,12 +198,16 @@ if (WMS_MapName == "gm_weferlingen_summer") then {
 										WMS_AMS_ClnObj 				= false;
 										WMS_AMS_ToRun 				= 4;
 										WMS_Forests_Size			= 500;
-										WMS_Pos_Military 			= [[13506.2,9279.24,0],[14353,15758.3,0],[11614.8,17687.1,0],[13427,4068.38,0],[15113.1,2306.51,0]];
+										WMS_Pos_Military 			= [[13506.2,9279.24,0],[14353,15758.3,0],[11614.8,17687.1,0],[13427,4068.38,0],[15113.1,2306.51,0],
+																		[2758,19395,0],[16533,18130,0],[2520,11133,0],[11883,4665,0] //bunkers
+																		];
 										WMS_Pos_Forests 			= [[11344.4,15354.1,0],[9303.45,14038.2,0],[20012,13673.9,0],[14707,13986.9,0],[2339.8,17888.3,0],[1451.54,11532.9,0],[4912.05,9883.98,0],[736.129,6828.21,0],[4786.81,8180.67,0],[7148.74,8057.84,0],[8255.69,6810.13,0],[2422.81,2876.99,0],[2948.04,19545,0],[7262.82,3388.75,0],[8666.46,2846.63,0],[10100.4,2972.03,0],[12244.8,4149.45,0],[12265,8775.93,0],[14488.7,7303.12,0],[18295.1,6409.52,0],[17505.9,2850.27,0],[19084.6,3187.94,0],[4857.7,19545.8,0],[13593,592.352,0],[12693,1849.46,0],[10332.3,1324.52,0],[634.327,15114.6,0]];
 										WMS_para_small				= "rhs_d6_Parachute";
 										WMS_DynAI_GunshipLight 		= ["rhs_uh1h_hidf",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_DynAI_GunshipHeavy 		= ["rhs_uh1h_hidf_gunship",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
+										
+										WMS_AL_VhlBalance			= [1,1,0,1,1,0,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 };
 if (WMS_MapName == "Namalsk") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
@@ -334,35 +339,54 @@ if (WMS_MapName == "Altis") then {
 																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
-										
 if (WMS_MapName == "Tanoa") then {		
-										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
-										execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
-										WMS_AI_MaxUnits_A 			= 150; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
-										WMS_AI_MaxUnits_B 			= 170; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
-										WMS_AI_MaxUnits_C 			= 190; //stop Base attack and missions
+										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
+										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
+										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
+										//execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
+										WMS_AI_MaxUnits_A 			= 180; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
+										WMS_AI_MaxUnits_B 			= 200; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
+										WMS_AI_MaxUnits_C 			= 220; //stop Base attack and missions
 										WMS_IP_Extract_Alt 			= 100;
 										WMS_C130_Altitude 			= 150;
-										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["rhs_weap_igla"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
-										WMS_AI_LaunchersBLU 		= [["BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["R3F_STINGER"],["R3F_ERYX"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
-										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","BWA3_DM51A1","SmokeShellRed","rhs_mag_m67","rhs_mag_m7a3_cs","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
-																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag"];
+										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","SmokeShellRed","rhs_mag_m67","rhs_mag_m7a3_cs","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
+																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag","ACE_M14",
+																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_plamyam","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag"];
 										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "Bomb_03_F", "Bomb_04_F", "ammo_Bomb_SDB", "rhs_ammo_fab500_m54", "Bo_Mk82"]; //DynAI bombing is (select 0)										
 										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","rhs_ammo_kab500","rhs_ammo_fab500_m54"];
+										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
-										WMS_Humanicrate 			= "R3F_WeaponStock"; //"CargoNet_01_box_F"
-										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
-										WMS_DeliveryChopper_Type 	= ["R3F_AH6_FS"];
+										WMS_Humanicrate 			= "CargoNet_01_box_F"; //"CargoNet_01_box_F" R3F_WeaponStock
 										WMS_CamoNet_Small 			= "CamoNet_ghex_F";
 										WMS_CamoNet_Open 			= "CamoNet_ghex_open_F";
 										WMS_CamoNet_Big 			= "CamoNet_ghex_big_F";
+										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","ACE_acc_pointer_red"];
 										WMS_Pos_Forests 			= [[12193.6,7207.56,0],[12639.7,9537.74,0],[13591.7,10381.7,0],[12243.8,11276.9,0],[11535.8,11695.9,0],[9956.77,10682.4,0],[10753.5,10952.8,0],[11375.6,8931.61,0],[7497.7,9963.66,0],[6727.14,9690.13,0],[9911.93,7563.84,0],[9842.73,8452.56,0],[10533.2,8929.57,0],[9278.99,9216.45,0],[8808.65,8472.57,0],[8376.15,11540.1,0],[8829.97,12827,0],[9694.37,3121.78,0],[10497.3,3184.76,0],[12239.6,1843.9,0],[11578.4,4795.89,0],[10594.4,4271.09,0],
 																		[6610.61,7946.48,0],[5724.33,8332.38,0],[8658.8,7111.09,0],[7293.34,9328.91,0],[11410.9,6882.1,0],[13047.8,8955.74,0],[12954.5,8395.98,0],[12725.5,10630.8,0],[13734.8,11148.1,0],[7356.95,11640,0],[6525.8,11869,0],[7857.34,12861.3,0],[9061.66,12208.3,0],[11868.9,9447.65,0],[7849.6,11064,0],[12239.3,11963.5,0],[11247.7,12709.2,0],[8155.14,8440.38,0],[9316.4,8006.42,0],[8900.22,4393.79,0],[10045.2,3684.74,0],[11742.9,3577.15,0],[12309.7,3466.95,0],[13036.5,2677.12,0],[10675,2357,0],[12480.8,4290.99,0],[12277.7,4945.42,0],[11093.1,7743.86,0],[10464.5,10244.4,0],[3763.8,12059.4,0],[3496.7,13251.2,0],[3163.37,11494.7,0],[2910.05,9267.1,0],[1391.92,7897.4,0],[2952.28,5908.95,0],[3936.72,5734.41,0],[2370.46,7168.01,0],[1756.06,7386.77,0],[2640.43,6302.26,0],[2078.65,2976.67,0],[2292.4,2492.43,0],[2770.22,2296.55,0],[1740.01,864.082,0],[1027,2875.89,0],[4668.97,1955.79,0],[4279.31,4255.43,0],[12517.4,14201,0],[11188,10099.2,0],[13297.9,9762.78,0],[5028.1,9353.63,0],[8416.88,1340.24,0]]; //not autoScan
+										
+										WMS_AMS_CustomPos			= ["forest","random"];
 										WMS_Pos_Military 			= [
+																	[6427.537,6176.689,0], //added Bunkers
+																	[6705.458,6374.059,0], //added Bunkers
+																	[4787.29,1672.02,0.396053], //added Bunkers
+																	[1308.72,8119.34,0], //added Bunkers
+																	[10591.2,2306.1,1.01215], //added Bunkers
+																	[3122.89,11705.3,0], //added Bunkers
+																	[6180.5,4466.67,0], //added CKP
+																	[4286.15,3304.89,0], //added CKP
+																	[3206.07,6602.53,0], //added CKP
+																	[10015.2,4053.63,0], //added CKP
+																	[9036.73,9930.56,0], //added CKP
+																	[13322.9,11107.3,0], //added CKP
+																	[3601.69,2181.18,0], //added military
+																	[2674.76,12317,0], //added military
+																	[11020.8,11500.2,0], //added military
 																	[11348.4,6605.89,0], //kotomo forest
 																	[9963.01,12069.9,0], //volcano
 																	[6718.56,10149.7,0], //Georgetown
@@ -376,11 +400,17 @@ if (WMS_MapName == "Tanoa") then {
 																	[9019.26,13265.3,0], //La rochelle
 																	[5960.44,11623.8,0] //Nicolet
 																	]; //not autoScan //need enough space to land a chopper
+										WMS_Pos_Factory 			= [[13609.4,11800.5,0],[13341,12164.3,0],[14038.6,12275.9,0],[13279.4,13732,0],[12280.4,13973.1,0],[4196.66,11695.3,0],[2009.82,11818.3,0],[2041.16,12002.6,0],[2355.71,13289.9,0],
+																		[2939.81,13096.3,0],[9094.33,13798.3,0],[8989.85,13796.1,0],[8697.3,13831.5,0],[5506.36,11956.7,0],[5390.33,11206.7,0],[5306.85,11134.8,0],[5597.04,11017.8,0],[5446.72,10070.9,0],[5537.19,10092.6,0],[5618.79,10191.6,0],[4216.73,8472.55,0],
+																		[9459.27,7525.05,0],[9410,7565.81,0],[11233.4,5389.14,0],[11753.3,6943.94,0],[11787.3,6881.21,0],[12686.9,7498.36,0],[14592.4,10984.7,0],[12283.3,10372.3,0],[11911.5,10283.3,0],[12044,10602.9,0],[11834.3,11142.1,0],[8300.53,10338.8,0],[8270.5,10385.3,0],[8430.16,10323.4,0],
+																		[8491.51,10243.3,0],[7481.31,8530.06,0],[7367.17,8520.75,0],[7440.35,8465.83,0],[8121.65,7703.07,0], [12449.9,3994.18,0],[11795.2,2286.13,0],[9417.8,4005.77,0],[5585.57,3977.97,0],[5635.41,4029.41,0],[5219.42,3658.98,0],[5253.58,3629.42,0],
+																		[2270.92,6332.64,0]];
+										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
 										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_DynAI_GunshipHeavy 		= ["RHS_UH1Y_d_GS",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_para_small				= "rhs_d6_Parachute";
 										WMS_AI_VHLwptDist 			= 2500;
-										WMS_AI_RoamingVHLcount 		= 13; //10
+										WMS_AI_RoamingVHLcount 		= 16; //10
 										WMS_AMS_SpnDistMission 		= 2000;
 										WMS_AMS_ClnObj 				= true;
 										WMS_AMS_DelMissionFlag 		= true;
@@ -390,7 +420,6 @@ if (WMS_MapName == "Tanoa") then {
 										WMS_DynAI_remRPG 			= true;
 										WMS_AI_CargoUnits	 		= 2;
 										WMS_AMS_ToRun 				= 4;
-										WMS_AMS_CustomPos			= ["random"];
 										WMS_AMS_sysChatMsg 			= 3; //0: nothing, 1: general, 2: group, 3: player //PVP SERVER
 										WMS_AMS_MissionList = [
 											["MissionTest1",2],
@@ -420,6 +449,10 @@ if (WMS_MapName == "Tanoa") then {
 											["OldPowerPlant",2],
 											["Market",2],
 											["GrandPaJoe",2],
+											["LumberYard",2],
+											["Factory",2],
+											["FieldHospital",2],
+											["Object172M",2],
 											//OUTPOSTS
 											["OutpostAlpha",2],
 											["OutpostBravo",2],
@@ -429,7 +462,24 @@ if (WMS_MapName == "Tanoa") then {
 											["OutpostFoxtrot",2],
 											["OutpostGolf",2] //+V2
 										];
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_HH60","vtx_MH60S_GAU21L","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
+										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
+																	["RHS_Ka52_vvsc","RHS_Mi24V_vvsc","RHS_Mi8MTV3_vvsc"],
+																	["RHS_Mi24Vt_vvsc","RHS_Mi8mt_vvsc"],
+																	["rhs_ka60_c","RHS_Mi8T_vvsc"],
+																	["rhsgref_ins_zsu234","rhsgref_ins_t72bb","rhsgref_ins_bmp2e","rhsgref_ins_2s1_at","rhs_t80ue1"],//AA first
+																	["rhsgref_ins_ural_Zu23","rhsgref_ins_btr70","rhsgref_ins_btr60","rhsgref_BRDM2_ins","rhs_btr80a_msv"],//"AA" first
+																	["rhsgref_ins_uaz_dshkm","rhsgref_ins_uaz_spg9","O_LSV_02_armed_F","O_G_Offroad_01_armed_F","rhs_tigr_sts_3camo_vmf"],
+																	["rhsgref_ins_uaz_open","rhsgref_ins_gaz66","rhsgref_ins_ural","rhsgref_ins_zil131_open","rhs_tigr_m_3camo_vmf"],
+																	["C_Hatchback_01_F","C_Offroad_02_unarmed_F","C_Van_02_medevac_F","C_Truck_02_transport_F"],
+																	["rhsgref_ins_ZU23","rhsgref_ins_Igla_AA_pod","rhsgref_ins_DSHKM","rhs_KORD_high_VDV"],//AA first
+																	["O_T_Boat_Armed_01_hmg_F"]];
+										WMS_DFO_NPCs				= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone version
+																	["rhs_vdv_combatcrew","rhs_vdv_mflora_at","rhs_vdv_mflora_aa","rhs_vdv_medic","rhs_mvd_izlom_arifleman_rpk","rhs_mvd_izlom_machinegunner","rhs_vdv_efreitor","rhs_vdv_rifleman","rhs_vdv_grenadier"], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
+																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
+																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
+
 if (WMS_MapName == "Malden") then {	//OUTDATED
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_Vanilla.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_Vanilla_NOSCOPE.sqf";
