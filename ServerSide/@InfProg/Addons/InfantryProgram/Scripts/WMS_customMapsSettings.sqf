@@ -349,6 +349,7 @@ if (WMS_MapName == "Tanoa") then {
 										WMS_AI_MaxUnits_C 			= 220; //stop Base attack and missions
 										WMS_IP_Extract_Alt 			= 100;
 										WMS_C130_Altitude 			= 150;
+										WMS_forceNoFog				= true;
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C

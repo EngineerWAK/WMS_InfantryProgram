@@ -218,6 +218,13 @@ _poptabs = 50;
 			_unit setVariable ["ExileMoney",(floor _poptabs),true];
 		};
 		//////////EVENTHANDLER(s)//////////
+		_unit addEventHandler ["Hit", {
+			params ["_unit", "_source", "_damage", "_instigator"];
+			if (isPlayer _instigator && {vehicle _instigator == _instigator}) then {
+				_acc = _unit skill "aimingAccuracy";
+				_unit setSkill ["aimingAccuracy", (_acc*0.8)];
+			};
+		}];
 		_unit addEventHandler ["Killed", "
 		[(_this select 0),(_this select 1),_unitFunction,_difficulty] call WMS_fnc_AMS_EHonKilled;	
 		"];
@@ -233,6 +240,22 @@ _poptabs = 50;
 			};
 			//////////EVENTHANDLER(s)//////////
 			if (_RealFuckingSide == OPFOR || _RealFuckingSide == EAST) then { //yes it's the same but you never know
+				_unit addEventHandler ["Hit", {
+					params ["_unit", "_source", "_damage", "_instigator"];
+					if (isPlayer _instigator && {vehicle _instigator == _instigator}) then {
+						_acc = _unit skill "aimingAccuracy";
+						_unit setSkill ["aimingAccuracy", (_acc*0.8)];
+						//format ['Target Hit, %1', damage _unit] remoteexec ['SystemChat', (owner _instigator)]; //works but no damage number
+						format ['Target Hit, %1', (_unit skill "aimingAccuracy")] remoteexec ['hint', (owner _instigator)]; //works but no damage number
+					};
+				}];
+				/* NOPE
+				_unit addEventHandler ["HitPart", {
+					(_this select 2) params ["_target", "_shooter", "_projectile", "_position", "_velocity", "_selection", "_ammo", "_vector", "_radius", "_surfaceType", "_isDirect"];
+					diag_log format ["[OPFOR AI HITPART][HEAD]|WAK|TNA|WMS| _this select 2 = %1", (_this select 2)];
+					format ['HeadShot, %1', damage _target] remoteexec ['SystemChat', (owner _shooter)];
+				}];
+				*/
 				_unit addEventHandler ["Killed", " 
 					[(_this select 0),(_this select 1)] call WMS_fnc_DynAI_RwdMsgOnKill;
 				"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
@@ -243,7 +266,7 @@ _poptabs = 50;
 						removeAllWeapons (_this select 0);
 						deleteVehicle (_this select 0);
 						(_this select 1) setdamage (damage(_this select 1)+0.15);
-						private _msgx = format ['%2 is a Dick, he killed %1', (_this select 0), (_this select 1)];
+						private _msgx = format ['%2 is a Dick, he killed %1', name (_this select 0), name (_this select 1)];
 						[_msgx] remoteexec ['SystemChat',0];
 						private _sessionID = (_this select 1) getVariable ['ExileSessionID',''];
 						[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['STOP doing that, Fat Fuck', '-15% heath']]] call ExileServer_system_network_send_to;
