@@ -109,18 +109,39 @@ WMS_weapsList = [
 	["arifle_MXC_Black_F",0,1]
 ];
 WMS_humaniDropList = [
-	["EBM_Item_Bucket_Of_Mortar",25,10],
-	["EBM_Item_Bricks",30,15],
-	["Exile_Item_Sand",20,10],
-	["Exile_Item_Cement",20,10],
-	//["Exile_Item_CanOpener",5,5],
-	//["Exile_Item_CookingPot",3,5],
-	["Exile_Item_EMRE",5,10],
-	["Exile_Item_BeefParts",5,5],
-	["Exile_Item_PlasticBottleFreshWater",20,15],
-	["Exile_Item_Bandage",10,20],
-	["Exile_Item_ToiletPaper",10,10],
-	["Exile_Item_FuelCanisterFull",10,5],
-	["Exile_Item_PortableGeneratorKit",3,5],
-	["Exile_Item_WaterCanisterEmpty",5,3]
+	[//items
+		["EBM_Item_Bucket_Of_Mortar",25,10],
+		["EBM_Item_Bricks",30,15],
+		["Exile_Item_Sand",20,10],
+		["Exile_Item_Cement",20,10],
+		//["Exile_Item_CanOpener",5,5],
+		//["Exile_Item_CookingPot",3,5],
+		["Exile_Item_EMRE",5,10],
+		["Exile_Item_BeefParts",5,5],
+		["Exile_Item_PlasticBottleFreshWater",20,15],
+		["Exile_Item_Bandage",10,20],
+		["Exile_Item_ToiletPaper",10,10],
+		["Exile_Item_FuelCanisterFull",10,5],
+		["Exile_Item_PortableGeneratorKit",3,5],
+		["Exile_Item_WaterCanisterEmpty",5,3]
+	],
+	[//mags
+		["HandGrenade",2,3],
+		["ClaymoreDirectionalMine_Remote_Mag",3,5]
+	],
+	[//bags
+		["B_RadioBag_01_wdl_F",1,4],
+		["B_Bergen_mcamo_F",0,1],
+		["B_Bergen_dgtl_F",0,1],
+		["B_Respawn_Sleeping_bag_blue_F",0,1],
+		["B_Carryall_eaf_F",1,1],
+		["B_Carryall_oli",1,1],
+		["B_Kitbag_mcamo",2,3],
+		["B_Kitbag_sgg",2,3]
+	],
+	[//weaps //auto add some mags
+		["arifle_Katiba_C_F",2,3],
+		["arifle_MX_Black_F",2,3],
+		["arifle_AK12_F",2,3]
+	]
 ];

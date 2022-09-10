@@ -125,14 +125,26 @@ for "i" from 1 to _iterations do {
 	[_cargo]spawn {
 		waitUntil {((position (_this select 0)) select 2) < 25};
 		detach (_this select 0);
-		[(_this select 0),[(selectRandom WMS_humaniDropList),(selectRandom WMS_humaniDropList),(selectRandom WMS_humaniDropList)]] call WMS_fnc_AMS_FillStuff;
-		/*params[ //FillStuff
-			"_cargo",
-			["_itemList", [selectRandom WMS_miscList]],  
-			["_magList",[["SmokeShellGreen",1,5],["HandGrenade",1,5]]],  
-			["_bagList",[[selectRandom (WMS_Loadout_Livonia select 3),1,2]]],  
-			["_weapList",[[selectRandom (WMS_Loadout_Assault select 0),1,5]]] 
-		];*/
+
+		[
+			(_this select 0), //the crate
+			[ //items
+				(selectRandom (WMS_humaniDropList select 0)), //["ACE_fortify",2,3] //item, number, +random
+				(selectRandom (WMS_humaniDropList select 0)),
+				(selectRandom (WMS_humaniDropList select 0)),
+				(selectRandom (WMS_humaniDropList select 0))
+			],
+			[//mags
+				(selectRandom (WMS_humaniDropList select 1)), //["ACE_fortify",2,3] //item, number, +random
+				(selectRandom (WMS_humaniDropList select 1))
+			],
+			[//bags
+				(selectRandom (WMS_humaniDropList select 2)) //["ACE_fortify",2,3] //item, number, +random
+			],
+			[//weaps
+				(selectRandom (WMS_humaniDropList select 3)) //["ACE_fortify",2,3] //item, number, +random
+			]
+		] call WMS_fnc_AMS_FillStuff;
 	};
 	uisleep 1.5;
 };

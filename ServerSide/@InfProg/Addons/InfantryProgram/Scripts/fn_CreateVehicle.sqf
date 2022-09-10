@@ -50,6 +50,7 @@ _vhlObject setVariable ["WMS_AL_lastPos", position _vhlObject];
 _vhlObject setVariable ["WMS_HexaID", _hexaID];
 [(_vehicleData select 1)] call WMS_fnc_AL_setUnits;
 _vhlObject setVariable ["WMS_RealFuckingSide",WMS_AL_Faction];
+if (_vhlObject isKindOf "tank"||_vhlObject isKindOf "Wheeled_Apc_F") then {_vhlObject setVariable ["ace_cookoff_enable", true, true];};
 _vhlObject addEventHandler ["Killed", " 
 	[(_this select 0),(_this select 1),(_this select 2)] call WMS_fnc_AL_VhlEH;
 	"];//params ["_unit", "_killer", "_instigator", "_useEffects"];

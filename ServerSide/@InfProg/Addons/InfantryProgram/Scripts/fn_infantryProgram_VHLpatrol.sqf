@@ -56,6 +56,7 @@ _VHLgrp = createGroup [_grpSide, false];
 _vehic = _VHLselected createVehicle _randomPosTarget;
 _VHLgrp addVehicle _vehic;
 _vehic setVariable ["roamingAIVehicle", true, true];
+if (_vehic isKindOf "tank"||_vehic isKindOf "Wheeled_Apc_F") then {_vehic setVariable ["ace_cookoff_enable", true, true];};
 _cargoSits = _vehic emptyPositions "cargo"; //"Commander", "Driver", "Gunner"
 _drvSits = _vehic emptyPositions "Driver";
 if (_drvSits != 0) then {

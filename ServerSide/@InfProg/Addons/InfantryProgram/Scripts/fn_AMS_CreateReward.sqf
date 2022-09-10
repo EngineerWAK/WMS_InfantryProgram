@@ -47,7 +47,7 @@ _rwd setvehiclelock "LOCKED";
 _rwd setvehiclelock "LOCKEDPLAYER";
 _rwd enableSimulationGlobal false;
 _rwd enableRopeAttach false;
-
+if (_rwd isKindOf "tank"||_rwd isKindOf "Wheeled_Apc_F") then {_rwd setVariable ["ace_cookoff_enable", true, true];};
 //_rwd setVariable ["ExileIsLocked",-1];
 
 if (_pinCode != 0) then {

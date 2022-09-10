@@ -83,7 +83,7 @@ _rwd setVariable ["ExileIsLocked",-1];
 _rwd setUnloadInCombat [true, false];
 _rwd allowCrewInImmobile true;
 _rwd allowDamage true;
-
+if (_rwd isKindOf "tank"||_rwd isKindOf "Wheeled_Apc_F") then {_rwd setVariable ["ace_cookoff_enable", true, true];};
 if (WMS_exileFireAndForget) then {
 	
 }else{

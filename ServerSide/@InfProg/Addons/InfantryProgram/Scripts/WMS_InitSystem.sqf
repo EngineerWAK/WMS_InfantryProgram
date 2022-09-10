@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
 //////////
-WMS_System_Version 			= "v2.65_2022SEP04_GitHub"; //EH "Hit" on NPC
+WMS_System_Version 			= "v2.657_2022SEP09_GitHub"; //EH "Hit" on NPC
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false;
 WMS_Watch_Triggers_Logs		= false;
@@ -56,10 +56,16 @@ WMS_InfantryProgram_Vehicles = [ //Maybe add _vehicle setvariable ["IP_Extractio
 /////////////////////////////////
 //			CRATES ITEMS
 /////////////////////////////////
-if !(WMS_exileFireAndForget) then {execVM "\InfantryProgram\Scripts\WMS_List_Crates_Vanilla.sqf"}else{execVM "\InfantryProgram\Scripts\WMS_List_Crates_Exile.sqf"};
+if !(WMS_exileFireAndForget) then {
+		execVM "\InfantryProgram\Scripts\WMS_List_Crates_ACE_RHS.sqf" //"\InfantryProgram\Scripts\WMS_List_Crates_Vanilla.sqf"
+	}else{
+		execVM "\InfantryProgram\Scripts\WMS_List_Crates_Exile.sqf"
+};
 /////////////////////////////////
 //			VARIABLES
 /////////////////////////////////
+WMS_Currency 				= "Money"; //test
+////////////
 WMS_AllDeadsMgr				= [];
 WMS_Player_AllDeads			= 1800; //Not Used Yet
 WMS_AMS_AllDeads			= 1200;
@@ -67,10 +73,10 @@ WMS_DynAI_AllDeads			= 600;
 WMS_DFO_AllDeads			= 180;
 WMS_Others_AllDeads			= 90; //Not Used Yet
 //C130 variables
-WMS_MoveInCargo_C130_LastTime 		= time;
+WMS_MoveInCargo_C130_LastTime 		= time; // WMS_MoveInCargo_C130_LastTime = WMS_ServRestartSeconds to hide C130 call
 WMS_InfantryProgram_C130CoolDown 	= 300;
 WMS_C130_Altitude 					= 150;
-WMS_C130_Type 						= "B_T_VTOL_01_infantry_blue_F"; // WMS_MoveInCargo_C130_LastTime = WMS_ServRestartSeconds to hide C130 call
+WMS_C130_Type 						= "B_T_VTOL_01_infantry_blue_F";
 //Camps Variables
 WMS_Compo_BunkerCamp_LastTime 		= time;
 WMS_Compo_BunkerCamp_CoolDown 		= 750;
@@ -421,7 +427,7 @@ WMS_AMS_skilleasy 		= [0.80, 0.8, 0.3, 0.3, 0.3, 0.6, 0, 0.6, 0.6];
 WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.4, 0.4, 0.4, 0.6, 0, 0.6, 0.8];
 WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.6, 0.5, 0.5, 0.8, 0, 0.8, 1];
 WMS_AMS_skillhardcore 	= [0.95, 1, 0.7, 0.6, 0.6, 1, 0, 1, 1];
-WMS_AMS_skillstatic 	= [1, 1, 0.075, 0.5, 0.2, 0.5, 0, 0.2, 0.8];
+WMS_AMS_skillstatic 	= [1, 1, 0.005, 0.5, 0.2, 0.5, 0, 0.2, 0.8];
 //WMS_AMS_skillsniper 	= [1,0.95,0.95,0.95];  //set in fn_DynAI_SetUnitOPF and fn_AMS_SetUnits
 WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check, it will modify NPC skills if they have a weapon from this list
 							"srifle_LRR_F","srifle_LRR_camo_F","srifle_LRR_tna_F",

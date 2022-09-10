@@ -41,7 +41,7 @@ if (_type == "AMS") then {
 	};
 	_caller setVariable ["ExileMoney", (_playerMonUpdated), true];
 	_caller setVariable ["ExileScore", (_playerScoUpdated), true];
-	["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! + %1 Pt, + %2 Score",WMS_AMS_VHL_KillMoney, WMS_AMS_VHL_KillRep]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", (owner _caller)];
+	["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! + %1 %3 , + %2 Respect",WMS_AMS_VHL_KillMoney, WMS_AMS_VHL_KillRep, WMS_Currency]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", (owner _caller)];
 	//["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! + %1 Pt, + %2 Score",WMS_AMS_VHL_KillMoney, WMS_AMS_VHL_KillRep]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] call BIS_fnc_showNotification;
 };
 
@@ -66,6 +66,6 @@ if (_type == "ROAMING") then {
 	};
 	_caller setVariable ["ExileMoney", (_playerMonUpdated), true];
 	_caller setVariable ["ExileScore", (_playerScoUpdated), true];
-	["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! + %1 Pt, + %2 Score",WMS_AI_RoamingVHL_KillMoney, WMS_AI_RoamingVHL_KillRep]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", (owner _caller)];
+	["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! + %1 %3, + %2 Respect",WMS_AI_RoamingVHL_KillMoney, WMS_AI_RoamingVHL_KillRep, WMS_Currency]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", (owner _caller)];
 	//["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! + %1 Pt, + %2 Score",WMS_AMS_VHL_KillMoney, WMS_AMS_VHL_KillRep]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] call BIS_fnc_showNotification;				
 };

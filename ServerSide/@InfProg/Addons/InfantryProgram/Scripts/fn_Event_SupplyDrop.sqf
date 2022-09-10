@@ -53,17 +53,18 @@ if (count _positions > 0) then {//Need to add a Player check
 	_bagList = (WMS_Loadout_MCB select 3)+(WMS_Loadout_M90d select 3)+(WMS_Loadout_ABU select 3)+(WMS_Loadout_bandit select 3);
 	_weapList = (WMS_Loadout_Assault select 0)+(WMS_Loadout_DMR select 0)+(WMS_Loadout_Sniper select 0)+(WMS_Loadout_SMG select 0)+(WMS_Loadout_MG select 0)+(WMS_Loadout_Sniper select 3);
 	_weap = [
-		[selectRandom _weapList,(3+floor(random 8))]
+		[selectRandom _weapList,(5+floor(random 8))]
 	];
 	_ammoList = [];
 	{_ammoList pushBack ((getArray (configfile >> "CfgWeapons" >> (_x select 0) >> "magazines")) select 0)}forEach _weap;
-	_item = WMS_AI_inventory+[WMS_Utility_Item_2];
+	_item = WMS_AI_inventory+[WMS_Utility_Item_2]+[WMS_Utility_Item_2];
 	_itemList = [
+		(selectRandom _item),
 		(selectRandom _item),
 		(selectRandom _item)
 	];
 	_bag = [
-		[selectRandom _bagList,(1+floor(random 4))] 
+		[selectRandom _bagList,(1+floor(random 5))] 
 	];
 	{_cargo addItemCargoGlobal [_x,(1+floor(random 5))]} forEach _itemList;
 	{_cargo addMagazineCargoGlobal [_x,(5+floor(random 8))]} forEach _ammoList;

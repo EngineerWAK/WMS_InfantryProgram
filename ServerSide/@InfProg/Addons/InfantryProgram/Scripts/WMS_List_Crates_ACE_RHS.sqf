@@ -74,7 +74,7 @@ WMS_medsList = [
 /////
 WMS_IP_ToolKit = [ //"rhs_radio_R187P1"
 	["ACE_fortify",1,1],
-	//["rhs_radio_R187P1",1,1],
+	["rhs_radio_R187P1",1,1],
 	["ACE_fieldDressing",5,5],
 	["ACE_bloodIV_250",4,2],
 	["ACE_morphine",2,5],
@@ -157,8 +157,10 @@ WMS_weapsList = [
 ];
 WMS_humaniDropList = [
 	[//items
+		["ACE_WMM3",2,3], //mine detector
+		["ACE_WMH3",2,3], //mine detector
 		["ACE_fortify",2,3],
-		//["rhs_radio_R187P1",2,5],
+		["rhs_radio_R187P1",2,5],
 		["ACE_Sandbag_empty",10,5],
 		["ACE_Humanitarian_Ration",5,5],
 		["ACE_WaterBottle",10,5],
@@ -174,7 +176,6 @@ WMS_humaniDropList = [
 		["ACE_bodyBag",3,5]
 	],
 	[//mags
-		["HandGrenade",2,3],
 		["ACE_HandFlare_White",5,5],
 		["ACE_HandFlare_Red",5,5],
 		["ACE_HandFlare_Green",5,5],
@@ -193,8 +194,13 @@ WMS_humaniDropList = [
 		["B_Kitbag_sgg",2,3]
 	],
 	[//weaps //auto add some mags
-		["arifle_Katiba_C_F",2,3],
-		["arifle_MX_Black_F",2,3],
-		["arifle_AK12_F",2,3]
+		//["ACE_WMM3",2,3], //mine detector //not a weapon
+		//["ACE_WMH3",2,3], //mine detector //not a weapon
+		["rhs_weap_savz58v_fold",1,5],
+		["rhs_weap_pb_6p9",1,5],
+		["rhsusf_weap_glock17g4",1,5],
+		["rhs_weap_aks74un",1,5],
+		["rhs_weap_m4_carryhandle",1,5],
+		["rhs_weap_mk18",1,5]
 	]
 ];

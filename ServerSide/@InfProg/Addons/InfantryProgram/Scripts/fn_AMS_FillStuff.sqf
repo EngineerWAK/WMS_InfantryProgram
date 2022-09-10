@@ -22,7 +22,7 @@ private _ammoList = [];
 {_cargo addBackpackCargoGlobal [(_x select 0),((_x select 1)+(round (random (_x select 2))))]} forEach _bagList; 
 {
 	_cargo addWeaponCargoGlobal [(_x select 0),((_x select 1)+(round (random (_x select 2))))];
-	_ammoList pushBack [((getArray (configfile >> "CfgWeapons" >> (_x select 0) >> "magazines")) select 0), 1, 2];
+	_ammoList pushBack [((getArray (configfile >> "CfgWeapons" >> (_x select 0) >> "magazines")) select 0), 1, 4];
 } forEach _weapList;  
 {_cargo addMagazineCargoGlobal [(_x select 0),((_x select 1)+(round (random (_x select 2))))]} forEach _magList;
 {_cargo addMagazineCargoGlobal [(_x select 0),((_x select 1)+(round (random (_x select 2))))]} forEach _ammoList;

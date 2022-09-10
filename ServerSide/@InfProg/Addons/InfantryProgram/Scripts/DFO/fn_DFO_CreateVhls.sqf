@@ -39,6 +39,7 @@
 			clearItemCargoGlobal _veh; 
 			clearBackpackCargoGlobal _veh;
 			_veh setVariable ["WMS_HexaID",_MissionHexaID];
+			if (_veh isKindOf "tank"||_veh isKindOf "Wheeled_Apc_F") then {_veh setVariable ["ace_cookoff_enable", true, true];};
 		};
 		//vehicle crew
 		if (_faction != EAST) then {_infType = "CIV_ARMED"; _loadoutIndex = 1};

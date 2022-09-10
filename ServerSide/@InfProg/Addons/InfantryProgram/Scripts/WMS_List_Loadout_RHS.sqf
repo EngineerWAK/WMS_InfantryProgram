@@ -189,8 +189,8 @@ WMS_Loadout_LightWeaps = [
 ];
 WMS_Loadout_HeavyBandit = [
 	 ["U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F","U_I_C_Soldier_Para_5_F","U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_5_F","U_I_L_Uniform_01_camo_F","U_I_L_Uniform_01_deserter_F","U_I_L_Uniform_01_tshirt_skull_F","U_I_L_Uniform_01_tshirt_black_F","U_I_L_Uniform_01_tshirt_olive_F","U_C_E_LooterJacket_01_F"], //_uniforms
-	 ["V_PlateCarrierGL_rgr","V_PlateCarrierGL_mtp","V_PlateCarrierSpec_mtp","V_PlateCarrierIAGL_oli","V_PlateCarrier1_rgr_noflag_F","V_PlateCarrier2_rgr_noflag_F","V_EOD_coyote_F","V_CarrierRigKBT_01_EAF_F"], //_vests
-	 ["H_Booniehat_khk","H_Cap_headphones","H_Shemag_olive","H_Shemag_tan","H_Watchcap_khk","H_MilCap_ghex_F","H_CrewHelmetHeli_O","H_PilotHelmetHeli_O","H_PilotHelmetFighter_O","H_HelmetCrew_O","H_HelmetB_light_desert","H_HelmetSpecO_ocamo","H_HelmetLeaderO_ocamo","H_HelmetB_camo","H_HelmetSpecB_paint2"], //_helmets
+	 ["V_BandollierB_khk","V_Chestrig_khk","V_TacVest_khk","V_TacVestCamo_khk","V_HarnessOSpec_brn","V_TacChestrig_cbr_F","V_PlateCarrierGL_rgr","V_EOD_coyote_F"], //_vests
+	 ["H_Booniehat_khk","H_Cap_headphones","H_Shemag_olive","H_Shemag_tan","H_Watchcap_khk","H_MilCap_ghex_F"], //_helmets
 	 ["B_AssaultPack_khk","B_FieldPack_khk","B_OutdoorPack_tan","B_Carryall_ocamo","B_Carryall_taiga_F","B_Carryall_mcamo","B_Kitbag_mcamo","B_Kitbag_cbr"], //_Backpacks
 	 []  //_googles/_facewear
 ];
