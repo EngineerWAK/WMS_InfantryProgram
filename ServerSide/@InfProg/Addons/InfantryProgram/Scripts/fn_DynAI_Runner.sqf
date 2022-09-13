@@ -25,11 +25,21 @@ params[
 ];
 _safePos = [];
 _run = true;
-if (_spawnType == 'player') then {_safePos = [position _target, 150, 300, 1, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;};
+if (_spawnType == 'player') then {
+	if(surfaceIsWater (position _target))then{
+		_safePos = [position _target, 150, 300, 1, 1, 0, 0, [], [[(position _pos select 0),(position _pos select 1)+150,1],[]]] call BIS_fnc_findSafePos;
+	}else{
+		_safePos = [position _target, 150, 300, 1, 0, 0, 0, [], [[(position _pos select 0),(position _pos select 1)+150,1],[]]] call BIS_fnc_findSafePos;
+	};
+};
 if (_spawnType == 'trigger') then {_safePos = _pos};
 if (_spawnType == 'para') then {
-	_safePos = [position _target, 50, 200, 0, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
+	if(surfaceIsWater (position _target))then{
+		_safePos = [position _target, 50, 200, 0, 1, 0, 0, [], [[(position _pos select 0),(position _pos select 1)+100,300],[]]] call BIS_fnc_findSafePos;
+	}else{
+		_safePos = [position _target, 50, 200, 0, 0, 0, 0, [], [[(position _pos select 0),(position _pos select 1)+100,300],[]]] call BIS_fnc_findSafePos;
 	};
+};
 _grp = createGroup [civilian, false];
 _runner = _grp createUnit ["C_man_p_fugitive_F_afro",_safePos, [], 0, "FORM"];	
 _runner disableAI "SUPPRESSION";

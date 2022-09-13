@@ -13,7 +13,7 @@ WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions, Do not use in Exile right newOverlay				
 //////////
-WMS_System_Version 			= "v2.66_2022SEP13_GitHub"; //Water stuff, loadout,reinforcement,baseAttack
+WMS_System_Version 			= "v2.662_2022SEP13_GitHub"; //Water stuff, loadout,reinforcement,baseAttack
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false;
 WMS_Watch_Triggers_Logs		= false;

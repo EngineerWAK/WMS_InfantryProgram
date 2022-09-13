@@ -34,7 +34,12 @@ params[
 ];  
  
 _posStart = [_pos, _Dist1, _Dist2, 30, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;  
-_posLand = [_pos, 50, 350, 25, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos; 
+_posLand = _pos; 
+if(surfaceIsWater _pos)then{
+	_posLand = [_pos, 50, 350, 25, 1, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
+}else{
+	_posLand = [_pos, 50, 350, 25, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
+};
 _Helipad = "Land_HelipadEmpty_F" createVehicle _posLand;  
 uisleep 1;  
 _gunship = [_posStart, (random 359), _choppa1 select 0, OPFOR] call bis_fnc_spawnvehicle; 

@@ -65,7 +65,7 @@ WMS_Loadout_DEfleck = WMS_Loadout_Tiger; //I don't use BWM anymore
 //////////Weapons [WMS_Loadout_Assault, WMS_Loadout_DMR, WMS_Loadout_MG, WMS_Loadout_Sniper, WMS_Loadout_SMG];
 WMS_Loadout_Assault = [//545 556 57 58
 	 [
-		"arifle_MX_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_GL_khk_F","rhs_weap_savz58v_ris","rhs_weap_savz58v_ris_fold","arifle_SDAR_F","arifle_MXC_F","Warifle_Katiba_C_F","arifle_Mk20_plain_F",
+		"arifle_MX_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_GL_khk_F","rhs_weap_savz58v_ris","rhs_weap_savz58v_ris_fold","arifle_SDAR_F","arifle_MXC_F","arifle_Katiba_C_F","arifle_Mk20_plain_F",
 		"SMG_03_TR_black","arifle_CTAR_blk_F","arifle_SPAR_01_blk_F",
 		"rhs_weap_ak105_zenitco01_b33","rhs_weap_ak74m_npz","rhs_weap_aks74n_npz","rhs_weap_hk416d10_LMT","rhs_weap_m16a4_imod","rhs_weap_m4a1_blockII","rhsusf_weap_MP7A2","rhs_weap_m21a_pr","rhs_weap_VHSd2" //RHS
 		], //_mainWeaps

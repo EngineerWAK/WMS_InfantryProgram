@@ -58,8 +58,8 @@ switch (_Tlevel) do { //Base lvl1 = 0.15 to 0.3, lvl2 & lvl3 = 0.15 to 0.35, , l
 
 _blacklist = [_pos,750,200,150,100]call WMS_fnc_AMS_SpnAiBlkListFull;
 if(_waterWorld)then{
-		_unitFunction = "diver";_loadout = "diver";
-		_safePos = [_pos, 250, 500, 2, 1, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;//[x,y] ok, [x,y,0] not ok
+		_unitFunction = "para";_loadout = "diver";
+		_safePos = [_pos, 50, 250, 2, 1, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;//[x,y] ok, [x,y,0] not ok
 		_startPatrol = [_pos, 80, 120, 1, 1, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
 		_flag setVariable ["BaseATKReinforce", ["paradrop","paradrop","AIRpatrol","AIRpatrol","AIRassault"],true];
 	}else{
@@ -84,6 +84,7 @@ for "_i" from 1 to _AIgrps do {
 		_x setVariable ["BaseATKflag", _flag, true];
 		_x setVariable ["unitFunction", _unitFunction, true];
 		_x setVariable ["info", 'BaseATK', true];
+		if(_waterWorld)then{_x setPos [position _x select 0,position _x select 1,200+(random 75)]};
 	}foreach (units _grp1);
 	[(units _grp1),_unitFunction,_RPGChance,_skill,_difficulty,_loadout,nil,'DYNAI'] call WMS_fnc_SetUnits;
 	if (WMS_DynAI_Steal) then {

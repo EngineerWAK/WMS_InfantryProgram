@@ -130,7 +130,9 @@ _poptabs = 50;
 		_unit addVest selectrandom (WMS_Loadout_Diver select 1); 
 		_unit addHeadGear selectrandom (WMS_Loadout_Diver select 2);
 		_unit addBackpack selectrandom (WMS_Loadout_Diver select 3);
-		if(_unitFunction != "para" || _unitFunction != "diver" )then{_unitFunction = "diver"};
+		_weapRandomNoSnipNoMG = [WMS_Weaps_Diver];
+		_unit addGoggles selectrandom (WMS_Loadout_Diver select 4);
+		if(_unitFunction != "para" || _unitFunction != "suicidebomber" || _unitFunction != "diver" )then{_unitFunction = "diver"};
 	}else{
 		_unit forceaddUniform selectrandom (_loadout select 0); 
 		_unit addVest selectrandom (_loadout select 1); 
@@ -194,20 +196,11 @@ _poptabs = 50;
 		case  "para" : {
 			removeBackpackGlobal _unit;
 			_unit addBackpack "B_Parachute";
-			if(_Loadout == "diver")then{
-				_mainWeap = [_unit, selectrandom (WMS_Weaps_Diver select 0), 5, 0] call BIS_fnc_addWeapon;
-				_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_Diver select 2);
-				_pistol = [_unit, selectrandom (WMS_Weaps_Diver select 3), 1] call BIS_fnc_addWeapon; 
-				_unit addGoggles selectrandom (WMS_Loadout_Diver select 4);
-				_unit additem selectRandom WMS_AI_grenades;
-				_unit additem selectRandom WMS_AI_grenades;
-			}else{
-				_weaps = selectRandom _weapRandomNoSnipNoMG;
-				_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
-				_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
-				_pistol = [_unit, selectrandom (_weaps select 3), 2] call BIS_fnc_addWeapon;
-				_unit additem selectRandom WMS_AI_grenades;
-			};
+			_weaps = selectRandom _weapRandomNoSnipNoMG;
+			_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
+			_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
+			_pistol = [_unit, selectrandom (_weaps select 3), 2] call BIS_fnc_addWeapon;
+			_unit additem selectRandom WMS_AI_grenades;
 		};
 		case  "diver" : {
 			_mainWeap = [_unit, selectrandom (WMS_Weaps_Diver select 0), 5, 0] call BIS_fnc_addWeapon;
