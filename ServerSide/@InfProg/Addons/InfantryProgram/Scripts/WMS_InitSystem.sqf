@@ -11,9 +11,9 @@
 */
 WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
-WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions					
+WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions, Do not use in Exile right newOverlay				
 //////////
-WMS_System_Version 			= "v2.657_2022SEP09_GitHub"; //EH "Hit" on NPC
+WMS_System_Version 			= "v2.66_2022SEP13_GitHub"; //Water stuff, loadout,reinforcement,baseAttack
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false;
 WMS_Watch_Triggers_Logs		= false;
@@ -282,6 +282,7 @@ if (worldName in WMS_DFO_NoSeaMaps) then {
 //////////////////////////////
 //AI variables
 //////////////////////////////
+WMS_ForceDiverOverWater	= true;
 WMS_AI_forceInfKillCount= false; //ACE fuckedup infantry kill on the scoreBoard
 WMS_AI_LaunchersOPF 	= [["launch_RPG7_F","launch_RPG7_F","launch_RPG7_F","launch_RPG7_F","launch_RPG32_F","launch_MRAWS_sand_rail_F"],["launch_O_Titan_F"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 WMS_AI_LaunchersBLU 	= [["launch_RPG7_F","launch_RPG32_F","launch_MRAWS_sand_rail_F"],["launch_B_Titan_F"],["launch_B_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
@@ -628,6 +629,7 @@ if (WMS_MapName in WMS_CustomizedMap) then {
 
 //Variables override for Exile Users
 if (WMS_exileFireAndForget) then {
+	WMS_Currency 			= "Poptabs";
 	WMS_exileToastMsg 		= true;
 	WMS_PlayerEntity		= "Exile_Unit_Player";
 	WMS_AMS_MkrEasy 		= "ExileMissionEasyIcon";

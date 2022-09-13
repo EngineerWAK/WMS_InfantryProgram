@@ -31,11 +31,18 @@ if !(_RoamingAIvhl == 0) then {
 					if (_assKicked < WMS_AI_RoamingVHL_MaxKick) then {
 						_vhl setVariable ["WMS_KickVehAss",_assKicked+1,true];
 						_emptyPos = _newPos findEmptyPosition [2,150,(typeOf _vhl)];
-						_closeSafePos = [(_emptyPos select 0), (_emptyPos select 1), 1];
-						_vhl setpos _closeSafePos;
-						_vhl setdir ((getDir _vhl)+45);
-						if (WMS_IP_LOGs) then {diag_log format ["[Roaming VHL Watch]|WAK|TNA|WMS| moving %1 from %2 to %3, assKicked %4 times", _vhl, _newPos, _closeSafePos,_assKicked]};
+						if (count _emptyPos != 0)then {
+							_closeSafePos = [(_emptyPos select 0), (_emptyPos select 1), 1];
+							_vhl setpos _closeSafePos;
+							_vhl setdir ((getDir _vhl)+45);
+							if (WMS_IP_LOGs) then {diag_log format ["[Roaming VHL Watch]|WAK|TNA|WMS| moving %1 from %2 to %3, assKicked %4 times", _vhl, _newPos, _closeSafePos,_assKicked]};
+						} else {
+							{if!(isPlayer _x)then{_x setDamage 1}}forEach crew _vhl;
+							_vhl setDamage 1;
+							if (WMS_IP_LOGs) then {diag_log format ["[Roaming VHL Watch]|WAK|TNA|WMS| %1 is a BIG moron and is now destroyed", _vhl]};
+						};
 					} else {
+						{if!(isPlayer _x)then{_x setDamage 1}}forEach crew _vhl;
 						_vhl setDamage 1;
 						if (WMS_IP_LOGs) then {diag_log format ["[Roaming VHL Watch]|WAK|TNA|WMS| %1 is a moron and is now destroyed", _vhl]};
 					};

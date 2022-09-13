@@ -57,14 +57,15 @@ WMS_Loadout_Tiger = [
 	 ["Tiger_Backpack_Compact","Tiger_Backpack_KitBag"], //_Backpacks
 	 ["G_Balaclava_oli","G_Balaclava_blk"]  //_googles/_facewear
 ];
-WMS_Loadout_UKtmp = WMS_Loadout_AOR2;
-WMS_Loadout_UKwdl = WMS_Loadout_M90;
-WMS_Loadout_FRce = WMS_Loadout_Scorpion;
-WMS_Loadout_DEfleck = WMS_Loadout_Tiger;
+WMS_Loadout_UKtmp = WMS_Loadout_AOR2; //I don't use 3CB anymore
+WMS_Loadout_UKwdl = WMS_Loadout_M90; //I don't use 3CB anymore
+WMS_Loadout_FRce = WMS_Loadout_Scorpion; //I don't use R3F anymore
+WMS_Loadout_DEfleck = WMS_Loadout_Tiger; //I don't use BWM anymore
 
 //////////Weapons [WMS_Loadout_Assault, WMS_Loadout_DMR, WMS_Loadout_MG, WMS_Loadout_Sniper, WMS_Loadout_SMG];
 WMS_Loadout_Assault = [//545 556 57 58
 	 [
+		"arifle_MX_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_GL_khk_F","rhs_weap_savz58v_ris","rhs_weap_savz58v_ris_fold","arifle_SDAR_F","arifle_MXC_F","Warifle_Katiba_C_F","arifle_Mk20_plain_F",
 		"SMG_03_TR_black","arifle_CTAR_blk_F","arifle_SPAR_01_blk_F",
 		"rhs_weap_ak105_zenitco01_b33","rhs_weap_ak74m_npz","rhs_weap_aks74n_npz","rhs_weap_hk416d10_LMT","rhs_weap_m16a4_imod","rhs_weap_m4a1_blockII","rhsusf_weap_MP7A2","rhs_weap_m21a_pr","rhs_weap_VHSd2" //RHS
 		], //_mainWeaps
@@ -74,7 +75,7 @@ WMS_Loadout_Assault = [//545 556 57 58
 ];
 WMS_Loadout_AssaultPlus = [//66 68 762
 	 [
-		"arifle_Katiba_C_F","arifle_MX_Black_F","arifle_AK12_F",
+		"arifle_ARX_blk_F","arifle_Katiba_C_F","arifle_MX_Black_F","arifle_AK12_F",
 		"arifle_AK12U_F", "arifle_MSBS65_black_F", //Contact DLC
 		"rhs_weap_l1a1","arifle_SPAR_03_blk_F",
 		"rhs_weap_ak103_npz","rhs_weap_ak104_zenitco_b33","rhs_weap_akm_zenitco01_b33","rhs_weap_mk17_STD" //RHS
@@ -95,6 +96,7 @@ WMS_Loadout_DMR = [
 ];
 WMS_Loadout_MG = [ //arifle_RPK12_F, LMG_Mk200_black_F
 	 [
+		"arifle_SPAR_02_khk_F","arifle_CTARS_blk_F",
 		"rhs_weap_fnmag","rhs_weap_m240G","rhs_weap_m240B","LMG_03_F","rhs_weap_m249","arifle_MX_SW_Black_F","rhs_weap_pkp","rhs_weap_rpk74m",
 		"rhs_weap_mg42","LMG_03_F","rhs_weap_pkp",
 		"arifle_RPK12_F", "LMG_Mk200_black_F" //contact DLC
@@ -105,11 +107,11 @@ WMS_Loadout_MG = [ //arifle_RPK12_F, LMG_Mk200_black_F
 ];
 WMS_Loadout_Sniper = [
 	 [
-		"rhs_weap_m24sws","rhs_weap_m40a5","rhs_weap_m38_rail","rhs_weap_t5000",
+		"rhs_weap_m24sws_d","rhs_weap_m40a5","rhs_weap_m38_rail","rhs_weap_t5000","rhs_weap_XM2010_d",
 		"srifle_LRR_F"
 		], //_mainWeaps,
 	 [], //_mainWeapsAmmo,
-	 ["optic_DMS","optic_KHS_blk"], //_scopes
+	 ["optic_DMS","optic_KHS_blk","optic_AMS","optic_lrps"], //_scopes
 	 ["hgun_p07_f"] //_pistols
 ];
 WMS_Loadout_SMG = [
@@ -252,6 +254,7 @@ WMS_Loadout_Livonia = [
 ];
 WMS_Weaps_LivoniaMix = [
 	 [ //_mainWeaps,
+	 "arifle_ARX_ghex_F",
 	"rhs_weap_hk416d10_LMT_wd",
 	"rhs_weap_hk416d145_wd",
 	"rhs_weap_m4a1_wd",
@@ -281,6 +284,19 @@ WMS_Weaps_LivoniaMix = [
 	 "optic_DMS_weathered_Kir_F"
 	 ],
 	 ["hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F"] //_pistols
+];
+WMS_Loadout_diver = [
+	["U_I_Wetsuit","U_O_Wetsuit","U_B_Wetsuit"], //uniforms
+	["V_RebreatherIA","V_RebreatherIR","V_RebreatherB"], //vests
+	["H_Beret_blk","H_HelmetSpecO_blk","H_HelmetB_black","H_HelmetSpecB_blk","H_HelmetB_light_black"], //helmets
+	["B_AssaultPack_blk","B_LegStrapBag_black_F","B_RadioBag_01_black_F","B_TacticalPack_blk","B_ViperHarness_blk_F","B_ViperLightHarness_blk_F"], //backpacks
+	["G_Diving","G_I_Diving","G_O_Diving","G_B_Diving"] //facewears
+	];
+WMS_Weaps_Diver = [
+	["arifle_SDAR_F"], //primary
+	[], //primaryAmmo not used
+	["optic_Holosight_blk_F"], //scope
+	["hgun_P07_blk_F","hgun_Pistol_heavy_02_F","hgun_ACPC2_F","hgun_Rook40_F"] //pistol
 ];
 
 publicVariable "WMS_Loadout_AOR2";

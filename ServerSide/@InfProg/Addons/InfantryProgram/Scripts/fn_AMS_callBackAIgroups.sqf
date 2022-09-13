@@ -32,17 +32,20 @@ if (true) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| _this = %1"
 	*/
 	_grp = _x;
 	_units = units _grp;
-	{
-		{
-			_grp forgetTarget _x
-		}forEach  (_x targets [true])
-	}forEach _units;
 	_newWaypoint = _grp addwaypoint [_pos,30,0];
-	_newWaypoint setWaypointType "MOVE";
+	_newWaypoint setWaypointType "HOLD";
 	_newWaypoint setWaypointBehaviour "SAFE"; // the group will change behaviour to Aware upon detecting an enemy unit.
 	_newWaypoint setWaypointCombatMode "WHITE"; //Hold Fire, Engage At Will
 	_newWaypoint setWaypointSpeed "FULL";
-	(leader _grp) doMove _pos;
+	{
+		{
+			_grp forgetTarget _x
+		}forEach  (_x targets [true]);
+		_x setVariable ["lambs_danger_disableAI", true];//deactivate LambsDanger
+		_x doMove _pos;
+	}forEach _units;
+	//(leader _grp) doMove _pos;
+	_grp setVariable ["lambs_danger_disableGroupAI", true];//deactivate LambsDanger
 	//if (WMS_IP_LOGs) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| Group = %1 @ %4 | newWaypoint = %2 @ %3", _x, _newWaypoint, _pos, (position(leader _x))]};
 	if (true) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| Group = %1 @ %4 | newWaypoint = %2 @ %3", _x, _newWaypoint, _pos, (position(leader _x))]};
 }forEach _grps;

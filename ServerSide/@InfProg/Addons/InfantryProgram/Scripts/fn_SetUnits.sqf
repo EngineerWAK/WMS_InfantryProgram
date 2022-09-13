@@ -66,6 +66,7 @@ switch (toLower _loadout) do {
 	case "aor1" 	: {_loadout = WMS_Loadout_AOR1;};
 	case "surpat" 	: {_loadout = WMS_Loadout_SURPAT;};
 	case "blackops" : {_loadout = WMS_Loadout_MCB;};
+	case "diver" 	: {_loadout = WMS_Loadout_Diver;};
 	case "livonia" 	: {
 						_loadout = WMS_Loadout_Livonia;
 						_weaps = WMS_Weaps_LivoniaMix; 
@@ -124,10 +125,18 @@ _poptabs = 50;
 	_unit setVariable ["WMS_Difficulty",_difficulty, true]; //will be used for AI killfeed on player EH killed
 	_unit allowFleeing 0;
 	//
-	_unit forceaddUniform selectrandom (_loadout select 0); 
-	_unit addVest selectrandom (_loadout select 1); 
-	_unit addHeadGear selectrandom (_loadout select 2);
-	_unit addBackpack selectrandom (_loadout select 3);
+	if(WMS_ForceDiverOverWater && {surfaceIsWater (position _unit)})then{
+		_unit forceaddUniform selectrandom (WMS_Loadout_Diver select 0); 
+		_unit addVest selectrandom (WMS_Loadout_Diver select 1); 
+		_unit addHeadGear selectrandom (WMS_Loadout_Diver select 2);
+		_unit addBackpack selectrandom (WMS_Loadout_Diver select 3);
+		if(_unitFunction != "para" || _unitFunction != "diver" )then{_unitFunction = "diver"};
+	}else{
+		_unit forceaddUniform selectrandom (_loadout select 0); 
+		_unit addVest selectrandom (_loadout select 1); 
+		_unit addHeadGear selectrandom (_loadout select 2);
+		_unit addBackpack selectrandom (_loadout select 3);
+	};
 	_unit additem "FirstAidKit";
 	//_unit setVariable ["AMS_AdjustedSkills",WMS_AMS_AdjustedSkills]; //not used yet
 	
@@ -150,15 +159,6 @@ _poptabs = 50;
 			_mainWeap = [_unit, selectrandom (WMS_Loadout_SMG select 0), 5, 0] call BIS_fnc_addWeapon;
 			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_SMG select 2);
 			_pistol = [_unit, selectrandom (WMS_Loadout_SMG select 3), 2] call BIS_fnc_addWeapon;
-			_unit additem selectRandom WMS_AI_grenades;
-		};
-		case  "para" : {
-			_weaps = selectRandom _weapRandomNoSnipNoMG;
-			removeBackpackGlobal _unit;
-			_unit addBackpack "B_Parachute";
-			_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
-			_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
-			_pistol = [_unit, selectrandom (_weaps select 3), 2] call BIS_fnc_addWeapon;
 			_unit additem selectRandom WMS_AI_grenades;
 		};
 		case  "random" : {
@@ -188,6 +188,32 @@ _poptabs = 50;
 			_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_HeavyBandit select 2);
 			_pistol = [_unit, selectrandom (WMS_Weaps_HeavyBandit select 3), 1] call BIS_fnc_addWeapon; 
 			_unit addGoggles selectrandom (_loadout select 4);
+			_unit additem selectRandom WMS_AI_grenades;
+			_unit additem selectRandom WMS_AI_grenades;
+		};
+		case  "para" : {
+			removeBackpackGlobal _unit;
+			_unit addBackpack "B_Parachute";
+			if(_Loadout == "diver")then{
+				_mainWeap = [_unit, selectrandom (WMS_Weaps_Diver select 0), 5, 0] call BIS_fnc_addWeapon;
+				_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_Diver select 2);
+				_pistol = [_unit, selectrandom (WMS_Weaps_Diver select 3), 1] call BIS_fnc_addWeapon; 
+				_unit addGoggles selectrandom (WMS_Loadout_Diver select 4);
+				_unit additem selectRandom WMS_AI_grenades;
+				_unit additem selectRandom WMS_AI_grenades;
+			}else{
+				_weaps = selectRandom _weapRandomNoSnipNoMG;
+				_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
+				_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
+				_pistol = [_unit, selectrandom (_weaps select 3), 2] call BIS_fnc_addWeapon;
+				_unit additem selectRandom WMS_AI_grenades;
+			};
+		};
+		case  "diver" : {
+			_mainWeap = [_unit, selectrandom (WMS_Weaps_Diver select 0), 5, 0] call BIS_fnc_addWeapon;
+			_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_Diver select 2);
+			_pistol = [_unit, selectrandom (WMS_Weaps_Diver select 3), 1] call BIS_fnc_addWeapon; 
+			_unit addGoggles selectrandom (WMS_Loadout_Diver select 4);
 			_unit additem selectRandom WMS_AI_grenades;
 			_unit additem selectRandom WMS_AI_grenades;
 		};

@@ -67,6 +67,10 @@ WMS_OPFOR_CustomAIR_Armed = [
 WMS_OPFOR_CustomAIR_Spec = [//attack choppers
 ["B_Heli_Attack_01_dynamicLoadout_F",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]] //"O_Heli_Attack_02_dynamicLoadout_F" //Mi48 //"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa","a3\air_f_beta\heli_attack_02\data\heli_attack_02_body2_co.paa"
 ];
+WMS_OPFOR_CustomSEA = [
+	["O_Boat_Armed_01_hmg_F",[],[[],[]]],
+	["O_T_Boat_Armed_01_hmg_F",[],[[],[]]]
+];
 WMS_AMS_LightArmed = [
 	//["B_T_LSV_01_armed_sand_F",[],[[],[]]],
 ["O_MRAP_02_hmg_F",[],[[],[]]],

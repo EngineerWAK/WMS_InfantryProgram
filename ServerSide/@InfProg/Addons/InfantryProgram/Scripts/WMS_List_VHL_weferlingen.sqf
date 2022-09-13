@@ -97,6 +97,10 @@ WMS_OPFOR_CustomAIR_Spec = [
 	["RHS_Mi8MTV3_vvsc",["Camo5",1],[[],[]]],
 	["RHS_Mi24V_FAB_vvsc",[],[[],[]]]
 ];
+WMS_OPFOR_CustomSEA = [
+	["O_Boat_Armed_01_hmg_F",[],[[],[]]],
+	["O_T_Boat_Armed_01_hmg_F",[],[[],[]]]
+];
 WMS_AMS_LightArmed = [
 ["rhsgref_ins_uaz_dshkm",[0,"rhsafrf\addons\rhs_a2port_car\uaz\data\uaz_main_co.paa"],[[],[]]], // [0,"rhsafrf\addons\rhs_a2port_car\uaz\data\uaz_main_co.paa"];
 ["rhsgref_ins_uaz_spg9",[0,"rhsafrf\addons\rhs_a2port_car\uaz\data\uaz_main_co.paa"],[[],[]]], // [0,"rhsafrf\addons\rhs_a2port_car\uaz\data\uaz_main_co.paa"];

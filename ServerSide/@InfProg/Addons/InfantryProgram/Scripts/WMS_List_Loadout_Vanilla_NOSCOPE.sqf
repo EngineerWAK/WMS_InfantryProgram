@@ -664,6 +664,19 @@ WMS_Weaps_LivoniaMix = [
 	 ["hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_01_green_F","hgun_Pistol_heavy_01_F"
 	 ] //_pistols
 ];
+WMS_Loadout_diver = [
+	["U_I_Wetsuit","U_O_Wetsuit","U_B_Wetsuit"], //uniforms
+	["V_RebreatherIA","V_RebreatherIR","V_RebreatherB"], //vests
+	["H_Beret_blk","H_HelmetSpecO_blk","H_HelmetB_black","H_HelmetSpecB_blk","H_HelmetB_light_black"], //helmets
+	["B_AssaultPack_blk","B_LegStrapBag_black_F","B_RadioBag_01_black_F","B_TacticalPack_blk","B_ViperHarness_blk_F","B_ViperLightHarness_blk_F"], //backpacks
+	["G_Diving","G_I_Diving","G_O_Diving","G_B_Diving"] //facewears
+	];
+WMS_Weaps_Diver = [
+	["arifle_SDAR_F"], //primary
+	[], //primaryAmmo not used
+	["optic_Holosight_blk_F"], //scope
+	["hgun_P07_blk_F","hgun_Pistol_heavy_02_F","hgun_ACPC2_F","hgun_Rook40_F"] //pistol
+];
 
 publicVariable "WMS_Loadout_AOR2";
 publicVariable "WMS_Loadout_M90";

@@ -30,6 +30,9 @@ _unitFunction = "Assault"; //"Assault","random","livoniapatrol","heavybandit"
 _pos 		= position _flag;
 _difficulty = "easy";
 _grps 		= [];
+_safePos 	= [0,0,0];
+_startPatrol = [0,0,0];
+_waterWorld = surfaceIsWater (position _flag);
 
 _Towner 	= _flag getvariable ["exileowneruid",0];
 _Tname 		= _flag getvariable ["exileterritoryname","hell"];
@@ -54,9 +57,16 @@ switch (_Tlevel) do { //Base lvl1 = 0.15 to 0.3, lvl2 & lvl3 = 0.15 to 0.35, , l
 };
 
 _blacklist = [_pos,750,200,150,100]call WMS_fnc_AMS_SpnAiBlkListFull;
-_safePos = [_pos, 250, 500, 2, 0, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;//[x,y] ok, [x,y,0] not ok
-_startPatrol = [_pos, 80, 120, 1, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
-
+if(_waterWorld)then{
+		_unitFunction = "diver";_loadout = "diver";
+		_safePos = [_pos, 250, 500, 2, 1, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;//[x,y] ok, [x,y,0] not ok
+		_startPatrol = [_pos, 80, 120, 1, 1, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
+		_flag setVariable ["BaseATKReinforce", ["paradrop","paradrop","AIRpatrol","AIRpatrol","AIRassault"],true];
+	}else{
+		_safePos = [_pos, 250, 500, 2, 0, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;//[x,y] ok, [x,y,0] not ok
+		_startPatrol = [_pos, 80, 120, 1, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
+		_flag setVariable ["BaseATKReinforce", ["runner","paradrop","VHLpatrol","AIRpatrol","AIRassault"],true];
+	};
 if (count _safePos == 3) exitWith {diag_log format ["[DynAI BASEATK]|WAK|TNA|WMS| %1 Attack FAILD! No position found", _Tname]};
 playSound3D ["A3\Sounds_F\environment\ambient\battlefield\battlefield_firefight4.wss", _flag, false, position _flag, 6, 1, 0];
 _fire = createVehicle ["test_EmptyObjectForFireBig", [(_pos select 0), (_pos select 1), 35], [], 0, "CAN_COLLIDE"];
@@ -87,13 +97,13 @@ for "_i" from 1 to _AIgrps do {
 WMS_DynAI_Running pushback [_flag,(time+(_timer)),_grps,[],[_fire],[],[],_threatScenario];
 //////////
 _flag setvariable ["BaseATK", true, true];
-_flag setVariable ["BaseATKReinforce", ["runner","paradrop","VHLpatrol","AIRpatrol","AIRassault"],true];
+//_flag setVariable ["BaseATKReinforce", ["runner","paradrop","VHLpatrol","AIRpatrol","AIRassault"],true];
 WMS_DynAI_BaseAtkUIDList pushBack (getplayerUID _target);
 if (WMS_exileToastMsg) then {
 	private _sessionID = _target getVariable ['ExileSessionID','']; 
-	[_sessionID, 'toastRequest', ['InfoTitleAndText', ['BaseAttack', 'MAYBE something is happening']]] call ExileServer_system_network_send_to;
+	[_sessionID, 'toastRequest', ['InfoTitleAndText', ['BaseAttack', 'Yes, they are comming for you']]] call ExileServer_system_network_send_to;
 	} else {
-		["EventWarning", ["BaseAttack", "MAYBE something is happening"]] remoteExec ["BIS_fnc_showNotification", owner _target];
+		["EventWarning", ["BaseAttack", "Yes, they are comming for you"]] remoteExec ["BIS_fnc_showNotification", owner _target];
 	};
 if (WMS_IP_LOGs) then {diag_log format ["[DynAI BASEATK]|WAK|TNA|WMS| %1 is under Attack!", _Tname]};
 WMS_DynAI_BaseAtkRunning = (WMS_DynAI_BaseAtkRunning +1);

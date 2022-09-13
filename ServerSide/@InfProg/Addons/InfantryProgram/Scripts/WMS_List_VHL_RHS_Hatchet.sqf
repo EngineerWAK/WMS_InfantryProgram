@@ -96,6 +96,10 @@ WMS_OPFOR_CustomAIR_Spec = [
 	//["UK3CB_BAF_Wildcat_AH1_CAS_8C",[0,"R3F_Retex\data\LYNX\heli_light_03_DA_R3F_co.paa"],[[],[]]],
 	["RHS_Mi24V_FAB_vvsc",[],[[],[]]]
 ];
+WMS_OPFOR_CustomSEA = [
+	["O_Boat_Armed_01_hmg_F",[],[[],[]]],
+	["O_T_Boat_Armed_01_hmg_F",[],[[],[]]]
+];
 WMS_AMS_LightArmed = [
 	["rhsusf_m1165a1_gmv_m134d_m240_socom_d",[],[[],[]]],
 	["B_T_LSV_01_armed_sand_F",[],[[],[]]],
