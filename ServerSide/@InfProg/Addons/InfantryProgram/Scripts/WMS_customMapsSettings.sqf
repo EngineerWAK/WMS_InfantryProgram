@@ -349,7 +349,10 @@ if (WMS_MapName == "Tanoa") then {
 										WMS_AI_MaxUnits_C 			= 220; //stop Base attack and missions
 										WMS_IP_Extract_Alt 			= 100;
 										WMS_C130_Altitude 			= 150;
-										WMS_FastNight_Evening		= 18.5; //evening start at
+										WMS_RandomStart_Hour 		= 3;
+										WMS_RandomStart_Random 		= 6;
+										WMS_FastNight_Evening		= 17.5; //evening start at //night -1 hour
+										WMS_FastNight_Night 		= 25;  //time speed
 										WMS_forceNoFog				= true;
 										WMS_AL_VhlBalance			= [2,2,0,2,0,2,1,2]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];

@@ -11,19 +11,22 @@
 */
 WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
-WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions, Do not use in Exile right newOverlay				
-//////////
-WMS_System_Version 			= "v2.662_2022SEP13_GitHub"; //Water stuff, loadout,reinforcement,baseAttack
+WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions, Do not use in Exile right newOverlay
+WMS_ServRestartSeconds 		= 18000; //5h	
+/////////////////////////////////////////////////
+///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
+/////////////////////////////////////////////////
+WMS_System_Version 			= "v2.666_2022SEP17_GitHub"; //Water stuff, loadout,reinforcement,baseAttack
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
-WMS_IP_LOGs 				= false;
+WMS_IP_LOGs 				= true;
 WMS_Watch_Triggers_Logs		= false;
 WMS_magicSmoke 				= true;
 WMS_ServerMarkers 			= true;
 WMS_forceNoRain 			= false;
 WMS_forceNoFog				= false;
 WMS_ServRestart 			= true;
-WMS_ServRestartSeconds 		= 18000; //5h
 WMS_Thread_Start			= 30;
+//WMS_ServRestartSeconds 		= 18000; //5h	Moved up
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Namalsk","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!!
 
 WMS_DynamicFlightOps		= true; //Module
@@ -422,7 +425,7 @@ WMS_AMS_poptabsUnits 	= [25,25];
 WMS_AMS_addPoptabsRwd 	= false; //Add poptabs in the mission reward crate/vehicle
 WMS_AMS_PoptabsRwd 		= [1000,500]; //Add poptabs in the mission reward crate/vehicle
 			   //skills = "spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"//,"endurance"
-WMS_AMS_skillsMin 		= [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0, 0.1, 0.1];
+WMS_AMS_skillsMin 		= [0.1, 0.1, 0.005, 0.1, 0.1, 0.1, 0, 0.1, 0.1];
 WMS_AMS_skillsMax 		= [1, 0.85, 0.85, 0.7, 0.8, 0.8, 0, 1, 0.85];
 WMS_AMS_skilleasy 		= [0.80, 0.8, 0.3, 0.3, 0.3, 0.6, 0, 0.6, 0.6];
 WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.4, 0.4, 0.4, 0.6, 0, 0.6, 0.8];

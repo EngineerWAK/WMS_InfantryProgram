@@ -67,9 +67,9 @@ switch (tolower _type) do
 			_timer = (_timer select 0);
 		};
 		_rewards = [
-			[2,1,2],
+			[5,1,3], //how many type, now may from type, + random
 			[1,1,2],
-			[3,1,2],
+			[5,1,2],
 			[1,3,3],
 			[0,0,0]
 			];
@@ -83,9 +83,9 @@ switch (tolower _type) do
 			_timer = (_timer select 1);
 		};
 		_rewards = [
-			[3,1,2],
+			[7,1,3],
 			[2,1,2],
-			[3,1,2],
+			[5,1,2],
 			[1,3,3],
 			[0,0,0]];
 	};
@@ -98,9 +98,9 @@ switch (tolower _type) do
 			_timer = (_timer select 2);
 		};
 		_rewards = [
-			[4,1,2],
+			[9,1,3],
 			[2,1,2],
-			[4,1,2],
+			[5,1,2],
 			[1,3,3],
 			[0,0,0]];
 	};
@@ -113,9 +113,9 @@ switch (tolower _type) do
 			_timer = (_timer select 3);
 		};
 		_rewards = [
-			[5,1,2],
+			[11,1,3],
 			[3,1,2],
-			[4,1,2],
+			[5,1,2],
 			[1,3,3],
 			[0,0,0]];
 	};

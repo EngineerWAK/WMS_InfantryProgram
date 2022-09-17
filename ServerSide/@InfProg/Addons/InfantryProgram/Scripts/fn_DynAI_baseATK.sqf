@@ -14,7 +14,7 @@
 //((_countFlag != 0) && (_targetSpeed < 100) && !((getplayerUID _DynamicThreatTarget) in WMS_DynAI_BaseAtkUIDList) && (WMS_DynAI_BaseAtkRunning < WMS_DynAI_BaseAtkMax))
 //[_DynamicThreatTarget, (_flagList select 0), _threatScenario] call WMS_fnc_DynAI_baseATK;
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAI BASEATK]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_timer","_AIcount","_AIgrps","_RPGChance","_skill","_loadout","_unitFunction","_pos","_grps","_Towner","_Tname","_Trights","_Tlevel","_blacklist","_safePos","_startPatrol","_crows"];
+private ["_grp1","_timer","_AIcount","_AIgrps","_RPGChance","_skill","_loadout","_unitFunction","_pos","_grps","_Towner","_Tname","_Trights","_Tlevel","_blacklist","_safePos","_startPatrol","_crows"];
 params[
 	"_target",
 	"_flag",
@@ -32,6 +32,7 @@ _difficulty = "easy";
 _grps 		= [];
 _safePos 	= [0,0,0];
 _startPatrol = [0,0,0];
+_fire 		= ObjNull;
 _waterWorld = surfaceIsWater (position _flag);
 
 _Towner 	= _flag getvariable ["exileowneruid",0];
@@ -41,6 +42,7 @@ _Tlevel 	= _flag getvariable ["exileterritorylevel",1];
 _Ttravelers = _flag getVariable ["WMS_BaseFriends", ["1"]]; //fasttravelers UID added to the territory
 _Tlevel 	= (_Tlevel+(count _Ttravelers)-1);
 
+_blacklist = [_pos,750,200,150,100]call WMS_fnc_AMS_SpnAiBlkListFull;
 
 switch (_Tlevel) do { //Base lvl1 = 0.15 to 0.3, lvl2 & lvl3 = 0.15 to 0.35, , lvl4 & lvl5 = 0.2 to 0.4, lvl6 & lvl7 = 0.25 to 0.5, lvl8 & lvl9 = 0.3 to 0.55, lvl10 0.35 to 0.6
 	case 1 : {_timer = 900;_AIcount = 3;_AIgrps = 2;_RPGChance = 10;_skill = (0.15+random 0.2);_loadout = selectRandom ["bandit"];}; //6
@@ -56,20 +58,21 @@ switch (_Tlevel) do { //Base lvl1 = 0.15 to 0.3, lvl2 & lvl3 = 0.15 to 0.35, , l
     default {_timer = 3600;_AIcount = 5;_AIgrps = 4;_RPGChance = 30;_skill = (0.35+random 0.25);_unitFunction = "livoniapatrol";_loadout = selectRandom ["livonia"];};
 };
 
-_blacklist = [_pos,750,200,150,100]call WMS_fnc_AMS_SpnAiBlkListFull;
 if(_waterWorld)then{
+		_blacklist = [_pos,750,0,0,100]call WMS_fnc_AMS_SpnAiBlkListFull;
 		_unitFunction = "para";_loadout = "diver";
-		_safePos = [_pos, 50, 250, 2, 1, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;//[x,y] ok, [x,y,0] not ok
-		_startPatrol = [_pos, 80, 120, 1, 1, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
+		_safePos = [_pos, 0, 150, 2, 1, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;//[x,y] ok, [x,y,0] not ok
+		_startPatrol = [_pos, 50, 120, 1, 1, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
 		_flag setVariable ["BaseATKReinforce", ["paradrop","paradrop","AIRpatrol","AIRpatrol","AIRassault"],true];
 	}else{
 		_safePos = [_pos, 250, 500, 2, 0, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;//[x,y] ok, [x,y,0] not ok
-		_startPatrol = [_pos, 80, 120, 1, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
+		_startPatrol = [_pos, 50, 120, 1, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
 		_flag setVariable ["BaseATKReinforce", ["runner","paradrop","VHLpatrol","AIRpatrol","AIRassault"],true];
 	};
 if (count _safePos == 3) exitWith {diag_log format ["[DynAI BASEATK]|WAK|TNA|WMS| %1 Attack FAILD! No position found", _Tname]};
 playSound3D ["A3\Sounds_F\environment\ambient\battlefield\battlefield_firefight4.wss", _flag, false, position _flag, 6, 1, 0];
-_fire = createVehicle ["test_EmptyObjectForFireBig", [(_pos select 0), (_pos select 1), 35], [], 0, "CAN_COLLIDE"];
+_fire = createVehicle ["test_EmptyObjectForFireBig", [(_pos select 0), (_pos select 1), 35], [], 0, "CAN_COLLIDE"]; //THIS NEED TO CHANGE FOR ASL
+if(_waterWorld)then{_fire setPosASL [(_pos select 0), (_pos select 1), 35]};
 /////Bandits
 for "_i" from 1 to _AIgrps do {
 	_grp1 = createGroup [OPFOR, false];
@@ -80,20 +83,41 @@ for "_i" from 1 to _AIgrps do {
 			_grp1
 		];
 	};
+	[(units _grp1),_unitFunction,_RPGChance,_skill,_difficulty,_loadout,nil,'DYNAI'] call WMS_fnc_SetUnits;
+	if(_waterWorld)then{
+		if (WMS_DynAI_Steal) then {
+			[_grp1, _startPatrol, 200, 3, "MOVE", "COMBAT", "YELLOW", "NORMAL", "COLUMN", "this call WMS_fnc_DynAI_Steal", [5,10,15]] call CBA_fnc_taskPatrol;// AI should patrol around the base, not random waypoints
+		} else {
+			[_grp1, _startPatrol, 200, 3, "MOVE", "COMBAT", "YELLOW", "NORMAL", "COLUMN", "", [5,10,15]] call CBA_fnc_taskPatrol;// AI should patrol around the base, not random waypoints
+		};
+		(leader _grp1) doTarget _target;
+		_safePos = [_pos, 0, 150, 2, 1, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;
+		_startPatrol = [_pos, 50, 120, 1, 1, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
+		//Give those poor divers a boat
+		_vehic = selectRandom ["O_Boat_Transport_01_F","O_Boat_Transport_01_F","O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F","O_G_Boat_Transport_02_F"] createVehicle [-100,-100,3000];
+		_vehic setPos _safePos;
+		_grp1 addVehicle _vehic;
+		_vehic setVehicleLock "LOCKEDPLAYER";
+		_vehic allowDamage true;
+	}else{
+		if (WMS_DynAI_Steal) then {
+			[_grp1, _startPatrol, 200, 3, "MOVE", "SAFE", "RED", "NORMAL", "COLUMN", "this call WMS_fnc_DynAI_Steal", [5,10,15]] call CBA_fnc_taskPatrol;// AI should patrol around the base, not random waypoints
+		} else {
+			[_grp1, _startPatrol, 200, 3, "MOVE", "SAFE", "RED", "NORMAL", "COLUMN", "", [5,10,15]] call CBA_fnc_taskPatrol;// AI should patrol around the base, not random waypoints
+		};
+		_safePos = [_pos, 250, 500, 2, 0, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;
+		_startPatrol = [_pos, 80, 120, 1, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
+	};
 	{
 		_x setVariable ["BaseATKflag", _flag, true];
 		_x setVariable ["unitFunction", _unitFunction, true];
 		_x setVariable ["info", 'BaseATK', true];
-		if(_waterWorld)then{_x setPos [position _x select 0,position _x select 1,200+(random 75)]};
+		if(_waterWorld && {_unitFunction == "para"})then{
+			removeBackpackGlobal _x;
+			_x addBackpack "B_Parachute";
+			_x setPosASL [position _x select 0,position _x select 1,150+(random 100)];
+		};
 	}foreach (units _grp1);
-	[(units _grp1),_unitFunction,_RPGChance,_skill,_difficulty,_loadout,nil,'DYNAI'] call WMS_fnc_SetUnits;
-	if (WMS_DynAI_Steal) then {
-		[_grp1, _startPatrol, 200, 3, "MOVE", "SAFE", "RED", "NORMAL", "COLUMN", "this call WMS_fnc_DynAI_Steal", [5,10,15]] call CBA_fnc_taskPatrol;// AI should patrol around the base, not random waypoints
-		} else {
-			[_grp1, _startPatrol, 200, 3, "MOVE", "SAFE", "RED", "NORMAL", "COLUMN", "", [5,10,15]] call CBA_fnc_taskPatrol;// AI should patrol around the base, not random waypoints
-	};
-	_safePos = [_pos, 250, 500, 2, 0, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;//[x,y] ok, [x,y,0] not ok
-	_startPatrol = [_pos, 80, 120, 1, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
 };
 WMS_DynAI_Running pushback [_flag,(time+(_timer)),_grps,[],[_fire],[],[],_threatScenario];
 //////////
@@ -106,6 +130,7 @@ if (WMS_exileToastMsg) then {
 	} else {
 		["EventWarning", ["BaseAttack", "Yes, they are comming for you"]] remoteExec ["BIS_fnc_showNotification", owner _target];
 	};
+_waterWorld = false;
 if (WMS_IP_LOGs) then {diag_log format ["[DynAI BASEATK]|WAK|TNA|WMS| %1 is under Attack!", _Tname]};
 WMS_DynAI_BaseAtkRunning = (WMS_DynAI_BaseAtkRunning +1);
 WMS_DynAI_BaseAtkLast = time;
