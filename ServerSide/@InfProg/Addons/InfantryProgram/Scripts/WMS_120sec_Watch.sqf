@@ -36,6 +36,8 @@ while {true} do {
 					};
 				}else {((_x select 3) select 0) setVariable ["WMS_AL_LastPos", position ((_x select 3)select 0)]};
 			};
+			//refuel vehicles
+			if(owner ((_x select 3) select 0) == 2)then{((_x select 3) select 0) setFuel 1};
 		}forEach (WMS_AL_Running select 0);
 		//respawn missing vehicles, ONE per loop
 		if (count (WMS_AL_Running select 0) < WMS_AL_VHLmax) then {
