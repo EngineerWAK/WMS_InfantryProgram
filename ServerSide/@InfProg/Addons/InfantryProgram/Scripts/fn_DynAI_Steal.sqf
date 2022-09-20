@@ -15,7 +15,7 @@
 private ["_leader","_vhlList", "_catType", "_category"];
 params[
 	"_grp",
-	["_lookingFor","LandVehicle",[""]],
+	["_lookingFor","AllVehicles",[""]], //"LandVehicle","ship","air","AllVehicles"
 	["_distance", WMS_DynAI_stealDist,[0]]
 ];
 if (time > (WMS_DynAI_Steal_last + WMS_DynAI_Steal_Cooldown)) then {

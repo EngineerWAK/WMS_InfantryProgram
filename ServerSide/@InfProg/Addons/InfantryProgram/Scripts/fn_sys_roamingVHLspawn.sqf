@@ -35,7 +35,9 @@ if (WMS_AI_RoamingVHL) then {
 	if (_VHLAIrunning < WMS_AI_RoamingVHLcount && ((OPFOR countSide allUnits) < WMS_AI_MaxUnits_B)) then {
 		_vhlFull = selectRandom WMS_AI_RoamingVHLlist;
 		_vhl2 = (_vhlFull select 0);
-		_pos2 = [WMS_AMS_CenterMap, 0, (worldsize/2), 15, 0, 0.15] call BIS_fnc_findSafePos;
+		//_pos2 = [WMS_AMS_CenterMap, 0, (worldsize/2), 15, 0, 0.15] call BIS_fnc_findSafePos;
+		private _blackList = allPlayers select {alive _x} apply {[getPosATL _x, WMS_AI_PlayerDistToSpawnVHL]};
+		_pos2 = [WMS_AMS_CenterMap, 0, (worldsize/2), 15, 0, 0.15, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;
 		_loadout = selectRandom ["bandit","army","BlackOps"];
 		[_pos2, "", WMS_AI_PatrolTimer_VHL+(random 300),_skillgnd,OPFOR,_loadout,_vhlFull,false,false,0,150,WMS_AI_VHLwptDist,"MOVE","SAFE","YELLOW","LIMITED","ROAMING"] spawn WMS_fnc_infantryProgram_VHLpatrol;
 		if (WMS_IP_LOGs) then { diag_log format ["[AI VHL SPAWN]|WAK|TNA|WMS| spawning %1 position %2, skill %3", _vhl2,_pos2,_skillgnd]};
