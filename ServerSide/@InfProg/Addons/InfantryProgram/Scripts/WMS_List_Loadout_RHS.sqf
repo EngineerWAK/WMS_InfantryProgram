@@ -261,7 +261,7 @@ WMS_Weaps_LivoniaMix = [
 	"rhs_weap_m4a1_m203s_wd",
 	"rhs_weap_m14_wd",
 	"rhs_weap_XM2010_sa",
-	"rhs_weap_m40a5_w",
+	"rhs_weap_m40a5_wd",
 	"rhs_weap_m24sws_wd",
 	 //"arifle_AK12_GL_arid_F",
 	 "arifle_AK12_arid_F",

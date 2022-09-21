@@ -41,7 +41,7 @@ _smokeGrenade = "SmokeShellOrange";
 _paraGrp = [[(_pos select 0),(_pos select 1),_altitude], _grpSide, _grpSize] call BIS_fnc_spawnGroup;
 _leaderGrp = Leader _paraGrp;
 { 
-	_randomSpawnPos = [[(_pos select 0),(_pos select 1),_altitude] , _dist1, _dist2, 0, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
+	_randomSpawnPos = [[(_pos select 0),(_pos select 1),_altitude] , _dist1, _dist2, 0, 1, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
 	_x setpos [(_randomSpawnPos select 0),(_randomSpawnPos select 1),_altitude]; 
 	_x setVariable ["WMS_RealFuckingSide",_grpSide];
 } forEach units _paraGrp ;

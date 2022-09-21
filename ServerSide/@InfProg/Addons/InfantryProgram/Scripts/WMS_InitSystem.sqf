@@ -16,7 +16,7 @@ WMS_ServRestartSeconds 		= 18000; //5h
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.668_2022SEP20_GitHub"; //DynAI steal "AllVehicles" by default, not only "LandVehicles"
+WMS_System_Version 			= "v2.669_2022SEP21_GitHub"; //DynAI steal "AllVehicles" by default, not only "LandVehicles"
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= true;
 WMS_Watch_Triggers_Logs		= false;

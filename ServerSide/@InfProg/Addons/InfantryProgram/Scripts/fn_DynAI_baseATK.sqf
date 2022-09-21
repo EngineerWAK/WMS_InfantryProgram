@@ -14,7 +14,7 @@
 //((_countFlag != 0) && (_targetSpeed < 100) && !((getplayerUID _DynamicThreatTarget) in WMS_DynAI_BaseAtkUIDList) && (WMS_DynAI_BaseAtkRunning < WMS_DynAI_BaseAtkMax))
 //[_DynamicThreatTarget, (_flagList select 0), _threatScenario] call WMS_fnc_DynAI_baseATK;
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAI BASEATK]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_grp1","_timer","_AIcount","_AIgrps","_RPGChance","_skill","_loadout","_unitFunction","_pos","_grps","_Towner","_Tname","_Trights","_Tlevel","_blacklist","_safePos","_startPatrol","_crows"];
+private ["_ships","_grp1","_timer","_AIcount","_AIgrps","_RPGChance","_skill","_loadout","_unitFunction","_pos","_grps","_Towner","_Tname","_Trights","_Tlevel","_blacklist","_safePos","_startPatrol","_crows"];
 params[
 	"_target",
 	"_flag",
@@ -34,6 +34,7 @@ _safePos 	= [0,0,0];
 _startPatrol = [0,0,0];
 _fire 		= ObjNull;
 _waterWorld = surfaceIsWater (position _flag);
+_ships = ["O_Boat_Transport_01_F","O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F"];
 
 _Towner 	= _flag getvariable ["exileowneruid",0];
 _Tname 		= _flag getvariable ["exileterritoryname","hell"];
@@ -45,16 +46,16 @@ _Tlevel 	= (_Tlevel+(count _Ttravelers)-1);
 _blacklist = [_pos,750,200,150,100]call WMS_fnc_AMS_SpnAiBlkListFull;
 
 switch (_Tlevel) do { //Base lvl1 = 0.15 to 0.3, lvl2 & lvl3 = 0.15 to 0.35, , lvl4 & lvl5 = 0.2 to 0.4, lvl6 & lvl7 = 0.25 to 0.5, lvl8 & lvl9 = 0.3 to 0.55, lvl10 0.35 to 0.6
-	case 1 : {_timer = 900;_AIcount = 3;_AIgrps = 2;_RPGChance = 10;_skill = (0.15+random 0.2);_loadout = selectRandom ["bandit"];}; //6
-	case 2 : {_timer = 900;_AIcount = 3;_AIgrps = 2;_RPGChance = 10;_skill = (0.15+random 0.2);_loadout = selectRandom ["bandit","bandit","heavybandit"];}; //6
-	case 3 : {_timer = 900;_AIcount = 3;_AIgrps = 3;_RPGChance = 10;_skill = (0.15+random 0.2);_difficulty = "moderate";_unitFunction = "random";_loadout = selectRandom ["bandit","heavybandit"];}; //9
-	case 4 : {_timer = 1200;_AIcount = 4;_AIgrps = 2;_RPGChance = 15;_skill = (0.2+random 0.2);_difficulty = "moderate";_loadout = selectRandom ["heavybandit"];}; //8
+	case 1 : {_timer = 900;_AIcount = 3;_AIgrps = 2;_RPGChance = 10;_skill = (0.15+random 0.2);_loadout = selectRandom ["bandit"];_ships = ["O_Boat_Transport_01_F","O_G_Boat_Transport_02_F"];}; //6
+	case 2 : {_timer = 900;_AIcount = 3;_AIgrps = 2;_RPGChance = 10;_skill = (0.15+random 0.2);_loadout = selectRandom ["bandit","bandit","heavybandit"];_ships = ["O_Boat_Transport_01_F","O_G_Boat_Transport_02_F"];}; //6
+	case 3 : {_timer = 900;_AIcount = 3;_AIgrps = 3;_RPGChance = 10;_skill = (0.15+random 0.2);_difficulty = "moderate";_unitFunction = "random";_loadout = selectRandom ["bandit","heavybandit"];_ships = ["O_Boat_Transport_01_F","O_Boat_Transport_01_F","O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F","O_G_Boat_Transport_02_F"];}; //9
+	case 4 : {_timer = 1200;_AIcount = 4;_AIgrps = 2;_RPGChance = 15;_skill = (0.2+random 0.2);_difficulty = "moderate";_loadout = selectRandom ["heavybandit"];_ships = ["O_Boat_Transport_01_F","O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F","O_G_Boat_Transport_02_F"];}; //8
 	case 5 : {_timer = 1500;_AIcount = 4;_AIgrps = 3;_RPGChance = 15;_skill = (0.2+random 0.2);_difficulty = "difficult";_unitFunction = "random";_loadout = selectRandom ["heavybandit","army"];}; //12
-	case 6 : {_timer = 1800;_AIcount = 5;_AIgrps = 3;_RPGChance = 20;_skill = (0.25+random 0.25);_difficulty = "difficult";_loadout = selectRandom ["heavybandit","army","army"];}; //10
-	case 7 : {_timer = 2100;_AIcount = 5;_AIgrps = 3;_RPGChance = 20;_skill = (0.25+random 0.25);_difficulty = "hardcore";_unitFunction = "random";_loadout = selectRandom ["army"];}; //15
-	case 8 : {_timer = 2600;_AIcount = 6;_AIgrps = 3;_RPGChance = 25;_skill = (0.3+random 0.25);_difficulty = "hardcore";_loadout = selectRandom ["army","livonia"];}; //12
-	case 9 : {_timer = 3100;_AIcount = 6;_AIgrps = 3;_RPGChance = 25;_skill = (0.3+random 0.25);_difficulty = "hardcore";_loadout = selectRandom ["army","livonia","livonia"];}; //18
-	case 10 : {_timer = 3600;_AIcount = 5;_AIgrps = 4;_RPGChance = 30;_skill = (0.35+random 0.25);_difficulty = "hardcore";_unitFunction = "livoniapatrol";_loadout = selectRandom ["livonia"];}; //20
+	case 6 : {_timer = 1800;_AIcount = 5;_AIgrps = 3;_RPGChance = 20;_skill = (0.25+random 0.25);_difficulty = "difficult";_loadout = selectRandom ["heavybandit","army","army"];_ships = ["O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F"];}; //10
+	case 7 : {_timer = 2100;_AIcount = 5;_AIgrps = 3;_RPGChance = 20;_skill = (0.25+random 0.25);_difficulty = "hardcore";_unitFunction = "random";_loadout = selectRandom ["army"];_ships = ["O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F"];}; //15
+	case 8 : {_timer = 2600;_AIcount = 6;_AIgrps = 3;_RPGChance = 25;_skill = (0.3+random 0.25);_difficulty = "hardcore";_loadout = selectRandom ["army","livonia"];_ships = ["O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F"];}; //12
+	case 9 : {_timer = 3100;_AIcount = 6;_AIgrps = 3;_RPGChance = 25;_skill = (0.3+random 0.25);_difficulty = "hardcore";_loadout = selectRandom ["army","livonia","livonia"];_ships = ["O_Boat_Armed_01_hmg_F","O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F"];}; //18
+	case 10 : {_timer = 3600;_AIcount = 5;_AIgrps = 4;_RPGChance = 30;_skill = (0.35+random 0.25);_difficulty = "hardcore";_unitFunction = "livoniapatrol";_loadout = selectRandom ["livonia"];_ships = ["O_Boat_Armed_01_hmg_F"];}; //20
     default {_timer = 3600;_AIcount = 5;_AIgrps = 4;_RPGChance = 30;_skill = (0.35+random 0.25);_unitFunction = "livoniapatrol";_loadout = selectRandom ["livonia"];};
 };
 
@@ -94,7 +95,7 @@ for "_i" from 1 to _AIgrps do {
 		_safePos = [_pos, 0, 150, 2, 1, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;
 		_startPatrol = [_pos, 50, 120, 1, 1, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
 		//Give those poor divers a boat
-		_vehic = selectRandom ["O_Boat_Transport_01_F","O_Boat_Transport_01_F","O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F","O_G_Boat_Transport_02_F"] createVehicle [-100,-100,3000];
+		_vehic = (selectRandom _ships) createVehicle [-100,-100,3000];
 		_vehic setPos _safePos;
 		_grp1 addVehicle _vehic;
 		_vehic setVehicleLock "LOCKEDPLAYER";
@@ -126,9 +127,9 @@ _flag setvariable ["BaseATK", true, true];
 WMS_DynAI_BaseAtkUIDList pushBack (getplayerUID _target);
 if (WMS_exileToastMsg) then {
 	private _sessionID = _target getVariable ['ExileSessionID','']; 
-	[_sessionID, 'toastRequest', ['InfoTitleAndText', ['BaseAttack', 'Yes, they are comming for you']]] call ExileServer_system_network_send_to;
+	[_sessionID, 'toastRequest', ['InfoTitleAndText', ['BaseAttack', 'Yes, they are coming for you']]] call ExileServer_system_network_send_to;
 	} else {
-		["EventWarning", ["BaseAttack", "Yes, they are comming for you"]] remoteExec ["BIS_fnc_showNotification", owner _target];
+		["EventWarning", ["BaseAttack", "Yes, they are coming for you"]] remoteExec ["BIS_fnc_showNotification", owner _target];
 	};
 _waterWorld = false;
 if (WMS_IP_LOGs) then {diag_log format ["[DynAI BASEATK]|WAK|TNA|WMS| %1 is under Attack!", _Tname]};
