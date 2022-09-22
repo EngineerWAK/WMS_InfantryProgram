@@ -49,8 +49,10 @@ _target setVariable ["AMS_MissionStatus","SUCCES",true];
 _target setVariable ["AMS_UnlockedBy",[_crateOwner],true];
 //[_target,_rwds,_Msg,_load,_difficulty,_Altitude,_SmokeColor,_LightColor] spawn WMS_fnc_AMS_SpawnRewards; //_load would be the "container" under the parachute
 [_target,_rwds,_lootCount,_lootType,nil,nil,_difficulty] spawn WMS_fnc_AMS_SpawnRewards;
-if(WMS_AMS_DelMissionFlag) then {} else {
+if(WMS_AMS_DelMissionFlag) then {
 	_objs deleteAt 0; //remove the Mission Flag from the Object list
+} else {
+	
 };
 
 WMS_AMS_MissionsCount = WMS_AMS_MissionsCount -1;

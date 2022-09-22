@@ -151,6 +151,7 @@
 			",  
   			"	 
 	  			'Dynamic Flight Ops, Do not Park here' remoteExec ['systemChat', (owner (thisList select 0))];
+				if (true) then {diag_log format ['|WAK|TNA|WMS|[DFO] WMS_fnc_DFO_BuildBase trigger thisList %1', thisList]};
 				if (WMS_DFO_Standalone) then {
 					[[['Dynamic Flight Ops, Do not Park here']],'NOTIRED'] remoteExec ['WMS_fnc_DFO_killStats',(owner (thisList select 0))];
 				} else {

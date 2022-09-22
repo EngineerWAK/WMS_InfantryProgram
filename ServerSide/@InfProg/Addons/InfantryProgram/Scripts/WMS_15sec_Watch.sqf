@@ -25,11 +25,10 @@ if!(WMS_exileFireAndForget) then {
 
 while {true} do {
 	uisleep 14; //uisleep 14, uisleep 31, uisleep 59, uisleep 91, uisleep 120, uisleep 239
-	if (_unlockServer && {(time > 120)}) then {
+	if (_unlockServer && {(time > WMS_SVRstartLock)}) then {
 		{WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]}foreach allPlayers;
 		WMS_serverCMDpwd serverCommand "#unlock";
 		_unlockServer = false;
 	};
-	//if (WMS_AMS && {(time>WMS_AMS_WaitToStart)}) then {[]call WMS_fnc_Watch_AMS;};
 	if (WMS_AMS) then {[]call WMS_fnc_Watch_AMS;};
 };

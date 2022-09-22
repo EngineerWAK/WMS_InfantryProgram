@@ -37,7 +37,7 @@ params[
 	if (WMS_DynAI_remRPG) then {_killed removeWeapon (secondaryWeapon _killed)};
 
 	if (isplayer _killer) then {
-		if (WMS_AI_forceInfKillCount) then {_killer addPlayerScores [1,0,0,0,0]};
+		//if (WMS_AI_forceInfKillCount) then {_killer addPlayerScores [1,0,0,0,0]}; //not used anymore
 		_killerUID 	= getPlayerUID _killer;
 		_playerRepUpdated = 0;
 		_playerUID_ExileKills = "ExileKills_"+_killerUID;

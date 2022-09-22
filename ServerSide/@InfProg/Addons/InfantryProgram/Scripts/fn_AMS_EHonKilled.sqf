@@ -37,7 +37,7 @@ switch (toLower _difficulty) do {
 	case  "static" 		: {_diffCoeff = 1};
 };
 if (isplayer _killer) then {
-	if (WMS_AI_forceInfKillCount) then {_killer addPlayerScores [1,0,0,0,0]};
+	//if (WMS_AI_forceInfKillCount) then {_killer addPlayerScores [1,0,0,0,0]}; //not used anymore
 	_killerName = name _killer;
 	_killerUID = getPlayerUID _killer;
 	_playerRepUpdated = 0;
