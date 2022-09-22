@@ -27,17 +27,17 @@ _safePos = [];
 _run = true;
 if (_spawnType == 'player') then {
 	if(surfaceIsWater (position _target))then{
-		_safePos = [position _target, 150, 300, 1, 1, 0, 0, [], [[(position _pos select 0),(position _pos select 1)+150,1],[]]] call BIS_fnc_findSafePos;
+		_safePos = [position _target, 150, 300, 1, 1, 0, 0, [], [[(position _target select 0),(position _target select 1)+150,1],[]]] call BIS_fnc_findSafePos;
 	}else{
-		_safePos = [position _target, 150, 300, 1, 0, 0, 0, [], [[(position _pos select 0),(position _pos select 1)+150,1],[]]] call BIS_fnc_findSafePos;
+		_safePos = [position _target, 150, 300, 1, 0, 0, 0, [], [[(position _target select 0),(position _target select 1)+150,1],[]]] call BIS_fnc_findSafePos;
 	};
 };
 if (_spawnType == 'trigger') then {_safePos = _pos};
 if (_spawnType == 'para') then {
 	if(surfaceIsWater (position _target))then{
-		_safePos = [position _target, 50, 200, 0, 1, 0, 0, [], [[(position _pos select 0),(position _pos select 1)+100,300],[]]] call BIS_fnc_findSafePos;
+		_safePos = [position _target, 50, 200, 0, 1, 0, 0, [], [[(position _target select 0),(position _target select 1)+100,300],[]]] call BIS_fnc_findSafePos;
 	}else{
-		_safePos = [position _target, 50, 200, 0, 0, 0, 0, [], [[(position _pos select 0),(position _pos select 1)+100,300],[]]] call BIS_fnc_findSafePos;
+		_safePos = [position _target, 50, 200, 0, 0, 0, 0, [], [[(position _target select 0),(position _target select 1)+100,300],[]]] call BIS_fnc_findSafePos;
 	};
 };
 _grp = createGroup [civilian, false];
