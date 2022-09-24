@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////
 // [player, position player, getDir player, (1800 + random 1800), 1, 999] call WMS_fnc_Compo_R2D2Camp;
 //////////////////////////////////////////////////////////////////
-diag_log format ["[TANK CAMP]|WAK|TNA|WMS| _this = %1", _this];
+if (WMS_IP_LOGs) then {diag_log format ["[TANK CAMP]|WAK|TNA|WMS| _this = %1", _this];};
 [(_this select 0),(_this select 1),(_this select 2),(_this select 3),(_this select 4),(_this select 5)] spawn {
 private _target = (_this select 0); //player 
 private _pos = (_this select 1); //position player //[x,y,z]
@@ -31,6 +31,7 @@ if (_Loadout == "scorpion") then {_Loadout = WMS_Loadout_Scorpion};
 if (_Loadout == "tiger") then {_Loadout = WMS_Loadout_Tiger};
 if (_Loadout == "fleck") then {_Loadout = WMS_Loadout_DEfleck};
 if (_amount == 999) then { _lockerMoney = "Lets Punch It" } else { 
+	////////////////////////////////////////////////////////NEED TO CONVERT///////////////////////////////////////////////////////////////
 	_lockerMoney = _target getVariable ['ExileLocker', 0];
 	if(_lockerMoney > _amount) then
     { 
@@ -51,6 +52,7 @@ if (_amount == 999) then { _lockerMoney = "Lets Punch It" } else {
 		_fire attachto [_target,[0,0,0]]; 
 		playSound3D ["A3\sounds_f\ambient\objects\bell_big.wss", _target, false, _pos, 3, 1, 0];
 	};
+	////////////////////////////////////////////////////////NEED TO CONVERT///////////////////////////////////////////////////////////////
 };
 private _objects = [
 	[WMS_CamoNet_Big,[0.0238766,1.06157,0],186.275,[true,false],""],

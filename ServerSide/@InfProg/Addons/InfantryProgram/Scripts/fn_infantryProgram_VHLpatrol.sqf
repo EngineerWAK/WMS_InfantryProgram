@@ -156,7 +156,7 @@ if (_grpSide == OPFOR ) then {
 	}else{
 		_vehic addMPEventHandler ["mpkilled", {
 				//params ["_unit", "_killer", "_instigator", "_useEffects"];
-				if (true) then {diag_log format ["[ROAMING AI VHL DESTROYED]|WAK|TNA|WMS| _this: %1", _this]};
+				if (WMS_IP_LOGs) then {diag_log format ["[ROAMING AI VHL DESTROYED]|WAK|TNA|WMS| _this: %1", _this]};
 				if (isPlayer (_this select 1)) then {
 					[(_this select 1), "ROAMING"] call WMS_fnc_AI_rewardOnVHLdestroy;
 				};

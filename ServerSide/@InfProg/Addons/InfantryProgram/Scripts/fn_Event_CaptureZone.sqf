@@ -147,7 +147,7 @@ WMS_fnc_spawnCaptureZoneObjects = {
 		["_layout","empty"]
 	];
 	_dirFlag = random 360;
-	if (true) then {diag_log format ["[CAPTUREZONE_OBJECTS]|WAK|TNA|WMS| _this = %1", _this]};
+	if (WMS_IP_LOGs) then {diag_log format ["[CAPTUREZONE_OBJECTS]|WAK|TNA|WMS| _this = %1", _this]};
 	_compoRefPoint = createVehicle ["VR_Area_01_circle_4_yellow_F", _pos, [], 0, "CAN_COLLIDE"];
 	_compoRefPoint setDir _dirFlag;
 	_objects = [["FirePlace_burning_F",[-2.66703,-5.399602,0],46.8]];
@@ -439,7 +439,7 @@ WMS_fnc_captureZoneWaves = {
 	[],_wpts,""];
 };
 WMS_fnc_ZoneStatusUpdate = {
-	if (true) then {diag_log "||||||||||CAPTUREZONE_ZONESTATUSUPDATE||||||||||"};
+	if (WMS_IP_LOGs) then {diag_log "||||||||||CAPTUREZONE_ZONESTATUSUPDATE||||||||||"};
 	//systemChat 'ZoneStatusUpdate';
 	WMS_zoneStatus_Neutral = (_this select 0);
 	WMS_zoneStatus_Capture = (_this select 1);
@@ -459,7 +459,7 @@ WMS_fnc_captureZoneEvents = {
 		_cumulCoolD = round (_cumulCoolD + _cooldR + (random 5));
 		WMS_captureZoneEvents pushback [_cumulCoolD,'ground'];
 	};
-	diag_log format ['CAPTUREZONE_REINFORCEMENTS = %1',WMS_captureZoneEvents];
+	if (WMS_IP_LOGs) then {diag_log format ['CAPTUREZONE_REINFORCEMENTS = %1',WMS_captureZoneEvents];};
 };
 
 _Mkrs = [_pos,"capturezone","Capture Zone",true] call WMS_fnc_AMS_CreateMarker;
@@ -593,7 +593,7 @@ while {_zoneStatus_Running} do {
 			WMS_captureZoneEvents deleteAt 0;
 		};
 		WMS_captureTimerCount = WMS_captureTimerCount+1;
-		if (false) then {diag_log "||||||||||CAPTUREZONE_TICKING||||||||||"};
+		if (WMS_IP_LOGs) then {diag_log "||||||||||CAPTUREZONE_TICKING||||||||||"};
 		if (WMS_captureTimerCount >= _timer) then {
 			_talk = selectRandom ["uspointcaptured","britpointcaptured"];
 			playSound3D [MISSION_ROOT+format["Custom\Ogg\%1.ogg",_talk], player, false, _pos, 4, 1, 0];
@@ -609,7 +609,7 @@ while {_zoneStatus_Running} do {
 			_smoke = "SmokeShellBlue" createVehicle _pos;
 			_phone = "Land_MobilePhone_old_F" createVehicle _pos;
 			_crateOwner = ([_pos, WMS_AMS_PlayerDistDelete] call WMS_fnc_AMS_ClstPlayer);
-			if (true) then {diag_log format ["||||||||||CAPTUREZONE_OWNER|||||||||| %1",_crateOwner]};
+			if (WMS_IP_LOGs) then {diag_log format ["||||||||||CAPTUREZONE_OWNER|||||||||| %1",_crateOwner]};
 			_phone setVariable ["AMS_UnlockedBy",[_crateOwner],true]; //needed for AMS paradrop
 			_phone setVariable ["AMS_MissionID","CaptureZone",true]; //needed for AMS paradrop
 			[_phone,[],_rewards,"military","Mission Reward",nil,_type,150] spawn WMS_fnc_AMS_SpawnRewards; //[_weap,_bag,_items,_ammoList,_mag] //nil is the crate/vehicle

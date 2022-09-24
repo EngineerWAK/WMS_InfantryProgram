@@ -16,7 +16,7 @@ WMS_ServRestartSeconds 		= 18000; //5h
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.672_2022SEP24_GitHub"; //fixed DynAI runner default position
+WMS_System_Version 			= "v2.675_2022SEP24_GitHub"; //LOGs filters to clean RPT file
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false; //RPT logs
 WMS_Watch_Triggers_Logs		= false; //RPT logs

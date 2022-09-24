@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////
 // [player, position player, getDir player, (1800 + random 1800), 1, 999] call WMS_fnc_Compo_R2D2Camp;
 //////////////////////////////////////////////////////////////////
-diag_log format ["[R2D2 CAMP]|WAK|TNA|WMS| _this = %1", _this];
+if (WMS_IP_LOGs) then {diag_log format ["[R2D2 CAMP]|WAK|TNA|WMS| _this = %1", _this];};
 
 params [
 	"_target", //player 
@@ -30,6 +30,7 @@ private _campGrp1 = grpNull;
 private _campGrp2 = grpNull;
 private _lockerMoney = 0;
 if (_amount == 999) then { _lockerMoney = "Lets Punch It" } else { 
+	////////////////////////////////////////////////////////NEED TO CONVERT///////////////////////////////////////////////////////////////
 	_lockerMoney = _target getVariable ['ExileLocker', 0];
 	if(_lockerMoney > _amount) then //this is the second check, shouldnt be false.
     { 
@@ -50,6 +51,7 @@ if (_amount == 999) then { _lockerMoney = "Lets Punch It" } else {
 		_fire attachto [_target,[0,0,0]]; 
 		playSound3D ["A3\sounds_f\ambient\objects\bell_big.wss", _target, false, _pos, 3, 1, 0]; //todo: check if _target will work if its not a player.
 	};
+	////////////////////////////////////////////////////////NEED TO CONVERT///////////////////////////////////////////////////////////////
 };
 private _objects = [
 	[WMS_CamoNet_Open,[0,0,0.15],0,[true,false],""],

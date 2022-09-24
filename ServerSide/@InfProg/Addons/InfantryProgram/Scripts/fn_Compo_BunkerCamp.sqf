@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////
 // [player, position player, getDir player, (1800 + random 1800), 1, 999] call WMS_fnc_Compo_BunkerCamp;
 //////////////////////////////////////////////////////////////////
-diag_log format ["[BUNKER CAMP]|WAK|TNA|WMS| _this = %1", _this];
+if (WMS_IP_LOGs) then {diag_log format ["[BUNKER CAMP]|WAK|TNA|WMS| _this = %1", _this];};
 
 params [
 	"_target", //player 

@@ -21,7 +21,7 @@ while {true} do {
 	//RoamingVHL spawn
 	if (WMS_AI_RoamingVHL || WMS_AI_RoamingAIR) then {call WMS_fnc_sys_RoamingVHLspawn};
 	if (WMS_AmbientLife) then {
-		if (true) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_AL_ManagementLoop Side: %1, Units: %4, server FPS %2, players %3', WMS_AL_Faction, diag_fps, count allPlayers, (WMS_AL_Faction countSide allUnits)]};
+		if (WMS_AL_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_AL_ManagementLoop Side: %1, Units: %4, server FPS %2, players %3', WMS_AL_Faction, diag_fps, count allPlayers, (WMS_AL_Faction countSide allUnits)]};
 		{
 			//destroying stuck vehicles
 			if (speed ((_x select 3) select 0) < 3) then {

@@ -23,7 +23,7 @@ _connectedRoad = _roadConnectedTo select 0;
 _directionRoad = [_nearestRoad, _connectedRoad] call BIS_fnc_DirTo;
 [_nearestRoadPos, _directionRoad, 120, 4, true, 50, 0.7, "army"] call WMS_fnc_Compo_RoadBlock;
 */
-diag_log format ["[ROADBLOCK]|WAK|TNA|WMS| _this = %1", _this];
+if (WMS_IP_LOGs) then {diag_log format ["[ROADBLOCK]|WAK|TNA|WMS| _this = %1", _this];};
 private ["_safePos","_objList","_objectCompos","_grps","_objects","_compoRefPoint","_MGgrp1","_MGgrp2","_INFgrp","_number","_sound"];
 params[  
 		"_pos",  

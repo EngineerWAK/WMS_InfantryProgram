@@ -17,7 +17,7 @@
 // [player, getDir player, _centerPos, _diameter, _pos, (1800 + random 1800), 0, 999, 1] spawn WMS_fnc_Compo_RepairCamp;
 //////////////////////////////////////////////////////////////////
 
-diag_log format ["[REPAIR CAMP]|WAK|TNA|WMS| _this = %1", _this];
+if (WMS_IP_LOGs) then {diag_log format ["[REPAIR CAMP]|WAK|TNA|WMS| _this = %1", _this];};
 private ["_objList","_MGList","_VHLList","_lockerMoney","_fire","_objects","_compoRefPoint","_markerPos","_markerName","_mkr"]; 
 params[ 
    "_target",

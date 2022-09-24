@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////
 // [[0,0,0],random 359,2+random 2, false] call WMS_fnc_Compo_HeliCrash;
 //////////////////////////////////////////////////////////////////
-diag_log format ["[HELICRASH]|WAK|TNA|WMS| _this = %1", _this];
+if (WMS_IP_LOGs) then {diag_log format ["[HELICRASH]|WAK|TNA|WMS| _this = %1", _this];};
 private ["_objList","_objects","_compoRefPoint","_Grp","_staticList","_triggCapture","_sound"];
 params[  
 		"_pos",  

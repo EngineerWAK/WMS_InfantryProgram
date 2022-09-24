@@ -428,14 +428,14 @@ if (WMS_MapName == "Tanoa") then {
 										WMS_AI_CargoUnits	 		= 2;
 										WMS_AMS_ToRun 				= 4;
 										WMS_AMS_MissionList = [
-											["MissionTest1",2],
+											["MissionTest1",1],
 											["MissionTest2",1],
-											["ForestCamp",2],
-											["HomeDepot",2],
-											["CombatPatrol",2],
+											["ForestCamp",1],
+											["HomeDepot",1],
+											["CombatPatrol",1],
 											["EnyBunkers",1],
 											["Arbeit",0],
-											["ArmedBandits",2],
+											["ArmedBandits",1],
 											["C192Crash",1],
 											["AmazonWH",1],
 											["TransmissionTower",1],
@@ -450,23 +450,23 @@ if (WMS_MapName == "Tanoa") then {
 											["Radar",1],
 											["Construction",1],
 											["OldTemple",1],
-											["JunkYard",2],
-											["LumberYard",2],
-											["OldPowerPlant",2],
-											["Market",2],
-											["GrandPaJoe",2],
-											["LumberYard",2],
-											["Factory",2],
-											["FieldHospital",2],
-											["Object172M",2],
+											["JunkYard",1],
+											["LumberYard",1],
+											["OldPowerPlant",1],
+											["Market",1],
+											["GrandPaJoe",1],
+											["LumberYard",1],
+											["Factory",1],
+											["FieldHospital",1],
+											["Object172M",1],
 											//OUTPOSTS
-											["OutpostAlpha",2],
-											["OutpostBravo",2],
-											["OutpostCharlie",2],
-											["OutpostDelta",2], //+V2
-											["OutpostEcho",2],
-											["OutpostFoxtrot",2],
-											["OutpostGolf",2] //+V2
+											["OutpostAlpha",1],
+											["OutpostBravo",1],
+											["OutpostCharlie",1],
+											["OutpostDelta",1], //+V2
+											["OutpostEcho",1],
+											["OutpostFoxtrot",1],
+											["OutpostGolf",1] //+V2
 										];
 										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_HH60","vtx_MH60S_GAU21L","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
