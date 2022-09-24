@@ -16,11 +16,11 @@ WMS_ServRestartSeconds 		= 18000; //5h
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.671_2022SEP22_GitHub"; //fixed DynAI runner default position
+WMS_System_Version 			= "v2.672_2022SEP24_GitHub"; //fixed DynAI runner default position
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false; //RPT logs
 WMS_Watch_Triggers_Logs		= false; //RPT logs
-WMS_magicSmoke 				= true; //puff of smoke/shaft/flair when NPC despawn
+WMS_magicSmoke 				= true; //puff of smoke/shaft/flare when NPC despawn
 WMS_ServerMarkers 			= true;	//show Server FPS, AI and Deads count on the map
 WMS_forceNoRain 			= false; //no more rain!
 WMS_forceNoFog				= false; //no more fucking fog!
@@ -30,7 +30,7 @@ WMS_SVRstartLock 			= 120; //better spawn the first AMS mission BEFORE the serve
 //WMS_ServRestartSeconds 	= 18000; //5h	Moved up
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Namalsk","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
 
-WMS_DynamicFlightOps		= true; //Module //DFO, for Arma Pilots who want to keep busy, call from a chopper or from DFO base(s)
+WMS_DynamicFlightOps		= true; //Module //DFO, for Arma "Pilots" who want to keep busy, call from a chopper or from DFO base(s)
 WMS_AmbientLife				= true; //Module  //spawn some little dudes, flying, drivinng, walking using boats, CIVILIAN by default //AL can spawn A LOT of units/vehicles/waypoints, be sure your box can handle it with other regular mission/roaming AI
 
 WMS_exileFireAndForget 		= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
@@ -707,7 +707,7 @@ if (WMS_RandomStartTime) then {
 	WMS_Date = [(WMS_Date select 0), (WMS_Date select 1), (WMS_Date select 2), WMS_RandomStart_Hour+floor (random WMS_RandomStart_Random), 00];
 	setdate WMS_Date;
 	//[[], {setDate WMS_Date}] remoteExec ["call",0,"JIP_id_setDate"];
-	publicVariable "WMS_Date";
+	//publicVariable "WMS_Date";
 	if (true) then {diag_log format ["[SERVER DATE/TIME]|WAK|TNA|WMS| Changing server date/time, target time: %1, real time: %2", WMS_Date, date]};
 };
 WMS_AMS_CenterMap = [worldsize/2,worldsize/2,0];
