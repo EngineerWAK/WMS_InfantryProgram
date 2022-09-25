@@ -155,6 +155,8 @@ switch (_objects) do {
 	case "FieldHospital"	: {_objects = WMS_AMS_Obj_FieldHospital};
 	case "FieldHospital2"	: {_objects = WMS_AMS_Obj_FieldHospital2};
 	case "FieldHospital3"	: {_objects = WMS_AMS_Obj_FieldHospital3};
+	case "thecommunity"		: {_objects = WMS_AMS_Obj_TheCommunity};
+	case "thecommunity2"	: {_objects = WMS_AMS_Obj_TheCommunity2};
 	//OUTPOSTS
 	case "OutpostAlpha"		: {_objects = WMS_AMS_Obj_OutpostAlpha};
 	case "OutpostBravo"		: {_objects = WMS_AMS_Obj_OutpostBravo};

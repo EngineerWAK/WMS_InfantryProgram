@@ -16,7 +16,7 @@ WMS_ServRestartSeconds 		= 18000; //5h
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.675_2022SEP24_GitHub"; //LOGs filters to clean RPT file
+WMS_System_Version 			= "v2.676_2022SEP25_GitHub"; //2 new Dynamic missions
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false; //RPT logs
 WMS_Watch_Triggers_Logs		= false; //RPT logs
@@ -517,10 +517,12 @@ WMS_AMS_MissionList 	= [ //missions themself and weight
 							["OldPowerPlant",1],
 							["Market",1],
 							["GrandPaJoe",1],
-							["LumberYard",2],
-							["Factory",2],
-							["FieldHospital",2],
-							["Object172M",2],
+							["LumberYard",1],
+							["Factory",1],
+							["FieldHospital",1],
+							["Object172M",1],
+							["thecommunity",2],
+							["shipyard",2],
 							//OUTPOSTS
 							["OutpostAlpha",1],
 							["OutpostBravo",1],

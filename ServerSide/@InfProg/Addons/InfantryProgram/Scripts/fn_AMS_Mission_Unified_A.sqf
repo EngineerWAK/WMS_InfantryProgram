@@ -86,6 +86,11 @@ _absc = floor (_pos select 0);
 _ordo = floor (_pos select 1);
 _MissionID = format ["%1_%2_%3_%4",WMS_AMS_Mission_ID,_T,_absc,_ordo];
 
+switch (_objects) do {
+	case "thecommunity"		: {_objects = WMS_AMS_Obj_TheCommunity};
+	case "thecommunity2"	: {_objects = WMS_AMS_Obj_TheCommunity2};
+};
+
 switch (_difficulty) do {
 	case "Easy"			: {
 		_unitsCount = _unitsCount+(round (random 2)); _skill = (0.20 + random 0.25);
@@ -97,7 +102,7 @@ switch (_difficulty) do {
 		_grpCount = _grpCount+1; _unitsCount = _unitsCount+(round (random 2)); 	_skill = (0.50 + random 0.25); _wpts = [60,4]; _radius = _radius*3; _howMany = _howMany*3;_lootCount =  (_lootCounts select 2);
 		};
 	case "Hardcore" 	: {
-		_grpCount = _grpCount+2; _unitsCount = _unitsCount+1+(round (random 2)); _skill = (0.70 + random 0.29); _wpts = [80,4]; _radius = _radius*4; _howMany = _howMany*4;_lootCount =  (_lootCounts select 3);
+		_grpCount = _grpCount+2; _unitsCount = _unitsCount+1+(round (random 2)); _skill = (0.60 + random 0.25); _wpts = [80,4]; _radius = _radius*4; _howMany = _howMany*4;_lootCount =  (_lootCounts select 3);
 		};
 };
 

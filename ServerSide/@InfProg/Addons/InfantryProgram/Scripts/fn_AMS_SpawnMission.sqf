@@ -26,6 +26,50 @@ if (_mission == "no") then { //obiously dan not work anymore
 	//private _parameters = if ((count _this)>1) then {_this select 1} else {[]}; //Useless right now
 	//_parameters call compile _mission;
 	switch (_mission) do {
+		case "shipyard" : {
+			private _rwds = selectRandom [WMS_AMS_LightRwds,WMS_AMS_TruckRwds];
+			private _rwd = ((selectRandom _rwds)select 0);//"classename"
+			private _objects = (selectRandom ["shipyard","shipyard2"]);//"classename"
+			["random",(random 359),2,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
+				[
+					["Shipyard"],["Moderate","Difficult","Difficult","Hardcore"],["heavyBandit","army"],["Assault","HeavyBandit"],["patrol"],
+					[
+						[[1,1,1],[1,1,1],[5,1,2],[1,2,2],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
+						[[2,1,1],[1,1,1],[6,1,3],[1,2,3],[0,0,0]],
+						[[3,1,1],[1,1,1],[7,1,4],[1,3,2],[0,0,0]],
+						[[4,1,1],[1,1,1],[8,1,5],[1,3,3],[0,0,0]]
+					],
+					"military",50,true,_objects,25,[],[_rwd],[4,"MG","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+				],_mission
+			] call WMS_fnc_AMS_Mission_Unified_C;
+		};
+		case "thecommunity" : {
+			private _unified = selectRandom ["a","b"];
+			private _objects = (selectRandom ["thecommunity","thecommunity2"]);//"classename"
+			if (_unified == "a")then{
+				["random",(random 359),2,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
+					[
+						["The Community"],["Moderate","Moderate","Difficult","Hardcore"],["heavyBandit"],["Assault","HeavyBandit"],["defend"],
+						[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
+						[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
+						"military",50,true,_objects,30,nil,nil,[6,"Assault","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+					],_mission
+				] call WMS_fnc_AMS_Mission_Unified_A;
+			}else{
+				["random",(random 359),2,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
+					[
+						["The Community"],["Moderate","Moderate","Difficult","Hardcore"],["heavyBandit"],["Assault","HeavyBandit"],["hide"],
+						[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
+						[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
+						"military",50,true,_objects,30,nil,nil,[6,"Assault","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+					],_mission
+				] call WMS_fnc_AMS_Mission_Unified_B;
+			};
+		};
 		case "Object172M" : {
 			private _AIvhlList = WMS_AMS_HeavyArmed;
 			private _AIvhl = (selectRandom _AIvhlList); //["rhs_btr80a_vv",["rhs_sand",1],[[],[]]]

@@ -354,6 +354,7 @@ if (WMS_MapName == "Tanoa") then {
 										WMS_FastNight_Evening		= 17.5; //evening start at //night -1 hour
 										WMS_FastNight_Night 		= 25;  //time speed
 										WMS_forceNoFog				= true;
+										WMS_forceNorain 			= true;
 										WMS_AL_VhlBalance			= [2,2,0,2,0,2,1,2]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15A","rhsusf_acc_anpeq15side","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15_bk_sc","rhsusf_acc_anpeq15_bk_top_h","rhsusf_acc_anpeq15_wmx_h","rhsusf_acc_anpeq15_wmx_light","rhsusf_acc_anpeq16a_light_top_sc","rhsusf_acc_anpeq16a_top"];
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
@@ -459,6 +460,8 @@ if (WMS_MapName == "Tanoa") then {
 											["Factory",1],
 											["FieldHospital",1],
 											["Object172M",1],
+											["thecommunity",2],
+											["shipyard",2],
 											//OUTPOSTS
 											["OutpostAlpha",1],
 											["OutpostBravo",1],
