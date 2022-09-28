@@ -160,7 +160,7 @@ WMS_humaniDropList = [
 		["ACE_WMM3",2,3], //mine detector
 		["ACE_WMH3",2,3], //mine detector
 		["ACE_fortify",2,3],
-		["rhs_radio_R187P1",2,5],
+		["rhs_radio_R187P1",1,2],
 		["ACE_Sandbag_empty",10,5],
 		["ACE_Humanitarian_Ration",5,5],
 		["ACE_WaterBottle",10,5],

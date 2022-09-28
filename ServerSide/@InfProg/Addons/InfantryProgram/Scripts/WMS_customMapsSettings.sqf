@@ -435,7 +435,7 @@ if (WMS_MapName == "Tanoa") then {
 											["HomeDepot",1],
 											["CombatPatrol",1],
 											["EnyBunkers",1],
-											["Arbeit",0],
+											["Arbeit",1],
 											["ArmedBandits",1],
 											["C192Crash",1],
 											["AmazonWH",1],
@@ -443,7 +443,6 @@ if (WMS_MapName == "Tanoa") then {
 											["GunsX3",1],
 											["Arena",0],
 											["Factory",2],//armed Camp
-											["LightArmoredSteal",1],
 											["HeliSteal",1],
 											["AABattery",1],
 											["Escobar",1],
@@ -460,8 +459,11 @@ if (WMS_MapName == "Tanoa") then {
 											["Factory",1],
 											["FieldHospital",1],
 											["Object172M",1],
+											["LightArmoredSteal",2],
 											["thecommunity",2],
 											["shipyard",2],
+											["occupation",2],
+											["uncleabrams",2],
 											//OUTPOSTS
 											["OutpostAlpha",1],
 											["OutpostBravo",1],

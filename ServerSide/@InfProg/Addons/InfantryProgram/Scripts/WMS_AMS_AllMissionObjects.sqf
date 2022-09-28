@@ -148,6 +148,46 @@ WMS_AMS_Obj_Object172M = [ //Unified E
 	[(selectRandom [WMS_AI_HMG_Scope,WMS_AI_HMG_Shield,WMS_AI_GMG]),[7.7,-8.1,0],150.5,"static"],
 	[(selectRandom [WMS_AI_HMG_Scope,WMS_AI_HMG_Shield,WMS_AI_GMG]),[-7.5,8.2,0],327.3,"static"]
 ];
+WMS_AMS_Obj_UncleAbrams = [
+	["Flag_US_F",[1,-19.3,0],0],
+	["Flag_US_F",[-14.5,0.6,0],0],
+	["Flag_US_F",[-13.3,-12.1,0],0],
+	["Flag_US_F",[13.1,-9.6,0],0],
+	["Flag_US_F",[13.6,10.7,0],0],
+	["Flag_US_F",[-12,11.5,0],0],
+	["Flag_US_F",[2.4,14.9,0],0],
+	["Flag_US_F",[13.4,-1,0],0],
+	["Land_BoreSighter_01_F",[4.6,7,0],0],
+	["Land_CanisterFuel_F",[-7.3,3,0],0],
+	["Land_Cargo10_grey_F",[3.2,10.7,0],43.7],
+	["Land_Cargo20_grey_F",[-4.1,11.8,0],0],
+	["Land_Cargo20_military_green_F",[-11.2,5.7,0],272.4],
+	["Land_Cargo40_light_green_F",[-6.4,-16.8,0],0],
+	["Land_Cargo40_military_green_F",[10.3,-0.1,0],90],
+	["Land_EngineCrane_01_F",[5.7,-5,0],260.2],
+	["Land_HelipadEmpty_F",[-1.3,-7.6,0],0],
+	["Land_RepairDepot_01_green_F",[6.4,-14.2,0],178.9,"damage"],
+	["Land_SandbagBarricade_01_half_F",[0.7,15.6,0],0.2],
+	["Land_SandbagBarricade_01_half_F",[3.7,-18.8,0],151.9],
+	["Land_SandbagBarricade_01_half_F",[-11.2,-5.1,0],260.2],
+	["Land_SandbagBarricade_01_half_F",[-11.8,0.7,0],283.5],
+	["Land_Shed_Big_F",[0.2,-0.6,-0],0],
+	["Land_TankEngine_01_F",[7.7,10,0],75.3],
+	["Land_TankEngine_01_used_F",[10.6,-9,0],357.8],
+	["Land_TankRoadWheels_01_single_F",[-7.8,2,0],0],
+	["Land_TankSprocketWheels_01_single_F",[-9.1,2.5,0],0],
+	["Land_TankTracks_01_long_F",[-8.7,0.6,0],0],
+	["Land_TankTracks_01_short_F",[4.4,7.7,0],270.9],
+	["Land_ToolTrolley_01_F",[9.9,7.8,0],0],
+	["Land_ToolTrolley_02_F",[8.7,-11.1,0],60.4],
+	["Land_WeldingTrolley_01_F",[-8.6,9.6,0],333.3],
+	["Land_Workbench_01_F",[5.9,3.9,0],18.9],
+	["B_Slingload_01_Fuel_F",[-10.5,-9.7,0],0,"damage"],
+	
+	[(selectRandom [WMS_AI_HMG_Scope,WMS_AI_HMG_Shield,WMS_AI_GMG]),[8,7.3,0],46.5,"static"],
+	[(selectRandom [WMS_AI_HMG_Scope,WMS_AI_HMG_Shield,WMS_AI_GMG]),[7.6,-9.3,0],150.5,"static"],
+	[(selectRandom [WMS_AI_HMG_Scope,WMS_AI_HMG_Shield,WMS_AI_GMG]),[-7.5,8.2,0],327.3,"static"]
+	];
 WMS_AMS_Obj_FieldHospital = [ //Unified B
 	["B_Slingload_01_Medevac_F",[13.4,-9.2,0],0,"damage"],
 	["Campfire_burning_F",[-1.4,0.2,0],0],
@@ -545,16 +585,7 @@ WMS_AMS_Obj_JunkYard = [//AMS_JunkYard
 	[WMS_AI_HMG_Shield,[-3.1,7.9,0.01],328.5,"static"]
 ];
 WMS_AMS_Obj_JunkYard_v2 = [//AMS_JunkYard_v2
-	//["Flag_Syndikat_F",[0,0,0],0],
 	["Land_HelipadCircle_F",[-6.3,0.5,-0.01],0],
-	/*["Exile_Plant_BrownBush",[11.9,7.9,0],0],
-	["Exile_Plant_BrownBush",[0,-5.8,0],0],
-	["Exile_Plant_BrownBush",[7.3,14.4,0],0],
-	["Exile_Plant_BrownBush",[-9,-11.1,0],283.4],
-	["Exile_Plant_GreenBush8",[-0,11.8,0],0],
-	["Exile_Plant_GreenBush8",[6.6,3,0],0],
-	["Exile_Plant_GreenBush8",[-3.3,-12.4,0],0],
-	["Exile_Plant_GreenBush8",[-2.6,-13,0],138.9],*/
 	["Land_Mil_WallBig_4m_battered_F",[-11,-9.1,0],51.3,"flat"],
 	["Land_Mil_WallBig_4m_battered_F",[-12.6,-5.5,0],77.9,"flat"],
 	["Land_Mil_WallBig_4m_battered_F",[-11.8,6.5,0],115.1,"flat"],
@@ -975,10 +1006,6 @@ WMS_AMS_Obj_FactoryCamp = [
 	["Land_Bunker_01_blocks_3_F",[2.6,4.2,-0.2],1],
 	["Land_Bunker_01_blocks_3_F",[-4.9,0,-0.2],280.3],
 	["Land_Bunker_01_blocks_3_F",[1.5,-3.1,-0.2],145.7],
-	/*["Exile_Plant_GreenBush",[9.8,-2.3,0],44.2,"static"],
-	["Exile_Plant_GreenBush5",[-4.1,4.4,0],0,"static"],
-	["Exile_Plant_GreenBush6",[-2.8,-8.8,0],75.9,"static"],
-	["Exile_Plant_BrownBush",[-8.3,-0.3,0],0,"static"],*/
 
 	[WMS_AI_HMG_Scope,[-2.02,-1.3,0],230.1,"static"],
 	[WMS_AI_HMG_Scope,[1.4,1.1,0],47.7,"static"]
@@ -1036,12 +1063,6 @@ WMS_AMS_Obj_AmazonWH = [
 	["Land_PaperBox_01_open_empty_F",[-5.5,12.3,0],270.1],
 	["Land_LampStreet_small_F",[-11.8,13.3,0],0,"flat"],
 	["Land_LampStreet_small_F",[10.7,-12.2,0],0,"flat"],
-	/*["Exile_Plant_GreenBush6",[-14.2,-7.9,0],288.3,"static"],
-	["Exile_Plant_GreenBush7",[20.4,-3.5,0],332.4,"static"],
-	["Exile_Plant_GreenBush6",[-18.0,6.4,0],286.2,"static"],
-	["Exile_Plant_GreenBush6",[16.4,-11.1,0],103.5,"static"],
-	["Exile_Plant_GreenBush6",[17.9,3.8,0],28.2,"static"],
-	["Exile_Plant_GreenBush6",[18.5,12.1,0],330.3,"static"],*/
 
 	[WMS_AI_HMG_Scope,[6.644331,8.364775,0],324.839,"static"],
 	//[WMS_AI_HMG_Scope,[-6.480529,-3.808311,0],135.479,"static"],
@@ -1073,10 +1094,6 @@ WMS_AMS_Obj_TransmissionTower = [
 	["Land_CncBarrierMedium_F",[10.1,3.7,-0.5],63.2],
 	["Land_CncBarrierMedium_F",[-5.1,-10.2,-0.5],6.5],
 	["Land_CncBarrierMedium_F",[-14.0,2.1,-0.5],97.4],
-	/*["Exile_Plant_GreenBush7",[7.3,-10.7,0],0,"static"],
-	["Exile_Plant_GreenBush6",[-10.6,15.3,0],241.5,"static"],
-	["Exile_Plant_GreenBush6",[6.0,15.8,0],111.5,"static"],
-	["Exile_Plant_GreenBush6",[-25.78,-11.1,0],351.9,"static"],*/
 
 	[WMS_AI_HMG_Scope,[8.4,2.5,0],62.5,"static"],
 	[WMS_AI_HMG_Scope,[-11.7,2.1,0],277.1,"static"],
@@ -1107,11 +1124,6 @@ WMS_AMS_Obj_GunsX3 = [
 	["Land_SandbagBarricade_01_half_F",[-2.8,21.7,0],327.1],
 	["Land_Barricade_01_4m_F",[14.1,22.4,0],60.7],
 	["Land_Barricade_01_10m_F",[-11.9,12.1,0],294.7],
-	/*["Exile_Plant_GreenBush6",[15.3,14.9,0],16.9,"static"],
-	["Exile_Plant_GreenBush6",[-21.6,12.9,0],169.6,"static"],
-	["Exile_Plant_GreenBush6",[9.4,-3.2,0],75.45,"static"],
-	["Exile_Plant_GreenBush6",[4.0,20.5,0],292.8,"static"],
-	["Exile_Plant_GreenBush7",[-14.1,-12.8,0],93.0,"static"],*/
 
 	[WMS_AI_GMG,[6.9,15.8,0],142.1,"static"],
 	[WMS_AI_HMG_Scope,[-5.5,-15.0,0],181.1,"static"],
@@ -1248,7 +1260,7 @@ WMS_AMS_Obj_Arena = [
 	[WMS_AI_GMG,[-16.1,7.4,0.40],360,"static"]
 ];
 
-WMS_AMS_Obj_AdvancedCamp = [
+WMS_AMS_Obj_AdvancedCamp = [ //old Light Armored Hijack
 	//["Flag_Syndikat_F",[0,0,0],0],
 	["CamoNet_ghex_open_F",[0,0,0],45],
 	["Land_BagFence_01_round_green_F",[7.6,-1.9,0],16.9],
@@ -1281,7 +1293,40 @@ WMS_AMS_Obj_AdvancedCamp = [
 	[WMS_AI_HMG_Scope,[-0.1,8.3,-0.01],107,"static"],
 	[WMS_AI_HMG_Scope,[-0.7,-7.9,-0.01],282.1,"static"]
 ];
-
+WMS_AMS_Obj_LightArmHij = [
+	["CamoNet_ghex_big_F",[5.6,5.4,0],45],
+	["CamoNet_ghex_open_F",[-0.2,-9.9,0],180.9],
+	["CamoNet_ghex_open_F",[-9.6,0.2,0],266.2],
+	["Land_BagFence_01_round_green_F",[-11.5,9.9,0],9.2],
+	["Land_BagFence_01_round_green_F",[10,-12.3,0],54.2],
+	["Land_BagFence_01_round_green_F",[-2.4,-11.2,0],97.4],
+	["Land_BagFence_01_round_green_F",[11.9,-8.4,0],186.1],
+	["Land_BagFence_01_round_green_F",[-10.9,1.2,0],186.4],
+	["Land_BagFence_01_round_green_F",[0.8,-11,0],245.9],
+	["Land_BagFence_01_round_green_F",[-8.3,12.9,0],269.8],
+	["Land_BagFence_01_round_green_F",[-10.7,-2.8,0],341.4],
+	["Land_HBarrier_3_F",[-10,14.9,0],182.4],
+	["Land_HBarrier_3_F",[-15.1,-10.2,0],270.4],
+	["Land_HBarrier_3_F",[14.5,-9,0],270.4],
+	["Land_HBarrierWall6_F",[-0.1,13.1,0],0],
+	["Land_HBarrierWall6_F",[13.2,0.1,0],90],
+	["Land_HBarrierWall6_F",[-0,-13.4,0],180],
+	["Land_HBarrierWall6_F",[-13.1,-0.1,0],270],
+	["Land_HBarrierWall_corner_F",[13,13.2,0],0],
+	["Land_HBarrierWall_corner_F",[13.2,-13.3,0],90],
+	["Land_HBarrierWall_corner_F",[-13.1,-13.5,0],180],
+	["Land_HBarrierWall_corner_F",[-13.2,13,0],270],
+	["Land_HelipadEmpty_F",[5.1,5.1,0],0],
+	["Land_SandbagBarricade_01_half_F",[15.4,10.4,0],89.5],
+	["Land_SandbagBarricade_01_half_F",[10.5,-15.5,0],180.4],
+	["Land_SandbagBarricade_01_half_F",[-9.1,-15.3,0],180.4],
+	["Land_SandbagBarricade_01_half_F",[-14.9,5,0],272.7],
+	["Land_SandbagBarricade_01_half_F",[9,14.9,0],358.7],
+	[(selectRandom [WMS_AI_HMG_Scope,WMS_AI_HMG_Shield,WMS_AI_GMG]),[11.2,-10.6,0],54.2,"static"],
+	[(selectRandom [WMS_AI_HMG_Scope,WMS_AI_HMG_Shield,WMS_AI_GMG]),[-11.2,-0.7,0],158.5,"static"],
+	[(selectRandom [WMS_AI_HMG_Scope,WMS_AI_HMG_Shield,WMS_AI_GMG]),[-10.2,12.1,0],48.3,"static"],
+	[(selectRandom [WMS_AI_HMG_Scope,WMS_AI_HMG_Shield,WMS_AI_GMG]),[-0.7,-11.3,0],282.1,"static"]
+	];
 WMS_AMS_Obj_HeliSteal = [
 	//["Flag_Syndikat_F",[0,0,0],0],
 	["CamoNet_ghex_open_F",[-9.2,6.7,0.68],90],
@@ -1480,12 +1525,6 @@ WMS_AMS_Obj_Escobar = [
 WMS_AMS_Obj_Forgotten = [
 	//["Flag_Syndikat_F",[0,0,0],0],
 	["CargoPlaftorm_01_rusty_F",[6.6,-18.1,0],159,"damageFlat"],
-	/*["Exile_Plant_GreenBush3",[15.9,8.1,0.07],53.1,"static"],
-	["Exile_Plant_GreenBush3",[-5.2,-21.7,0],149.2,"static"],
-	["Exile_Plant_GreenBush3",[-21.7,11,0],339.2,"static"],
-	["Exile_Plant_GreenBush6",[14.8,19.5,0],0,"static"],
-	["Exile_Plant_GreenBush6",[6.7,-4.7,0],0,"static"],
-	["Exile_Plant_GreenBush7",[20.6,-13.4,0],0,"static"],*/
 	["Land_Cargo10_sand_F",[1.9,8.1,0],360],
 	["Land_Cargo_House_V3_derelict_F",[-9,18.7,0],0,"damageFlat"],
 	["Land_Cargo_HQ_V2_F",[-12.3,3.5,0],180,"damageFlat"],

@@ -101,6 +101,18 @@ if (typeName _pos == "STRING") then {
 			_spawnStatusOK = "OK";
 			//_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 			//_pos = [_pos, 0, 3, 0, 0, 0.45, 0, _blackList, [_pos,[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error
+		}else {	
+			if (_pos == "occupation" ) then {
+				_arrayOfPos = WMS_Pos_Villages+WMS_Pos_Cities+WMS_Pos_Capitals;
+				//for "_i" from 1 to 10 do {};
+				_namedLocPos = selectRandom _arrayOfPos;
+				_radiusObjects = 1;
+				_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
+				_pos = [_namedLocPos, 0, 50, 1, 0, 0.45, 0, _blackList, [[-999,-999],[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error
+				if (_pos select 0 == -999 || _pos select 0 == 0) exitWith {
+					if (true) then {diag_log format ["[AMS MISSION SPAWN]|WAK|TNA|WMS| Occupation position not available, exiting.  _pos: %1", _pos]};
+				};
+			};
 		};
 	};
 /////TEST
@@ -157,6 +169,7 @@ switch (_objects) do {
 	case "FieldHospital3"	: {_objects = WMS_AMS_Obj_FieldHospital3};
 	case "thecommunity"		: {_objects = WMS_AMS_Obj_TheCommunity};
 	case "thecommunity2"	: {_objects = WMS_AMS_Obj_TheCommunity2};
+	case "occupation"		: {_objects = []}; //occupation use named locations building as layout
 	//OUTPOSTS
 	case "OutpostAlpha"		: {_objects = WMS_AMS_Obj_OutpostAlpha};
 	case "OutpostBravo"		: {_objects = WMS_AMS_Obj_OutpostBravo};
@@ -218,13 +231,14 @@ _Mkrs = [_pos,_difficulty,_name,true] call WMS_fnc_AMS_CreateMarker;
 
 _trigg =  createTrigger ["EmptyDetector", _pos, true];
 _trigg setVariable ["WMS_CallAIgroup",[_grpInf, _pos],true];
-_trigg setTriggerArea [25, 25, 0, false];
+_trigg setTriggerArea [5, 5, 0, false];
 _trigg setTriggerActivation ["ANYPLAYER", "PRESENT", true];
-_trigg setTriggerStatements ["this", 
+_trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count thislist) > 0", 
 	"
-	if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
+	if (true) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
 	_CallBackAIgroup = thisTrigger getVariable ['WMS_CallAIgroup',[[],[0,0,0]]];
 	_CallBackAIgroup call WMS_fnc_AMS_callBackAIgroups;
+	deleteVehicle thisTrigger;
 	", 
 	"
 	"];

@@ -97,7 +97,7 @@ if (count _positions > 0) then {//Need to add a Player check
 	_triggCapture setTriggerArea [20, 20, 0, false];
 	_triggCapture setTriggerStatements  
 	[ 
-  		"this",  
+  		"this && ({ thisTrigger distance _x <= 20 } count thislist) > 0",  
   		"
 			_crate = thisTrigger getVariable 'crate';
 			_marker = thisTrigger getVariable 'SupplyDropMarker';

@@ -77,9 +77,50 @@ if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _th
 _T = round servertime;
 
 if (typeName _pos == "STRING") then {
-	if (_pos == "random" ) then {
+	_spawnStatusOK = "NotOK";
+/////TEST spawn forest
+	if (_pos == "forest" ) then {
+		_forest = selectRandom WMS_Pos_Forests;
+		_radiusObjects = 1;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error
+
+		_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
+		_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,((_uniParams select 10)+10)];
+		{hideObjectGlobal _x} foreach _terrainobjects;
+	}else {
+/////TEST spawn factory
+		if (_pos == "factory" ) then {
+			_pos = selectRandom WMS_Pos_Factory;
+			_spawnStatusOK = "OK";
+		}else {	
+			if (_pos == "occupation" ) then {
+				_arrayOfPos = WMS_Pos_Villages+WMS_Pos_Cities+WMS_Pos_Capitals;
+				_namedLocPos = selectRandom _arrayOfPos;
+				_radiusObjects = 1;
+				_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
+				_pos = [_namedLocPos, 0, 50, 1, 0, 0.45, 0, _blackList, [[-999,-999],[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error
+				if (_pos select 0 == -999 || _pos select 0 == 0) exitWith {
+					if (true) then {diag_log format ["[AMS MISSION SPAWN]|WAK|TNA|WMS| Occupation position not available, exiting.  _pos: %1", _pos]};
+				};
+			};
+		};
+	};
+/////TEST
+	if ((count _pos) == 2 || _spawnStatusOK == "OK") then {
+		//_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
+		//_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,((_uniParams select 10)+10)];
+		//{hideObjectGlobal _x} foreach _terrainobjects;
+
+	} else {
+		_pos = "random";
+	};
+/////TEST spawn forest
+	if (typeName _pos == "STRING") then {
+		if (_pos == "random" ) then {
+			_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
+			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		};
 	};
 };
 _absc = floor (_pos select 0);
@@ -89,6 +130,7 @@ _MissionID = format ["%1_%2_%3_%4",WMS_AMS_Mission_ID,_T,_absc,_ordo];
 switch (_objects) do {
 	case "thecommunity"		: {_objects = WMS_AMS_Obj_TheCommunity};
 	case "thecommunity2"	: {_objects = WMS_AMS_Obj_TheCommunity2};
+	case "occupation"		: {_objects = []}; //occupation use named locations building as layout
 };
 
 switch (_difficulty) do {
@@ -126,13 +168,14 @@ _Mkrs = [_pos,_difficulty,_name,true] call WMS_fnc_AMS_CreateMarker;
 
 _trigg =  createTrigger ["EmptyDetector", _pos, true];
 _trigg setVariable ["WMS_CallAIgroup",[_grpInf, _pos],true];
-_trigg setTriggerArea [25, 25, 0, false];
+_trigg setTriggerArea [5, 5, 0, false];
 _trigg setTriggerActivation ["ANYPLAYER", "PRESENT", true];
-_trigg setTriggerStatements ["this", 
+_trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count thislist) > 0", 
 	"
 	if (true) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
 	_CallBackAIgroup = thisTrigger getVariable ['WMS_CallAIgroup',[[],[0,0,0]]];
 	_CallBackAIgroup call WMS_fnc_AMS_callBackAIgroups;
+	deleteVehicle thisTrigger;
 	", 
 	"
 	"];

@@ -171,3 +171,18 @@ WMS_AMS_ChopperRwds = [
 	["I_C_Heli_Light_01_civil_F",[],[[],[]]],
 	["I_E_Heli_light_03_unarmed_F",[],[[],[]]]
 ];
+WMS_AMS_CIVRwds = [
+	["C_Hatchback_01_F",[],[[],[]]],
+	["C_Hatchback_01_sport_F",[],[[],[]]],
+	["C_Offroad_02_unarmed_F",[],[[],[]]],
+	["C_Offroad_01_F",[],[[],[]]],
+	["C_SUV_01_F",[],[[],[]]],
+	["C_Van_01_transport_F",[],[[],[]]],
+	["C_Van_01_box_F",[],[[],[]]],
+	["C_Van_02_vehicle_F",[],[[],[]]],
+	["C_Van_02_transport_F",[],[[],[]]],
+	["C_IDAP_Offroad_02_unarmed_F",[],[[],[]]],
+	["C_IDAP_Offroad_01_F",[],[[],[]]],
+	["C_IDAP_Van_02_vehicle_F",[],[[],[]]],
+	["C_IDAP_Van_02_transport_F",[],[[],[]]]
+];

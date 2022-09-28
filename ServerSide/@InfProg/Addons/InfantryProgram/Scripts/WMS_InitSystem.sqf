@@ -16,7 +16,7 @@ WMS_ServRestartSeconds 		= 18000; //5h
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.676_2022SEP25_GitHub"; //2 new Dynamic missions
+WMS_System_Version 			= "v2.684_2022SEP28_GitHub"; //AMS adjustted trigger for callback
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false; //RPT logs
 WMS_Watch_Triggers_Logs		= false; //RPT logs
@@ -430,10 +430,10 @@ WMS_AMS_PoptabsRwd 		= [1000,500]; //Add poptabs in the mission reward crate/veh
 			   //skills = "spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"//,"endurance"
 WMS_AMS_skillsMin 		= [0.1, 0.1, 0.005, 0.1, 0.1, 0.1, 0, 0.1, 0.1]; //MINIMUM skill mission NPCs can have //will be used to compile custom skills
 WMS_AMS_skillsMax 		= [1, 0.85, 0.85, 0.7, 0.8, 0.8, 0, 1, 0.85]; //MAXIMUM skill mission NPCs can have //will be used to compile custom skills
-WMS_AMS_skilleasy 		= [0.80, 0.8, 0.3, 0.3, 0.3, 0.6, 0, 0.6, 0.6];
-WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.4, 0.4, 0.4, 0.6, 0, 0.6, 0.8];
-WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.6, 0.5, 0.5, 0.8, 0, 0.8, 1];
-WMS_AMS_skillhardcore 	= [0.95, 1, 0.7, 0.6, 0.6, 1, 0, 1, 1];
+WMS_AMS_skilleasy 		= [0.80, 0.8, 0.3, 0.3, 0.2, 0.6, 0, 0.6, 0.6];
+WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.4, 0.4, 0.3, 0.6, 0, 0.6, 0.8];
+WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.6, 0.5, 0.4, 0.8, 0, 0.8, 1];
+WMS_AMS_skillhardcore 	= [0.95, 1, 0.7, 0.6, 0.5, 1, 0, 1, 1];
 WMS_AMS_skillstatic 	= [1, 1, 0.005, 0.5, 0.2, 0.5, 0, 0.2, 0.8]; //what ever you do, Statics destroy your ass... this skill is apply on the NPC when he get on the static (EH "getin")
 //WMS_AMS_skillsniper 	= [1,0.95,0.95,0.95];  //set in fn_DynAI_SetUnitOPF and fn_AMS_SetUnits
 WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check, it will modify NPC skills if they have a weapon from this list
@@ -523,6 +523,8 @@ WMS_AMS_MissionList 	= [ //missions themself and weight
 							["Object172M",1],
 							["thecommunity",2],
 							["shipyard",2],
+							["occupation",2],
+							["uncleabrams",2],
 							//OUTPOSTS
 							["OutpostAlpha",1],
 							["OutpostBravo",1],

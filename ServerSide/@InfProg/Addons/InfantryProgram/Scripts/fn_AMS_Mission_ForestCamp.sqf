@@ -71,13 +71,14 @@
 
 _trigg =  createTrigger ["EmptyDetector", _pos, true];
 _trigg setVariable ["WMS_CallAIgroup",[_grpInf, _pos],true];
-_trigg setTriggerArea [25, 25, 0, false];
+_trigg setTriggerArea [5, 5, 0, false];
 _trigg setTriggerActivation ["ANYPLAYER", "PRESENT", true];
-_trigg setTriggerStatements ["this", 
+_trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count thislist) > 0", 
 	"
-	if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
+	if (true) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
 	_CallBackAIgroup = thisTrigger getVariable ['WMS_CallAIgroup',[[],[0,0,0]]];
 	_CallBackAIgroup call WMS_fnc_AMS_callBackAIgroups;
+	deleteVehicle thisTrigger;
 	", 
 	"
 	"];

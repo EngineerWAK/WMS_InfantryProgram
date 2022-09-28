@@ -20,14 +20,40 @@ private _mission = (_this select 0);
 //[_missionToSpawn] call WMS_fnc_AMS_SpawnMission;
 if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN]|WAK|TNA|WMS| _this: %1 || _mission: %2", _this, _mission]};
 private _debugTime1 = time;
-if (_mission == "no") then { //obiously dan not work anymore
+if (_mission == "no") then { //obiously can not work anymore
 	if (WMS_IP_LOGs) then {diag_log "Mission name fucked-up"};
 } else {
 	//private _parameters = if ((count _this)>1) then {_this select 1} else {[]}; //Useless right now
 	//_parameters call compile _mission;
 	switch (_mission) do {
+		case "occupation" : { //this is a special one, custom dynamic mission which will spawn in a named location, without layout ("occupation" layout will stay empty)
+			private _unified = selectRandom ["a","b"];
+			if (_unified == "a")then{
+				["occupation",(random 359),2,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
+					[
+						["Occupation"],["Moderate","Difficult","Easy","Moderate","Difficult","Hardcore"],["heavyBandit","army"],["Assault","HeavyBandit"],["defend"],
+						[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
+						[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
+						"military",50,true,"occupation",30,nil,nil,[6,"Assault","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+					],_mission
+				] call WMS_fnc_AMS_Mission_Unified_A;
+			}else{
+				["occupation",(random 359),2,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
+					[
+						["Occupation"],["Easy","Moderate","Difficult","Hardcore","Moderate","Difficult"],["heavyBandit","army"],["Assault","HeavyBandit"],["hide"],
+						[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
+						[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
+						"military",50,true,"occupation",30,nil,nil,[6,"Assault","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+					],_mission
+				] call WMS_fnc_AMS_Mission_Unified_B;
+			};
+		};
 		case "shipyard" : {
-			private _rwds = selectRandom [WMS_AMS_LightRwds,WMS_AMS_TruckRwds];
+			private _rwds = selectRandom [WMS_AMS_LightRwds,WMS_AMS_CIVRwds];
 			private _rwd = ((selectRandom _rwds)select 0);//"classename"
 			private _objects = (selectRandom ["shipyard","shipyard2"]);//"classename"
 			["random",(random 359),2,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
@@ -76,7 +102,7 @@ if (_mission == "no") then { //obiously dan not work anymore
 			private _rwd = ((selectRandom WMS_AMS_ArmoredRedRwds)select 0);//"classename"
 			["random",(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Object 172M"],["Difficult","Hardcore","Hardcore"],["army"],["Assault","HeavyBandit"],["patrol"],
+					["Object 172M"],["Hardcore","Difficult","Hardcore","Hardcore"],["army"],["Assault","HeavyBandit"],["patrol"],
 					[
 						[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -84,6 +110,23 @@ if (_mission == "no") then { //obiously dan not work anymore
 						[[5,2,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]
 					],
 					"military",75,true,"Object172M",15,[_AIvhl],[_rwd],[6,"MG","garrison"]
+				],_mission
+			] call WMS_fnc_AMS_Mission_Unified_E;
+		};
+		case "uncleabrams" : {
+			private _AIvhlList = WMS_AMS_HeavyArmed;
+			private _AIvhl = (selectRandom _AIvhlList); //["rhs_btr80a_vv",["rhs_sand",1],[[],[]]]
+			private _rwd = ((selectRandom WMS_AMS_ArmoredBlueRwds)select 0);//"classename"
+			["random",(random 359),1,3,0.5,[20,3],30,5,
+				[
+					["Uncle Abrams"],["Hardcore","Difficult","Hardcore","Hardcore"],["army"],["Assault","HeavyBandit"],["patrol"],
+					[
+						[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
+						[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[4,2,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[5,2,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]
+					],
+					"military",75,true,"uncleabrams",15,[_AIvhl],[_rwd],[6,"MG","garrison"]
 				],_mission
 			] call WMS_fnc_AMS_Mission_Unified_E;
 		};
@@ -251,7 +294,7 @@ if (_mission == "no") then { //obiously dan not work anymore
 				],_mission
 			] call WMS_fnc_AMS_Mission_Unified_B;
 		};
-		case "LightArmoredSteal" : {
+		case "LightArmoredSteal" : { //new Layout
 			private _rwd = ((selectRandom WMS_AMS_ArmoredLightRwds)select 0);//"classename"
 			["random",(random 359),1,3,0.5,[20,3],30,5,
 				[
@@ -262,7 +305,7 @@ if (_mission == "no") then { //obiously dan not work anymore
 						[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
 						[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]
 					],
-					"military",50,true,"AdvancedCamp",10,nil,[_rwd],[5,"Assault","garrison"]
+					"military",50,true,"LightArmored",10,nil,[_rwd],[5,"Assault","garrison"]
 				],_mission
 			] call WMS_fnc_AMS_Mission_Unified_C;
 		};

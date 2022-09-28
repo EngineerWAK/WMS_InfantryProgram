@@ -126,7 +126,7 @@ WMS_fnc_Recon_Create_Trigger = {
 	_triggBorder setTriggerArea [WMS_Recon_Border_Radius-25, WMS_Recon_Border_Radius-25, 0, false];
 	_triggBorder setTriggerStatements  
 	[ 
-  		"this",  
+  		"this && ({ thisTrigger distance _x <= 300 } count thislist) > 0",  
   		"
 			if (WMS_Recon_Guards && count WMS_Recon_AIgrps > 1) then {
 				{_x setDamage 1} foreach units (WMS_Recon_AIgrps select 0);
@@ -148,7 +148,7 @@ WMS_fnc_Recon_Create_Trigger = {
 	_triggCapture setTriggerArea [WMS_Recon_Cap_Radius, WMS_Recon_Cap_Radius, 0, false];
 	_triggCapture setTriggerStatements  
 	[ 
-  		"this",  
+  		"this && ({ thisTrigger distance _x <= 20 } count thislist) > 0",  
   		"
 			[thisTrigger,(thisTrigger getVariable 'flag'),'markername','MkrBorder',(thisList select 0)] call WMS_fnc_Recon_Delete_trigger;
 		",  

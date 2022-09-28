@@ -38,11 +38,16 @@ if (true) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| _this = %1"
 	_newWaypoint setWaypointCombatMode "WHITE"; //Hold Fire, Engage At Will
 	_newWaypoint setWaypointSpeed "FULL";
 	{
-		{
-			_grp forgetTarget _x
-		}forEach  (_x targets [true]);
-		_x setVariable ["lambs_danger_disableAI", true];//deactivate LambsDanger
-		_x doMove _pos;
+		if (position _x distance2D _pos >= 300) then {
+			selectRandom ["SmokeShellYellow","mini_Grenade","GrenadeHand"] createVehicle position _x;
+			_x setDamage 1;
+		}else{
+			{
+				_grp forgetTarget _x
+			}forEach  (_x targets [true]);
+			_x setVariable ["lambs_danger_disableAI", true];//deactivate LambsDanger
+			_x doMove _pos;
+		};
 	}forEach _units;
 	//(leader _grp) doMove _pos;
 	_grp setVariable ["lambs_danger_disableGroupAI", true];//deactivate LambsDanger
