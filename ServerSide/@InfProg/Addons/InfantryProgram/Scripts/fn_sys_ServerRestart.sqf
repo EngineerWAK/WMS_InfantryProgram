@@ -13,16 +13,12 @@
 private ["_msgr"];
 if (serverTime > (WMS_ServRestartSeconds)) then {
 		_msgr = format ['PLAYERS KICK IN %1 SECONDES', (20)];
-		//{[_msgr] remoteExecCall ['SystemChat',_x];}foreach allPlayers;
 		[_msgr] remoteExecCall ['SystemChat', -2];
 		["EventWarning", ["SERVER RESTART", "The server will restart in 30 secondes"]] remoteExec ["BIS_fnc_showNotification", -2];
 		uisleep 20;
 		{WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)];}foreach allPlayers;
 		if !(WMS_exileFireAndForget) then {
 			[] call WMS_fnc_permanentVehiclesLastUpdate; //TheLastCartridges permanent vehicles
-
-			//private _dataToSave = serverNameSpace getvariable["WMS_customRespawnList",[]]; //no need anymore, server save tp profileNameSpace directly at each modification
-			//profileNamespace setVariable ["WMS_customRespawnList",_dataToSave];
 		};
 		uisleep 10;
 		WMS_serverCMDpwd serverCommand "#shutdown";
@@ -32,6 +28,5 @@ if (serverTime > (WMS_ServRestartSeconds)) then {
 			WMS_ServRestart15minWarning = false;
 		};
 		_msgr = format ['SERVER RESTART in %1 minutes', (round ((WMS_ServRestartSeconds-serverTime)/60))];
-		//{[_msgr] remoteExecCall ['SystemChat', _x];}foreach allPlayers;
 		[_msgr] remoteExecCall ['SystemChat', -2];
 	};

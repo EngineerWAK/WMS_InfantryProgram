@@ -108,10 +108,7 @@ if (typeName _pos == "STRING") then {
 				_namedLocPos = selectRandom _arrayOfPos;
 				_radiusObjects = 1;
 				_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-				_pos = [_namedLocPos, 0, 50, 1, 0, 0.45, 0, _blackList, [[-999,-999],[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error
-				if (_pos select 0 == -999 || _pos select 0 == 0) exitWith {
-					if (true) then {diag_log format ["[AMS MISSION SPAWN]|WAK|TNA|WMS| Occupation position not available, exiting.  _pos: %1", _pos]};
-				};
+				_pos = [_namedLocPos, 0, 50, 1, 0, 0.45, 0, _blackList, [[-999,-999,-999],[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error
 			};
 		};
 	};
@@ -129,6 +126,10 @@ if (typeName _pos == "STRING") then {
 		if (_pos == "random" ) then {
 			_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		};
+	}else{
+		if (_pos select 0 == -999 || _pos select 0 == 0) exitWith {
+			if (true) then {diag_log format ["[AMS MISSION SPAWN]|WAK|TNA|WMS| Occupation position not available, exiting.  _pos: %1", _pos]};
 		};
 	};
 };
