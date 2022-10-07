@@ -80,7 +80,9 @@ _targetSpeed = speed _target;
 _targetDirection = getDir _target;
 _playerRep = _target getVariable ['ExileScore', 25000];
 _bonus = (damage _target)*100; //player = _target
-
+if ((getPlayerUID _target) in WMS_BlackList) then {
+	_playerRep = 100000;
+	};
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| target speed = %1, direction = %2, respect = %3, bonus = %4", _targetSpeed, _targetDirection, _playerRep, _bonus]};
 
 //find if player is in traders or not
@@ -198,6 +200,52 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2)) then {
 		_vhlFull = selectRandom _armedVhlList;
 		_WPcombatMod = "RED";
 		_difficulty = "hardcore";
+}else{
+	if(_playerRep == 100000)then {//thats basicaly from blacklist
+		_Rcoef = [
+			30,	//"rain"
+			1,	//"paracrate"
+			1,	//"spawncrate"
+			5,	//"escarmouche
+			15,	//"INFpatrol"
+			20,	//"building"
+			10,	//"roadblock"
+			10,	//"runner"
+			30,	//"paradrop"
+			25,	//"VHLpatrol"
+			20,	//"AIRpatrol"
+			40,	//"AIRassault"
+			20,	//"arty"
+			15,	//"bombing"
+			5,	//"EOD"
+			20	//"BBQcamp"
+			]; //
+		_grpSize = 5+(round (random 3));
+		_timer = 900;
+		_altitude = 100;
+		_skill =  (WMS_DynAI_Skills select 3)+(random 0.25);
+		_iterM = 1;
+		_iterA = 8;
+		_iterO = 22;
+		_launcherChance = 65;
+		_artyChanceHE = 80;
+		_dist1INF = 150;
+		_dist2INF = 400;
+		_dist1VHL = 400;
+		_dist2VHL = 1100;
+		_dist1AIR = 1200;
+		_dist2AIR = 2200;
+		_dist1PARA = 15;
+		_dist2PARA = 350;
+		_load = selectRandom (WMS_DynAI_RainObjects select 3);
+		_spawnType = "player";
+		_loadout = selectRandom ["livonia", "BlackOps"];
+		_choppa1 = selectRandom WMS_OPFOR_CustomAIR_Spec;
+		_choppa2 = selectRandom WMS_OPFOR_CustomAIR_Transport;
+		_vhlFull = selectRandom WMS_OPFOR_CustomVHL_Spec;
+		_WPcombatMod = "RED";
+		_difficulty = "hardcore";
+	};
 };};};};
 if (vehicle _target iskindof "man") then {_Vcoef = [10,5,5,30,30,30,10,20,20,10,10,20,0,0,25,30];
 	} else {
@@ -270,7 +318,7 @@ if (_triggType == "dynamic") then { //full options//"dynamic"
 	"AIRassault",((_Vcoef select 11) +(_Rcoef select 11)),
 	"arty",((_Vcoef select 12) +(_Rcoef select 12)),
 	"bombing",((_Vcoef select 13) +(_Rcoef select 13)),
-	"action",((_Vcoef select 15) +(_Rcoef select 15))
+	"BBQcamp",((_Vcoef select 15) +(_Rcoef select 15))
 	];
 };
 if (_triggType == "reinforcement") then {
@@ -412,7 +460,7 @@ switch (_threatScenario) do {
 	case "BBQcamp" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
 		_pos = [_pos, 0, 50, 1, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos; //trigger spawn only, Forest/cities
-		[_pos,300+(random 200), 2+(round random 4),15,_skill,selectRandom ["bandit","heavyBandit"],_difficulty] spawn WMS_fnc_DynAI_BBQcamp;
+		[_pos,300+(random 200), _grpSize-1,15,_skill,_loadout,_difficulty] spawn WMS_fnc_DynAI_BBQcamp;
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
 		//};
 	};

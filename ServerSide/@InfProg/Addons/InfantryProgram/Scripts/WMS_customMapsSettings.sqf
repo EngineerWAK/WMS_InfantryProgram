@@ -322,7 +322,7 @@ if (WMS_MapName == "Altis") then {
 										WMS_FastNight_Night 		= 25;  //time speed
 										WMS_DynAI_DestroyVHL 		= 25;
 										//DFO
-										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_HH60","vtx_MH60S_GAU21L","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60M_DAP_MLASS"],["vtx_HH60","vtx_MH60M","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
 																	["RHS_Ka52_vvsc","RHS_Mi24V_vvsc","RHS_Mi8MTV3_vvsc"],
 																	["RHS_Mi24Vt_vvsc","RHS_Mi8mt_vvsc"],
@@ -442,7 +442,7 @@ if (WMS_MapName == "Tanoa") then {
 											["TransmissionTower",1],
 											["GunsX3",1],
 											["Arena",0],
-											["Factory",2],//armed Camp
+											["Factory",1],//armed Camp
 											["HeliSteal",1],
 											["AABattery",1],
 											["Escobar",1],
@@ -459,11 +459,11 @@ if (WMS_MapName == "Tanoa") then {
 											["Factory",1],
 											["FieldHospital",1],
 											["Object172M",1],
-											["LightArmoredSteal",2],
-											["thecommunity",2],
-											["shipyard",2],
-											["occupation",2],
-											["uncleabrams",2],
+											["LightArmoredSteal",1],
+											["thecommunity",1],
+											["shipyard",1],
+											["occupation",1],
+											["uncleabrams",1],
 											//OUTPOSTS
 											["OutpostAlpha",1],
 											["OutpostBravo",1],
@@ -473,7 +473,7 @@ if (WMS_MapName == "Tanoa") then {
 											["OutpostFoxtrot",1],
 											["OutpostGolf",1] //+V2
 										];
-										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60S_Pylons"],["vtx_HH60","vtx_MH60S_GAU21L","vtx_MH60M","vtx_MH60S","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60M_DAP_MLASS"],["vtx_HH60","vtx_MH60M","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
 																	["RHS_Ka52_vvsc","RHS_Mi24V_vvsc","RHS_Mi8MTV3_vvsc"],
 																	["RHS_Mi24Vt_vvsc","RHS_Mi8mt_vvsc"],

@@ -72,14 +72,14 @@ private ["_damage","_msgx","_rwdLevel","_lastPos","_riderUID","_riderRep"];
 		};
 	};
 	//cumulative reward for riding bike
-	//Force stamina/fatigue test
-	if ((getPlayerUID _x) in WMS_BlackList) then {
+	//Force stamina/fatigue test //replaced by hardcore AI spawn
+	/*if ((getPlayerUID _x) in WMS_BlackList) then {
 		_stamitigue = _x getVariable ["Stamitigue", "OFF"];
 		if !(_stamitigue == "ON") then {
 			{player enableStamina true;} remoteExecCall ["call", _x];
 			{player enableFatigue true;} remoteExecCall ["call", _x];
 			_x setVariable ["Stamitigue", "ON"]
 		};
-	};
+	};*/
 	//Force stamina/fatigue test
 } foreach allPlayers;

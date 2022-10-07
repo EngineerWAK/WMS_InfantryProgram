@@ -247,10 +247,10 @@ WMS_AMS_ChopperRwds = [
 	["vtx_HH60",[],[[],[]]],
 	["vtx_UH60M",[],[[],[]]],
 	["vtx_MH60M",[],[[],[]]],
-	["vtx_MH60S",[],[[],[]]],
-	["vtx_MH60S_GAU21L",[],[[],[]]],
 	["vtx_MH60M_DAP",[],[[],[]]],
-	["vtx_MH60S_Pylons",[],[[],[]]],
+	//["vtx_MH60S",[],[[],[]]], //REMOVED BY HATCHET
+	//["vtx_MH60S_GAU21L",[],[[],[]]], //REMOVED BY HATCHET
+	//["vtx_MH60S_Pylons",[],[[],[]]], //REMOVED BY HATCHET
 	["RHS_Mi24Vt_vvs",[],[[],[]]], //1 minigun
 	["RHS_Mi8mt_Cargo_vvs",[],[[],[]]],
 	["RHS_Mi8amt_civilian",[],[[],[]]]

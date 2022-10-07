@@ -16,7 +16,7 @@ WMS_ServRestartSeconds 		= 18000; //5h
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.685_2022OCT03_GitHub"; //try to fix The Community default spawn
+WMS_System_Version 			= "v2.686_2022OCT04_GitHub"; //cleaning hatchet removed classnames
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false; //RPT logs
 WMS_Watch_Triggers_Logs		= false; //RPT logs

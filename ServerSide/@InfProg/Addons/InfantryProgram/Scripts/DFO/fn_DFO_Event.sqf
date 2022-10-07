@@ -246,7 +246,7 @@
 	//chopper, for the poors
 	if (_createChopper) then { //should not be used with WMS_TheLastCartridges but anyway the chopper can not sell (addAction/sell), however Exile Mod will sell it (sell/Classname)
 		private _selectedChoppa = (selectRandom _selectedChoprs);
-		if (_selectedChoppa == "vtx_MH60S_GAU21L" && {_CIVinfCount > 5})then{_selectedChoppa = "vtx_MH60S"}; //only 5 cargo seats in "vtx_MH60S_GAU21L"
+		//if (_selectedChoppa == "vtx_MH60S_GAU21L" && {_CIVinfCount > 5})then{_selectedChoppa = "vtx_MH60S"}; //only 5 cargo seats in "vtx_MH60S_GAU21L" //REMOVED BY HATCHET
 		if (_selectedChoppa == "vtx_UH60M_SLICK" && {_CIVinfCount > 4})then{_selectedChoppa = "vtx_UH60M"}; //only 4 cargo seats in "vtx_UH60M_SLICK"
 		_choppa = createVehicle [_selectedChoppa, _posBase, [], 0, "NONE"];
 		//_choppa setDir (random 359); 
