@@ -89,11 +89,13 @@ WMS_OPFOR_CustomAIR_Armed = [
 	["RHS_UH1Y_d_GS",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]]
 ];
 WMS_OPFOR_CustomAIR_Spec = [
-	["RHS_Ka52_UPK23_vvsc",[],[[],[]]],
-	["O_T_VTOL_02_infantry_grey_F",[],[[],[]]],
-	["RHS_Mi24P_vvsc",[],[[],[]]],
 	//["UK3CB_BAF_Apache_AH1",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]], //from Mi280 ,"\rhsafrf\addons\rhs_mi28\data\rhs_mi28_01_camo_co.paa"
 	//["UK3CB_BAF_Wildcat_AH1_CAS_8C",[0,"R3F_Retex\data\LYNX\heli_light_03_DA_R3F_co.paa"],[[],[]]],
+	//["O_T_VTOL_02_infantry_grey_F",[],[[],[]]], //big OP shit from bohemia, as usual
+	["RHS_Ka52_UPK23_vvsc",[],[[],[]]],
+	["RHS_Mi8AMTSh_UPK23_vvsc",[],[[],[]]],
+	["RHS_Mi8MTV3_UPK23_vvsc",[],[[],[]]],
+	["RHS_Mi24P_vvsc",[],[[],[]]],
 	["RHS_Mi24V_FAB_vvsc",[],[[],[]]]
 ];
 WMS_OPFOR_CustomSEA = [

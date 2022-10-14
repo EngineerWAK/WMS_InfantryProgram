@@ -13,9 +13,13 @@ if (true) then {diag_log format ["[WMS Custom Map Config]|WAK|TNA|WMS| Launching
 if (WMS_MapName == "ruha") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
-										WMS_AI_MaxUnits_A 			= 100; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
-										WMS_AI_MaxUnits_B 			= 115; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
-										WMS_AI_MaxUnits_C 			= 130; //stop Base attack and missions
+										WMS_AI_MaxUnits_A 			= 120; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
+										WMS_AI_MaxUnits_B 			= 140; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
+										WMS_AI_MaxUnits_C 			= 160; //stop Base attack and missions
+										//WMS_DynamicFlightOps		= false; //Module //DFO, for Arma "Pilots" who want to keep busy, call from a chopper or from DFO base(s)
+										//WMS_AmbientLife				= true;
+										WMS_AL_VhlBalance			= [1,1,2,1,1,2,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
+										WMS_AL_UnitMax				= 10; //Max units (groups if _CombatBehav true) patroling at the same time
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
@@ -28,7 +32,7 @@ if (WMS_MapName == "ruha") then {
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
-										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","ACE_acc_pointer_red"];
+										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15A","rhsusf_acc_anpeq15side","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15_bk_sc","rhsusf_acc_anpeq15_bk_top_h","rhsusf_acc_anpeq15_wmx_h","rhsusf_acc_anpeq15_wmx_light","rhsusf_acc_anpeq16a_light_top_sc","rhsusf_acc_anpeq16a_top"];
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
 										WMS_IP_Extract_Alt 			= 100;
 										WMS_C130_Altitude 			= 150;
@@ -42,11 +46,11 @@ if (WMS_MapName == "ruha") then {
 										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_DynAI_GunshipHeavy 		= ["RHS_UH1Y_d_GS",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_para_small				= "rhs_d6_Parachute";
-										WMS_AMS_ToRun 				= 2;
+										WMS_AMS_ToRun 				= 3;
 										WMS_AMS_CustomPos			= ["forest","forest","forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
 										WMS_AMS_SpnDistMission 		= 2000;
-										WMS_AI_RoamingVHLcount 		= 10; //10
+										WMS_AI_RoamingVHLcount 		= 12; //10
 										WMS_AI_CargoUnits	 		= 4;
 										WMS_AMS_ClnObj 				= true;
 										WMS_AMS_DelMissionFlag 		= true;
@@ -54,9 +58,22 @@ if (WMS_MapName == "ruha") then {
 										WMS_FastNight_Evening		= 18.5; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
 										WMS_DynAI_DestroyVHL 		= 40;
-										WMS_trig_Glob_CoolD 		= 400;
+										WMS_trig_Glob_CoolD 		= 240;
 										WMS_Forests_CoolD			= 1200;
-										WMS_Military_CoolD			= 400;
+										WMS_Military_CoolD			= 240;
+										//Let's make it more challenging on Ruha			
+										WMS_DynAI_RdoChatter		= false; //radio noise on patrol/building/roadblock AI spawn
+										WMS_DynAI_threatFrequency 	= 300; //will be *2 if only 1 player and *1.5 time if 2 players
+										WMS_DynAI_threatCoefs 		= [1.6,1.35,1.15]; //[1player,2players,3players]
+										WMS_triggCheck				= 300; //Active triggers will check their area to respawn "dynamic" stuff on players if no NPCs around
+										WMS_triggCheckChance		= 90; 	//chance to send reinforcement at _target position
+										WMS_trigLocals_Chance 		= 70;
+										WMS_trigVillages_Chance 	= 75;
+										WMS_trigCities_Chance 		= 80;
+										WMS_trigCapitals_Chance 	= 85;
+										WMS_trigHills_Chance 		= 50;
+										WMS_Forests_Chance			= 55;
+										WMS_Military_Chance			= 95;
 										};
 if (WMS_MapName == "xcam_taunus") then {	//NOTE THAT TAUNUS IS VERY LAGGY SERVER<>CLIENT
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";

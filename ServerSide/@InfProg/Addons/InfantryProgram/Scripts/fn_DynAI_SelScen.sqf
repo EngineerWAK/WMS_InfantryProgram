@@ -95,7 +95,7 @@ _Rcoef = [10,5,5,20,20,5,5,0,2,5,1,0,0,0,0,0]; //bambi
 _Vcoef = [10,5,5,30,30,30,10,20,20,10,10,20,0,0,0,0]; //on foot
 if (_threatScenario != "traders") then {
 if (_playerRep < (WMS_DynAI_RepLvlAdapt select 0) ) then { 
-		_Rcoef = [10,5,5,20,20,5,5,0,2,5,1,0,0,0,20,20];
+		_Rcoef = [10,5,5,20,20,5,5,0,2,5,1,0,0,0,20,25];
 		_grpSize = 2+(round (random 1));
 		_timer = 120;
 		_altitude = 250;
@@ -119,7 +119,7 @@ if (_playerRep < (WMS_DynAI_RepLvlAdapt select 0) ) then {
 		_lockPlayer = false;
 	} else {
 if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 0) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 1)}) then {
-		_Rcoef = [5,2,4,15,20,10,5,10,10,5,5,0,0,0,15,18];
+		_Rcoef = [5,2,4,15,20,10,5,10,10,5,5,0,0,0,15,30];
 		_grpSize = 3+(round (random 2));
 		_timer = 240;
 		_altitude = 175;
@@ -146,7 +146,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 0) && {_playerRep < (WMS_DynAI_R
 		_difficulty = "moderate";
 	} else {
 if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 2)}) then {
-		_Rcoef = [3,1,3,10,20,20,10,15,20,20,20,25,5,0,10,15];
+		_Rcoef = [3,1,3,10,20,20,10,15,20,20,20,25,5,0,10,20];
 		_grpSize = 4+(round (random 2));
 		_timer = 360;
 		_altitude = 150;
@@ -174,7 +174,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_R
 		_difficulty = "difficult";
 	} else {
 if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2)) then {
-		_Rcoef = [1,1,2,5,20,20,15,20,20,20,30,30,10,5,10,10];
+		_Rcoef = [1,1,2,5,20,20,15,20,20,20,30,30,10,5,10,15];
 		_grpSize = 4+(round (random 3));
 		_timer = 600;
 		_altitude = 125;
@@ -460,7 +460,7 @@ switch (_threatScenario) do {
 	case "BBQcamp" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
 		_pos = [_pos, 0, 50, 1, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos; //trigger spawn only, Forest/cities
-		[_pos,300+(random 200), _grpSize-1,15,_skill,_loadout,_difficulty] spawn WMS_fnc_DynAI_BBQcamp;
+		[_pos,300+(random 200), _grpSize,15,_skill,_loadout,_difficulty] spawn WMS_fnc_DynAI_BBQcamp;
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
 		//};
 	};

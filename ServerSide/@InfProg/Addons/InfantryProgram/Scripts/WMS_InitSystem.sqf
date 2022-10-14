@@ -16,7 +16,7 @@ WMS_ServRestartSeconds 		= 18000; //5h
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.686_2022OCT04_GitHub"; //cleaning hatchet removed classnames
+WMS_System_Version 			= "v2.690_2022OCT14_GitHub"; //Replaced bohemia's VTOL shit by Mi8 for NPC in WMS_List_VHL_RHS_Hatchet
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false; //RPT logs
 WMS_Watch_Triggers_Logs		= false; //RPT logs
@@ -353,6 +353,7 @@ WMS_DynAI 					= true; //dynamic AI/event will "randomly" spawn on one of the pl
 WMS_DynAI_Skills			= [0.08, 0.15, 0.25, 0.35]; //+random 0.15
 WMS_DynAI_RepLvlAdapt		= [1000, 24000, 50000]; //0/easy/1000/moderate/24000/difficult/50000/hardcore
 WMS_DynAI_threatFrequency 	= 900; //will be *2 if only 1 player and *1.5 time if 2 players
+WMS_DynAI_threatCoefs 		= [2,1.5,1.2]; //[1player,2players,3players]
 WMS_DynAI_addPoptabsINF 	= false; //Exile mod
 WMS_DynAI_poptabsINF 		= [25,50]; //poptabs on the AIs [minimum+Random]
 WMS_DynAI_addPoptabsVHL 	= false; //Exile mod

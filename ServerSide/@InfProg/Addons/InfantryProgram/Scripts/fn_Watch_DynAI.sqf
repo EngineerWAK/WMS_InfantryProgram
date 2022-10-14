@@ -18,13 +18,17 @@ _DynamicThreatTarget = objNull;
 _threatScenario = "Nothing";
 
 //Ajusting timer depending N players
-if (_playerCount == 2) then {
-	_waitingTime = WMS_DynAI_threatFrequency*1.5;
+if (_playerCount == 3) then {
+	_waitingTime = WMS_DynAI_threatFrequency*(WMS_DynAI_threatCoefs select 2);
 } else {
-	if (_playerCount == 1) then {
-		_waitingTime = WMS_DynAI_threatFrequency*2;
+	if (_playerCount == 2) then {
+		_waitingTime = WMS_DynAI_threatFrequency*(WMS_DynAI_threatCoefs select 1);
 	} else {
-		_waitingTime = WMS_DynAI_threatFrequency;
+		if (_playerCount == 1) then {
+			_waitingTime = WMS_DynAI_threatFrequency*(WMS_DynAI_threatCoefs select 0);
+		} else {
+			_waitingTime = WMS_DynAI_threatFrequency;
+		};
 	};
 };
 //Looking for a target
