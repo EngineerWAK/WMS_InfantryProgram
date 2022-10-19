@@ -214,7 +214,7 @@ WMS_AL_Running		= [[],[]]; //array of arrays of data [[VEHICLES],[INFANTRY]] //[
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WMS_DFO_Version			= "v1.14_2022OCT18_GitHub";
+WMS_DFO_Version			= "v1.15_2022OCT19_GitHub";
 if (WMS_DynamicFlightOps) then { //Dynamic Flight Operations, for REAL Arma "pilots"!
 //WMS_DynamicFlightOps	= true; //moved UP
 WMS_DFO_LOGs			= false; //For Debug
@@ -245,6 +245,7 @@ WMS_DFO_CargoType		= ["CargoNet_01_barrels_F","C_IDAP_CargoNet_01_supplies_F","C
 WMS_DFO_MissionTypes	= [["inftransport","cargotransport","sar","medevac"],["airassault","casinf","casarmored","cascombined","csar"],["inftransport","cargotransport","airassault","casinf","casarmored","cascombined","csar","sar","medevac"]];// [[CHILL],[COMBAT],[RANDOM]]
 WMS_DFO_Reinforcements	= ["paradrop","paradrop","paradrop","VHLpatrol","VHLpatrol","AIRpatrol","AIRassault"]; //["AIRpatrol","VHLpatrol","paradrop","AIRassault"] //TYPO!!!
 WMS_DFO_NPCskills		= [0.8, 0.7, 0.2, 0.3, 0.3, 0.6, 0, 0.5, 0.5]; //"spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"
+WMS_DFO_ExclusionZone	= []; //[[[x,y,z],radius],[[x,y,z],radius],[[x,y,z],radius],[[x,y,z],radius]]; will work for "random" and "sea" spawns, not for forests/locals/bases or others
 //VANILLA:
 WMS_DFO_Choppers		= [["B_Heli_Attack_01_F","B_Heli_Light_01_armed_F"],["B_Heli_Transport_01_F"],["B_Heli_Transport_03_unarmed_green_F","I_Heli_light_03_unarmed_F"],["C_IDAP_Heli_Transport_02_F"]]; //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
 WMS_DFO_NPCvehicles		= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]

@@ -18,7 +18,7 @@ if (WMS_MapName == "ruha") then {
 										WMS_AI_MaxUnits_C 			= 160; //stop Base attack and missions
 										//WMS_DynamicFlightOps		= false; //Module //DFO, for Arma "Pilots" who want to keep busy, call from a chopper or from DFO base(s)
 										//WMS_AmbientLife				= true;
-										WMS_AL_VhlBalance			= [1,1,2,1,1,2,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
+										WMS_AL_VhlBalance			= [1,1,0,1,1,0,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 										WMS_AL_UnitMax				= 10; //Max units (groups if _CombatBehav true) patroling at the same time
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];

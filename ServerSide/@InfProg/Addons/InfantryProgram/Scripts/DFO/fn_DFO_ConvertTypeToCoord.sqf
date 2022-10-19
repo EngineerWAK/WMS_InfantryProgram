@@ -22,8 +22,10 @@
 	private _return = [];
 	if (WMS_DFO_Standalone) then {
 		_blackList = allPlayers select {alive _x} apply {[getPosATL _x, 900]};
+		_blacklist = _blacklist+WMS_DFO_ExclusionZone;
 	}else {
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
+		_blacklist = _blacklist+WMS_DFO_ExclusionZone;
 	};
 	if (_posType == "random") then {
 		_return = [_pos, (WMS_DFO_MinMaxDist select 0), (WMS_DFO_MinMaxDist select 1), _radiusObjects, 0, _MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;
