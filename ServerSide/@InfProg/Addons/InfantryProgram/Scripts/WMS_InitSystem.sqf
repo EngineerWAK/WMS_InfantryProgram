@@ -16,7 +16,7 @@ WMS_ServRestartSeconds 		= 18000; //5h
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.690_2022OCT14_GitHub"; //Replaced bohemia's VTOL shit by Mi8 for NPC in WMS_List_VHL_RHS_Hatchet
+WMS_System_Version 			= "v2.691_2022OCT19_GitHub"; //Fixed SetPatrol WMS_SeaPos
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_IP_LOGs 				= false; //RPT logs
 WMS_Watch_Triggers_Logs		= false; //RPT logs
@@ -214,7 +214,7 @@ WMS_AL_Running		= [[],[]]; //array of arrays of data [[VEHICLES],[INFANTRY]] //[
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WMS_DFO_Version			= "v1.13_2022JUL31_GitHub";
+WMS_DFO_Version			= "v1.14_2022OCT18_GitHub";
 if (WMS_DynamicFlightOps) then { //Dynamic Flight Operations, for REAL Arma "pilots"!
 //WMS_DynamicFlightOps	= true; //moved UP
 WMS_DFO_LOGs			= false; //For Debug
