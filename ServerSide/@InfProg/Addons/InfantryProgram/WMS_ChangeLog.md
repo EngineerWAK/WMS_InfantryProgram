@@ -21,6 +21,14 @@
 // - 'DynAI + Events' Player Check before spawn
 // - Integrated Messages Brodcast
 //////////////////////////////////////////////////////////////////
+v2.7_2022OCT20_GitHub
+    Introducing "Fast Combat" options WMS_FastCombat = true; (dafault = false)
+        Reduce all cooldowns
+        Increase chances for triggers to spawn NPCs more often
+        Reduce dynamic threat timers/coefs
+        Add a Fast Combat Activation Marker on the map (bottom)
+        Logged Admins can activate/deactivate Fast Combat anytime in the console
+
 v2.576_2022APR22_GitHub started to work on "Dynamic Flight Operations"
     WMS_fnc_Watch_Events + WMS_InitSystem
     ADDED WMS_fnc_Event_DFO

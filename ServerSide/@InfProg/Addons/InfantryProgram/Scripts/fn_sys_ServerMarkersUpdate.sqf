@@ -50,3 +50,17 @@ if (_servDeads < 30) then {
 		{ deleteVehicle _x } forEach allDeadMen;
 	};
 };
+//WMS_FastCombatMkr = false;
+if (WMS_FastCombat)then{
+	if !(WMS_FastCombatMkr)then{
+		WMS_markerFC setMarkerColor "ColorOrange";
+		WMS_markerFC setMarkerText "Fast Combat ACTIVE";
+		WMS_FastCombatMkr = true;
+	};
+}else{
+	if (WMS_FastCombatMkr)then{
+		WMS_markerFC setMarkerColor "ColorKhaki";
+		WMS_markerFC setMarkerText "Fast Combat OFF";
+		WMS_FastCombatMkr = false;
+	};
+};

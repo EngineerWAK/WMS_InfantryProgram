@@ -10,31 +10,45 @@
 * Do Not Re-Upload
 */
 WMS_serverCMDpwd			= "CHANGEME";
-WMS_BlackList 				= []; //list of player's UID "BlackListed" //fatigue/Stamina for now
+WMS_BlackList 				= []; //list of player's UID "BlackListed" //define the player at 100000 respect far all AI spawn/reinforcement with custom setup in WMS_fnc_DynAI_selScen
 WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions, Do not use in Exile right newOverlay
 WMS_ServRestartSeconds 		= 18000; //5h	
-/////////////////////////////////////////////////
-///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
-/////////////////////////////////////////////////
-WMS_System_Version 			= "v2.691_2022OCT19_GitHub"; //Fixed SetPatrol WMS_SeaPos
-if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
+WMS_DynamicFlightOps		= true; //Module //DFO, for Arma "Pilots" who want to keep busy, call from a chopper or from DFO base(s)
+WMS_AmbientLife				= false; //Module  //spawn some little dudes, flying, drivinng, walking using boats, CIVILIAN by default //AL can spawn A LOT of units/vehicles/waypoints, be sure your box can handle it with other regular mission/roaming AI
+WMS_exileFireAndForget 		= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
+WMS_exileToastMsg 			= false; //Exile message system
 WMS_IP_LOGs 				= false; //RPT logs
+WMS_FastCombat				= false; //Activate NPC "Fast Combat": Accelerate Triggers/respawn, reduce cooldowns, can be changed during the round, the server will addapt
 WMS_Watch_Triggers_Logs		= false; //RPT logs
 WMS_magicSmoke 				= true; //puff of smoke/shaft/flare when NPC despawn
 WMS_ServerMarkers 			= true;	//show Server FPS, AI and Deads count on the map
 WMS_forceNoRain 			= false; //no more rain!
 WMS_forceNoFog				= false; //no more fucking fog!
 WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds
+/////////////////////////////////////////////////
+///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
+/////////////////////////////////////////////////
+WMS_System_Version 			= "v2.7_2022OCT20_GitHub"; //Fast Combat Options
+if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 120; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 //WMS_ServRestartSeconds 	= 18000; //5h	Moved up
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Namalsk","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
 
-WMS_DynamicFlightOps		= true; //Module //DFO, for Arma "Pilots" who want to keep busy, call from a chopper or from DFO base(s)
-WMS_AmbientLife				= false; //Module  //spawn some little dudes, flying, drivinng, walking using boats, CIVILIAN by default //AL can spawn A LOT of units/vehicles/waypoints, be sure your box can handle it with other regular mission/roaming AI
-
-WMS_exileFireAndForget 		= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
-WMS_exileToastMsg 			= false; //Exile message system
+/////////////MOVED UP!!!!!!
+//WMS_IP_LOGs 				= false; //RPT logs
+//WMS_FastCombat				= false; //Activate NPC "Fast Combat": Accelerate Triggers/respawn, reduce cooldowns, can be changed during the round, the server will addapt
+//WMS_Watch_Triggers_Logs		= false; //RPT logs
+//WMS_magicSmoke 				= true; //puff of smoke/shaft/flare when NPC despawn
+//WMS_ServerMarkers 			= true;	//show Server FPS, AI and Deads count on the map
+//WMS_forceNoRain 			= false; //no more rain!
+//WMS_forceNoFog				= false; //no more fucking fog!
+//WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds
+//WMS_DynamicFlightOps		= true; //Module //DFO, for Arma "Pilots" who want to keep busy, call from a chopper or from DFO base(s)
+//WMS_AmbientLife				= false; //Module  //spawn some little dudes, flying, drivinng, walking using boats, CIVILIAN by default //AL can spawn A LOT of units/vehicles/waypoints, be sure your box can handle it with other regular mission/roaming AI
+//WMS_exileFireAndForget 		= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
+//WMS_exileToastMsg 			= false; //Exile message system
+/////////////MOVED UP!!!!!!
 
 WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch launch
 {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]}foreach allPlayers; //kick all players trying to connect before the server is locked-ready-unlocked
@@ -408,6 +422,23 @@ WMS_DynAI_BaseAtkMax 		= 1; //not sure mmore than base attack can run in the sam
 WMS_Invasion 				= false; //very, VERY far from ready...
 WMS_Invasion_Array 			= [];//Leave it empty
 ////////////////////
+//FastCombat overrides, don't be a chiken
+////////////////////
+WMS_DynAI_threatFrequencyFC = 300;
+WMS_DynAI_threatCoefsFC 	= [1.5,1.35,1.15]; //[1player,2players,3players]
+WMS_triggCheck_FC			= 240; //triggers are set at server start, it'll need some work to dynamicaly change the vars
+WMS_triggCheck_ChFC			= 90; //chances to trigger
+WMS_trigLocals_ChFC 		= 70; //chances to trigger
+WMS_trigVillages_ChFC 		= 75; //chances to trigger
+WMS_trigCities_ChFC 		= 80; //chances to trigger
+WMS_trigCapitals_ChFC 		= 85; //chances to trigger
+WMS_trigHills_ChFC 			= 55; //chances to trigger
+WMS_Forests_ChFC			= 55; //chances to trigger
+WMS_Military_ChFC			= 95; //chances to trigger
+WMS_TriggCoolDownCoefFC		= 0.5; //recalculate all original triggers cooldown with this coefficient
+//WMS_DynAI_RdoChatter		= false; //overrides in the spawns themself
+//WMS_DynAI_BaseATKReinforce_CD = 120; //cooldown between reinforce divided by 2 in fast combat
+////////////////////
 //MISSION AI
 ////////////////////
 WMS_AMS 				= true; //Dymanic Missions with missions layouts, multigroups NPCs, reward when ALL NPC dead
@@ -597,7 +628,7 @@ WMS_Roads			= []; //PushBack RoadObjects
 WMS_SeaPos			= []; //PushBack sea positions around coasts
 //WMS_Pos_EntryPoint 	= []; //not autoScan //Just trigger WMS_trig_Glob_LastT to prevent player to get roaming AI while spawning in a trigger
 
-WMS_CustomTrig_activate 	= false; //if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD) && time > (WMS_CustomTrig_LastT + WMS_CustomTrig_CoolD) && (player distance2d trigPos) > (WMS_CustomTrig_Size/2)) then {};
+WMS_CustomTrig_activate 	= false; //if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && time > (WMS_CustomTrig_LastT + WMS_CustomTrig_CoolD) && (player distance2d trigPos) > (WMS_CustomTrig_Size/2)) then {};
 WMS_Pos_Custom_Rdz 			= 0;
 WMS_Pos_CustomTrig 			= []; // AutoScan
 WMS_CustomTrig_Size			= 200;
@@ -712,8 +743,6 @@ publicVariable "WMS_InfantryProgram_C130CoolDown";//NO TOUCH
 if (WMS_RandomStartTime) then {
 	WMS_Date = [(WMS_Date select 0), (WMS_Date select 1), (WMS_Date select 2), WMS_RandomStart_Hour+floor (random WMS_RandomStart_Random), 00];
 	setdate WMS_Date;
-	//[[], {setDate WMS_Date}] remoteExec ["call",0,"JIP_id_setDate"];
-	//publicVariable "WMS_Date";
 	if (true) then {diag_log format ["[SERVER DATE/TIME]|WAK|TNA|WMS| Changing server date/time, target time: %1, real time: %2", WMS_Date, date]};
 };
 WMS_AMS_CenterMap = [worldsize/2,worldsize/2,0];

@@ -183,7 +183,7 @@ if (_AIcount > 0) then {
 		[_INFgrp, _Pos, 75, 4, "MOVE", "COMBAT", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
 	};
 };
-if (WMS_DynAI_RdoChatter) then {
+if (WMS_DynAI_RdoChatter && !(WMS_FastCombat)) then {
 	_number = selectRandom [12,11,2,1,6,8];
 	_sound = format ["A3\sounds_f\sfx\radio\ambient_radio%1.wss",_number];
 	playSound3D [_sound, player, false, _pos, 2, 1, 0];

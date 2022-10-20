@@ -15,6 +15,7 @@ ACE3, RHSAFRF, RHSUSAF, RHSGREF, VSM National Gear Pack
 */
 if !(WMS_exileFireAndForget) then {
 WMS_AI_inventory = [
+	"ACE_EarPlugs",
 	"rhs_ec200_sand_mag","rhs_ec75_sand_mag", //explo
 	"Antimalaricum","Antibiotic",//"AntimalaricumVaccine",
 	"ACE_bloodIV_250","ACE_plasmaIV_250","ACE_bloodIV_500","ACE_plasmaIV_500","ACE_salineIV_250","ACE_splint",

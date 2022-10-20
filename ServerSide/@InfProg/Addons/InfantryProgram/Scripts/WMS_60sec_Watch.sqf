@@ -13,9 +13,65 @@
 //uisleep 120+60;
 diag_log format ["[Infantry Program Watch Thread]|WAK|TNA|WMS| 60sec Watch started at %1", time];
 WMS_ServRestart15minWarning = true; //allow the 15min "hint" warning message (1 time)
+WMS_FastCombatActive = false; //prevent fast combat variables to re-set every minutes but only each time it's activated/deactivated
+if !(WMS_FastCombat) then {WMS_FastCombatActive = true;}; //force the regular VARs if no Fast Combat by default
 while {true} do {
-	uisleep 59; //uisleep 14, uisleep 31, uisleep 59, uisleep 91, uisleep 120, uisleep 239
+	//uisleep 59; //MOVED MIDDLE TO GET NEW VARs AS FAST AS POSSIBLE //uisleep 14, uisleep 31, uisleep 59, uisleep 91, uisleep 120, uisleep 239
+	//Fast combat, re-set the variables
+	if (WMS_FastCombat) then {
+		if !(WMS_FastCombatActive) then {
+			WMS_DynAI_threatFrequency_T = WMS_DynAI_threatFrequencyFC; // = 300;
+			WMS_DynAI_threatCoefs_T 	= WMS_DynAI_threatCoefsFC; // 	= [1.5,1.35,1.15]; //[1player,2players,3players]
+			WMS_triggCheck_T 			= WMS_triggCheck_FC; //			= 240; //triggers are set at server start, it'll need some work to dynamicaly change the vars
+			WMS_triggCheck_Ch_T 		= WMS_triggCheck_ChFC; //		= 90; //chances to trigger
+			WMS_trigLocals_Ch_T 		= WMS_trigLocals_ChFC; //		= 70; //chances to trigger
+			WMS_trigVillages_Ch_T		= WMS_trigVillages_ChFC; // 	= 75; //chances to trigger
+			WMS_trigCities_Ch_T 		= WMS_trigCities_ChFC; // 		= 80; //chances to trigger
+			WMS_trigCapitals_Ch_T 		= WMS_trigCapitals_ChFC; //		= 85; //chances to trigger
+			WMS_trigHills_Ch_T 			= WMS_trigHills_ChFC; //		= 55; //chances to trigger
+			WMS_Forests_Ch_T 			= WMS_Forests_ChFC; //			= 55; //chances to trigger
+			WMS_Military_Ch_T 			= WMS_Military_ChFC; //			= 95; //chances to trigger
+			
+			WMS_trig_Glob_CoolD_T 		= (WMS_trig_Glob_CoolD*WMS_TriggCoolDownCoefFC); // 	= 300; //global trigger cooldown
+			WMS_trigLocals_CoolD_T		= (WMS_trigLocals_CoolD*WMS_TriggCoolDownCoefFC); // 	= 600; //cooldown of the different triggers
+			WMS_trigVillages_CoolD_T 	= (WMS_trigVillages_CoolD*WMS_TriggCoolDownCoefFC); // 	= 550;
+			WMS_trigCities_CoolD_T 		= (WMS_trigCities_CoolD*WMS_TriggCoolDownCoefFC); // 	= 600;
+			WMS_trigCapitals_CoolD_T 	= (WMS_trigCapitals_CoolD*WMS_TriggCoolDownCoefFC); // 	= 500;
+			WMS_trigHills_CoolD_T 		= (WMS_trigHills_CoolD*WMS_TriggCoolDownCoefFC); //		= 600;
+			WMS_Forests_CoolD_T 		= (WMS_Forests_CoolD*WMS_TriggCoolDownCoefFC); //		= 600;
+			WMS_Military_CoolD_T 		= (WMS_Military_CoolD*WMS_TriggCoolDownCoefFC); //		= 400;
+
+			WMS_FastCombatActive = true;
+		};
+	}else{
+		if (WMS_FastCombatActive) then {
+			WMS_DynAI_threatFrequency_T = WMS_DynAI_threatFrequency; // = 900;
+			WMS_DynAI_threatCoefs_T 	= WMS_DynAI_threatCoefs; // 	= [2,1.5,1.2]; //[1player,2players,3players]
+			WMS_triggCheck_T 			= WMS_triggCheck; //			= 600; //triggers are set at server start, it'll need some work to dynamicaly change the vars
+			WMS_triggCheck_Ch_T 		= WMS_triggCheckChance; //		= 50; //chances to trigger
+			WMS_trigLocals_Ch_T 		= WMS_trigLocals_Chance; //		= 40; //chances to trigger
+			WMS_trigVillages_Ch_T		= WMS_trigVillages_Chance; // 	= 45; //chances to trigger
+			WMS_trigCities_Ch_T 		= WMS_trigCities_Chance; // 	= 55; //chances to trigger
+			WMS_trigCapitals_Ch_T 		= WMS_trigCapitals_Chance; //	= 56; //chances to trigger
+			WMS_trigHills_Ch_T 			= WMS_trigHills_Chance; //		= 33; //chances to trigger
+			WMS_Forests_Ch_T 			= WMS_Forests_Chance; //		= 40; //chances to trigger
+			WMS_Military_Ch_T 			= WMS_Military_Chance; //		= 90; //chances to trigger
+			
+			WMS_trig_Glob_CoolD_T 		= WMS_trig_Glob_CoolD; // 		= 300; //global trigger cooldown
+			WMS_trigLocals_CoolD_T		= WMS_trigLocals_CoolD; // 		= 600; //cooldown of the different triggers
+			WMS_trigVillages_CoolD_T 	= WMS_trigVillages_CoolD; // 	= 550;
+			WMS_trigCities_CoolD_T 		= WMS_trigCities_CoolD; // 		= 600;
+			WMS_trigCapitals_CoolD_T 	= WMS_trigCapitals_CoolD; // 	= 500;
+			WMS_trigHills_CoolD_T 		= WMS_trigHills_CoolD ; //		= 600;
+			WMS_Forests_CoolD_T 		= WMS_Forests_CoolD; //			= 600;
+			WMS_Military_CoolD_T 		= WMS_Military_CoolD; //		= 400;
+
+			WMS_FastCombatActive = false;
+		};
+	};
+	uisleep 59;
 	call WMS_fnc_AllDeadsMgr;
+	//weather
 	if (WMS_forceNoRain && {Rain != 0}) then{10 setRain 0};
 	if (WMS_forceNoFog && {fog != 0}) then{10 setFog 0};
 	//Player Watch, the Original one
@@ -26,7 +82,9 @@ while {true} do {
 	if (WMS_ServRestart && {serverTime > (WMS_ServRestartSeconds-900)}) then {
 		[] spawn WMS_fnc_sys_ServerRestart; //I don't like this "spawn"
 	};
+	///////////////////////////////
 	//DFO
+	///////////////////////////////
 	if (WMS_DynamicFlightOps) then {
 		if (count WMS_DFO_Running != 0) then {
 			{

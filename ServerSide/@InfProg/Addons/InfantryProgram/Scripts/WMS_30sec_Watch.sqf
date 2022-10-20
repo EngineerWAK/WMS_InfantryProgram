@@ -12,6 +12,8 @@
 
 //uisleep 120+30;
 diag_log format ["[Infantry Program Watch Thread]|WAK|TNA|WMS| 30sec Watch started at %1", time];
+WMS_FastCombatMkr = false;//NO TOUCH, for FastCombat server marker update
+if !(WMS_FastCombat) then {WMS_FastCombatMkr = true;};
 while {true} do {
 	uisleep 31; //uisleep 14, uisleep 31, uisleep 59, uisleep 91, uisleep 120, uisleep 239
 	//WMS_AI_RoamingVHL_Watch

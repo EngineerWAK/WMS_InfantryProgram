@@ -46,7 +46,7 @@ if (WMS_MapName == "ruha") then {
 										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_DynAI_GunshipHeavy 		= ["RHS_UH1Y_d_GS",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_para_small				= "rhs_d6_Parachute";
-										WMS_AMS_ToRun 				= 3;
+										WMS_AMS_ToRun 				= 2; //with all the reinforcement and vehicles crew, 3 missions it's a lot
 										WMS_AMS_CustomPos			= ["forest","forest","forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
 										WMS_AMS_SpnDistMission 		= 2000;
@@ -61,8 +61,10 @@ if (WMS_MapName == "ruha") then {
 										WMS_trig_Glob_CoolD 		= 240;
 										WMS_Forests_CoolD			= 1200;
 										WMS_Military_CoolD			= 240;
-										//Let's make it more challenging on Ruha			
-										WMS_DynAI_RdoChatter		= false; //radio noise on patrol/building/roadblock AI spawn
+										//Let's make it more challenging on Ruha //FastCombat	
+										WMS_FastCombat 				= true;
+										//all managed from WMS_FastCombat = true;		
+										/*WMS_DynAI_RdoChatter		= false; //radio noise on patrol/building/roadblock AI spawn
 										WMS_DynAI_threatFrequency 	= 300; //will be *2 if only 1 player and *1.5 time if 2 players
 										WMS_DynAI_threatCoefs 		= [1.6,1.35,1.15]; //[1player,2players,3players]
 										WMS_triggCheck				= 300; //Active triggers will check their area to respawn "dynamic" stuff on players if no NPCs around
@@ -73,7 +75,7 @@ if (WMS_MapName == "ruha") then {
 										WMS_trigCapitals_Chance 	= 85;
 										WMS_trigHills_Chance 		= 50;
 										WMS_Forests_Chance			= 55;
-										WMS_Military_Chance			= 95;
+										WMS_Military_Chance			= 95;*/
 										};
 if (WMS_MapName == "xcam_taunus") then {	//NOTE THAT TAUNUS IS VERY LAGGY SERVER<>CLIENT
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";

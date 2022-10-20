@@ -40,3 +40,9 @@ WMS_markerSystem = createMarker ["markerDFO", [(worldsize /2),-800]];
 WMS_markerSystem setMarkerType "loc_heli";
 WMS_markerSystem setMarkerColor "ColorKhaki";
 WMS_markerSystem setMarkerText (format [" Dynamic Flight Ops %1 ", WMS_DFO_Version]);
+
+//FastCombat
+WMS_markerFC = createMarker ["markerFC", [(worldsize *0.25),-200]];
+WMS_markerFC setMarkerType "loc_Rifle";
+WMS_markerFC setMarkerColor "ColorYellow";
+WMS_markerFC setMarkerText "Fast Combat Status UNKNOWN";

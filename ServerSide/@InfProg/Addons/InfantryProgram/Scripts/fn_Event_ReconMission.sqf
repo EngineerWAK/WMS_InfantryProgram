@@ -61,7 +61,7 @@ WMS_fnc_recon_Create_Guards = {
 		["_type", "infantry"]
 	];
 	_patrolGrp = objNull;
-	if (WMS_DynAI_RdoChatter) then {
+	if (WMS_DynAI_RdoChatter && !(WMS_FastCombat)) then {
 		_sound = format ["A3\sounds_f\sfx\radio\ambient_radio%1.wss",(selectRandom [12,11,2,1,6,8])];
 		playSound3D [_sound, player, false, _pos, 2, 1, 0];
 	};

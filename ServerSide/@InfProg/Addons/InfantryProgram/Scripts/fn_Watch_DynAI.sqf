@@ -10,24 +10,29 @@
 * Do Not Re-Upload
 */
 
-private ["_playerCount","_waitingTime","_DynamicThreatTarget","_threatScenario","_flagList","_countFlag","_targetSpeed"];
+private ["_playerCount","_waitingTime","_DynamicThreatTarget","_threatScenario","_threatCoefs","_flagList","_countFlag","_targetSpeed"];
 _playerCount = count allPlayers;
 if (WMS_IP_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| Player(s) connected: %1", _playerCount]};
 _waitingTime = WMS_DynAI_threatFrequency;
+_threatCoefs = WMS_DynAI_threatCoefs;
 _DynamicThreatTarget = objNull;
 _threatScenario = "Nothing";
+if (WMS_FastCombat) then {
+	_waitingTime = WMS_DynAI_threatFrequencyFC;
+	_threatCoefs = WMS_DynAI_threatCoefsFC;
+};
 
 //Ajusting timer depending N players
 if (_playerCount == 3) then {
-	_waitingTime = WMS_DynAI_threatFrequency*(WMS_DynAI_threatCoefs select 2);
+	_waitingTime = _waitingTime*(_threatCoefs select 2);
 } else {
 	if (_playerCount == 2) then {
-		_waitingTime = WMS_DynAI_threatFrequency*(WMS_DynAI_threatCoefs select 1);
+		_waitingTime = _waitingTime*(_threatCoefs select 1);
 	} else {
 		if (_playerCount == 1) then {
-			_waitingTime = WMS_DynAI_threatFrequency*(WMS_DynAI_threatCoefs select 0);
+			_waitingTime = _waitingTime*(_threatCoefs select 0);
 		} else {
-			_waitingTime = WMS_DynAI_threatFrequency;
+			_waitingTime = _waitingTime;
 		};
 	};
 };

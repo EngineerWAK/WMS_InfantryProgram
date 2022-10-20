@@ -67,7 +67,7 @@ WMS_ParadropAI_LastTime = time;
 publicVariable "WMS_ParadropAI_LastTime";
 
 if (_grpSide == OPFOR ) then {
-	if (WMS_DynAI_RdoChatter) then {
+	if (WMS_DynAI_RdoChatter && !(WMS_FastCombat)) then {
 		_number = selectRandom [12,11,2,1,6,8];
 		_sound = format ["A3\sounds_f\sfx\radio\ambient_radio%1.wss",_number];
 		playSound3D [_sound, player, false, _posDZ, 2, 1, 0];

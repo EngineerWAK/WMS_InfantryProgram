@@ -1,4 +1,13 @@
 # WMS_InfantryProgram
+
+v2.7_2022OCT20_GitHub
+    Introducing "Fast Combat" options WMS_FastCombat = true; (dafault = false)
+        Reduce all cooldowns
+        Increase chances for triggers to spawn NPCs more often
+        Reduce dynamic threat timers/coefs
+        Add a Fast Combat Activation Marker on the map (bottom)
+        Logged Admins can activate/deactivate Fast Combat anytime in the console
+
 v2.569_2022APR02_GitHub Exile Mod is fully compatible again<br/>
 v2.548a_2022MAR26_PreRelease on GitHub to try to get back some Exile Mod compatibility<br/>
 

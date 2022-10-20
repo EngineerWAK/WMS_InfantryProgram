@@ -11,6 +11,8 @@
 */
 //execVM "\TNACommunity\Scripts\WMS_AI_Create_triggers.sqf";
 [] spawn {
+Diag_log format ['|WAK|TNA|WMS|WMS_AI_Create_triggers Waiting 30 secondes to create all triggers. %1', serverTime];
+sleep 30;
 Diag_log format ['|WAK|TNA|WMS| Creating %1 Local Triggers', (count WMS_Pos_Locals)];
 {
 private _trigLocals = nil;
@@ -23,7 +25,7 @@ _trigLocals setTriggerStatements ["this",
 private _triggTime = round Time;
 thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime],true];
 WMS_activatedTriggs pushBack [thisTrigger, _triggTime];
-if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD) && {(time > (WMS_trigLocals_LastT + WMS_trigLocals_CoolD))} && {((random 100) < WMS_trigLocals_Chance)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
+if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_trigLocals_LastT + WMS_trigLocals_CoolD_T))} && {((random 100) < WMS_trigLocals_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_trigLocals_LastT = time;
 			[(thisList select 0), (position thisTrigger), 'trigger', 'LOCAL'] call WMS_fnc_DynAI_selScen;
@@ -46,7 +48,7 @@ _trigVillages setTriggerStatements ["this",
 private _triggTime = round Time;
 thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime],true];
 WMS_activatedTriggs pushBack [thisTrigger, _triggTime];
-if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD) && {(time > (WMS_trigVillages_LastT + WMS_trigVillages_CoolD))} && {((random 100) < WMS_trigVillages_Chance)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
+if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_trigVillages_LastT + WMS_trigVillages_CoolD_T))} && {((random 100) < WMS_trigVillages_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_trigVillages_LastT = time;
 			[(thisList select 0), (position thisTrigger), 'trigger', 'VILLAGE'] call WMS_fnc_DynAI_selScen;
@@ -69,7 +71,7 @@ _trigCities setTriggerStatements ["this",
 private _triggTime = round Time;
 thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime],true];
 WMS_activatedTriggs pushBack [thisTrigger, _triggTime];
-if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD) && {(time > (WMS_trigCities_LastT + WMS_trigCities_CoolD))} && {((random 100) < WMS_trigCities_Chance)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
+if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_trigCities_LastT + WMS_trigCities_CoolD_T))} && {((random 100) < WMS_trigCities_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_trigCities_LastT = time;
 			[(thisList select 0), (position thisTrigger), 'trigger', 'CITY'] call WMS_fnc_DynAI_selScen;
@@ -92,7 +94,7 @@ _trigCapitals setTriggerStatements ["this",
 private _triggTime = round Time;
 thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime],true];
 WMS_activatedTriggs pushBack [thisTrigger, _triggTime];
-if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD) && {(time > (WMS_trigCapitals_LastT + WMS_trigCapitals_CoolD))} && {((random 100) < WMS_trigCapitals_Chance)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
+if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_trigCapitals_LastT + WMS_trigCapitals_CoolD_T))} && {((random 100) < WMS_trigCapitals_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_trigCapitals_LastT = time;
 			[(thisList select 0), (position thisTrigger), 'trigger', 'CAPITAL'] call WMS_fnc_DynAI_selScen;
@@ -115,7 +117,7 @@ _trigHills setTriggerStatements ["this",
 private _triggTime = round Time;
 thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime],true];
 WMS_activatedTriggs pushBack [thisTrigger, _triggTime];
-if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD) && {(time > (WMS_trigHills_LastT + WMS_trigHills_CoolD))} && {((random 100) < WMS_trigHills_Chance)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
+if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_trigHills_LastT + WMS_trigHills_CoolD_T))} && {((random 100) < WMS_trigHills_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_trigHills_LastT = time;
 			[(thisList select 0), (position thisTrigger), 'trigger', 'HILL'] call WMS_fnc_DynAI_selScen;
@@ -133,7 +135,7 @@ if ((count WMS_Pos_Forests) > 0) then {
 	_trigForest setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 	_trigForest setTriggerStatements ["this",
 "if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| FOREST TRIGGER,  thisList = %1, thisTrigger = %2 *****', (thisList select 0), thisTrigger];};
-if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD) && {(time > (WMS_Forests_LastT + WMS_Forests_CoolD))} && {((random 100) < WMS_Forests_Chance)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
+if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_Forests_LastT + WMS_Forests_CoolD_T))} && {((random 100) < WMS_Forests_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_Forests_LastT = time;
 			[(thisList select 0), (position thisTrigger), 'trigger', 'FOREST'] call WMS_fnc_DynAI_selScen;
@@ -151,7 +153,7 @@ if ((count WMS_Pos_Military) > 0) then {
 	_trigMilitary setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 	_trigMilitary setTriggerStatements ["this",
 "if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| MILITARY TRIGGER,  thisList = %1, thisTrigger = %2 *****', (thisList select 0), thisTrigger];};
-if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD) && {(time > (WMS_Military_LastT + WMS_Military_CoolD))} && {((random 100) < WMS_Military_Chance)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
+if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_Military_LastT + WMS_Military_CoolD_T))} && {((random 100) < WMS_Military_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_Military_LastT = time;
 			[(thisList select 0), (position thisTrigger), 'trigger', 'MILITARY'] call WMS_fnc_DynAI_selScen;
@@ -162,6 +164,7 @@ uisleep 1;
 };
 
 if (((count WMS_Pos_CustomTrig) > 0) && ((count WMS_Pos_CustomTrig) < (WMS_CustomTrig_Max))) then {
+	//CUSTOM TRIGGERS NOT AFFECTED BY FAST COMBAT
 	Diag_log format ['|WAK|TNA|WMS| Creating %1 Customs Triggers', (count WMS_Pos_CustomTrig)];
 	{
 	private _trigCustom = nil;
@@ -171,7 +174,7 @@ if (((count WMS_Pos_CustomTrig) > 0) && ((count WMS_Pos_CustomTrig) < (WMS_Custo
 	_trigCustom setTriggerStatements [
 		"this",
 		"if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| CUSTOM TRIGGER,  thisList = %1, thisTrigger = %2 *****', (thisList select 0), thisTrigger];};
-		if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD) && {(time > (WMS_CustomTrig_LastT + WMS_CustomTrig_CoolD))} && {((random 100) < WMS_CustomTrig_Chance)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
+		if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_CustomTrig_LastT + WMS_CustomTrig_CoolD))} && {((random 100) < WMS_CustomTrig_Chance)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_CustomTrig_LastT = time;
 			[(position thisTrigger),100,120,(2+round(random 2)),10,(0.3+(random 0.55)),(selectRandom ['bandit','army'])] spawn WMS_fnc_DynAI_BuildingGuards;
@@ -182,4 +185,5 @@ if (((count WMS_Pos_CustomTrig) > 0) && ((count WMS_Pos_CustomTrig) < (WMS_Custo
 	}forEach WMS_Pos_CustomTrig;
 uisleep 1;
 };
+Diag_log format ['|WAK|TNA|WMS|WMS_AI_Create_triggers all triggers created, good night. %1', serverTime];
 };

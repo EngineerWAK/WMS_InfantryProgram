@@ -317,8 +317,8 @@ if (_triggType == "dynamic") then { //full options//"dynamic"
 	"AIRpatrol",((_Vcoef select 10) +(_Rcoef select 10)),
 	"AIRassault",((_Vcoef select 11) +(_Rcoef select 11)),
 	"arty",((_Vcoef select 12) +(_Rcoef select 12)),
-	"bombing",((_Vcoef select 13) +(_Rcoef select 13)),
-	"BBQcamp",((_Vcoef select 15) +(_Rcoef select 15))
+	//"BBQcamp",((_Vcoef select 15) +(_Rcoef select 15)),//BBQcamp in dynamic spawn 10m away from the player...
+	"bombing",((_Vcoef select 13) +(_Rcoef select 13))
 	];
 };
 if (_triggType == "reinforcement") then {
