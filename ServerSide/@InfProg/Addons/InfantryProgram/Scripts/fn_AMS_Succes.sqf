@@ -55,11 +55,19 @@ WMS_AMS_MissionsCount = WMS_AMS_MissionsCount -1;
 {deleteVehicle _x} forEach _Mines;
 if (_clnObj && WMS_AMS_ClnObj) then {
 	uisleep WMS_AMS_clnObjT;
+	if (WMS_AMS_AlarmCln) then {
+		PlaySound3D ["A3\Sounds_F\sfx\siren.wss", _pos, false, _pos, 2, 1, 0];
+	};
+	uisleep 10;
 	{
 		 deleteVehicle _x
 	}foreach _objs;
 } else {
 	uisleep WMS_AMS_clnObjT;
+	if (WMS_AMS_AlarmCln) then {
+		PlaySound3D ["A3\Sounds_F\sfx\siren.wss", _pos, false, _pos, 2, 1, 0];
+	};
+	uisleep 10;
 	{
 		_x allowDamage true;
 	}foreach _objs;

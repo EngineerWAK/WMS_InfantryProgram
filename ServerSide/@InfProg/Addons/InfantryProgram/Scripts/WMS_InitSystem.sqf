@@ -28,12 +28,12 @@ WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeco
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.722_2022OCT22_GitHub"; //RCWS Vehicles for players!
+WMS_System_Version 			= "v2.724_2022OCT22_GitHub"; //Cleaning the customMapCfg, not fully updated yet, need to add factories _pos for some maps
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 120; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 //WMS_ServRestartSeconds 	= 18000; //5h	Moved up
-WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Namalsk","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
+WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
 
 /////////////MOVED UP!!!!!!
 //WMS_IP_LOGs 				= false; //RPT logs
@@ -462,8 +462,6 @@ WMS_AMS_VHL_KillMoney	= 3000; //money reward for destroying NPCs vehicle
 WMS_AMS_Reinforce  		= true; //reinforce mission NPCs 
 WMS_AMS_LastReinforce 	= time;
 WMS_AMS_ReinforceCoolD 	= 300;
-	//WMS_AMS_AdjustedSkills = false; //Not Used Yet
-	//WMS_AMS_AdjustSkillsDist = 399;
 WMS_AMS_addPoptabsUnits = false; //Exile
 WMS_AMS_poptabsUnits 	= [25,25]; //Exile
 WMS_AMS_addPoptabsRwd 	= false;  //Exile //Add poptabs in the mission reward crate/vehicle
@@ -476,7 +474,7 @@ WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.4, 0.4, 0.3, 0.6, 0, 0.6, 0.8];
 WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.6, 0.5, 0.4, 0.8, 0, 0.8, 1];
 WMS_AMS_skillhardcore 	= [0.95, 1, 0.7, 0.6, 0.5, 1, 0, 1, 1];
 WMS_AMS_skillstatic 	= [1, 1, 0.005, 0.5, 0.2, 0.5, 0, 0.2, 0.8]; //what ever you do, Statics destroy your ass... this skill is apply on the NPC when he get on the static (EH "getin")
-//WMS_AMS_skillsniper 	= [1,0.95,0.95,0.95];  //set in fn_DynAI_SetUnitOPF and fn_AMS_SetUnits
+	//WMS_AMS_skillsniper 	= [1,0.95,0.95,0.95];  //set in fn_DynAI_SetUnitOPF and fn_AMS_SetUnits
 WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check, it will modify NPC skills if they have a weapon from this list
 							"srifle_LRR_F","srifle_LRR_camo_F","srifle_LRR_tna_F",
 							"srifle_GM6_ghex_F","srifle_GM6_camo_F","srifle_GM6_F",
@@ -498,9 +496,9 @@ WMS_AMS_MineAT 			= "ATMine"; //WMS_ATMines is curently used by WMS_AMS
 WMS_AMS_MineSign 		= "Land_Sign_MinesTall_English_F"; //signs around mine fields
 WMS_AMS_ToRun 			= 3; //how many missions maximun at the same time
 WMS_AMS_MinFPS 			= 15; //diag_fps, above this, missions won't spawn
-WMS_AMS_LastSpawn 		= -600;
-WMS_AMS_MissionTimeout 	= [9600, 900]; //_this select 0 + random _this select 1
-WMS_AMS_TbtwMissions 	= [240, 120]; //Time between 2 missions to spawn //_this select 0 + random _this select 1
+WMS_AMS_LastSpawn 		= -600;//Keep minus so first mission can spawn before server unlock
+WMS_AMS_MissionTimeout 	= [9000, 1800]; //_this select 0 + random _this select 1
+WMS_AMS_TbtwMissions 	= [300, 120]; //Time between 2 missions to spawn //_this select 0 + random _this select 1
 WMS_AMS_MaxGrad 		= 0.15; //terrain grade max to spawn a mission
 WMS_AMS_RangeList 		= [300,500,750,1000,1500]; //Killer distance for AI reinforcement
 WMS_AMS_sysChatMsg 		= 1; //frag messages in system chat 0: nothing, 1: general, 2: group, 3: player
@@ -515,7 +513,7 @@ WMS_AMS_SpnDistPlayer 	= 750; //minimum distance from player to spawn a mission
 WMS_AMS_SpnDistTrader 	= 400; //minimum distance from traders to spawn a mission
 WMS_AMS_SpnDistTerrit 	= 200; //minimum distance from territory to spawn a mission
 WMS_AMS_SpnDistMission 	= 950; //minimum distance from another mission to spawn a mission
-WMS_AMS_ClnObj 			= true; //after succes, despawn mission layout
+WMS_AMS_ClnObj 			= true; //after succes, despawn mission layout //some missions with towers won't despawn to prevent player fall/death xD
 WMS_AMS_ClnObjT 		= 60; //objects cleaning delay after unlock the mission
 WMS_AMS_AlarmCln 		= true;
 	//WMS_AMS_TimeToWatch 	= 25; //AMS missions are checked from the 15 secondes loop WMS_15sec_Watch.sqf
@@ -529,7 +527,7 @@ WMS_AMS_MkrModerate 	= "Contact_circle3"; //"ExileMissionModerateIcon"; //Missio
 WMS_AMS_MkrDifficult 	= "Contact_circle4"; //"ExileMissionDifficultIcon"; //Mission Map Marker
 WMS_AMS_MkrHardcore 	= "Contact_circle2"; //"ExileMissionHardcoreIcon"; //Mission Map Marker
 WMS_AMS_TradersIcons 	= ["Select"]; //"ExileTraderZoneIcon","ExileAircraftTraderIcon" //map marker to check to find traders
-WMS_AMS_CustomPos		= ["forest","forest","forest","random"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
+WMS_AMS_CustomPos		= ["random"];//["forest","forest","forest","random"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 WMS_AMS_CustomPosFact	= ["random"]; //used to spawn "Factory Sales" //"random" or "factory"
 WMS_AMS_MissionList 	= [ //missions themself and weight
 							["MissionTest1",1],

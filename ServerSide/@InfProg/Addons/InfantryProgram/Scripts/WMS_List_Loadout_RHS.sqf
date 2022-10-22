@@ -14,18 +14,25 @@ MODS LIST:
 ACE3, RHSAFRF, RHSUSAF, RHSGREF, VSM National Gear Pack
 */
 if !(WMS_exileFireAndForget) then {
-WMS_AI_inventory = [
-	"ACE_EarPlugs",
-	"rhs_ec200_sand_mag","rhs_ec75_sand_mag", //explo
-	"Antimalaricum","Antibiotic",//"AntimalaricumVaccine",
+WMS_AI_inventory = [//"AntimalaricumVaccine",//"Laptop_Unfolded",
+	"ACE_EarPlugs","ACE_EarPlugs",
+	"rhs_ec200_sand_mag","rhs_ec75_sand_mag","1Rnd_HE_Grenade_shell","rhs_rpg7_OG7V_mag","rhs_VOG25",//explo
+	"Antimalaricum","Antibiotic",
 	"ACE_bloodIV_250","ACE_plasmaIV_250","ACE_bloodIV_500","ACE_plasmaIV_500","ACE_salineIV_250","ACE_splint",
 	"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
 	"Laserbatteries","Laserbatteries",
-	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",
+	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05","Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05", //twice, since now there is a lot more items in the list
 	"FilesSecret","FileNetworkStructure","FileTopSecret","DocumentsSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys",
 	"ACE_Can_Franta","ACE_Can_RedGull","ACE_Can_Spirit","ACE_Canteen","ACE_Canteen_Empty","ACE_Canteen_Half","ACE_WaterBottle","ACE_WaterBottle_Empty","ACE_WaterBottle_Half",
-	"ACE_Humanitarian_Ration","ACE_MRE_BeefStew","ACE_MRE_ChickenTikkaMasala","ACE_MRE_ChickenHerbDumplings","ACE_MRE_CreamChickenSoup","ACE_MRE_CreamTomatoSoup","ACE_MRE_LambCurry","ACE_MRE_MeatballsPasta","ACE_MRE_SteakVegetables"
-];};
+	"ACE_Humanitarian_Ration","ACE_MRE_BeefStew","ACE_MRE_ChickenTikkaMasala","ACE_MRE_ChickenHerbDumplings","ACE_MRE_CreamChickenSoup","ACE_MRE_CreamTomatoSoup","ACE_MRE_LambCurry","ACE_MRE_MeatballsPasta","ACE_MRE_SteakVegetables",
+	"ACE_RangeTable_82mm","ACE_artilleryTable","ACE_Chemlight_Shield","ACE_DeadManSwitch","ACE_HuntIR_monitor","ACE_IR_Strobe_Item","ACE_Flashlight_XL50","ACE_microDAGR","ACE_RangeCard","ACE_Sunflower_Seeds","ACE_UAVBattery","rhsusf_acc_harris_bipod",
+	"rhsusf_acc_kac_grip","rhsusf_acc_rvg_blk","rhsusf_acc_grip3","muzzle_snds_acp","muzzle_snds_L","rhsgref_mg42_acc_AAsight","rhsusf_acc_LEUPOLDMK4_2_d",
+	"rhsusf_acc_ACOG_MDO","rhsusf_acc_LEUPOLDMK4_2","rhsusf_acc_g33_xps3_tan","ACE_HuntIR_M203","Laptop_closed",
+	"rhs_pdu4","ACE_Yardage450","rhsusf_bino_lrf_Vector21","ACE_Vector","I_UavTerminal","rhs_tr8_periscope","SatPhone","ACE_RangeCard","ACE_Flashlight_Maglite_ML300L","rhsusf_bino_m24_ARD","rhsusf_bino_leopold_mk4","rhsusf_bino_lerca_1200_black",
+	"Laserdesignator_03"
+	];
+};
+
 /////////////////////////////////
 //			LOADOUTS - DEFAULT IS "VANILLA"
 /////////////////////////////////

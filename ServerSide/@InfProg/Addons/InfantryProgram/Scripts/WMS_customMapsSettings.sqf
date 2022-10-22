@@ -63,29 +63,11 @@ if (WMS_MapName == "ruha") then {
 										WMS_Military_CoolD			= 240;
 										//Let's make it more challenging on Ruha //FastCombat	
 										WMS_FastCombat 				= true;
-										//all managed from WMS_FastCombat = true;		
-										/*WMS_DynAI_RdoChatter		= false; //radio noise on patrol/building/roadblock AI spawn
-										WMS_DynAI_threatFrequency 	= 300; //will be *2 if only 1 player and *1.5 time if 2 players
-										WMS_DynAI_threatCoefs 		= [1.6,1.35,1.15]; //[1player,2players,3players]
-										WMS_triggCheck				= 300; //Active triggers will check their area to respawn "dynamic" stuff on players if no NPCs around
-										WMS_triggCheckChance		= 90; 	//chance to send reinforcement at _target position
-										WMS_trigLocals_Chance 		= 70;
-										WMS_trigVillages_Chance 	= 75;
-										WMS_trigCities_Chance 		= 80;
-										WMS_trigCapitals_Chance 	= 85;
-										WMS_trigHills_Chance 		= 50;
-										WMS_Forests_Chance			= 55;
-										WMS_Military_Chance			= 95;*/
 										};
-if (WMS_MapName == "xcam_taunus") then {	//NOTE THAT TAUNUS IS VERY LAGGY SERVER<>CLIENT
+if (WMS_MapName == "xcam_taunus") then {//OUTDATED	//NOTE THAT TAUNUS IS VERY LAGGY SERVER<>CLIENT
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
-										WMS_forceNoRain 			= false;
-										WMS_forceNoFog				= false;
 										WMS_WaterSource				= "Land_Jbad_Misc_Well_C";
-										WMS_AI_MaxUnits_A 			= 150; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
-										WMS_AI_MaxUnits_B 			= 170; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
-										WMS_AI_MaxUnits_C 			= 190; //stop Base attack and missions
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
@@ -99,9 +81,6 @@ if (WMS_MapName == "xcam_taunus") then {	//NOTE THAT TAUNUS IS VERY LAGGY SERVER
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
-										WMS_IP_Extract_Alt 			= 250;
-										WMS_C130_Altitude 			= 250;
-										WMS_Forests_Size			= 500;
 										WMS_Pos_Forests 			= [[6833.19,9802.74,0],[8804.01,9730.42,0],[6214.59,8088.38,0],[2854.98,2115.75,0],[949.651,1537.96,0],[11489.9,2516.1,0],[19761.5,1499.38,0],[18469.5,386.97,0],[15863.5,4790.41,0],[19707.2,5582.24,0],
 																	[18049.8,6338.81,0],[19418.7,10198.6,0],[19623.9,12904.3,0],[19339.6,14480,0],[16092.2,15650.1,0],[17297.5,16506.1,0],[19326.8,16752.9,0],[17957.9,18686,0],[15256.2,16848.3,0],[12601.8,15085.1,0],[12015.2,18608.3,0],
 																	[10357.8,18098.6,0],[10546.9,19547.6,0],[13525.1,20028.5,0],[8514.42,19954.8,0],[6238.3,18400,0],[6209.45,19688.7,0],[9019.62,17040.9,0],[7644.34,14918.7,0],[6150.43,15938.1,0],[2938.22,17505.8,0],[3569.77,19939,0],
@@ -117,21 +96,8 @@ if (WMS_MapName == "xcam_taunus") then {	//NOTE THAT TAUNUS IS VERY LAGGY SERVER
 																	[8068.06,18025.2,0],[4267.54,20224,0],[4325.61,20148.9,0],[2409.07,20100.8,0],[2390.68,20076.8,0],[916.996,19296.4,0],[956.071,19303.1,0],[1211.6,14720.4,0],[1208.39,14797.2,0],[3830.66,5408.97,0],[3841.21,5519.04,0],
 																	[2431.11,1339.67,0],[4435.89,13189.7,0],[4273.26,13210.2,0],[6383.18,15115.5,0],[6362.06,15185.6,0],[9976.94,16053.4,0],[9958.77,16071.3,0],[15739.6,12919,0],[15674.8,12924.8,0],[10113.5,5381.05,0],[13120.6,4742.75,0],
 																	[13169.7,4769.09,0],[14030.6,10548.2,0],[14124.9,10577.9,0]]; //need room for small camoNet
-										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
-										WMS_DynAI_GunshipHeavy 		= ["RHS_UH1Y_d_GS",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
-										WMS_para_small				= "rhs_d6_Parachute";
-										WMS_AMS_ToRun 				= 4;
 										WMS_AMS_CustomPos			= ["forest","forest","forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
-										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
-										WMS_AMS_SpnDistMission 		= 3500;
-										WMS_AI_RoamingVHLcount 		= 20; //10
-										WMS_AI_CargoUnits	 		= 2;
-										WMS_AMS_ClnObj 				= false;
-										WMS_AMS_DelMissionFlag 		= true;
-										WMS_FastNight_Morning 		= 5; //morning start at
-										WMS_FastNight_Evening		= 18; //evening start at
-										WMS_FastNight_Night 		= 20;  //time speed
-										WMS_DynAI_DestroyVHL 		= 25;
+										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales
 										};
 if (WMS_MapName == "Lythium") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
@@ -180,6 +146,23 @@ if (WMS_MapName == "Lythium") then {
 										WMS_FastNight_Evening		= 18; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
 										WMS_DynAI_DestroyVHL 		= 25;
+										//DFO
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60M_DAP_MLASS"],["vtx_HH60","vtx_MH60M","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
+										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
+																	["RHS_Ka52_vvsc","RHS_Mi24V_vvsc","RHS_Mi8MTV3_vvsc"],
+																	["RHS_Mi24Vt_vvsc","RHS_Mi8mt_vvsc"],
+																	["rhs_ka60_c","RHS_Mi8T_vvsc"],
+																	["rhsgref_ins_zsu234","rhsgref_ins_t72bb","rhsgref_ins_bmp2e","rhsgref_ins_2s1_at","rhs_t80ue1"],//AA first
+																	["rhsgref_ins_ural_Zu23","rhsgref_ins_btr70","rhsgref_ins_btr60","rhsgref_BRDM2_ins","rhs_btr80a_msv"],//"AA" first
+																	["rhsgref_ins_uaz_dshkm","rhsgref_ins_uaz_spg9","O_LSV_02_armed_F","O_G_Offroad_01_armed_F","rhs_tigr_sts_3camo_vmf"],
+																	["rhsgref_ins_uaz_open","rhsgref_ins_gaz66","rhsgref_ins_ural","rhsgref_ins_zil131_open","rhs_tigr_m_3camo_vmf"],
+																	["C_Hatchback_01_F","C_Offroad_02_unarmed_F","C_Van_02_medevac_F","C_Truck_02_transport_F"],
+																	["rhsgref_ins_ZU23","rhsgref_ins_Igla_AA_pod","rhsgref_ins_DSHKM","rhs_KORD_high_VDV"],//AA first
+																	["O_T_Boat_Armed_01_hmg_F"]];
+										WMS_DFO_NPCs				= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone version
+																	["rhs_vdv_combatcrew","rhs_vdv_mflora_at","rhs_vdv_mflora_aa","rhs_vdv_medic","rhs_mvd_izlom_arifleman_rpk","rhs_mvd_izlom_machinegunner","rhs_vdv_efreitor","rhs_vdv_rifleman","rhs_vdv_grenadier"], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
+																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
+																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
 if (WMS_MapName == "gm_weferlingen_summer") then {
 										if (true) then {diag_log format ["[MISSION MAP]|WAK|TNA|WMS| Detetected map for AI setup is: %1", worldname]};
@@ -221,6 +204,7 @@ if (WMS_MapName == "gm_weferlingen_summer") then {
 																		[2758,19395,0],[16533,18130,0],[2520,11133,0],[11883,4665,0] //bunkers
 																		];
 										WMS_Pos_Forests 			= [[11344.4,15354.1,0],[9303.45,14038.2,0],[20012,13673.9,0],[14707,13986.9,0],[2339.8,17888.3,0],[1451.54,11532.9,0],[4912.05,9883.98,0],[736.129,6828.21,0],[4786.81,8180.67,0],[7148.74,8057.84,0],[8255.69,6810.13,0],[2422.81,2876.99,0],[2948.04,19545,0],[7262.82,3388.75,0],[8666.46,2846.63,0],[10100.4,2972.03,0],[12244.8,4149.45,0],[12265,8775.93,0],[14488.7,7303.12,0],[18295.1,6409.52,0],[17505.9,2850.27,0],[19084.6,3187.94,0],[4857.7,19545.8,0],[13593,592.352,0],[12693,1849.46,0],[10332.3,1324.52,0],[634.327,15114.6,0]];
+										//WMS_Pos_Factory 			= [];
 										WMS_para_small				= "rhs_d6_Parachute";
 										WMS_DynAI_GunshipLight 		= ["rhs_uh1h_hidf",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
@@ -228,68 +212,6 @@ if (WMS_MapName == "gm_weferlingen_summer") then {
 										
 										WMS_AL_VhlBalance			= [1,1,0,1,1,0,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 };
-if (WMS_MapName == "Namalsk") then {	
-										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
-										execVM "\InfantryProgram\Scripts\WMS_List_VHL_Namalsk.sqf";
-										WMS_AI_MaxUnits_A 			= 90; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
-										WMS_AI_MaxUnits_B 			= 110; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
-										WMS_AI_MaxUnits_C 			= 150; //stop Base attack and missions
-										WMS_IP_Extract_Alt 			= 80;
-										WMS_C130_Altitude 			= 150;
-										WMS_SupplyDrop 				= false;
-										WMS_SupplyDropCount 		= 0;
-										WMS_AMS_ToRun 				= 2;
-										WMS_AMS_SpnDistMission 		= 2000;
-										WMS_AI_RoamingVHLcount 		= 5; //10
-										WMS_AMS_ClnObj 				= true;
-										WMS_AMS_DelMissionFlag 		= true;
-										WMS_AI_RoamingVHL_remRPG 	= true;
-										WMS_AI_Para_remRPG 			= true;
-										WMS_AI_INFpatrol_remRPG 	= true;
-										WMS_DynAI_remRPG 			= true;
-										WMS_AI_CargoUnits	 		= 5;
-										WMS_FastNight_Morning 		= 6; //morning start at
-										WMS_FastNight_Evening		= 18; //evening start at
-										WMS_FastNight_Night 		= 25;  //time speed
-										WMS_AMS_CustomPos		= ["random"];
-										WMS_AMS_MissionList = [
-											["MissionTest1",3],
-											["MissionTest2",1],
-											//["ForestCamp",2],
-											["HomeDepot",2],
-											["CombatPatrol",2],
-											["EnyBunkers",1],
-											["Arbeit",1],
-											["ArmedBandits",3],
-											["C192Crash",1],
-											["AmazonWH",1],
-											["TransmissionTower",1],
-											["GunsX3",1],
-											//["Arena",0],
-											["Factory",3],//armed Camp
-											["LightArmoredSteal",1],
-											["HeliSteal",1],
-											["AABattery",1],
-											["Escobar",1],
-											["Forgotten",1],
-											["Radar",1],
-											["Construction",1],
-											["OldTemple",1],
-											["JunkYard",2],
-											["LumberYard",2],
-											["OldPowerPlant",2],
-											["Market",2],
-											["GrandPaJoe",2],
-											//OUTPOSTS
-											["OutpostAlpha",2],
-											["OutpostBravo",2],
-											["OutpostCharlie",2],
-											["OutpostDelta",2], //+V2
-											["OutpostEcho",2],
-											["OutpostFoxtrot",2],
-											["OutpostGolf",2] //+V2
-										];
-										};
 if (WMS_MapName == "Altis") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
@@ -510,14 +432,15 @@ if (WMS_MapName == "Tanoa") then {
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
 
-if (WMS_MapName == "Malden") then {	//OUTDATED
+if (WMS_MapName == "Malden") then {	//VERY OUTDATED
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_Vanilla.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_Vanilla_NOSCOPE.sqf";
 										WMS_IP_Extract_Alt 			= 150;
 										WMS_C130_Altitude 			= 200;
 										WMS_Pos_Forests 			= [[6641.14,5438.44,0],[7677.63,4397.54,0],[9532.81,3773.76,0],[5359.17,3179.15,0],[4288.83,2440.78,0],[5024.37,4920.24,0],[4240.45,3952.49,0],[4667.78,4734.19,0],[2544.42,3975.66,0],[2849.36,4839.3,0],[2887.26,5244.03,0],[3448.67,5544.87,0],[4408.6,9561.49,0],[6695.16,9544.73,0],[7053.38,9671.02,0]]; //not autoScan									
+										//WMS_Pos_Military 			= [];
+										//WMS_Pos_Factory 			= [];
 										WMS_Forests_Size			= 200; //small forest on Malden
-										WMS_Pos_Military 			= []; //not autoScan //need enough space to land a chopper //Pyrgos military, south Zaros, south airfield, NE Agios Georgios, NO Frini, E stavros, SO Zeloran,
 										WMS_SupplyDropCount 		= 1;
 										WMS_AMS_ToRun 				= 3;
 										WMS_HeliCrashCount 			= 4;
@@ -531,45 +454,8 @@ if (WMS_MapName == "Malden") then {	//OUTDATED
 										WMS_FastNight_Day 			= 30;  //time speed
 										WMS_FastNight_Night 		= 5;  //time speed
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
-										WMS_AMS_CustomPos		= ["random"];
-										WMS_AMS_MissionList = [
-											["MissionTest1",1],
-											["MissionTest2",1],
-											["ForestCamp",1],
-											["HomeDepot",1],
-											["CombatPatrol",2],
-											["EnyBunkers",1],
-											["Arbeit",1],
-											["ArmedBandits",1],
-											["C192Crash",1],
-											["AmazonWH",1],
-											["TransmissionTower",1],
-											["GunsX3",1],
-											["Arena",0],
-											["Factory",1],
-											["LightArmoredSteal",1],
-											["HeliSteal",1],
-											["AABattery",1],
-											["Escobar",1],
-											["Forgotten",1],
-											["Radar",1],
-											["Construction",1],
-											["OldTemple",1],
-											["JunkYard",2],
-											["LumberYard",2],
-											["OldPowerPlant",2],
-											["Market",2],
-											["GrandPaJoe",2],
-											//OUTPOSTS
-											["OutpostAlpha",1],
-											["OutpostBravo",1],
-											["OutpostCharlie",1],
-											["OutpostDelta",1], //+V2
-											["OutpostEcho",1],
-											["OutpostFoxtrot",1],
-											["OutpostGolf",1] //+V2
-										];
-								};
+										WMS_AMS_CustomPos			= ["random"];
+									};
 if (WMS_MapName == "Enoch") then {		//Livonia
 										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
 										//execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
@@ -581,19 +467,21 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										WMS_AI_MaxUnits_C 			= 200; //stop Base attack and missions
 										WMS_IP_Extract_Alt 			= 75;
 										WMS_C130_Altitude 			= 150;
-										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["rhs_weap_igla"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
-										WMS_AI_LaunchersBLU 		= [["BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["R3F_STINGER"],["R3F_ERYX"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15A","rhsusf_acc_anpeq15side","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15_bk_sc","rhsusf_acc_anpeq15_bk_top_h","rhsusf_acc_anpeq15_wmx_h","rhsusf_acc_anpeq15_wmx_light","rhsusf_acc_anpeq16a_light_top_sc","rhsusf_acc_anpeq16a_top"];
+										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
-										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","BWA3_DM51A1","SmokeShellRed","rhs_mag_m67","rhs_mag_m7a3_cs","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
-																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag"];
+										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","SmokeShellRed","rhs_mag_m67","rhs_mag_m7a3_cs","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
+																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag","ACE_M14",
+																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_plamyam","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag"];
 										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "Bomb_03_F", "Bomb_04_F", "ammo_Bomb_SDB", "rhs_ammo_fab500_m54", "Bo_Mk82"]; //DynAI bombing is (select 0)										
 										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","rhs_ammo_kab500","rhs_ammo_fab500_m54"];
+										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
-										WMS_Humanicrate 			= "R3F_WeaponStock"; //"CargoNet_01_box_F"
-										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
+										WMS_Humanicrate 			= "CargoNet_01_box_F"; //"CargoNet_01_box_F"
 										WMS_DeliveryChopper_Type 	= ["R3F_AH6_FS"];
 										WMS_CamoNet_Small 			= "CamoNet_wdl_F";
 										WMS_CamoNet_Open 			= "CamoNet_wdl_open_F";
@@ -604,11 +492,14 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 																	[2783.97,2689.91,0],[2005.79,3571.1,0],[2874.43,3887.01,0],[1370.33,3070.76,0],[1986.86,4268.1,0],[3571.67,4873,0],[3870.32,5701.85,0],[3875.22,4243.32,0],[5171.35,6221.99,0],[9342.29,5166.41,0],[8569.64,4878.93,0],
 																	[10940.3,5514.07,0],[11845.3,6539.8,0],[12086,8849.75,0],[12396.3,11490.2,0],[12490.5,10639.5,0],[12092.8,12202,0],[7429.94,10787.1,0],[8512.76,10942,0],[4704.95,12447.1,0],[2054.08,12079.1,0],[1358.3,12024.5,0],
 																	[1309.64,11022.8,0],[445.936,11744.1,0],[425.94,10044.8,0],[403.38,6580.51,0],[2111.42,8297.66,0],[5808.35,9109.53,0],[3065.6,4498.14,0]]; //not autoScan
-										WMS_Pos_Military 			= [[9905.06,3799.11,0.00143433],[2222.99,10861.5,0.00138855],[2058.74,11151.4,0.00145721],[4946.38,2147.22,0.00137329],[4847.26,853.432,0.00143433],[8168.58,10779.1,0.00149155],[7906.54,9760.36,0.00141907],[9076.36,6654.9,0.00143433],[7833.93,5839.28,0.00143433],[6411.45,8169.19,0.00143433],[5633.6,3825.52,0.00143433],[7352.71,2843.94,0.00156403],[7404.92,2605.67,0.00144196],[6382.37,4781.92,0.00143433],[2554.64,5517.89,0.00135803]]; //not autoScan //need enough space to land a chopper
+										WMS_Pos_Military 			= [[9905.06,3799.11,0.00143433],[2222.99,10861.5,0.00138855],[2058.74,11151.4,0.00145721],[4946.38,2147.22,0.00137329],[4847.26,853.432,0.00143433],[8168.58,10779.1,0.00149155],[7906.54,9760.36,0.00141907],[9076.36,6654.9,0.00143433],[7833.93,5839.28,0.00143433],[6411.45,8169.19,0.00143433],[5633.6,3825.52,0.00143433],[7352.71,2843.94,0.00156403],[7404.92,2605.67,0.00144196],[6382.37,4781.92,0.00143433],[2554.64,5517.89,0.00135803],
+																		[8150.39,8492.32,0],[8103.29,8720.86,0],[7896.09,8830.35,0] //Zapadlisko
+																		]; //not autoScan //need enough space to land a chopper
+										//WMS_Pos_Factory 			= [];
 										WMS_para_small				= "rhs_d6_Parachute";
-										WMS_DynAI_GunshipLight 		= ["R3F_AH6_FS_ARMED",[],[[],[]]];
+										WMS_DynAI_GunshipLight 		= ["rhs_uh1h_hidf",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
-										WMS_DynAI_GunshipHeavy 		= ["RHS_UH1Y_d_GS",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
+										WMS_DynAI_GunshipHeavy 		= ["rhs_uh1h_hidf_gunship",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_AI_RoamingVHLcount 		= 14; //10
 										WMS_RandomStart_Hour 		= 4;
 										WMS_RandomStart_Random 		= 6;
@@ -616,15 +507,33 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										WMS_FastNight_Evening		= 16; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
 										WMS_DynAI_DestroyVHL 		= 30;
-										WMS_AMS_ToRun 				= 4;
+										WMS_AMS_ToRun 				= 3;
 										WMS_AMS_remRPG 				= 90;
+										WMS_AMS_SpnDistMission 		= 2500; //minimum distance from another mission to spawn a mission
 										WMS_AI_RoamingVHL_remRPG 	= false;
 										WMS_AI_Para_remRPG 			= true;
 										WMS_AI_INFpatrol_remRPG 	= false;
 										WMS_DynAI_remRPG 			= false;
 										WMS_AMS_ClnObj 				= false;
+										//DFO
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60M_DAP_MLASS"],["vtx_HH60","vtx_MH60M","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
+										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
+																	["RHS_Ka52_vvsc","RHS_Mi24V_vvsc","RHS_Mi8MTV3_vvsc"],
+																	["RHS_Mi24Vt_vvsc","RHS_Mi8mt_vvsc"],
+																	["rhs_ka60_c","RHS_Mi8T_vvsc"],
+																	["rhsgref_ins_zsu234","rhsgref_ins_t72bb","rhsgref_ins_bmp2e","rhsgref_ins_2s1_at","rhs_t80ue1"],//AA first
+																	["rhsgref_ins_ural_Zu23","rhsgref_ins_btr70","rhsgref_ins_btr60","rhsgref_BRDM2_ins","rhs_btr80a_msv"],//"AA" first
+																	["rhsgref_ins_uaz_dshkm","rhsgref_ins_uaz_spg9","O_LSV_02_armed_F","O_G_Offroad_01_armed_F","rhs_tigr_sts_3camo_vmf"],
+																	["rhsgref_ins_uaz_open","rhsgref_ins_gaz66","rhsgref_ins_ural","rhsgref_ins_zil131_open","rhs_tigr_m_3camo_vmf"],
+																	["C_Hatchback_01_F","C_Offroad_02_unarmed_F","C_Van_02_medevac_F","C_Truck_02_transport_F"],
+																	["rhsgref_ins_ZU23","rhsgref_ins_Igla_AA_pod","rhsgref_ins_DSHKM","rhs_KORD_high_VDV"],//AA first
+																	["O_T_Boat_Armed_01_hmg_F"]];
+										WMS_DFO_NPCs				= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone version
+																	["rhs_vdv_combatcrew","rhs_vdv_mflora_at","rhs_vdv_mflora_aa","rhs_vdv_medic","rhs_mvd_izlom_arifleman_rpk","rhs_mvd_izlom_machinegunner","rhs_vdv_efreitor","rhs_vdv_rifleman","rhs_vdv_grenadier"], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
+																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
+																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
-if (WMS_MapName == "tem_kujari") then {	//OUTDATED
+if (WMS_MapName == "tem_kujari") then {	//OUTDATED //I used Kujari as Custom Armored combat server so the roaming AI drives Tanks, not quadbikes ^^
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["rhs_weap_igla"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
@@ -737,6 +646,7 @@ if (WMS_MapName == "vt7") then {//Virolahti
 											[2087.81,12119.9,0], //West, west trader
 											[5609.35,9424.69,0] //Harju spawn
 											]; //not autoScan //need enough space to land a chopper 
+										//WMS_Pos_Factory 			= [];
 										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_DynAI_GunshipHeavy 		= ["RHS_UH1Y_d_GS",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_SupplyDropCount 		= 3;
@@ -752,4 +662,21 @@ if (WMS_MapName == "vt7") then {//Virolahti
 										WMS_AI_MaxUnits_C 			= 175; //stop Base attack and missions
 										WMS_FastNight_Morning 		= 4; //morning start at
 										WMS_FastNight_Evening		= 17; //evening start at
+										//DFO
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60M_DAP_MLASS"],["vtx_HH60","vtx_MH60M","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
+										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
+																	["RHS_Ka52_vvsc","RHS_Mi24V_vvsc","RHS_Mi8MTV3_vvsc"],
+																	["RHS_Mi24Vt_vvsc","RHS_Mi8mt_vvsc"],
+																	["rhs_ka60_c","RHS_Mi8T_vvsc"],
+																	["rhsgref_ins_zsu234","rhsgref_ins_t72bb","rhsgref_ins_bmp2e","rhsgref_ins_2s1_at","rhs_t80ue1"],//AA first
+																	["rhsgref_ins_ural_Zu23","rhsgref_ins_btr70","rhsgref_ins_btr60","rhsgref_BRDM2_ins","rhs_btr80a_msv"],//"AA" first
+																	["rhsgref_ins_uaz_dshkm","rhsgref_ins_uaz_spg9","O_LSV_02_armed_F","O_G_Offroad_01_armed_F","rhs_tigr_sts_3camo_vmf"],
+																	["rhsgref_ins_uaz_open","rhsgref_ins_gaz66","rhsgref_ins_ural","rhsgref_ins_zil131_open","rhs_tigr_m_3camo_vmf"],
+																	["C_Hatchback_01_F","C_Offroad_02_unarmed_F","C_Van_02_medevac_F","C_Truck_02_transport_F"],
+																	["rhsgref_ins_ZU23","rhsgref_ins_Igla_AA_pod","rhsgref_ins_DSHKM","rhs_KORD_high_VDV"],//AA first
+																	["O_T_Boat_Armed_01_hmg_F"]];
+										WMS_DFO_NPCs				= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone version
+																	["rhs_vdv_combatcrew","rhs_vdv_mflora_at","rhs_vdv_mflora_aa","rhs_vdv_medic","rhs_mvd_izlom_arifleman_rpk","rhs_mvd_izlom_machinegunner","rhs_vdv_efreitor","rhs_vdv_rifleman","rhs_vdv_grenadier"], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
+																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
+																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
