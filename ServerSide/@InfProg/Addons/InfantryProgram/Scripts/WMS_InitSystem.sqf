@@ -28,7 +28,7 @@ WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeco
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.7_2022OCT20_GitHub"; //Fast Combat Options
+WMS_System_Version 			= "v2.72_2022OCT22_GitHub"; //Fixing old stuff
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 120; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
@@ -37,17 +37,17 @@ WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","N
 
 /////////////MOVED UP!!!!!!
 //WMS_IP_LOGs 				= false; //RPT logs
-//WMS_FastCombat				= false; //Activate NPC "Fast Combat": Accelerate Triggers/respawn, reduce cooldowns, can be changed during the round, the server will addapt
-//WMS_Watch_Triggers_Logs		= false; //RPT logs
-//WMS_magicSmoke 				= true; //puff of smoke/shaft/flare when NPC despawn
-//WMS_ServerMarkers 			= true;	//show Server FPS, AI and Deads count on the map
+//WMS_FastCombat			= false; //Activate NPC "Fast Combat": Accelerate Triggers/respawn, reduce cooldowns, can be changed during the round, the server will addapt
+//WMS_Watch_Triggers_Logs	= false; //RPT logs
+//WMS_magicSmoke 			= true; //puff of smoke/shaft/flare when NPC despawn
+//WMS_ServerMarkers 		= true;	//show Server FPS, AI and Deads count on the map
 //WMS_forceNoRain 			= false; //no more rain!
-//WMS_forceNoFog				= false; //no more fucking fog!
+//WMS_forceNoFog			= false; //no more fucking fog!
 //WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds
 //WMS_DynamicFlightOps		= true; //Module //DFO, for Arma "Pilots" who want to keep busy, call from a chopper or from DFO base(s)
-//WMS_AmbientLife				= false; //Module  //spawn some little dudes, flying, drivinng, walking using boats, CIVILIAN by default //AL can spawn A LOT of units/vehicles/waypoints, be sure your box can handle it with other regular mission/roaming AI
-//WMS_exileFireAndForget 		= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
-//WMS_exileToastMsg 			= false; //Exile message system
+//WMS_AmbientLife			= false; //Module  //spawn some little dudes, flying, drivinng, walking using boats, CIVILIAN by default //AL can spawn A LOT of units/vehicles/waypoints, be sure your box can handle it with other regular mission/roaming AI
+//WMS_exileFireAndForget 	= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
+//WMS_exileToastMsg 		= false; //Exile message system
 /////////////MOVED UP!!!!!!
 
 WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch launch
@@ -237,13 +237,13 @@ WMS_DFO_CreateChopper	= false; //if your mission file doesn't have choppers avai
 WMS_DFO_Reinforcement	= true; //Each mission has it's own type of reinforcement
 WMS_DFO_UseJVMF			= true; //https://github.com/Project-Hatchet/H-60
 WMS_DFO_RemoveDup		= true; //delete dead NPC's primary weapon and backpack
-WMS_DFO_UsePilotsList 	= false; //if you want to limit DFO use to some players
+WMS_DFO_UsePilotsList 	= true; //if you want to limit DFO use to some players
 WMS_DFO_SmokeAtLZ		= true; //pop a smoke/flare on the group you have to pickUp
 WMS_DFO_HideLZTarget	= false; //hide the target spawned at the LZ (actualy just return it, texture only on one side)
 WMS_DFO_InfUnlOverride	= false; //admins can force it "on the fly" in the console
 WMS_DFO_InfUnloadType 	= 3; //0: dump, 1: land, 2: rappel (Advanced Rappeling), 3: fastrope (not yet) //this should be dynamic unless override
 WMS_DFO_InfLoadType 	= 0; //0 = orderGetIn (need to land), 1 = moveInAny (no need to land but no animation)
-WMS_DFO_PilotsList		= []; //Player UID, Only those players will be able to use DFO if WMS_DFO_UsePilotsList
+WMS_DFO_PilotsList		= []+WMS_InfantryProgram_list; //Player UID, Only those players will be able to use DFO if WMS_DFO_UsePilotsList
 WMS_DFO_MaxRunning		= 3; //Max missions can run in the same time
 WMS_DFO_CoolDown		= 600; //time before the next mission can be called
 WMS_DFO_Timer			= 1800; //timer before mission timeOut, no reset/extend
@@ -478,7 +478,6 @@ WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check,
 							"rhs_weap_m38_rail",
 							"rhs_weap_XM2010_wd","rhs_weap_XM2010_d","rhs_weap_XM2010_sa","rhs_weap_XM2010"
 						];
-WMS_AMS_Flag 			= "Flag_Syndikat_F"; //flag will get a _flag setVariable ["AMS_MissionID",_missionID,true];
 WMS_AMS_UnitClass 		= selectRandom ["O_G_Soldier_F","O_Soldier_F","O_T_Soldier_A_F"]; //AI classename, will be used to create mission AIs, Maybe engineer can repair in Exile?
 WMS_AMS_LauncherChance 	= 25; //% chance to get a launcher
 WMS_AMS_remRPG 			= 50; //% chance to delete the launcher at NPC death
@@ -642,6 +641,9 @@ WMS_CustomTrig_Chance		= 60;
 ////////////////////
 WMS_PlayerEntity		= "I_Survivor_F"; //"Exile_Unit_Player"; //used for blacklist, player distance check //(count ((position _x select 0) nearEntities [WMS_PlayerEntity, 200]) == 0)
 
+WMS_OPFOR_Flag			= "Flag_CSAT_F"; //default flag for Bandits, different than AMS so no interactions with findpositions
+WMS_BLUE_Flag			= "Flag_blue_F"; //default flag for Allieds, different than AMS so no interactions with findpositions
+WMS_AMS_Flag 			= "Flag_Syndikat_F"; //flag will get a _flag setVariable ["AMS_MissionID",_missionID,true];
 WMS_Utility_Item_1 		= "ACE_Cellphone"; //"Exile_Item_FireExtinguisher"; //used for haloJump in Exile (with infantry program)
 WMS_Utility_Item_2 		= "rhs_radio_R187P1"; //"Exile_Item_OldChestKit"; //Used for InfantryProgram Actions
 WMS_CamoNet_Small 		= "CamoNet_INDP_F"; //Default

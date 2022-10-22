@@ -27,17 +27,18 @@ _safePos = [_pos, 0, 25, 2, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
 _grps = [];
 /////BBQ Object(s)
 _fire = createVehicle ["Campfire_burning_F", _safePos, [], 0, "NONE"];
+_flag = createVehicle [WMS_OPFOR_Flag, _safePos, [], 5, "NONE"];
 /////Bandits OPFOR
-	_InfGrp_O = createGroup [OPFOR, false];
-	_grps pushBack _InfGrp_O;
-	for "_i" from 1 to _AIcount do {
-		"O_Soldier_F" createUnit [
-			_safePos, 
-			_InfGrp_O
-		];
-	uisleep 0.1;
-	};
-	[(units _InfGrp_O),'Assault',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
-	[_InfGrp_O, _safePos, 10, 3, "SENTRY", "SAFE", "RED", "NORMAL", "DIAMOND", "", [1,2,3]] call CBA_fnc_taskPatrol;
+_InfGrp_O = createGroup [OPFOR, false];
+_grps pushBack _InfGrp_O;
+for "_i" from 1 to _AIcount do {
+		WMS_AI_Units_Class createUnit [
+		_safePos, 
+		_InfGrp_O
+	];
+uisleep 0.1;
+};
+[(units _InfGrp_O),'Assault',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+[_InfGrp_O, _safePos, 10, 3, "SENTRY", "SAFE", "RED", "NORMAL", "DIAMOND", "", [1,2,3]] call CBA_fnc_taskPatrol;
 
-WMS_DynAI_Running pushback [time,(time+(_timer)),_grps,[],[_fire],[],[],""];
+WMS_DynAI_Running pushback [time,(time+(_timer)),_grps,[],[_fire,_flag],[],[],""];

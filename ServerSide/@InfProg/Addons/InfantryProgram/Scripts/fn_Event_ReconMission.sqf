@@ -113,7 +113,7 @@ WMS_fnc_Recon_Create_Trigger = {
 		[_pos] call WMS_fnc_recon_Create_Guards;
 	};
 
-	_flag = "Flag_Syndikat_F" createVehicle _pos;
+	_flag = WMS_OPFOR_Flag createVehicle _pos;
 	_smokeBlue = "SmokeShellBlue" createVehicle _pos;
 
 	_MkrBorder = createMarker ["MkrBorder", _pos];

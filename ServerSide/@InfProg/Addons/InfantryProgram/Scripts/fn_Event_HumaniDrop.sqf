@@ -94,12 +94,102 @@ switch (_type) do {
 		//_Wstation = createVehicle ["Land_PortableWeatherStation_01_olive_F",_pos,[],10,"NONE"];
 		_smokeColor = "SmokeShellPurple";
 	}; 
-}; 
+};
+	_triggHD1600 = createTrigger ["EmptyDetector", _pos, true]; 
+	_triggHD1600 triggerAttachVehicle [_vehic];
+	_triggHD1600 setVariable ["WMS_mkr", _Mkr, false];  
+	_triggHD1600 setVariable ["WMS_veh", _vehic, false];   
+	_triggHD1600 setVariable ["WMS_smk", _smokeColor, false];   
+	_triggHD1600 setVariable ["WMS_pos", _pos, false];
+	_triggHD1600 setTriggerActivation ["VEHICLE", "PRESENT", true]; 
+	_triggHD1600 setTriggerArea [1600, 1600, 0, false];
+	_triggHD1600 setTriggerStatements  
+	[ 
+  		"this",  
+  		"
+			_mkr = thisTrigger getVariable 'WMS_mkr';
+			_veh = thisTrigger getVariable 'WMS_veh';
+			_smk = thisTrigger getVariable 'WMS_smk';
+			_pos = thisTrigger getVariable 'WMS_pos';
+			_Mkr setMarkerAlpha 1;
+			_smk createVehicle _pos;
+			_veh flyInHeight 300;
+			_veh limitSpeed 200; 
+			if (_veh isKindOf 'sab_C130_J_C') then { 
+				_veh animatesource ['door_2_2', 1];   
+				_veh animatesource ['door_2_1',1];   
+				_veh animatesource ['ramp_top',1];   
+				_veh animatesource ['ramp_bottom',1]; 
+			}; 
+			deleteVehicle thisTrigger;
+		",  
+  		"" 
+	];
+
+	_triggHD150 = createTrigger ["EmptyDetector", _pos, true]; 
+	_triggHD150 triggerAttachVehicle [_vehic];
+	_triggHD150 setVariable ["WMS_load", _load, false];  
+	_triggHD150 setVariable ["WMS_veh", _vehic, false];   
+	_triggHD150 setVariable ["WMS_ite", _iterations, false];   
+	_triggHD150 setVariable ["WMS_grp", _grp, false];
+	_triggHD150 setTriggerActivation ["VEHICLE", "PRESENT", true]; 
+	_triggHD150 setTriggerArea [1600, 1600, 0, false];
+	_triggHD150 setTriggerStatements  
+	[ 
+  		"this",  
+  		"
+			_load = thisTrigger getVariable 'WMS_load';
+			_veh = thisTrigger getVariable 'WMS_veh';
+			_ite = thisTrigger getVariable 'WMS_ite';
+			_grp = thisTrigger getVariable 'WMS_grp';
+			_veh flyInHeight 500;
+			_veh limitSpeed 500;
+			for 'i' from 1 to _ite do {
+				_para = WMS_para_Big; 
+				_parachute  = createVehicle [_para,(_veh modelToWorld [(-5+(random 10)),(-25+(random 10)),(-25+(random 10))]), [], 5];
+				_parachute  setvelocity [0,0,-8]; 
+				_cargo = createVehicle [_load ,position _parachute, [],5];  
+				clearMagazineCargoGlobal _cargo;     
+				clearWeaponCargoGlobal _cargo;     
+				clearItemCargoGlobal _cargo;     
+				clearBackpackCargoGlobal _cargo; 
+				_cargo attachTo [_parachute,[0,0,0]];
+				[_cargo,_grp,_veh]spawn {
+					waitUntil {((position (_this select 0)) select 2) < 25};
+					detach (_this select 0);
+					[
+						(_this select 0),
+						[
+							(selectRandom (WMS_humaniDropList select 0)),
+							(selectRandom (WMS_humaniDropList select 0)),
+							(selectRandom (WMS_humaniDropList select 0)),
+							(selectRandom (WMS_humaniDropList select 0))
+						],
+						[
+							(selectRandom (WMS_humaniDropList select 1)),
+							(selectRandom (WMS_humaniDropList select 1))
+						],
+						[
+							(selectRandom (WMS_humaniDropList select 2))
+						],
+						[
+							(selectRandom (WMS_humaniDropList select 3))
+						]
+					] call WMS_fnc_AMS_FillStuff;
+				};
+				uisleep (60+random 30); 
+				{deleteVehicle _x} forEach units (_this select 1); 
+				(_this select 2) setDamage 0.9;
+			};
+			deleteVehicle thisTrigger;
+		",  
+  		"" 
+	];
  
-//WMS_AI_RoamingAIR_Running pushback [time,(time+450),[_grp],[[_vehic,(position _vehic)]],[_RDOtruck,_Wstation],[_Mkr],[_WPT_paradrop,_WPT_paradrop2],""]; 
 WMS_AI_RoamingAIR_Running pushback [time,(time+450),[_grp],[[_vehic,(position _vehic)]],[_RDOtruck],[_Mkr],[_WPT_paradrop,_WPT_paradrop2],""]; 
- 
-waituntil  {_vehic distance2d _pos <= 1600}; 
+
+/*
+waituntil  {_vehic distance2d _pos <= 1600}; //NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!! createTrigger!
 _Mkr setMarkerAlpha 1;
 _smoke = _smokeColor createVehicle _pos;
 _vehic flyInHeight 300;
@@ -110,11 +200,10 @@ if (_vehic isKindOf "sab_C130_J_C") then {
 	_vehic animatesource ["ramp_top",1];   
 	_vehic animatesource ["ramp_bottom",1]; 
 }; 
-waituntil  {_vehic distance2d _pos <= 100};
+waituntil  {_vehic distance2d _pos <= 100}; //NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!! createTrigger!
 for "i" from 1 to _iterations do {
 	_para = WMS_para_Big; 
-	_parachute  = createVehicle [_para,(_vehic modelToWorld [0,-20,-10]), [], 5]; 
-	//_parachute  setdir winddir; 
+	_parachute  = createVehicle [_para,(_vehic modelToWorld [0,-20,-10]), [], 5];
 	_parachute  setvelocity [0,0,-8]; 
 	_cargo = createVehicle [_load ,position _parachute, [],5];  
 	clearMagazineCargoGlobal _cargo;     
@@ -123,7 +212,7 @@ for "i" from 1 to _iterations do {
 	clearBackpackCargoGlobal _cargo; 
 	_cargo attachTo [_parachute,[0,0,0]];
 	[_cargo]spawn {
-		waitUntil {((position (_this select 0)) select 2) < 25};
+		waitUntil {((position (_this select 0)) select 2) < 25}; //NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!
 		detach (_this select 0);
 
 		[
@@ -148,6 +237,8 @@ for "i" from 1 to _iterations do {
 	};
 	uisleep 1.5;
 };
+
 uisleep (60+random 30); 
 {deleteVehicle _x} forEach units _grp; 
 _vehic setDamage 0.8;
+*/

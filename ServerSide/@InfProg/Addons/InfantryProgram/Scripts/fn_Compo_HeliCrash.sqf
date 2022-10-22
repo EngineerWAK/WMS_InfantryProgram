@@ -33,7 +33,7 @@ playSound3D [MISSION_ROOT+format["Custom\Ogg\%1.ogg",_sound], _pos, false, _pos,
 _objects = [
 	[(selectRandom _wrecks),[3.4,-2.2,0],0],
 	["test_EmptyObjectForSmoke",[3.4,-2.2,0],0],
-	[WMS_AMS_Flag,[-0.2,2.3,0],0], //should be _compoRefPoint, not the crate
+	[WMS_OPFOR_Flag,[-0.2,2.3,0],0], //should be _compoRefPoint, not the crate
 	[WMS_CamoNet_Open,[-6.5,1.5,0],284],
 	["Land_BagBunker_Small_F",[10.8,1.9,0],245.7],
 	["Land_SandbagBarricade_01_half_F",[11.8,-1.4,0],97.2],

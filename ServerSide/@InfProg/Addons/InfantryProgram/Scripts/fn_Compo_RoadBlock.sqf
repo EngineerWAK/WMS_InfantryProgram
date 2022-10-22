@@ -42,6 +42,7 @@ _objList = [];
 _grps = [];
 _objectCompos = [
 	[ //RoadBlock A
+		//[WMS_OPFOR_Flag,[0,0,0],0], //WMS_OPFOR_Flag
 		["CamoNet_OPFOR_open_F",[0,0,0],90],
 		["Land_BagBunker_Small_F",[0,-3.5,-0.1],0],
 		["Land_BagBunker_Small_F",[0,3.5,-0.1],180],
@@ -55,6 +56,7 @@ _objectCompos = [
 		["Land_CzechHedgehog_01_new_F",[7,0,0],18.8753]
 	],
 	[ //RoadBlock B
+		//[WMS_OPFOR_Flag,[0,0,0],0], //WMS_OPFOR_Flag
 		["Land_CzechHedgehog_01_new_F",[1.6,-7.7,0],17.8],
 		["Land_CzechHedgehog_01_new_F",[-5.2,-6.4,0],303.1],
 		["Land_CzechHedgehog_01_new_F",[4.1,-5.3,0],18.8],
@@ -78,6 +80,7 @@ _objectCompos = [
 
 _objectCompos_AT = [
 	[ //RoadBlock AT
+		//[WMS_OPFOR_Flag,[0,0,0],0], //WMS_OPFOR_Flag
 		[WMS_AI_ATstation,[1,-4.5,0],180],
 		[WMS_AI_ATstation,[-1,5.5,0],0],
 		["Land_CncBarrier_stripes_F",[0.6,6.3,0],26.3],
@@ -106,7 +109,7 @@ if (_armed==2) then {
 		} else {
 			_objects = selectRandom _objectCompos;
 };
-_compoRefPoint = createVehicle ["Flag_Syndikat_F", _pos, [], 0, "CAN_COLLIDE"];
+_compoRefPoint = createVehicle [WMS_OPFOR_Flag, _pos, [], 0, "CAN_COLLIDE"];
 _compoRefPoint setDir _dirCompo;
 _objList pushback _compoRefPoint;
 {     
@@ -127,14 +130,14 @@ if (_armed==1) then {
 	_grps pushBack _MGgrp1;
 	_MGgrp2 = createGroup [OPFOR, false];
 	_grps pushBack _MGgrp2;
-	WMS_AMS_UnitClass createUnit [
+	WMS_AI_Units_Class createUnit [
 		_compoRefPoint modeltoworld [0,3.55,0],
 		_MGgrp1
 	];
 	[units _MGgrp1,'BunkerMG',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	uisleep 0.2;
 	_MGgrp1 setFormDir (_dirCompo);
-	WMS_AMS_UnitClass createUnit [
+	WMS_AI_Units_Class createUnit [
 		_compoRefPoint modeltoworld [0,-1,0], 
 		_MGgrp2
 	];
@@ -146,7 +149,7 @@ if (_armed==2) then {
 	_grps pushBack _MGgrp1;
 	_MGgrp2 = createGroup [OPFOR, false];
 	_grps pushBack _MGgrp2;
-	WMS_AMS_UnitClass createUnit [
+	WMS_AI_Units_Class createUnit [
 		_compoRefPoint modeltoworld [0,1,0],
 		_MGgrp1
 	];
@@ -155,7 +158,7 @@ if (_armed==2) then {
 	[units _MGgrp1,'assault',0,0.9,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	uisleep 0.2;
 	_MGgrp1 setFormDir (_dirCompo);
-	WMS_AMS_UnitClass createUnit [
+	WMS_AI_Units_Class createUnit [
 		_compoRefPoint modeltoworld [0,-3.45,0], 
 		_MGgrp2
 	];
@@ -169,7 +172,7 @@ if (_AIcount > 0) then {
 	_INFgrp = createGroup [OPFOR, false];
 	_grps pushBack _INFgrp;
 	for "_i" from 1 to _AIcount do {
-		"O_Soldier_F" createUnit [
+		WMS_AI_Units_Class createUnit [
 			_safePos, 
 			_INFgrp
 	];

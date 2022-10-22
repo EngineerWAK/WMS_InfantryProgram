@@ -62,7 +62,7 @@ if (WMS_exileToastMsg) then {
    };   
 };
 
-_objects = [    
+/*_objects = [    //OLD
    [WMS_CamoNet_Big,[0,0,0],0,[true,false],""],   
    ["Land_CncBarrierMedium_F",[-4.44227,-6.63455,0],237.299,[true,false],""],   
    ["Land_BagFence_Round_F",[-4.26413,-9.49662,0],62.2911,[true,false],""],   
@@ -83,19 +83,45 @@ _objects = [
    ["Land_CncBarrierMedium_F",[6.58604,-0.433831,0],76.5616,[true,false],""],   
    ["Land_CncBarrierMedium_F",[7.01473,-2.31527,0],77.162,[true,false],""],   
    ["Land_BagFence_Round_F",[8.001,-4.36718,0],281.345,[true,false],""],   
-   ["Land_CampingTable_F",[5.485,-1.0866,0],255.482,[true,true],""],   
-   //["Exile_Plant_GreenBush8",[-5.57703,-8.8253,0],171.201,[true,true],""],   
-   //["Exile_Plant_GreenBush2",[-7.49007,-6.1837,0],353.019,[true,true],""],   
-   //["Exile_Plant_GreenBush",[9.47573,-2.16525,0],84.5564,[true,true],""],   
-   //["Exile_Plant_GreenBush",[-1.86585,-10.5601,-1.73],309.117,[true,true],""],   
-  // ["Exile_Plant_GreenBush8",[-3.62373,-11.1221,0],84.7744,[true,true],""],   
-   //["Exile_Plant_GreenBush2",[-7.20988,4.56251,0],196.041,[true,true],""],   
-   //["Exile_Plant_GreenBush6",[-0.408503,8.30713,0],68.3773,[true,true],""],   
-   //["Exile_Plant_GreenBush8",[7.18132,-6.64169,0],339.657,[true,true],""],   
+   ["Land_CampingTable_F",[5.485,-1.0866,0],255.482,[true,true],""],  
    ["Land_Pod_Heli_Transport_04_fuel_F",[-2.17843,-0.323677,0],90,[true,true],"lock"],   
    ["Box_IND_AmmoVeh_F",[-0.0231779,3.21674,0],90,[true,true],"lock"],
    ["Land_RepairDepot_01_green_F",[-0.220944,-5.79184,0],180,[true,false],"lock"]
-];   
+];*/
+_objects = [
+   [WMS_CamoNet_Big,[0,0,0],0,[true,false],""],
+   [WMS_BLUE_Flag,[3.8,-8.5,0],0,[true,false],""],
+   ["Box_IND_AmmoVeh_F",[-2.3,-0.5,0],0,[true,true],"lock"],
+   ["Land_fs_feed_F",[6,-1.3,0],59.5,[true,true],"lock"],
+   ["Land_RepairDepot_01_green_F",[0.2,-5.8,0],198.4,[true,true],"lock"],
+   ["FirePlace_burning_F",[2.8,3.1,0],0,[true,false],""],
+   ["Land_CncBarrierMedium_F",[-5.8,-3.8,0],68.2,[true,false],""],
+   ["Land_CncBarrierMedium_F",[-6.4,-2,0],77.3,[true,false],""],
+   ["Land_CncBarrierMedium_F",[-6.6,-0.1,0],90.8,[true,false],""],
+   ["Land_CncBarrierMedium_F",[-6.5,1.9,0],96.4,[true,false],""],
+   ["Land_CncBarrierMedium_F",[-5.8,3.7,0],123.5,[true,false],""],
+   ["Land_CncBarrierMedium_F",[-4.5,5.2,0],140.2,[true,false],""],
+   ["Land_CncBarrierMedium_F",[-2.8,6.2,0],159.7,[true,false],""],
+   ["Land_CncBarrierMedium_F",[-0.8,6.6,0],176.8,[true,false],""],
+   ["Land_CncBarrierMedium_F",[1.1,6.5,0],191.3,[true,false],""],
+   ["Land_CncBarrierMedium_F",[2.9,6,0],196.5,[true,false],""],
+   ["Land_CncBarrierMedium_F",[4.5,4.9,0],232.4,[true,false],""],
+   ["Land_CncBarrierMedium_F",[6.1,1.3,0],237,[true,false],""],
+   ["Land_CncBarrierMedium_F",[-4.9,-5.5,0],237.3,[true,false],""],
+   ["Land_CncBarrierMedium_F",[7,-0.5,0],247.1,[true,false],""],
+   ["Land_CncBarrierMedium_F",[5.3,3.1,0],259.1,[true,false],""],
+   ["Land_SandbagBarricade_01_half_F",[9.9,-3.2,0],87.6,[true,false],""],
+   ["Land_SandbagBarricade_01_half_F",[9.5,-5.5,0],116.6,[true,false],""],
+   ["Land_SandbagBarricade_01_half_F",[-1,-11.8,0],190.7,[true,false],""],
+   ["Land_SandbagBarricade_01_half_F",[-3.3,-11.2,0],197.4,[true,false],""],
+   ["Land_SandbagBarricade_01_half_F",[-5.2,-10,0],223.8,[true,false],""],
+   ["Land_TentSolar_01_folded_olive_F",[0.2,5.5,0],301.3,[true,false],""],
+   ["Land_TentSolar_01_olive_F",[-1.9,3.6,0],246.3,[true,false],""],
+   ["Land_WoodenLog_F",[3.1,4.3,0],6.7,[true,false],""],
+   ["Land_WoodenLog_F",[4.2,3,0],81.7,[true,false],""],
+   ["Land_Workbench_01_F",[5,0.5,0],64.1,[true,false],""]
+   ];  
+
 _compoRefPoint = createVehicle ["VR_Area_01_circle_4_yellow_F", _pos, [], 0, "CAN_COLLIDE"];   
 _compoRefPoint setDir _dirPlayer;   
 {    
@@ -148,15 +174,7 @@ uisleep 5;
    _x allowDamage true; 
 } forEach _VHLList; 
 if (_monitoring == 1) then {
-   WMS_AI_bluforPatrol_Running pushback [time,(time+(_timer+(random _timer))),[],[],_objList,[],[],"ALARM"];
+   WMS_AI_bluforPatrol_Running pushback [time,(time+(_timer+(random _timer))),[],
+   [],_objList,[],
+   [],"ALARM"];
 };
-/*
-uisleep _timer;    
-playSound3D ["A3\Sounds_F\sfx\siren.wss", _target, false, _pos, 2, 1, 0];    
-uisleep 5;    
-{deletevehicle _x} foreach _objList;  
-deletemarker _markerName;   
-if (_armed == 1) then {    
- {deletevehicle _x} foreach _MGList;   
-}; 
-*/

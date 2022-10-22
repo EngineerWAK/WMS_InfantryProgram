@@ -571,9 +571,11 @@ if (WMS_MapName == "Malden") then {	//OUTDATED
 										];
 								};
 if (WMS_MapName == "Enoch") then {		//Livonia
-										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
+										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
 										//execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
-										execVM "\InfantryProgram\Scripts\WMS_List_VHL_Namalsk.sqf";
+										//execVM "\InfantryProgram\Scripts\WMS_List_VHL_Namalsk.sqf";
+										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
+										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										WMS_AI_MaxUnits_A 			= 160; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
 										WMS_AI_MaxUnits_B 			= 180; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
 										WMS_AI_MaxUnits_C 			= 200; //stop Base attack and missions
