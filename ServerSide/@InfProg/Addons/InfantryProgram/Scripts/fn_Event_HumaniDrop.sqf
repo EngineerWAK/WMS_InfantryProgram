@@ -176,10 +176,10 @@ switch (_type) do {
 							(selectRandom (WMS_humaniDropList select 3))
 						]
 					] call WMS_fnc_AMS_FillStuff;
+					uisleep (60+random 30); 
+					{deleteVehicle _x} forEach units (_this select 1); 
+					(_this select 2) setDamage 0.9;
 				};
-				uisleep (60+random 30); 
-				{deleteVehicle _x} forEach units (_this select 1); 
-				(_this select 2) setDamage 0.9;
 			};
 			deleteVehicle thisTrigger;
 		",  

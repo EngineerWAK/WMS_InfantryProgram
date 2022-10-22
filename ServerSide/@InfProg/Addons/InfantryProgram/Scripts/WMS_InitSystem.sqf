@@ -28,7 +28,7 @@ WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeco
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.72_2022OCT22_GitHub"; //Fixing old stuff
+WMS_System_Version 			= "v2.722_2022OCT22_GitHub"; //RCWS Vehicles for players!
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 120; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
@@ -70,6 +70,14 @@ WMS_InfantryProgram_Vehicles = [ //Maybe add _vehicle setvariable ["IP_Extractio
 	"sab_C130_J", //Paradrop plane if SAB
 	"RHS_C130J", //Paradrop plane if RHS
 	"B_T_VTOL_01_infantry_blue_F" //Paradrop plane default, yeah, that's the Bohemia C130...
+];
+WMS_RCWS_Vhls = [ //I don't like them, player does, because they are OP, so let give them the vehicles, with the reinforcement to go with it. //do not wast time with tank/APC here they are already filtered
+	"B_MRAP_01_gmg_F","B_MRAP_01_hmg_F","B_T_MRAP_01_gmg_F","B_T_MRAP_01_hmg_F",
+	"O_MRAP_02_gmg_F","O_MRAP_02_hmg_F","O_T_MRAP_02_gmg_ghex_F","O_T_MRAP_02_hmg_ghex_F",
+	"I_MRAP_03_gmg_F","I_MRAP_03_hmg_F",
+	//"O_APC_Wheeled_02_rcws_v2_F","O_T_APC_Wheeled_02_rcws_v2_ghex_F", //I use unarmed version of the marid most of the time, for logistic
+	"rhsusf_m1151_m2crows_usarmy_wd","rhsusf_m1151_mk19crows_usarmy_wd","rhsusf_M1220_M153_M2_usarmy_wd","rhsusf_M1220_M153_MK19_usarmy_wd","rhsusf_m1240a1_m2crows_usarmy_wd","rhsusf_m1240a1_mk19crows_usarmy_wd","rhsusf_m1151_m2crows_usmc_wd","rhsusf_m1151_mk19crows_usmc_wd","rhsusf_m1240a1_m2crows_usmc_wd","rhsusf_m1240a1_mk19crows_usmc_wd",
+	"rhsusf_M1238A1_M2_socom_d","rhsusf_M1238A1_Mk19_socom_d","rhsusf_M1239_M2_socom_d","rhsusf_M1239_MK19_socom_d","rhsusf_m1245_m2crows_socom_d","rhsusf_m1245_mk19crows_socom_d","rhsusf_m1245_m2crows_socom_deploy","rhsusf_m1245_mk19crows_socom_deploy","rhsusf_m1151_m2crows_usmc_d","rhsusf_m1151_mk19crows_usmc_d","rhsusf_m1240a1_m2crows_usmc_d","rhsusf_m1240a1_mk19crows_usmc_d"
 ];
 /////////////////////////////////
 //			CRATES ITEMS

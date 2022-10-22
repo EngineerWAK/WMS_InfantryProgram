@@ -70,17 +70,12 @@ _spawnType = "player";		//SuicideBomber //_spawnType = selectrandom ["player", "
 _posList = [];
 _infoType = "Patrol";
 _difficulty = "easy";
-//from functions\\
-//if (_triggType == "trigger") then {_FrontSpawn = false};
-//if (_triggType == "dynamic") then {};
-//if (_triggType == "reinforcement") then {};
-
-//_countPlayersAround = (count (position _target nearEntities [WMS_PlayerEntity, 50])-1); //NOT USED
 _targetSpeed = speed _target;
 _targetDirection = getDir _target;
 _playerRep = _target getVariable ['ExileScore', 25000];
 _bonus = (damage _target)*100; //player = _target
-if ((getPlayerUID _target) in WMS_BlackList) then {
+//wanna use a Tank/APC/RCWS turret? enjoy! Welcome to the HVT world :D
+if ((getPlayerUID _target) in WMS_BlackList || (typeOf (vehicle _target)) in WMS_RCWS_Vhls || vehicle _target iskindof "Tank" || vehicle _target isKindOf "Wheeled_Apc_F") then {
 	_playerRep = 100000;
 	};
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| target speed = %1, direction = %2, respect = %3, bonus = %4", _targetSpeed, _targetDirection, _playerRep, _bonus]};
@@ -258,6 +253,7 @@ if (vehicle _target iskindof "man") then {_Vcoef = [10,5,5,30,30,30,10,20,20,10,
 		if (vehicle _target iskindof "StaticWeapon") then { _Vcoef = [10,0,5,0,20,3,0,40,30,25,10,15,30,1,10,10]};
 		if (vehicle _target iskindof "Ship") then { _Vcoef = [5,0,0,0,0,0,0,0,5,0,100,0,5,2,5,0]};
 		if (vehicle _target iskindof "Bicycle") then { _Vcoef = [10,5,5,30,20,30,10,5,10,10,10,5,2,0,10,30]};
+		if ((typeOf (vehicle _target)) in WMS_RCWS_Vhls) then { _Vcoef = [2,5,0,0,30,10,40,10,30,30,50,5,10,0,15,0]};//APC copy
 		if (vehicle _target iskindof "Helicopter") then {
 			if (vehicle _target iskindof "Steerable_Parachute_F") then { _Vcoef = [0,0,10,30,30,30,0,0,0,15,5,0,10,0,25,30];//for whatever reason, the parachute is classed as helicopter.		
 				} else {
