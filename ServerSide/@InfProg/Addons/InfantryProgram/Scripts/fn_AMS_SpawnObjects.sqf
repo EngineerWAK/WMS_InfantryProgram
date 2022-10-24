@@ -63,6 +63,8 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 				_unit setSkill ["courage", 			(_skills select 6)];
 				_unit setSkill ["commanding", 		(_skills select 7)];
 				_unit setSkill ["general", 			(_skills select 8)];
+				_unit setVariable ["WMS_Static", true, false];
+				_unit setVariable ["WMS_StaticObj", _vehicle, false];
 				if (WMS_IP_LOGs) then {diag_log format ["[AMS STATICS]|WAK|TNA|WMS| %1 new Skills %2", _unit, _skills]};
 			};
 		}];

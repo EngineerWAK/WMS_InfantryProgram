@@ -28,7 +28,7 @@ WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeco
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.725_2022OCT24_GitHub"; //New mission: "COMMS Relay"
+WMS_System_Version 			= "v2.726_2022OCT24_GitHub"; //Improving statics destruction at NPC death
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 120; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
@@ -311,7 +311,7 @@ if (worldName in WMS_DFO_NoSeaMaps) then {
 //////////////////////////////
 //AI variables
 //////////////////////////////
-//WMS_AI_forceInfKillCount= false; //ACE fuckedup infantry kill on the scoreBoard //not used anymore
+	//WMS_AI_forceInfKillCount= false; //ACE fuckedup infantry kill on the scoreBoard //not used anymore
 WMS_ForceDiverOverWater	= true; //will force Diving loadout if the NPC spawn over/in water
 WMS_AI_LaunchersOPF 	= [["launch_RPG7_F","launch_RPG7_F","launch_RPG7_F","launch_RPG7_F","launch_RPG32_F","launch_MRAWS_sand_rail_F"],["launch_O_Titan_F"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 WMS_AI_LaunchersBLU 	= [["launch_RPG7_F","launch_RPG32_F","launch_MRAWS_sand_rail_F"],["launch_B_Titan_F"],["launch_B_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
@@ -446,6 +446,7 @@ WMS_trigHills_ChFC 			= 55; //chances to trigger
 WMS_Forests_ChFC			= 55; //chances to trigger
 WMS_Military_ChFC			= 95; //chances to trigger
 WMS_TriggCoolDownCoefFC		= 0.5; //recalculate all original triggers cooldown with this coefficient
+//WMS_fnc_AllDeadsMgr coef *0.5 for all
 //WMS_DynAI_RdoChatter		= false; //overrides in the spawns themself
 //WMS_DynAI_BaseATKReinforce_CD = 120; //cooldown between reinforce divided by 2 in fast combat
 ////////////////////

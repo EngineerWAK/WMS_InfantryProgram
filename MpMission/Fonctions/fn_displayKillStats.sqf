@@ -12,7 +12,7 @@ params[
 ]; 
 _totalBonus = 0;
 _payload = "<t align='left' size='1.2'>"; 
-if (true) then {diag_log format ["[DISPLAYKILLSTAT]|WAK|TNA|WMS|UPDATE: _messages= %1", _messages]};
+if (false) then {diag_log format ["[DISPLAYKILLSTAT]|WAK|TNA|WMS|UPDATE: _messages= %1", _messages]};
 if (_Type == "NOTI") then {
 	{ 
 		_payload = _payload + format ["<t color='#26e600' font='EtelkaMonospacePro'>%1</t><br/>", (_x select 0)]; //green

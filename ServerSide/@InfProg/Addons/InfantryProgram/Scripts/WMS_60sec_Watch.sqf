@@ -40,6 +40,17 @@ while {true} do {
 			WMS_trigHills_CoolD_T 		= (WMS_trigHills_CoolD*WMS_TriggCoolDownCoefFC); //		= 600;
 			WMS_Forests_CoolD_T 		= (WMS_Forests_CoolD*WMS_TriggCoolDownCoefFC); //		= 600;
 			WMS_Military_CoolD_T 		= (WMS_Military_CoolD*WMS_TriggCoolDownCoefFC); //		= 400;
+			
+			WMS_Player_AllDeads			= WMS_Player_AllDeads*0.5;
+			WMS_AMS_AllDeads			= WMS_AMS_AllDeads*0.5;
+			WMS_DynAI_AllDeads			= WMS_DynAI_AllDeads*0.5;
+			WMS_DFO_AllDeads			= WMS_DFO_AllDeads*0.5;
+			WMS_Others_AllDeads			= WMS_Others_AllDeads*0.5;
+
+			WMS_AI_Para_remRPG 			= true;
+			WMS_AI_INFpatrol_remRPG 	= true;
+			WMS_AI_RoamingVHL_remRPG 	= true;
+			WMS_DynAI_remRPG 			= true;
 
 			WMS_FastCombatActive = true;
 		};
@@ -65,6 +76,12 @@ while {true} do {
 			WMS_trigHills_CoolD_T 		= WMS_trigHills_CoolD ; //		= 600;
 			WMS_Forests_CoolD_T 		= WMS_Forests_CoolD; //			= 600;
 			WMS_Military_CoolD_T 		= WMS_Military_CoolD; //		= 400;
+
+			WMS_Player_AllDeads			= WMS_Player_AllDeads*2;
+			WMS_AMS_AllDeads			= WMS_AMS_AllDeads*2;
+			WMS_DynAI_AllDeads			= WMS_DynAI_AllDeads*2;
+			WMS_DFO_AllDeads			= WMS_DFO_AllDeads*2;
+			WMS_Others_AllDeads			= WMS_Others_AllDeads*2;
 
 			WMS_FastCombatActive = false;
 		};

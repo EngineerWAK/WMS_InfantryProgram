@@ -57,11 +57,16 @@ if (isplayer _killer) then {
   		profileNamespace setVariable [_playerUID_ExileKills,_playerKills];
 	};
 
-	if (WMS_AMS_DestroyStatics && {(vehicle _killed) isKindOf "StaticWeapon"}) then {vehicle _killed setDamage 1};
+	//if (WMS_AMS_DestroyStatics && {(vehicle _killed) isKindOf "StaticWeapon"}) then {vehicle _killed setDamage 1}; //works but not 100% with ACE
+	//_unit setVariable ["WMS_Static", true, false];
+	//_unit setVariable ["WMS_StaticObj", _vehicle, false];
+	if (WMS_AMS_DestroyStatics && {
+		_killed getVariable ["WMS_Static", false];
+		}) then {
+			_static = _killed getVariable "WMS_StaticObj";
+			if !(isNil "_static") then {_static setDamage 1};
+		};
 	if (_killed == leader _killed) then {
-		//if (_adjustedSkills && {_distanceKill > WMS_AMS_AdjustSkillsDist}) then { //Not Used Yet, includ VCOM functions
-		//	[_killed,_killer,_playerRep,_distanceKill,_difficulty]call WMS_fnc_AMS_AdjustOnLeaderKia;
-		//};
 		if ((random 100) < WMS_AMS_DestroyVHL) then {vehicle _killed setDamage 1};
 		if (WMS_AMS_Reinforce && {time > (WMS_AMS_LastReinforce+WMS_AMS_ReinforceCoolD)}) then {
 			if (vehicle _killer isKindOf "tank"||vehicle _killer isKindOf "APC"||vehicle _killer isKindOf "Heli_Attack_01_base_F"||vehicle _killer isKindOf "Heli_Attack_02_base_F") then {
