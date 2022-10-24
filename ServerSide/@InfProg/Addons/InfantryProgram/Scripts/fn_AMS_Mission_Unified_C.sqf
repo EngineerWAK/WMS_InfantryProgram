@@ -122,6 +122,7 @@ switch (_objects) do {
 	case "Market_v2"		: {_objects = WMS_AMS_Obj_Market_v2};
 	case "shipyard"			: {_objects = WMS_AMS_Obj_Shipyard};
 	case "shipyard2"		: {_objects = WMS_AMS_Obj_Shipyard2};
+	case "commsrelay"		: {_objects = WMS_AMS_Obj_Comms};
 	//OUTPOSTS
 	case "OutpostAlpha"		: {_objects = WMS_AMS_Obj_OutpostAlpha};
 	case "OutpostBravo"		: {_objects = WMS_AMS_Obj_OutpostBravo};

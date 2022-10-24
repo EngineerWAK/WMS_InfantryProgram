@@ -49,6 +49,11 @@ if (WMS_MapName == "ruha") then {
 										WMS_AMS_ToRun 				= 2; //with all the reinforcement and vehicles crew, 3 missions it's a lot
 										WMS_AMS_CustomPos			= ["forest","forest","forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
+										WMS_AI_HMG 					= "rhs_KORD_high_MSV";
+										//WMS_AI_HMG_Scope 			= "O_HMG_01_high_F";
+										//WMS_AI_HMG_Shield			= "B_G_HMG_02_high_F";
+										WMS_AI_Arty					= "rhs_2b14_82mm_msv";
+										//WMS_AI_GMG 					= "O_GMG_01_high_F"; //AMS AA battery //"RHS_ZU23_VDV"
 										WMS_AMS_SpnDistMission 		= 2000;
 										WMS_AI_RoamingVHLcount 		= 12; //10
 										WMS_AI_CargoUnits	 		= 4;
@@ -405,6 +410,7 @@ if (WMS_MapName == "Tanoa") then {
 											["shipyard",1],
 											["occupation",1],
 											["uncleabrams",1],
+											["commsrelay",2],
 											//OUTPOSTS
 											["OutpostAlpha",1],
 											["OutpostBravo",1],
@@ -482,7 +488,6 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
 										WMS_Humanicrate 			= "CargoNet_01_box_F"; //"CargoNet_01_box_F"
-										WMS_DeliveryChopper_Type 	= ["R3F_AH6_FS"];
 										WMS_CamoNet_Small 			= "CamoNet_wdl_F";
 										WMS_CamoNet_Open 			= "CamoNet_wdl_open_F";
 										WMS_CamoNet_Big 			= "CamoNet_wdl_big_F";
@@ -495,7 +500,11 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										WMS_Pos_Military 			= [[9905.06,3799.11,0.00143433],[2222.99,10861.5,0.00138855],[2058.74,11151.4,0.00145721],[4946.38,2147.22,0.00137329],[4847.26,853.432,0.00143433],[8168.58,10779.1,0.00149155],[7906.54,9760.36,0.00141907],[9076.36,6654.9,0.00143433],[7833.93,5839.28,0.00143433],[6411.45,8169.19,0.00143433],[5633.6,3825.52,0.00143433],[7352.71,2843.94,0.00156403],[7404.92,2605.67,0.00144196],[6382.37,4781.92,0.00143433],[2554.64,5517.89,0.00135803],
 																		[8150.39,8492.32,0],[8103.29,8720.86,0],[7896.09,8830.35,0] //Zapadlisko
 																		]; //not autoScan //need enough space to land a chopper
-										//WMS_Pos_Factory 			= [];
+										WMS_Pos_Factory 			= [[7332.18,2610.15,0],[7338.58,2804.32,0],[7276.07,2949.69,0],[7609.2,2648.74,0],[10202,2198.22,0],[11515.8,453.393,0],[11425,503.708,0],[11569.6,388.934,0],[1669.84,3658.66,0],[2552.94,5515.91,0],[5564.78,3748.91,0],
+																	[6502.83,3797.7,0],[6456.05,3841.48,0],[11308.7,4199.76,0],[11495.6,4632,0],[11494.4,7001.17,0],[11555,7032.4,0],[11561.5,7090.13,0],[11024.1,8939.69,0],[11049.3,8993.89,0],[10913.9,9009.97,0],[11374.5,9338.86,0],[11374.1,9478.25,0],
+																	[11427.1,9414.55,0],[11128.8,11404.3,0],[11159.9,11438.9,0],[9281.87,11160.5,0],[9348,11193.3,0],[8429.14,11250,0],[6429.28,11035.6,0],[6352.76,11009.6,0],[5211.93,10476.2,0],[5124.17,10380.3,0],[5054.75,10535.8,0],[1974.41,9517.49,0],
+																	[1380.71,7997.95,0],[1367.86,7965.06,0],[1749.38,7661.46,0],[1644.95,7618.3,0],[1565.66,7540.32,0],[1417.23,7499.08,0],[1282.85,7664.82,0],[1317.51,7809.19,0],[1324.77,7876.33,0],[1914.51,7686.26,0],[2031.75,7708.33,0],[3153.81,7055.44,0],
+																	[3084.19,7068.05,0],[4909.47,5421.75,0],[5211.63,5661.19,0],[5212.11,5691.29,0],[6357.02,4743.8,0],[6404.38,4837.89,0],[6445.61,4802.18,0],[2382.48,11469.4,0],[3083.12,11987,0],[3145.07,12039.4,0]];
 										WMS_para_small				= "rhs_d6_Parachute";
 										WMS_DynAI_GunshipLight 		= ["rhs_uh1h_hidf",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
@@ -509,7 +518,14 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										WMS_DynAI_DestroyVHL 		= 30;
 										WMS_AMS_ToRun 				= 3;
 										WMS_AMS_remRPG 				= 90;
-										WMS_AMS_SpnDistMission 		= 2500; //minimum distance from another mission to spawn a mission
+										WMS_AMS_SpnDistMission 		= 3000; //minimum distance from another mission to spawn a mission
+										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
+										WMS_AMS_CustomPos			= ["forest"];//["forest","forest","forest","random"];
+										WMS_AI_HMG 					= "rhs_KORD_high_MSV";
+										//WMS_AI_HMG_Scope 			= "O_HMG_01_high_F";
+										//WMS_AI_HMG_Shield			= "B_G_HMG_02_high_F";
+										WMS_AI_Arty					= "rhs_2b14_82mm_msv";
+										//WMS_AI_GMG 					= "O_GMG_01_high_F"; //AMS AA battery //"RHS_ZU23_VDV"
 										WMS_AI_RoamingVHL_remRPG 	= false;
 										WMS_AI_Para_remRPG 			= true;
 										WMS_AI_INFpatrol_remRPG 	= false;

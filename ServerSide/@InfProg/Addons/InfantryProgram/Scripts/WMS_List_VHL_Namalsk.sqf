@@ -231,3 +231,11 @@ WMS_AMS_CIVRwds = [
 	["C_IDAP_Van_02_vehicle_F",[],[[],[]]],
 	["C_IDAP_Van_02_transport_F",[],[[],[]]]
 ];
+WMS_AMS_COMMSRwds = [
+	["B_GEN_Offroad_01_comms_F",[],[[],[]]],
+	["I_E_Offroad_01_comms_F",[],[[],[]]],
+	["C_Offroad_01_comms_F",[],[[],[]]],
+	["I_LT_01_scout_F",[],[[],[]]],
+	["O_Truck_03_device_F",[],[[],[]]],
+	["O_T_Truck_03_device_ghex_F",[],[[],[]]]
+];

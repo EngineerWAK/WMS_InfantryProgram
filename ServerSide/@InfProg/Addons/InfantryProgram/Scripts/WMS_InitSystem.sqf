@@ -28,7 +28,7 @@ WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeco
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.724_2022OCT22_GitHub"; //Cleaning the customMapCfg, not fully updated yet, need to add factories _pos for some maps
+WMS_System_Version 			= "v2.725_2022OCT24_GitHub"; //New mission: "COMMS Relay"
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 120; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
@@ -293,6 +293,7 @@ WMS_DFO_Running			= []; //KEEP EMPTY
 WMS_DFO_RunReinforce	= []; //KEEP EMPTY
 	//WMS_DFO_ToDelete		= []; //KEEP EMPTY //[timeToDelete,[objects]]
 WMS_DFO_AceIsRunning 	= false; //this should go in WMS_InfantryProgram
+publicVariable "WMS_ServRestartSeconds"; //so TheLastCartridges clients can get the timer for the statBar
 publicVariable "WMS_DFO_Running"; //NO TOUCH
 publicVariable "WMS_DFO_MaxRunning"; //NO TOUCH
 publicVariable "WMS_DFO_LastCall"; //NO TOUCH
@@ -321,6 +322,7 @@ WMS_AI_AAstation 		= "O_static_AA_F"; //AMS AA battery //"RHS_ZU23_VDV"
 WMS_AI_HMG 				= "O_HMG_02_high_F";
 WMS_AI_HMG_Scope 		= "O_HMG_01_high_F";
 WMS_AI_HMG_Shield		= "B_G_HMG_02_high_F";
+WMS_AI_Arty				= "O_Mortar_01_F";
 WMS_AI_GMG 				= "O_GMG_01_high_F"; //AMS AA battery //"RHS_ZU23_VDV"
 WMS_AI_Attachements		= ["acc_flashlight","acc_pointer_IR"]; //lot of RHS stuff on customMapsSetting TANOA
 WMS_AI_Units_Class 		= selectRandom ["O_G_Soldier_F","O_Soldier_F","O_T_Soldier_A_F","O_R_Gorka_F"];//,"O_G_Engineer_F","O_T_Engineer_F","O_Engineer_F" "C_man_p_fugitive_F_afro"
@@ -563,6 +565,7 @@ WMS_AMS_MissionList 	= [ //missions themself and weight
 							["shipyard",2],
 							["occupation",2],
 							["uncleabrams",2],
+							["commsrelay",2],
 							//OUTPOSTS
 							["OutpostAlpha",1],
 							["OutpostBravo",1],

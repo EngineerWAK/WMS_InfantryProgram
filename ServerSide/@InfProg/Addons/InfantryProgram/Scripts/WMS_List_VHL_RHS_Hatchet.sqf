@@ -272,7 +272,19 @@ WMS_AMS_CIVRwds = [
 	["C_IDAP_Van_02_vehicle_F",[],[[],[]]],
 	["C_IDAP_Van_02_transport_F",[],[[],[]]]
 ];
-//LYNX: textures[] = {"R3F_Retex\data\LYNX\heli_light_03_DA_R3F_co.paa"};
-//MERLIN: textures[] = {"R3F_Retex\data\MERLIN\Heli_Transport_02_DA_1_R3F_CO.paa","R3F_Retex\data\MERLIN\Heli_Transport_02_DA_2_R3F_CO.paa","R3F_Retex\data\MERLIN\Heli_Transport_02_DA_3_R3F_CO.paa"};
-//LITTLEBIRD: textures[] = {"R3F_Retex\data\AH6\heli_light_01_ext_DA_R3F_co.paa"};
-//Mi28: textures[] = {"\rhsafrf\addons\rhs_mi28\data\rhs_mi28_01_camo_co.paa","\rhsafrf\addons\rhs_mi28\data\rhs_mi28_02_camo_co.paa","\rhsafrf\addons\rhs_mi28\data\rhs_mi28_03_exterior_camo_co.paa","rhsafrf\addons\rhs_decals\data\labels\aviation\vvs_ca.paa"};
+WMS_AMS_COMMSRwds = [
+	["B_GEN_Offroad_01_comms_F",[],[[],[]]],
+	["I_E_Offroad_01_comms_F",[],[[],[]]],
+	["C_Offroad_01_comms_F",[],[[],[]]],
+	["I_LT_01_scout_F",[],[[],[]]],
+	["O_Truck_03_device_F",[],[[],[]]],
+	["O_T_Truck_03_device_ghex_F",[],[[],[]]],
+	["rhsusf_m1152_sicps_usarmy_wd",[],[[],[]]],
+	["rhsusf_M1078A1P2_B_WD_CP_fmtv_usarmy",[],[[],[]]],
+	["rhsusf_M1230_M2_usarmy_wd",[],[[],[]]],
+	["rhsusf_CGRCAT1A2_M2_usmc_wd",[],[[],[]]],
+	["rhs_tigr_sts_msv",[],[[],[]]],
+	["rhs_gaz66_r142_msv",[],[[],[]]],
+	["rhsgref_BRDM2UM_msv",[],[[],[]]],
+	["rhs_prp3_msv",[],[[],[]]]
+];

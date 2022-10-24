@@ -26,6 +26,21 @@ if (_mission == "no") then { //obiously can not work anymore
 	//private _parameters = if ((count _this)>1) then {_this select 1} else {[]}; //Useless right now
 	//_parameters call compile _mission;
 	switch (_mission) do {
+		case "commsrelay" : {
+			private _rwd = ((selectRandom WMS_AMS_COMMSRwds)select 0);//"classename"
+			["random",(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
+				[
+					["COMMS Relay"],["Difficult","Difficult","Hardcore"],["army","livoniapatrol"],["Assault","livonia"],["defend"],
+					[
+						[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
+						[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[4,2,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+						[[5,2,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]
+					],
+					"military",50,true,"commsrelay",22,[],[_rwd],[6,"Assault","garrison"]
+				],_mission
+			] call WMS_fnc_AMS_Mission_Unified_C;
+		};
 		case "occupation" : { //this is a special one, custom dynamic mission which will spawn in a named location, without layout ("occupation" layout will stay empty)
 			private _unified = selectRandom ["a","b"];
 			if (_unified == "a")then{
@@ -157,7 +172,9 @@ if (_mission == "no") then { //obiously can not work anymore
 			] call WMS_fnc_AMS_Mission_Unified_B;
 		};
 		case "Market" : {
-			private _rwd = (selectRandom ["C_Van_01_transport_F","I_G_Van_01_transport_F","I_C_Van_01_transport_F","B_G_Van_01_transport_F","C_Van_01_box_F"]);
+			//private _rwd = (selectRandom ["C_Van_01_transport_F","I_G_Van_01_transport_F","I_C_Van_01_transport_F","B_G_Van_01_transport_F","C_Van_01_box_F"]);
+			private _rwds = selectRandom [WMS_AMS_LightRwds,WMS_AMS_CIVRwds,WMS_AMS_TruckRwds];
+			private _rwd = ((selectRandom _rwds)select 0);//"classename"
 			private _objects = (selectRandom ["Market","Market_v2"]);
 			["random",(random 359),1,3,0.5,[20,3],30,5,
 				[

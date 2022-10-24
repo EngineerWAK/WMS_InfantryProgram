@@ -85,16 +85,16 @@ if (_grpSide == BLUFOR ) then {
 };
 
 _smokePos = [
-	[((_pos select 0)-15),(_pos select 1),150],
-	[((_pos select 0)+15),(_pos select 1),150],
-	[(_pos select 0),((_pos select 1)-15),150],
-	[(_pos select 0),((_pos select 1)+15),150]
+	[((_pos select 0)-30),(_pos select 1),150],
+	[((_pos select 0)+30),(_pos select 1),150],
+	[(_pos select 0),((_pos select 1)-30),150],
+	[(_pos select 0),((_pos select 1)+30),150]
 ];
 _smokeGrenade createVehicle (selectRandom _smokePos);
 
 if (WMS_DynAI_Steal) then {
-	[_paraGrp, _pos, _WPDist, 5, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
+	[_paraGrp, _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
 	} else {
-	[_paraGrp, _pos, _WPDist, 5, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+	[_paraGrp, _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 };
 WMS_AI_Paradrop_Watch pushback [time,(time+(_timer+(random _timer))),[_paraGrp],[],_PatrolVRmkrList,[],[],""];
