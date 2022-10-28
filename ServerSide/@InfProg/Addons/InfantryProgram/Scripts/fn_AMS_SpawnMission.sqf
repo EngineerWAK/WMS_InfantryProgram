@@ -26,7 +26,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_rwd = ((selectRandom WMS_AMS_COMMSRwds)select 0);//"classename"
 			["random",(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 				[
-					["COMMS Relay"],["Difficult","Difficult","Hardcore"],["army","livoniapatrol"],["Assault","livonia"],["defend"],
+					["COMMS Relay"],["Difficult","Difficult","Hardcore"],["army","livonia"],["Assault","livoniapatrol"],["defend"],
 					[
 						[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],

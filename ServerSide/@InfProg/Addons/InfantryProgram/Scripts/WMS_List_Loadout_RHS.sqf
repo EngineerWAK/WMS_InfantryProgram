@@ -73,7 +73,7 @@ WMS_Loadout_DEfleck = WMS_Loadout_Tiger; //I don't use BWM anymore
 //////////Weapons [WMS_Loadout_Assault, WMS_Loadout_DMR, WMS_Loadout_MG, WMS_Loadout_Sniper, WMS_Loadout_SMG];
 WMS_Loadout_Assault = [//545 556 57 58
 	 [
-		"arifle_MX_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_GL_khk_F","rhs_weap_savz58v_ris","rhs_weap_savz58v_ris_fold","arifle_SDAR_F","arifle_MXC_F","arifle_Katiba_C_F","arifle_Mk20_plain_F",
+		"arifle_MX_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_GL_khk_F","rhs_weap_savz58v_ris","rhs_weap_savz58v_ris_fold","arifle_MXC_F","arifle_Katiba_C_F","arifle_Mk20_plain_F",//"arifle_SDAR_F", //NPC doesnt know how to use SDAR outside of water
 		"SMG_03_TR_black","arifle_CTAR_blk_F","arifle_SPAR_01_blk_F",
 		"rhs_weap_ak105_zenitco01_b33","rhs_weap_ak74m_npz","rhs_weap_aks74n_npz","rhs_weap_hk416d10_LMT","rhs_weap_m16a4_imod","rhs_weap_m4a1_blockII","rhsusf_weap_MP7A2","rhs_weap_m21a_pr","rhs_weap_VHSd2" //RHS
 		], //_mainWeaps
@@ -304,7 +304,7 @@ WMS_Weaps_Diver = [
 	["arifle_SDAR_F"], //primary
 	[], //primaryAmmo not used
 	["optic_Holosight_blk_F"], //scope
-	["hgun_P07_blk_F","hgun_Pistol_heavy_02_F","hgun_ACPC2_F","hgun_Rook40_F"] //pistol
+	["rhsusf_weap_MP7A2_folded_desert","rhs_weap_pp2000_folded","rhs_weap_savz61_folded","rhsusf_weap_m1911a1","hgun_Pistol_heavy_02_F"] //pistol //NPC doesnt lnpw how to use SDAR outside of weater, they need better secondary
 ];
 
 publicVariable "WMS_Loadout_AOR2";
