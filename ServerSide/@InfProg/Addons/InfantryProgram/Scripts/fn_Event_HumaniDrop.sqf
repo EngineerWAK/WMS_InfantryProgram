@@ -133,7 +133,7 @@ switch (_type) do {
 	_triggHD150 setVariable ["WMS_ite", _iterations, false];   
 	_triggHD150 setVariable ["WMS_grp", _grp, false];
 	_triggHD150 setTriggerActivation ["VEHICLE", "PRESENT", true]; 
-	_triggHD150 setTriggerArea [1600, 1600, 0, false];
+	_triggHD150 setTriggerArea [200, 200, 0, false];
 	_triggHD150 setTriggerStatements  
 	[ 
   		"this",  

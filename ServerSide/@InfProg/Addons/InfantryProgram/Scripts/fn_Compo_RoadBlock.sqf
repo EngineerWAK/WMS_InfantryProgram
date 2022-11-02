@@ -81,8 +81,8 @@ _objectCompos = [
 _objectCompos_AT = [
 	[ //RoadBlock AT
 		//[WMS_OPFOR_Flag,[0,0,0],0], //WMS_OPFOR_Flag
-		[WMS_AI_ATstation,[1,-4.5,0],180],
-		[WMS_AI_ATstation,[-1,5.5,0],0],
+		[WMS_AI_ATstation,[1,-4.5,0],180], //WMS_AMS_skillstatic
+		[WMS_AI_ATstation,[-1,5.5,0],0], //WMS_AMS_skillstatic
 		["Land_CncBarrier_stripes_F",[0.6,6.3,0],26.3],
 		["Land_CncBarrier_stripes_F",[2.5,-5.1,0],148.7],
 		["Land_CncBarrier_stripes_F",[-0.6,-5.2,0],207.8],
@@ -105,10 +105,10 @@ _objectCompos_AT = [
 ];
 _objects = objNull;
 if (_armed==2) then {
-	_objects = selectRandom _objectCompos_AT;
-		} else {
-			_objects = selectRandom _objectCompos;
-};
+		_objects = selectRandom _objectCompos_AT;
+	} else {
+		_objects = selectRandom _objectCompos;
+	};
 _compoRefPoint = createVehicle [WMS_OPFOR_Flag, _pos, [], 0, "CAN_COLLIDE"];
 _compoRefPoint setDir _dirCompo;
 _objList pushback _compoRefPoint;
@@ -144,7 +144,7 @@ if (_armed==1) then {
 	[units _MGgrp2,'BunkerMG',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	_MGgrp2 setFormDir (180 + _dirCompo);
 };
-if (_armed==2) then {
+if (_armed==2) then { //AT CANNON NEED TO UNDERSTANT IT'S NOT AN AA STATION
 	_MGgrp1 = createGroup [OPFOR, false];
 	_grps pushBack _MGgrp1;
 	_MGgrp2 = createGroup [OPFOR, false];
@@ -155,7 +155,7 @@ if (_armed==2) then {
 	];
 	_MGgrp1 addVehicle (_objList select 1);
 	((units _MGgrp1) select 0) moveInGunner (_objList select 1);
-	[units _MGgrp1,'assault',0,0.9,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+	[units _MGgrp1,'assault',0,0.1,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	uisleep 0.2;
 	_MGgrp1 setFormDir (_dirCompo);
 	WMS_AI_Units_Class createUnit [
@@ -164,7 +164,7 @@ if (_armed==2) then {
 	];
 	_MGgrp2 addVehicle (_objList select 2);
 	((units _MGgrp2) select 0) moveInGunner (_objList select 2);
-	[units _MGgrp2,'assault',0,0.9,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+	[units _MGgrp2,'assault',0,0.1,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	_MGgrp2 setFormDir (180 + _dirCompo);
 };
 

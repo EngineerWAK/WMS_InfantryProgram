@@ -22,6 +22,52 @@ if (_mission == "no") then { //obiously can not work anymore
 	if (WMS_IP_LOGs) then {diag_log "WMS_AMS_* Mission name fucked-up"};
 } else {
 	switch (_mission) do {
+		case "blackhawk" : {
+			_objects 	= (selectRandom ["blackhawk","blackhawk_v2"]);//"classename"
+			_behav 		= (selectRandom ["patrol","defend","hide"]);
+			["random",(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
+				[
+					["BlackHawk Down"],["Moderate","Difficult","Difficult","Hardcore"],["heavyBandit","bandit"],["Assault","HeavyBandit"],[_behav],
+					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, count of each, + random]
+					[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+					[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+					[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
+					"military",50,true,_objects,28,nil,nil,[8,"Assault","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+				],_mission
+			] call WMS_fnc_AMS_Mission_Unified_B;
+		};
+		case "bastogne" : {
+			_behav 		= (selectRandom ["patrol","defend","hide"]);
+			[(selectRandom WMS_AMS_CustomPos),(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
+				[
+					["Bastogne"],["Easy","Moderate","Difficult","Hardcore"],["army"],["Assault","HeavyBandit"],[_behav],
+					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, count of each, + random]
+					[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+					[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+					[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
+					"military",50,true,"bastogne",1,nil,nil,[5,"Assault","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+				],_mission
+			] call WMS_fnc_AMS_Mission_Unified_B;
+		};
+		case "strelnikovtrain" : {
+			_rwd 		= WMS_AMS_Crate_XL;
+			_diff 		= (selectRandom ["Moderate","Difficult","Difficult","Hardcore"]);
+			_objects 	= (selectRandom ["strelnikovtrain","strelnikovtrain2"]);
+			_behav 		= (selectRandom ["patrol","defend","hide"]);
+			_loadouts 	= (selectRandom ["army","bandit","heavyBandit"]);
+			_fonction 	= (selectRandom ["Assault","HeavyBandit"]);
+			if(_diff == "Hardcore")then{_loadouts = "livonia";_fonction = "livoniapatrol";_rwds = selectRandom [WMS_AMS_LightRwds,WMS_AMS_CIVRwds];_rwd = ((selectRandom _rwds)select 0);};
+			["random",(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
+				[
+					["Strelnikov Train"],[_diff],[_loadouts],[_fonction],[_behav],
+					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, count of each, + random]
+					[[3,1,2],[1,1,2],[4,1,2],[1,3,3],[0,0,0]],
+					[[4,1,2],[1,1,2],[5,1,2],[1,3,3],[0,0,0]],
+					[[5,1,2],[1,1,2],[6,1,2],[1,3,3],[0,0,0]]],
+					"military",50,true,_objects,24,nil,[_rwd],[8,"MG","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+				],_mission
+			] call WMS_fnc_AMS_Mission_Unified_C;
+		};
 		case "commsrelay" : {
 			_rwd = ((selectRandom WMS_AMS_COMMSRwds)select 0);//"classename"
 			["random",(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count

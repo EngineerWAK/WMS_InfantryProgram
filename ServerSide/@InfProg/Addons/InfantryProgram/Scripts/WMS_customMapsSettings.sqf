@@ -411,6 +411,9 @@ if (WMS_MapName == "Tanoa") then {
 											["occupation",1],
 											["uncleabrams",1],
 											["commsrelay",2],
+											["strelnikovtrain",2],
+											["bastogne",2],
+											["blackhawk",2],
 											//OUTPOSTS
 											["OutpostAlpha",1],
 											["OutpostBravo",1],
@@ -468,9 +471,9 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										//execVM "\InfantryProgram\Scripts\WMS_List_VHL_Namalsk.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
-										WMS_AI_MaxUnits_A 			= 160; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
-										WMS_AI_MaxUnits_B 			= 180; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
-										WMS_AI_MaxUnits_C 			= 200; //stop Base attack and missions
+										WMS_AI_MaxUnits_A 			= 180; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
+										WMS_AI_MaxUnits_B 			= 200; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
+										WMS_AI_MaxUnits_C 			= 220; //stop Base attack and missions
 										WMS_IP_Extract_Alt 			= 75;
 										WMS_C130_Altitude 			= 150;
 										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15A","rhsusf_acc_anpeq15side","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15_bk_sc","rhsusf_acc_anpeq15_bk_top_h","rhsusf_acc_anpeq15_wmx_h","rhsusf_acc_anpeq15_wmx_light","rhsusf_acc_anpeq16a_light_top_sc","rhsusf_acc_anpeq16a_top"];
@@ -531,6 +534,7 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										WMS_AI_INFpatrol_remRPG 	= false;
 										WMS_DynAI_remRPG 			= false;
 										WMS_AMS_ClnObj 				= false;
+										WMS_AL_VhlBalance			= [1,1,0,1,1,0,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 										//DFO
 										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60M_DAP_MLASS"],["vtx_HH60","vtx_MH60M","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]

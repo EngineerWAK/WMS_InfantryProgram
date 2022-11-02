@@ -14,12 +14,12 @@
 // Infantry Program, Dynamic AI, AirAssistance, Events, Advanced Mission System
 //////////////////////////////////////////////////////////////////
 // Work In Progress:
-// - "Dynamic Flight Operations" (iceman/Project hatchet Discord): Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime
+// - "Dynamic Flight Operations" (iceman/Project hatchet Discord): Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime //DONE
 // - Cities Invasion
 // ToDo:
 // - Delete NPCs in SafeZone
 // - 'DynAI + Events' Player Check before spawn
-// - Integrated Messages Brodcast
+// - Integrated Messages Brodcast //DONE
 //////////////////////////////////////////////////////////////////
 v2.7_2022OCT20_GitHub
     Introducing "Fast Combat" options WMS_FastCombat = true; (dafault = false)

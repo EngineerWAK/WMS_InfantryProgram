@@ -10,8 +10,8 @@
 * Do Not Re-Upload
 */
 WMS_serverCMDpwd			= "CHANGEME";
-WMS_BlackList 				= []; //list of player's UID "BlackListed" //define the player at 100000 respect far all AI spawn/reinforcement with custom setup in WMS_fnc_DynAI_selScen
-WMS_InfantryProgram_list 	= [];//list of player's UID autorised to use InfantryProgram Functions, Do not use in Exile right newOverlay
+WMS_BlackList 				= [];	//list of player's UID "BlackListed" //define the player at 100000 respect far all AI spawn/reinforcement with custom setup in WMS_fnc_DynAI_selScen
+WMS_InfantryProgram_list 	= [];	//list of player's UID autorised to use InfantryProgram Functions, Do not use in Exile right newOverlay
 WMS_ServRestartSeconds 		= 18000; //5h	
 WMS_DynamicFlightOps		= true; //Module //DFO, for Arma "Pilots" who want to keep busy, call from a chopper or from DFO base(s)
 WMS_AmbientLife				= false; //Module  //spawn some little dudes, flying, drivinng, walking using boats, CIVILIAN by default //AL can spawn A LOT of units/vehicles/waypoints, be sure your box can handle it with other regular mission/roaming AI
@@ -28,14 +28,14 @@ WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeco
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.728_2022OCT28_GitHub"; //Comms Relay mission fix
-if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
+WMS_System_Version 			= "v2.736_2022NOV02_GitHub"; //Fix Humanidrop - "Strelnikov Train" "BlackHawk Down" "Bastogne" new missions
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 120; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
-//WMS_ServRestartSeconds 	= 18000; //5h	Moved up
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
+if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 
 /////////////MOVED UP!!!!!!
+//WMS_ServRestartSeconds 	= 18000; //5h
 //WMS_IP_LOGs 				= false; //RPT logs
 //WMS_FastCombat			= false; //Activate NPC "Fast Combat": Accelerate Triggers/respawn, reduce cooldowns, can be changed during the round, the server will addapt
 //WMS_Watch_Triggers_Logs	= false; //RPT logs
@@ -443,7 +443,7 @@ WMS_trigVillages_ChFC 		= 75; //chances to trigger
 WMS_trigCities_ChFC 		= 80; //chances to trigger
 WMS_trigCapitals_ChFC 		= 85; //chances to trigger
 WMS_trigHills_ChFC 			= 55; //chances to trigger
-WMS_Forests_ChFC			= 55; //chances to trigger
+WMS_Forests_ChFC			= 65; //chances to trigger
 WMS_Military_ChFC			= 95; //chances to trigger
 WMS_TriggCoolDownCoefFC		= 0.5; //recalculate all original triggers cooldown with this coefficient
 //WMS_fnc_AllDeadsMgr coef *0.5 for all
@@ -482,7 +482,7 @@ WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check,
 							"srifle_LRR_F","srifle_LRR_camo_F","srifle_LRR_tna_F",
 							"srifle_GM6_ghex_F","srifle_GM6_camo_F","srifle_GM6_F",
 							"rhs_weap_m24sws_blk","rhs_weap_m24sws_d","rhs_weap_m24sws_wd","rhs_weap_m24sws",
-							"rhs_weap_m40a5_wd","rhs_weap_m40a5_w","rhs_weap_m40a5",
+							"rhs_weap_m40a5_wd","rhs_weap_m40a5_w","rhs_weap_m40a5","rhs_weap_dsr1",
 							"rhs_weap_t5000",
 							"rhs_weap_m38_rail",
 							"rhs_weap_XM2010_wd","rhs_weap_XM2010_d","rhs_weap_XM2010_sa","rhs_weap_XM2010"
@@ -567,6 +567,9 @@ WMS_AMS_MissionList 	= [ //missions themself and weight
 							["occupation",2],
 							["uncleabrams",2],
 							["commsrelay",2],
+							["strelnikovtrain",2],
+							["bastogne",2],
+							["blackhawk",2],
 							//OUTPOSTS
 							["OutpostAlpha",1],
 							["OutpostBravo",1],

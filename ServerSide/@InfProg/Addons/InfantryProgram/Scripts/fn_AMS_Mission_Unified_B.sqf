@@ -171,6 +171,11 @@ switch (_objects) do {
 	case "thecommunity"		: {_objects = WMS_AMS_Obj_TheCommunity};
 	case "thecommunity2"	: {_objects = WMS_AMS_Obj_TheCommunity2};
 	case "occupation"		: {_objects = []}; //occupation use named locations building as layout
+	case "strelnikovtrain"	: {_objects = WMS_AMS_Obj_Train}; //Moved to C for reward
+	case "strelnikovtrain2"	: {_objects = WMS_AMS_Obj_Train2}; //Moved to C for reward
+	case "bastogne"			: {_objects = WMS_AMS_Obj_Bastogne}; //Forest spawn
+	case "blackhawk"		: {_objects = WMS_AMS_Obj_BHD};
+	case "blackhawk_v2"		: {_objects = WMS_AMS_Obj_BHD2};
 	//OUTPOSTS
 	case "OutpostAlpha"		: {_objects = WMS_AMS_Obj_OutpostAlpha};
 	case "OutpostBravo"		: {_objects = WMS_AMS_Obj_OutpostBravo};
@@ -275,7 +280,7 @@ WMS_AMS_Running_Array pushback [
 	_mission
 ];
 //["TaskAssigned", ["infantry Program", _msgx]] remoteExec ["BIS_fnc_showNotification", -2];
-["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([_pos select 0, _pos select 1]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
+["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([round (_pos select 0), round (_pos select 1)]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
 WMS_AMS_Missions_Running pushBack _mission;
 WMS_AMS_Mission_ID = WMS_AMS_Mission_ID+1;
 WMS_AMS_MissionsCount = WMS_AMS_MissionsCount+1;
