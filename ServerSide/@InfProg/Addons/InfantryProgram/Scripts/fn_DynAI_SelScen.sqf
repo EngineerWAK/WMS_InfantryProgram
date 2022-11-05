@@ -75,9 +75,12 @@ _targetDirection = getDir _target;
 _playerRep = _target getVariable ['ExileScore', 25000];
 _bonus = (damage _target)*100; //player = _target
 //wanna use a Tank/APC/RCWS turret? enjoy! Welcome to the HVT world :D
-if ((getPlayerUID _target) in WMS_BlackList || (typeOf (vehicle _target)) in WMS_RCWS_Vhls || vehicle _target iskindof "Tank" || vehicle _target isKindOf "Wheeled_Apc_F") then {
-	_playerRep = 100000;
+if ((typeOf (vehicle _target)) in WMS_RCWS_Vhls || vehicle _target iskindof "Tank" || vehicle _target isKindOf "Wheeled_Apc_F") then {
+	if !(vehicle _target iskindof "O_APC_Wheeled_02_rcws_v2_F" || vehicle _target iskindof "B_APC_Tracked_01_CRV_F") then { //Marid and CRV are forced UNARMED and used as logistic
+		_playerRep = 50000;
+		};
 	};
+if ((getPlayerUID _target) in WMS_BlackList) then {_playerRep = 100000;};
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| target speed = %1, direction = %2, respect = %3, bonus = %4", _targetSpeed, _targetDirection, _playerRep, _bonus]};
 
 //find if player is in traders or not

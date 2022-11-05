@@ -102,6 +102,38 @@ clearMagazineCargoGlobal _vehic;
 clearWeaponCargoGlobal _vehic;
 clearItemCargoGlobal _vehic;
 clearBackpackCargoGlobal _vehic;
+if (WMS_DynAI_addItemsVHL) then {
+	_cargoResult = selectRandom ([WMS_DynAI_CargoItems] call CBA_fnc_shuffle);
+	if (true) then {diag_log format ["[VHL PATROL ITEMS]|WAK|TNA|WMS| _cargoResult = %1", _cargoResult]};
+	switch (_cargoResult) do {
+		case 1 : { //this will add ITEMS only, very basic
+			for "_i" from 1 to (round (random 4)) do {
+				_itemcargo = selectRandom (WMS_ToolList+WMS_MeatList+WMS_medsList+WMS_AI_inventory);
+				_vehic addItemCargoGlobal [_itemcargo,1];
+				if (true) then {diag_log format ["[VHL PATROL ITEMS]|WAK|TNA|WMS| _vehic = %2 _itemcargo = %1", _itemcargo, _vehic]};
+			};
+		};
+		case 2 : { //this will add Items, Mags, bags, weapons
+			[
+				_vehic,
+				[//items ["ACE_WaterBottle",10,5],
+					(selectRandom WMS_foodList), //can use a formated list ["item",count, +random]
+					(selectRandom WMS_medicList),
+					[(selectRandom WMS_AI_inventory),1,1] //or a regular Items list and add the count +random
+				],
+				[//mags ["ACE_HandFlare_Yellow",5,5],
+					[(selectRandom WMS_AI_grenades),1,4]
+				],
+				[//bags ["B_Kitbag_mcamo",2,3],
+					[selectRandom (WMS_Loadout_AOR2 select 3),1,2]
+				],
+				[//weaps ["rhsusf_weap_glock17g4",1,5],
+					[selectRandom (WMS_Loadout_Assault select 0),1,1]
+				]
+			] call WMS_fnc_AMS_FillStuff;
+		};
+	};
+};
 if (_VHLselected iskindof "helicopter") then {_markerType = "b_air"; _vehic limitSpeed 120;} else {
 	if (_VHLselected iskindof "tank") then {_markerType = "b_armor"; _vehic limitSpeed 50;} else {
 		if (_VHLselected iskindof "car") then {_markerType = "b_motor_inf"; _vehic limitSpeed 60;} else {

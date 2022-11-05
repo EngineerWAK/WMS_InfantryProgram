@@ -119,7 +119,7 @@ WMS_Loadout_Sniper = [
 		"srifle_LRR_F"
 		], //_mainWeaps,
 	 [], //_mainWeapsAmmo,
-	 ["optic_DMS","optic_KHS_blk","optic_AMS","optic_lrps"], //_scopes
+	 ["optic_DMS","optic_KHS_blk","optic_AMS","optic_lrps","rhsusf_acc_M8541","rhsusf_acc_LEUPOLDMK4","rhsusf_acc_M8541_mrds","rhsusf_acc_nxs_5522x56_md","rhsusf_acc_nxs_3515x50f1_md_sun","rhsusf_acc_M8541_low"], //_scopes
 	 ["hgun_p07_f"] //_pistols
 ];
 WMS_Loadout_SMG = [
@@ -175,7 +175,7 @@ WMS_Loadout_Civilian = [
 	 ["B_FieldPack_oucamo","B_FieldPack_blk","B_Messenger_IDAP_F"], //_Backpacks
 	 []  //_googles/_facewear
 ];
-WMS_Loadout_Scientist = [ //NEED SPECCIFIC STUFF !!!
+WMS_Loadout_Scientist = [ //NEED SPECIFIC STUFF !!!
 	 ["U_C_Poloshirt_burgundy","U_C_Poloshirt_stripped","U_Competitor","U_C_man_sport_2_F","U_C_Man_casual_3_F","U_C_Man_casual_5_F"], //_uniforms
 	 ["V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests
 	 ["H_Cap_blu","H_MilCap_blue","H_Hat_blue","H_RacingHelmet_1_F","H_RacingHelmet_2_F","H_HeadBandage_bloody_F"], //_helmets
@@ -235,6 +235,8 @@ WMS_Weaps_HeavyBandit = [
 	],
 	[], //_mainWeapsAmmo,
 	[ //_scopes
+	"rhsusf_acc_M8541",
+	"rhsusf_acc_LEUPOLDMK4",
 	"rhsusf_acc_eotech_552",
 	"rhsusf_acc_EOTECH",
 	"rhsusf_acc_compm4",
@@ -242,8 +244,6 @@ WMS_Weaps_HeavyBandit = [
 	"rhsusf_acc_ELCAN",
 	"rhsusf_acc_ACOG",
 	"rhsusf_acc_ACOG_RMR",
-	"rhsusf_acc_M8541",
-	"rhsusf_acc_LEUPOLDMK4",
 	"optic_Arco_arid_F",
 	"optic_Arco_AK_arid_F",
 	"optic_DMS_weathered_Kir_F",

@@ -21,6 +21,13 @@
 // - 'DynAI + Events' Player Check before spawn
 // - Integrated Messages Brodcast //DONE
 //////////////////////////////////////////////////////////////////
+v2.739_2022NOV02_GitHub
+    ADDED to fn_AMS_EHonKilled.sqf:
+        WMS_AMS_StripOnArmoredK	= true; //remove all gears/weapons if NPC killed from tank/apc/RCWS
+        WMS_AMS_TrappOnArmoredK	= true; //create a mine at the deadbody if NPC killed from tank/apc/RCWS
+    ADDED New Missions to AMS: 
+        "commsrelay","strelnikovtrain","bastogne","blackhawk"
+
 v2.7_2022OCT20_GitHub
     Introducing "Fast Combat" options WMS_FastCombat = true; (dafault = false)
         Reduce all cooldowns

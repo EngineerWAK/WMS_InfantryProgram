@@ -28,7 +28,7 @@ WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeco
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.736_2022NOV02_GitHub"; //Fix Humanidrop - "Strelnikov Train" "BlackHawk Down" "Bastogne" new missions
+WMS_System_Version 			= "v2.743_2022NOV04_GitHub"; //Fixed Sniper loadout - boobytrap Missions NPC killed by tank/apc/RCWS - added Items to roaming vehicles cargo
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 120; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -57,6 +57,7 @@ WMS_InfantryProgram_Vehicles = [ //Maybe add _vehicle setvariable ["IP_Extractio
 	//"Exile_Bike_MountainBike", //bike from XM8
 	//"B_Quadbike_01_F",
 	"Steerable_Parachute_F", //parachute
+	"rhsgref_hidf_canoe",
 
 	"UK3CB_BAF_Static_M6_Deployed", //mortar
 	"UK3CB_BAF_Static_M6", //mortar
@@ -71,7 +72,7 @@ WMS_InfantryProgram_Vehicles = [ //Maybe add _vehicle setvariable ["IP_Extractio
 	"RHS_C130J", //Paradrop plane if RHS
 	"B_T_VTOL_01_infantry_blue_F" //Paradrop plane default, yeah, that's the Bohemia C130...
 ];
-WMS_RCWS_Vhls = [ //I don't like them, player does, because they are OP, so let give them the vehicles, with the reinforcement to go with it. //do not wast time with tank/APC here they are already filtered
+WMS_RCWS_Vhls = [ //I don't like them, player does, because they are OP, so let's give them the vehicles, with the reinforcement to go with it. //do not wast time with tank/APC here they are already filtered
 	"B_MRAP_01_gmg_F","B_MRAP_01_hmg_F","B_T_MRAP_01_gmg_F","B_T_MRAP_01_hmg_F",
 	"O_MRAP_02_gmg_F","O_MRAP_02_hmg_F","O_T_MRAP_02_gmg_ghex_F","O_T_MRAP_02_hmg_ghex_F",
 	"I_MRAP_03_gmg_F","I_MRAP_03_hmg_F",
@@ -90,7 +91,7 @@ if !(WMS_exileFireAndForget) then {
 /////////////////////////////////
 //			VARIABLES
 /////////////////////////////////
-WMS_Currency 				= "Money"; //test for personalized currency
+WMS_Currency 				= "Money"; //test for personalized currency name
 ////////////
 WMS_AllDeadsMgr				= []; //will cleanup dead bodies after x secondes
 WMS_Player_AllDeads			= 1800; //Not Used Yet
@@ -129,10 +130,10 @@ WMS_INFsquad_CoolDown 		= 900;
 WMS_WDtrader_LastTime 		= time; //infantry program Active List only, call a wast dump trader(Exile), not supported anymore but function probably still there
 WMS_WDtrader_CoolDown 		= 400;
 //using this vehicle give cumulative reward
-WMS_Riding_Rwd 		= false; 	//give a reward for riding bicycle
+WMS_Riding_Rwd 		= true; 	//give a reward for riding bicycle
 WMS_RidingCount 	= 3; 		//how many positive check before adding the respect
 WMS_RidingDist 		= 10; 		//Distance to ride to validate the count
-WMS_ThanksForRiding = "Exile_bike_MountainBike"; //NOT ANYMORE
+WMS_ThanksForRiding = "rhsgref_hidf_canoe"; //"Exile_bike_MountainBike"; //NOT ANYMORE
 //////////////////////////////
 //Fast Night
 //////////////////////////////
@@ -150,8 +151,6 @@ WMS_FastNight_Night 	= 38;  	//night time speed
 //Camp/events spawns
 //////////////////////////////
 WMS_Events 				= true;
-WMS_Events_list 		= [];//Leave it empty //for events scheduler
-WMS_Events_Running		= [];//Leave it empty //for events manager/cleanup
 
 WMS_RepairCamp 			= true; //spawn a logistic camp on the map, ammo/repair/fuel
 WMS_RepairCampCount 	= 1;
@@ -186,16 +185,11 @@ WMS_Recon_Cap_Radius 	= 20;
 WMS_Recon_Guards 		= true;
 WMS_Recon_Guards_Chance = 75;
 WMS_Recon_Guards_Skill 	= 0.6;
-WMS_Recon_AllCities 	= [];//Leave it empty
-WMS_Recon_pos_list 		= [];//Leave it empty
-WMS_Recon_AIgrps 		= [];//Leave it empty
-WMS_Recon_Objects 		= [];//Leave it empty
 
 WMS_CaptureZone			= true; //Kill the first group of NPC, get inside and stay alive until the end of the timer //many stuff is setup in the function itself WMS_fnc_CaptureZone
 WMS_CaptureZoneDelay	= 300;
 WMS_CaptureZone_Rad 	= [25,35,50]; //Capture zone Radius //only _radius select 0 is used
 WMS_CaptureZone_Tmr		= [240, 400, 600, 900]; //time to capture the zone //easy, moderate, difficult, hardcore
-WMS_CaptureZone_Obj 	= [];//Leave it empty //layout + sphere for cleanup
 WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 	//WMS_CaptureZone_Wav		= [5,7,9]; //AI Waves to come
 	//WMS_CaptureZone_Dis		= [100,300]; //AI waves spawn distances
@@ -293,7 +287,6 @@ WMS_DFO_Running			= []; //KEEP EMPTY
 WMS_DFO_RunReinforce	= []; //KEEP EMPTY
 	//WMS_DFO_ToDelete		= []; //KEEP EMPTY //[timeToDelete,[objects]]
 WMS_DFO_AceIsRunning 	= false; //this should go in WMS_InfantryProgram
-publicVariable "WMS_ServRestartSeconds"; //so TheLastCartridges clients can get the timer for the statBar
 publicVariable "WMS_DFO_Running"; //NO TOUCH
 publicVariable "WMS_DFO_MaxRunning"; //NO TOUCH
 publicVariable "WMS_DFO_LastCall"; //NO TOUCH
@@ -336,18 +329,14 @@ WMS_AI_CargoUnits	 	= 2;
 WMS_AI_Para_remRPG 				= false; //(_this select 0) removeWeapon (secondaryWeapon (_this select 0));
 WMS_AI_OPFORParadrop_LastTime 	= time;//NO TOUCH
 WMS_AI_bluforParadrop_LastTime 	= time;//NO TOUCH
-WMS_AI_Paradrop_Watch 			= [];//NO TOUCH
 //Intantry:
 WMS_AI_grenades 				= ["HandGrenade","MiniGrenade","SmokeShellRed"];
 WMS_AI_PlayerDistToDespawnINF 	= 300;
 WMS_AI_OPFORpatrol_CoolDown 	= 900;
 WMS_AI_INFpatrol_remRPG 		= false; //(_this select 0) removeWeapon (secondaryWeapon (_this select 0));
 WMS_AI_OPFORPatrol_LastTime 	= time;//NO TOUCH
-WMS_AI_OPFORpatrol_Running 		= [];//Leave it empty //WMS_OPFORpatrol_Running pushBack [time,(time+(_patrolTimer+(random _patrolTimer))),[_paraGrp],[],[],[],[],""];
-WMS_AI_OPFORpatrol_LastTarget	= [];//Leave it empty //WMS_OPFORpatrol_LastTarget set [0,_target];
 WMS_AI_bluforPatrol_LastTime 	= time;
 WMS_AI_bluforPatrol_CoolDown 	= 900;
-WMS_AI_bluforPatrol_Running 	= [];//Leave it empty //WMS_OPFORpatrol_Running pushBack [time,(time+(_patrolTimer+(random _patrolTimer))),[_paraGrp],[],_PatrolVRmkrList,[],[],""];
 //Vehicle Ground:
 WMS_AI_RoamingVHL				= true;
 WMS_AI_RoamingVHL_KillRep		= 250;
@@ -361,7 +350,6 @@ WMS_AI_PatrolTimer_VHL 			= 1500; //+(random 300)
 WMS_AI_PlayerDistToSpawnVHL 	= 500;
 WMS_AI_PlayerDistToDespawnVHL 	= 500;
 WMS_AI_VHLwptDist 				= 5000;
-WMS_AI_RoamingVHL_Running 		= [];//Leave it empty //for cleanup
 //Vehicle Air:
 WMS_AI_RoamingAIR				= true;
 WMS_AI_RoamingAIR_LastTime 		= time; //NO TOUCH
@@ -370,7 +358,6 @@ WMS_AI_RoamingAIRcount 			= 2; //how many of them max
 WMS_AI_PatrolTimer_AIR 			= 2500; //+(random 300)
 WMS_AI_PlayerDistToDespawnAIR 	= 1000;
 WMS_AI_AIRwptDist 				= 7500;
-WMS_AI_RoamingAIR_Running 		= [];//Leave it empty //for cleanup
 //////////////////////////////
 //Dynamic Threat setup
 //////////////////////////////
@@ -382,6 +369,8 @@ WMS_DynAI_threatCoefs 		= [2,1.5,1.2]; //[1player,2players,3players]
 WMS_DynAI_addPoptabsINF 	= false; //Exile mod
 WMS_DynAI_poptabsINF 		= [25,50]; //poptabs on the AIs [minimum+Random]
 WMS_DynAI_addPoptabsVHL 	= false; //Exile mod
+WMS_DynAI_addItemsVHL 		= true; //Exile mod
+WMS_DynAI_CargoItems		= [1,0,2,1,1,2]; //0 = nothing, 1 = random items, 2 = AMS_FillStuff include weaps
 WMS_DynAI_poptabsVHL 		= [250,750]; //poptabs in vehicles [minimum+Random]
 WMS_DynAI_ejectDeads 		= true; //eject dead bodies from the vehicle
 WMS_DynAI_RdoChatter		= true; //radio noise on patrol/building/roadblock AI spawn
@@ -407,10 +396,7 @@ WMS_DynAI_remRPG 			= false; //(_this select 0) removeWeapon (secondaryWeapon (_
 WMS_DynAI_LauncherChance 	= 15;
 WMS_DynAI_MaxRunning		= 5; //maximum dynamic AI event running in the same time
 WMS_DynAI_RunningCount 		= 0; //DO NOT CHANGE, KEEP 0
-WMS_DynAI_Running 			= [];//Leave it empty
-WMS_DynAI_LastTarget 		= [];//Leave it empty
 WMS_DynAI_LastTime 			= time; //NO TOUCH
-WMS_DynAI_TargetList 		= [];//Leave it empty
 WMS_DynAI_GunshipLight 		= ["B_Heli_Light_01_dynamicLoadout_F",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]];
 WMS_DynAI_GunshipMedium 	= ["B_CTRG_Heli_Transport_01_sand_F",[],[[],[]]];
 WMS_DynAI_GunshipHeavy 		= ["B_Heli_Attack_01_dynamicLoadout_F",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]]; //Mi-48 is fucking too heavy but nothing else for now
@@ -424,8 +410,6 @@ WMS_DynAI_BaseAtkLast 		= time; //NO TOUCH, unless you want the base attack to b
 WMS_DynAI_BaseATKReinforce	= true; //keep it true, otherwise base attack are boring
 WMS_DynAI_BaseATKReinforce_CD = 120; //cooldown between reinforce
 WMS_DynAI_BaseATKReinforce_Last = time; //NO TOUCH
-WMS_DynAI_BaseAtkUIDList 	= [];//Leave it empty //Players UID list already spoted
-WMS_DynAI_BaseAtkTList 		= [];//Leave it empty //Territories already spoted
 WMS_DynAI_BaseAtkRunning 	= 0; //NO TOUCH, KEEP 0
 WMS_DynAI_BaseAtkMax 		= 1; //not sure mmore than base attack can run in the same time, would be quite a mess with coolDown/reinforcements
 //Cities Invasion
@@ -459,12 +443,14 @@ WMS_AMS_DelMissionFlag 	= true; //mission Flag prevent another mission to spawn 
 WMS_AMS_ejectDeads		= true;	//Eject deads from vehicles
 WMS_AMS_DestroyStatics 	= true; //with ACE, this one need a variable on the NPC to destroy the static when the NPC die
 WMS_AMS_AddActionOnReward = true; //will create a AddAction on the crate to sell it at the traders Zone (the last cartridges), might want to keep that false if Exile
+WMS_AMS_StripOnArmoredK	= true; //remove all gears/weapons if NPC killed from tank/apc/RCWS
+WMS_AMS_TrappOnArmoredK	= true; //create a mine at the deadbody if NPC killed from tank/apc/RCWS
 WMS_AMS_DestroyVHL 		= 90; //Chances to destroy NPC mission vehicle
 WMS_AMS_VHL_KillRep		= 300; //respect reward for destroying NPCs vehicle
 WMS_AMS_VHL_KillMoney	= 3000; //money reward for destroying NPCs vehicle
 WMS_AMS_Reinforce  		= true; //reinforce mission NPCs 
 WMS_AMS_LastReinforce 	= time;
-WMS_AMS_ReinforceCoolD 	= 300;
+WMS_AMS_ReinforceCoolD 	= 120;
 WMS_AMS_addPoptabsUnits = false; //Exile
 WMS_AMS_poptabsUnits 	= [25,25]; //Exile
 WMS_AMS_addPoptabsRwd 	= false;  //Exile //Add poptabs in the mission reward crate/vehicle
@@ -477,12 +463,13 @@ WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.4, 0.4, 0.3, 0.6, 0, 0.6, 0.8];
 WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.6, 0.5, 0.4, 0.8, 0, 0.8, 1];
 WMS_AMS_skillhardcore 	= [0.95, 1, 0.7, 0.6, 0.5, 1, 0, 1, 1];
 WMS_AMS_skillstatic 	= [1, 1, 0.005, 0.5, 0.2, 0.5, 0, 0.2, 0.8]; //what ever you do, Statics destroy your ass... this skill is apply on the NPC when he get on the static (EH "getin")
-	//WMS_AMS_skillsniper 	= [1,0.95,0.95,0.95];  //set in fn_DynAI_SetUnitOPF and fn_AMS_SetUnits
+WMS_AMS_skillsniper 	= [1,0.95,0.9,0.9];  //hardcore level, easy = -0.15, moderate = -0.1, difficult = -0.05 //"spotDistance","spotTime","aimingAccuracy","aimingShake"
+WMS_AMS_SniperLoadout	= [["H_Cap_grn_BI"],["V_Chestrig_rgr","V_SmershVest_01_radio_F"]]; //[[headGears],[vests]]//custom "loadout" for NPC snipers, lighter gear so they don't neet 15 headshots to get killed
 WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check, it will modify NPC skills if they have a weapon from this list
 							"srifle_LRR_F","srifle_LRR_camo_F","srifle_LRR_tna_F",
 							"srifle_GM6_ghex_F","srifle_GM6_camo_F","srifle_GM6_F",
 							"rhs_weap_m24sws_blk","rhs_weap_m24sws_d","rhs_weap_m24sws_wd","rhs_weap_m24sws",
-							"rhs_weap_m40a5_wd","rhs_weap_m40a5_w","rhs_weap_m40a5","rhs_weap_dsr1",
+							"rhs_weap_m40a5_wd","rhs_weap_m40a5_d","rhs_weap_m40a5","rhs_weap_dsr1",
 							"rhs_weap_t5000",
 							"rhs_weap_m38_rail",
 							"rhs_weap_XM2010_wd","rhs_weap_XM2010_d","rhs_weap_XM2010_sa","rhs_weap_XM2010"
@@ -494,7 +481,7 @@ WMS_AMS_Crate_S 		= "Box_NATO_Wps_F"; //Mission small crate
 WMS_AMS_Crate_L 		= "I_supplyCrate_F";  //Mission medium crate //B_supplyCrate_F if above the IDAP crate, it will be removed from logistic/moving system [R3F]
 WMS_AMS_Crate_XL 		= "B_CargoNet_01_ammo_F"; //Mission big crate
 WMS_AMS_Crate_noMove 	= "CargoNet_01_box_F"; //a crate you don't want player to move around "CargoNet_01_box_F" //"rhs_weapon_crate"
-WMS_AMS_MineAP 			= "APERSTripMine"; //"APERSMine"
+WMS_AMS_MineAP 			= "APERSTripMine"; //"APERSMine" "APERSBoundingMine"
 WMS_AMS_MineAT 			= "ATMine"; //WMS_ATMines is curently used by WMS_AMS
 WMS_AMS_MineSign 		= "Land_Sign_MinesTall_English_F"; //signs around mine fields
 WMS_AMS_ToRun 			= 3; //how many missions maximun at the same time
@@ -520,9 +507,6 @@ WMS_AMS_ClnObj 			= true; //after succes, despawn mission layout //some missions
 WMS_AMS_ClnObjT 		= 60; //objects cleaning delay after unlock the mission
 WMS_AMS_AlarmCln 		= true;
 	//WMS_AMS_TimeToWatch 	= 25; //AMS missions are checked from the 15 secondes loop WMS_15sec_Watch.sqf
-WMS_AMS_Running_Array 	= [];//Leave it empty //super big array with all missions running
-WMS_AMS_Missions 		= [];//Leave it empty //processed/weighted missions list
-WMS_AMS_Missions_Running = [];//Leave it empty //Mission actualy running to be sure all running missions are different
 WMS_AMS_MissionsCount 	= 0; //KEEP 0
 WMS_AMS_Mission_ID 		= 0; //KEEP 0
 WMS_AMS_MkrEasy 		= "Contact_circle1"; //"ExileMissionEasyIcon"; //Mission Map Marker
@@ -535,40 +519,40 @@ WMS_AMS_CustomPosFact	= ["random"]; //used to spawn "Factory Sales" //"random" o
 WMS_AMS_MissionList 	= [ //missions themself and weight
 							["MissionTest1",1],
 							["MissionTest2",1],
-							["ForestCamp",1],
+							["ForestCamp",1], //"forest" positions
 							["HomeDepot",1],
 							["CombatPatrol",1],
-							["EnyBunkers",1],
+							["EnyBunkers",1], //AP mines
 							["Arbeit",1],
 							["ArmedBandits",1],
 							["C192Crash",1],
 							["AmazonWH",1],
 							["TransmissionTower",1],
-							["GunsX3",1],
+							["GunsX3",1], //"utility" truck reward, NPC armored
 							["Arena",0], //this one is pretty hardcore on the objects and NPCs xD
-							["LightArmoredSteal",1],
-							["HeliSteal",1],
-							["AABattery",1],
+							["LightArmoredSteal",1], //Light Armored Reward
+							["HeliSteal",1], //helicopter reward
+							["AABattery",1], //no move crate
 							["Escobar",1],
 							["Forgotten",1],
-							["Radar",1],
-							["Construction",1],
-							["OldTemple",1],
-							["JunkYard",1],
-							["OldPowerPlant",1],
-							["Market",1],
+							["Radar",1], //big crate reward
+							["Construction",1], //truck reward
+							["OldTemple",1],  //no move crate
+							["JunkYard",1], //truck reward
+							["OldPowerPlant",1], //vehicle reward, armed/armored NPC
+							["Market",1], //small truck reward
 							["GrandPaJoe",1],
-							["LumberYard",1],
-							["Factory",1],
+							["LumberYard",1], //"forest" positions
+							["Factory",1], //"factory" positions
 							["FieldHospital",1],
-							["Object172M",1],
+							["Object172M",1], //Armored Reward and NPCs
+							["uncleabrams",1], //Armored Reward and NPCs
 							["thecommunity",2],
-							["shipyard",2],
-							["occupation",2],
-							["uncleabrams",2],
-							["commsrelay",2],
+							["shipyard",2], //small vehicle reward
+							["occupation",2], //location/cities positions
+							["commsrelay",2], //"comms" vehicle reward
 							["strelnikovtrain",2],
-							["bastogne",2],
+							["bastogne",2], //"forest" positions
 							["blackhawk",2],
 							//OUTPOSTS
 							["OutpostAlpha",1],
@@ -633,7 +617,6 @@ WMS_Pos_Hills 		= []; // AutoScan
 WMS_Pos_Forests 	= []; //not autoScan //No randomized positions //YOU NEED FOREST POSITION FOR SOME AMS MISSIONS or use WMS_AMS_CustomPos = ["random"];
 WMS_Pos_Military 	= []; //not autoScan //No randomized positions //need enough space to land a chopper
 
-WMS_activatedTriggs = [];//Leave it empty
 WMS_Pos_Factory 	= []; //used to spawn missions not for trigger, yet //YOU NEED FACTORIES POSITION FOR SOME AMS MISSIONS or use WMS_AMS_CustomPosFact = ["random"];
 WMS_Pos_Custom 		= []; //position ASLW //used in DFO for now
 WMS_Roads			= []; //PushBack RoadObjects
@@ -788,9 +771,33 @@ WMS_markerFPS = objNull;
 WMS_markerUnits = objNull;
 WMS_markerUnitsCIV = objNull;
 WMS_markerDeads = objNull;
-WMS_IP_Active_list = [];
+//Managment Arrays
+WMS_Events_list 				= [];//Leave it empty //for events scheduler
+WMS_Events_Running				= [];//Leave it empty //for events manager/cleanup
+WMS_Recon_AllCities 			= [];//Leave it empty
+WMS_Recon_pos_list 				= [];//Leave it empty
+WMS_Recon_AIgrps 				= [];//Leave it empty
+WMS_Recon_Objects 				= [];//Leave it empty
+WMS_CaptureZone_Obj 			= [];//Leave it empty //layout + sphere for cleanup
+WMS_AI_Paradrop_Watch 			= [];//NO TOUCH
+WMS_AI_OPFORpatrol_Running 		= [];//Leave it empty //WMS_OPFORpatrol_Running pushBack [time,(time+(_patrolTimer+(random _patrolTimer))),[_paraGrp],[],[],[],[],""];
+WMS_AI_OPFORpatrol_LastTarget	= [];//Leave it empty //WMS_OPFORpatrol_LastTarget set [0,_target];
+WMS_AI_bluforPatrol_Running 	= [];//Leave it empty //WMS_OPFORpatrol_Running pushBack [time,(time+(_patrolTimer+(random _patrolTimer))),[_paraGrp],[],_PatrolVRmkrList,[],[],""];
+WMS_AI_RoamingVHL_Running 		= [];//Leave it empty //for cleanup
+WMS_AI_RoamingAIR_Running 		= [];//Leave it empty //for cleanup
+WMS_DynAI_Running 				= [];//Leave it empty
+WMS_DynAI_LastTarget 			= [];//Leave it empty
+WMS_DynAI_TargetList 			= [];//Leave it empty
+WMS_DynAI_BaseAtkUIDList 		= [];//Leave it empty //Players UID list already spoted
+WMS_DynAI_BaseAtkTList 			= [];//Leave it empty //Territories already spoted
+WMS_AMS_Running_Array 			= [];//Leave it empty //super big array with all missions running
+WMS_AMS_Missions 				= [];//Leave it empty //processed/weighted missions list
+WMS_AMS_Missions_Running 		= [];//Leave it empty //Mission actualy running to be sure all running missions are different
+WMS_activatedTriggs 			= []; //Leave it empty
+WMS_IP_Active_list 				= []; //player get in there if they are in the InfantryProgram list and they do "join the program" on the built computer
 publicVariable "WMS_IP_Active_list";
 publicVariable "WMS_exileFireAndForget";
+publicVariable "WMS_ServRestartSeconds"; //so TheLastCartridges clients can get the timer for the statBar
 if (WMS_ServerMarkers) then {execVM "\InfantryProgram\Scripts\WMS_ServerMarkers.sqf"};
 // Init System Watchs
 []spawn WMS_fnc_sys_Init_Watchs;

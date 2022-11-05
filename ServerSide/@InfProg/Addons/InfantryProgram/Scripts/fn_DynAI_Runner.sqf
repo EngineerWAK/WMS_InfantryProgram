@@ -83,14 +83,17 @@ while {_run} do {
 	uisleep 0.5;
 	leader _grp domove (position (vehicle _target));
 	if !(alive leader _grp) then {
-		_expl1 setdammage 1;
 		_expl2 setdammage 1;
+		uisleep 0.3;
+		_expl1 setdammage 1;
+		uisleep 0.3;
 		_expl3 setdammage 1;
 		_run = false;
 	}; 
 	if (leader _grp distance2D _target < 20) then {
-		_expl1 setdammage 1;
 		_expl2 setdammage 1;
+		uisleep 0.3;
+		_expl1 setdammage 1;
 		_expl3 setdammage 1;
 		_run = false;
 	}; 

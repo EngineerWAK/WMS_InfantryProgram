@@ -67,6 +67,7 @@ switch (toLower _loadout) do {
 	case "surpat" 	: {_loadout = WMS_Loadout_SURPAT;};
 	case "blackops" : {_loadout = WMS_Loadout_MCB;};
 	case "diver" 	: {_loadout = WMS_Loadout_Diver;};
+	case "scientist": {_loadout = WMS_Loadout_Scientist;};//not ready yet
 	case "livonia" 	: {
 						_loadout = WMS_Loadout_Livonia;
 						_weaps = WMS_Weaps_LivoniaMix; 
@@ -81,7 +82,8 @@ switch (toLower _loadout) do {
 	case "fleck"		: {_Loadout = WMS_Loadout_DEfleck};
 };
 _skills = [_skill,_difficulty]call WMS_fnc_AMS_ConvertSkills;
-_sniper = [1,0.95,0.95,0.95];
+_sniper = WMS_AMS_skillsniper; //[1,0.95,0.95,0.95]
+_mainWeap = objNull;
 _poptabs = 50;
 {
 	_unit = _x;
@@ -95,39 +97,15 @@ _poptabs = 50;
 	if (_info == "DYNAI") then {_poptabs = (WMS_DynAI_poptabsINF select 0) + round (random(WMS_DynAI_poptabsINF select 1))}; //for Exile Mod
 	if (_info == "AL") then {_poptabs = (WMS_DynAI_poptabsINF select 0) + round (random(WMS_DynAI_poptabsINF select 1))}; //for Exile Mod
 	switch (toLower _difficulty) do {
-		case "easy"			: {_sniper = [1,0.8,0.9,0.8];};
-		case "moderate" 	: {_poptabs = round _poptabs*1.5;_sniper = [1,0.85,0.85,0.85];};
-		case "difficult" 	: {_poptabs = _poptabs*2;_sniper = [1,0.9,0.9,0.9];};
+		case "easy"			: {_sniper = [(_sniper select 0),((_sniper select 1)-0.15),((_sniper select 2)-0.15),((_sniper select 3)-0.15)];};//[1,0.8,0.9,0.8]
+		case "moderate" 	: {_poptabs = round _poptabs*1.5;_sniper = [(_sniper select 0),((_sniper select 1)-0.1),((_sniper select 2)-0.1),((_sniper select 3)-0.1)];};//[1,0.85,0.85,0.85]
+		case "difficult" 	: {_poptabs = _poptabs*2;_sniper = [(_sniper select 0),((_sniper select 1)-0.05),((_sniper select 2)-0.05),((_sniper select 3)-0.05)];};//[1,0.9,0.9,0.9]
 		case "hardcore" 	: {_poptabs = round _poptabs*2.5};
 		case "static" 		: {_poptabs = round _poptabs*0.5}; //no static yet
 	};
-	//if (primaryWeapon _unit isKindOf ["Rifle_Long_Base_F", configFile >> "CfgWeapons"]) then { 
-	if ((primaryWeapon _unit) in WMS_AMS_sniperList) then {
-		_unit setSkill ["spotDistance", (_sniper select 0)];
-		_unit setSkill ["spotTime", 	(_sniper select 1)];
-		_unit setSkill ["aimingAccuracy", 	(_sniper select 2)];
-		_unit setSkill ["aimingShake", 	(_sniper select 3)];
-		_unit setVariable ["WMS_skills",[(_sniper select 0),(_sniper select 1),(_sniper select 2),(_sniper select 3),(_skills select 4),(_skills select 5),(_skills select 5),(_skills select 6),(_skills select 8)],true]; //will be used for AI killfeed on player EH killed
-		//_unit setName (selectRandom ["John McClane","John Rambo","Lucky Luke","Vasily Zaitsev","John Wick"]);
-		_unit setName selectRandom [["John McClane","John","McClane"],["John Rambo","John","Rambo"],["Lucky Luke","Lucky","Luke"],["Vasily Zaitsev","Vasily","Zaitsev"],["John Wick","John","Wick"]];
-	} else {
-		_unit setSkill ["spotDistance", (_skills select 0)];
-		_unit setSkill ["spotTime", 	(_skills select 1)];
-		_unit setSkill ["aimingAccuracy", 	(_skills select 2)];
-		_unit setSkill ["aimingShake", 	(_skills select 3)];
-		_unit setVariable ["WMS_skills",_skills,true]; //will be used for AI killfeed on player EH killed
-	};
-	_unit setSkill ["aimingSpeed", 	(_skills select 4)];
-	_unit setSkill ["reloadSpeed", 	(_skills select 5)];
-	_unit setSkill ["courage", 		(_skills select 6)];
-	_unit setSkill ["commanding", 	(_skills select 7)];
-	_unit setSkill ["general", 		(_skills select 8)];
-	_unit setVariable ["WMS_Difficulty",_difficulty, true]; //will be used for AI killfeed on player EH killed
-	_unit allowFleeing 0;
-	//
 	if(WMS_ForceDiverOverWater && {surfaceIsWater (position _unit)})then{
 		_unit forceaddUniform selectrandom (WMS_Loadout_Diver select 0); 
-		_unit addVest selectrandom (WMS_Loadout_Diver select 1); 
+		_unit addVest selectrandom (WMS_Loadout_Diver select 1);
 		_unit addHeadGear selectrandom (WMS_Loadout_Diver select 2);
 		_unit addBackpack selectrandom (WMS_Loadout_Diver select 3);
 		_weapRandomNoSnipNoMG = [WMS_Weaps_Diver];
@@ -143,65 +121,105 @@ _poptabs = 50;
 	//_unit setVariable ["AMS_AdjustedSkills",WMS_AMS_AdjustedSkills]; //not used yet
 	
 	switch (toLower _unitFunction) do {
-		case  "bunkermg" : {
-			_unit disableAI "PATH"; 
-			_unit setUnitPos "MIDDLE";
-			_mainWeap = [_unit, selectrandom (WMS_Loadout_MG select 0), 5, 0] call BIS_fnc_addWeapon;
-			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_MG select 2);
-			_pistol = [_unit, selectrandom (WMS_Loadout_Assault select 3), 2] call BIS_fnc_addWeapon;
-		};
-		case  "assault" : {
-			_mainWeap = [_unit, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
-			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Assault select 2);
-			_pistol = [_unit, selectrandom (WMS_Loadout_Assault select 3), 2] call BIS_fnc_addWeapon;
-			_unit additem selectRandom WMS_AI_grenades;
-			_unit additem selectRandom WMS_AI_grenades;
-		};
-		case  "smg" : {
-			_mainWeap = [_unit, selectrandom (WMS_Loadout_SMG select 0), 5, 0] call BIS_fnc_addWeapon;
-			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_SMG select 2);
-			_pistol = [_unit, selectrandom (WMS_Loadout_SMG select 3), 2] call BIS_fnc_addWeapon;
-			_unit additem selectRandom WMS_AI_grenades;
-		};
-		case  "random" : {
-			_weaps = selectRandom _weapRandom;
-			_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
+	case  "bunkermg" : {
+		_unit disableAI "PATH"; 
+		_unit setUnitPos "MIDDLE";
+		_mainWeap = [_unit, selectrandom (WMS_Loadout_MG select 0), 5, 0] call BIS_fnc_addWeapon;
+		_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_MG select 2);
+		_pistol = [_unit, selectrandom (WMS_Loadout_Assault select 3), 2] call BIS_fnc_addWeapon;
+	};
+	case  "assault" : {
+		_mainWeap = [_unit, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
+		_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Assault select 2);
+		_pistol = [_unit, selectrandom (WMS_Loadout_Assault select 3), 2] call BIS_fnc_addWeapon;
+		_unit additem selectRandom WMS_AI_grenades;
+		_unit additem selectRandom WMS_AI_grenades;
+	};
+	case  "mg" : {
+		_mainWeap = [_unit, selectrandom (WMS_Loadout_MG select 0), 5, 0] call BIS_fnc_addWeapon;
+		_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_MG select 2);
+		_pistol = [_unit, selectrandom (WMS_Loadout_MG select 3), 2] call BIS_fnc_addWeapon;
+		_unit additem selectRandom WMS_AI_grenades;
+	};
+	case  "smg" : {
+		_mainWeap = [_unit, selectrandom (WMS_Loadout_SMG select 0), 5, 0] call BIS_fnc_addWeapon;
+		_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_SMG select 2);
+		_pistol = [_unit, selectrandom (WMS_Loadout_SMG select 3), 2] call BIS_fnc_addWeapon;
+		_unit additem selectRandom WMS_AI_grenades;
+	};
+	case  "para" : {
+		_weaps = selectRandom _weapRandomNoSnipNoMG;
+		removeBackpackGlobal _unit;
+		_unit addBackpack "B_Parachute";
+		_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
+		if (_mainWeap in WMS_AMS_sniperList) then {
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
+			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
+			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
+			_mags = ((getArray (configfile >> "CfgWeapons" >> _mainWeap >> "magazines")) select 0);
+			_unit addMagazine _mags;
+			_unit addMagazine _mags;
+			_unit addMagazine _mags;
+		}else{
 			_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
-			_pistol = [_unit, selectrandom (WMS_Loadout_Sniper select 3), 2] call BIS_fnc_addWeapon;
-			_unit additem selectRandom WMS_AI_grenades;
 		};
-		case  "suicidebomber" : {
-			_unit forceaddUniform selectrandom (_loadout select 0); 
-			_unit addVest selectrandom (_loadout select 1);
-			removeBackpackGlobal _unit;
-			_unit addBackpack "B_Parachute";
+		_pistol = [_unit, selectrandom (_weaps select 3), 2] call BIS_fnc_addWeapon;
+		_unit additem selectRandom WMS_AI_grenades;
+	};
+	case  "random" : {
+		_weaps = selectRandom _weapRandom;
+		_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
+		if (_mainWeap in WMS_AMS_sniperList) then {
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
+			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
+			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
+			_mags = ((getArray (configfile >> "CfgWeapons" >> _mainWeap >> "magazines")) select 0);
+			_unit addMagazine _mags;
+			_unit addMagazine _mags;
+			_unit addMagazine _mags;
+		}else{
+			_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
 		};
-		case  "livoniapatrol" : {
-			_mainWeap = [_unit, selectrandom (WMS_Weaps_LivoniaMix select 0), 5, 0] call BIS_fnc_addWeapon;
+		_pistol = [_unit, selectrandom (WMS_Loadout_Sniper select 3), 2] call BIS_fnc_addWeapon;
+		_unit additem selectRandom WMS_AI_grenades;
+	};
+	case  "livoniapatrol" : {
+		_mainWeap = [_unit, selectrandom (WMS_Weaps_LivoniaMix select 0), 5, 0] call BIS_fnc_addWeapon;
+		if (_mainWeap in WMS_AMS_sniperList) then {
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
+			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
+			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
+			_mags = ((getArray (configfile >> "CfgWeapons" >> _mainWeap >> "magazines")) select 0);
+			_unit addMagazine _mags;
+			_unit addMagazine _mags;
+			_unit addMagazine _mags;
+		}else{
 			_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_LivoniaMix select 2);
-			_pistol = [_unit, selectrandom (WMS_Weaps_LivoniaMix select 3), 1] call BIS_fnc_addWeapon; 
-			_unit addGoggles selectrandom (_loadout select 4);
-			_unit additem selectRandom WMS_AI_grenades;
-			_unit additem selectRandom WMS_AI_grenades;
-			_unit additem selectRandom WMS_AI_grenades;
 		};
-		case  "heavybandit" : {
-			_mainWeap = [_unit, selectrandom (WMS_Weaps_HeavyBandit select 0), 5, 0] call BIS_fnc_addWeapon;
+		_pistol = [_unit, selectrandom (WMS_Weaps_LivoniaMix select 3), 1] call BIS_fnc_addWeapon; 
+		_unit addGoggles selectrandom (_loadout select 4);
+		_unit additem selectRandom WMS_AI_grenades;
+		_unit additem selectRandom WMS_AI_grenades;
+		_unit additem selectRandom WMS_AI_grenades;
+	};
+	case  "heavybandit" : {
+		_mainWeap = [_unit, selectrandom (WMS_Weaps_HeavyBandit select 0), 5, 0] call BIS_fnc_addWeapon;
+		if (_mainWeap in WMS_AMS_sniperList) then {
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
+			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
+			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
+			_mags = ((getArray (configfile >> "CfgWeapons" >> _mainWeap >> "magazines")) select 0);
+			_unit addMagazine _mags;
+			_unit addMagazine _mags;
+			_unit addMagazine _mags;
+		}else{
 			_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_HeavyBandit select 2);
-			_pistol = [_unit, selectrandom (WMS_Weaps_HeavyBandit select 3), 1] call BIS_fnc_addWeapon; 
-			_unit addGoggles selectrandom (_loadout select 4);
-			_unit additem selectRandom WMS_AI_grenades;
-			_unit additem selectRandom WMS_AI_grenades;
 		};
-		case  "para" : {
-			removeBackpackGlobal _unit;
-			_unit addBackpack "B_Parachute";
-			_weaps = selectRandom _weapRandomNoSnipNoMG;
-			_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
-			_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
-			_pistol = [_unit, selectrandom (_weaps select 3), 2] call BIS_fnc_addWeapon;
-			_unit additem selectRandom WMS_AI_grenades;
-		};
+		_pistol = [_unit, selectrandom (WMS_Weaps_HeavyBandit select 3), 1] call BIS_fnc_addWeapon; 
+		_unit addGoggles selectrandom (_loadout select 4);
+		_unit additem selectRandom WMS_AI_grenades;
+		_unit additem selectRandom WMS_AI_grenades;
+	};
 		case  "diver" : {
 			_mainWeap = [_unit, selectrandom (WMS_Weaps_Diver select 0), 5, 0] call BIS_fnc_addWeapon;
 			_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_Diver select 2);
@@ -210,13 +228,53 @@ _poptabs = 50;
 			_unit additem selectRandom WMS_AI_grenades;
 			_unit additem selectRandom WMS_AI_grenades;
 		};
+		case  "suicidebomber" : {
+			_unit forceaddUniform selectrandom (_loadout select 0); 
+			_unit addVest selectrandom (_loadout select 1);
+			removeBackpackGlobal _unit;
+			_unit addBackpack "B_Parachute";
+		};
 		default {
 			_mainWeap = [_unit, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
-			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Assault select 2);
+			if (_mainWeap in WMS_AMS_sniperList) then {
+				_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
+			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
+			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
+			_mags = ((getArray (configfile >> "CfgWeapons" >> _mainWeap >> "magazines")) select 0);
+			_unit addMagazine _mags;
+			_unit addMagazine _mags;
+			}else{
+				_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Assault select 2);
+			};
 			_pistol = [_unit, selectrandom (WMS_Loadout_Assault select 3), 2] call BIS_fnc_addWeapon;
 		};
 	};
 	
+	//if (primaryWeapon _unit isKindOf ["Rifle_Long_Base_F", configFile >> "CfgWeapons"]) then { 
+	if (_mainWeap in WMS_AMS_sniperList) then {
+		_unit setSkill ["spotDistance", (_sniper select 0)];
+		_unit setSkill ["spotTime", 	(_sniper select 1)];
+		_unit setSkill ["aimingAccuracy", 	(_sniper select 2)];
+		_unit setSkill ["aimingShake", 	(_sniper select 3)];
+		_unit setVariable ["WMS_skills",[(_sniper select 0),(_sniper select 1),(_sniper select 2),(_sniper select 3),(_skills select 4),(_skills select 5),(_skills select 5),(_skills select 6),(_skills select 8)],true]; //will be used for AI killfeed on player EH killed
+		//_unit setName selectRandom ["John McClane","John Rambo","Lucky Luke","Vasily Zaitsev","John Wick"];
+		_unit setName selectRandom [["Master Sergeant Gunnery Beckett","Master Sergeant Gunnery","Beckett"],["Bob Lee Swagger","Bob Lee","Swagger"],["Jack Reacher","Jack","Reacher"],["John McClane","John","McClane"],["John Rambo","John","Rambo"],["Lucky Luke","Lucky","Luke"],["Vasily Zaitsev","Vasily","Zaitsev"],["John Wick","John","Wick"]];
+		if (true) then {diag_log format ["[AMS/DynAI AI SETUP]|WAK|TNA|WMS|We Got A Sniper Here! %1, %2", (name _unit), (primaryWeapon _unit)]};
+	} else {
+		_unit setSkill ["spotDistance", (_skills select 0)];
+		_unit setSkill ["spotTime", 	(_skills select 1)];
+		_unit setSkill ["aimingAccuracy", 	(_skills select 2)];
+		_unit setSkill ["aimingShake", 	(_skills select 3)];
+		_unit setVariable ["WMS_skills",_skills,true]; //will be used for AI killfeed on player EH killed
+	};	
+	_unit setSkill ["aimingSpeed", 	(_skills select 4)];
+	_unit setSkill ["reloadSpeed", 	(_skills select 5)];
+	_unit setSkill ["courage", 		(_skills select 6)];
+	_unit setSkill ["commanding", 	(_skills select 7)];
+	_unit setSkill ["general", 		(_skills select 8)];
+	_unit setVariable ["WMS_Difficulty",_difficulty, true]; //will be used for AI killfeed on player EH killed
+	_unit allowFleeing 0;
+	//
 	if (random 100 > 50) then {
 		_unit addPrimaryWeaponItem (selectrandom WMS_AI_Attachements);
 	};

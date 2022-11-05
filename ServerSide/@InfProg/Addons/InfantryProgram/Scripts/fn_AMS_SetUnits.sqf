@@ -8,8 +8,11 @@
 * This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 * Do Not Re-Upload
-*/
-
+*/////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//AMS_SETUNITS IS NOT CALLED ANYMORE, SEE WMS_fnc_SetUnits////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
 /*
 [
 	[_units], 			// the Unit to set
@@ -55,7 +58,7 @@ switch (toLower _loadout) do {
 };
 _skills = [_skill,_difficulty]call WMS_fnc_AMS_ConvertSkills;
 _sniper = [1,0.95,0.95,0.95];
-
+_mainWeap = objNull;
 {
 _unit = _x;
 removeAllItems _unit;
@@ -71,30 +74,6 @@ switch (toLower _difficulty) do {
 	case "hardcore" 	: {_poptabs = round _poptabs*2.5};
 	case "static" 		: {_poptabs = round _poptabs*0.5};
 };
-//if (primaryWeapon _unit isKindOf ["Rifle_Long_Base_F", configFile >> "CfgWeapons"]) then { 
-if ((primaryWeapon _unit) in WMS_AMS_sniperList) then {
-	_unit setSkill ["spotDistance", (_sniper select 0)];
-	_unit setSkill ["spotTime", 	(_sniper select 1)];
-	_unit setSkill ["aimingAccuracy", 	(_sniper select 2)];
-	_unit setSkill ["aimingShake", 	(_sniper select 3)];
-	_unit setVariable ["WMS_skills",[(_sniper select 0),(_sniper select 1),(_sniper select 2),(_sniper select 3),(_skills select 4),(_skills select 5),(_skills select 5),(_skills select 6),(_skills select 8)],true]; //will be used for AI killfeed on player EH killed
-	//_unit setName selectRandom ["John McClane","John Rambo","Lucky Luke","Vasily Zaitsev","John Wick"];
-	_unit setName selectRandom [["John McClane","John","McClane"],["John Rambo","John","Rambo"],["Lucky Luke","Lucky","Luke"],["Vasily Zaitsev","Vasily","Zaitsev"],["John Wick","John","Wick"]];
-} else {
-	_unit setSkill ["spotDistance", (_skills select 0)];
-	_unit setSkill ["spotTime", 	(_skills select 1)];
-	_unit setSkill ["aimingAccuracy", 	(_skills select 2)];
-	_unit setSkill ["aimingShake", 	(_skills select 3)];
-	_unit setVariable ["WMS_skills",_skills,true]; //will be used for AI killfeed on player EH killed
-};
-_unit setSkill ["aimingSpeed", 	(_skills select 4)];
-_unit setSkill ["reloadSpeed", 	(_skills select 5)];
-_unit setSkill ["courage", 		(_skills select 6)];
-_unit setSkill ["commanding", 	(_skills select 7)];
-_unit setSkill ["general", 		(_skills select 8)];
-_unit setVariable ["WMS_Difficulty",_difficulty, true]; //will be used for AI killfeed on player EH killed
-_unit allowFleeing 0;
-//
 _unit forceaddUniform selectrandom (_loadout select 0); 
 _unit addVest selectrandom (_loadout select 1); 
 _unit addHeadGear selectrandom (_loadout select 2);
@@ -134,20 +113,32 @@ switch (toLower _unitFunction) do {
 		removeBackpackGlobal _unit;
 		_unit addBackpack "B_Parachute";
 		_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
-		_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
+		if (_mainWeap in WMS_AMS_sniperList) then {
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2);
+		}else{
+			_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
+		};
 		_pistol = [_unit, selectrandom (_weaps select 3), 2] call BIS_fnc_addWeapon;
 		_unit additem selectRandom WMS_AI_grenades;
 	};
 	case  "random" : {
 		_weaps = selectRandom _weapRandom;
 		_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
-		_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
+		if (_mainWeap in WMS_AMS_sniperList) then {
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2);
+		}else{
+			_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
+		};
 		_pistol = [_unit, selectrandom (WMS_Loadout_Sniper select 3), 2] call BIS_fnc_addWeapon;
 		_unit additem selectRandom WMS_AI_grenades;
 	};
 	case  "livoniapatrol" : {
 		_mainWeap = [_unit, selectrandom (WMS_Weaps_LivoniaMix select 0), 5, 0] call BIS_fnc_addWeapon;
-		_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_LivoniaMix select 2);
+		if (_mainWeap in WMS_AMS_sniperList) then {
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2);
+		}else{
+			_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_LivoniaMix select 2);
+		};
 		_pistol = [_unit, selectrandom (WMS_Weaps_LivoniaMix select 3), 1] call BIS_fnc_addWeapon; 
 		_unit addGoggles selectrandom (_loadout select 4);
 		_unit additem selectRandom WMS_AI_grenades;
@@ -156,7 +147,11 @@ switch (toLower _unitFunction) do {
 	};
 	case  "heavybandit" : {
 		_mainWeap = [_unit, selectrandom (WMS_Weaps_HeavyBandit select 0), 5, 0] call BIS_fnc_addWeapon;
-		_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_HeavyBandit select 2);
+		if (_mainWeap in WMS_AMS_sniperList) then {
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2);
+		}else{
+			_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_HeavyBandit select 2);
+		};
 		_pistol = [_unit, selectrandom (WMS_Weaps_HeavyBandit select 3), 1] call BIS_fnc_addWeapon; 
 		_unit addGoggles selectrandom (_loadout select 4);
 		_unit additem selectRandom WMS_AI_grenades;
@@ -164,11 +159,40 @@ switch (toLower _unitFunction) do {
 	};
 	default {
 		_mainWeap = [_unit, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
-		_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Assault select 2);
+		if (_mainWeap in WMS_AMS_sniperList) then {
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2);
+		}else{
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Assault select 2);
+		};
 		_pistol = [_unit, selectrandom (WMS_Loadout_Assault select 3), 2] call BIS_fnc_addWeapon;
 	};
 };
 
+//if (primaryWeapon _unit isKindOf ["Rifle_Long_Base_F", configFile >> "CfgWeapons"]) then { 
+if (_mainWeap in WMS_AMS_sniperList) then {
+	_unit setSkill ["spotDistance", (_sniper select 0)];
+	_unit setSkill ["spotTime", 	(_sniper select 1)];
+	_unit setSkill ["aimingAccuracy", 	(_sniper select 2)];
+	_unit setSkill ["aimingShake", 	(_sniper select 3)];
+	_unit setVariable ["WMS_skills",[(_sniper select 0),(_sniper select 1),(_sniper select 2),(_sniper select 3),(_skills select 4),(_skills select 5),(_skills select 5),(_skills select 6),(_skills select 8)],true]; //will be used for AI killfeed on player EH killed
+	//_unit setName selectRandom ["John McClane","John Rambo","Lucky Luke","Vasily Zaitsev","John Wick"];
+	_unit setName selectRandom [["John McClane","John","McClane"],["John Rambo","John","Rambo"],["Lucky Luke","Lucky","Luke"],["Vasily Zaitsev","Vasily","Zaitsev"],["John Wick","John","Wick"]];
+	if (true) then {diag_log format ["[AMS AI SETUP]|WAK|TNA|WMS|We Got A Sniper Here! %1, %2", (name _unit), (primaryWeapon _unit)]};
+} else {
+	_unit setSkill ["spotDistance", (_skills select 0)];
+	_unit setSkill ["spotTime", 	(_skills select 1)];
+	_unit setSkill ["aimingAccuracy", 	(_skills select 2)];
+	_unit setSkill ["aimingShake", 	(_skills select 3)];
+	_unit setVariable ["WMS_skills",_skills,true]; //will be used for AI killfeed on player EH killed
+};
+_unit setSkill ["aimingSpeed", 	(_skills select 4)];
+_unit setSkill ["reloadSpeed", 	(_skills select 5)];
+_unit setSkill ["courage", 		(_skills select 6)];
+_unit setSkill ["commanding", 	(_skills select 7)];
+_unit setSkill ["general", 		(_skills select 8)];
+_unit setVariable ["WMS_Difficulty",_difficulty, true]; //will be used for AI killfeed on player EH killed
+_unit allowFleeing 0;
+//
 	
 if (random 100 > 50) then {
 	_unit addPrimaryWeaponItem (selectrandom WMS_AI_Attachements);
