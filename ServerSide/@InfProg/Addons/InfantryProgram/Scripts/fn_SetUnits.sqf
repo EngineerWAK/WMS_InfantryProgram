@@ -259,7 +259,7 @@ _poptabs = 50;
 		_unit setVariable ["WMS_skills",[(_sniper select 0),(_sniper select 1),(_sniper select 2),(_sniper select 3),(_skills select 4),(_skills select 5),(_skills select 5),(_skills select 6),(_skills select 8)],true]; //will be used for AI killfeed on player EH killed
 		//_unit setName selectRandom ["John McClane","John Rambo","Lucky Luke","Vasily Zaitsev","John Wick"];
 		_unit setName selectRandom [["Master Sergeant Gunnery Beckett","Master Sergeant Gunnery","Beckett"],["Bob Lee Swagger","Bob Lee","Swagger"],["Jack Reacher","Jack","Reacher"],["John McClane","John","McClane"],["John Rambo","John","Rambo"],["Lucky Luke","Lucky","Luke"],["Vasily Zaitsev","Vasily","Zaitsev"],["John Wick","John","Wick"]];
-		if (true) then {diag_log format ["[AMS/DynAI AI SETUP]|WAK|TNA|WMS|We Got A Sniper Here! %1, %2", (name _unit), (primaryWeapon _unit)]};
+		if (WMS_IP_LOGs) then {diag_log format ["[AMS/DynAI AI SETUP]|WAK|TNA|WMS|We Got A Sniper Here! %1, %2", (name _unit), (primaryWeapon _unit)]};
 	} else {
 		_unit setSkill ["spotDistance", (_skills select 0)];
 		_unit setSkill ["spotTime", 	(_skills select 1)];

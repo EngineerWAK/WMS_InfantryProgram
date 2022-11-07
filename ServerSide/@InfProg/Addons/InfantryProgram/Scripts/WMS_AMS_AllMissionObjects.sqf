@@ -36,9 +36,9 @@ WMS_AMS_Obj_Bastogne = [ //Bastogne forest spawn
 	["Land_ShellCrater_02_small_F",[-25.2,5.3,0],99.6],
 	["Land_ShellCrater_02_small_F",[35.7,11.6,0],105],
 	["Land_ShellCrater_02_small_F",[9.5,30.3,0],201],
-	[(selectRandom [WMS_AI_HMG,WMS_AI_HMG_Shield,WMS_AI_GMG]),[22.9,6,0],94.9],
-	[(selectRandom [WMS_AI_HMG,WMS_AI_HMG_Shield,WMS_AI_GMG]),[-25.4,5,0],271.3],
-	[(selectRandom [WMS_AI_Arty,WMS_AI_HMG]),[-1.6,-4,0],0]
+	[(selectRandom [WMS_AI_HMG,WMS_AI_HMG_Shield,WMS_AI_GMG]),[22.9,6,0],94.9,"static"],
+	[(selectRandom [WMS_AI_HMG,WMS_AI_HMG_Shield,WMS_AI_GMG]),[-25.4,5,0],271.3,"static"],
+	[(selectRandom [WMS_AI_Arty,WMS_AI_HMG]),[-1.6,-4,0],0,"static"]
 	];
 WMS_AMS_Obj_BHD = [ //"BlackHawk Down"
 	["test_EmptyObjectForSmoke",[-2.1,1.4,0],0], //smoke

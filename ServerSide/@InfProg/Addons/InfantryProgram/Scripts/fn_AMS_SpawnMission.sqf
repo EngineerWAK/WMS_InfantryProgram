@@ -191,7 +191,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["FieldHospital","FieldHospital2","FieldHospital3"]);
 			["random",(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 				[
-					["Field Hospital"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army","bandit","heavyBandit"],["Assault","HeavyBandit"],["patrol"],
+					["Field Hospital"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["scientist","bandit","heavyBandit"],["Assault","HeavyBandit"],["patrol"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
 					[[3,1,2],[1,1,2],[4,1,2],[1,3,3],[0,0,0]],
 					[[4,1,2],[1,1,2],[5,1,2],[1,3,3],[0,0,0]],

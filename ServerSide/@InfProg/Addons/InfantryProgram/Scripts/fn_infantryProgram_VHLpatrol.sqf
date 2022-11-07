@@ -104,13 +104,13 @@ clearItemCargoGlobal _vehic;
 clearBackpackCargoGlobal _vehic;
 if (WMS_DynAI_addItemsVHL) then {
 	_cargoResult = selectRandom ([WMS_DynAI_CargoItems] call CBA_fnc_shuffle);
-	if (true) then {diag_log format ["[VHL PATROL ITEMS]|WAK|TNA|WMS| _cargoResult = %1", _cargoResult]};
+	if (WMS_IP_LOGs) then {diag_log format ["[VHL PATROL ITEMS]|WAK|TNA|WMS| _cargoResult = %1", _cargoResult]};
 	switch (_cargoResult) do {
 		case 1 : { //this will add ITEMS only, very basic
 			for "_i" from 1 to (round (random 4)) do {
 				_itemcargo = selectRandom (WMS_ToolList+WMS_MeatList+WMS_medsList+WMS_AI_inventory);
 				_vehic addItemCargoGlobal [_itemcargo,1];
-				if (true) then {diag_log format ["[VHL PATROL ITEMS]|WAK|TNA|WMS| _vehic = %2 _itemcargo = %1", _itemcargo, _vehic]};
+				if (WMS_IP_LOGs) then {diag_log format ["[VHL PATROL ITEMS]|WAK|TNA|WMS| _vehic = %2 _itemcargo = %1", _itemcargo, _vehic]};
 			};
 		};
 		case 2 : { //this will add Items, Mags, bags, weapons

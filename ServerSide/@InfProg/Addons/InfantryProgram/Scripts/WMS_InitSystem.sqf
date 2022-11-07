@@ -28,7 +28,7 @@ WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeco
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.743_2022NOV04_GitHub"; //Fixed Sniper loadout - boobytrap Missions NPC killed by tank/apc/RCWS - added Items to roaming vehicles cargo
+WMS_System_Version 			= "v2.746_2022NOV06_GitHub"; //Changed some Heavy bandits vests - AMS Killer in tanks/APC/choppers
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 120; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings

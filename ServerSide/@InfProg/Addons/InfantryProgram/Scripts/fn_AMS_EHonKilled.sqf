@@ -124,7 +124,6 @@ if (isplayer _killer) then {
 		[_sessionID, 'toastRequest', ['SuccessTitleAndText', ['Mission AI', 'Target down']]] call ExileServer_system_network_send_to;
 	};
 	if (WMS_AMS_ShowFragMsg) then {
-
 		if (WMS_exileFireAndForget) then {
 			[_killer, "showFragRequest", [_payload]] call ExileServer_system_network_send_to;
 		} else {
@@ -134,9 +133,12 @@ if (isplayer _killer) then {
 		};
 	};
 	if (WMS_AMS_ejectDeads) then {moveout _killed};
-	if (vehicle _killer != _killer)then{
+	if !((vehicle _killer) isKindOf "man")then{
+		if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Killer: %1 is in a Vehicle!",(name _killer), (typeOf (vehicle _killer))]};
 		if (vehicle _killer isKindOf "tank" || vehicle _killer isKindOf "Wheeled_Apc_F" || (typeOf (vehicle _killer)) in WMS_RCWS_Vhls) then {
+			if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Killer: %1, vehicle is a tank/APC",(name _killer)]};
 			if (WMS_AMS_StripOnArmoredK)then {
+				if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Victime %1 is losing all is stuff",(name _killed)]};
 				_killed removeWeapon (primaryWeapon _killed);
 				_killed removeWeapon (secondaryWeapon _killed);
 				removeAllItems _killed;
@@ -146,13 +148,16 @@ if (isplayer _killer) then {
 			};
 			if (WMS_AMS_TrappOnArmoredK)then {
 				_mineType = selectRandom [WMS_ATMines,"APERSBoundingMine"];
-				_mine = createMine [_mineType, (position _killed), [], 1 ];
+				_mine = createMine [_mineType, [((position _killed) select 0),((position _killed) select 1),0], [], 1 ];
 				_mine allowDamage false;
 				EAST revealMine _mine;
+				if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Victime %1 is Boobytrapped, %2",(name _killed),_mineType]};
 			};
 		}else {
 			if (vehicle _killer isKindOf "Heli_Attack_01_base_F"||vehicle _killer isKindOf "Heli_Attack_02_base_F"||vehicle _killer isKindOf "Heli_Light_01_armed_base_F") then {
+				if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Killer: %1, vehicle is an Attack Helicopter",(name _killer)]};
 				if (WMS_AMS_StripOnArmoredK)then {
+					if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Victime %1 is losing all is stuff",(name _killed)]};
 					_killed removeWeapon (primaryWeapon _killed);
 					_killed removeWeapon (secondaryWeapon _killed);
 					removeAllItems _killed;
@@ -162,6 +167,8 @@ if (isplayer _killer) then {
 				};
 			};
 		};
+	}else {
+		if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Killer: %1 seems to not be in a vehicle",(name _killer), (typeOf (vehicle _killer))]};
 	};
 	//saveProfileNamespace;
 	if (WMS_IP_LOGs) then {diag_log format ["[AMS PROFILENAMESPACE]|WAK|TNA|WMS| _killer VARs: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), _playerKills, ("ExileScore_"+_killerUID), _playerRepUpdated]};

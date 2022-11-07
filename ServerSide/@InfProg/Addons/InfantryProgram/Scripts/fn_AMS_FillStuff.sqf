@@ -17,7 +17,7 @@ params[
 	["_bagList",[[selectRandom (WMS_Loadout_Livonia select 3),1,2]]],  
 	["_weapList",[[selectRandom (WMS_Loadout_Assault select 0),1,5]]] 
 ];
-if (true) then {diag_log format ["[AMS FILL STUFF]|WAK|TNA|WMS| _this = %1", _this]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS FILL STUFF]|WAK|TNA|WMS| _this = %1", _this]};
 private _ammoList = [];
 {_cargo addItemCargoGlobal [(_x select 0),((_x select 1)+(round (random (_x select 2))))]} forEach _ItemList; 
 {_cargo addBackpackCargoGlobal [(_x select 0),((_x select 1)+(round (random (_x select 2))))]} forEach _bagList; 
