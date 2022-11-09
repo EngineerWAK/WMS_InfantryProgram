@@ -360,7 +360,8 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
 										//execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
 										//execVM "\InfantryProgram\Scripts\WMS_List_VHL_Namalsk.sqf";
-										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
+										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
+										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										WMS_AI_MaxUnits_A 			= 180; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
 										WMS_AI_MaxUnits_B 			= 200; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
@@ -524,7 +525,7 @@ if (WMS_MapName == "vt7") then {//Virolahti
 
 if (WMS_MapName == "Malden") then {	//VERY OUTDATED
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_Vanilla.sqf";
-										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_Vanilla_NOSCOPE.sqf";
+										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_Vanilla.sqf";
 										WMS_IP_Extract_Alt 			= 150;
 										WMS_C130_Altitude 			= 200;
 										WMS_Pos_Forests 			= [[6641.14,5438.44,0],[7677.63,4397.54,0],[9532.81,3773.76,0],[5359.17,3179.15,0],[4288.83,2440.78,0],[5024.37,4920.24,0],[4240.45,3952.49,0],[4667.78,4734.19,0],[2544.42,3975.66,0],[2849.36,4839.3,0],[2887.26,5244.03,0],[3448.67,5544.87,0],[4408.6,9561.49,0],[6695.16,9544.73,0],[7053.38,9671.02,0]]; //not autoScan									
