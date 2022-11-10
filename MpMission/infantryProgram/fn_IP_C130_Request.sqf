@@ -12,7 +12,7 @@ openMap true;
 		private _targetGroup = group player;
 		if (isnull group player) then {_targetGroup == _targetUID};
 		private _vehicVarName = format["C130_%1_%2", _targetGroup, time];
-		[player,_pos,0,_vehicVarName] remoteExec ["WMS_fnc_InfantryProgram_C130"];
+		[player,_pos,0,_vehicVarName] remoteExec ["WMS_fnc_InfantryProgram_C130",2];
 		WMS_Loc_InfProg_C130_Last = time;
 		WMS_MoveInCargo_C130_LastTime = time; //server side
 		publicVariable  "WMS_MoveInCargo_C130_LastTime";

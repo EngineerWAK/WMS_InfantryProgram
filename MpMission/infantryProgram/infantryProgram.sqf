@@ -22,10 +22,15 @@ WMS_IP_addActionRadio = {
 	[
 		"<t size='0.9' color='#068604'>Build InfantryProgram computer</t>",
 		"
-			_target = _this select 0; _caller = _this select 1;
-			[_caller] call WMS_IP_buildComputer;
-			(_this select 0) removeaction (_this select 2);
-
+			_target = _this select 0; _caller = _this select 1; _theAction = _this select 2;
+			['Building Computer', 5, {true}, 
+				{
+					[(_this select 0 select 1)] call WMS_IP_buildComputer;
+					(_this select 0 select 0) removeaction (_this select 0 select 2);
+				}, 
+				{hint 'aborted'},
+				[_target,_caller,_theAction]
+			] call CBA_fnc_progressBar;
 		", 
 		[],
 		1,
@@ -35,7 +40,7 @@ WMS_IP_addActionRadio = {
 		"
 			(alive _target) &&
 			{stance player == 'CROUCH'} &&
-			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{('rhs_radio_R187P1' in (assigneditems _this)) || ('rhsusf_radio_anprc152' in (assigneditems _this))} &&
 			{localNamespace getVariable ['WMS_Loc_CanBuildComputer',true]} &&
 			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
 			{(vehicle _this == _this)};
@@ -52,13 +57,21 @@ WMS_IP_buildComputer = {
 	];
 	private _IPantenna = "SatelliteAntenna_01_Small_Black_F" createvehicle [0,0,0];
 	private _IPcomputer = "Land_MultiScreenComputer_01_black_F" createvehicle [0,0,0];
-	_IPcomputer setPos (_IPplayer modeltoworld [0,1,0.2]);
+	private _mkr = createMarkerLocal [format ['MKRSB_%1', (round time)], position _IPplayer]; 
+  	_mkr setMarkerTypeLocal 'respawn_unknown'; 
+  	_mkr setMarkerColorLocal 'colorIndependent';
+	if (surfaceIsWater (position _IPplayer))then{
+		_IPcomputer setPos (_IPplayer modeltoworldworld [0,2,0]); //FUCK YOU ARMA!!!!!!!!!!!
+	}else{
+		_IPcomputer setPos (_IPplayer modeltoworld [0,1,0.2]);
+	};
 	_IPcomputer setdir (direction _IPplayer);
 	_IPantenna attachTo [_IPcomputer, [0,0.4,0.27]];
 	_IPcomputer setVariable ['IPcomputerAllActionsID',[]];
+	_IPcomputer setVariable ['WMS_Loc_SpawnBeacon_Mkr',_mkr,true];
 	localNamespace setVariable ['WMS_Loc_CanBuildComputer',false];
 	private _allActionsID = [];
-//PACK THE COMPUTER
+//PACK THE COMPUTER //respawn_unknown
 	private _IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Pack the Computer</t>",
@@ -66,6 +79,8 @@ WMS_IP_buildComputer = {
 			_target = _this select 0; _caller = _this select 1;
 			_allActionsID = _target getVariable ['IPcomputerAllActionsID',[]];
 			_myRespawn = _target getVariable ['WMS_Loc_SpawnBeacon',[]];
+			_mkr = _target getVariable 'WMS_Loc_SpawnBeacon_Mkr';
+			deleteMarkerLocal _mkr;
 			diag_log format['[WMS_IP DEBUG] removeRespawnPosition variable %1',_myRespawn];
 			_myRespawn call BIS_fnc_removeRespawnPosition;
 			detach (_this select 3 select 0);
@@ -84,80 +99,8 @@ WMS_IP_buildComputer = {
 		"
 			(alive _target) &&
 			{stance player == 'CROUCH'} &&
-			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{('rhs_radio_R187P1' in (assigneditems _this)) || ('rhsusf_radio_anprc152' in (assigneditems _this))} &&
 			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
-			{(vehicle _this == _this)};
-		",
-		5
-	];
-	_allActionsID pushBack _IDnumber;
-//JOIN THE PROGRAM
-	_IDnumber = _IPcomputer addAction
-	[
-		"<t size='0.9' color='#d60000'>Join the Program</t>",
-		"
-			WMS_IP_Active_list pushBack (getplayerUID player);
-			publicVariable 'WMS_IP_Active_list'; 
-			systemchat 'Welcome Back Soldier, remember to not get in vehicles'
-		", //client modifying server variable, thats a weird solution
-		[_IPantenna],
-		1,
-		true,
-		true,
-		"",
-		"
-			(alive _target) &&
-			{stance player == 'CROUCH'} &&
-			{('rhs_radio_R187P1' in (assigneditems _this))} && 
-			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
-			{!((getplayerUID player) in WMS_IP_Active_list)} &&
-			{((getPlayerUID _this) in WMS_InfantryProgram_list)} &&
-			{(vehicle _this == _this)};
-		",
-		5
-	];
-	_allActionsID pushBack _IDnumber;
-//LOADOUT	
-	_IDnumber = _IPcomputer addAction
-	[
-		"<t size='0.9' color='#068604'>Equipement Scorpion 2.5k$</t>",
-		"
-			_target = _this select 0; _caller = _this select 1;
-			[_caller, [], (position _caller), WMS_Loadout_Scorpion, 2500] remoteExec ['WMS_fnc_InfantryProgram_loadouts'];
-		", 
-		[],
-		1,
-		true,
-		true,
-		"",
-		"	
-			(alive _target) &&
-			{('rhs_radio_R187P1' in (assigneditems _this))} &&
-			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
-			{((getPlayerUID _this) in WMS_IP_Active_list)} &&
-			{(vehicle _this == _this)};
-		",
-		5
-	];
-	_allActionsID pushBack _IDnumber;
-	_IDnumber = _IPcomputer addAction
-	[
-		"<t size='0.9' color='#068604'>Equipement AOR2 3.5k$</t>",
-		"
-			_target = _this select 0; _caller = _this select 1;
-			[_caller, [], (position _caller), WMS_Loadout_AOR2, 3500] remoteExec ['WMS_fnc_InfantryProgram_loadouts'];
-		", 
-		[],
-		1,
-		true,
-		true,
-		"",
-		"	
-			(alive _target) &&
-			{('rhs_radio_R187P1' in (assigneditems _this))} &&
-			{((getplayerUID player) in WMS_InfantryProgram_list)} &&
-			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
-			{!((getPlayerUID _this) in WMS_IP_Active_list)} &&
 			{(vehicle _this == _this)};
 		",
 		5
@@ -180,6 +123,72 @@ WMS_IP_buildComputer = {
 		"
 			(alive _target) &&
 			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>Rolling</t>",
+		"
+			_target = _this select 0; _caller = _this select 1;
+			playSound3D [getMissionPath 'Custom\Ogg\Vietnam.ogg', _caller, false, position _caller, 5]
+		", 
+		[_IPantenna],
+		1,
+		true,
+		true,
+		"",
+		"
+			(alive _target) &&
+			{('rhsusf_radio_anprc152' in (assigneditems _this))} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+//LOADOUT	
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>Equipement Scorpion 2.5k$</t>",
+		"
+			_target = _this select 0; _caller = _this select 1;
+			[_caller, [], (position _caller), WMS_Loadout_Scorpion, 2500] remoteExec ['WMS_fnc_InfantryProgram_loadouts',2];
+		", 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{((getPlayerUID _this) in WMS_IP_Active_list)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>Equipement AOR2 3.5k$</t>",
+		"
+			_target = _this select 0; _caller = _this select 1;
+			[_caller, [], (position _caller), WMS_Loadout_AOR2, 3500] remoteExec ['WMS_fnc_InfantryProgram_loadouts',2];
+		", 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{((getplayerUID player) in WMS_InfantryProgram_list)} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{!((getPlayerUID _this) in WMS_IP_Active_list)} &&
 			{(vehicle _this == _this)};
 		",
 		5
@@ -228,6 +237,29 @@ WMS_IP_buildComputer = {
 			{(time > (WMS_IP_ExtractChop_LastT + WMS_IP_ExtractChop_CoolD))} && 
 			{(time > (WMS_Loc_InfProg_Extraction_Last + WMS_Loc_InfProg_Extraction_CoolDown))} &&
 			{((getPlayerUID _this) in WMS_IP_Active_list)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+//EXTRACTION CHOPPER optional radio, no IP
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>Request Extraction Chopper</t>",
+		"
+			[] call WMS_fnc_IP_ExtractionRequest;
+		", 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhsusf_radio_anprc152' in (assigneditems _this))} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{(time > (WMS_IP_ExtractChop_LastT + WMS_IP_ExtractChop_CoolD))} && 
+			{(time > (WMS_Loc_InfProg_Extraction_Last + WMS_Loc_InfProg_Extraction_CoolDown))} &&
 			{(vehicle _this == _this)};
 		",
 		5
@@ -308,7 +340,7 @@ WMS_IP_buildComputer = {
 	[
 		"<t size='0.9' color='#068604'>Ammo SupplyDrop 3500$ </t>",
 		"
-			[(position (_this select 1)), (_this select 1), 3500, 0, 'IP_ammo'] remoteexec ['WMS_fnc_InfantryProgram_buy'];
+			[(position (_this select 1)), (_this select 1), 3500, 0, 'IP_ammo'] remoteexec ['WMS_fnc_InfantryProgram_buy',2];
 			WMS_Loc_InfProg_Supply_Last = time;
 		", 
 		[],
@@ -332,7 +364,7 @@ WMS_IP_buildComputer = {
 	[
 		"<t size='0.9' color='#068604'>Tool Kit 12k$ </t>",
 		"
-			[(position (_this select 1)), (_this select 1), 12000, 0, 'IP_toolKit'] remoteexec ['WMS_fnc_InfantryProgram_buy'];
+			[(position (_this select 1)), (_this select 1), 12000, 0, 'IP_toolKit'] remoteexec ['WMS_fnc_InfantryProgram_buy',2];
 			WMS_Loc_InfProg_Supply_Last = time;
 		", 
 		[],
@@ -356,7 +388,7 @@ WMS_IP_buildComputer = {
 	[
 		"<t size='0.9' color='#068604'>RPG7 Crate 10k$ </t>",
 		"
-			[(position (_this select 1)), (_this select 1), 10000, 0, 'IP_launcher'] remoteexec ['WMS_fnc_InfantryProgram_buy'];
+			[(position (_this select 1)), (_this select 1), 10000, 0, 'IP_launcher'] remoteexec ['WMS_fnc_InfantryProgram_buy',2];
 			WMS_Loc_InfProg_Supply_Last = time;
 		", 
 		[],
@@ -446,7 +478,7 @@ WMS_IP_buildComputer = {
 					[(_this select 3) select 0,(_this select 3) select 1,(_this select 1),(_this select 3) select 3] remoteExec ['WMS_fnc_BuyFromOffice'];
 				} else {
 					hint 'Bro! your respect is too low';
-					execVM 'addons\intro\levels.sqf';
+					execVM 'Custom\Intro\levels.sqf';
 				};
 			} else {
 				hint 'You are too poor Dude';
@@ -481,7 +513,7 @@ WMS_IP_buildComputer = {
 					[(_this select 3) select 0,(_this select 3) select 1,(_this select 1),(_this select 3) select 3] remoteExec ['WMS_fnc_BuyFromOffice'];
 				} else {
 					hint 'Bro! your respect is too low';
-					execVM 'addons\intro\levels.sqf';
+					execVM 'Custom\Intro\levels.sqf';
 				};
 			} else {
 				hint 'You are too poor Dude';
@@ -512,11 +544,14 @@ WMS_IP_buildComputer = {
 				hint ((_this select 3) select 4);
 				_myRespawn = [_caller,(position _target),'Spawn Beacon'] call BIS_fnc_addRespawnPosition;
 				diag_log format['[WMS_IP DEBUG] addRespawnPosition variable %1',_myRespawn];
+				_mkr = _target getVariable 'WMS_Loc_SpawnBeacon_Mkr';
 				_target setVariable ['WMS_Loc_canSpawnBeacon',false,true];
-				_target setVariable ['WMS_Loc_SpawnBeacon',_myRespawn,true];
+				_target setVariable ['WMS_Loc_SpawnBeacon',_myRespawn,true]; 
+  				_mkr setMarkerTypeLocal 'respawn_para'; 
+  				_mkr setMarkerColorLocal 'colorIndependent';
 			} else {
 				hint 'Bro! your respect is too low';
-				execVM 'addons\intro\levels.sqf';
+				execVM 'Custom\Intro\levels.sqf';
 			};
 		", 
 		['SpawnBeacon',2500,6000,'SpawnBeacon','Spawn Beacon Activated'],
@@ -535,7 +570,78 @@ WMS_IP_buildComputer = {
 	];
 	_allActionsID pushBack _IDnumber;
 
-	//////////
+	///////////////////TEST//////////////////////
+	//['Spawn Beacon Timed', 5, {true}, {hint 'done'}, {hint 'aborted'}] call CBA_fnc_progressBar;
+	
+//Spawn Beacon timed test
+	/*_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#ff5324'>Spawn Beacon Timed</t>",
+		"
+			_target = (_this select 0); 
+			_caller = (_this select 1);
+			_theHint = ((_this select 3) select 4);
+			if ((_this select 1) getVariable ['ExileScore', 0] >= (_this select 3) select 2) then {
+				
+				['Spawn Beacon Timed', 3, {true}, 
+					{
+						diag_log format ['[WMS|TNA|WAK] _this = %1', _this];
+						_myRespawn = [(_this select 0 select 1),(position (_this select 0 select 0)),'Spawn Beacon'] call BIS_fnc_addRespawnPosition;
+						(_this select 0 select 0) setVariable ['WMS_Loc_canSpawnBeacon',false,true];
+						(_this select 0 select 0) setVariable ['WMS_Loc_SpawnBeacon',_myRespawn,true];
+						hint (_this select 0 select 2);
+					}, 
+					{hint 'aborted'},
+					[_target,_caller,_theHint]
+				] call CBA_fnc_progressBar;
+
+			} else {
+				hint 'Bro! your respect is too low';
+				execVM 'Custom\Intro\levels.sqf';
+			};
+		", 
+		['SpawnBeacon',2500,6000,'SpawnBeacon','Spawn Beacon Activated'],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(getPlayerUID _this == '76561197965501020') &&
+			{_target getVariable ['WMS_Loc_canSpawnBeacon',true]} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+*/
+////////////////////////////////////////
+//JOIN THE PROGRAM //KEEP AT THE BOTTOM
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#d60000'>Join the Program</t>",
+		"
+			WMS_IP_Active_list pushBack (getplayerUID player);
+			publicVariable 'WMS_IP_Active_list'; 
+			systemchat 'Welcome Back Soldier, remember to not get in vehicles'
+		", //client modifying server variable, thats a weird solution
+		[_IPantenna],
+		1,
+		true,
+		true,
+		"",
+		"
+			(alive _target) &&
+			{stance player == 'CROUCH'} &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} && 
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{!((getplayerUID player) in WMS_IP_Active_list)} &&
+			{((getPlayerUID _this) in WMS_InfantryProgram_list)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
 	_IPcomputer setVariable ['IPcomputerAllActionsID',_allActionsID]; //after the last "AddAction"
 };
 				//_myRespawn = [_caller,(position _caller),'Spawn Beacon'] remoteExec ['BIS_fnc_addRespawnPosition'];

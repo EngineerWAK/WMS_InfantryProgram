@@ -33,7 +33,7 @@ if(_lockerMoney > _amount) then {
 	_BlackFishTargetPos = getPosATL _BlackFishTarget;
 	_BlackFishTargetDist = _pos distance2D _BlackFishTargetPos;
 
-	[_playerObject, _BlackFishTargetPos, _amount, _plane, _lockerMoney] remoteExec ["WMS_fnc_InfantryProgram_BlackFish"];
+	[_playerObject, _BlackFishTargetPos, _amount, _plane, _lockerMoney] remoteExec ["WMS_fnc_InfantryProgram_BlackFish",2];
 	systemChat format ["Target %1m away, calling Air Support", _BlackFishTargetDist];
 	uisleep 5;
 	systemChat format ["Aiming at %1, position %2", (typeOf _BlackFishTarget), _BlackFishTargetPos];

@@ -366,6 +366,7 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 										WMS_AI_MaxUnits_A 			= 180; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
 										WMS_AI_MaxUnits_B 			= 200; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
 										WMS_AI_MaxUnits_C 			= 220; //stop Base attack and missions
+										WMS_forceNoRain				= true; //minus 10fps if rain on Livonia !? WTF!?
 										WMS_RandomStart_Hour 		= 4;
 										WMS_RandomStart_Random 		= 6;
 										WMS_FastNight_Morning 		= 6.5; //morning start at
