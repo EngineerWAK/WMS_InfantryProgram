@@ -11,7 +11,7 @@
 */
 
 //action = "openMap true; onMapSingleClick { onMapSingleClick {}; [player,_pos,'sab_vehic_J',1] remoteExec ['WMS_fnc_ParadropMissionRequest']; openMap false; true };";
-diag_log format ["[HUMANITARIAN DROP]|WAK|TNA|WMS| _this = %1", _this];
+if (WMS_IP_LOGs) then {diag_log format ["[HUMANITARIAN DROP]|WAK|TNA|WMS| _this = %1", _this]};
 
 private ["_RandomPosPlane","_RandomPosPlaneEnd","_vhl","_vehic","_grp","_WPT_paradrop","_WPT_paradrop2","_Mkr","_parachute","_cargo","_RDOtruck","_Wstation","_smoke"]; 
 params[ 
@@ -187,58 +187,3 @@ switch (_type) do {
 	];
  
 WMS_AI_RoamingAIR_Running pushback [time,(time+450),[_grp],[[_vehic,(position _vehic)]],[_RDOtruck],[_Mkr],[_WPT_paradrop,_WPT_paradrop2],""]; 
-
-/*
-waituntil  {_vehic distance2d _pos <= 1600}; //NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!! createTrigger!
-_Mkr setMarkerAlpha 1;
-_smoke = _smokeColor createVehicle _pos;
-_vehic flyInHeight 300;
-_vehic limitSpeed 200; 
-if (_vehic isKindOf "sab_C130_J_C") then { 
-	_vehic animatesource ["door_2_2", 1];   
-	_vehic animatesource ["door_2_1",1];   
-	_vehic animatesource ["ramp_top",1];   
-	_vehic animatesource ["ramp_bottom",1]; 
-}; 
-waituntil  {_vehic distance2d _pos <= 100}; //NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!! createTrigger!
-for "i" from 1 to _iterations do {
-	_para = WMS_para_Big; 
-	_parachute  = createVehicle [_para,(_vehic modelToWorld [0,-20,-10]), [], 5];
-	_parachute  setvelocity [0,0,-8]; 
-	_cargo = createVehicle [_load ,position _parachute, [],5];  
-	clearMagazineCargoGlobal _cargo;     
-	clearWeaponCargoGlobal _cargo;     
-	clearItemCargoGlobal _cargo;     
-	clearBackpackCargoGlobal _cargo; 
-	_cargo attachTo [_parachute,[0,0,0]];
-	[_cargo]spawn {
-		waitUntil {((position (_this select 0)) select 2) < 25}; //NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!
-		detach (_this select 0);
-
-		[
-			(_this select 0), //the crate
-			[ //items
-				(selectRandom (WMS_humaniDropList select 0)), //["ACE_fortify",2,3] //item, number, +random
-				(selectRandom (WMS_humaniDropList select 0)),
-				(selectRandom (WMS_humaniDropList select 0)),
-				(selectRandom (WMS_humaniDropList select 0))
-			],
-			[//mags
-				(selectRandom (WMS_humaniDropList select 1)), //["ACE_fortify",2,3] //item, number, +random
-				(selectRandom (WMS_humaniDropList select 1))
-			],
-			[//bags
-				(selectRandom (WMS_humaniDropList select 2)) //["ACE_fortify",2,3] //item, number, +random
-			],
-			[//weaps
-				(selectRandom (WMS_humaniDropList select 3)) //["ACE_fortify",2,3] //item, number, +random
-			]
-		] call WMS_fnc_AMS_FillStuff;
-	};
-	uisleep 1.5;
-};
-
-uisleep (60+random 30); 
-{deleteVehicle _x} forEach units _grp; 
-_vehic setDamage 0.8;
-*/
