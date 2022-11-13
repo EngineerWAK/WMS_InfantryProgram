@@ -121,4 +121,16 @@ class CfgSounds
 		sound[] = {"Custom\Ogg\uspointcaptured.ogg",2,1,0};
 		titles[] = {};
 	};
+     class HelmetShot
+	{
+		name = "HelmetShot";
+		sound[] = {"Custom\Ogg\HelmetShot.ogg",3,1,0};
+		titles[] = {};
+	};
+     class HeadShot
+	{
+		name = "HeadShot";
+		sound[] = {"Custom\Ogg\HeadShot.ogg",0.5,1,0};
+		titles[] = {};
+	};
 };

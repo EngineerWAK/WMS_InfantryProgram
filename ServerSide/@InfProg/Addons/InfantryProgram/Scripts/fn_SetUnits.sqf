@@ -295,6 +295,31 @@ _poptabs = 50;
 			_unit setVariable ["ExileMoney",(floor _poptabs),true];
 		};
 		//////////EVENTHANDLER(s)//////////
+		_unit addEventHandler ["HandleDamage", { //this one actually work
+			params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
+			//Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HandleDamage, _this = %1",_this]; //this one spam A LOT of logs
+			if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {vehicle _source == _source} && {vehicle _unit == _unit}) then {
+				Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot, _this = %1",_this];
+				if (_damage >= WMS_AMS_HSDamageKill) then {
+					playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
+					_unit setDamage 1;
+					[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
+					_unit removeEventHandler ["HandleDamage", 0];
+					if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
+				};
+			};
+			if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {headgear _unit != ""} && {_damage >= 1} && {vehicle _source == _source}) then {
+				playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
+    			_h = headgear _unit;
+    			removeHeadgear _unit;
+    			_nv = ((assignedItems _unit) select {_x find "NV" > -1}) select 0;
+				if (isNil "_nv") then {_unit unlinkItem _nv};
+    			_w = createVehicle ["WeaponHolderSimulated",ASLtoATL eyePos _unit,[],0,"CAN_COLLIDE"];
+    			_w addItemCargoGlobal [_h,1];
+    			_w setVelocity [5 * sin (_source getdir _unit), 5 * cos (_source getDir _unit), 0.3];
+    			_w addTorque [random 0.02, random .02, random .02];
+  			};
+		}];
 		_unit addEventHandler ["Hit", {
 			params ["_unit", "_source", "_damage", "_instigator"];
 			if (isPlayer _instigator && {vehicle _instigator == _instigator}) then {
@@ -317,22 +342,45 @@ _poptabs = 50;
 			};
 			//////////EVENTHANDLER(s)//////////
 			if (_RealFuckingSide == OPFOR || _RealFuckingSide == EAST) then { //yes it's the same but you never know
+				_unit addEventHandler ["HandleDamage", { //this one actually work
+					params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
+					//Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HandleDamage, _this = %1",_this]; //this one spam A LOT of logs
+					if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {vehicle _source == _source}) then {
+						Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot, _this = %1",_this];
+						if (_damage >= WMS_DYNAI_HSDamageKill) then {
+							playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
+							_unit setDamage 1;
+							[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
+							_unit removeEventHandler ["HandleDamage", 0];
+							if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
+
+						};
+					};
+					if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {headgear _unit != ""} && {_damage >= 1} && {vehicle _source == _source}) then {
+						playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
+    					_h = headgear _unit;
+    					removeHeadgear _unit;
+    					_nv = ((assignedItems _unit) select {_x find "NV" > -1}) select 0;
+						if (isNil "_nv") then {_unit unlinkItem _nv};
+    					_w = createVehicle ["WeaponHolderSimulated",ASLtoATL eyePos _unit,[],0,"CAN_COLLIDE"];
+    					_w addItemCargoGlobal [_h,1];
+    					_w setVelocity [5 * sin (_source getdir _unit), 5 * cos (_source getDir _unit), 0.3];
+    					_w addTorque [random 0.02, random .02, random .02];
+  					};
+				}];
 				_unit addEventHandler ["Hit", {
 					params ["_unit", "_source", "_damage", "_instigator"];
-					if (isPlayer _instigator && {vehicle _instigator == _instigator}) then {
+					if (isPlayer _instigator && {alive _unit} && {vehicle _instigator == _instigator}) then {
 						_acc = _unit skill "aimingAccuracy";
 						_unit setSkill ["aimingAccuracy", (_acc*0.8)];
-						//format ['Target Hit, %1', damage _unit] remoteexec ['SystemChat', (owner _instigator)]; //works but no damage number
-						format ['Target Hit, %1', (_unit skill "aimingAccuracy")] remoteexec ['hint', (owner _instigator)]; //works but no damage number
+						format ['Target Hit, %1', (_unit skill "aimingAccuracy")] remoteexec ['hint', (owner _instigator)];
 					};
 				}];
-				/* NOPE
-				_unit addEventHandler ["HitPart", {
-					(_this select 2) params ["_target", "_shooter", "_projectile", "_position", "_velocity", "_selection", "_ammo", "_vector", "_radius", "_surfaceType", "_isDirect"];
-					diag_log format ["[OPFOR AI HITPART][HEAD]|WAK|TNA|WMS| _this select 2 = %1", (_this select 2)];
-					format ['HeadShot, %1', damage _target] remoteexec ['SystemChat', (owner _shooter)];
-				}];
-				*/
+				/*_unit addEventHandler ["HitPart",{ //Fire ONLY if "_target", "_shooter" are on the same computer, nothing more useless, thank you bohemia
+					//"head is (_this select 2)
+					//(_this select 0) params ["_target", "_shooter", "_projectile", "_position", "_velocity", "_selection", "_ammo", "_vector", "_radius", "_surfaceType", "_isDirect"];
+					Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HitPart, Head Only (maybe) = %1",(_this select 2)];
+				}];*/
 				_unit addEventHandler ["Killed", " 
 					[(_this select 0),(_this select 1)] call WMS_fnc_DynAI_RwdMsgOnKill;
 				"];//params ["_unit", "_killer", "_instigator", "_useEffects"];

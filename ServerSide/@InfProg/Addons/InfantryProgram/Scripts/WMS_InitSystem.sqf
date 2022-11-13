@@ -25,12 +25,14 @@ WMS_ServerMarkers 			= true;	//show Server FPS, AI and Deads count on the map
 WMS_forceNoRain 			= false; //no more rain!
 WMS_forceNoFog				= false; //no more fucking fog!
 WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds
+///////////////NEW///////////////////////////////
+WMS_HeadShotSound 			= true;
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.752_2022NOV12_GitHub"; //SetPatrol Adjustment | NIarms Weapons list for Enoch | AI lighter loadouts because ACE bulshit
+WMS_System_Version 			= "v2.756_2022NOV12_GitHub"; //SetPatrol Adjustment | working on EH "HandleDamage" for NPC (mostly for Headshot)
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
-WMS_SVRstartLock 			= 120; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
+WMS_SVRstartLock 			= 90; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 
@@ -76,7 +78,7 @@ WMS_RCWS_Vhls = [ //I don't like them, player does, because they are OP, so let'
 	"B_MRAP_01_gmg_F","B_MRAP_01_hmg_F","B_T_MRAP_01_gmg_F","B_T_MRAP_01_hmg_F",
 	"O_MRAP_02_gmg_F","O_MRAP_02_hmg_F","O_T_MRAP_02_gmg_ghex_F","O_T_MRAP_02_hmg_ghex_F",
 	"I_MRAP_03_gmg_F","I_MRAP_03_hmg_F",
-	//"O_APC_Wheeled_02_rcws_v2_F","O_T_APC_Wheeled_02_rcws_v2_ghex_F", //I use unarmed version of the marid most of the time, for logistic
+	"O_T_APC_Wheeled_02_rcws_v2_ghex_F", //"O_APC_Wheeled_02_rcws_v2_F",//I use unarmed version of the marid most of the time, for logistic
 	"rhsusf_m1151_m2crows_usarmy_wd","rhsusf_m1151_mk19crows_usarmy_wd","rhsusf_M1220_M153_M2_usarmy_wd","rhsusf_M1220_M153_MK19_usarmy_wd","rhsusf_m1240a1_m2crows_usarmy_wd","rhsusf_m1240a1_mk19crows_usarmy_wd","rhsusf_m1151_m2crows_usmc_wd","rhsusf_m1151_mk19crows_usmc_wd","rhsusf_m1240a1_m2crows_usmc_wd","rhsusf_m1240a1_mk19crows_usmc_wd",
 	"rhsusf_M1238A1_M2_socom_d","rhsusf_M1238A1_Mk19_socom_d","rhsusf_M1239_M2_socom_d","rhsusf_M1239_MK19_socom_d","rhsusf_m1245_m2crows_socom_d","rhsusf_m1245_mk19crows_socom_d","rhsusf_m1245_m2crows_socom_deploy","rhsusf_m1245_mk19crows_socom_deploy","rhsusf_m1151_m2crows_usmc_d","rhsusf_m1151_mk19crows_usmc_d","rhsusf_m1240a1_m2crows_usmc_d","rhsusf_m1240a1_mk19crows_usmc_d"
 ];
@@ -362,6 +364,7 @@ WMS_AI_AIRwptDist 				= 7500;
 //Dynamic Threat setup
 //////////////////////////////
 WMS_DynAI 					= true; //dynamic AI/event will "randomly" spawn on one of the players every x seconds WMS_DynAI_threatFrequency. NPCs skill adapt to the player respect
+WMS_DYNAI_HSDamageKill		= 2.5; //amount od damage to the head/face to instantly kill a NPC //[O Alpha 2-5:4,""head"",4.18725,bis_o2_6004,""rhs_ammo_762x51_M80_Ball"",16,bis_o2_6004,""ace_hdbracket""]
 WMS_DynAI_Skills			= [0.08, 0.15, 0.25, 0.35]; //+random 0.15
 WMS_DynAI_RepLvlAdapt		= [1000, 24000, 50000]; //0/easy/1000/moderate/24000/difficult/50000/hardcore
 WMS_DynAI_threatFrequency 	= 900; //will be *2 if only 1 player and *1.5 time if 2 players
@@ -445,6 +448,7 @@ WMS_AMS_DestroyStatics 	= true; //with ACE, this one need a variable on the NPC 
 WMS_AMS_AddActionOnReward = true; //will create a AddAction on the crate to sell it at the traders Zone (the last cartridges), might want to keep that false if Exile
 WMS_AMS_StripOnArmoredK	= true; //remove all gears/weapons if NPC killed from tank/apc/RCWS
 WMS_AMS_TrappOnArmoredK	= true; //create a mine at the deadbody if NPC killed from tank/apc/RCWS
+WMS_AMS_HSDamageKill	= 3; //amount od damage to the head/face to instantly kill a NPC //[O Alpha 2-5:4,""head"",4.18725,bis_o2_6004,""rhs_ammo_762x51_M80_Ball"",16,bis_o2_6004,""ace_hdbracket""]
 WMS_AMS_DestroyVHL 		= 90; //Chances to destroy NPC mission vehicle
 WMS_AMS_VHL_KillRep		= 300; //respect reward for destroying NPCs vehicle
 WMS_AMS_VHL_KillMoney	= 3000; //money reward for destroying NPCs vehicle

@@ -34,7 +34,7 @@ if (_infantry) then {
 	} else {
 		[_grp, _pos, 150, 3, "MOVE", "CARELESS", "BLUE", "LIMITED", "COLUMN", "", [2,4,6]] call CBA_fnc_taskPatrol;
 	};
-	if (true) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_SetPatrol, group %1, Vehicle %2, waypoints %3', _grp, "INF", [(getWPPos [_grp, 0]),(getWPPos [_grp, 1]),(getWPPos [_grp, 2]),(getWPPos [_grp, 3])]]};
+	if (WMS_IP_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_SetPatrol, group %1, Vehicle %2, waypoints %3', _grp, "INF", [(getWPPos [_grp, 0]),(getWPPos [_grp, 1]),(getWPPos [_grp, 2]),(getWPPos [_grp, 3])]]};
 } else {
 	if (surfaceIsWater _pos) then {
 		_wpt0 = _grp addWaypoint [_pos, 50, 0, format["WPT0_%1",round time]];
@@ -132,6 +132,6 @@ if (_infantry) then {
 			_x setWaypointBehaviour "CARELESS";
 		};
 	}forEach _waypoints;
-	if (true) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_SetPatrol, group %1, Vehicle %2, waypoints %3', _grp, (typeOf _vhl), [(getWPPos [_grp, 0]),(getWPPos [_grp, 1]),(getWPPos [_grp, 2]),(getWPPos [_grp, 3])]]};
+	if (WMS_IP_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_SetPatrol, group %1, Vehicle %2, waypoints %3', _grp, (typeOf _vhl), [(getWPPos [_grp, 0]),(getWPPos [_grp, 1]),(getWPPos [_grp, 2]),(getWPPos [_grp, 3])]]};
 };
 _waypoints
