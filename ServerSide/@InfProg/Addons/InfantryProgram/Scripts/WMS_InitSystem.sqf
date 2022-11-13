@@ -26,11 +26,11 @@ WMS_forceNoRain 			= false; //no more rain!
 WMS_forceNoFog				= false; //no more fucking fog!
 WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds
 ///////////////NEW///////////////////////////////
-WMS_HeadShotSound 			= true;
+WMS_HeadShotSound 			= true;	//"Head Shhhhotttttt!" or not, when headshot to NPC
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.756_2022NOV12_GitHub"; //SetPatrol Adjustment | working on EH "HandleDamage" for NPC (mostly for Headshot)
+WMS_System_Version 			= "v2.758_2022NOV12_GitHub"; //NPC Loadout Adjustment | working on EH "HandleDamage" for NPC (mostly for Headshot)
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -187,7 +187,7 @@ WMS_Recon_Cap_Radius 	= 20;
 WMS_Recon_Guards 		= true;
 WMS_Recon_Guards_Chance = 75;
 WMS_Recon_Guards_Skill 	= 0.6;
-
+	
 WMS_CaptureZone			= true; //Kill the first group of NPC, get inside and stay alive until the end of the timer //many stuff is setup in the function itself WMS_fnc_CaptureZone
 WMS_CaptureZoneDelay	= 300;
 WMS_CaptureZone_Rad 	= [25,35,50]; //Capture zone Radius //only _radius select 0 is used
@@ -364,7 +364,7 @@ WMS_AI_AIRwptDist 				= 7500;
 //Dynamic Threat setup
 //////////////////////////////
 WMS_DynAI 					= true; //dynamic AI/event will "randomly" spawn on one of the players every x seconds WMS_DynAI_threatFrequency. NPCs skill adapt to the player respect
-WMS_DYNAI_HSDamageKill		= 2.5; //amount od damage to the head/face to instantly kill a NPC //[O Alpha 2-5:4,""head"",4.18725,bis_o2_6004,""rhs_ammo_762x51_M80_Ball"",16,bis_o2_6004,""ace_hdbracket""]
+WMS_DYNAI_HSDamageKill		= 2.5; //amount of damage to the head/face to instantly kill a NPC //[O Alpha 2-5:4,""head"",4.18725,bis_o2_6004,""rhs_ammo_762x51_M80_Ball"",16,bis_o2_6004,""ace_hdbracket""]
 WMS_DynAI_Skills			= [0.08, 0.15, 0.25, 0.35]; //+random 0.15
 WMS_DynAI_RepLvlAdapt		= [1000, 24000, 50000]; //0/easy/1000/moderate/24000/difficult/50000/hardcore
 WMS_DynAI_threatFrequency 	= 900; //will be *2 if only 1 player and *1.5 time if 2 players

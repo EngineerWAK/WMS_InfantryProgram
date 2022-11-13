@@ -295,21 +295,22 @@ _poptabs = 50;
 			_unit setVariable ["ExileMoney",(floor _poptabs),true];
 		};
 		//////////EVENTHANDLER(s)//////////
-		_unit addEventHandler ["HandleDamage", { //this one actually work
+		_unit addEventHandler ["HandleDamage", { 
 			params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
 			//Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HandleDamage, _this = %1",_this]; //this one spam A LOT of logs
-			if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {vehicle _source == _source} && {vehicle _unit == _unit}) then {
-				Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot, _this = %1",_this];
+			if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {(vehicle _source) isKindOf "man"} && {(vehicle _unit) isKindOf "man"}) then {
 				if (_damage >= WMS_AMS_HSDamageKill) then {
-					playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
+					Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this];
+					if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
 					_unit setDamage 1;
 					[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
 					_unit removeEventHandler ["HandleDamage", 0];
 					if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
 				};
 			};
-			if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {headgear _unit != ""} && {_damage >= 1} && {vehicle _source == _source}) then {
+			if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {headgear _unit != ""} && {_damage >= 1} && {(vehicle _source) isKindOf "man"} && {(vehicle _unit) isKindOf "man"}) then {
 				playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
+				Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this];
     			_h = headgear _unit;
     			removeHeadgear _unit;
     			_nv = ((assignedItems _unit) select {_x find "NV" > -1}) select 0;
@@ -342,13 +343,13 @@ _poptabs = 50;
 			};
 			//////////EVENTHANDLER(s)//////////
 			if (_RealFuckingSide == OPFOR || _RealFuckingSide == EAST) then { //yes it's the same but you never know
-				_unit addEventHandler ["HandleDamage", { //this one actually work
+				_unit addEventHandler ["HandleDamage", {
 					params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
 					//Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HandleDamage, _this = %1",_this]; //this one spam A LOT of logs
-					if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {vehicle _source == _source}) then {
-						Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot, _this = %1",_this];
+					if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {(vehicle _source) isKindOf "man"} && {(vehicle _unit) isKindOf "man"}) then {
 						if (_damage >= WMS_DYNAI_HSDamageKill) then {
-							playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
+							Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this];
+							if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
 							_unit setDamage 1;
 							[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
 							_unit removeEventHandler ["HandleDamage", 0];
@@ -356,7 +357,8 @@ _poptabs = 50;
 
 						};
 					};
-					if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {headgear _unit != ""} && {_damage >= 1} && {vehicle _source == _source}) then {
+					if (isPlayer _source && {_damage >= 1} && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {headgear _unit != ""} && {(vehicle _source) isKindOf "man"} && {(vehicle _unit) isKindOf "man"}) then {
+						Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this];
 						playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
     					_h = headgear _unit;
     					removeHeadgear _unit;
