@@ -92,7 +92,10 @@ WMS_fnc_AL_createVHL = {
 	private _vhlObject = (_vehicleData select 0);
 	_waypoints = [_hexaID,_pos,_grp,_vhlObject,false,_combat] call WMS_fnc_AL_Patrol; //[_hexaID, pos, group,_vhlObject, boulean infantry, boulean combat]
 	if (WMS_AL_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_AL_createVHL _vehicleData %1', _vehicleData]};
-	if (WMS_AL_LockVehicles) then {_vhlObject lock 3};
+	if (WMS_AL_LockVehicles) then {
+		//_vhlObject lock 3;
+		_vhlObject lockDriver true;
+		};
 	clearMagazineCargoGlobal _vhlObject; 
 	clearWeaponCargoGlobal _vhlObject; 
 	clearItemCargoGlobal _vhlObject; 
@@ -368,7 +371,7 @@ WMS_fnc_AL_PunishPunks = { //will be use to remind to those getting in the missi
 	if (WMS_AL_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_AL_PunishPunks _this %1', _this]};
 	params [
 		"_playerObject",
-		["_maxDamage",0.4],
+		["_maxDamage",0.5],
 		["_part", selectRandom ["head", "body", "leftarm", "rightarm", "leftleg", "rightleg"]], //["head", "body", "leftarm", "rightarm", "leftleg", "rightleg"] ACE
 		["_projectiles", selectRandom ["stab","bullet","grenade","explosive","shell","vehiclecrash","backblast","falling"]] //["stab","bullet","grenade","explosive","shell","vehiclecrash","collision","backblast","punch","falling","ropeburn","fire"]
 		];

@@ -41,7 +41,10 @@ private _vehicleData = [_pos, _dir, _vhl, _grp] call BIS_fnc_spawnVehicle; //[cr
 private _vhlObject = (_vehicleData select 0);
 _waypoints = [_hexaID,_pos,_grp,_vhlObject,false,_combat] call WMS_fnc_AL_Patrol; //[_hexaID, pos, group,_vhlObject, boulean infantry, boulean combat]
 if (WMS_AL_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_AL_createVHL _vehicleData %1', _vehicleData]};
-if (WMS_AL_LockVehicles) then {_vhlObject lock 3};
+if (WMS_AL_LockVehicles) then {
+	//_vhlObject lock 3;
+	_vhlObject lockDriver true;
+	};
 clearMagazineCargoGlobal _vhlObject; 
 clearWeaponCargoGlobal _vhlObject; 
 clearItemCargoGlobal _vhlObject; 

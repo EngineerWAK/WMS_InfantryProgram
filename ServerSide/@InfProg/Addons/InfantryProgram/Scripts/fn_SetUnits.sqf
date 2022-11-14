@@ -294,23 +294,37 @@ _poptabs = 50;
 		if (WMS_AMS_addPoptabsUnits) then {
 			_unit setVariable ["ExileMoney",(floor _poptabs),true];
 		};
-		//////////EVENTHANDLER(s)//////////
+		//////////EVENTHANDLER(s)//////////AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//
 		_unit addEventHandler ["HandleDamage", { 
 			params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
 			//Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HandleDamage, _this = %1",_this]; //this one spam A LOT of logs
-			if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {(vehicle _source) isKindOf "man"} && {(vehicle _unit) isKindOf "man"}) then {
+			if (
+				isPlayer _source && 
+				{alive _unit} && 
+				{(_selection == "head") || (_selection == "face_hub")}&& 
+				{(vehicle _unit) isKindOf "man"} && 
+				{(vehicle _source) isKindOf "man"} 
+			) then {
 				if (_damage >= WMS_AMS_HSDamageKill) then {
-					Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this];
 					if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
 					_unit setDamage 1;
+					[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit;
 					[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
 					_unit removeEventHandler ["HandleDamage", 0];
 					if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
+					Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this];
 				};
 			};
-			if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {headgear _unit != ""} && {_damage >= 1} && {(vehicle _source) isKindOf "man"} && {(vehicle _unit) isKindOf "man"}) then {
+			if (
+				isPlayer _source && 
+				{alive _unit} && 
+				{(_selection == "head") || (_selection == "face_hub")} && 
+				{headgear _unit != ""} && 
+				{_damage >= 1.5} && 
+				{(vehicle _source) isKindOf "man"} && 
+				{(vehicle _unit) isKindOf "man" || (vehicle _unit) isKindOf "StaticWeapon"}
+			) then {
 				playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
-				Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this];
     			_h = headgear _unit;
     			removeHeadgear _unit;
     			_nv = ((assignedItems _unit) select {_x find "NV" > -1}) select 0;
@@ -319,6 +333,8 @@ _poptabs = 50;
     			_w addItemCargoGlobal [_h,1];
     			_w setVelocity [5 * sin (_source getdir _unit), 5 * cos (_source getDir _unit), 0.3];
     			_w addTorque [random 0.02, random .02, random .02];
+				Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this];
+				WMS_AllDeadsMgr pushBack [_w,(serverTime+WMS_Others_AllDeads)];
   			};
 		}];
 		_unit addEventHandler ["Hit", {
@@ -341,24 +357,37 @@ _poptabs = 50;
 				_poptabs = (WMS_DynAI_poptabsINF select 0) + round (random(WMS_DynAI_poptabsINF select 1));
 				_unit setVariable ["ExileMoney",_poptabs,true];
 			};
-			//////////EVENTHANDLER(s)//////////
+			//////////EVENTHANDLER(s)//////////DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//
 			if (_RealFuckingSide == OPFOR || _RealFuckingSide == EAST) then { //yes it's the same but you never know
 				_unit addEventHandler ["HandleDamage", {
 					params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
 					//Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HandleDamage, _this = %1",_this]; //this one spam A LOT of logs
-					if (isPlayer _source && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {(vehicle _source) isKindOf "man"} && {(vehicle _unit) isKindOf "man"}) then {
+					if (
+						isPlayer _source && 
+						{alive _unit} && 
+						{(_selection == "head") || (_selection == "face_hub")} && 
+						//{(vehicle _source) isKindOf "man"} && 
+						{(vehicle _unit) isKindOf "man"}
+					) then {
 						if (_damage >= WMS_DYNAI_HSDamageKill) then {
-							Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this];
 							if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
 							_unit setDamage 1;
+							[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit;
 							[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
 							_unit removeEventHandler ["HandleDamage", 0];
 							if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
-
+							Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this];
 						};
 					};
-					if (isPlayer _source && {_damage >= 1} && {alive _unit} && {(_selection == "head") || (_selection == "face_hub")} && {headgear _unit != ""} && {(vehicle _source) isKindOf "man"} && {(vehicle _unit) isKindOf "man"}) then {
-						Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this];
+					if (
+						isPlayer _source && 
+						{_damage >= 1.2} && 
+						{alive _unit} && 
+						{(_selection == "head") || (_selection == "face_hub")} && 
+						{headgear _unit != ""} && 
+						//{(vehicle _source) isKindOf "man"} && 
+						{(vehicle _unit) isKindOf "man"}
+					) then {
 						playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
     					_h = headgear _unit;
     					removeHeadgear _unit;
@@ -368,6 +397,8 @@ _poptabs = 50;
     					_w addItemCargoGlobal [_h,1];
     					_w setVelocity [5 * sin (_source getdir _unit), 5 * cos (_source getDir _unit), 0.3];
     					_w addTorque [random 0.02, random .02, random .02];
+						Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this];
+						WMS_AllDeadsMgr pushBack [_w,(serverTime+WMS_Others_AllDeads)];
   					};
 				}];
 				_unit addEventHandler ["Hit", {
