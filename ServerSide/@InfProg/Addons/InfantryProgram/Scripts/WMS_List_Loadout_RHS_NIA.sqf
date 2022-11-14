@@ -149,28 +149,28 @@ WMS_Loadout_SMG = [
 WMS_Loadout_SURPAT = [//grey green brown
 	["SURPAT_TP_Camo","SURPAT_TP_Camo_SS","SURPAT_Camo_Cyre","SURPAT_Camo_Cyre_TP","SURPAT_Camo_Cyre_TS"],//Uniform
 	["SURPAT_Vest_1","SURPAT_Vest_2","SURPAT_Vest_3","SURPAT_Vest_4","SURPAT_Vest_5","SURPAT_Vest_6","SURPAT_Vest_7","V_Chestrig_khk","V_HarnessOGL_gry","rhs_lifchik_vog","V_TacVest_brn"],//Vest
-	["SURPAT_Helmet1","SURPAT_Helmet1","SURPAT_Helmet2","SURPAT_Helmet1","SURPAT_Helmet1","SURPAT_Helmet2","SURPAT_Helmet3","H_Booniehat_mgrn","H_Booniehat_khk","H_Booniehat_oli","H_Watchcap_khk","H_Cap_grn","H_Cap_oli"],//Helmet,"SURPAT_Boonie"
+	["SURPAT_Helmet1","SURPAT_Helmet1","SURPAT_Helmet2","SURPAT_Helmet1","SURPAT_Helmet1","SURPAT_Helmet2","SURPAT_Helmet3","H_Booniehat_mgrn","H_Booniehat_khk","H_Booniehat_oli","H_Cap_grn","H_Cap_oli"],//Helmet,"H_Watchcap_khk","SURPAT_Boonie"
 	["SURPAT_Backpack_Compact","SURPAT_Backpack_Kitbag"],//Backpack
 	["G_Balaclava_oli","G_Balaclava_blk"]  //_googles/_facewear
 ];
 WMS_Loadout_AOR1 = [//desert
 	["AOR1_Camo_SS","AOR1_TP_Camo","AOR1_Camo_Cyre","AOR1_Camo_Cyre_TS","AOR1_Camo_Cyre_TP","AOR1_Camo_Cyre_GP"],//Uniform
 	["AOR1_Vest_1","AOR1_Vest_2","AOR1_Vest_3","AOR1_Vest_4","AOR1_Vest_5","V_Chestrig_khk","V_HarnessOGL_gry","rhs_lifchik_vog","V_TacVest_brn"],//Vest
-	["AOR1_Helmet1","AOR1_Helmet1","AOR1_Helmet2","AOR1_Helmet1","AOR1_Helmet1","AOR1_Helmet2","H_Booniehat_khk_hs","H_Booniehat_tan","H_Watchcap_cbr","H_Bandanna_sand","H_Bandanna_cbr","H_Cap_brn_SPECOPS"],//Helmet,"AOR1_Boonie"
+	["AOR1_Helmet1","AOR1_Helmet1","AOR1_Helmet2","AOR1_Helmet1","AOR1_Helmet1","AOR1_Helmet2","H_Booniehat_khk_hs","H_Booniehat_tan","H_Watchcap_cbr","H_Cap_brn_SPECOPS"],//Helmet,"AOR1_Boonie","H_Bandanna_sand","H_Bandanna_cbr"
 	["AOR1_Backpack_Kitbag","AOR1_Backpack_Compact","B_Kitbag_cbr"],//Backpack
 	["G_Balaclava_oli","G_Balaclava_blk"]  //_googles//_facewear
 ];
 WMS_Loadout_MCB = [ //black
 	 ["MCB_Camo_Cyre","MCB_Camo_Cyre_TS","MCB_Camo_Cyre_TP","MCB_Camo_Cyre_GS","MCB_Camo_Cyre_GP"], //_uniforms
 	 ["MCB_Vest_1","MCB_Vest_2","MCB_Vest_3","MCB_Vest_4","MCB_Vest_5","MCB_Vest_6","MCB_Vest_7","V_Pocketed_black_F","V_Chestrig_blk","V_BandollierB_blk"], //_vests
-	 ["MCB_Helmet1","MCB_Helmet1","MCB_Helmet2","MCB_Helmet1","MCB_Helmet1","MCB_Helmet2","H_Cap_blk","rhsusf_hgu56p_visor_mask_black_skull","H_Cap_usblack"], //,"rhsgref_helmet_m1942","H_Beret_blk"_helmets,"H_Bandanna_gry","MCB_Boonie"
+	 ["MCB_Helmet1","MCB_Helmet1","MCB_Helmet2","MCB_Helmet1","MCB_Helmet1","MCB_Helmet2","H_HelmetSpecO_blk","H_HelmetB_black","H_HelmetSpecB_blk","H_HelmetB_light_black","H_Cap_blk","rhsusf_hgu56p_visor_mask_black_skull","H_Cap_usblack"], //,"rhsgref_helmet_m1942","H_Beret_blk"_helmets,"H_Bandanna_gry","MCB_Boonie"
 	 ["MCB_Backpack_Compact","MCB_Backpack_KitBag","MCB_Backpack_KitBag"], //_Backpacks
 	 ["G_Balaclava_oli","G_Balaclava_blk"]  //_googles//_facewear
 ];
 WMS_Loadout_M90d = [//desert
 	 ["M90d_Camo_Cyre","M90d_Camo_Cyre_GS","M90d_Camo_Cyre_GP"], //_uniforms
 	 ["M90d_Vest_1","M90d_Vest_2","M90d_Vest_3","M90d_Vest_4","V_Chestrig_khk","V_HarnessOGL_gry","rhs_lifchik_vog","V_TacVest_brn"], //_vests
-	 ["M90d_Helmet1","M90d_Helmet1","M90d_Helmet2","H_Booniehat_khk_hs","H_Booniehat_tan","H_Watchcap_cbr","H_Cap_brn_SPECOPS"], //_helmets,"M90d_Boonie""H_Bandanna_sand","H_Bandanna_cbr",
+	 ["M90d_Helmet1","M90d_Helmet1","M90d_Helmet2","M90d_Helmet1","M90d_Helmet1","M90d_Helmet2","H_Booniehat_khk_hs","H_Booniehat_tan","H_Cap_brn_SPECOPS"], //_helmets,"H_Watchcap_cbr","M90d_Boonie""H_Bandanna_sand","H_Bandanna_cbr",
 	 ["M90d_Backpack_KitBag","B_AssaultPack_ocamo","B_Carryall_ocamo"], //_Backpacks
 	 ["G_Balaclava_oli","G_Balaclava_blk"]  //_googles/_facewear
 ];
@@ -182,7 +182,6 @@ WMS_Loadout_ABU = [ //grey
 	 ["G_Balaclava_oli","G_Balaclava_blk"]  //_googles/_facewear
 ];
 
-
 WMS_Loadout_Civilian = [
 	 ["U_C_Poloshirt_burgundy","U_C_Poloshirt_stripped","U_Competitor","U_C_man_sport_2_F","U_C_Man_casual_3_F","U_C_Man_casual_5_F"], //_uniforms
 	 ["V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests
@@ -193,7 +192,7 @@ WMS_Loadout_Civilian = [
 WMS_Loadout_Scientist = [ //NEED SPECIFIC STUFF !!!
 	 ["U_C_CBRN_Suit_01_White_F","U_C_CBRN_Suit_01_Blue_F","rhs_uniform_cossack","U_C_Driver_1_orange","U_C_WorkerCoveralls","U_C_Uniform_Scientist_01_F"], //_uniforms
 	 ["V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests
-	 ["H_Cap_blu","H_MilCap_blue","H_Hat_blue","H_RacingHelmet_1_F","H_RacingHelmet_2_F","H_HeadBandage_bloody_F","H_Hat_Tinfoil_F","rhs_cossack_papakha","rhs_ushanka"], //_helmets
+	 ["H_Cap_blu","H_MilCap_blue","H_Hat_blue","H_HeadBandage_bloody_F","H_Hat_Tinfoil_F","rhs_cossack_papakha","rhs_ushanka"], //_helmets
 	 ["B_FieldPack_oucamo","B_FieldPack_blk","B_Messenger_IDAP_F"], //_Backpacks
 	 []  //_googles/_facewear
 ];

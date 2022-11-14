@@ -308,7 +308,8 @@ _poptabs = 50;
 				if (_damage >= WMS_AMS_HSDamageKill) then {
 					if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
 					_unit setDamage 1;
-					[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit;
+					_source addPlayerScores [1,0,0,0,0];
+					//[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit; //ERROR: addDamageToUnit - badUnit
 					[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
 					_unit removeEventHandler ["HandleDamage", 0];
 					if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
@@ -372,7 +373,8 @@ _poptabs = 50;
 						if (_damage >= WMS_DYNAI_HSDamageKill) then {
 							if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
 							_unit setDamage 1;
-							[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit;
+							_source addPlayerScores [1,0,0,0,0];
+							//[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit; //ERROR: addDamageToUnit - badUnit
 							[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
 							_unit removeEventHandler ["HandleDamage", 0];
 							if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};

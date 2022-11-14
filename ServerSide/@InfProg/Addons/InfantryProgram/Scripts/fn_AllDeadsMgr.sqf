@@ -12,10 +12,16 @@
 if (WMS_IP_LOGs) then {diag_log format ['|WAK|TNA|WMS|[AllDeadsMgr] WMS_fnc_AllDeadsMgr, AllDeads Cleanup, %1 deads', count WMS_AllDeadsMgr]};
 {
 	if (count WMS_AllDeadsMgr != 0 && {serverTime >= (_x select 1)}) then {
-		if !(alive (_x select 0)) then {
-			if (WMS_IP_LOGs) then {diag_log format ['|WAK|TNA|WMS|[AllDeadsMgr] WMS_fnc_AllDeadsMgr, your fignt is over %1',(_x select 0)]};
+		if ((_x select 0) isKindOf "WeaponHolderSimulated") then {
+			clearItemCargoGlobal (_x select 0);
 			deleteVehicle (_x select 0);
+			WMS_AllDeadsMgr deleteAt (WMS_AllDeadsMgr find _x);
+		}else{
+			if !(alive (_x select 0)) then {
+				if (WMS_IP_LOGs) then {diag_log format ['|WAK|TNA|WMS|[AllDeadsMgr] WMS_fnc_AllDeadsMgr, your fignt is over %1',(_x select 0)]};
+				deleteVehicle (_x select 0);
+				WMS_AllDeadsMgr deleteAt (WMS_AllDeadsMgr find _x);
+			};
 		};
-		WMS_AllDeadsMgr deleteAt (WMS_AllDeadsMgr find _x);
 	};
 }forEach WMS_AllDeadsMgr;
