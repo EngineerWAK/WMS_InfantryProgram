@@ -1,5 +1,5 @@
 /**
-* InfantryProgram
+* WMS_fnc_DynAI_RwdMsgOnKill
 *
 * TNA-Community
 * https://discord.gg/Zs23URtjwF
@@ -138,7 +138,7 @@ params[
 		//Add hideBody addaction here
 	[_killed,
 		[
-			"Hide Body",	// title
+			"<t size='1' color='#00dcf5'>Hide Body</t>",	// title
 			{
 				params ["_target", "_caller", "_actionId", "_arguments"]; // script
 				hideBody _target;

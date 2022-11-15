@@ -1,5 +1,5 @@
 /**
-* InfantryProgram
+* WMS_fnc_AMS_EHonKilled
 *
 * TNA-Community
 * https://discord.gg/Zs23URtjwF
@@ -175,7 +175,7 @@ if (isplayer _killer) then {
 	//Add hideBody addaction here
 	[_killed,
 		[
-			"Hide Body",	// title
+			"<t size='1' color='#abf500'>Hide Body</t>",	// title
 			{
 				params ["_target", "_caller", "_actionId", "_arguments"]; // script
 				hideBody _target;

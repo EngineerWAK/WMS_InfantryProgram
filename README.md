@@ -1,5 +1,11 @@
 # WMS_InfantryProgram
 
+v2.756_2022NOV12_GitHub
+    "headshot" eventHandler on NPCs for Missions And roamings. 
+        NPC's should first loose their Helmet (if low damage to the head/face). (thanks Pierremgi from bohemia forum for the exemple)
+        And/or instant forced death if higer damage to the head/face.
+        Without helmet, ACE deal(should) more Damage to the NPCs and no need 5 headshots with 7.62AP to kill a bandit.
+
 v2.7_2022OCT20_GitHub
     Introducing "Fast Combat" options WMS_FastCombat = true; (dafault = false)
         Reduce all cooldowns
@@ -11,7 +17,7 @@ v2.7_2022OCT20_GitHub
 v2.569_2022APR02_GitHub Exile Mod is fully compatible again<br/>
 v2.548a_2022MAR26_PreRelease on GitHub to try to get back some Exile Mod compatibility<br/>
 
-InfantryProgram (from the original name 3 years ago...) is a Dynamic AI/Mission system for Arma 3 dedicated servers.<br/>
+InfantryProgram (from the original name in February 2019) is a Dynamic AI/Mission system for Arma 3 dedicated servers.<br/>
 It used to run with Exile Mod but not anymore (It might be compatible again).<br/>
 It runs now on custom mpmission with CBA and ACE3.<br/>
 Note that the all system is not optimized for big servers with tons of players.<br/>

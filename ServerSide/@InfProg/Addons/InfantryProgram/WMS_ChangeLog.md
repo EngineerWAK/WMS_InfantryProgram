@@ -21,6 +21,15 @@
 // - 'DynAI + Events' Player Check before spawn
 // - Integrated Messages Brodcast //DONE
 //////////////////////////////////////////////////////////////////
+v2.756_2022NOV12_GitHub
+    ADDED in WMS_fnc_SetUnits "headshot" eventHandler on NPCs for Missions And roamings. Without helmet, ACE deal(should) more Damage to the NPCs and no need 5 headshots with 7.62AP to kill a bandit
+        WMS_HeadShotSound 		= false;//"Head Shhhhotttttt!" or not, when headshot to NPC //It's fun but 3 bullets in a NPC's leg and arma think it's a headshot...
+        WMS_AMS_HSDamageKill	= 4.5;  //amount of damage to the head/face to instantly kill a NPC //[O Alpha 2-5:4,""head"",4.18725,bis_o2_6004,""rhs_ammo_762x51_M80_Ball"",16,bis_o2_6004,""ace_hdbracket""]
+        WMS_AMS_HelmetDamage	= 2;    //amount of damage to the head/face to remove NPC's helmet, keep in mind than a shot in the leg can trigger head damage... thank you bohemia!
+        WMS_DYNAI_HSDamageKill	= 3.5;  //amount of damage to the head/face to instantly kill a NPC //[O Alpha 2-5:4,""head"",4.18725,bis_o2_6004,""rhs_ammo_762x51_M80_Ball"",16,bis_o2_6004,""ace_hdbracket""]
+        WMS_DYNAI_HelmetDamage	= 1.9;  //amount of damage to the head/face to remove NPC's helmet, keep in mind than a shot in the leg can trigger head damage... thank you bohemia!
+        This need an update in mpmissions files for sounds
+
 v2.739_2022NOV02_GitHub
     ADDED to fn_AMS_EHonKilled.sqf:
         WMS_AMS_StripOnArmoredK	= true; //remove all gears/weapons if NPC killed from tank/apc/RCWS

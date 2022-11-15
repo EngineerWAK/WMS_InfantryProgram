@@ -199,7 +199,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2)) then {
 		_WPcombatMod = "RED";
 		_difficulty = "hardcore";
 }else{
-	if(_playerRep == 100000)then {//thats basicaly from blacklist
+	if(_playerRep >= 100000)then {//thats basicaly from blacklist
 		_Rcoef = [
 			30,	//"rain"
 			1,	//"paracrate"
