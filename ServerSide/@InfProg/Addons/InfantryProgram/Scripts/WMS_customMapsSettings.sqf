@@ -70,7 +70,7 @@ if (WMS_MapName == "ruha") then {
 										WMS_FastCombat 				= true;
 										};
 if (WMS_MapName == "Lythium") then {	
-										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
+										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										WMS_forceNoRain 			= true;
 										WMS_forceNoFog				= true;
@@ -97,7 +97,8 @@ if (WMS_MapName == "Lythium") then {
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
-										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","ACE_acc_pointer_red"];
+										WMS_AI_HMG 					= "rhs_KORD_high_MSV";
+										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15A","rhsusf_acc_anpeq15side","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15_bk_sc","rhsusf_acc_anpeq15_bk_top_h","rhsusf_acc_anpeq15_wmx_h","rhsusf_acc_anpeq15_wmx_light","rhsusf_acc_anpeq16a_light_top_sc","rhsusf_acc_anpeq16a_top"];
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
 										WMS_IP_Extract_Alt 			= 350;
 										WMS_C130_Altitude 			= 350;
@@ -116,6 +117,7 @@ if (WMS_MapName == "Lythium") then {
 										WMS_FastNight_Evening		= 18; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
 										WMS_DynAI_DestroyVHL 		= 25;
+										WMS_AL_VhlBalance			= [1,1,0,1,1,0,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 										//DFO
 										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60M_DAP_MLASS"],["vtx_HH60","vtx_MH60M","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
@@ -133,6 +135,8 @@ if (WMS_MapName == "Lythium") then {
 																	["rhs_vdv_combatcrew","rhs_vdv_mflora_at","rhs_vdv_mflora_aa","rhs_vdv_medic","rhs_mvd_izlom_arifleman_rpk","rhs_mvd_izlom_machinegunner","rhs_vdv_efreitor","rhs_vdv_rifleman","rhs_vdv_grenadier"], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
 																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
+										//ARMORED SERVER
+										AMS_ArmoredServer = true;
 										};
 if (WMS_MapName == "gm_weferlingen_summer") then {
 										if (true) then {diag_log format ["[MISSION MAP]|WAK|TNA|WMS| Detetected map for AI setup is: %1", worldname]};
@@ -215,7 +219,7 @@ if (WMS_MapName == "Altis") then {
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
-										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","ACE_acc_pointer_red"];
+										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15A","rhsusf_acc_anpeq15side","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15_bk_sc","rhsusf_acc_anpeq15_bk_top_h","rhsusf_acc_anpeq15_wmx_h","rhsusf_acc_anpeq15_wmx_light","rhsusf_acc_anpeq16a_light_top_sc","rhsusf_acc_anpeq16a_top"];
 										WMS_IP_Extract_Alt 			= 50;
 										WMS_C130_Altitude 			= 100;
 										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
@@ -667,3 +671,57 @@ if (WMS_MapName == "xcam_taunus") then {//OUTDATED	//NOTE THAT TAUNUS IS VERY LA
 										WMS_AMS_CustomPos			= ["forest","forest","forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales
 										};
+//ARMORED SERVER
+if (AMS_ArmoredServer)then {
+	[]spawn {
+		uisleep 3;
+	if (true) then {diag_log format ["[WMS Custom Map Config]|WAK|TNA|WMS| ArmoredServer vehicle config %1", servertime]};
+	WMS_OPFOR_CustomVHL_Unarmed = [
+		["rhs_tigr_m_3camo_msv",[],[[],[]]],
+		["rhsusf_M1238A1_socom_d",[],[[],[]]],
+		["rhsusf_M1239_socom_d",[],[[],[]]],
+		["rhsusf_m998_d_4dr_fulltop",[],[[],[]]],
+		["rhsusf_m1025_d",[],[[],[]]],
+		["rhsusf_m1151_usarmy_d",[],[[],[]]],
+		["rhsusf_M1078A1P2_B_D_CP_fmtv_usarmy",[],[[],[]]],
+		["rhsusf_M1084A1P2_B_D_fmtv_usarmy",[],[[],[]]],
+		["rhsusf_M1083A1P2_B_D_fmtv_usarmy",[],[[],[]]],
+		["rhsusf_M1232_usarmy_d",[],[[],[]]],
+		["rhsusf_M1078A1P2_B_D_fmtv_usarmy",[],[[],[]]],
+		["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
+		["rhs_gaz66_ammo_vv",[0,"rhsafrf\addons\rhs_gaz66_camo\data\gaz66_sand_co.paa",1,"rhsafrf\addons\rhs_gaz66\data\tentru_co.paa"],[[],[]]],
+		["rhsusf_m1240a1_usarmy_d",[],[[],[]]]
+	];
+	WMS_OPFOR_CustomVHL_Armed = [	
+		["rhsusf_m1165a1_gmv_m134d_m240_socom_d",[],[[],[]]],
+		["I_C_Offroad_02_LMG_F",[],[[],[]]],
+		["rhsusf_m1151_m240_v2_usarmy_d",[],[[],[]]],
+		["O_G_Offroad_01_armed_F",[],[[],[]]],
+		["O_G_Offroad_01_AT_F",[],[[],[]]],
+		["rhsusf_M977A4_AMMO_BKIT_M2_usarmy_d",[],[[],[]]],
+		["rhsusf_m1240a1_m240_uik_usarmy_d",[],[[],[]]],
+		["rhsusf_m1240a1_m2_uik_usarmy_d",[],[[],[]]],
+		["rhsusf_M1232_M2_usarmy_d",[],[[],[]]],
+		["rhsusf_m113d_usarmy",[],[[],[]]],
+		["rhsusf_m113d_usarmy_supply",[],[[],[]]],
+		["B_APC_Wheeled_01_cannon_F",[],[[],[]]],
+		["RHS_M2A2",[],[[],[]]],
+		["RHS_M2A3_BUSKIII",[],[[],[]]],
+		["rhsusf_m1a1aimd_usarmy",[],[[],[]]],
+		["rhsusf_m1a2sep1tuskiid_usarmy",[],[[],[]]],
+		["rhs_btr70_msv", ["rhs_sand",1],[[],[]]],
+		["rhs_btr80a_msv", ["rhs_sand",1],[[],[]]],
+		["rhs_bmd1k", ["Camo1",1],[[],[]]],
+		["rhs_bmd2m", ["Camo2",1],[[],[]]],
+		["rhs_brm1k_vdv", ["rhs_sand",1],[[],[]]],
+		["rhs_bmp2e_vdv", ["rhs_sand",1],[[],[]]],
+		["rhs_t72ba_tv", ["rhs_sand",1],[[],[]]],
+		["rhs_t72bb_tv", ["rhs_sand",1],[[],[]]],
+		["rhs_t90_tv", ["rhs_sand",1],[[],[]]],
+		["rhs_t90sab_tv", ["rhs_sand",1],[[],[]]],
+		["rhs_t80u45m", ["tricolor",1],[[],[]]],
+		["rhs_t80ue1", ["tricolor",1],[[],[]]],
+		["rhs_btr60_vv", ["3tone",1],[[],[]]]
+	];
+	};
+};

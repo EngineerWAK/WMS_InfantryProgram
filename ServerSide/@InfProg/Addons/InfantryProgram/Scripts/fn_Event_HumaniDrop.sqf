@@ -84,7 +84,7 @@ switch (_type) do {
 		_Mkr setMarkerColor WMS_UmaniDropColor;
 		_RDOtruck = createVehicle [WMS_AI_RdoTruck,_pos,[],10,"NONE"];//"rhs_gaz66_r142_vdv"
 		_RDOtruck setDir (random 359);
-		//[_RDOtruck,["standard",1], ["mast_handler",1,"cover_hide",0,"spare_hide",0,"bench_hide",0,"rear_numplate_hide",1,"light_hide",0]] call BIS_fnc_initVehicle;  //INIT VEHICLE FUCKED UP THANK YOU BOHEMIA
+		[_RDOtruck,false, ["mast_handler",1,"cover_hide",0,"spare_hide",0,"bench_hide",0,"rear_numplate_hide",1,"light_hide",0]] call BIS_fnc_initVehicle;
 		if (_vehic isKindOf "rhs_gaz66_r142_vdv") then { 
 			_vehic animatesource ["mast_handler", 1];
 		}; 

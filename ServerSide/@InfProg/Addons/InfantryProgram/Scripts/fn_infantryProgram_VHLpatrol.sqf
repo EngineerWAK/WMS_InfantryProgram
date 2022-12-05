@@ -54,7 +54,8 @@ _markerType = "b_unknown";
 _randomPosTarget = [_pos, _dist1, _dist2, 15, 0, 0.15, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;
 if(surfaceIsWater _randomPosTarget)then{_VHLselected = ((selectRandom WMS_OPFOR_CustomSEA) select 0)};
 _VHLgrp = createGroup [_grpSide, false];
-_vehic = _VHLselected createVehicle _randomPosTarget;
+//_vehic = _VHLselected createVehicle _randomPosTarget;
+_vehic = createVehicle [_VHLselected, _randomPosTarget, [], 0, "NONE"];
 _VHLgrp addVehicle _vehic;
 _vehic setVariable ["roamingAIVehicle", true, true];
 if (_vehic isKindOf "tank"||_vehic isKindOf "Wheeled_Apc_F") then {_vehic setVariable ["ace_cookoff_enable", true, true];};
@@ -82,7 +83,10 @@ _VHLcount = count (_VHLfull select 1);
 if (_VHLcount != 0) then {
 	_VHLcount0 = (_VHLfull select 1 select 0);
 	_VHLcount1 = (_VHLfull select 1 select 1);
-	if ((_VHLcount == 2) && {typeName _VHLcount0 == "STRING"} && {typeName _VHLcount1 == "SCALAR"}) then {[ _vehic, [_VHLcount0,_VHLcount1], true, false ] call BIS_fnc_initVehicle}; //initVehicle doesnt fucking work anymore
+	if ((_VHLcount == 2) && {typeName _VHLcount0 == "STRING"} && {typeName _VHLcount1 == "SCALAR"}) then { //initVehicle doesnt fucking work anymore
+		[ _vehic, _VHLcount0] call BIS_fnc_initVehicle;
+		if (true) then {diag_log format ["[VHL PATROL]|WAK|TNA|WMS|BIS_fnc_initVehicle  _vehic %1 , _VHLcount0 %2", _vehic,_VHLcount0]};
+	};
 	if ((_VHLcount == 2) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_vehic setObjectTextureGlobal [_VHLcount0, _VHLcount1]};
 	if ((_VHLcount == 4) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_vehic setObjectTextureGlobal [_VHLcount0, _VHLcount1]; _vehic setObjectTextureGlobal [(_VHLfull select 1 select 2),(_VHLfull select 1 select 3)]};
 	if ((_VHLcount == 6) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_vehic setObjectTextureGlobal [_VHLcount0, _VHLcount1]; _vehic setObjectTextureGlobal [(_VHLfull select 1 select 2),(_VHLfull select 1 select 3)]; _vehic setObjectTextureGlobal [(_VHLfull select 1 select 4),(_VHLfull select 1 select 5)]};

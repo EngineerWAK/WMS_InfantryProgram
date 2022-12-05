@@ -49,7 +49,7 @@ _VHLcountC1 = count (_choppa1 select 1);
 if (_VHLcountC1 != 0) then {
 	_VHLcount0 = (_choppa1 select 1 select 0);
 	_VHLcount1 = (_choppa1 select 1 select 1);
-	if ((_VHLcountC1 == 2) && {typeName _VHLcount0 == "STRING"} && {typeName _VHLcount1 == "SCALAR"}) then {[ _vehic, [_VHLcount0,_VHLcount1], true, false ] call BIS_fnc_initVehicle};
+	if ((_VHLcountC1 == 2) && {typeName _VHLcount0 == "STRING"} && {typeName _VHLcount1 == "SCALAR"}) then {[ _vehic, _VHLcount0] call BIS_fnc_initVehicle};
 	if ((_VHLcountC1 == 2) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_vehic setObjectTextureGlobal [_VHLcount0, _VHLcount1]};
 	if ((_VHLcountC1 == 4) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_vehic setObjectTextureGlobal [_VHLcount0, _VHLcount1]; _vehic setObjectTextureGlobal [(_choppa1 select 1 select 2),(_choppa1 select 1 select 3)]};
 };*/ 
@@ -81,7 +81,7 @@ _VHLcountC2 = count (_choppa2 select 1);
 if (_VHLcountC2 != 0) then {
 	_VHLcount0 = (_choppa2 select 1 select 0);
 	_VHLcount1 = (_choppa2 select 1 select 1);
-	if ((_VHLcountC2 == 2) && {typeName _VHLcount0 == "STRING"} && {typeName _VHLcount1 == "SCALAR"}) then {[ _vehic, [_VHLcount0,_VHLcount1], true, false ] call BIS_fnc_initVehicle};
+	if ((_VHLcountC2 == 2) && {typeName _VHLcount0 == "STRING"} && {typeName _VHLcount1 == "SCALAR"}) then {[ _vehic, _VHLcount0] call BIS_fnc_initVehicle};
 	if ((_VHLcountC2 == 2) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_vehic setObjectTextureGlobal [_VHLcount0, _VHLcount1]};
 	if ((_VHLcountC2 == 4) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_vehic setObjectTextureGlobal [_VHLcount0, _VHLcount1]; _vehic setObjectTextureGlobal [(_choppa2 select 1 select 2),(_choppa2 select 1 select 3)]};
 };*/  

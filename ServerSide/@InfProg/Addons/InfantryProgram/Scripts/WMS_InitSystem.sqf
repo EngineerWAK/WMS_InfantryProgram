@@ -26,12 +26,14 @@ WMS_forceNoRain 			= false; //no more rain!
 WMS_forceNoFog				= false; //no more fucking fog!
 WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds
 ///////////////NEW///////////////////////////////
+//v2.767
+AMS_ArmoredServer 			= false;
 //v2.758
 WMS_HeadShotSound 			= false;//"Head Shhhhotttttt!" or not, when headshot to NPC //It's fun but 3 bullets in a NPC's leg and arma think it's a headshot...
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.765_2022NOV15_GitHub"; //Colors for "Hide Body" menu | working on EH "HandleDamage" for NPC (mostly for Headshot)
+WMS_System_Version 			= "v2.768_2022DEC04_GitHub"; //Vehicle init | WMS_ArmoredServer | some custom setup for Lythium "ARMORED"
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
