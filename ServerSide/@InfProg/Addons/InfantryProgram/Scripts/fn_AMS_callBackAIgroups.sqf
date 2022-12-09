@@ -45,6 +45,8 @@ if (true) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| _this = %1"
 			{
 				_grp forgetTarget _x
 			}forEach  (_x targets [true]);
+			_smoke = "SmokeShellYellow" createVehicle (position _x); //should give time to find those fuckers hiding inside or UNDER buildings
+			_smoke attachTo [_x, [0, 0, 0] ];
 			_x setVariable ["lambs_danger_disableAI", true];//deactivate LambsDanger
 			_x doMove _pos;
 		};

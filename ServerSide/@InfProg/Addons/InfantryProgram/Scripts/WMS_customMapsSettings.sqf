@@ -137,6 +137,54 @@ if (WMS_MapName == "Lythium") then {
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										//ARMORED SERVER
 										AMS_ArmoredServer = true;
+										//AMS MISSIONS
+										WMS_AMS_MissionList 	= [ //missions themself and weight
+											["MissionTest1",1],
+											["MissionTest2",1],
+											["ForestCamp",1], //"forest" positions
+											["HomeDepot",1],
+											["CombatPatrol",1],
+											["EnyBunkers",1], //AP mines
+											["Arbeit",1],
+											["ArmedBandits",1],
+											["C192Crash",1],
+											["AmazonWH",1],
+											["TransmissionTower",1],
+											["GunsX3",2], //"utility" truck reward, NPC armored
+											["Arena",0], //this one is pretty hardcore on the objects and NPCs xD
+											["LightArmoredSteal",2], //Light Armored Reward
+											["HeliSteal",1], //helicopter reward
+											["AABattery",1], //no move crate
+											["Escobar",1],
+											["Forgotten",1],
+											["Radar",1], //big crate reward
+											["Construction",1], //truck reward
+											["OldTemple",1],  //no move crate
+											["JunkYard",1], //truck reward
+											["OldPowerPlant",2], //vehicle reward, armed/armored NPC
+											["Market",1], //small truck reward
+											["GrandPaJoe",1],
+											["LumberYard",1], //"forest" positions
+											["Factory",2], //"factory" positions
+											["FieldHospital",1],
+											["Object172M",2], //Armored Reward and NPCs
+											["uncleabrams",2], //Armored Reward and NPCs
+											["thecommunity",1],
+											["shipyard",1], //small vehicle reward
+											["occupation",1], //location/cities positions
+											["commsrelay",1], //"comms" vehicle reward
+											["strelnikovtrain",1],
+											["bastogne",1], //"forest" positions
+											["blackhawk",1],
+											//OUTPOSTS
+											["OutpostAlpha",1],
+											["OutpostBravo",1],
+											["OutpostCharlie",1],
+											["OutpostDelta",1], //+V2
+											["OutpostEcho",1],
+											["OutpostFoxtrot",1],
+											["OutpostGolf",1] //+V2
+										];
 										};
 if (WMS_MapName == "gm_weferlingen_summer") then {
 										if (true) then {diag_log format ["[MISSION MAP]|WAK|TNA|WMS| Detetected map for AI setup is: %1", worldname]};
@@ -700,8 +748,8 @@ if (AMS_ArmoredServer)then {
 		["O_G_Offroad_01_AT_F",[],[[],[]]],
 		["rhsusf_M977A4_AMMO_BKIT_M2_usarmy_d",[],[[],[]]],
 		["rhsusf_m1240a1_m240_uik_usarmy_d",[],[[],[]]],
-		["rhsusf_m1240a1_m2_uik_usarmy_d",[],[[],[]]],
-		["rhsusf_M1232_M2_usarmy_d",[],[[],[]]],
+		//["rhsusf_m1240a1_m2_uik_usarmy_d",[],[[],[]]],
+		//["rhsusf_M1232_M2_usarmy_d",[],[[],[]]],
 		["rhsusf_m113d_usarmy",[],[[],[]]],
 		["rhsusf_m113d_usarmy_supply",[],[[],[]]],
 		["B_APC_Wheeled_01_cannon_F",[],[[],[]]],

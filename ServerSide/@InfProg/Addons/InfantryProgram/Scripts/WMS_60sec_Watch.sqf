@@ -83,6 +83,7 @@ while {true} do {
 			WMS_DFO_AllDeads			= WMS_DFO_AllDeads*2;
 			WMS_Others_AllDeads			= WMS_Others_AllDeads*2;
 
+			execVM "\InfantryProgram\Scripts\WMS_customMapsSettings.sqf";
 			WMS_FastCombatActive = false;
 		};
 	};
