@@ -33,10 +33,10 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.770_2022DEC08_GitHub"; //Smoke on mission AI callback | Vehicle init | WMS_ArmoredServer | some custom setup for Lythium "ARMORED"
+WMS_System_Version 			= "v2.776_2022DEC22_GitHub"; //suicide bomber explode if target distance >= 600m
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
-WMS_CustomizedMap			= ["ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
+WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 
 /////////////MOVED UP!!!!!!
@@ -491,7 +491,7 @@ WMS_AMS_Crate_S 		= "Box_NATO_Wps_F"; //Mission small crate
 WMS_AMS_Crate_L 		= "I_supplyCrate_F";  //Mission medium crate //B_supplyCrate_F if above the IDAP crate, it will be removed from logistic/moving system [R3F]
 WMS_AMS_Crate_XL 		= "B_CargoNet_01_ammo_F"; //Mission big crate
 WMS_AMS_Crate_noMove 	= "CargoNet_01_box_F"; //a crate you don't want player to move around "CargoNet_01_box_F" //"rhs_weapon_crate"
-WMS_AMS_MineAP 			= "APERSTripMine"; //"APERSMine" "APERSBoundingMine"
+WMS_AMS_MineAP 			= "APERSBoundingMine";//"APERSTripMine"; //"APERSMine" "APERSBoundingMine"
 WMS_AMS_MineAT 			= "ATMine"; //WMS_ATMines is curently used by WMS_AMS
 WMS_AMS_MineSign 		= "Land_Sign_MinesTall_English_F"; //signs around mine fields
 WMS_AMS_ToRun 			= 3; //how many missions maximun at the same time

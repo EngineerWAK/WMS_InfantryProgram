@@ -11,9 +11,10 @@
 */
 
 //[_objs,_mkrs,_wps,_grps] call WMS_fnc_AMS_Succes;
-private ["_target","_talk","_music","_crateOwner"];
+private ["_staticsList","_target","_talk","_music","_crateOwner"];
 params ["_objs","_Mines","_mkrs","_wps","_grps","_msg","_pos","_rwds","_difficulty","_clnObj","_lootCount","_lootType"];
 _target = (_objs select 0);
+_staticsList = _target getVariable ["WMS_StaticsList", []];
 "F_Signal_green" createVehicle _pos;
 {deleteMarker _x} foreach _mkrs; 
 {deleteWaypoint _x} foreach _wps;
@@ -54,6 +55,10 @@ WMS_AMS_MissionsCount = WMS_AMS_MissionsCount -1;
   
 {deleteVehicle _x} forEach _Mines;
 if (_clnObj && WMS_AMS_ClnObj) then {
+	if (WMS_AMS_DestroyStatics) then {
+		{//(gunner _x) action ["moveout",_x];
+		_x setDamage 1;}forEach _staticsList;
+	};
 	uisleep WMS_AMS_clnObjT;
 	if (WMS_AMS_AlarmCln) then {
 		PlaySound3D ["A3\Sounds_F\sfx\siren.wss", _pos, false, _pos, 2, 1, 0];
@@ -63,6 +68,10 @@ if (_clnObj && WMS_AMS_ClnObj) then {
 		 deleteVehicle _x
 	}foreach _objs;
 } else {
+	if (WMS_AMS_DestroyStatics) then {
+		{//(gunner _x) action ["moveout",_x];
+		_x setDamage 1;}forEach _staticsList;
+	};
 	uisleep WMS_AMS_clnObjT;
 	/*if (WMS_AMS_AlarmCln) then {
 		PlaySound3D ["A3\Sounds_F\sfx\siren.wss", _pos, false, _pos, 2, 1, 0];

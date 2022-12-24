@@ -162,8 +162,10 @@ if (_msg == "Mission Reward") then {//[_weap,_bag,_items,_ammoList,_mag]
 			]
 		] remoteExec [
 			"addAction",
-			(owner (_speaker select 0)), //0 for all players //2 server only //-2 everyone but the server
-			false //JIP
+			//(owner (_speaker select 0)), //0 for all players //2 server only //-2 everyone but the server
+			//false //JIP
+			0, //0 for all players //2 server only //-2 everyone but the server
+			true //JIP
 		];
 		//Vehicle dump + cargo dump
 		[ //params ["_target", "_caller", "_actionId", "_arguments"];
@@ -188,8 +190,10 @@ if (_msg == "Mission Reward") then {//[_weap,_bag,_items,_ammoList,_mag]
 			]
 		] remoteExec [
 			"addAction",
-			(owner (_speaker select 0)), //0 for all players //2 server only //-2 everyone but the server
-			false //JIP
+			//(owner (_speaker select 0)), //0 for all players //2 server only //-2 everyone but the server
+			//false //JIP
+			0, //0 for all players //2 server only //-2 everyone but the server
+			true //JIP
 		];
 	};
 	//

@@ -171,7 +171,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_R
 		_WPcombatMod = "RED";
 		_difficulty = "difficult";
 	} else {
-if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2)) then {
+if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) then {
 		_Rcoef = [1,1,2,5,20,20,15,20,20,20,30,30,10,5,10,15];
 		_grpSize = 4+(round (random 3));
 		_timer = 600;

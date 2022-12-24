@@ -12,7 +12,7 @@
 
 //////////////////////////////////////////////////////////////////
 if (WMS_IP_LOGs) then {diag_log format ["[AMS SPAWN OBJECTS]|WAK|TNA|WMS| _this: %1,", _this]};
-private ["_objList","_compoRefPoint","_object","_objectVectoriel","_gradient"];
+private ["_staticsList","_objList","_compoRefPoint","_object","_objectVectoriel","_gradient"];
 params[  
 	"_pos",
 	"_objects",  
@@ -20,6 +20,7 @@ params[
 	["_missionID", "No_ID", [""]]
 	];
 _objList = [];
+_staticsList = [];
 _compoRefPoint = createVehicle [WMS_AMS_Flag, _pos, [], 0, "CAN_COLLIDE"];
 _objList pushback _compoRefPoint;
 _compoRefPoint setDir _dirCompo;
@@ -47,6 +48,7 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 		_object allowDamage true;
 	};
 	if ((count _x) > 3 && {(_x select 3) == "static"}) then { 
+		_staticsList pushBack _object;
 		_object allowDamage true;
 		//here create the dynamic skill set "static" with a "getin" and "getOut" EH
 		_object addEventHandler ["GetIn", {
@@ -86,9 +88,10 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 			};	
 		}];
 	};
-	_compoRefPoint setVariable ["AMS_MissionStatus","RUNNING",true];
-	_compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
-	//[_object, (_dirCompo + (_x select 2))] remoteexec ['setDir',-2]; //test to force object direction with players, might lag
 } forEach _objects;
+_compoRefPoint setVariable ["AMS_MissionStatus","RUNNING",true];
+_compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
+_compoRefPoint setVariable ["WMS_StaticsList", _staticsList];
+if (true) then {diag_log format ["[AMS OBJECTS]|WAK|TNA|WMS| setVariable _staticsList: %1", _staticsList]};
 if (WMS_IP_LOGs) then {diag_log format ["[AMS OBJECTS]|WAK|TNA|WMS| return _objList: %1", _objList]};
 _objList

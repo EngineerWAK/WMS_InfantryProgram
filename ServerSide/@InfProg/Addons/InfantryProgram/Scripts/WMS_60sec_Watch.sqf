@@ -51,6 +51,7 @@ while {true} do {
 			WMS_AI_INFpatrol_remRPG 	= true;
 			WMS_AI_RoamingVHL_remRPG 	= true;
 			WMS_DynAI_remRPG 			= true;
+			WMS_AMS_remRPG 				= 100;
 
 			WMS_FastCombatActive = true;
 		};

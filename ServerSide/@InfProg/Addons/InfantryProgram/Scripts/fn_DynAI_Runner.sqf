@@ -80,7 +80,7 @@ WMS_DynAI_Running pushback [time,(time+(_timer)),[_grp],[],[],[],[],""];
 
 //while {alive leader _grp} do {
 while {_run} do {
-	uisleep 0.5;
+	uisleep 1.5;
 	leader _grp domove (position (vehicle _target));
 	if !(alive leader _grp) then {
 		_expl2 setdammage 1;
@@ -90,12 +90,12 @@ while {_run} do {
 		_expl3 setdammage 1;
 		_run = false;
 	}; 
-	if (leader _grp distance2D _target < 20) then {
+	if (leader _grp distance2D _target <= 25 || leader _grp distance2D _target >= 600) then {
 		_expl2 setdammage 1;
 		uisleep 0.3;
 		_expl1 setdammage 1;
 		_expl3 setdammage 1;
 		_run = false;
 	}; 
-uisleep 1;
+uisleep 1.5;
 };

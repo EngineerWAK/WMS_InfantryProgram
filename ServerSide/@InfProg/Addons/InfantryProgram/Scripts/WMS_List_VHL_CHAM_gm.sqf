@@ -15,6 +15,18 @@
 //[ _vehicle, [(_CustomVHL select 1 select 0),(_CustomVHL select 1 select 1)], true, false ] call BIS_fnc_initVehicle;
 ////////////////////
 WMS_OPFOR_CustomVHL_Unarmed = [
+	["gm_gc_army_ural44202",["gm_gc_ols",1],[[],[]]], 
+	["gm_gc_army_ural4320_reammo",["gm_gc_ols",1],[[],[]]], 
+	["gm_gc_army_ural375d_refuel",["gm_gc_ols",1],[[],[]]], 
+	["gm_gc_army_ural375d_medic",["gm_gc_ols",1],[[],[]]], 
+	["gm_gc_army_ural375d_cargo",["gm_gc_ols",1],[[],[]]], 
+	["gm_gc_army_ural4320_repair",["gm_gc_ols",1],[[],[]]], 
+	["gm_gc_army_ural4320_cargo",["gm_gc_ols",1],[[],[]]], 
+	["gm_ge_army_k125",["gm_ge_ols",1],[[],[]]],
+	["gm_ge_army_iltis_cargo",["gm_ge_ols",1],[[],[]]],
+	["gm_ge_army_u1300l_medic",["gm_ge_ols",1],[[],[]]],
+	["gm_ge_army_typ1200_cargo",["gm_ge_ols",1],[[],[]]],
+
 	["rhs_tigr_m_3camo_msv",[],[[],[]]],
 	["rhsusf_M1238A1_socom_d",[],[[],[]]],
 	["rhsusf_M1239_socom_d",[],[[],[]]],
@@ -41,6 +53,11 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 	["rhsusf_m1240a1_usarmy_d",[],[[],[]]]
 ];
 WMS_OPFOR_CustomVHL_Armed = [
+	["gm_gc_army_pt76b",["gm_gc_ols",1],[[],[]]], //thats a tank xD
+	["gm_dk_army_u1300l_container",["gm_dk_des",1],[[],[]]],
+	["gm_ge_army_fuchsa0_command",["gm_ge_ols",1],[[],[]]],
+	["gm_ge_army_iltis_mg3",["gm_ge_ols",1],[[],[]]],
+
 	["rhsusf_m1165a1_gmv_m134d_m240_socom_d",[],[[],[]]],
 	["I_C_Offroad_02_LMG_F",[],[[],[]]],
 	["rhsusf_m1151_m240_v2_usarmy_d",[],[[],[]]],
@@ -57,6 +74,9 @@ WMS_OPFOR_CustomVHL_Armed = [
 	["rhsgref_BRDM2_HQ_msv",["takistan",1],[[],[]]]
 ];
 WMS_OPFOR_CustomVHL_Spec = [
+	["gm_dk_army_m113a1dk_apc",["gm_dk_des",1],[[],[]]],
+	["gm_dk_army_m113a1dk_engineer",["gm_dk_des",1],[[],[]]],
+
 	["rhs_btr80a_vv",[0,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_01_tri01_co.paa",1,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_02_tri01_co.paa",2,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_03_tri01_co.paa"],[[],[]]],
 	["rhs_brm1k_vv",[1,"rhsafrf\addons\rhs_bmp_camo\data\bmp_2_desert_co.paa",2,"rhsafrf\addons\rhs_bmp_camo\data\bmp_3_desert_co.paa",4,"rhsafrf\addons\rhs_bmp_camo\data\bmp_5_desert_co.paa"],[[],[]]],
 	["rhs_t72bc_tv",[0,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_01_sand_co.paa",1,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_02_sand_co.paa",2,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_03_sand_co.paa"],[[],[]]],
@@ -75,12 +95,18 @@ WMS_OPFOR_CustomAIR_Transport = [
 	["B_Heli_Transport_03_unarmed_F",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa", 1,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]] //black huron
 ];
 WMS_OPFOR_CustomAIR_Unarmed = [
+	["gm_pl_airforce_mi2ch",[],[[],[]]],
+	["gm_pl_airforce_mi2p",[],[[],[]]],
+
 	["RHS_Mi8AMT_vvsc",[],[[],[]]],
 	["rhsgref_ins_Mi8amt",["Camo5",1],[[],[]]],
 	["RHS_UH60M2_d",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa",1,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]],
 	["RHS_UH1Y_UNARMED_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]]
 ];
 WMS_OPFOR_CustomAIR_Armed = [
+	["gm_pl_airforce_mi2urn",[],[[],[]]],
+	["gm_pl_airforce_mi2us",[],[[],[]]],
+
 	["RHS_Mi24Vt_vvsc",["Camo3",1],[[],[]]], //one minigun
 	["RHS_Mi8mt_vv",[],[[],[]]],
 	["rhs_uh1h_hidf",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]],
@@ -116,6 +142,9 @@ WMS_AMS_LightArmed = [
 	["rhs_tigr_sts_3camo_vdv",[],[[],[]]] //TO ADD TO TRADER //
 ];
 WMS_AMS_APC = [
+	["gm_gc_army_brdm2",["gm_gc_ols",1],[[],[]]],
+	["gm_gc_army_btr60pb",["gm_gc_ols",1],[[],[]]],
+
 	["B_APC_Wheeled_01_cannon_F",[],[[],[]]], //Marshall
 	["B_APC_Wheeled_03_cannon_F",["Guerilla_02",1],[[],[]]],
 	["rhs_brm1k_vv",[1,"rhsafrf\addons\rhs_bmp_camo\data\bmp_2_desert_co.paa",2,"rhsafrf\addons\rhs_bmp_camo\data\bmp_3_desert_co.paa",4,"rhsafrf\addons\rhs_bmp_camo\data\bmp_5_desert_co.paa"],[[],[]]],
@@ -128,6 +157,10 @@ WMS_AMS_APC = [
 	["rhs_btr80a_vv",[0,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_01_tri01_co.paa",1,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_02_tri01_co.paa",2,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_03_tri01_co.paa"],[[],[]]]
 ];
 WMS_AMS_HeavyArmed = [
+	["gm_gc_army_t55",["gm_gc_ols",1],[[],[]]],
+	["gm_gc_army_t55am2b",["gm_gc_ols",1],[[],[]]],
+	["gm_dk_army_Leopard1a3",["gm_dk_des",1],[[],[]]],
+
 	["rhs_t72bc_tv",[0,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_01_sand_co.paa",1,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_02_sand_co.paa",2,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_03_sand_co.paa"],[[],[]]],
 	["B_AFV_Wheeled_01_cannon_F",[],[[],[]]], //Rhino
 	["B_AFV_Wheeled_01_up_cannon_F",[],[[],[]]], //Rhino up

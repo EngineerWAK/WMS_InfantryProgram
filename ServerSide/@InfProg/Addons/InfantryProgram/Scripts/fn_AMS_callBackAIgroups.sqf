@@ -54,6 +54,6 @@ if (true) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| _this = %1"
 	//(leader _grp) doMove _pos;
 	_grp setVariable ["lambs_danger_disableGroupAI", true];//deactivate LambsDanger
 	//if (WMS_IP_LOGs) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| Group = %1 @ %4 | newWaypoint = %2 @ %3", _x, _newWaypoint, _pos, (position(leader _x))]};
-	if (true) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| Group = %1 @ %4 | newWaypoint = %2 @ %3", _x, _newWaypoint, _pos, (position(leader _x))]};
+	if (true) then {diag_log format ["[AMS CALLBACK GROUPS]|WAK|TNA|WMS| Group = %1 @ %4 | newWaypoint = %2 @ %3", _grp, _newWaypoint, _pos, (position(leader _grp))]};
 }forEach _grps;
 

@@ -18,7 +18,7 @@ params[
 	"_pos",
 	["_radius",100],
 	["_howMany",20],
-	["_mineType", WMS_ATMines],
+	["_mineType", WMS_AMS_MineAT],
 	["_fireExplode", false],
 	["_signs", true],
 	["_steps",36]
