@@ -126,6 +126,7 @@ class CfgFunctions {
 			class DynAI_Steal			{};
 			class DynAI_RwdMsgOnKill	{};
 			class DynAI_baseATK			{};
+			class DynAI_ParaBombs		{};
 
 			class AMS_CBAgarrissonModified	{};
 

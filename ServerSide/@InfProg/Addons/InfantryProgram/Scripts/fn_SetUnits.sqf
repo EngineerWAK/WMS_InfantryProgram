@@ -353,6 +353,12 @@ _poptabs = 50;
 
 	} else{
 		if (_info == "DYNAI") then {
+			/*if (vehicle _unit isKindOf WMS_AI_ATstation) then {
+				_unit setSkill ["aimingAccuracy", 	0.01];
+				_unit setSkill ["aimingShake", 	0.15];
+				_unit setSkill ["aimingSpeed", 	0.15];
+				_unit setSkill ["reloadSpeed", 	0.2];
+			};*/
 			if((random 100) <= _launcherChance) then { 
 				_launcher = [_unit, selectrandom (WMS_AI_LaunchersOPF select 0), 1] call BIS_fnc_addWeapon;
 			};

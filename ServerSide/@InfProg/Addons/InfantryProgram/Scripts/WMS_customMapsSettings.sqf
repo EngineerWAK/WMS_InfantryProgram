@@ -18,9 +18,9 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 										WMS_AI_MaxUnits_C 			= 160; //stop Base attack and missions
 										WMS_AL_VhlBalance			= [1,1,0,1,1,0,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 										WMS_AL_UnitMax				= 10; //Max units (groups if _CombatBehav true) patroling at the same time
-										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_LaunchersOPF 		= [["gm_m72a3_oli","gm_pzf44_2_oli","rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
-										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
+										WMS_AI_Planes				= ["gm_ge_airforce_do28d2_medevac","gm_ge_airforce_do28d2_medevac","gm_ge_airforce_do28d2_medevac"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
 										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","SmokeShellRed","rhs_mag_m67","rhs_mag_m7a3_cs","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
 																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag","ACE_M14",
 																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_plamyam","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag"];
@@ -36,7 +36,8 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 										WMS_C130_Altitude 			= 200;
 										WMS_Pos_Forests 			= [[2563.04,4390.98,0],[949.503,7824.58,0],[2995.88,7414.85,0],[1661.87,6304.73,0],[1230.78,5241.38,0],[2811.94,6394.72,0],[3305.54,5669.11,0],[631.694,4170.68,0],[1578.91,2556.35,0],[1009.62,1675.81,0],[318.523,2069.07,0],[1618.5,4135.01,0],[4458.61,3629.26,0],[3653.57,3250.63,0],[4495.37,3015.37,0],[5318.42,2606.16,0],[4986.43,1588.48,0],[6569.98,1032.91,0],[7431.99,345.098,0],[6687.02,401.608,0],[7258.67,2287.12,0],[6829.09,2776.96,0],[6640.04,3507.89,0],[7446.81,4005.25,0],[4426.52,1101.23,0],[5382.9,280.85,0],[1314.61,255.088,0],[3977.97,5007.08,0],[4864.12,4479.73,0],[7361.6,5669.74,0],[6442.06,6489.51,0],[7084,6304.44,0],[4259.87,6804.69,0],[5382.4,7641.75,0],[4841.03,7911.3,0],[6021.57,7851.02,0],[6184.2,7272.12,0],[7989.44,7023.54,0]]; //not autoScan
 										WMS_Forests_Size			= 300; //default 250 (radius, so *2)
-										WMS_Pos_Military 			= [[362.079,5441.36,0],[1349.27,1084.6,0],[4859.76,3573.69,0],[3333.45,5932.5,0],[7078.14,6637.09,0],//bunkers
+										WMS_Pos_Military 			= [ [7411.86,6306.18,0],[7121.58,6022.76,0],[7451.38,5795.97,0],[7676.09,5462.71,0],//Map bunkers
+																		[362.079,5441.36,0],[1349.27,1084.6,0],[4859.76,3573.69,0],[3333.45,5932.5,0],[7078.14,6637.09,0],[1571.48,4120.26,0],//bunkers
 																		[5367,1443.28,0], [4117.64,1962.58,0],[2884.5,3194.29,0],[876.708,3389.88,0],[4277.99,6104.97,0],[5622.11,3243.03,0],[7103.62,5074.65,0],[2382.33,7779.38,0],[4238.18,7444.24,0],[7914.81,3180.36,0] //Checkpoints
 																		]; //not autoScan
 										WMS_Pos_Factory 			= [[1125.31,6656.69,0],[1030.44,6662.45,0],[1317.48,5876.93,0],[3931.22,6624.68,0],[4389.1,6448.52,0],[4369.63,6423.77,0],[4971.58,6280.5,0],[5389.89,5946.36,0],[5373.64,6012.78,0],[6945.93,6926.75,0],[6646.49,5305.46,0],[6849.68,5043.55,0],[6487.59,4535.72,0],[6537.62,4484.03,0],[6504.47,4445.54,0],[6392.96,4383.17,0],[5573.68,3422.64,0],[2782.75,3682.63,0],[2517.81,5063.9,0],[687.87,3766.21,0],[407.94,3282.14,0],[368.211,3277.28,0],[3736.67,2586.31,0],[3775.98,2520.07,0],[3732.99,2515.08,0],[3189.08,1669.59,0],[3167.94,1722.25,0],[3279.67,1662.18,0],[5927.81,2628.4,0],[5846.01,1384.45,0],[5794.28,1440.58,0],[7236.2,1376.31,0],[6551.66,758.107,0],[6498.1,760.159,0],[1613.77,728.007,0]]; //need room for small camoNet
@@ -50,12 +51,14 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 										WMS_AI_Arty					= "rhs_2b14_82mm_msv";
 										WMS_AMS_MineAT 				= "rhsusf_mine_M19";
 										WMS_ATMines					= "rhs_mine_TM43"; //"ATMine";"BWA3_DM31AT";
-										WMS_AMS_SpnDistMission 		= 1750;
+										WMS_AMS_SpnDistMission 		= 1550;
 										WMS_AI_RoamingVHLcount 		= 12; //10
 										WMS_AI_CargoUnits	 		= 4;
 										WMS_AMS_ClnObj 				= true;
 										WMS_AMS_DelMissionFlag 		= true;
-										WMS_FastNight_Morning 		= 4; //morning start at
+										WMS_SupplyDropCount 		= 4; //default 2
+										WMS_HumaniDropCount 		= 4; //default 3
+										WMS_FastNight_Morning 		= 5; //morning start at
 										WMS_FastNight_Evening		= 18.5; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
 										WMS_DynAI_DestroyVHL 		= 60;
@@ -64,7 +67,7 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 										WMS_Military_CoolD			= 240;
 										//Let's make it more challenging on Ruha //FastCombat	
 										WMS_FastCombat 				= true;
-										WMS_AMS_MissionList 	= [ //missions themself and weight
+										WMS_AMS_MissionList 		= [ //missions themself and weight
 																	["MissionTest1",1],
 																	["MissionTest2",1],
 																	["ForestCamp",2], //"forest" positions

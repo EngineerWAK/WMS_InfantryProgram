@@ -220,7 +220,7 @@ WMS_AMS_Obj_Train2 = [
 	[(selectRandom [WMS_AI_HMG,WMS_AI_HMG_Shield,WMS_AI_GMG]),[-4.8,-11,1.01],94.1,"static"],
 	[(selectRandom [WMS_AI_Arty,WMS_AI_HMG]),[-7.4,-0.5,1.01],266.1,"static"]
 	];
-WMS_AMS_Obj_Comms = [
+WMS_AMS_Obj_Comms = [ //Land_ConcreteHedgehog_01_F
 	["Land_HelipadEmpty_F",[6.4,-7.1,0],0],
 	["CamoNet_wdl_open_F",[2.7,5.9,0],0],
 	["Campfire_burning_F",[0.8,7,0],0],
@@ -243,7 +243,7 @@ WMS_AMS_Obj_Comms = [
 	["Land_PortableGenerator_01_black_F",[-11.1,8.8,0],179.8],
 	["Land_PortableServer_01_black_F",[-5.6,5.8,0],269.2],
 	["Land_PortableServer_01_black_F",[-5.6,4.9,0],269.2],
-	["Land_Razorwire_F",[-6.7,-18.4,0],11.9],
+	/*["Land_Razorwire_F",[-6.7,-18.4,0],11.9],
 	["Land_Razorwire_F",[-15.9,-13.8,0],49.3],
 	["Land_Razorwire_F",[-20.1,-1.6,0],85.6],
 	["Land_Razorwire_F",[-18.1,11.4,0],112.1],
@@ -252,7 +252,17 @@ WMS_AMS_Obj_Comms = [
 	["Land_Razorwire_F",[16.7,13.2,0],240.2],
 	["Land_Razorwire_F",[20.4,-1.1,0],271.3],
 	["Land_Razorwire_F",[16.8,-15.9,0],305.7],
-	["Land_Razorwire_F",[6.7,-19.8,0],352.1],
+	["Land_Razorwire_F",[6.7,-19.8,0],352.1],*/
+	["Land_ConcreteHedgehog_01_F",[-6.7,-18.4,0],11.9],
+	["Land_ConcreteHedgehog_01_F",[-15.9,-13.8,0],49.3],
+	["Land_ConcreteHedgehog_01_F",[-20.1,-1.6,0],85.6],
+	["Land_ConcreteHedgehog_01_F",[-18.1,11.4,0],112.1],
+	["Land_ConcreteHedgehog_01_F",[-6.2,18.5,0],168.4],
+	["Land_ConcreteHedgehog_01_F",[7.3,18.4,0],187],
+	["Land_ConcreteHedgehog_01_F",[16.7,13.2,0],240.2],
+	["Land_ConcreteHedgehog_01_F",[20.4,-1.1,0],271.3],
+	["Land_ConcreteHedgehog_01_F",[16.8,-15.9,0],305.7],
+	["Land_ConcreteHedgehog_01_F",[6.7,-19.8,0],352.1],
 	["Land_SandbagBarricade_01_half_F",[-6.4,16.1,0],8.5],
 	["Land_SandbagBarricade_01_half_F",[10.6,13.5,0],32],
 	["Land_SandbagBarricade_01_half_F",[13.9,2.5,0],45],

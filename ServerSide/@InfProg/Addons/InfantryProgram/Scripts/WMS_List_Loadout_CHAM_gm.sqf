@@ -108,10 +108,11 @@ WMS_Loadout_DMR = [
 ];
 WMS_Loadout_MG = [ //arifle_RPK12_F, LMG_Mk200_black_F
 	 [
-		"hlc_lmg_minimipara","hlc_rifle_RPK12","rhs_weap_m249","hlc_lmg_m60","rhs_weap_mg42","LMG_03_F","hlc_rifle_MG36",//NIarms
+		"gm_mg3_blk","gm_hmgpkm_prp","gm_lmgm62_blk","gm_rpk_wud","gm_lmgrpk_brn",
+		"hlc_lmg_minimipara","hlc_rifle_RPK12","rhs_weap_m249","hlc_lmg_m60","rhs_weap_mg42","hlc_rifle_MG36",//NIarms
 		"arifle_SPAR_02_khk_F","arifle_CTARS_blk_F",
-		"rhs_weap_fnmag","rhs_weap_m240G","rhs_weap_m240B","LMG_03_F","rhs_weap_m249","arifle_MX_SW_Black_F","rhs_weap_pkp","rhs_weap_rpk74m",
-		"rhs_weap_mg42","LMG_03_F","rhs_weap_pkp",
+		"rhs_weap_fnmag","rhs_weap_m240G","rhs_weap_m240B","rhs_weap_m249","arifle_MX_SW_Black_F","rhs_weap_pkp","rhs_weap_rpk74m",
+		"rhs_weap_mg42","rhs_weap_pkp",
 		"arifle_RPK12_F", "LMG_Mk200_black_F" //contact DLC
 		], //_mainWeaps,
 	 [], //_mainWeapsAmmo,
@@ -130,6 +131,7 @@ WMS_Loadout_Sniper = [
 ];
 WMS_Loadout_SMG = [
 	 [
+		"gm_mp2a1_blk","gm_pm63_blk",
 		"hlc_smg_mp5a3","hlc_smg_mp5sd6","hlc_smg_9mmar","hlc_smg_mp5k_PDW","hlc_rifle_auga2para_b",
 		"rhs_weap_pp2000", "SMG_01_F", "SMG_02_F", "SMG_03C_black", "SMG_05_F", "rhsusf_weap_MP7A2","rhs_weap_m3a1","rhs_weap_savz61"
 	 ], //_mainWeaps,

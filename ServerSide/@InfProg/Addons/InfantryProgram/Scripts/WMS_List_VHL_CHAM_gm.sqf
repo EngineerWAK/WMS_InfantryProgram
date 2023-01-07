@@ -53,7 +53,7 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 	["rhsusf_m1240a1_usarmy_d",[],[[],[]]]
 ];
 WMS_OPFOR_CustomVHL_Armed = [
-	["gm_gc_army_pt76b",["gm_gc_ols",1],[[],[]]], //thats a tank xD
+	["gm_gc_army_pt76b",["gm_gc_ols",1],[[],[]]], //thats a tank xD 76mm
 	["gm_dk_army_u1300l_container",["gm_dk_des",1],[[],[]]],
 	["gm_ge_army_fuchsa0_command",["gm_ge_ols",1],[[],[]]],
 	["gm_ge_army_iltis_mg3",["gm_ge_ols",1],[[],[]]],
@@ -76,10 +76,13 @@ WMS_OPFOR_CustomVHL_Armed = [
 WMS_OPFOR_CustomVHL_Spec = [
 	["gm_dk_army_m113a1dk_apc",["gm_dk_des",1],[[],[]]],
 	["gm_dk_army_m113a1dk_engineer",["gm_dk_des",1],[[],[]]],
+	["gm_gc_army_t55am2b",["gm_gc_ols",1],[[],[]]], //most advanced T55 //olove mud
 
 	["rhs_btr80a_vv",[0,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_01_tri01_co.paa",1,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_02_tri01_co.paa",2,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_03_tri01_co.paa"],[[],[]]],
 	["rhs_brm1k_vv",[1,"rhsafrf\addons\rhs_bmp_camo\data\bmp_2_desert_co.paa",2,"rhsafrf\addons\rhs_bmp_camo\data\bmp_3_desert_co.paa",4,"rhsafrf\addons\rhs_bmp_camo\data\bmp_5_desert_co.paa"],[[],[]]],
-	["rhs_t72bc_tv",[0,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_01_sand_co.paa",1,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_02_sand_co.paa",2,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_03_sand_co.paa"],[[],[]]],
+	//["rhs_t72bc_tv",[0,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_01_sand_co.paa",1,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_02_sand_co.paa",2,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_03_sand_co.paa"],[[],[]]],
+	["rhs_t72bc_tv",["rhs_Sand",1],[[],[]]],
+	["rhs_t90sab_tv",["rhs_Sand",1],[[],[]]],
 	["RHS_Ural_Zu23_VV_01",[0,"rhsafrf\addons\rhs_a2port_car\ural\data\ural_kabina_tka_co.paa",1,"rhsafrf\addons\rhs_a2port_car\ural\data\ural_open_tka_co.paa"],[[],[]]],
 	["rhs_gaz66_zu23_vv",[0,"rhsafrf\addons\rhs_gaz66_camo\data\gaz66_sand_co.paa",1,"rhsafrf\addons\rhs_gaz66\data\tentru_co.paa"],[[],[]]],
 	["rhs_btr70_vv",[0,"rhsafrf\addons\rhs_btr70_camo\data\btr70_omon2_1_co.paa",1,"rhsafrf\addons\rhs_btr70_camo\data\btr70_omon2_2_co.paa"],[[],[]]],
@@ -88,6 +91,7 @@ WMS_OPFOR_CustomVHL_Spec = [
 	["rhsusf_m1a2sep1tuskid_usarmy",[],[[],[]]]
 ];
 WMS_OPFOR_CustomAIR_Transport = [
+	["gm_ge_army_ch53g",["gm_ge_olu",1],[[],[]]],
 	["RHS_Mi24Vt_vvsc",["Camo3",1],[[],[]]], //one minigun
 	["RHS_Mi8AMT_vvsc",[],[[],[]]],
 	["rhsgref_ins_Mi8amt",["Camo5",1],[[],[]]],

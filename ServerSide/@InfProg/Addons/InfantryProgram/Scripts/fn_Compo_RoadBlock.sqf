@@ -83,10 +83,10 @@ _objectCompos_AT = [
 		//[WMS_OPFOR_Flag,[0,0,0],0], //WMS_OPFOR_Flag
 		[WMS_AI_ATstation,[1,-4.5,0],180], //WMS_AMS_skillstatic
 		[WMS_AI_ATstation,[-1,5.5,0],0], //WMS_AMS_skillstatic
-		["Land_CncBarrier_stripes_F",[0.6,6.3,0],26.3],
-		["Land_CncBarrier_stripes_F",[2.5,-5.1,0],148.7],
-		["Land_CncBarrier_stripes_F",[-0.6,-5.2,0],207.8],
-		["Land_CncBarrier_stripes_F",[-2.5,6,0],327.2],
+		//["Land_CncBarrier_stripes_F",[0.6,6.3,0],26.3],
+		//["Land_CncBarrier_stripes_F",[2.5,-5.1,0],148.7],
+		//["Land_CncBarrier_stripes_F",[-0.6,-5.2,0],207.8],
+		//["Land_CncBarrier_stripes_F",[-2.5,6,0],327.2],
 		["Land_CzechHedgehog_01_new_F",[4.7,-5.7,0],18.9],
 		["Land_CzechHedgehog_01_new_F",[4.2,6.9,0],124.4],
 		["Land_CzechHedgehog_01_new_F",[-4.7,6.6,0],197.3],
@@ -113,16 +113,28 @@ _compoRefPoint = createVehicle [WMS_OPFOR_Flag, _pos, [], 0, "CAN_COLLIDE"];
 _compoRefPoint setDir _dirCompo;
 _objList pushback _compoRefPoint;
 {     
-_object = createVehicle [(_x select 0), (_compoRefPoint modeltoworld [(_x select 1 select 0),(_x select 1 select 1),(_x select 1 select 2)]), [], 0, "CAN_COLLIDE"];
-_objList pushback _object; 
-_objectVectoriel = (_compoRefPoint modeltoworld  [(_x select 1 select 0),(_x select 1 select 1),0]);
-_object setposATL [(_objectVectoriel select 0),(_objectVectoriel select 1),((_x select 1) select 2)];
-_object setdir _dirCompo + (_x select 2); 
-_gradient = surfaceNormal position _object; 
-_object setvectorup _gradient;
-_object enableSimulationGlobal true; 
-_object allowDamage false;
-uisleep 0.1;
+	_object = createVehicle [(_x select 0), (_compoRefPoint modeltoworld [(_x select 1 select 0),(_x select 1 select 1),(_x select 1 select 2)]), [], 0, "CAN_COLLIDE"];
+	_objList pushback _object; 
+	_objectVectoriel = (_compoRefPoint modeltoworld  [(_x select 1 select 0),(_x select 1 select 1),0]);
+	_object setposATL [(_objectVectoriel select 0),(_objectVectoriel select 1),((_x select 1) select 2)];
+	_object setdir _dirCompo + (_x select 2); 
+	_gradient = surfaceNormal position _object; 
+	_object setvectorup _gradient;
+	_object enableSimulationGlobal true; 
+	_object allowDamage false;
+	if (_object isKindOf "rhs_D30_at_msv")then {
+		//"rhs_mag_bk6m" //remove 9 out of 10 AT shells since they are FUCKING RIDICULOUS
+		_object removeMagazinesTurret	["rhs_mag_bk6m",[0]];
+		_object removeMagazinesTurret	["rhs_mag_bk6m",[0]];
+		_object removeMagazinesTurret	["rhs_mag_bk6m",[0]];
+		_object removeMagazinesTurret	["rhs_mag_bk6m",[0]];
+		_object removeMagazinesTurret	["rhs_mag_bk6m",[0]];
+		_object removeMagazinesTurret	["rhs_mag_bk6m",[0]];
+		_object removeMagazinesTurret	["rhs_mag_bk6m",[0]];
+		_object removeMagazinesTurret	["rhs_mag_bk6m",[0]];
+		_object removeMagazinesTurret	["rhs_mag_bk6m",[0]];
+	};
+	uisleep 0.1;
 } forEach _objects;
 
 if (_armed==1) then {
@@ -144,7 +156,7 @@ if (_armed==1) then {
 	[units _MGgrp2,'BunkerMG',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	_MGgrp2 setFormDir (180 + _dirCompo);
 };
-if (_armed==2) then { //AT CANNON NEED TO UNDERSTANT IT'S NOT AN AA STATION
+if (_armed==2) then { //AT CANNON NEED TO UNDERSTAND IT'S NOT AN AA STATION
 	_MGgrp1 = createGroup [OPFOR, false];
 	_grps pushBack _MGgrp1;
 	_MGgrp2 = createGroup [OPFOR, false];
@@ -153,6 +165,25 @@ if (_armed==2) then { //AT CANNON NEED TO UNDERSTANT IT'S NOT AN AA STATION
 		_compoRefPoint modeltoworld [0,1,0],
 		_MGgrp1
 	];
+	{//here create the dynamic skill set "static" with a "getin" and "getOut" EH
+		_x addEventHandler ["GetIn", {
+			params ["_vehicle", "_role", "_unit", "_turret"];
+			if !(isPlayer _unit) then {
+				_skills = WMS_AMS_skillstatic;
+				_unit setSkill ["spotDistance", 	(_skills select 0)];
+				_unit setSkill ["spotTime", 		(_skills select 1)];
+				_unit setSkill ["aimingAccuracy", 	(_skills select 2)];
+				_unit setSkill ["aimingShake", 		(_skills select 3)];
+				_unit setSkill ["aimingSpeed", 		(_skills select 4)];
+				_unit setSkill ["reloadSpeed", 		(_skills select 5)];
+				_unit setSkill ["courage", 			(_skills select 6)];
+				_unit setSkill ["commanding", 		(_skills select 7)];
+				_unit setSkill ["general", 			(_skills select 8)];
+				_unit setVariable ["WMS_Static", true, false];
+				_unit setVariable ["WMS_StaticObj", _vehicle, false];
+			};
+		}];
+	}forEach [(_objList select 1),(_objList select 2)];
 	_MGgrp1 addVehicle (_objList select 1);
 	((units _MGgrp1) select 0) moveInGunner (_objList select 1);
 	[units _MGgrp1,'assault',0,0.1,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;

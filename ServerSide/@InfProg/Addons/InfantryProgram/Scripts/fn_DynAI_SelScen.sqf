@@ -89,8 +89,8 @@ if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| target sp
 	if ((_markerType in WMS_AMS_TradersIcons) && {((getMarkerPos _x) distance2D _target)<= WMS_DynAI_traderDistance}) then {_threatScenario = "traders"}; //{}
 }forEach allMapMarkers;
 
-_Rcoef = [10,5,5,20,20,5,5,0,2,5,1,0,0,0,0,0]; //bambi
-_Vcoef = [10,5,5,30,30,30,10,20,20,10,10,20,0,0,0,0]; //on foot
+_Rcoef = [10,5,5,20,20,5,5,0,2,5,1,0,0,0,0,0,0]; //Respect coef bambi
+_Vcoef = [10,5,5,30,30,30,10,20,20,10,10,20,0,0,0,0,0]; //Vehicle coef on foot
 if (_threatScenario != "traders") then {
 if (_playerRep < (WMS_DynAI_RepLvlAdapt select 0) ) then { 
 		_Rcoef = [10,5,5,20,20,5,5,0,2,5,1,0,0,0,20,25];
@@ -117,7 +117,7 @@ if (_playerRep < (WMS_DynAI_RepLvlAdapt select 0) ) then {
 		_lockPlayer = false;
 	} else {
 if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 0) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 1)}) then {
-		_Rcoef = [5,2,4,15,20,10,5,10,10,5,5,0,0,0,15,30];
+		_Rcoef = [5,2,4,15,20,10,5,10,10,5,5,0,0,0,15,30,0];
 		_grpSize = 3+(round (random 2));
 		_timer = 240;
 		_altitude = 175;
@@ -126,7 +126,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 0) && {_playerRep < (WMS_DynAI_R
 		_iterA = 3;
 		_iterO = 12;
 		_launcherChance = 25;
-		_artyChanceHE = 35;
+		_artyChanceHE = 40;
 		_dist1INF = 100;
 		_dist2INF = 500;
 		_dist1VHL = 700;
@@ -144,7 +144,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 0) && {_playerRep < (WMS_DynAI_R
 		_difficulty = "moderate";
 	} else {
 if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 2)}) then {
-		_Rcoef = [3,1,3,10,20,20,10,15,20,20,20,25,5,0,10,20];
+		_Rcoef = [3,1,3,10,20,20,10,15,20,20,20,25,5,0,10,25,3];
 		_grpSize = 4+(round (random 2));
 		_timer = 360;
 		_altitude = 150;
@@ -153,7 +153,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_R
 		_iterA = 5;
 		_iterO = 16;
 		_launcherChance = 40;
-		_artyChanceHE = 50;
+		_artyChanceHE = 70;
 		_dist1INF = 100;
 		_dist2INF = 450;
 		_dist1VHL = 600;
@@ -172,7 +172,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_R
 		_difficulty = "difficult";
 	} else {
 if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) then {
-		_Rcoef = [1,1,2,5,20,20,15,20,20,20,30,30,10,5,10,15];
+		_Rcoef = [1,1,2,5,20,20,15,20,20,20,30,30,10,5,10,20,6];
 		_grpSize = 4+(round (random 3));
 		_timer = 600;
 		_altitude = 125;
@@ -181,7 +181,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) the
 		_iterA = 8;
 		_iterO = 22;
 		_launcherChance = 55;
-		_artyChanceHE = 65;
+		_artyChanceHE = 85;
 		_dist1INF = 150;
 		_dist2INF = 400;
 		_dist1VHL = 500;
@@ -216,7 +216,8 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) the
 			20,	//"arty"
 			15,	//"bombing"
 			5,	//"EOD"
-			20	//"BBQcamp"
+			25,	//"BBQcamp"
+			10	//"ParaBombs"
 			]; //
 		_grpSize = 5+(round (random 3));
 		_timer = 900;
@@ -226,7 +227,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) the
 		_iterA = 8;
 		_iterO = 22;
 		_launcherChance = 65;
-		_artyChanceHE = 80;
+		_artyChanceHE = 95;
 		_dist1INF = 150;
 		_dist2INF = 400;
 		_dist1VHL = 400;
@@ -245,25 +246,25 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) the
 		_difficulty = "hardcore";
 	};
 };};};};
-if (vehicle _target iskindof "man") then {_Vcoef = [10,5,5,30,30,30,10,20,20,10,10,20,0,0,25,30];
+if (vehicle _target iskindof "man") then {_Vcoef = [10,5,5,30,30,30,10,20,20,10,10,20,0,0,25,30,1];
 	} else {
-		if (vehicle _target iskindof "Plane") then {_Vcoef = [0,0,0,10,20,0,0,0,0,30,80,0,0,0,15,0]};
-		if (vehicle _target iskindof "Tank") then { _Vcoef = [2,5,0,0,30,10,40,10,30,30,50,5,10,0,15,0]; _vhlFull = selectRandom WMS_OPFOR_CustomVHL_Spec;};
-		if (vehicle _target isKindOf "Wheeled_Apc_F")then{_Vcoef = [2,5,0,0,30,10,40,10,30,30,50,5,10,0,15,0]};
-		if (vehicle _target isKindOf "MRAP_01_base_F")then{_Vcoef = [2,10,0,0,30,10,40,10,30,30,50,5,10,0,15,5]};
-		if (vehicle _target isKindOf "Truck_F")then{_Vcoef = [3,5,8,20,30,20,40,20,20,40,40,30,1,0,25,25]};
-		if (vehicle _target isKindOf "LSV_01_armed_base_F"||vehicle _target isKindOf "LSV_02_armed_base_F")then{_Vcoef = [3,5,8,20,30,20,40,20,20,40,40,30,1,0,25,25]};
-		if (vehicle _target iskindof "StaticWeapon") then { _Vcoef = [10,0,5,0,20,3,0,40,30,25,10,15,30,1,10,10]};
-		if (vehicle _target iskindof "Ship") then { _Vcoef = [5,0,0,0,0,0,0,0,5,0,100,0,5,2,5,0]};
-		if (vehicle _target iskindof "Bicycle") then { _Vcoef = [10,5,5,30,20,30,10,5,10,10,10,5,2,0,10,30]};
-		if ((typeOf (vehicle _target)) in WMS_RCWS_Vhls) then { _Vcoef = [2,5,0,0,30,10,40,10,30,30,50,5,10,0,15,0]};//APC copy
+		if (vehicle _target iskindof "Plane") then {_Vcoef = [0,0,0,10,20,0,0,0,0,30,80,0,0,0,15,0,0]};
+		if (vehicle _target iskindof "Tank") then { _Vcoef = [2,5,0,0,30,10,40,10,30,30,50,5,10,0,15,0,2]; _vhlFull = selectRandom WMS_OPFOR_CustomVHL_Spec;};
+		if (vehicle _target isKindOf "Wheeled_Apc_F")then{_Vcoef = [2,5,0,0,30,10,40,10,30,30,50,5,10,0,15,0,5]};
+		if (vehicle _target isKindOf "MRAP_01_base_F")then{_Vcoef = [2,10,0,0,30,10,40,10,30,30,50,5,10,0,15,5,5]};
+		if (vehicle _target isKindOf "Truck_F")then{_Vcoef = [3,5,8,20,30,20,40,20,20,40,40,30,1,0,25,25,1]};
+		if (vehicle _target isKindOf "LSV_01_armed_base_F"||vehicle _target isKindOf "LSV_02_armed_base_F")then{_Vcoef = [3,5,8,20,30,20,40,20,20,40,40,30,1,0,25,25,2]};
+		if (vehicle _target iskindof "StaticWeapon") then { _Vcoef = [10,0,5,0,20,3,0,40,30,25,10,15,30,1,10,10,5]};
+		if (vehicle _target iskindof "Ship") then { _Vcoef = [5,0,0,0,0,0,0,0,5,0,100,0,5,2,5,0,0]};
+		if (vehicle _target iskindof "Bicycle") then { _Vcoef = [10,5,5,30,20,30,10,5,10,10,10,5,2,0,10,30,0]};
+		if ((typeOf (vehicle _target)) in WMS_RCWS_Vhls) then { _Vcoef = [2,5,0,0,30,10,40,10,30,30,50,5,10,0,15,0,0]};//APC copy
 		if (vehicle _target iskindof "Helicopter") then {
-			if (vehicle _target iskindof "Steerable_Parachute_F") then { _Vcoef = [0,0,10,30,30,30,0,0,0,15,5,0,10,0,25,30];//for whatever reason, the parachute is classed as helicopter.		
+			if (vehicle _target iskindof "Steerable_Parachute_F") then { _Vcoef = [0,0,10,30,30,30,0,0,0,15,5,0,10,0,25,30,0];//for whatever reason, the parachute is classed as helicopter.		
 				} else {
-					if (vehicle _target isKindOf "Heli_Attack_01_base_F"||vehicle _target isKindOf "Heli_Attack_02_base_F")then{_Vcoef = [0,0,5,30,30,2,0,0,0,40,50,10,5,0,5,0];
+					if (vehicle _target isKindOf "Heli_Attack_01_base_F"||vehicle _target isKindOf "Heli_Attack_02_base_F")then{_Vcoef = [0,0,5,30,30,2,0,0,0,40,50,10,5,0,5,0,0];
 						}else{
-							if (vehicle _target isKindOf "Heli_Light_01_armed_base_F")then{_Vcoef = [0,0,5,30,30,2,0,0,0,40,50,10,5,0,5,0];
-								}else{_Vcoef = [0,0,5,30,30,2,0,0,0,40,50,10,5,0,5,25]};
+							if (vehicle _target isKindOf "Heli_Light_01_armed_base_F")then{_Vcoef = [0,0,5,30,30,2,0,0,0,40,50,10,5,0,5,0,0];
+								}else{_Vcoef = [0,0,5,30,30,2,0,0,0,40,50,10,5,0,5,25,0]};
 						};
 				};
 		};
@@ -297,27 +298,29 @@ if (_triggType == "trigger") then { //FOREST
 		"AIRassault",((_Vcoef select 11) +(_Rcoef select 11)),
 		"arty",((_Vcoef select 12) +(_Rcoef select 12)),
 		"BBQcamp",((_Vcoef select 15) +(_Rcoef select 15)),
-		"bombing",((_Vcoef select 13) +(_Rcoef select 13))
+		"bombing",((_Vcoef select 13) +(_Rcoef select 13)),
+		"ParaBombs",((_Vcoef select 16) +(_Rcoef select 16))
 		];
 		};
 };
 if (_triggType == "dynamic") then { //full options//"dynamic"
 	_threatScenario = selectRandomWeighted[
-	"rain",((_Vcoef select 0) +(_Rcoef select 0)+(_Bonus/2)),
-	"paracrate",((_Vcoef select 1) +(_Rcoef select 1)+_Bonus),
-	"spawncrate",((_Vcoef select 2) +(_Rcoef select 2)+(_Bonus/1.2)),
-	"escarmouche",((_Vcoef select 3) +(_Rcoef select 3)),
-	"INFpatrol",((_Vcoef select 4) +(_Rcoef select 4)),
-	"building",((_Vcoef select 5) +(_Rcoef select 5)),
-	"roadblock",((_Vcoef select 6) +(_Rcoef select 6)),
-	"runner",((_Vcoef select 7) +(_Rcoef select 7)),
-	"paradrop",((_Vcoef select 8) +(_Rcoef select 8)),
-	"VHLpatrol",((_Vcoef select 9) +(_Rcoef select 9)),
-	"AIRpatrol",((_Vcoef select 10) +(_Rcoef select 10)),
-	"AIRassault",((_Vcoef select 11) +(_Rcoef select 11)),
-	"arty",((_Vcoef select 12) +(_Rcoef select 12)),
-	//"BBQcamp",((_Vcoef select 15) +(_Rcoef select 15)),//BBQcamp in dynamic spawn 10m away from the player...
-	"bombing",((_Vcoef select 13) +(_Rcoef select 13))
+		"rain",((_Vcoef select 0) +(_Rcoef select 0)+(_Bonus/2)),
+		"paracrate",((_Vcoef select 1) +(_Rcoef select 1)+_Bonus),
+		"spawncrate",((_Vcoef select 2) +(_Rcoef select 2)+(_Bonus/1.2)),
+		"escarmouche",((_Vcoef select 3) +(_Rcoef select 3)),
+		"INFpatrol",((_Vcoef select 4) +(_Rcoef select 4)),
+		"building",((_Vcoef select 5) +(_Rcoef select 5)),
+		"roadblock",((_Vcoef select 6) +(_Rcoef select 6)),
+		"runner",((_Vcoef select 7) +(_Rcoef select 7)),
+		"paradrop",((_Vcoef select 8) +(_Rcoef select 8)),
+		"VHLpatrol",((_Vcoef select 9) +(_Rcoef select 9)),
+		"AIRpatrol",((_Vcoef select 10) +(_Rcoef select 10)),
+		"AIRassault",((_Vcoef select 11) +(_Rcoef select 11)),
+		"arty",((_Vcoef select 12) +(_Rcoef select 12)),
+		//"BBQcamp",((_Vcoef select 15) +(_Rcoef select 15)),//BBQcamp in dynamic spawn 10m away from the player...
+		"bombing",((_Vcoef select 13) +(_Rcoef select 13)),
+		"ParaBombs",((_Vcoef select 16) +(_Rcoef select 16))
 	];
 };
 if (_triggType == "reinforcement") then {
@@ -332,7 +335,8 @@ if (_triggType == "reinforcement") then {
 			"AIRpatrol",((_Vcoef select 10) +(_Rcoef select 10)),
 			"AIRassault",((_Vcoef select 11) +(_Rcoef select 11)),
 			"arty",((_Vcoef select 12) +(_Rcoef select 12)),
-			"bombing",((_Vcoef select 13) +(_Rcoef select 13))
+			"bombing",((_Vcoef select 13) +(_Rcoef select 13)),
+			"ParaBombs",((_Vcoef select 16) +(_Rcoef select 16))
 		];
 	} else {
 		_threatScenario = _info;
@@ -352,7 +356,8 @@ if (_triggType == "reinforcementpunisher") then {
 			"AIRpatrol",((_Vcoef select 10) +(_Rcoef select 10)),
 			"AIRassault",((_Vcoef select 11) +(_Rcoef select 11)),
 			"arty",((_Vcoef select 12) +(_Rcoef select 12)),
-			"bombing",((_Vcoef select 13) +(_Rcoef select 13))
+			"bombing",((_Vcoef select 13) +(_Rcoef select 13)),
+			"ParaBombs",((_Vcoef select 16) +(_Rcoef select 16))
 		];
 	} else {
 		_threatScenario = _info;
@@ -427,7 +432,6 @@ switch (_threatScenario) do {
 			_buildingsList sort true;
 			if (count (_buildingsList) > 0) then {
 				_posList = [(selectRandom _buildingsList) select 1] call BIS_fnc_buildingPositions;
-				//if ((count _posList) >= WMS_DynAI_MinPosInBuildgs && {((nearestBuilding _pos) distance2D _target) > WMS_DynAI_MinDistBuildgs}) then {
 				if (((nearestBuilding _pos) distance2D _target) > WMS_DynAI_MinDistBuildgs) then {
 					_pos = selectRandom _posList;
 				} else {
@@ -441,7 +445,6 @@ switch (_threatScenario) do {
 		};
 		[_pos,_radius,_timer,_grpSize,_launcherChance,_skill,_loadout,_difficulty] spawn WMS_fnc_DynAI_BuildingGuards;
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
-		//};
 	};
 	case "runner" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
@@ -472,7 +475,7 @@ switch (_threatScenario) do {
 	case "roadblock" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
 		if (_triggType == "dynamic") then {
-			if (_targetSpeed < 200) then {
+			if (_targetSpeed < 160) then {
 				if (_targetSpeed < 110) then {_dist2INF == 400};
 				if (_targetSpeed > 110) then {_dist2INF == 500};
 				_pos = _target modelToWorld [0,_dist2INF,0];
@@ -490,18 +493,20 @@ switch (_threatScenario) do {
 		//};
 	};
 	case "bombing" : {
-		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
 		_altitude = 600;
 		[_pos,_radius,_altitude,_direction,(WMS_BombList select 0)] spawn WMS_fnc_DynAI_Bombing;
-		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
-		//};
 	};
 	case "arty" : {
-		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
 		_randomPos = [_pos, (300+_dist1VHL), (300+_dist2VHL), 5, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
 		[_target, _randomPos, _artyChanceHE, _iterA] spawn WMS_fnc_DynAI_arty; //Optional: _artyChanceHE, _iterA
-		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
-		//};
+	};
+	case "ParaBombs" : {//[_posCenter,_radius,_hight,_direction,_load,_iteration] //[[0,0,0],100,150,random,bomb,3]
+		if (_triggType == "reinforcementpunisher") then {
+			[(position _target),100,150,359,(selectRandom WMS_DynAI_EODBombs),6] spawn WMS_fnc_DynAI_ParaBombs;
+		}else{
+			[(position _target)] spawn WMS_fnc_DynAI_ParaBombs;
+		};
+		
 	};
 	/////NEUTRAL
 	case "paracrate" : {

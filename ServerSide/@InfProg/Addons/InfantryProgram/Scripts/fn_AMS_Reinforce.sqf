@@ -49,6 +49,7 @@ if (vehicle _killer isKindOf "tank"||vehicle _killer isKindOf "APC") then {
 			//"AIRassault",
 			"arty",
 			"bombing","bombing",
+			"ParaBombs","ParaBombs",
 			"Annihilator",
 			"random"
 		];
@@ -91,6 +92,7 @@ if (vehicle _killer isKindOf "tank"||vehicle _killer isKindOf "APC") then {
 					//"AIRassault",
 					//"arty",
 					"bombing",
+					"ParaBombs",
 					//"Annihilator",
 					"random"
 				];
