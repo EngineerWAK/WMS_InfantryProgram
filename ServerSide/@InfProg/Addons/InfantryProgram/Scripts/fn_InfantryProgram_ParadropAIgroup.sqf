@@ -55,7 +55,7 @@ publicVariable "WMS_ParadropAI_LastTime";
 if (_grpSide == OPFOR ) then {
 	if (WMS_IP_LOGs) then {diag_log format ["[PARADROP GROUP]|TNA|TNA|TNA|TNA|TNA| Side = %1", _grpSide]};
 	_smokeGrenade = "SmokeShellRed";
-	[(units _paraGrp),'Para',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+	[(units _paraGrp),'para',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	if (isPlayer _target) then {
 		_sessionID = _target getVariable ['ExileSessionID','']; 
 		if (WMS_exileToastMsg) then {
@@ -71,7 +71,7 @@ if (_grpSide == BLUFOR ) then {
 	if (_loadout == "army") then {_loadout = "army_b"};
 	//[(units _paraGrp),'Para',_launcherChance,_skill,_loadout] call WMS_fnc_DynAI_SetUnitBLU;
 	//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
-	[units _paraGrp,'Para',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+	[units _paraGrp,'para',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	{
 		_PatrolVRmkr = createVehicle ["VR_Area_01_square_1x1_grey_F",[0,0,0], [], 10];
 		_PatrolVRmkr setObjectTextureGlobal [0, "#(rgb,8,8,3)color(0,1,0,0.15)"];
@@ -85,10 +85,10 @@ if (_grpSide == BLUFOR ) then {
 };
 
 _smokePos = [
-	[((_pos select 0)-30),(_pos select 1),150],
-	[((_pos select 0)+30),(_pos select 1),150],
-	[(_pos select 0),((_pos select 1)-30),150],
-	[(_pos select 0),((_pos select 1)+30),150]
+	[((_pos select 0)-50),(_pos select 1),150],
+	[((_pos select 0)+50),(_pos select 1),150],
+	[(_pos select 0),((_pos select 1)-50),150],
+	[(_pos select 0),((_pos select 1)+50),150]
 ];
 _smokeGrenade createVehicle (selectRandom _smokePos);
 

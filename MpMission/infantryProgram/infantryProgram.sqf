@@ -569,53 +569,59 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-
-	///////////////////TEST//////////////////////
-	//['Spawn Beacon Timed', 5, {true}, {hint 'done'}, {hint 'aborted'}] call CBA_fnc_progressBar;
-	
-//Spawn Beacon timed test
-	/*_IDnumber = _IPcomputer addAction
+//WHEELS AND TRACKS
+	_IDnumber = _IPcomputer addAction
 	[
-		"<t size='0.9' color='#ff5324'>Spawn Beacon Timed</t>",
+		"<t size='0.9' color='#8ed42b'>Buy set of Wheels 600$</t>",
 		"
-			_target = (_this select 0); 
-			_caller = (_this select 1);
-			_theHint = ((_this select 3) select 4);
-			if ((_this select 1) getVariable ['ExileScore', 0] >= (_this select 3) select 2) then {
-				
-				['Spawn Beacon Timed', 3, {true}, 
-					{
-						diag_log format ['[WMS|TNA|WAK] _this = %1', _this];
-						_myRespawn = [(_this select 0 select 1),(position (_this select 0 select 0)),'Spawn Beacon'] call BIS_fnc_addRespawnPosition;
-						(_this select 0 select 0) setVariable ['WMS_Loc_canSpawnBeacon',false,true];
-						(_this select 0 select 0) setVariable ['WMS_Loc_SpawnBeacon',_myRespawn,true];
-						hint (_this select 0 select 2);
-					}, 
-					{hint 'aborted'},
-					[_target,_caller,_theHint]
-				] call CBA_fnc_progressBar;
-
-			} else {
-				hint 'Bro! your respect is too low';
-				execVM 'Custom\Intro\levels.sqf';
+			_target = _this select 0; _caller = _this select 1;
+			for '_i' from 1 to 4 do {
+				createVehicle ['ACE_Wheel', position _target, [], 5, 'NONE'];
+				uisleep 0.5;
 			};
+			[_caller, 600] remoteExec ['WMS_fnc_smallTransactions'];
 		", 
-		['SpawnBeacon',2500,6000,'SpawnBeacon','Spawn Beacon Activated'],
+		[],
 		1,
 		true,
 		true,
 		"",
-		"	
-			(getPlayerUID _this == '76561197965501020') &&
-			{_target getVariable ['WMS_Loc_canSpawnBeacon',true]} &&
+		"
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
 			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{(_this getVariable ['ExileMoney', 0] >= 600} &&
 			{(vehicle _this == _this)};
 		",
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-*/
-////////////////////////////////////////
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#8ed42b'>Buy set of Tracks 6000$</t>",
+		"
+			_target = _this select 0; _caller = _this select 1;
+			for '_i' from 1 to 2 do {
+				createVehicle ['ACE_Track', position _target, [], 5, 'NONE'];
+				uisleep 0.75;
+			};
+			[_caller, 6000] remoteExec ['WMS_fnc_smallTransactions'];
+		", 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{((_this getVariable ['ExileMoney', 0]) >= 6000)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
 //JOIN THE PROGRAM //KEEP AT THE BOTTOM
 	_IDnumber = _IPcomputer addAction
 	[

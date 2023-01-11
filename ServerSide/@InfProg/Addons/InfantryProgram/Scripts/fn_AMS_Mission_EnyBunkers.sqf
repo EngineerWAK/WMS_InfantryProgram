@@ -110,7 +110,7 @@ _Mines2 = [
 	_pos,
 	_radius,//"_radius", //100
 	_howMany,//"_howMany", //20
-	WMS_AMS_MineAP //"_mineType", [""]], //WMS_ATMines
+	[WMS_AMS_MineAP] //"_mineType", [""]], //WMS_ATMines
 	//"_fireExplode", //false
 	//"_signs", //true
 	//"_steps" //36

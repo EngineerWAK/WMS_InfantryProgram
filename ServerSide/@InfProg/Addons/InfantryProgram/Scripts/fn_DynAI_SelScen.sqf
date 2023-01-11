@@ -501,7 +501,7 @@ switch (_threatScenario) do {
 		[_target, _randomPos, _artyChanceHE, _iterA] spawn WMS_fnc_DynAI_arty; //Optional: _artyChanceHE, _iterA
 	};
 	case "ParaBombs" : {//[_posCenter,_radius,_hight,_direction,_load,_iteration] //[[0,0,0],100,150,random,bomb,3]
-		if (_triggType == "reinforcementpunisher") then {
+		if (_triggType == "reinforcementpunisher"||_playerRep >= 100000) then {
 			[(position _target),100,150,359,(selectRandom WMS_DynAI_EODBombs),6] spawn WMS_fnc_DynAI_ParaBombs;
 		}else{
 			[(position _target)] spawn WMS_fnc_DynAI_ParaBombs;

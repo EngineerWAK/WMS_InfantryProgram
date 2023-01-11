@@ -136,7 +136,7 @@ if (count _positions > 0) then {//Need to add a Player check
 //Create the Mines field
 		if (_mines >= 1) then {
 			for "_i" from 1 to _mines do {
-				_mine = createMine [WMS_ATMines, ([_pos, 5, (_rad/1.5), 0.5, 0, 0.5, 0] call BIS_fnc_findSafePos), [], 0 ];
+				_mine = createMine [(selectRandom WMS_ATMines), ([_pos, 5, (_rad/1.5), 0.5, 0, 0.5, 0] call BIS_fnc_findSafePos), [], 0 ];
 				_mine allowDamage true; 
 				_mine setDir (random 360);
 				EAST revealMine _mine;

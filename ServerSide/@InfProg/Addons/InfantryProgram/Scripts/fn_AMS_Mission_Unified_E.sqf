@@ -63,7 +63,8 @@ params[
 	["_radius",30, [0]],
 	["_howMany",5, [0]],
 	["_uniParams",[]], //[[_name],[_difficulty],[_loadout],[_unitFunction],[_behavType],_lootCounts,_lootType,_launcherChance,_clnObj,[_objects],_radiusObjects,_vehicAI,_vehicRwd, _option]
-	["_mission","error"]
+	["_mission","error"], //mission string from the "mission to select" array 
+	["_forceParaRwd",false]
 ];
 _name 			= selectRandom (_uniParams select 0); 	// "fucking name"
 _difficulty 	= selectRandom (_uniParams select 1);	// first letter CAP
@@ -201,7 +202,11 @@ _Mines = [
 	//"_steps" //36
 ] call WMS_fnc_AMS_SpawnMineField;
 
-_rwd = [_pos,_vehicRwd,_missionID] call WMS_fnc_AMS_CreateReward;
+if (_forceParaRwd) then {
+	_rwd = _vehicRwd; //if (typeName (_rwds select 0) == "STRING")
+} else {
+	_rwd = [_pos,_vehicRwd,_missionID] call WMS_fnc_AMS_CreateReward; //if (typeName (_rwds select 0) == "OBJECT")
+};
 
 _vehic = [
 	_pos,

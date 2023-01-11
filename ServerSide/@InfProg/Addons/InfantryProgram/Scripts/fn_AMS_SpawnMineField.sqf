@@ -11,24 +11,24 @@
 */
 
 //////////////////////////////////////////////////////////////////
-//[_pos, _radius, _howMany, _mineType, _fireExplode, _signs, _steps]call WMS_fnc_AMS_SpawnMineField
-//[_pos, 100, 30, "ATMine", true, true, nil]call WMS_fnc_AMS_SpawnMineField
+//[_pos, _radius, _howMany, _mineTypes, _fireExplode, _signs, _steps]call WMS_fnc_AMS_SpawnMineField
+//[_pos, 100, 30, ["ATMine"], true, true, nil]call WMS_fnc_AMS_SpawnMineField
 private ["_mineList","_mine","_randDirOffset","_sign"];
 params[
 	"_pos",
 	["_radius",100],
 	["_howMany",20],
-	["_mineType", WMS_AMS_MineAT],
+	["_mineTypes", WMS_AMS_MineAT], //array of mines classnames
 	["_fireExplode", false],
 	["_signs", true],
 	["_steps",36]
 ];
 _mineList = [];
 for "_i" from 1 to _howMany do {
-	_mine = createMine [_mineType, ([_pos, 5, _radius, 0.5, 0, 0.5, 0] call BIS_fnc_findSafePos), [], 0 ];
+	_mine = createMine [(selectRandom _mineTypes), ([_pos, 5, _radius, 0.5, 0, 0.5, 0] call BIS_fnc_findSafePos), [], 0 ];
 	_mineList pushback _mine;
 	_mine allowDamage _fireExplode;
-	if (_mineType in WMS_DirectionnalMines) then {
+	if ((typeOf _mine) in WMS_DirectionnalMines) then {
 		_direction = (random 360) ;
 		_mine setDir _direction;
 		[_mine, _direction] remoteexec ['setDir',0];

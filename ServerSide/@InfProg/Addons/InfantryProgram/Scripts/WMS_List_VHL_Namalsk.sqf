@@ -239,3 +239,13 @@ WMS_AMS_COMMSRwds = [
 	["O_Truck_03_device_F",[],[[],[]]],
 	["O_T_Truck_03_device_ghex_F",[],[[],[]]]
 ];
+WMS_AMS_MEDRwds = [
+	["B_Truck_01_medical_F",[],[[],[]]],
+	["B_T_Truck_01_medical_F",[],[[],[]]],
+	["O_Truck_02_medical_F",[],[[],[]]],
+	["O_Truck_03_medical_F",[],[[],[]]],
+	["O_T_Truck_03_medical_ghex_F",[],[[],[]]],
+	["O_T_Truck_02_Medical_F",[],[[],[]]],
+	["I_E_Truck_02_Medical_F",[],[[],[]]],
+	["C_IDAP_Van_02_medevac_F",[],[[],[]]]
+];

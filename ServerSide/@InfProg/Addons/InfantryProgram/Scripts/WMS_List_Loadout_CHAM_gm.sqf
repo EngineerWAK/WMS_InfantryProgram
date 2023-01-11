@@ -15,6 +15,9 @@ ACE3, RHSAFRF, RHSUSAF, RHSGREF, VSM National Gear Pack
 */
 if !(WMS_exileFireAndForget) then {
 WMS_AI_inventory = [//"AntimalaricumVaccine",//"Laptop_Unfolded",
+	
+	"gm_ge_army_medkit_80","gm_bayonet_6x3_wud","gm_suppressor_safloryt_blk","gm_c79a1_oli","gm_zfk4x25_blk","gm_explosive_petn_charge","gm_explosive_plnp_charge","gm_1rnd_67mm_heat_dm22a1_g3",//GM
+	"hlc_acc_DBALPL_side_FL","hlc_acc_Surefiregrip","HLC_optic_DocterV","hlc_optic_HensoldtZO_lo_Docter","rhsusf_acc_su230a_mrds_c",
 	"ACE_EarPlugs","ACE_EarPlugs",
 	"rhs_ec200_sand_mag","rhs_ec75_sand_mag","1Rnd_HE_Grenade_shell","rhs_rpg7_OG7V_mag","rhs_VOG25",//explo
 	"Antimalaricum","Antibiotic",

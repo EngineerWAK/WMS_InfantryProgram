@@ -21,14 +21,15 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 										WMS_AI_LaunchersOPF 		= [["gm_m72a3_oli","gm_pzf44_2_oli","rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["gm_ge_airforce_do28d2_medevac","gm_ge_airforce_do28d2_medevac","gm_ge_airforce_do28d2_medevac"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
-										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","SmokeShellRed","rhs_mag_m67","rhs_mag_m7a3_cs","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
+										WMS_AI_grenades 			= ["gm_handgrenade_frag_dm51","gm_handgrenade_frag_dm51a1","gm_handgrenade_frag_rgd5","gm_handgrenade_conc_dm51","gm_handgrenade_conc_dm51a1", //GM Grenades
+																		"HandGrenade","MiniGrenade","rhs_mag_rgd5","SmokeShellRed","rhs_mag_m67","rhs_mag_m7a3_cs","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
 																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag","ACE_M14",
 																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_plamyam","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag"];
 										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "Bomb_03_F", "Bomb_04_F", "ammo_Bomb_SDB", "rhs_ammo_fab500_m54", "Bo_Mk82"]; //DynAI bombing is (select 0)										
 										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","rhs_ammo_kab500","rhs_ammo_fab500_m54"];
 										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
-										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
+										WMS_AI_ATstation 			= "gm_pl_army_spg9_tripod"; //roadBlock "rhs_D30_at_msv"
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
 										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15A","rhsusf_acc_anpeq15side","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15_bk_sc","rhsusf_acc_anpeq15_bk_top_h","rhsusf_acc_anpeq15_wmx_h","rhsusf_acc_anpeq15_wmx_light","rhsusf_acc_anpeq16a_light_top_sc","rhsusf_acc_anpeq16a_top"];
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
@@ -45,12 +46,12 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 										WMS_DynAI_GunshipHeavy 		= ["rhs_uh1h_hidf_gunship",["hidf_tan",1],[[],[]]];
 										WMS_para_small				= "rhs_d6_Parachute";
 										WMS_AMS_ToRun 				= 2; //with all the reinforcement and vehicles crew, 3 missions it's a lot
-										WMS_AMS_CustomPos			= ["forest","forest","forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
+										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
 										WMS_AI_HMG 					= "rhs_KORD_high_MSV";
 										WMS_AI_Arty					= "rhs_2b14_82mm_msv";
-										WMS_AMS_MineAT 				= "rhsusf_mine_M19";
-										WMS_ATMines					= "rhs_mine_TM43"; //"ATMine";"BWA3_DM31AT";
+										WMS_AMS_MineAT 				= ["rhsusf_mine_M19","ATMine","rhs_mine_TM43","gm_minestatic_at_tm46","gm_minestatic_at_dm21","gm_minestatic_at_mn111"];//"gm_minestatic_at_ptm3"
+										WMS_ATMines					= ["ATMine","gm_minestatic_at_dm21","gm_minestatic_at_mn111"]; //"ATMine";"BWA3_DM31AT";
 										WMS_AMS_SpnDistMission 		= 1550;
 										WMS_AI_RoamingVHLcount 		= 12; //10
 										WMS_AI_CargoUnits	 		= 4;
@@ -95,12 +96,12 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 																	["GrandPaJoe",1],
 																	["LumberYard",1], //"forest" positions
 																	["Factory",2], //"factory" positions
-																	["FieldHospital",1],
+																	["FieldHospital",2],
 																	["Object172M",2], //Armored Reward and NPCs
 																	["uncleabrams",2], //Armored Reward and NPCs
 																	["thecommunity",1],
 																	["shipyard",2], //small vehicle reward
-																	["occupation",1], //location/cities positions
+																	["occupation",2], //location/cities positions
 																	["commsrelay",2], //"comms" vehicle reward
 																	["strelnikovtrain",1],
 																	["bastogne",1], //"forest" positions
@@ -157,8 +158,8 @@ if (WMS_MapName == "ruha") then {
 										//WMS_AI_HMG_Shield			= "B_G_HMG_02_high_F";
 										WMS_AI_Arty					= "rhs_2b14_82mm_msv";
 										//WMS_AI_GMG 					= "O_GMG_01_high_F"; //AMS AA battery //"RHS_ZU23_VDV"
-										WMS_AMS_MineAT 				= "rhsusf_mine_M19";
-										WMS_ATMines					= "rhs_mine_TM43"; //"ATMine";"BWA3_DM31AT";
+										WMS_AMS_MineAT 				= ["rhsusf_mine_M19"];
+										WMS_ATMines					= ["rhs_mine_TM43"]; //"ATMine";"BWA3_DM31AT";
 										WMS_AMS_SpnDistMission 		= 2000;
 										WMS_AI_RoamingVHLcount 		= 12; //10
 										WMS_AI_CargoUnits	 		= 4;

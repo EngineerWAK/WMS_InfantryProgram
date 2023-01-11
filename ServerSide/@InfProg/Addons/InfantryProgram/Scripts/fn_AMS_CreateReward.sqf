@@ -10,12 +10,12 @@
 * Do Not Re-Upload
 */
 
-private ["_emptyPos","_rwd","_helipad","_random"];
+private ["_emptyPos","_rwd","_helipad","_random","_collide","_helipadArray"];
 params[
 	"_pos",
 	["_className", WMS_AMS_Crate_S, [""]],
 	["_missionID", "No_ID", [""]],
-	["_canBlowUp", false, []],
+	["_canBlowUp", WMS_AMS_allowDamRwd, []],
 	["_pinCode", 0, [0]]
 ];
 if (WMS_IP_LOGs) then {diag_log format ["[AMS CREATE REWARD OBJECT]|WAK|TNA|WMS| _this = %1 *****", _this]};

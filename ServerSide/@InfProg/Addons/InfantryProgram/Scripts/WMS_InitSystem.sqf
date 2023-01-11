@@ -33,27 +33,11 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.780_2023JAN06_GitHub"; //ParaBombs | GM stuff in loadout/vehicles for Cham
+WMS_System_Version 			= "v2.786_2023JAN11_GitHub"; //Buy wheels/tracks on computer | Bomber explo types | LittleBird Reinforcement | AT mines types array | ParaBombs | GM stuff in loadout/vehicles for Cham
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
-
-/////////////MOVED UP!!!!!!
-//WMS_ServRestartSeconds 	= 18000; //5h
-//WMS_IP_LOGs 				= false; //RPT logs
-//WMS_FastCombat			= false; //Activate NPC "Fast Combat": Accelerate Triggers/respawn, reduce cooldowns, can be changed during the round, the server will addapt
-//WMS_Watch_Triggers_Logs	= false; //RPT logs
-//WMS_magicSmoke 			= true; //puff of smoke/shaft/flare when NPC despawn
-//WMS_ServerMarkers 		= true;	//show Server FPS, AI and Deads count on the map
-//WMS_forceNoRain 			= false; //no more rain!
-//WMS_forceNoFog			= false; //no more fucking fog!
-//WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds
-//WMS_DynamicFlightOps		= true; //Module //DFO, for Arma "Pilots" who want to keep busy, call from a chopper or from DFO base(s)
-//WMS_AmbientLife			= false; //Module  //spawn some little dudes, flying, drivinng, walking using boats, CIVILIAN by default //AL can spawn A LOT of units/vehicles/waypoints, be sure your box can handle it with other regular mission/roaming AI
-//WMS_exileFireAndForget 	= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
-//WMS_exileToastMsg 		= false; //Exile message system
-/////////////MOVED UP!!!!!!
 
 WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch launch
 {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]}foreach allPlayers; //kick all players trying to connect before the server is locked-ready-unlocked
@@ -156,6 +140,8 @@ WMS_FastNight_Night 	= 38;  	//night time speed
 //Camp/events spawns
 //////////////////////////////
 WMS_Events 				= true;
+
+WMS_RunnerTypes			= ["ClaymoreDirectionalMine_Remote_Ammo_Scripted","SatchelCharge_Remote_Ammo_Scripted","Sh_155mm_AMOS","Bomb_03_F"];//["mine","satchel","shell","bomb"] //[3 front, 1 front, 2 front, 1 back]
 
 WMS_RepairCamp 			= true; //spawn a logistic camp on the map, ammo/repair/fuel
 WMS_RepairCampCount 	= 1;
@@ -448,6 +434,7 @@ WMS_AMS_Steal 			= true; //they will be looking for players vehicles to steal
 WMS_AMS_AllowMissiles 	= true;	//give NPCs or not locking missiles launchers (AA/AT)
 WMS_AMS_DelMissionFlag 	= true; //mission Flag prevent another mission to spawn at the same place
 WMS_AMS_ejectDeads		= true;	//Eject deads from vehicles
+WMS_AMS_allowDamRwd		= true;	//Reward vehicle can be dammaged before unlock the mission
 WMS_AMS_DestroyStatics 	= true; //with ACE, this one need a variable on the NPC to destroy the static when the NPC die
 WMS_AMS_AddActionOnReward = true; //will create a AddAction on the crate to sell it at the traders Zone (the last cartridges), might want to keep that false if Exile
 WMS_AMS_StripOnArmoredK	= true; //remove all gears/weapons if NPC killed from tank/apc/RCWS
@@ -492,7 +479,7 @@ WMS_AMS_Crate_L 		= "I_supplyCrate_F";  //Mission medium crate //B_supplyCrate_F
 WMS_AMS_Crate_XL 		= "B_CargoNet_01_ammo_F"; //Mission big crate
 WMS_AMS_Crate_noMove 	= "CargoNet_01_box_F"; //a crate you don't want player to move around "CargoNet_01_box_F" //"rhs_weapon_crate"
 WMS_AMS_MineAP 			= "APERSBoundingMine";//"APERSTripMine"; //"APERSMine" "APERSBoundingMine"
-WMS_AMS_MineAT 			= "ATMine"; //WMS_ATMines is curently used by WMS_AMS
+WMS_AMS_MineAT 			= ["ATMine"]; //WMS_ATMines is curently used by WMS_AMS
 WMS_AMS_MineSign 		= "Land_Sign_MinesTall_English_F"; //signs around mine fields
 WMS_AMS_ToRun 			= 3; //how many missions maximun at the same time
 WMS_AMS_MinFPS 			= 15; //diag_fps, above this, missions won't spawn
@@ -658,7 +645,7 @@ WMS_CamoNet_Big 		= "CamoNet_INDP_big_F"; //Default
 WMS_para_Big			= "B_Parachute_02_F"; //vehicle/crates paradrop
 WMS_para_small			= "NonSteerable_Parachute_F"; //small crates paradrop //rhs_d6_Parachute
 WMS_BombList 			= ["Bomb_03_F", "Bomb_04_F"]; //DynAI bombing is (select 0)
-WMS_ATMines				= "ATMine"; //"ATMine";"BWA3_DM31AT";
+WMS_ATMines				= ["ATMine"]; //"ATMine";"BWA3_DM31AT";
 WMS_DirectionnalMines 	= ["APERSTripMine"]; //those mines spawned with WMS_fnc_AMS_SpawnMineField will have random directions
 WMS_WaterSource			= "Land_ConcreteWell_02_F"; //ACE //Force this object to become a watersource (server start check)
 

@@ -189,6 +189,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		};
 		case "FieldHospital" : {
 			_objects = (selectRandom ["FieldHospital","FieldHospital2","FieldHospital3"]);
+			_rwd = ((selectRandom WMS_AMS_MEDRwds)select 0);//"classename" //test to paradrop a vehicle
 			["random",(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 				[
 					["Field Hospital"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["scientist","bandit","heavyBandit"],["Assault","HeavyBandit"],["patrol"],
@@ -196,9 +197,10 @@ if (_mission == "no") then { //obiously can not work anymore
 					[[3,1,2],[1,1,2],[4,1,2],[1,3,3],[0,0,0]],
 					[[4,1,2],[1,1,2],[5,1,2],[1,3,3],[0,0,0]],
 					[[5,1,2],[1,1,2],[6,1,2],[1,3,3],[0,0,0]]],
-					"meds",50,true,_objects,15,nil,nil,[6,"MG","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
-				],_mission
-			] call WMS_fnc_AMS_Mission_Unified_B;
+					//"meds",50,true,_objects,15,nil,nil,[6,"MG","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+					"meds",50,true,_objects,15,nil,[_rwd],[6,"MG","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+				],_mission, true //true for _forceParaRwd
+			] call WMS_fnc_AMS_Mission_Unified_C;
 		};
 		case "GrandPaJoe" : {
 			_objects = (selectRandom ["GrandPaJoe","GrandPaJoe_v2"]);

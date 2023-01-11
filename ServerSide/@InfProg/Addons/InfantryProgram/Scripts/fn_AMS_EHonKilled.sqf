@@ -69,7 +69,15 @@ if (isplayer _killer) then {
 	if (_killed == leader _killed) then {
 		if ((random 100) < WMS_AMS_DestroyVHL) then {vehicle _killed setDamage 1};
 		if (WMS_AMS_Reinforce && {time > (WMS_AMS_LastReinforce+WMS_AMS_ReinforceCoolD)}) then {
-			if (vehicle _killer isKindOf "tank"||vehicle _killer isKindOf "APC"||vehicle _killer isKindOf "Heli_Attack_01_base_F"||vehicle _killer isKindOf "Heli_Attack_02_base_F") then {
+			//if (vehicle _killer isKindOf "Heli_Light_01_armed_base_F"||vehicle _killer isKindOf "RHS_MELB_base") then {
+			if (
+				vehicle _killer isKindOf "tank"||
+				vehicle _killer isKindOf "APC"||
+				vehicle _killer isKindOf "Heli_Attack_01_base_F"||
+				vehicle _killer isKindOf "Heli_Attack_02_base_F"||
+				vehicle _killer isKindOf "Heli_Light_01_armed_base_F"||
+				vehicle _killer isKindOf "RHS_MELB_base"
+				) then {
 				[_killed,_killer,_playerRep,_distanceKill,_difficulty]call WMS_fnc_AMS_Reinforce;
 			}  else {	
 				if (_distanceKill>(WMS_AMS_RangeList select 0) && {(OPFOR countSide allUnits) < WMS_AI_MaxUnits_B}) then {
@@ -135,7 +143,11 @@ if (isplayer _killer) then {
 	if (WMS_AMS_ejectDeads) then {moveout _killed};
 	if !((vehicle _killer) isKindOf "man")then{
 		if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Killer: %1 is in a Vehicle!",(name _killer), (typeOf (vehicle _killer))]};
-		if (vehicle _killer isKindOf "tank" || vehicle _killer isKindOf "Wheeled_Apc_F" || (typeOf (vehicle _killer)) in WMS_RCWS_Vhls) then {
+		if (
+			vehicle _killer isKindOf "tank" || 
+			vehicle _killer isKindOf "Wheeled_Apc_F" || 
+			(typeOf (vehicle _killer)) in WMS_RCWS_Vhls
+			) then {
 			if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Killer: %1, vehicle is a tank/APC",(name _killer)]};
 			if (WMS_AMS_StripOnArmoredK)then {
 				if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Victime %1 is losing all is stuff",(name _killed)]};
@@ -147,14 +159,19 @@ if (isplayer _killer) then {
 				removeVest _killed;
 			};
 			if (WMS_AMS_TrappOnArmoredK)then {
-				_mineType = selectRandom [WMS_ATMines,"APERSBoundingMine"];
+				_mineType = selectRandom [(WMS_ATMines select 0),"APERSBoundingMine"];
 				_mine = createMine [_mineType, [((position _killed) select 0),((position _killed) select 1),0], [], 1 ];
 				_mine allowDamage false;
 				EAST revealMine _mine;
 				if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Victime %1 is Boobytrapped, %2",(name _killed),_mineType]};
 			};
 		}else {
-			if (vehicle _killer isKindOf "Heli_Attack_01_base_F"||vehicle _killer isKindOf "Heli_Attack_02_base_F"||vehicle _killer isKindOf "Heli_Light_01_armed_base_F") then {
+			if (
+				vehicle _killer isKindOf "Heli_Attack_01_base_F"||
+				vehicle _killer isKindOf "Heli_Attack_02_base_F"||
+				vehicle _killer isKindOf "Heli_Light_01_armed_base_F"||
+				vehicle _killer isKindOf "RHS_MELB_base"
+				) then {
 				if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Killer: %1, vehicle is an Attack Helicopter",(name _killer)]};
 				if (WMS_AMS_StripOnArmoredK)then {
 					if (WMS_IP_LOGs) then {diag_log format ["[AMS KILLER IN VEHICLE]|WAK|TNA|WMS| Victime %1 is losing all is stuff",(name _killed)]};

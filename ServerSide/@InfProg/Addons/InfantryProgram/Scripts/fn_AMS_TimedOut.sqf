@@ -27,8 +27,8 @@ playSound3D [MISSION_ROOT+format["Custom\Ogg\%1.ogg",_music], (_objs select 0), 
 {deleteVehicle _x} forEach _objs;  
 {deleteVehicle _x} forEach _Mines;
 {deleteMarker _x} foreach _mkrs; 
-{deleteWaypoint _x} foreach _wps; 
-{deleteVehicle _x} forEach _rwds;
+{deleteWaypoint _x} foreach _wps;
+if (count _rwds != 0 && {typeName (_rwds select 0) == "OBJECT"}) then {{deleteVehicle _x} forEach _rwds;};
 {deleteGroup _x} forEach _grps;
 
 WMS_AMS_MissionsCount = WMS_AMS_MissionsCount -1;

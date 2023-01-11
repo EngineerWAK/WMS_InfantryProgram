@@ -15,25 +15,30 @@
 //[ _vehicle, [(_CustomVHL select 1 select 0),(_CustomVHL select 1 select 1)], true, false ] call BIS_fnc_initVehicle;
 ////////////////////
 WMS_OPFOR_CustomVHL_Unarmed = [
-	["gm_gc_army_ural44202",["gm_gc_ols",1],[[],[]]], 
-	["gm_gc_army_ural4320_reammo",["gm_gc_ols",1],[[],[]]], 
-	["gm_gc_army_ural375d_refuel",["gm_gc_ols",1],[[],[]]], 
-	["gm_gc_army_ural375d_medic",["gm_gc_ols",1],[[],[]]], 
-	["gm_gc_army_ural375d_cargo",["gm_gc_ols",1],[[],[]]], 
-	["gm_gc_army_ural4320_repair",["gm_gc_ols",1],[[],[]]], 
-	["gm_gc_army_ural4320_cargo",["gm_gc_ols",1],[[],[]]], 
+	["gm_gc_army_ural44202",["gm_gc_win",1],[[],[]]], //"gm_gc_ols"
+	["gm_gc_army_ural4320_reammo",["gm_gc_win",1],[[],[]]], 
+	["gm_gc_army_ural375d_refuel",["gm_gc_win",1],[[],[]]], 
+	["gm_gc_army_ural375d_medic",["gm_gc_win",1],[[],[]]], 
+	["gm_gc_army_ural375d_cargo",["gm_gc_win",1],[[],[]]], 
+	["gm_gc_army_ural4320_repair",["gm_gc_win",1],[[],[]]], 
+	["gm_gc_army_ural4320_cargo",["gm_gc_win",1],[[],[]]], 
 	["gm_ge_army_k125",["gm_ge_ols",1],[[],[]]],
-	["gm_ge_army_iltis_cargo",["gm_ge_ols",1],[[],[]]],
-	["gm_ge_army_u1300l_medic",["gm_ge_ols",1],[[],[]]],
+	["gm_ge_army_iltis_cargo",["gm_ge_des",1],[[],[]]],
+	["gm_ge_army_u1300l_medic",["gm_ge_des_rc",1],[[],[]]],
 	["gm_ge_army_typ1200_cargo",["gm_ge_ols",1],[[],[]]],
+	["gm_gc_army_p601",["gm_gc_mp",1],[[],[]]],
+	["gm_pl_army_uaz469_cargo",["gm_pl_olw",1],[[],[]]], //UAZ
+	["gm_gc_army_uaz469_cargo",["gm_gc_wdl",1],[[],[]]], //UAZ
+	["gm_pl_army_uaz469_cargo",["gm_pl_olw",1],[[],[]]], //UAZ
+	["gm_gc_army_uaz469_cargo",["gm_gc_wdl",1],[[],[]]], //UAZ
 
 	["rhs_tigr_m_3camo_msv",[],[[],[]]],
 	["rhsusf_M1238A1_socom_d",[],[[],[]]],
 	["rhsusf_M1239_socom_d",[],[[],[]]],
 	["rhsusf_mrzr4_d",[],[[],[]]],
 	["rhsusf_m1025_d",[],[[],[]]],
-	["rhsusf_m998_d_2dr",[],[[],[]]],
-	["rhsusf_m998_d_4dr_fulltop",[],[[],[]]],
+	//["rhsusf_m998_d_2dr",[],[[],[]]],
+	//["rhsusf_m998_d_4dr_fulltop",[],[[],[]]],
 	["rhsusf_m1025_d",[],[[],[]]],
 	["rhsusf_m1151_usarmy_d",[],[[],[]]],
 	["rhsusf_M1078A1P2_B_D_CP_fmtv_usarmy",[],[[],[]]],
@@ -44,8 +49,8 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 	["rhsusf_M1083A1P2_B_D_fmtv_usarmy",[],[[],[]]],
 	["rhsusf_M1232_usarmy_d",[],[[],[]]],
 	["rhsusf_M1078A1P2_B_D_fmtv_usarmy",[],[[],[]]],
-	["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
-	["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
+	//["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
+	//["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
 	//["C_SUV_01_F",[],[[],[]]],
 	["rhs_gaz66_ammo_vv",[0,"rhsafrf\addons\rhs_gaz66_camo\data\gaz66_sand_co.paa",1,"rhsafrf\addons\rhs_gaz66\data\tentru_co.paa"],[[],[]]],
 	["rhs_gaz66_vv",[0,"rhsafrf\addons\rhs_gaz66_camo\data\gaz66_sand_co.paa",1,"rhsafrf\addons\rhs_gaz66\data\tentru_co.paa"],[[],[]]],
@@ -53,10 +58,10 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 	["rhsusf_m1240a1_usarmy_d",[],[[],[]]]
 ];
 WMS_OPFOR_CustomVHL_Armed = [
-	["gm_gc_army_pt76b",["gm_gc_ols",1],[[],[]]], //thats a tank xD 76mm
+	["gm_gc_army_pt76b",["gm_gc_win",1],[[],[]]], //thats a tank xD 76mm
 	["gm_dk_army_u1300l_container",["gm_dk_des",1],[[],[]]],
-	["gm_ge_army_fuchsa0_command",["gm_ge_ols",1],[[],[]]],
-	["gm_ge_army_iltis_mg3",["gm_ge_ols",1],[[],[]]],
+	["gm_ge_army_fuchsa0_command",["gm_ge_des",1],[[],[]]],
+	["gm_ge_army_iltis_mg3",["gm_ge_des",1],[[],[]]],
 
 	["rhsusf_m1165a1_gmv_m134d_m240_socom_d",[],[[],[]]],
 	["I_C_Offroad_02_LMG_F",[],[[],[]]],
@@ -326,4 +331,24 @@ WMS_AMS_COMMSRwds = [
 	["rhs_gaz66_r142_msv",[],[[],[]]],
 	["rhsgref_BRDM2UM_msv",[],[[],[]]],
 	["rhs_prp3_msv",[],[[],[]]]
+];
+WMS_AMS_MEDRwds = [
+	["B_Truck_01_medical_F",[],[[],[]]],
+	["B_T_Truck_01_medical_F",[],[[],[]]],
+	["O_Truck_02_medical_F",[],[[],[]]],
+	["O_Truck_03_medical_F",[],[[],[]]],
+	["O_T_Truck_03_medical_ghex_F",[],[[],[]]],
+	["O_T_Truck_02_Medical_F",[],[[],[]]],
+	["I_E_Truck_02_Medical_F",[],[[],[]]],
+	["C_IDAP_Van_02_medevac_F",[],[[],[]]],
+	["gm_dk_army_m113a1dk_medic",[],[[],[]]],
+	["gm_ge_army_m113a1g_medic",[],[[],[]]],
+	["gm_ge_army_u1300l_medic",[],[[],[]]],
+	["gm_pl_army_ural375d_medic",[],[[],[]]],
+	["gm_ge_ff_u1300l_firefighter",[],[[],[]]],
+	["gm_gc_ff_p601",[],[[],[]]],
+	["gm_ge_ff_typ1200",[],[[],[]]],
+	["rhsusf_m113_usarmy_medical",[],[[],[]]],
+	["rhsusf_M1230a1_usarmy_wd",[],[[],[]]],
+	["rhsusf_M1085A1P2_B_WD_Medical_fmtv_usarmy",[],[[],[]]]
 ];

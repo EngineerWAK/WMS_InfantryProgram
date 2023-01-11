@@ -249,7 +249,12 @@ _poptabs = 50;
 			_pistol = [_unit, selectrandom (WMS_Loadout_Assault select 3), 2] call BIS_fnc_addWeapon;
 		};
 	};
-	
+	//FAILSAFE to prevent some fucked-up paratrooper/divers to jump without parachute:
+	if (vehicle _unit isKindOf "man" && {((position _unit) select 2) > 50} && {backpack _unit != "B_Parachute"})then {
+		_unit addBackpack "B_Parachute";
+		if (true) then {diag_log format ["[AMS/DynAI AI SETUP]|WAK|TNA|WMS|Something went wrong!!! Adding Emergency Parachute to %1, %2", (name _unit), (position _unit)]};
+	};
+
 	//if (primaryWeapon _unit isKindOf ["Rifle_Long_Base_F", configFile >> "CfgWeapons"]) then { 
 	if (_mainWeap in WMS_AMS_sniperList) then {
 		_unit setSkill ["spotDistance", (_sniper select 0)];

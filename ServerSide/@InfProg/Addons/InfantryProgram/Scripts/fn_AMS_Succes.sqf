@@ -19,14 +19,17 @@ _staticsList = _target getVariable ["WMS_StaticsList", []];
 {deleteMarker _x} foreach _mkrs; 
 {deleteWaypoint _x} foreach _wps;
 {deleteGroup _x} forEach _grps; 
-{
-	_x setvehiclelock "UNLOCKED";
-	_x setVariable ["ExileAccessDenied", false];
-	_x enableSimulationGlobal true;
-	_x enableRopeAttach true; 
-	_x allowDamage true;
-	//_x setVariable ["ExileIsLocked",0];
-} forEach _rwds;
+
+if (((count _rwds) != 0) && {typeName (_rwds select 0) == "OBJECT"}) then {
+	{
+		_x setvehiclelock "UNLOCKED";
+		_x setVariable ["ExileAccessDenied", false];
+		_x enableSimulationGlobal true;
+		_x enableRopeAttach true; 
+		_x allowDamage true;
+		//_x setVariable ["ExileIsLocked",0];
+	} forEach _rwds; //what if the reward isn't spawned yet ???
+};
 //MISSION_ROOT = format ["mpmissions\%1.%2\", "__cur_mp", worldName];
 /*
 // would return e.g "C:\Users\Username\Documents\Arma 3\missions\MissionName.Altis\icons\myIcon.paa"

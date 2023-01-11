@@ -64,10 +64,26 @@ if ((count _rwds) == 0) then {
 		} else {
 			playSound3D ["A3\Sounds_F\ambient\battlefield\battlefield_heli1.wss", _target, false, _posATL, 3, 1, 0];
 		};
+} else {
+	if (typeName (_rwds select 0) == "OBJECT") then {
+		_cargo = (_rwds select 0);//if reward(s) already created just fill it and no paradrop
+	}else {
+		if (typeName (_rwds select 0) == "STRING") then {		
+			_parachute 	= createVehicle [_para,_posPara, [], 5];
+			_parachute 	setdir winddir;
+			_parachute 	setPos (_posVector);
+			_parachute 	setvelocity [0,0,-8];
 
-	} else {
-		//if reward(s) already created just fill it and no paradrop
-		_cargo = (_rwds select 0);
+			_cargo = createVehicle [(_rwds select 0) ,_posPara, [],5];
+			clearMagazineCargoGlobal _cargo; 
+			clearWeaponCargoGlobal _cargo; 
+			clearItemCargoGlobal _cargo; 
+			clearBackpackCargoGlobal _cargo; 
+			_cargo allowdamage false;
+			_cargo attachTo [_parachute,[0,0,0]];
+			playSound3D ["a3\dubbing_f\modules\supports\drop_accomplished.ogg", _target, false, position _target, 2,0.94,0];
+		};
+	};	
 };
 
 clearMagazineCargoGlobal _cargo; 
@@ -208,12 +224,6 @@ if !(_SmokeColor == "none") then {
 	private _smoke = _SmokeColor createVehicle position _cargo;
 	_smoke attachTo [_cargo,[0,0,1]];
 };
-
-if (_msg == "Mission Reward") then {
-	//no heli/plane sound for mission reward yet
-} else {
-	playSound3D ["a3\dubbing_f\modules\supports\drop_accomplished.ogg", _target, false, position _target, 2,0.94,0];
-};  
   
 sleep 4;
 detach _cargo;

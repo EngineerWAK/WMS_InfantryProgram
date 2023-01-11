@@ -21,16 +21,17 @@ params[
 	["_hight", 150],
 	["_direction", (random 359)],
 	["_load", (selectRandom WMS_BombList)],
-	["_iteration", 3]
+	["_iteration", 3],
+	["_adjustCoef",30] //30 for 150m _hight
 ];
 //Trying to re-adjust drop coordinates depending the wind direction/speed, Ace will probably do shit with this sometimes
 //_Mkr setMarkerText  format ["Humanitarian Drop, Wind %1 %2m/s",(round windDir),(round vectorMagnitude wind)]; //exemple
-_AdjustCoef = 30; //will have to adjust this
+//_AdjustCoef = 30; //will have to adjust this //25 too long
 _windD = (round windDir);
 _windS = (round vectorMagnitude wind);
 _ref = createVehicle ["Sign_Sphere25cm_F", [_posCenter select 0,_posCenter select 1, _hight], [], 0, "NONE"];
 _ref setDir (_windD+180); //ref point facing the wind
-_posAdjusted = _ref modelToWorld [0,(_AdjustCoef*_windS),0];
+_posAdjusted = _ref modelToWorld [0,(_adjustCoef*_windS),0];
 _smoketest = createVehicle ["SmokeShellBlue", [_posAdjusted select 0,_posAdjusted select 1, _hight], [], 0, "CAN_COLLIDE"]; //visual test for now
 /////
 _smoke = createVehicle ["SmokeShellRed", [_posCenter select 0,_posCenter select 1, 50], [], 0, "CAN_COLLIDE"];

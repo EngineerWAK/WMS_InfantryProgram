@@ -162,7 +162,7 @@ _VHLPatrolData = [_pos, _flag, _timer, _skill, OPFOR, _loadout,nil,true,false,ni
 
 //spawn mines field
 //[_pos, _radius, _howMany, _mineType, _fireExplode, _signs, _steps]call WMS_fnc_AMS_SpawnMineField
-_mines = [_pos, _occupationRadius*0.75, 30, "ATMine", true, true]call WMS_fnc_AMS_SpawnMineField;
+_mines = [_pos, _occupationRadius*0.75, 30, ["ATMine"], true, true]call WMS_fnc_AMS_SpawnMineField;
 
 //set _grps waypoints
 if (WMS_DynAI_Steal) then {
