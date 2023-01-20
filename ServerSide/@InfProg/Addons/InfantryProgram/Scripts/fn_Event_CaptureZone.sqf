@@ -60,7 +60,7 @@ switch (tolower _type) do
 {
 	case "easy": {
 		_unitsR = 2 + round random 2;
-		_grpsR = 1;
+		_grpsR = selectRandom [1,2,1];
 		_cooldR = 50 +random 5;
 		_distR = [150, 250];
 		if (typeName _timer == "ARRAY") then {
@@ -76,7 +76,7 @@ switch (tolower _type) do
 	};
 	case "moderate": {
 		_unitsR = 3 + round random 2;
-		_grpsR = 1;
+		_grpsR = selectRandom [1,2];
 		_cooldR = 65 +random 5;
 		_distR = [125, 200];
 		if (typeName _timer == "ARRAY") then {
@@ -91,7 +91,7 @@ switch (tolower _type) do
 	};
 	case "difficult": {
 		_unitsR = 4 + round random 1;
-		_grpsR = 1;
+		_grpsR = selectRandom [2,1,2];
 		_cooldR = 80 +random 5;
 		_distR = [100, 250];
 		if (typeName _timer == "ARRAY") then {
@@ -106,7 +106,7 @@ switch (tolower _type) do
 	};
 	case "hardcore": {
 		_unitsR = 3 + round random 3;
-		_grpsR = 2;
+		_grpsR = selectRandom [1,3,2];
 		_cooldR = 95 +random 5;
 		_distR = [80, 200];
 		if (typeName _timer == "ARRAY") then {
@@ -153,7 +153,7 @@ WMS_fnc_spawnCaptureZoneObjects = {
 	_objects = [["FirePlace_burning_F",[-2.66703,-5.399602,0],46.8]];
 	_objectsList = [];
 	_layout1 = [
-		["Flag_Syndikat_F",[0,0,0],0],
+		[WMS_OPFOR_Flag,[0,0,0],0],
 		["Land_Bunker_01_blocks_3_F",[8.2,15.7,0],38.8],
 		["Land_Bunker_01_blocks_3_F",[14.8,-11.2,0],123.4],
 		["Land_Bunker_01_blocks_3_F",[7.1,-15.4,0],156.8],
@@ -183,7 +183,7 @@ WMS_fnc_spawnCaptureZoneObjects = {
 		["Land_SandbagBarricade_01_half_F",[-4.7,1.8,0],288.1]
 		];
 	_layout2 = [
-		["Flag_Syndikat_F",[0,0,0],0],
+		[WMS_OPFOR_Flag,[0,0,0],0],
 		["CamoNet_ghex_open_F",[0,0,0],269.2],
 		["Land_BagFence_01_long_green_F",[-1.1,-6.4,0],10.8],
 		["Land_BagFence_01_long_green_F",[1.5,-6.2,0],340.4],
@@ -205,7 +205,7 @@ WMS_fnc_spawnCaptureZoneObjects = {
 		["Land_PillboxWall_01_6m_round_F",[-9.5,9,0],319.8]
 		];
 	_layout3 = [
-		["Flag_Syndikat_F",[0,0,0],0],
+		[WMS_OPFOR_Flag,[0,0,0],0],
 		["Land_Barricade_01_10m_F",[-9,11.8,0],330.8],
 		["Land_Barricade_01_4m_F",[-11.9,-12.2,0],248.7],
 		["Land_FirewoodPile_01_F",[-0.9,9.9,0],93],
@@ -222,7 +222,7 @@ WMS_fnc_spawnCaptureZoneObjects = {
 		["Land_WoodPile_02_F",[13.1,-8.3,0],0]
 		];
 	_layout4 = [ //Outpost
-		["Flag_Syndikat_F",[0,0,0],0],
+		[WMS_OPFOR_Flag,[0,0,0],0],
 		["Land_Cargo_House_V3_F",[3.9,6.4,0],90,"flat"],
 		["Land_Cargo_House_V3_F",[-6,-6,0],180.6,"flat"],
 		["Land_Cargo_Patrol_V3_F",[-9.8,9.4,0],90,"flat"],
@@ -257,7 +257,7 @@ WMS_fnc_spawnCaptureZoneObjects = {
 		["Land_SandbagBarricade_01_half_F",[-2.2,19.6,0],323.5]
 		];
 	_layout5 = [
-		["Flag_Syndikat_F",[0,0,0],0],
+		[WMS_OPFOR_Flag,[0,0,0],0],
 		["Land_AncientHead_01_F",[0,5.2,0],0,"flat"],
 		["Land_AncientStatue_01_F",[6.7,-5.8,0],139.9,"flat"],
 		["Land_AncientStatue_02_F",[-6.8,-5.9,0],216.8,"flat"],
@@ -379,6 +379,11 @@ WMS_fnc_captureZoneWaves = {
 	_INFgrp = nil;
 	_wpts = [];
 
+	_playerList = allPlayers select {alive _x && (_x distance2D _pos < 300)} apply {[_x, GetPosATL _x, getPlayerUID _x]};
+	_playerCnt = count _playerList;
+	if (true) then {diag_log format ["[CAPTUREZONE_WAVE]|WAK|TNA|WMS| _playerList = %1", _playerList]};
+	if(_playerCnt != 0) then {_playerCnt = _playerCnt-1};
+	
 	switch (tolower _difficulty) do
 	{
 		case "easy": {
@@ -413,7 +418,7 @@ WMS_fnc_captureZoneWaves = {
 		};
 	};
 
-	for "_i" from 1 to _grpsR do {
+	for "_i" from 1 to (_grpsR+_playerCnt) do {
 		_INFgrp = createGroup [OPFOR, false];
 		_grps pushBack _INFgrp;
 		_randomPos = [_pos, (_distR select 0), (_distR select 1), 1, 0, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos;
@@ -432,11 +437,23 @@ WMS_fnc_captureZoneWaves = {
 		_wpt setWaypointSpeed "FULL";
 		_wpts pushback _wpt;
 	}forEach _grps;
-		['EventCustom', ['Capture Zone', 'Incoming Reinforcement', '\A3\ui_f\data\GUI\Cfg\GameTypes\defend_ca.paa']] remoteExec ['BIS_fnc_showNotification', -2];
+	/////PARAGROUP
+	if (_playerCnt >= 2 && {selectRandom [true, false]}) then {
+		
+		_paraGrp = [[(_pos select 0),(_pos select 1),100], OPFOR, _grpsR] call BIS_fnc_spawnGroup;
+		{ 
+			_randomSpawnPos = [[_pos] , 0, 100, 0, 1, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos;
+			_x setpos [(_randomSpawnPos select 0),(_randomSpawnPos select 1),100]; 
+			_x setVariable ["WMS_RealFuckingSide",OPFOR];
+		} forEach units _paraGrp ;
+		[(units _paraGrp),'para',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+		playSound3D ["A3\Sounds_F\ambient\battlefield\battlefield_heli2.wss", player, false, [(_pos select 0),(_pos select 1),150], 3, 1, 0];//yes,"player doesnt make any sens server side but it's override by _pos
+		_grps pushBack _paraGrp;
+	};
+	/////PARAGROUP
+	['EventCustom', ['Capture Zone', 'Incoming Reinforcement', '\A3\ui_f\data\GUI\Cfg\GameTypes\defend_ca.paa']] remoteExec ['BIS_fnc_showNotification', -2];
 
-	WMS_AI_OPFORpatrol_Running pushback [time,(time+_timer),_grps,[],
-	[],
-	[],_wpts,""];
+	WMS_AI_OPFORpatrol_Running pushback [time,(time+_timer),_grps,[],[],[],_wpts,""];
 };
 WMS_fnc_ZoneStatusUpdate = {
 	if (WMS_IP_LOGs) then {diag_log "||||||||||CAPTUREZONE_ZONESTATUSUPDATE||||||||||"};

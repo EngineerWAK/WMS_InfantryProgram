@@ -46,6 +46,11 @@ params[
   		_playerKills = profileNamespace getVariable [_playerUID_ExileKills,0];
 		_playerKills = _playerKills + 1;
 		_killer setVariable ["ExileKills", _playerKills, true];
+		if (vehicle _killer isKindOf "Man") then {
+			_killer setVariable ["WMS_lastKill",servertime,true];
+		} else {
+			{_x setVariable ["WMS_lastKill",servertime,true];}forEach (crew (vehicle _killer));
+		};
 		if (WMS_exileFireAndForget) then {
 			format["addAccountKill:%1", getPlayerUID _killer] call ExileServer_system_database_query_fireAndForget;
 			ExileClientPlayerKills = _playerKills;

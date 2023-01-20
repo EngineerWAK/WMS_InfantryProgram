@@ -353,8 +353,8 @@ _poptabs = 50;
 			};
 		}];
 		_unit addEventHandler ["Killed", "
-		[(_this select 0),(_this select 1),_unitFunction,_difficulty] call WMS_fnc_AMS_EHonKilled;	
-		"];
+		[(_this select 0),(_this select 1),(_this select 2),_unitFunction,_difficulty] call WMS_fnc_AMS_EHonKilled;	
+		"];//params ["_killed", "_killer", "_instigator", "_useEffects"];
 
 	} else{
 		if (_info == "DYNAI") then {

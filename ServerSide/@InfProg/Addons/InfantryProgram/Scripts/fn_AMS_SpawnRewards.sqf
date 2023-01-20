@@ -189,11 +189,6 @@ if (_msg == "Mission Reward") then {//[_weap,_bag,_items,_ammoList,_mag]
 			[
 				"<t color='#4b48f9'>Sell Vehicle/Crate</t>",//_display, //"<t color='#4b48f9'>Resell the Vehicle</t>""#035c10"
 				"
-					if !(count ((ItemCargo (_this select 0))+(WeaponCargo (_this select 0))+(MagazineCargo (_this select 0))+(backpackCargo (_this select 0))) == 0) then { 
-						[(_this select 1), (_this select 0)] remoteExec ['WMS_fnc_processCargoDump']; 
-					} else { 
-						'Cargo Dump Container is empty, you punk' remoteExec ['hint', (owner (_this select 1))]; 
-					};
 					[(_this select 1), (_this select 0)] remoteExec ['WMS_fnc_sellVehicles'];
 				",
 				[], //argument accessible in the script (_this select 3)
@@ -211,6 +206,29 @@ if (_msg == "Mission Reward") then {//[_weap,_bag,_items,_ammoList,_mag]
 			0, //0 for all players //2 server only //-2 everyone but the server
 			true //JIP
 		];
+		//paradrop the crate
+		/*[ //params ["_target", "_caller", "_actionId", "_arguments"];
+			_cargo,
+			[
+				"<t color='#4b48f9'>Paradrop the Crate</t>",//_display, //"<t color='#4b48f9'>Resell the Vehicle</t>""#035c10"
+				"
+					[(_this select 1), (_this select 0)] remoteExec ['WMS_fnc_something'];
+				",
+				[], //argument accessible in the script (_this select 3)
+				1,
+				true,
+				true,
+				"",
+				"(alive _target) && {(vehicle _this == _this)};",
+				5
+			]
+		] remoteExec [
+			"addAction",
+			//(owner (_speaker select 0)), //0 for all players //2 server only //-2 everyone but the server
+			//false //JIP
+			0, //0 for all players //2 server only //-2 everyone but the server
+			true //JIP
+		];*/
 	};
 	//
 	_cargo setVariable ["AMS_MissionID",_missionID,true];

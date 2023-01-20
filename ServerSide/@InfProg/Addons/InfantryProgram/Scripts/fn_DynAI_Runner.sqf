@@ -77,17 +77,20 @@ switch (toLower _exploType) do {
 		_exploList pushBack _expl1;
 	};
 	case  "shell" 	: {
-		_expl1 = (WMS_RunnerTypes select 2) createVehicle [0,0,450];   
+		_expl1 = (WMS_RunnerTypes select 2) createVehicle [0,0,450];
+		_expl1 allowDamage false;
 		_expl1 attachTo [_runner, [-0.15,0.08,0.2],'Pelvis',true];   
 		_expl1 setVectorDirAndUp [[0,0,1],[1,0,0]]; 
 		_exploList pushBack _expl1;
-		_expl2 = (WMS_RunnerTypes select 2) createVehicle [0,0,460];   
+		_expl2 = (WMS_RunnerTypes select 2) createVehicle [0,0,460];  
+		_expl2 allowDamage false; 
 		_expl2 attachTo [_runner, [0.15,0.08,0.2],'Pelvis',true];   
 		_expl2 setVectorDirAndUp [[0,0,1],[1,0,0]];	 
 		_exploList pushBack _expl2;
 	};
 	case  "bomb" 	: {
 		_expl1 = (WMS_RunnerTypes select 3) createVehicle [0,0,400];
+		_expl1 allowDamage false;
 		_expl1 attachTo [_runner, [0,-0.40,0.5],'pelvis',true];   
 		_expl1 setVectorDirAndUp [[0,0,1],[1,0,0]];  
 		_exploList pushBack _expl1;
@@ -102,12 +105,7 @@ if (WMS_exileToastMsg) then {
 		sleep 1;
 	};
 } else {
-	//for "_i" from 1 to _iterations do {
-		//[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['Suicide Bomber', 'Incoming Runner!!!']]] call ExileServer_system_network_send_to;
-		//["EventWarning", ["Disable the nuke",""]] call BIS_fnc_showNotification;
-		["EventWarning", ["Suicide Bomber", "Incoming Runner!!!"]] remoteExec ["BIS_fnc_showNotification", owner _target];
-		//sleep 1;
-	//};
+	["EventWarning", ["Suicide Bomber", "Incoming Runner!!!"]] remoteExec ["BIS_fnc_showNotification", owner _target];
 };
 WMS_DynAI_Running pushback [time,(time+(_timer)),[_grp],[],[],[],[],""];
 
@@ -116,21 +114,20 @@ while {_run} do {
 	uisleep 1.5;
 	leader _grp domove (position (vehicle _target));
 	if !(alive leader _grp) then {
-		/*_expl2 setdammage 1;
-		uisleep 0.3;
-		_expl1 setdammage 1;
-		uisleep 0.3;
-		_expl3 setdammage 1;*/
-		{_x SetDamage 1; uisleep 0.3;}forEach _exploList;
+		{
+			if (_exploType == "bomb"||_exploType == "shell") then {_x allowDamage true;detach _x};
+			_x SetDamage 1; 
+			uisleep 0.3;
+		}forEach _exploList;
 		_exploList = [];
 		_run = false;
 	}; 
 	if (leader _grp distance2D _target <= 25 || leader _grp distance2D _target >= 600) then {
-		/*_expl2 setdammage 1;
-		uisleep 0.3;
-		_expl1 setdammage 1;
-		_expl3 setdammage 1;*/
-		{_x SetDamage 1; uisleep 0.3;}forEach _exploList;
+		{
+			if (_exploType == "bomb"||_exploType == "shell") then {_x allowDamage true;detach _x};
+			_x SetDamage 1; 
+			uisleep 0.3;
+		}forEach _exploList;
 		_exploList = [];
 		_run = false;
 	}; 

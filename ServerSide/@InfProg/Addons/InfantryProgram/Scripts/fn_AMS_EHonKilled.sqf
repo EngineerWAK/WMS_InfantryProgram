@@ -16,9 +16,11 @@ private ["_unit","_msgx","_sessionID","_unitName","_payload","_bonus","_distance
 params[
 	"_killed",
 	"_killer",
+	"_instigator",
 	["_unitFunction","Assault"], //not used yet
 	["_difficulty", "Hardcore"]
 ];
+if (isPlayer _instigator) then {_killer = _instigator};
 WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_AMS_AllDeads)];
 _distanceKill = (round(_killer distance _killed));
 _bonus = WMS_DynAI_respectBonus;
@@ -47,7 +49,11 @@ if (isplayer _killer) then {
   	_playerKills = profileNamespace getVariable [_playerUID_ExileKills,0];
 	_playerKills = _playerKills + 1;
 	_killer setVariable ["ExileKills", _playerKills, true];
-
+	if (vehicle _killer isKindOf "Man") then {
+		_killer setVariable ["WMS_lastKill",servertime,true];
+	} else {
+		{_x setVariable ["WMS_lastKill",servertime,true];}forEach (crew (vehicle _killer));
+	};
 	if (WMS_exileFireAndForget) then { //FireAndForget is ONLY for Exile DB means Exile mod is running
 		format["addAccountKill:%1", getPlayerUID _killer] call ExileServer_system_database_query_fireAndForget;
 		ExileClientPlayerKills = _playerKills;

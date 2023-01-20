@@ -52,6 +52,7 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 										WMS_AI_Arty					= "rhs_2b14_82mm_msv";
 										WMS_AMS_MineAT 				= ["rhsusf_mine_M19","ATMine","rhs_mine_TM43","gm_minestatic_at_tm46","gm_minestatic_at_dm21","gm_minestatic_at_mn111"];//"gm_minestatic_at_ptm3"
 										WMS_ATMines					= ["ATMine","gm_minestatic_at_dm21","gm_minestatic_at_mn111"]; //"ATMine";"BWA3_DM31AT";
+										WMS_RunnerTypes				= ["ClaymoreDirectionalMine_Remote_Ammo_Scripted","SatchelCharge_Remote_Ammo_Scripted","rhs_ammo_3of69m","rhs_ammo_fab500_m54"];//["mine","satchel","shell","bomb"]
 										WMS_AMS_SpnDistMission 		= 1550;
 										WMS_AI_RoamingVHLcount 		= 12; //10
 										WMS_AI_CargoUnits	 		= 4;

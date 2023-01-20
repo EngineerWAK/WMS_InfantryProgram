@@ -69,7 +69,7 @@ if (_VHLcount != 0) then {/*
 	_VHLcount1 = (_className select 1 select 1);
 	if ((_VHLcount == 2) && {typeName _VHLcount0 == "STRING"} && {typeName _VHLcount1 == "SCALAR"}) then { //initVehicle doesnt fucking work anymore
 		[_rwd, _VHLcount0] call BIS_fnc_initVehicle;
-		if (true) then {diag_log format ["[VHL PATROL]|WAK|TNA|WMS|BIS_fnc_initVehicle  _vehic %1 , _VHLcount0 %2", _rwd,_VHLcount0]};
+		if (WMS_IP_LOGs) then {diag_log format ["[VHL PATROL]|WAK|TNA|WMS|BIS_fnc_initVehicle  _vehic %1 , _VHLcount0 %2", _rwd,_VHLcount0]};
 	};
 	if ((_VHLcount == 2) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_rwd setObjectTextureGlobal [_VHLcount0, _VHLcount1]};
 	if ((_VHLcount == 4) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_rwd setObjectTextureGlobal [_VHLcount0, _VHLcount1]; _rwd setObjectTextureGlobal [(_className select 1 select 2),(_className select 1 select 3)]};

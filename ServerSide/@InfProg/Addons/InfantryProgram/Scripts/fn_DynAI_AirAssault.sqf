@@ -34,11 +34,14 @@ params[
 ];  
  
 _posStart = [_pos, _Dist1, _Dist2, 30, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;  
+_posInfGrp = _posStart;
 _posLand = _pos; 
 if(surfaceIsWater _pos)then{
-	_posLand = [_pos, 50, 350, 25, 1, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
+	_posLand = [_pos, 5, 350, 25, 1, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;  
+	_posInfGrp = [_pos, 50, 200, 1, 1, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
 }else{
-	_posLand = [_pos, 50, 350, 25, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
+	_posLand = [_pos, 5, 350, 25, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;  
+	_posInfGrp = [_pos, 150, 300, 1, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
 };
 _Helipad = "Land_HelipadEmpty_F" createVehicle _posLand;  
 uisleep 1;  
@@ -100,8 +103,13 @@ _WPT_1b setWaypointCombatMode "BLUE";
 _WPT_1b setWaypointbehaviour  "CARELESS"; 
 
 uisleep 1;
-_INFgrp = [_posStart, EAST, _grpSize] call BIS_fnc_spawnGroup;
-uisleep 1;  
+_INFgrp = [_posInfGrp, EAST, _grpSize] call BIS_fnc_spawnGroup;
+//uisleep 1; 
+if (WMS_DynAI_Steal) then { //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
+	[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
+	} else {
+	[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
+}; 
 { 
  _x moveInCargo _vehic2; 
 }forEach units _INFgrp;
@@ -109,17 +117,18 @@ uisleep 1;
 [(units _INFgrp), "Random", 15, _skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits; //'Random' won't be enough, need a specific "OccRandom" with EH
 
 uisleep 3;
-_WPT_1c = _INFgrp addWaypoint [_pos, 25];         
+//_WPT_1c = _INFgrp addWaypoint [_pos, 50];  //this waypoint is deleted by CBA_fnc_taskPatrol
+/*_WPT_1c = _INFgrp addWaypoint [_posInfGrp, 50];       
 _WPT_1c setWaypointType "MOVE";  
 _WPT_1c setwaypointSpeed "FULL";  
 _WPT_1c setWaypointCombatMode "YELLOW";  
-_WPT_1c setWaypointbehaviour  "COMBAT"; 
-if (WMS_DynAI_Steal) then {
-	[_INFgrp, _pos, _WPDist, 5, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
+_WPT_1c setWaypointbehaviour  "COMBAT";*/
+/*if (WMS_DynAI_Steal) then { //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
+	[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
 	} else {
-	[_INFgrp, _pos, _WPDist, 5, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
-};
-
+	[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
+};*/
+deleteWaypoint [_INFgrp, 0];
 _WPT_2b = _transportGRP addWaypoint [[-1000,-1000,0], 150];  
 _WPT_2b setWaypointType "MOVE";    
 

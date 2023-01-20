@@ -359,6 +359,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
+
 //TOOL KIT
 	_IDnumber = _IPcomputer addAction
 	[
@@ -498,7 +499,40 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-	
+//Weapon Drop
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>Weapon Emergency Drop 3000$</t>",
+		"
+			_target = _this select 0; _caller = _this select 1;
+			systemChat 'calling Office Trader';
+			if ((_this select 1) getVariable ['ExileMoney', 0] >= (_this select 3) select 1) then {
+				if ((_this select 1) getVariable ['ExileScore', 0] >= (_this select 3) select 2) then {
+					hint ((_this select 3) select 4);
+					systemChat 'Choose the DZ on the map';
+					[(_this select 3) select 0,(_this select 3) select 1,(_this select 1),(_this select 3) select 3] remoteExec ['WMS_fnc_BuyFromOffice'];
+				} else {
+					hint 'Bro! your respect is too low';
+					execVM 'Custom\Intro\levels.sqf';
+				};
+			} else {
+				hint 'You are too poor Dude';
+			};
+		", 
+		['EmergencySupplyWeaps',3000,0,'EmergencySupplyWeaps','Choose the DZ on the map'],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;	
 //Halo Jump
 	_IDnumber = _IPcomputer addAction
 	[

@@ -33,7 +33,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.786_2023JAN11_GitHub"; //Buy wheels/tracks on computer | Bomber explo types | LittleBird Reinforcement | AT mines types array | ParaBombs | GM stuff in loadout/vehicles for Cham
+WMS_System_Version 			= "v2.790_2023JAN20_GitHub"; //WMS_LastKill used to prevent "save & disconnect" (60 secondes) | _killer = _instigator NPC EH
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
