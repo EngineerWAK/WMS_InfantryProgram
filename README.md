@@ -1,28 +1,28 @@
 # WMS_InfantryProgram
 
 
-v2.794_2023JAN25_GitHub 
-    ADDED Judgement Day mission, can be called fron the Infantry Computer. 10 waves of NPC spawning in the building around + few civilians running
-        WMS_fnc_JudgementDay
-        WMS_JudgementDay	 	= true;
-        WMS_JudgementDay_Run 	= false;
-        WMS_JudgementDay_Rad 	= 100;
-        WMS_JMD_PlayerTrigList 	= [];
-        WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","_JMD_mkr4","_JMD_mkr5"],[]];
+v2.794_2023JAN25_GitHub<br/>
+    ADDED Judgement Day mission, can be called fron the Infantry Computer. 10 waves of NPC spawning in the building around + few civilians running<br/>
+        WMS_fnc_JudgementDay<br/>
+        WMS_JudgementDay	 	= true;<br/>
+        WMS_JudgementDay_Run 	= false;<br/>
+        WMS_JudgementDay_Rad 	= 100;<br/>
+        WMS_JMD_PlayerTrigList 	= [];<br/>
+        WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","_JMD_mkr4","_JMD_mkr5"],[]];<br/>
 
-v2.756_2022NOV12_GitHub
-    "headshot" eventHandler on NPCs for Missions And roamings. 
-        NPC's should first loose their Helmet (if low damage to the head/face). (thanks Pierremgi from bohemia forum for the exemple)
-        And/or instant forced death if higer damage to the head/face.
-        Without helmet, ACE deal(should) more Damage to the NPCs and no need 5 headshots with 7.62AP to kill a bandit.
+v2.756_2022NOV12_GitHub<br/>
+    "headshot" eventHandler on NPCs for Missions And roamings. <br/>
+        NPC's should first loose their Helmet (if low damage to the head/face). (thanks Pierremgi from bohemia forum for the exemple)<br/>
+        And/or instant forced death if higer damage to the head/face.<br/>
+        Without helmet, ACE deal(should) more Damage to the NPCs and no need 5 headshots with 7.62AP to kill a bandit.<br/>
 
-v2.7_2022OCT20_GitHub
-    Introducing "Fast Combat" options WMS_FastCombat = true; (dafault = false)
-        Reduce all cooldowns
-        Increase chances for triggers to spawn NPCs more often
-        Reduce dynamic threat timers/coefs
-        Add a Fast Combat Activation Marker on the map (bottom)
-        Logged Admins can activate/deactivate Fast Combat anytime in the console
+v2.7_2022OCT20_GitHub<br/>
+    Introducing "Fast Combat" options WMS_FastCombat = true; (dafault = false)<br/>
+        Reduce all cooldowns<br/>
+        Increase chances for triggers to spawn NPCs more often<br/>
+        Reduce dynamic threat timers/coefs<br/>
+        Add a Fast Combat Activation Marker on the map (bottom)<br/>
+        Logged Admins can activate/deactivate Fast Combat anytime in the console<br/>
 
 v2.569_2022APR02_GitHub Exile Mod is fully compatible again<br/>
 v2.548a_2022MAR26_PreRelease on GitHub to try to get back some Exile Mod compatibility<br/>
