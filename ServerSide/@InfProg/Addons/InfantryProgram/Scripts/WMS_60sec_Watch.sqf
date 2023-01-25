@@ -120,4 +120,18 @@ while {true} do {
 			}forEach WMS_DFO_RunReinforce;
 		};
 	};
+	/////////////////////////////
+	//JUDGEMENT DAY
+	/////////////////////////////
+	if (WMS_JudgementDay && {WMS_JudgementDay_Run}) then {
+		_unitsToWatch = [];
+		{
+			{
+				if (alive _x && {speed _x <= 2}) then {_unitsToWatch pushBack _x};
+			}forEach units _x;
+		}forEach (WMS_JudgementDay_Array select 4);
+		if (count _unitsToWatch != 0) then {
+			[_unitsToWatch] call WMS_JMD_watch_OPF;
+		};
+	};
 };

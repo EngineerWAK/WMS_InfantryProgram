@@ -1,5 +1,15 @@
 # WMS_InfantryProgram
 
+
+v2.794_2023JAN25_GitHub 
+    ADDED Judgement Day mission, can be called fron the Infantry Computer. 10 waves of NPC spawning in the building around + few civilians running
+        WMS_fnc_JudgementDay
+        WMS_JudgementDay	 	= true;
+        WMS_JudgementDay_Run 	= false;
+        WMS_JudgementDay_Rad 	= 100;
+        WMS_JMD_PlayerTrigList 	= [];
+        WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","_JMD_mkr4","_JMD_mkr5"],[]];
+
 v2.756_2022NOV12_GitHub
     "headshot" eventHandler on NPCs for Missions And roamings. 
         NPC's should first loose their Helmet (if low damage to the head/face). (thanks Pierremgi from bohemia forum for the exemple)

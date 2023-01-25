@@ -21,6 +21,15 @@
 // - 'DynAI + Events' Player Check before spawn
 // - Integrated Messages Brodcast //DONE
 //////////////////////////////////////////////////////////////////
+v2.794_2023JAN25_GitHub 
+    ADDED Judgement Day mission, can be called fron the Infantry Computer. 10 waves of NPC spawning in the building around + few civilians running
+        WMS_fnc_JudgementDay
+        WMS_JudgementDay	 	= true;
+        WMS_JudgementDay_Run 	= false;
+        WMS_JudgementDay_Rad 	= 100;
+        WMS_JMD_PlayerTrigList 	= [];
+        WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","_JMD_mkr4","_JMD_mkr5"],[]];
+
 v2.756_2022NOV12_GitHub
     ADDED in WMS_fnc_SetUnits "headshot" eventHandler on NPCs for Missions And roamings. Without helmet, ACE deal(should) more Damage to the NPCs and no need 5 headshots with 7.62AP to kill a bandit
         WMS_HeadShotSound 		= false;//"Head Shhhhotttttt!" or not, when headshot to NPC //It's fun but 3 bullets in a NPC's leg and arma think it's a headshot...

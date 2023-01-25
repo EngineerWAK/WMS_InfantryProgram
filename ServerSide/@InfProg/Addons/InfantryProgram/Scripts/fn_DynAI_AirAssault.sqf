@@ -132,7 +132,7 @@ deleteWaypoint [_INFgrp, 0];
 _WPT_2b = _transportGRP addWaypoint [[-1000,-1000,0], 150];  
 _WPT_2b setWaypointType "MOVE";    
 
-_AirAssaultData = [time,(time+_timer),[_INFgrp,_gunshipGRP,_transportGRP],[_vehic1,_vehic2],[_Helipad],[],[_WPT_1,_WPT_2,_WPT_1b,_WPT_2b,_WPT_1c],""];
+_AirAssaultData = [time,(time+_timer),[_INFgrp,_gunshipGRP,_transportGRP],[_vehic1,_vehic2],[_Helipad],[],[_WPT_1,_WPT_2,_WPT_1b,_WPT_2b],""];
 WMS_DynAI_Running pushback _AirAssaultData;
 
 _AirAssaultData //probably doesnt work in "spawn"

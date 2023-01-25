@@ -109,12 +109,12 @@ switch (toLower _difficulty) do {
 		_poptabs = round _poptabs*1.5;
 	};
 	case "difficult" 	: {
-		_weapList = (WMS_Loadout_Assault select 0)+(WMS_Loadout_DMR select 0)+(WMS_Loadout_SMG select 0)+(WMS_Loadout_Sniper select 3);
+		_weapList = (WMS_Weaps_HeavyBandit select 0)+(WMS_Loadout_Assault select 0)+(WMS_Loadout_DMR select 0)+(WMS_Loadout_SMG select 0)+(WMS_Loadout_Sniper select 3);
 		_itemList = _itemList+[WMS_Utility_Item_1];
 		_poptabs = _poptabs*2;
 	};
 	case "hardcore" 	: {
-		_weapList = (WMS_Loadout_Assault select 0)+(WMS_Loadout_DMR select 0)+(WMS_Loadout_Sniper select 0)+(WMS_Loadout_MG select 0)+(WMS_Loadout_Sniper select 3);
+		_weapList = (WMS_Weaps_LivoniaMix select 0)+(WMS_Loadout_Assault select 0)+(WMS_Loadout_DMR select 0)+(WMS_Loadout_Sniper select 0)+(WMS_Loadout_MG select 0)+(WMS_Loadout_Sniper select 3);
 		_itemList = _itemList+[WMS_Utility_Item_1,WMS_Utility_Item_2];
 		_poptabs = round _poptabs*2.5;
 	};

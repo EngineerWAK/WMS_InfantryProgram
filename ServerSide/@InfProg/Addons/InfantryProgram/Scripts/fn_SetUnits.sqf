@@ -40,7 +40,7 @@ params [
 ///////////////
 
 if (WMS_IP_LOGs) then {diag_log format ["[OPFOR AI SETUP]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_RealFuckingSide","_poptabs","_unit","_weapRandom","_weapRandomNoSnipNoMG","_mainWeap","_pistol","_expl1","_expl2","_expl3","_launcher","_sniper","_skills"];
+private ["_loadoutTrack","_RealFuckingSide","_poptabs","_unit","_weapRandom","_weapRandomNoSnipNoMG","_mainWeap","_pistol","_expl1","_expl2","_expl3","_launcher","_sniper","_skills"];
 params[
 	["_units",[]],
 	["_unitFunction","Assault"],
@@ -54,6 +54,7 @@ params[
 ];
 //[_units,_unitFunction,_launcherChance,_skill,_loadout,_weaps,_info,_difficulty]; //OLD
 //[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
+_loadoutTrack = _loadout; //yeah, I messed up...
 _weapRandom = [WMS_Loadout_Assault, WMS_Loadout_Assault, WMS_Loadout_SMG, WMS_Loadout_DMR, WMS_Loadout_MG, WMS_Loadout_Sniper, WMS_Weaps_HeavyBandit];
 _weapRandomNoSnipNoMG = [WMS_Loadout_Assault, WMS_Loadout_Assault, WMS_Loadout_SMG, WMS_Loadout_DMR];
 switch (toLower _loadout) do {
@@ -220,41 +221,41 @@ _poptabs = 50;
 		_unit additem selectRandom WMS_AI_grenades;
 		_unit additem selectRandom WMS_AI_grenades;
 	};
-		case  "diver" : {
-			_mainWeap = [_unit, selectrandom (WMS_Weaps_Diver select 0), 5, 0] call BIS_fnc_addWeapon;
-			_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_Diver select 2);
-			_pistol = [_unit, selectrandom (WMS_Weaps_Diver select 3), 1] call BIS_fnc_addWeapon; 
-			_unit addGoggles selectrandom (WMS_Loadout_Diver select 4);
-			_unit additem selectRandom WMS_AI_grenades;
-			_unit additem selectRandom WMS_AI_grenades;
-		};
-		case  "suicidebomber" : {
-			_unit forceaddUniform selectrandom (_loadout select 0); 
-			_unit addVest selectrandom (_loadout select 1);
-			removeBackpackGlobal _unit;
-			_unit addBackpack "B_Parachute";
-		};
-		default {
-			_mainWeap = [_unit, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
-			if (_mainWeap in WMS_AMS_sniperList) then {
-				_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
+	case  "diver" : {
+		_mainWeap = [_unit, selectrandom (WMS_Weaps_Diver select 0), 5, 0] call BIS_fnc_addWeapon;
+		_unit addPrimaryWeaponItem selectrandom (WMS_Weaps_Diver select 2);
+		_pistol = [_unit, selectrandom (WMS_Weaps_Diver select 3), 1] call BIS_fnc_addWeapon; 
+		_unit addGoggles selectrandom (WMS_Loadout_Diver select 4);
+		_unit additem selectRandom WMS_AI_grenades;
+		_unit additem selectRandom WMS_AI_grenades;
+	};
+	case  "suicidebomber" : {
+		_unit forceaddUniform selectrandom (_loadout select 0); 
+		_unit addVest selectrandom (_loadout select 1);
+		removeBackpackGlobal _unit;
+		_unit addBackpack "B_Parachute";
+	};
+	default {
+		_mainWeap = [_unit, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
+		if (_mainWeap in WMS_AMS_sniperList) then {
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
 			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
 			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
 			_mags = ((getArray (configfile >> "CfgWeapons" >> _mainWeap >> "magazines")) select 0);
 			_unit addMagazine _mags;
 			_unit addMagazine _mags;
-			}else{
-				_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Assault select 2);
-			};
-			_pistol = [_unit, selectrandom (WMS_Loadout_Assault select 3), 2] call BIS_fnc_addWeapon;
+		}else{
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Assault select 2);
 		};
+		_pistol = [_unit, selectrandom (WMS_Loadout_Assault select 3), 2] call BIS_fnc_addWeapon;
+	};
 	};
 	//FAILSAFE to prevent some fucked-up paratrooper/divers to jump without parachute:
 	if (vehicle _unit isKindOf "man" && {((position _unit) select 2) > 50} && {backpack _unit != "B_Parachute"})then {
 		_unit addBackpack "B_Parachute";
 		if (true) then {diag_log format ["[AMS/DynAI AI SETUP]|WAK|TNA|WMS|Something went wrong!!! Adding Emergency Parachute to %1, %2", (name _unit), (position _unit)]};
 	};
-
+	if (_loadoutTrack == "scientist") then {if (goggles _unit != "") then {removeGoggles _unit};_unit addGoggles selectrandom (WMS_Loadout_Scientist select 4);};
 	//if (primaryWeapon _unit isKindOf ["Rifle_Long_Base_F", configFile >> "CfgWeapons"]) then { 
 	if (_mainWeap in WMS_AMS_sniperList) then {
 		_unit setSkill ["spotDistance", (_sniper select 0)];

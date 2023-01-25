@@ -24,7 +24,7 @@ WMS_AI_inventory = [//"AntimalaricumVaccine",//"Laptop_Unfolded",
 	"ACE_bloodIV_250","ACE_plasmaIV_250","ACE_bloodIV_500","ACE_plasmaIV_500","ACE_salineIV_250","ACE_splint",
 	"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
 	"Laserbatteries","Laserbatteries",
-	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05","Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05", //twice, since now there is a lot more items in the list
+	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",//"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05", //twice, since now there is a lot more items in the list
 	"FilesSecret","FileNetworkStructure","FileTopSecret","DocumentsSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys",
 	"ACE_Can_Franta","ACE_Can_RedGull","ACE_Can_Spirit","ACE_Canteen","ACE_Canteen_Empty","ACE_Canteen_Half","ACE_WaterBottle","ACE_WaterBottle_Empty","ACE_WaterBottle_Half",
 	"ACE_Humanitarian_Ration","ACE_MRE_BeefStew","ACE_MRE_ChickenTikkaMasala","ACE_MRE_ChickenHerbDumplings","ACE_MRE_CreamChickenSoup","ACE_MRE_CreamTomatoSoup","ACE_MRE_LambCurry","ACE_MRE_MeatballsPasta","ACE_MRE_SteakVegetables",
@@ -76,6 +76,8 @@ WMS_Loadout_DEfleck = WMS_Loadout_Tiger; //I don't use BWM anymore
 //////////Weapons [WMS_Loadout_Assault, WMS_Loadout_DMR, WMS_Loadout_MG, WMS_Loadout_Sniper, WMS_Loadout_SMG];
 WMS_Loadout_Assault = [//545 556 57 58
 	 [
+		"gm_c7a1_blk","gm_m16a1_blk","gm_mpiak74n_brn","gm_mpiaks74n_prp","gm_mpiaks74nk_prp", //GM
+		"hlc_rifle_416D10_st6","hlc_rifle_416D10_RAHG","hlc_rifle_416D10C_PTC","hlc_rifle_416D145_CAG","hlc_rifle_ak74_dirty","hlc_rifle_aks74u","hlc_rifle_aks74_MTK", //NIarms
 		"hlc_rifle_RU556","hlc_rifle_bcmjack","hlc_rifle_G36CV","hlc_rifle_hk33ka3","hlc_rifle_aek971_mtk","hlc_rifle_ACR_full_Black","hlc_rifle_SG551SB_RIS","hlc_rifle_auga3_b", //NIarms
 		"arifle_MX_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_GL_khk_F","rhs_weap_savz58v","rhs_weap_savz58v_ris_fold","arifle_MXC_F","arifle_Katiba_C_F","arifle_Mk20_plain_F",//"arifle_SDAR_F", //NPC doesnt know how to use SDAR outside of water
 		"SMG_03_TR_black","arifle_CTAR_blk_F","arifle_SPAR_01_blk_F",
@@ -195,11 +197,15 @@ WMS_Loadout_Civilian = [
 	 []  //_googles/_facewear
 ];
 WMS_Loadout_Scientist = [ //NEED SPECIFIC STUFF !!!
-	 ["U_C_CBRN_Suit_01_White_F","U_C_CBRN_Suit_01_Blue_F","rhs_uniform_cossack","U_C_Driver_1_orange","U_C_WorkerCoveralls","U_C_Uniform_Scientist_01_F"], //_uniforms
-	 ["V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests
+	 ["U_C_CBRN_Suit_01_White_F","U_C_CBRN_Suit_01_Blue_F"], //_uniforms ,"U_C_WorkerCoveralls","U_C_Uniform_Scientist_01_F","rhs_uniform_cossack","U_C_Driver_1_orange",
+	 ["MCB_LBT_vest","V_PlateCarrier1_blk","Specter_MBSS_BLK","Specter_RAV_BLK","V_DeckCrew_white_F","gm_dk_army_vest_m00_win","V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests
 	 ["H_Cap_blu","H_MilCap_blue","H_Hat_blue","H_HeadBandage_bloody_F","H_Hat_Tinfoil_F","rhs_cossack_papakha","rhs_ushanka"], //_helmets
 	 ["B_FieldPack_oucamo","B_FieldPack_blk","B_Messenger_IDAP_F"], //_Backpacks
-	 []  //_googles/_facewear
+	 [
+		"gm_gc_army_facewear_schm41m","gm_ge_facewear_m65","gm_gc_army_facewear_schm41m","gm_ge_facewear_m65",
+		"G_AirPurifyingRespirator_02_black_F","G_AirPurifyingRespirator_01_F",
+		"gm_ge_facewear_sunglasses","gm_gc_army_facewear_dustglasses"
+	]  //_googles/_facewear
 ];
 WMS_Loadout_Bandit = [
 	 ["U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F","U_I_C_Soldier_Para_5_F","U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_5_F"], //_uniforms
@@ -241,6 +247,9 @@ WMS_Loadout_HeavyBandit = [
 ];
 WMS_Weaps_HeavyBandit = [
 	[ //_mainWeaps,
+	"hlc_rifle_ak47",
+	"hlc_rifle_akm_MTK",
+	"gm_rpk_wud",
 	"gm_akm_wud",
 	"gm_c7a1_oli",
 	"gm_m16a1_blk",
@@ -311,7 +320,16 @@ WMS_Loadout_Livonia = [
 	 ["G_RegulatorMask_F","G_AirPurifyingRespirator_02_sand_F","G_AirPurifyingRespirator_02_black_F","G_Bandanna_tan","G_Balaclava_blk"]  //_googles/_facewear
 ];
 WMS_Weaps_LivoniaMix = [
-	 [ //_mainWeaps,
+	[ //_mainWeaps,
+	"gm_svd_wud",
+	"gm_g3a4_ebr_oli",
+	"gm_gvm75_grn",
+	"gm_gvm75carb_grn",
+	"gm_lmgrpk_prp",
+	"hlc_rifle_RU5562",
+	"hlc_rifle_416D10_ptato",
+	"hlc_rifle_samr2",
+	"hlc_rifle_416D10_geissele",
 	"hlc_rifle_ACR_SBR_green",
 	"hlc_rifle_ACR68_SBR_green",
 	"hlc_rifle_ACR_Carb_green",

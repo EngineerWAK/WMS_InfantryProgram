@@ -70,8 +70,36 @@ WMS_IP_buildComputer = {
 	_IPcomputer setVariable ['IPcomputerAllActionsID',[]];
 	_IPcomputer setVariable ['WMS_Loc_SpawnBeacon_Mkr',_mkr,true];
 	localNamespace setVariable ['WMS_Loc_CanBuildComputer',false];
+	WMS_allowJudgementDay = false;
+	_IPcomputer setVariable ['WMS_allowTreeCleaning',false];
+	_IPcomputer setVariable ['WMS_allowJudgementDay',false];
+
+	if (WMS_JudgementDay && {!(WMS_JudgementDay_Run)} && {player getVariable ['ExileMoney', 0] >= 5000} && {player getVariable ['ExileMoney', 0] >= 5000}) then {
+		_playersPosList = allPlayers select {alive _x && (_x distance2D (position player) < 100)} apply {GetPosATL _x};
+		_houses = position player nearObjects ["house", 55];
+		_spawnPosList = [];
+		if ((count _houses) >= 60) then {
+			for "_i" from 1 to 60 do {
+				_targetHouse = selectRandom _houses;
+				_houses deleteAt (_houses find _targetHouse);
+				{
+					_posToPush = _x;
+					{if (_posToPush distance2d _x > 25) then{_spawnPosList pushBack _posToPush}}forEach _playersPosList;
+				}forEach (_targetHouse buildingPos -1);
+			};
+			if ((count _spawnPosList) >= 50) then {
+				WMS_allowJudgementDay = true;
+				_IPcomputer setVariable ['WMS_allowJudgementDay',true, true];
+				};
+			_spawnPosList = [];
+		};
+		//AddAction this:
+		//_list = nearestTerrainObjects [player, ["Tree","small tree", "Bush"], 50] select {damage _x == 1};
+		//{_x hideObjectGlobal true} forEach _list;
+	};
 	private _allActionsID = [];
-//PACK THE COMPUTER //respawn_unknown
+	//PACK THE COMPUTER //respawn_unknown
+	//{('rhs_radio_R187P1' in (assigneditems _this)) || ('rhsusf_radio_anprc152' in (assigneditems _this))} &&
 	private _IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Pack the Computer</t>",
@@ -99,7 +127,6 @@ WMS_IP_buildComputer = {
 		"
 			(alive _target) &&
 			{stance player == 'CROUCH'} &&
-			{('rhs_radio_R187P1' in (assigneditems _this)) || ('rhsusf_radio_anprc152' in (assigneditems _this))} &&
 			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
 			{(vehicle _this == _this)};
 		",
@@ -107,7 +134,7 @@ WMS_IP_buildComputer = {
 	];
 	_allActionsID pushBack _IDnumber;
 
-//SOUND TEST //playSound3D ['A3\Sounds_F\sfx\blip1.wss', _caller]
+	//SOUND TEST //playSound3D ['A3\Sounds_F\sfx\blip1.wss', _caller]
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>GetToTheChoppa</t>",
@@ -148,7 +175,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//LOADOUT	
+	//LOADOUT	
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Equipement Scorpion 2.5k$</t>",
@@ -194,7 +221,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//REQUEST C130	
+	//REQUEST C130	
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Request C130, Need Parachute</t>",
@@ -218,7 +245,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//EXTRACTION CHOPPER
+	//EXTRACTION CHOPPER
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Request Extraction Chopper</t>",
@@ -242,7 +269,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//EXTRACTION CHOPPER optional radio, no IP
+	//EXTRACTION CHOPPER optional radio, no IP
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Request Extraction Chopper</t>",
@@ -265,7 +292,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//GROUND EXTRACTION
+	//GROUND EXTRACTION
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Request Ground Extraction</t>",
@@ -289,7 +316,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//ARTILLERY HE
+	//ARTILLERY HE
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Artillery HE, 10k$ </t>",
@@ -312,7 +339,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//BLACKFISH SUPPORT
+	//BLACKFISH SUPPORT
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>BlackFish Support 30k$ </t>",
@@ -335,7 +362,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//AMMO SUPPLY DROP
+	//AMMO SUPPLY DROP
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Ammo SupplyDrop 3500$ </t>",
@@ -360,7 +387,7 @@ WMS_IP_buildComputer = {
 	];
 	_allActionsID pushBack _IDnumber;
 
-//TOOL KIT
+	//TOOL KIT
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Tool Kit 12k$ </t>",
@@ -384,7 +411,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//RPG7 CRATE
+	//RPG7 CRATE
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>RPG7 Crate 10k$ </t>",
@@ -408,7 +435,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//QUANTUM RADAR
+	//QUANTUM RADAR
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Quantum Radar</t>",
@@ -439,7 +466,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//INFANTRY RADAR
+	//INFANTRY RADAR
 	/*_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Infantry Radar</t>",
@@ -465,7 +492,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;*/
-//Medical Drop
+	//MEDICAL DROP
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Meds Emergency Drop 3000$</t>",
@@ -499,7 +526,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//Weapon Drop
+	//WEAPON DROP
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Weapon Emergency Drop 3000$</t>",
@@ -533,7 +560,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;	
-//Halo Jump
+	//HALO JUMP
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#ff5324'>Halo Jump 3500$</t>",
@@ -568,7 +595,7 @@ WMS_IP_buildComputer = {
 	];
 	_allActionsID pushBack _IDnumber;
 	
-//Spawn Beacon
+	//SPAWN BEACON
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#ff5324'>Activate Spawn Beacon</t>",
@@ -581,8 +608,13 @@ WMS_IP_buildComputer = {
 				_mkr = _target getVariable 'WMS_Loc_SpawnBeacon_Mkr';
 				_target setVariable ['WMS_Loc_canSpawnBeacon',false,true];
 				_target setVariable ['WMS_Loc_SpawnBeacon',_myRespawn,true]; 
-  				_mkr setMarkerTypeLocal 'respawn_para'; 
-  				_mkr setMarkerColorLocal 'colorIndependent';
+  				_mkr setMarkerTypeLocal 'respawn_para';
+				_flagList = nearestObjects [player, [WMS_DynAI_BaseFlag], 325];
+				if (count _flagList == 0) then {
+					_mkr setMarkerColorLocal 'colorIndependent';
+				}else{
+					_mkr setMarkerColorLocal 'ColorOrange';
+				};
 			} else {
 				hint 'Bro! your respect is too low';
 				execVM 'Custom\Intro\levels.sqf';
@@ -603,7 +635,64 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-//WHEELS AND TRACKS
+	//JUDGEMENT DAY
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#8400ff'>Judgement Day 5000$</t>",
+		"
+			_target = _this select 0; _caller = _this select 1;
+			if !(WMS_JudgementDay_Run) then {
+				[_caller, position _target] remoteExec ['WMS_fnc_judgementDay'];
+				[_caller, 5000] remoteExec ['WMS_fnc_smallTransactions'];
+				_target setvariable ['WMS_allowTreeCleaning', true, true];
+			};
+			
+		", 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"
+			(alive _target) &&
+			{!(WMS_JudgementDay_Run)} &&
+			{(_target getVariable ['WMS_allowJudgementDay',false])} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{(_this getVariable ['ExileMoney', 0] >= 5000)} &&
+			{(_this getVariable ['ExileScore', 0] >= 5000)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+	_IDnumber = _IPcomputer addAction //remote exec for this one
+	[
+		"<t size='0.9' color='#8400ff'>Fallen Tree Cleaning 250$</t>",
+		"
+			_target = _this select 0; _caller = _this select 1;
+			if (WMS_JudgementDay_Run) then {
+				[(position _target)] remoteExec ['WMS_fnc_JMD_hideFallenTrees'];
+				[_caller, 250] remoteExec ['WMS_fnc_smallTransactions'];
+			};
+			
+		", 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"
+			(alive _target) &&
+			{(WMS_JudgementDay_Run)} &&
+			{(_target getvariable ['WMS_allowTreeCleaning', false])} &&
+			{(_this getVariable ['ExileMoney', 0] >= 250)} &&
+			{(_this getVariable ['ExileScore', 0] >= 5000)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+	//WHEELS AND TRACKS
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#8ed42b'>Buy set of Wheels 600$</t>",
@@ -624,7 +713,7 @@ WMS_IP_buildComputer = {
 			(alive _target) &&
 			{('rhs_radio_R187P1' in (assigneditems _this))} &&
 			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
-			{(_this getVariable ['ExileMoney', 0] >= 600} &&
+			{(_this getVariable ['ExileMoney', 0] >= 600)} &&
 			{(vehicle _this == _this)};
 		",
 		5

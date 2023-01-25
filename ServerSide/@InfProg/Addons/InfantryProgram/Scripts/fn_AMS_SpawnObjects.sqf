@@ -92,6 +92,6 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 _compoRefPoint setVariable ["AMS_MissionStatus","RUNNING",true];
 _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 _compoRefPoint setVariable ["WMS_StaticsList", _staticsList];
-if (true) then {diag_log format ["[AMS OBJECTS]|WAK|TNA|WMS| setVariable _staticsList: %1", _staticsList]};
+if (WMS_IP_LOGs) then {diag_log format ["[AMS OBJECTS]|WAK|TNA|WMS| setVariable _staticsList: %1", _staticsList]};
 if (WMS_IP_LOGs) then {diag_log format ["[AMS OBJECTS]|WAK|TNA|WMS| return _objList: %1", _objList]};
 _objList

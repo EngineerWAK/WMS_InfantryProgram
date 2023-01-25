@@ -498,7 +498,7 @@ _triggCapture = createTrigger ["EmptyDetector", _pos, true];
 _triggContest = createTrigger ["EmptyDetector", _pos, true];
 
 _triggCapture setTriggerActivation ["ANYPLAYER", "PRESENT", true]; 
-_triggCapture setTriggerArea [(_radius select 0), (_radius select 0), 0, false];
+_triggCapture setTriggerArea [(_radius select 0), (_radius select 0), 0, false, (_radius select 0)];
 _triggCapture setVariable ["CaptureZone_Bdr", _CaptureZone_Bdr, false];   
 _triggCapture setVariable ["triggContest", _triggContest, false];   
 _triggCapture setVariable ["captureTimer", _timer, false];      
@@ -536,7 +536,7 @@ _triggCapture setTriggerStatements
 		" 
 	];
 _triggContest setTriggerActivation ["EAST", "PRESENT", true]; 
-_triggContest setTriggerArea [(_radius select 0), (_radius select 0), 0, false]; 
+_triggContest setTriggerArea [(_radius select 0), (_radius select 0), 0, false, (_radius select 0)]; 
 _triggContest setVariable ["CaptureZone_Bdr", _CaptureZone_Bdr, false];    
 _triggContest setVariable ["triggCapture", _triggCapture, false];    
 _triggContest setVariable ["textureR", _textureR, false];   

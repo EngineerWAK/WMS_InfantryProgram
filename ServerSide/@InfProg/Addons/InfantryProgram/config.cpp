@@ -169,6 +169,8 @@ class CfgFunctions {
 			class AI_rewardOnVHLdestroy		{};
 
 			class AllDeadsMgr		{};
+			class JudgementDay		{};
+			class PunishPunks		{};
 		};
 	};
 };
