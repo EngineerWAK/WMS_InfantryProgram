@@ -10,18 +10,16 @@
 * Do Not Re-Upload
 */
 
-//[_killed,_killer,_unitFunction,_info] call WMS_fnc_DynAI_RwdMsgOnKill
+//[_killed,_killer] call WMS_fnc_DynAI_RwdMsgOnKill
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAI REWARDS]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_unitFunction","_info","_unit","_msgx","_sessionID","_unitName","_payload","_bonus","_distanceKill","_playerRep","_bonusDist","_malusDist","_type"];
+private ["_info","_unit","_msgx","_sessionID","_unitName","_payload","_bonus","_distanceKill","_playerRep","_bonusDist","_malusDist","_type"];
 params[
 	"_killed",
 	"_killer"
-	//["_unitFunction","Assault"], //doesn't work, must get it from getvariable
-	//["_info", "nothingYet"] //doesn't work, must get it from getvariable
 ];
 	WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_DynAi_AllDeads)];
-	_unitFunction 	= _killed getVariable ["unitFunction", "Assault"];
-	_info 			= _killed getVariable ["info", "nothingYet"]; //BaseATK //
+	_info 			= _killed getVariable ["WMS_Info", "nothingYet"]; //"BaseATK" //"JMD"
+	_hideBodyColor	= "<t size='1' color='#00dcf5'>Hide Body</t>";//LightBlue
 	_killerName 	= name _killer;
 	//_distanceKill	= (round(_killer distance2D _killed));
 	_distanceKill	= (round(_killer distance _killed));
@@ -135,34 +133,39 @@ params[
 				[_killer, "showFragRequest", [_payload]] call ExileServer_system_network_send_to;
 			} else {
 				if (WMS_IP_LOGs) then {diag_log format ["[DynAI_KILLED_MESSAGE]|WAK|TNA|WMS|Killer:%1, Payload: %2",_killer, _payload]};
-				[_payload,"NotAMS"] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)];
+				//[_payload,"NotAMS"] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)];
+				[_payload,_info] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)];//WMS_fnc_displayKillStats is clientSide (mission.sqm)
 			};
 		};
 		if (WMS_DynAI_ejectDeads) then {moveout _killed};
 		//saveProfileNamespace;
 		//Add hideBody addaction here
-	[_killed,
-		[
-			"<t size='1' color='#00dcf5'>Hide Body</t>",	// title
-			{
-				params ["_target", "_caller", "_actionId", "_arguments"]; // script
-				hideBody _target;
-				_caller removeAction _actionId;
-				[_target]spawn{uisleep 5; deleteVehicle (_this select 0)};
-			},
-			nil,		// arguments
-			1.5,		// priority
-			true,		// showWindow
-			true,		// hideOnUse
-			"",			// shortcut
-			"!(alive _target)", 	// condition
-			1.5			// radius
-		]
-	] remoteExec [
-		"addAction",
-		0, //0 for all players
-		false //JIP
-	];
+		//if (_info == "DYNAI") then {_hideBodyColor		= "<t size='1' color='#00dcf5'>Hide Body</t>"};//"DYNAI" is default color
+		if (_info == "BaseATK") then {_hideBodyColor	= "<t size='1' color='#f5d400'>Hide Body</t>"};//No Color yet
+		if (_info == "JMD") then {_hideBodyColor		= "<t size='1' color='#8400ff'>Hide Body</t>"};//No Color yet
+		if (_info == "VHLC") then {_hideBodyColor		= "<t size='1' color='#003df5'>Hide Body</t>"};//No Color yet
+		[_killed,
+			[
+				_hideBodyColor,	// title
+				{
+					params ["_target", "_caller", "_actionId", "_arguments"]; // script
+					hideBody _target;
+					_caller removeAction _actionId;
+					[_target]spawn{uisleep 5; deleteVehicle (_this select 0)};
+				},
+				nil,		// arguments
+				1.5,		// priority
+				true,		// showWindow
+				true,		// hideOnUse
+				"",			// shortcut
+				"!(alive _target)", 	// condition
+				1.5			// radius
+			]
+		] remoteExec [
+			"addAction",
+			0, //0 for all players
+			false //JIP
+		];
 		if (WMS_IP_LOGs) then {diag_log format ["[DYNAI PROFILENAMESPACE]|WAK|TNA|WMS| _killer VARs: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), _playerKills, ("ExileScore_"+_killerUID), _playerRepUpdated]};
 		//if (WMS_IP_LOGs) then {diag_log format ["[DYNAI PROFILENAMESPACE]|WAK|TNA|WMS| _killer ProfileNameSpace: %1 | %2 %3 | %4 %5", _killer, ("ExileKills_"+_killerUID), (profileNamespace getVariable _playerUID_ExileKills), ("ExileScore_"+_killerUID), (profileNamespace getVariable _playerUID_ExileScore)]};
 		//if (WMS_IP_LOGs) then {diag_log format ["[DYNAI PLAYERVAR]|WAK|TNA|WMS| %1 VARs: ExileScore %2 | ExileMoney %3 | ExileKills %4", _killer, (_killer getVariable ["ExileScore", -1]), (_killer getVariable ["ExileMoney", -1]), (_killer getVariable ["ExileKills", -1])]};

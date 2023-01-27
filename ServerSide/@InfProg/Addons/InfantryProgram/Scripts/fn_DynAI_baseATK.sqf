@@ -111,8 +111,8 @@ for "_i" from 1 to _AIgrps do {
 	};
 	{
 		_x setVariable ["BaseATKflag", _flag, true];
-		_x setVariable ["unitFunction", _unitFunction, true];
-		_x setVariable ["info", 'BaseATK', true];
+		//_x setVariable ["unitFunction", _unitFunction, true];
+		_x setVariable ["WMS_Info", 'BaseATK', true];
 		if(_waterWorld && {_unitFunction == "para"})then{
 			removeBackpackGlobal _x;
 			_x addBackpack "B_Parachute";

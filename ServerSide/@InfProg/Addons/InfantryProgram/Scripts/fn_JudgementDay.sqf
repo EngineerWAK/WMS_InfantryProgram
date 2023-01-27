@@ -264,7 +264,7 @@ WMS_JMD_createOPF = {
 		WMS_AMS_UnitClass createUnit [_spawnPos, _OPFgroup];
 		uisleep 0.1;
 	};
-	[(units _OPFgroup), "judgementday", _launcherChance, _skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+	[(units _OPFgroup), "judgementday", _launcherChance, _skill,_difficulty,_loadout,nil,"JMD"] call WMS_fnc_SetUnits;
 	uisleep 1;
 	[_OPFgroup, _pos, (WMS_JudgementDay_Rad*0.5), 4, "MOVE", "AWARE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 	
@@ -366,7 +366,15 @@ WMS_JMD_Heaven = {
 	WMS_JudgementDay_Run = false;
 	publicVariable "WMS_JudgementDay_Run";
 	_rewards = [[11,1,3],[3,1,2],[5,1,2],[1,3,3],[0,0,0]];
-	_type = selectRandom ["easy", "moderate", "difficult", "hardore"];
+	_difficulty = "easy";
+	_playerKills = 0;
+	if !(isnull _playerObject)then{
+		//_playerRep = _playerObject getVariable ["exileScore",0];
+		_playerKills = _playerObject getVariable ["exileKills",100];
+	};
+	if (_playerKills >= 1 || _playerKills <= 99) then {_difficulty = "moderate";};
+	if (_playerKills >= 100 || _playerKills <= 999) then {_difficulty = "difficult";};
+	if (_playerKills >= 1000) then {_difficulty = "hardcore";};
 	_OPFgroups = WMS_JudgementDay_Array select 4;
 	_CIVgroups = WMS_JudgementDay_Array select 3;
 	_triggers = WMS_JudgementDay_Array select 6;
@@ -403,7 +411,7 @@ WMS_JMD_Heaven = {
 	if (WMS_IP_LOGs) then {diag_log format ["||||||||||CAPTUREZONE_OWNER|||||||||| %1",_crateOwner]};
 	_phone setVariable ["AMS_UnlockedBy",[_crateOwner],true];
 	_phone setVariable ["AMS_MissionID","CaptureZone",true];
-	[_phone,[],_rewards,"military","Mission Reward",nil,_type,150] spawn WMS_fnc_AMS_SpawnRewards;
+	[_phone,[],_rewards,"military","Mission Reward",nil,_difficulty,150] spawn WMS_fnc_AMS_SpawnRewards;
 	WMS_triggCheck_T = WMS_triggCheck_T*0.5;
 	WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]];
 };

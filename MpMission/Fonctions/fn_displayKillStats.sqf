@@ -8,7 +8,7 @@
 private["_totalBonus", "_payload", "_scoreName", "_scoreNumber"]; 
 params[
 	["_messages", [["ERROR",00]]],
-	["_Type", "AMS"] //"AMS" //"DFO" not set yet
+	["_Type", "AMS"] //"AMS" //"DFO" not set yet //"JMD"
 ]; 
 _totalBonus = 0;
 _payload = "<t align='left' size='1.2'>"; 
@@ -39,7 +39,7 @@ if (_Type == "NOTI") then {
 _payload = _payload + "</t>"; 
 if (_totalBonus >= 0) then { 
 	if (_Type == "AMS")then {
-		_payload = _payload + (format ["<t align='left' color='#abf500' font='EtelkaMonospacePro' size='1.2'>Total Bonus +%1</t>", _totalBonus]); //light green
+		_payload = _payload + (format ["<t align='left' color='#abf500' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //light green
 	}else{
 		if (_Type == "DFO")then{
 			if("CIV" in _payload)then{
@@ -47,12 +47,24 @@ if (_totalBonus >= 0) then {
 			};
 		}else{
 			if !(_Type == "NOTI" || _Type == "NOTIRED") then {
-				_payload = _payload + (format ["<t align='left' color='#00dcf5' font='EtelkaMonospacePro' size='1.2'>Total Bonus +%1</t>", _totalBonus]); //light blue
+				if (_Type == "JMD") then {
+					_payload = _payload + (format ["<t align='left' color='#8400ff' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //Kind of purple
+				}else{
+					if (_type == "VHLC") then {
+						_payload = _payload + (format ["<t align='left' color='#003df5' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //darker blue
+					}else{
+						if (_type == "BaseATK") then {
+							_payload = _payload + (format ["<t align='left' color='#f5d400' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //dark yellow
+						}else{
+							_payload = _payload + (format ["<t align='left' color='#00dcf5' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //light blue, DEFAULT
+						};
+					};
+				};	
 			};	
 		};
 	};
 	 
-}else  { 
+}else { 
 	_payload = _payload + (format ["<t align='left' color='#d60000' font='EtelkaMonospacePro' size='1.2'>TOTAL MALUS %1</t>", _totalBonus]); //red
 }; 
 if (false) then {diag_log format ["[DISPLAYKILLSTAT]|WAK|TNA|WMS|UPDATE: _this= %1", _payload]}; 

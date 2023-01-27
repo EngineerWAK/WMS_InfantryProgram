@@ -52,8 +52,6 @@ params[
 	["_info", 'AMS'], //"AMS","DYNAI","whatever"
 	["_options", []] //AL
 ];
-//[_units,_unitFunction,_launcherChance,_skill,_loadout,_weaps,_info,_difficulty]; //OLD
-//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
 _loadoutTrack = _loadout; //yeah, I messed up...
 _waveLevel = 1; //used for Judgement Day, smg at first waves then increase _weapRandomNoSnipNoMG, assaut, random
 _weapRandom = [WMS_Loadout_Assault, WMS_Loadout_Assault, WMS_Loadout_SMG, WMS_Loadout_DMR, WMS_Loadout_MG, WMS_Loadout_Sniper, WMS_Weaps_HeavyBandit];
@@ -276,7 +274,7 @@ _poptabs = 50;
 		_unit additem "ACE_bloodIV_250";
 		_unit additem "ACE_splint";
 		_unit additem "ACE_epinephrine";
-		_unit additem selectRandom ["ACE_fortify","ACE_NVG_Wide","rhs_radio_R187P1","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","ToolKit","Money_stack_quest","ACE_personalAidKit","ACE_wirecutter"];
+		_unit additem selectRandom WMS_JudgementDay_items;
 	};
 	default {
 		_mainWeap = [_unit, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
@@ -299,7 +297,6 @@ _poptabs = 50;
 		if (true) then {diag_log format ["[AMS/DynAI AI SETUP]|WAK|TNA|WMS|Something went wrong!!! Adding Emergency Parachute to %1, %2", (name _unit), (position _unit)]};
 	};
 	if (_loadoutTrack == "scientist") then {if (goggles _unit != "") then {removeGoggles _unit};_unit addGoggles selectrandom (WMS_Loadout_Scientist select 4);};
-	//if (primaryWeapon _unit isKindOf ["Rifle_Long_Base_F", configFile >> "CfgWeapons"]) then { 
 	if (_mainWeap in WMS_AMS_sniperList) then {
 		_unit setSkill ["spotDistance", (_sniper select 0)];
 		_unit setSkill ["spotTime", 	(_sniper select 1)];
@@ -332,6 +329,7 @@ _poptabs = 50;
 	};
 ////////////////AMS/DYNAI/WHATEVER CHANGES
 	if (_info == "AMS") then {
+		_unit setVariable ["WMS_Info", _info]; //not used yet
 		if((random 100) <= _launcherChance) then { 
 			if(WMS_AMS_AllowMissiles) then {
 				_launcher = [_unit, selectrandom ((WMS_AI_LaunchersOPF select 0)+(WMS_AI_LaunchersOPF select 1)+(WMS_AI_LaunchersOPF select 2)), 2] call BIS_fnc_addWeapon;
@@ -400,13 +398,8 @@ _poptabs = 50;
 		"];//params ["_killed", "_killer", "_instigator", "_useEffects"];
 
 	} else{
-		if (_info == "DYNAI") then {
-			/*if (vehicle _unit isKindOf WMS_AI_ATstation) then {
-				_unit setSkill ["aimingAccuracy", 	0.01];
-				_unit setSkill ["aimingShake", 	0.15];
-				_unit setSkill ["aimingSpeed", 	0.15];
-				_unit setSkill ["reloadSpeed", 	0.2];
-			};*/
+		if (_info == "DYNAI" ||_info == "VHLC") then {
+			_unit setVariable ["WMS_Info", _info]; //not used yet
 			if((random 100) <= _launcherChance) then { 
 				_launcher = [_unit, selectrandom (WMS_AI_LaunchersOPF select 0), 1] call BIS_fnc_addWeapon;
 			};
@@ -488,9 +481,71 @@ _poptabs = 50;
 			};
 		} else{
 			if (_info == "AL") then {
-
+				//Nothing for AmbientLife yet
+				//_unit setVariable ["WMS_Info", _info]; //not used yet
 			} else{
-				if (_info == "whatever") then {} else{};
+				if (_info == "JMD") then {
+					_unit setVariable ["WMS_Info", _info]; //JudgementDay not used yet
+					if((random 100) <= _launcherChance) then { 
+						_launcher = [_unit, selectrandom (WMS_AI_LaunchersOPF select 0), 1] call BIS_fnc_addWeapon;
+					};
+					if (WMS_DynAI_addPoptabsINF) then {
+						_poptabs = (WMS_DynAI_poptabsINF select 0) + round (random(WMS_DynAI_poptabsINF select 1));
+						_unit setVariable ["ExileMoney",_poptabs,true];
+					};
+					//////////EVENTHANDLER(s)/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY
+					_unit addEventHandler ["HandleDamage", {
+						params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
+						if (
+							isPlayer _source && 
+							{alive _unit} && 
+							{(_selection == "head") || (_selection == "face_hub")} && 
+							{(vehicle _unit) isKindOf "man"} &&
+							{_damage >= WMS_DYNAI_HSDamageKill}
+						) then {
+							if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
+							[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
+							_unit removeEventHandler ["HandleDamage", 0];
+							if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this]};
+							if (alive _unit) then {
+								_unit setDamage 1;
+								_source addPlayerScores [1,0,0,0,0];
+							}; 
+						}else {
+							if (
+								isPlayer _source && 
+								{_damage >= WMS_DYNAI_HelmetDamage} && 
+								{alive _unit} && 
+								{(_selection == "head") || (_selection == "face_hub")} && 
+								{headgear _unit != ""} && 
+								{(vehicle _unit) isKindOf "man"}
+							) then {
+								playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
+    							_h = headgear _unit;
+    							removeHeadgear _unit;
+    							_nv = ((assignedItems _unit) select {_x find "NV" > -1}) select 0;
+								if (isNil "_nv") then {_unit unlinkItem _nv};
+    							_w = createVehicle ["WeaponHolderSimulated",ASLtoATL eyePos _unit,[],0,"CAN_COLLIDE"];
+    							_w addItemCargoGlobal [_h,1];
+    							_w setVelocity [5 * sin (_source getdir _unit), 5 * cos (_source getDir _unit), 0.3];
+    							_w addTorque [random 0.02, random .02, random .02];
+								if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this]};
+								WMS_AllDeadsMgr pushBack [_w,(serverTime+WMS_Others_AllDeads)];
+  							};
+						};
+					}];
+					_unit addEventHandler ["Killed", " 
+						[(_this select 0),(_this select 1)] call WMS_fnc_DynAI_RwdMsgOnKill;
+					"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
+					//NO REDUCED ACCURACY FOR THEM
+					/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY
+				} else{
+					if (_info == "whatever") then {
+
+					} else{
+
+					};
+				};
 			};
 		};
 	};
