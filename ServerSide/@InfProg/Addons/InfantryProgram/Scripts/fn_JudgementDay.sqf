@@ -54,7 +54,7 @@ WMS_JudgementDay_Array set [4, [_OPFgroup]];
 
 //create markers
 _JMD_mkr1 = createMarker ["JMD_mkr1", _pos];
-_JMD_mkr1 setMarkerType "Contact_pencilTask2";
+_JMD_mkr1 setMarkerType WMS_JudgementDay_Mkr;
 _JMD_mkr1 setMarkerText Format["%1's Judgement Day",(name _playerObject)];
 _JMD_mkr1 setMarkerColor "colorBlack";
 _JMD_mkr2 = createMarker ["JMD_mkr2", _pos];
@@ -81,9 +81,11 @@ _JMD_mkr5 setMarkerText "No Fly Zone";
 //Prevent TheLastCartridges loot spawn in the zone
 {_x setVariable ["_lootAllowed",false,true];}forEach (_pos nearObjects ["house", WMS_JudgementDay_Rad]);
 //remove all weaponHolders in the zone
-_WHlist = _pos nearEntities [["weaponHolder","GroundWeaponHolder","WeaponHolderSimulated"], WMS_JudgementDay_Rad];
-{clearItemCargoGlobal _x; deleteVehicle _x;}forEach _WHlist;
-if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_fnc_JudgementDay Removing %1 weaponHolder",( count _WHlist)]}; //if (WMS_IP_LOGs)
+[_pos]spawn {
+	_WHlist = (_this select 0) nearEntities [["weaponHolder","GroundWeaponHolder","WeaponHolderSimulated"], WMS_JudgementDay_Rad];
+	{clearItemCargoGlobal _x; deleteVehicle _x;uisleep 0.1}forEach _WHlist;
+	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_fnc_JudgementDay Removing %1 weaponHolder",( count _WHlist)]}; //if (WMS_IP_LOGs)
+};
 
 //create Border objects
 for '_i' from 0 to 360 step (250 / _radius)*2 do 
@@ -97,7 +99,8 @@ for '_i' from 0 to 360 step (250 / _radius)*2 do
 //create triggers
 _triggerNFZ = createTrigger ["EmptyDetector", _pos, true];
 (WMS_JudgementDay_Array select 8) pushBack _triggerNFZ;
-_triggerNFZ setTriggerArea [_radius*1.5, _radius*1.5, 0, false, _radius*1.5]; 
+_triggerNFZ setTriggerArea [_radius*1.5, _radius*1.5, 0, false, _radius*1.5];   
+_triggerNFZ setTriggerInterval 1;
 _triggerNFZ setTriggerActivation ["EAST", "PRESENT", true];
 _triggerNFZ setTriggerStatements [ //fucking 'helicopter' include 'Steerable_Parachute_F'
 	"this && ({_x isKindOf 'helicopter' && !(_x isKindOf 'Steerable_Parachute_F')} count thisList) > 0",
@@ -105,7 +108,7 @@ _triggerNFZ setTriggerStatements [ //fucking 'helicopter' include 'Steerable_Par
 	"
 		{
 			vehicle _x setFuel 0;
-			vehicle _x setDamage 0.9;
+			vehicle _x setDamage 0.85;
 		}forEach thisList;
 		if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_NFZ_ACTIVATE]|WAK|TNA|WMS| thisTrigger = %1, thisList = %2', thisTrigger, thisList]};
 	", 
@@ -117,7 +120,8 @@ if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_NFZ_CREATE]|WAK|TNA|WMS|
 
 _triggerOPF = createTrigger ["EmptyDetector", _pos, true];
 (WMS_JudgementDay_Array select 8) pushBack _triggerOPF;
-_triggerOPF setTriggerArea [_radius, _radius, 0, false, _radius]; 
+_triggerOPF setTriggerArea [_radius, _radius, 0, false, _radius];
+_triggerOPF setTriggerInterval 1;
 _triggerOPF setTriggerActivation ["EAST", "PRESENT", true];
 _triggerOPF setTriggerStatements [
 	"this",
@@ -155,6 +159,7 @@ if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_OPF_CREATE]|WAK|TNA|WMS|
 _triggerCIV = createTrigger ["EmptyDetector", _pos, true]; //CIVILIAN Trigget doesnt seems to trigger any fucking things
 (WMS_JudgementDay_Array select 8) pushBack _triggerCIV;
 _triggerCIV setTriggerArea [_radius, _radius, 0, false, _radius]; 
+_triggerCIV setTriggerInterval 1;
 _triggerCIV setTriggerActivation ["CIV", "PRESENT", true];
 _triggerCIV setTriggerStatements [
 	"this",
@@ -178,27 +183,27 @@ if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_CIV_CREATE]|WAK|TNA|WMS|
 _triggerPLAYER = createTrigger ["EmptyDetector", _pos, true];
 (WMS_JudgementDay_Array select 8) pushBack _triggerPLAYER;
 _triggerPLAYER setTriggerArea [_radius, _radius, 0, false, _radius]; 
+_triggerPLAYER setVariable ['WMS_JMD_PlayerTrigList', [],true]; 
+_triggerPLAYER setTriggerInterval 1;
 _triggerPLAYER setTriggerActivation ["ANYPLAYER", "PRESENT", true]; 
 //_triggerPLAYER setTriggerStatements ["this && ({alive _x} count thislist) == 0", //no need, dead doesnt count
 _triggerPLAYER setTriggerStatements ["this",
 	"
-		WMS_JMD_PlayerTrigList = thisList;
+		thisTrigger setVariable ['WMS_JMD_PlayerTrigList', thisList,true];
 		_pos = (WMS_JudgementDay_Array select 1);
 		_playerObject = (WMS_JudgementDay_Array select 0);
-		if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_PLAYER_ACTIVATE]|WAK|TNA|WMS| thisTrigger = %1, _pos = %2, _playerObject = %3', thisTrigger, _pos, _playerObject]};
+		if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_PLAYER_ACTIVATE]|WAK|TNA|WMS| thisTrigger = %1, _pos = %2, _playerObject = %3, thisListVar = %4', thisTrigger, _pos, _playerObject, (thisTrigger getVariable ['WMS_JMD_PlayerTrigList', ['fuckedup']])]};
 	", 
 	"
 		_pos = (WMS_JudgementDay_Array select 1);
 		_playerObject = (WMS_JudgementDay_Array select 0);
-		WMS_JMD_PlayerTrigList = thisList;
-		if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_PLAYER_DEACTIVATE]|WAK|TNA|WMS| thisTrigger = %1, _pos = %2, _playerObject = %3', thisTrigger, _pos, _playerObject]};
+		thisTrigger setVariable ['WMS_JMD_PlayerTrigList', thisList,true];
+		if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_PLAYER_DEACTIVATE]|WAK|TNA|WMS| thisTrigger = %1, _pos = %2, _playerObject = %3, thisListVar = %4', thisTrigger, _pos, _playerObject, (thisTrigger getVariable ['WMS_JMD_PlayerTrigList', []])]};
 		if (WMS_JudgementDay_Run) then {
 			['JudgementDay zone delete in 30 secondes'] remoteExecCall ['SystemChat',0];
 			[_pos,_playerObject,thisTrigger]spawn{
-				uisleep 25;
-				['JudgementDay zone delete in 5 secondes'] remoteExecCall ['SystemChat',0];
-				uisleep 5;
-				if (count WMS_JMD_PlayerTrigList == 0) then {
+				uisleep 30;
+				if (count ((_this select 2) getVariable ['WMS_JMD_PlayerTrigList', []]) == 0) then {
 					[_this select 0,_this select 1]call WMS_JMD_Hell;
 				};
 			};
@@ -259,15 +264,18 @@ WMS_JMD_createOPF = {
 		WMS_AMS_UnitClass createUnit [_spawnPos, _OPFgroup];
 		uisleep 0.1;
 	};
-	[(units _OPFgroup), "Random", _launcherChance, _skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+	[(units _OPFgroup), "judgementday", _launcherChance, _skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	uisleep 1;
 	[_OPFgroup, _pos, (WMS_JudgementDay_Rad*0.5), 4, "MOVE", "AWARE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 	
 	//remove all weaponHolders in the zone
-	_WHlist = _pos nearEntities [["weaponHolder","GroundWeaponHolder","WeaponHolderSimulated"], WMS_JudgementDay_Rad];//weaponHolder must be deleted by their owner
-	{clearItemCargoGlobal _x; deleteVehicle _x;}forEach _WHlist;
-	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF Removing %1 weaponHolder",( count _WHlist)]}; //if (WMS_IP_LOGs)
+	[_pos]spawn {
+		_WHlist = (_this select 0) nearEntities [["weaponHolder","GroundWeaponHolder","WeaponHolderSimulated"], WMS_JudgementDay_Rad];
+		{clearItemCargoGlobal _x; deleteVehicle _x;uisleep 0.1}forEach _WHlist;
+		if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF Removing %1 weaponHolder",( count _WHlist)]}; //if (WMS_IP_LOGs)
+	};
 };
+
 WMS_JMD_createCIV = {
 	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createCIV _this = %1", _this]}; //if (WMS_IP_LOGs)
 	private ["_classNames","_unit","_posSafe"];
@@ -313,7 +321,7 @@ WMS_JMD_createCIV = {
     _unit disableAI "TARGET";
 	_unit setVariable ["lambs_danger_disableAI", true];//deactivate LambsDanger
 	_unit setVariable ["lambs_danger_disableGroupAI", true];//deactivate LambsDanger
-	[_CIVgroup, _pos, (WMS_JudgementDay_Rad*0.7), 2, "MOVE", "CARELESS", "BLUE", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+	[_CIVgroup, _pos, (WMS_JudgementDay_Rad*0.7), 2, "MOVE", "CARELESS", "BLUE", "LIMITED", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 };
 
 WMS_JMD_Hell = { //FAIL
@@ -344,8 +352,8 @@ WMS_JMD_Hell = { //FAIL
 	
 	//FAIL message/sound
 	playSound3D [getMissionPath	'Custom\Ogg\germanwin.ogg', player, false, _pos, 2, 1, 0];
-	
-	WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","_JMD_mkr4","_JMD_mkr5"],[]];
+	WMS_triggCheck_T = WMS_triggCheck_T*0.5;
+	WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]];
 };
 
 WMS_JMD_Heaven = {
@@ -396,8 +404,8 @@ WMS_JMD_Heaven = {
 	_phone setVariable ["AMS_UnlockedBy",[_crateOwner],true];
 	_phone setVariable ["AMS_MissionID","CaptureZone",true];
 	[_phone,[],_rewards,"military","Mission Reward",nil,_type,150] spawn WMS_fnc_AMS_SpawnRewards;
-
-	WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","_JMD_mkr4","_JMD_mkr5"],[]];
+	WMS_triggCheck_T = WMS_triggCheck_T*0.5;
+	WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]];
 };
 WMS_JMD_watch_OPF = {
 	private ["_unitPos","_unitKicked","_smoke","_IR"];
@@ -444,5 +452,6 @@ uisleep 13;
 //create CIV
 {[_pos,_x]call WMS_JMD_createCIV}forEach [_CIVgroup1,_CIVgroup2,_CIVgroup3,_CIVgroup4,_CIVgroup5];
 uisleep 2;
+WMS_triggCheck_T = WMS_triggCheck_T*2; //slowDown the triggers, will have to work on that to not slow down ALL the triggers
 WMS_JudgementDay_Run = true;
 publicVariable "WMS_JudgementDay_Run";

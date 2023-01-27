@@ -33,7 +33,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.794_2023JAN25_GitHub"; //Computer action for JudgementDay |Capture zone trigger height | WMS_LastKill used to prevent "save & disconnect" (60 secondes) | _killer = _instigator NPC EH
+WMS_System_Version 			= "v2.797_2023JAN27_GitHub"; //some changes on player detection, trigger timings, JudgementDay triggers, setUnits "judgementday"
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -189,8 +189,9 @@ WMS_CaptureZone_mkr		= "selector_selectedEnemy";
 WMS_JudgementDay	 	= true;
 WMS_JudgementDay_Run 	= false; //dynamic, KEEP FALSE
 WMS_JudgementDay_Rad 	= 100; //Mission Radius
+WMS_JudgementDay_Mkr	= "Contact_pencilTask2"; //will be used to slow down other dynamic spawns, keep something players can not put themself on the map
 WMS_JMD_PlayerTrigList 	= [];
-WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","_JMD_mkr4","_JMD_mkr5"],[]]; //dynamic, NO TOUCH //[_playerObject,_pos(computer),_waveNumber(1 to 10),[_CIVgroup],[_OPFgroup],[],[_triggerOPF,_triggerCIV,_triggerPLAYER],[_markers],[_objectsOrMines]];
+WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]]; //dynamic, NO TOUCH //[_playerObject,_pos(computer),_waveNumber(1 to 10),[_CIVgroup],[_OPFgroup],[],[_triggerOPF,_triggerCIV,_triggerPLAYER],[_markers],[_objectsOrMines]];
 publicVariable "WMS_JudgementDay"; //NO TOUCH
 publicVariable "WMS_JudgementDay_Run"; //NO TOUCH
 publicVariable "WMS_JudgementDay_Rad"; //NO TOUCH

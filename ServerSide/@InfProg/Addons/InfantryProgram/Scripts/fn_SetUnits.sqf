@@ -55,6 +55,7 @@ params[
 //[_units,_unitFunction,_launcherChance,_skill,_loadout,_weaps,_info,_difficulty]; //OLD
 //[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
 _loadoutTrack = _loadout; //yeah, I messed up...
+_waveLevel = 1; //used for Judgement Day, smg at first waves then increase _weapRandomNoSnipNoMG, assaut, random
 _weapRandom = [WMS_Loadout_Assault, WMS_Loadout_Assault, WMS_Loadout_SMG, WMS_Loadout_DMR, WMS_Loadout_MG, WMS_Loadout_Sniper, WMS_Weaps_HeavyBandit];
 _weapRandomNoSnipNoMG = [WMS_Loadout_Assault, WMS_Loadout_Assault, WMS_Loadout_SMG, WMS_Loadout_DMR];
 switch (toLower _loadout) do {
@@ -68,7 +69,7 @@ switch (toLower _loadout) do {
 	case "surpat" 	: {_loadout = WMS_Loadout_SURPAT;};
 	case "blackops" : {_loadout = WMS_Loadout_MCB;};
 	case "diver" 	: {_loadout = WMS_Loadout_Diver;};
-	case "scientist": {_loadout = WMS_Loadout_Scientist;};//not ready yet
+	case "scientist": {_loadout = WMS_Loadout_Scientist;};
 	case "livonia" 	: {
 						_loadout = WMS_Loadout_Livonia;
 						_weaps = WMS_Weaps_LivoniaMix; 
@@ -93,6 +94,7 @@ _poptabs = 50;
 	removeBackpackGlobal _unit;
 	removeUniform _unit;
 	//
+	_itemsCount = (WMS_AI_Additems select 0) + round (random (WMS_AI_Additems select 1));
 	_RealFuckingSide = _unit getVariable ["WMS_RealFuckingSide",OPFOR];
 	if (_info == "AMS") then {_poptabs = (WMS_AMS_poptabsUnits select 0) + round (random(WMS_AMS_poptabsUnits select 1))};//for Exile Mod
 	if (_info == "DYNAI") then {_poptabs = (WMS_DynAI_poptabsINF select 0) + round (random(WMS_DynAI_poptabsINF select 1))}; //for Exile Mod
@@ -235,6 +237,47 @@ _poptabs = 50;
 		removeBackpackGlobal _unit;
 		_unit addBackpack "B_Parachute";
 	};
+	case  "judgementday" : { 
+		//WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]];
+		_weaps = selectRandom _weapRandom;
+		_itemsCount = 1; //+ custom items for them
+		_waveLevel = WMS_JudgementDay_Array select 2;
+		if (_waveLevel >= 0 && _waveLevel <= 2) then {
+			_weaps = WMS_Loadout_SMG;
+		}else{
+			if (_waveLevel >= 3 && _waveLevel <= 5) then {
+				_weaps = selectRandom [WMS_Loadout_SMG,WMS_Loadout_Assault,WMS_Loadout_Assault];
+			}else{	
+				if (_waveLevel >= 6 && _waveLevel <= 8) then {
+					_weaps = selectRandom [WMS_Loadout_Assault,WMS_Loadout_DMR,WMS_Loadout_Sniper,WMS_Loadout_MG];
+				}else{
+					if (_waveLevel == 9 || _waveLevel == 10) then {
+						_weaps = selectRandom [WMS_Loadout_Sniper,WMS_Loadout_MG];
+					}else{
+						_weaps = selectRandom _weapRandom;
+					};
+				};
+			};
+		};
+		_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
+		if (_mainWeap in WMS_AMS_sniperList) then {
+			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
+			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
+			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
+			_mags = ((getArray (configfile >> "CfgWeapons" >> _mainWeap >> "magazines")) select 0);
+			_unit addMagazine _mags;
+			_unit addMagazine _mags;
+			_unit addMagazine _mags;
+		}else{
+			_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
+		};
+		_pistol = [_unit, selectrandom (WMS_Loadout_Sniper select 3), 2] call BIS_fnc_addWeapon;
+		_unit additem selectRandom WMS_AI_grenades;
+		_unit additem "ACE_bloodIV_250";
+		_unit additem "ACE_splint";
+		_unit additem "ACE_epinephrine";
+		_unit additem selectRandom ["ACE_fortify","ACE_NVG_Wide","rhs_radio_R187P1","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","ToolKit","Money_stack_quest","ACE_personalAidKit","ACE_wirecutter"];
+	};
 	default {
 		_mainWeap = [_unit, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
 		if (_mainWeap in WMS_AMS_sniperList) then {
@@ -284,8 +327,7 @@ _poptabs = 50;
 	if (random 100 > 50) then {
 		_unit addPrimaryWeaponItem (selectrandom WMS_AI_Attachements);
 	};
-	_items = (WMS_AI_Additems select 0) + round (random (WMS_AI_Additems select 1));
-	for "_i" from 1 to _items do {
+	for "_i" from 1 to _itemsCount do {
 		_unit additem (selectRandom WMS_AI_inventory);
 	};
 ////////////////AMS/DYNAI/WHATEVER CHANGES
@@ -317,7 +359,7 @@ _poptabs = 50;
 				[_unit,_source] call WMS_fnc_AMS_EHonKilled;
 				_unit removeEventHandler ["HandleDamage", 0];
 				if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
-				Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this];
+				if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this]};
 				if (alive _unit) then {//looks stupid but it seems that the NPC sometimes die before the setDamage 1
 					_unit setDamage 1;
 					_source addPlayerScores [1,0,0,0,0];
@@ -341,7 +383,7 @@ _poptabs = 50;
     				_w addItemCargoGlobal [_h,1];
     				_w setVelocity [5 * sin (_source getdir _unit), 5 * cos (_source getDir _unit), 0.3];
     				_w addTorque [random 0.02, random .02, random .02];
-					Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this];
+					if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this]};
 					WMS_AllDeadsMgr pushBack [_w,(serverTime+WMS_Others_AllDeads)];
   				};
 			};
@@ -390,7 +432,7 @@ _poptabs = 50;
 						[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
 						_unit removeEventHandler ["HandleDamage", 0];
 						if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
-						Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this];
+						if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this]};
 						if (alive _unit) then {//looks stupid but it seems that the NPC sometimes die before the setDamage 1
 							_unit setDamage 1;
 							_source addPlayerScores [1,0,0,0,0];
@@ -414,7 +456,7 @@ _poptabs = 50;
     						_w addItemCargoGlobal [_h,1];
     						_w setVelocity [5 * sin (_source getdir _unit), 5 * cos (_source getDir _unit), 0.3];
     						_w addTorque [random 0.02, random .02, random .02];
-							Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this];
+							if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this]};
 							WMS_AllDeadsMgr pushBack [_w,(serverTime+WMS_Others_AllDeads)];
   						};
 					};
@@ -427,11 +469,6 @@ _poptabs = 50;
 						//if (WMS_IP_LOGs) then {format ['Target Hit, %1', (_unit skill "aimingAccuracy")] remoteexec ['hint', (owner _instigator)]}; //debug
 					};
 				}];
-				/*_unit addEventHandler ["HitPart",{ //Fire ONLY if "_target", "_shooter" are on the same computer, nothing more useless, thank you bohemia
-					//"head is (_this select 2)
-					//(_this select 0) params ["_target", "_shooter", "_projectile", "_position", "_velocity", "_selection", "_ammo", "_vector", "_radius", "_surfaceType", "_isDirect"];
-					Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HitPart, Head Only (maybe) = %1",(_this select 2)];
-				}];*/
 				_unit addEventHandler ["Killed", " 
 					[(_this select 0),(_this select 1)] call WMS_fnc_DynAI_RwdMsgOnKill;
 				"];//params ["_unit", "_killer", "_instigator", "_useEffects"];

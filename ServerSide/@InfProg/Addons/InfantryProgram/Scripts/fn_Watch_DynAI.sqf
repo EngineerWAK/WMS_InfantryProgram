@@ -41,20 +41,31 @@ if (_playerCount > 0 && {(time > (WMS_DynAI_LastTime+_waitingTime))} && {((OPFOR
 	WMS_DynAI_TargetList = allplayers;
 	_DynamicThreatTarget = selectrandom WMS_DynAI_TargetList;
 	_threatScenario = "GoForIt";
-	if (_DynamicThreatTarget in WMS_DynAI_LastTarget) then {
-		//["toastRequest", ["SuccessTitleAndText", [format ["Switching Target, %1 already selected",(name _DynamicThreatTarget)]]]] call ExileServer_system_network_send_broadcast;
+	//here look for the JudgementDay Marker, if true _threatScenario = "judgementDay";
+	{
+		if ((_x isKindOf WMS_JudgementDay_Mkr) && {((getMarkerPos _x) distance2D _DynamicThreatTarget)<= 150}) then {_threatScenario = "judgementDay"}; //{}
+	}forEach allMapMarkers;
+
+	if (_DynamicThreatTarget in WMS_DynAI_LastTarget || _threatScenario == "judgementDay") then {
 		WMS_DynAI_TargetList deleteAt (WMS_DynAI_TargetList find _DynamicThreatTarget);
 		WMS_DynAI_LastTarget = [];
 		_threatScenario = "Nothing";
 		if (count WMS_DynAI_TargetList == 0) then {
-			if (WMS_IP_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| %1", _threatScenario]};
 			//If nobody left nothing happen next
+			if (WMS_IP_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| %1", _threatScenario]};
 		} else {
+			//if still someone in the list, try a last time
 			_threatScenario = "GoForIt";
 			_DynamicThreatTarget = selectRandom WMS_DynAI_TargetList;
+			{
+				if ((_x isKindOf WMS_JudgementDay_Mkr) && {((getMarkerPos _x) distance2D _DynamicThreatTarget)<= 150}) then {_threatScenario = "judgementDay"}; //{}
+			}forEach allMapMarkers;
+			if (_threatScenario == "judgementDay") then {
+				_threatScenario = "Nothing";
 			};
+		};
 	};
-//define if base attack or normal Threat
+	//define if base attack or normal Threat
 	if (_threatScenario == "GoForIt") then {
 		WMS_DynAI_LastTarget set [0,_DynamicThreatTarget];
 		_flagList = (position _DynamicThreatTarget) nearObjects [WMS_DynAI_BaseFlag, WMS_DynAI_distToFlag];
