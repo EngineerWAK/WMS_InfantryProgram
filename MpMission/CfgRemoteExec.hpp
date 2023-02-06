@@ -124,7 +124,7 @@ class CfgRemoteExec
 		class WMS_fnc_InfantryProgram_buy			{ allowedTargets=2; };//InfantryProgram   //EXILE
 		
 		class WMS_fnc_JudgementDay					{ allowedTargets=2; };
-		class WMS_fnc_JMD_hideFallenTrees			{ allowedTargets=2; };
+		class WMS_JMD_hideFallenTrees			{ allowedTargets=2; };
 
 		class WMS_fnc_DFO_Event		   				{ allowedTargets=2; }; //server side only
 

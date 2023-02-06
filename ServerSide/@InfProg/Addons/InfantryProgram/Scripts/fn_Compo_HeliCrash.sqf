@@ -57,16 +57,16 @@ _compoRefPoint setVariable ['openedTime', WMS_ServRestartSeconds, true];
 _compoRefPoint setDir _dir;
 
 {     
-_object = createVehicle [(_x select 0), (_compoRefPoint modeltoworld [(_x select 1 select 0),(_x select 1 select 1),(_x select 1 select 2)]), [], 0, "CAN_COLLIDE"];
-_objList pushback _object; 
-_objectVectoriel = (_compoRefPoint modeltoworld  [(_x select 1 select 0),(_x select 1 select 1),0]);
-_object setposATL [(_objectVectoriel select 0),(_objectVectoriel select 1),((_x select 1) select 2)];
-_object setdir _dir + (_x select 2); 
-_gradient = surfaceNormal position _object; 
-_object setvectorup _gradient;
-_object enableSimulationGlobal true; 
-_object allowDamage false;
-uisleep 0.4;
+	_object = createVehicle [(_x select 0), (_compoRefPoint modeltoworld [(_x select 1 select 0),(_x select 1 select 1),(_x select 1 select 2)]), [], 0, "CAN_COLLIDE"];
+	_objList pushback _object; 
+	_objectVectoriel = (_compoRefPoint modeltoworld  [(_x select 1 select 0),(_x select 1 select 1),0]);
+	_object setposATL [(_objectVectoriel select 0),(_objectVectoriel select 1),((_x select 1) select 2)];
+	_object setdir _dir + (_x select 2); 
+	_gradient = surfaceNormal position _object; 
+	_object setvectorup _gradient;
+	_object enableSimulationGlobal true; 
+	_object allowDamage false;
+	uisleep 0.25;
 } forEach _objects;
 [_compoRefPoint] call WMS_fnc_AMS_FillStuff;
 if (WMS_exileToastMsg) then {
@@ -100,7 +100,7 @@ if (_guard > 0) then {
 		uisleep 0.2;
 	};
 	//[(units _Grp),'Assault',15,_skill,_loadout] call;
-	[(units _Grp),'Assault',15,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+	[(units _Grp),'Assault',15,_skill,nil,_loadout,nil,"HeliCrash"] call WMS_fnc_SetUnits;
 	if (_armed) then {
 		_staticList = [
 			[(selectRandom _statics),[-3.84341,0.221521,0],281.969,[true,true]],
@@ -121,5 +121,9 @@ if (_guard > 0) then {
 		} forEach _staticList;
 	};
 	[_Grp, _Pos, 50, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+	{	
+		_x setVariable ["lambs_danger_disableAI", true];//deactivate LambsDanger
+		_x setVariable ["lambs_danger_disableGroupAI", true];//deactivate LambsDanger
+	}forEach units _grp;
 };
 //WMS_DynAI_Running pushback [time,(time+(_timer)),_grps,[],_objList,[],[],"ALARM"];

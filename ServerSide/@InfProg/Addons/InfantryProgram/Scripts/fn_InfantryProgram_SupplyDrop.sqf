@@ -22,7 +22,7 @@ private _amount		= (_this select 4); //10000
 private _mission	= (_this select 5); //NEW|NEW|NEW|NEW|NEW|NEW|NEW|NEW| //"Ammo", "ToolKit", "launcher"
 private _lockerMoney = _target getVariable ['ExileLocker', 0];
 
-if(_lockerMoney > _amount) then
+if(_lockerMoney > _amount) then //THATS VERY OLD, NEED TO UPDATE
     { 
 		_lockerMoney1 = _target getVariable ['ExileLocker', 0];
     	_playerMoney = _target getVariable ['ExileMoney', 0];
@@ -113,7 +113,7 @@ deletevehicle _light;
 
 } else {
 	if (WMS_IP_LOGs) then {
- 	diag_log format ["[SUPPLYDROP]|TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA| %1 is too poor to get a supplydrop |TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA|", _target];
+ 		diag_log format ["[SUPPLYDROP]|TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA| %1 is too poor to get a supplydrop |TNA|TNA|TNA|TNA|TNA|TNA|TNA|TNA|", _target];
 	};
     //["ErrorTitleOnly", ["Dude! get some money!"]] call ExileClient_gui_toaster_addTemplateToast;
-	};
+};

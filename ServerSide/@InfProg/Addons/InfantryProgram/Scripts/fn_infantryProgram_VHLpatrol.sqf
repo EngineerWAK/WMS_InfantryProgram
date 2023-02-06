@@ -184,7 +184,7 @@ if (_grpSide == OPFOR ) then {
 		};
 	}; 
 	{_x setVariable ["WMS_RealFuckingSide",_grpSide]}forEach units _VHLgrp;
-	[(units _VHLgrp),'SMG',WMS_DynAI_LauncherChance,_skill,_difficulty,_loadout,nil,"VHLC"] call WMS_fnc_SetUnits;
+	[(units _VHLgrp),'SMG',WMS_DynAI_LauncherChance,_skill,_difficulty,_loadout,nil,"VHLCrew"] call WMS_fnc_SetUnits;
 	//if !(WMS_HeadlessOwnerID == 2) then {_VHLgrp setGroupOwner WMS_HeadlessOwnerID};
 	//if (HC1 in allPlayers) then {_VHLgrp setGroupOwner (owner HC1)};
 	if (WMS_exileFireAndForget) then {

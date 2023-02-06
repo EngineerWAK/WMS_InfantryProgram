@@ -428,7 +428,8 @@ WMS_fnc_captureZoneWaves = {
 		};
 	};
 	{
-		[(units _x),'assault',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+		//[(units _x),'assault',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+		[(units _x),'assault',_launcherChance,_skill,nil,_loadout,nil,"CaptureZone"] call WMS_fnc_SetUnits;
 		_wpt = _x addWaypoint [_pos, 0];
 		_wpt setWaypointType "MOVE";
 		_wpt setWaypointCombatMode "YELLOW";
@@ -446,7 +447,8 @@ WMS_fnc_captureZoneWaves = {
 			_x setpos [(_randomSpawnPos select 0),(_randomSpawnPos select 1),100]; 
 			_x setVariable ["WMS_RealFuckingSide",OPFOR];
 		} forEach units _paraGrp ;
-		[(units _paraGrp),'para',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+		//[(units _paraGrp),'para',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+		[(units _paraGrp),'para',_launcherChance,_skill,nil,_loadout,nil,"CaptureZone"] call WMS_fnc_SetUnits;
 		playSound3D ["A3\Sounds_F\ambient\battlefield\battlefield_heli2.wss", player, false, [(_pos select 0),(_pos select 1),150], 3, 1, 0];//yes,"player doesnt make any sens server side but it's override by _pos
 		_grps pushBack _paraGrp;
 	};
@@ -585,7 +587,7 @@ _Mines = [
 ] call WMS_fnc_AMS_SpawnMineField;
 
 //Spawn the "guardian" group, GARISSON
-_guardians = [ 
+_guardians = [ //need to add _info == "CaptureZone"
 	_pos,
 	"CaptureZone",
 	1, 						//"_grpCount",//1

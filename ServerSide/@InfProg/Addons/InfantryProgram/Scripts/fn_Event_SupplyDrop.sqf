@@ -128,7 +128,7 @@ if (count _positions > 0) then {//Need to add a Player check
 			_randomSpawnPos = [[(_pos select 0),(_pos select 1),_altitude] , 5, 50, 0, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
 			_x setpos [(_randomSpawnPos select 0),(_randomSpawnPos select 1),_altitude]; 
 		} forEach units _paraGrp ;
-		[(units _paraGrp),'Para',30,(0.2 + random 0.4),nil,"livonia",nil,"DYNAI"] call WMS_fnc_SetUnits; //paradrop
+		[(units _paraGrp),'Para',30,(0.2 + random 0.4),nil,"livonia",nil,"Supplydrop"] call WMS_fnc_SetUnits; //paradrop
 		[_paraGrp, _Pos, 50, 4, "MOVE", "SAFE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 		if (WMS_IP_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Infantry Patrol created, %1, %2 NPC",_paraGrp, _AIcount]};
 	};

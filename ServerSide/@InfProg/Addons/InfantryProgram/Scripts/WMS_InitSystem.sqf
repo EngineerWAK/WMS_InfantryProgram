@@ -33,7 +33,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.798_2023JAN27_GitHub"; //Color Coded messages for diferent types of NPC | JudgementDay NPC are moving to their own eventHandlers and displaykillstat color
+WMS_System_Version 			= "v2.804_2023FEB04_GitHub"; //Virolahti update | Capture zone setUnits | case "roadblock" create an error sometimes if no road connected | Color Coded messages for different types of NPC | JudgementDay NPC are moving to their own eventHandlers and displaykillstat color
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -190,7 +190,12 @@ WMS_JudgementDay	 	= true;
 WMS_JudgementDay_Run 	= false; //dynamic, KEEP FALSE
 WMS_JudgementDay_Rad 	= 100; //Mission Radius
 WMS_JudgementDay_Mkr	= "Contact_pencilTask2"; //will be used to slow down other dynamic spawns, keep something players can not put themself on the map
-WMS_JudgementDay_items	= ["ACE_fortify","ACE_NVG_Wide","rhs_radio_R187P1","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","ToolKit","Money_stack_quest","ACE_personalAidKit","ACE_wirecutter"];//in fn_setUnits.sqf
+WMS_JudgementDay_items	= [ //ABSOLUTLY NOT VANILLA YET! xD //in fn_setUnits.sqf
+							["ACE_fortify","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_bunch","ACE_wirecutter"],
+							["ACE_fortify","ACE_NVG_Wide","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_roll","ACE_wirecutter", "rhsusf_acc_rotex_mp7"],
+							["ACE_fortify","ACE_NVG_Wide","rhs_radio_R187P1","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_stack","ACE_personalAidKit","ACE_wirecutter", "rhsusf_acc_rotex5_grey","rhs_acc_tgpa"],
+							["ACE_fortify","ACE_NVG_Wide","rhs_radio_R187P1","ToolKit","Money_stack_quest","ACE_personalAidKit", "rhsusf_acc_aac_762sdn6_silencer","rhs_acc_pbs1"]
+						];
 WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]]; //dynamic, NO TOUCH //[_playerObject,_pos(computer),_waveNumber(1 to 10),[_CIVgroup],[_OPFgroup],[],[_triggerOPF,_triggerCIV,_triggerPLAYER],[_markers],[_objectsOrMines]];
 publicVariable "WMS_JudgementDay"; //NO TOUCH
 publicVariable "WMS_JudgementDay_Run"; //NO TOUCH

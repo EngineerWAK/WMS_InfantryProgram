@@ -15,7 +15,7 @@
 - "JudgementDay" add action available if:
 	-WMS_JudgementDay = true;
 	-WMS_JudgementDay_Run = false;
-	-respect level
+	-respect level (5000)
 	-enough buildings around //_houses = position _target nearObjects ["Building", _SpawnLootRad];
 	-enough building positions available //_lootPos = selectRandom (_x buildingPos -1); /-1 will return all available building positions.
 - up to 20 OPFOR (minimum 10, probably 2 different groups but 1 can also work) + at least 5 CIVILIAN, all CIVILIAN dead fail Judgement Day
@@ -30,7 +30,7 @@
 */
 
 if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS| _this = %1", _this]}; //if (WMS_IP_LOGs)
-private ["_WHlist","_triggerOPF","_triggerCIV","_triggerPLAYER","_CIVgroup","_OPFgroup","_JMD_mkr1","_JMD_mkr2","_JMD_mkr3"];
+private ["_WHlist","_triggerOPF","_triggerCIV","_triggerPLAYER","_CIVgroup","_OPFgroup","_JMD_mkr1","_JMD_mkr2","_JMD_mkr3","_JMD_mkr4","_JMD_mkr5"];
 params[  
 	"_playerObject",
 	"_pos",
@@ -79,13 +79,7 @@ _JMD_mkr5 setMarkerColor "colorRed";
 _JMD_mkr5 setMarkerText "No Fly Zone";
 
 //Prevent TheLastCartridges loot spawn in the zone
-{_x setVariable ["_lootAllowed",false,true];}forEach (_pos nearObjects ["house", WMS_JudgementDay_Rad]);
-//remove all weaponHolders in the zone
-[_pos]spawn {
-	_WHlist = (_this select 0) nearEntities [["weaponHolder","GroundWeaponHolder","WeaponHolderSimulated"], WMS_JudgementDay_Rad];
-	{clearItemCargoGlobal _x; deleteVehicle _x;uisleep 0.1}forEach _WHlist;
-	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_fnc_JudgementDay Removing %1 weaponHolder",( count _WHlist)]}; //if (WMS_IP_LOGs)
-};
+{_x setVariable ["_lootAllowed",false,true];}forEach (_pos nearObjects ["house", WMS_JudgementDay_Rad]); //that doesnt include later on "ruins"
 
 //create Border objects
 for '_i' from 0 to 360 step (250 / _radius)*2 do 
@@ -214,7 +208,7 @@ if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_PLAYER_CREATE]|WAK|TNA|W
 
 WMS_JMD_createOPF = {
 	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF _this = %1", _this]}; //if (WMS_IP_LOGs)
-	private ["_playerKills","_timeStart","_playerRep","_playersPosList","_spawnPosList","_houses","_posToPush","_spawnPos"];
+	private ["_houseCount","_houseCountMax","_launcherChance","_playerKills","_timeStart","_playerRep","_playersPosList","_spawnPosList","_houses","_posToPush","_spawnPos"];
 	params[  
 		"_pos",
 		"_OPFgroup",
@@ -244,13 +238,19 @@ WMS_JMD_createOPF = {
 	if (_playerKills >= 1000) then {_difficulty = "hardcore"; _skill = 0.5};
 	if !(vehicle _playerObject iskindOf "man") then {_launcherChance = 100; _difficulty = "hardcore"; _skill = 0.75};
 	/////
-	uisleep 1;
+	uisleep 0.2;
 	for "_i" from 1 to _houseCountMax do {
 		_targetHouse = selectRandom _houses;
 		_houses deleteAt (_houses find _targetHouse);
 		{
 			_posToPush = _x;
-			{if (_posToPush distance2d _x > 25) then{_spawnPosList pushBack _posToPush}}forEach _playersPosList;
+			{
+				if (_posToPush distance2d _x > 25) then {
+						_spawnPosList pushBack _posToPush;
+					}else{
+						if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF Position %1 to close to player %2",_posToPush,_x]}; //if (WMS_IP_LOGs)
+					};
+			}forEach _playersPosList;
 		}forEach (_targetHouse buildingPos -1);
 		uisleep 0.02;
 	};
@@ -269,13 +269,11 @@ WMS_JMD_createOPF = {
 	[_OPFgroup, _pos, (WMS_JudgementDay_Rad*0.5), 4, "MOVE", "AWARE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 	
 	//remove all weaponHolders in the zone
-	[_pos]spawn {
-		_WHlist = (_this select 0) nearEntities [["weaponHolder","GroundWeaponHolder","WeaponHolderSimulated"], WMS_JudgementDay_Rad];
-		{clearItemCargoGlobal _x; deleteVehicle _x;uisleep 0.1}forEach _WHlist;
-		if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF Removing %1 weaponHolder",( count _WHlist)]}; //if (WMS_IP_LOGs)
-	};
-};
+	[_pos]spawn WMS_JMD_RemoveWeapHold;
 
+	//display wave message to all players
+	[[[format ['Judgement Day, Wave %1',(WMS_JudgementDay_Array select 2)]]],'NOTIRED'] remoteExec ['WMS_fnc_displaykillStats',-2];
+};
 WMS_JMD_createCIV = {
 	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createCIV _this = %1", _this]}; //if (WMS_IP_LOGs)
 	private ["_classNames","_unit","_posSafe"];
@@ -323,7 +321,6 @@ WMS_JMD_createCIV = {
 	_unit setVariable ["lambs_danger_disableGroupAI", true];//deactivate LambsDanger
 	[_CIVgroup, _pos, (WMS_JudgementDay_Rad*0.7), 2, "MOVE", "CARELESS", "BLUE", "LIMITED", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 };
-
 WMS_JMD_Hell = { //FAIL
 	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_Hell _this = %1", _this]}; //if (WMS_IP_LOGs)
 	private ["_OPFgroups","_CIVgroups","_CIVunits","_OPFunits","_triggers","_markers","_objects"];
@@ -354,8 +351,9 @@ WMS_JMD_Hell = { //FAIL
 	playSound3D [getMissionPath	'Custom\Ogg\germanwin.ogg', player, false, _pos, 2, 1, 0];
 	WMS_triggCheck_T = WMS_triggCheck_T*0.5;
 	WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]];
+	//display wave message to all players
+	[[['Judgement Day Failed! HA HA!']],'NOTIRED'] remoteExec ['WMS_fnc_displaykillStats',-2];
 };
-
 WMS_JMD_Heaven = {
 	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_Heaven _this = %1", _this]};
 	private ["_rewards","_type","_OPFgroups","_CIVgroups","_CIVunits","_OPFunits","_triggers","_markers","_objects","_smoke","_phone","_crateOwner"];
@@ -414,6 +412,7 @@ WMS_JMD_Heaven = {
 	[_phone,[],_rewards,"military","Mission Reward",nil,_difficulty,150] spawn WMS_fnc_AMS_SpawnRewards;
 	WMS_triggCheck_T = WMS_triggCheck_T*0.5;
 	WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]];
+	[[[format ['Judgement Day Victory... Paradroping Reward around %1',_pos]]],'NOTI'] remoteExec ['WMS_fnc_displaykillStats',-2];
 };
 WMS_JMD_watch_OPF = {
 	private ["_unitPos","_unitKicked","_smoke","_IR"];
@@ -431,10 +430,20 @@ WMS_JMD_watch_OPF = {
 				_IR attachTo [_x, [0, 0, 0]];
 				_x setVariable ["lambs_danger_disableAI", true];
 			}else{
-				if (_unitKicked == 10) then {
-					selectRandom ["SmokeShellPurple","mini_Grenade","GrenadeHand"] createVehicle position _x;
-					_x setDamage 1;
-				}
+				if (_unitKicked == 9) then {
+					//could paradrop the dude 100m above his position to unstuck him
+					/*selectRandom ["SmokeShellPurple","mini_Grenade","GrenadeHand"] createVehicle position _x;
+					_x setDamage 1;*/
+					_x addBackpack "B_Parachute";
+					_x setpos [_unitPos select 0, _unitPos select 1, 100];
+					_smoke = "SmokeShellPurple" createVehicle (position _x);
+					_smoke attachTo [_x, [0, 0, 0]];
+				}else {
+					if (_unitKicked == 12) then {
+						selectRandom ["mini_Grenade","GrenadeHand"] createVehicle position _x;
+						_x setDamage 1;
+					};
+				};
 			};
 			_x setVariable ["WMS_kickass",(_unitKicked+1)];
 		}else{
@@ -445,7 +454,16 @@ WMS_JMD_watch_OPF = {
 		};
 	}forEach _unitsToWatch;
 };
-WMS_fnc_JMD_hideFallenTrees = {
+WMS_JMD_RemoveWeapHold = {
+	private ["_WHlist"];
+	params[  
+		"_pos"
+	];
+	_WHlist = (_this select 0) nearEntities [["weaponHolder","GroundWeaponHolder","WeaponHolderSimulated"], WMS_JudgementDay_Rad];
+	{clearItemCargoGlobal _x; deleteVehicle _x;uisleep 0.1}forEach _WHlist;
+	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF Removing %1 weaponHolder",( count _WHlist)]}; //if (WMS_IP_LOGs)
+};
+WMS_JMD_hideFallenTrees = {
 	private ["_list"];
 	params[  
 		"_pos"
@@ -455,7 +473,6 @@ WMS_fnc_JMD_hideFallenTrees = {
 };
 //create OPF
 {[_pos,_x,_playerObject]spawn WMS_JMD_createOPF}forEach [_OPFgroup];
-
 uisleep 13;
 //create CIV
 {[_pos,_x]call WMS_JMD_createCIV}forEach [_CIVgroup1,_CIVgroup2,_CIVgroup3,_CIVgroup4,_CIVgroup5];

@@ -55,7 +55,7 @@ publicVariable "WMS_ParadropAI_LastTime";
 if (_grpSide == OPFOR ) then {
 	if (WMS_IP_LOGs) then {diag_log format ["[PARADROP GROUP]|TNA|TNA|TNA|TNA|TNA| Side = %1", _grpSide]};
 	_smokeGrenade = "SmokeShellRed";
-	[(units _paraGrp),'para',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+	[(units _paraGrp),'para',_launcherChance,_skill,_difficulty,_loadout,nil,"Paradrop"] call WMS_fnc_SetUnits;
 	if (isPlayer _target) then {
 		_sessionID = _target getVariable ['ExileSessionID','']; 
 		if (WMS_exileToastMsg) then {

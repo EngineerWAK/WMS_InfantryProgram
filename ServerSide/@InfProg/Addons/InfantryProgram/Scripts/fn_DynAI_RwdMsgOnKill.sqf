@@ -141,9 +141,10 @@ params[
 		//saveProfileNamespace;
 		//Add hideBody addaction here
 		//if (_info == "DYNAI") then {_hideBodyColor		= "<t size='1' color='#00dcf5'>Hide Body</t>"};//"DYNAI" is default color
-		if (_info == "BaseATK") then {_hideBodyColor	= "<t size='1' color='#f5d400'>Hide Body</t>"};//No Color yet
-		if (_info == "JMD") then {_hideBodyColor		= "<t size='1' color='#8400ff'>Hide Body</t>"};//No Color yet
-		if (_info == "VHLC") then {_hideBodyColor		= "<t size='1' color='#003df5'>Hide Body</t>"};//No Color yet
+		if (_info == "BaseATK") then {_hideBodyColor	= "<t size='1' color='#f5d400'>Hide Body</t>"};
+		if (_info == "JMD") then {_hideBodyColor		= "<t size='1' color='#9000ff'>Hide Body</t>"};
+		if (_info == "VHLCrew") then {_hideBodyColor		= "<t size='1' color='#003df5'>Hide Body</t>"};
+		if (_info == "HeliCrash"||_info == "Supplydrop"||_info == "Recon") then {_hideBodyColor		= "<t size='1' color='#ff8000'>Hide Body</t>"};
 		[_killed,
 			[
 				_hideBodyColor,	// title

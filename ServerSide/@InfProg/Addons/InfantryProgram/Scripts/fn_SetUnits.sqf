@@ -239,18 +239,22 @@ _poptabs = 50;
 		//WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]];
 		_weaps = selectRandom _weapRandom;
 		_itemsCount = 1; //+ custom items for them
+		_inventoryItems = WMS_JudgementDay_items select 0;
 		_waveLevel = WMS_JudgementDay_Array select 2;
 		if (_waveLevel >= 0 && _waveLevel <= 2) then {
 			_weaps = WMS_Loadout_SMG;
 		}else{
 			if (_waveLevel >= 3 && _waveLevel <= 5) then {
 				_weaps = selectRandom [WMS_Loadout_SMG,WMS_Loadout_Assault,WMS_Loadout_Assault];
+				_inventoryItems = WMS_JudgementDay_items select 1;
 			}else{	
 				if (_waveLevel >= 6 && _waveLevel <= 8) then {
 					_weaps = selectRandom [WMS_Loadout_Assault,WMS_Loadout_DMR,WMS_Loadout_Sniper,WMS_Loadout_MG];
+					_inventoryItems = WMS_JudgementDay_items select 2;
 				}else{
 					if (_waveLevel == 9 || _waveLevel == 10) then {
 						_weaps = selectRandom [WMS_Loadout_Sniper,WMS_Loadout_MG];
+						_inventoryItems = WMS_JudgementDay_items select 3;
 					}else{
 						_weaps = selectRandom _weapRandom;
 					};
@@ -274,7 +278,7 @@ _poptabs = 50;
 		_unit additem "ACE_bloodIV_250";
 		_unit additem "ACE_splint";
 		_unit additem "ACE_epinephrine";
-		_unit additem selectRandom WMS_JudgementDay_items;
+		_unit additem selectRandom _inventoryItems;
 	};
 	default {
 		_mainWeap = [_unit, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
@@ -328,7 +332,7 @@ _poptabs = 50;
 		_unit additem (selectRandom WMS_AI_inventory);
 	};
 ////////////////AMS/DYNAI/WHATEVER CHANGES
-	if (_info == "AMS") then {
+	if (_info == "AMS" || _info == "CaptureZ") then {
 		_unit setVariable ["WMS_Info", _info]; //not used yet
 		if((random 100) <= _launcherChance) then { 
 			if(WMS_AMS_AllowMissiles) then {
@@ -398,7 +402,7 @@ _poptabs = 50;
 		"];//params ["_killed", "_killer", "_instigator", "_useEffects"];
 
 	} else{
-		if (_info == "DYNAI" ||_info == "VHLC") then {
+		if (_info == "DYNAI" ||_info == "VHLCrew" ||_info == "HeliCrash" ||_info == "Paradrop" ||_info == "Supplydrop" ||_info == "Recon") then {
 			_unit setVariable ["WMS_Info", _info]; //not used yet
 			if((random 100) <= _launcherChance) then { 
 				_launcher = [_unit, selectrandom (WMS_AI_LaunchersOPF select 0), 1] call BIS_fnc_addWeapon;

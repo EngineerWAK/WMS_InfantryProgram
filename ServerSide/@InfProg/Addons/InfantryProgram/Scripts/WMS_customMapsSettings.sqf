@@ -73,40 +73,40 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 																	["MissionTest1",1],
 																	["MissionTest2",1],
 																	["ForestCamp",2], //"forest" positions
-																	["HomeDepot",1],
-																	["CombatPatrol",1],
-																	["EnyBunkers",1], //AP mines
-																	["Arbeit",1],
-																	["ArmedBandits",1],
-																	["C192Crash",1],
-																	["AmazonWH",1],
-																	["TransmissionTower",1],
+																	["HomeDepot",2],
+																	["CombatPatrol",2],
+																	["EnyBunkers",2], //AP mines
+																	["Arbeit",2],
+																	["ArmedBandits",2],
+																	["C192Crash",2],
+																	["AmazonWH",2],
+																	["TransmissionTower",2],
 																	["GunsX3",2], //"utility" truck reward, NPC armored
 																	["Arena",0], //this one is pretty hardcore on the objects and NPCs xD
 																	["LightArmoredSteal",2], //Light Armored Reward
 																	["HeliSteal",2], //helicopter reward
-																	["AABattery",1], //no move crate
-																	["Escobar",1],
-																	["Forgotten",1],
-																	["Radar",1], //big crate reward
+																	["AABattery",2], //no move crate
+																	["Escobar",2],
+																	["Forgotten",2],
+																	["Radar",2], //big crate reward
 																	["Construction",2], //truck reward
-																	["OldTemple",1],  //no move crate
+																	["OldTemple",2],  //no move crate
 																	["JunkYard",2], //truck reward
 																	["OldPowerPlant",2], //vehicle reward, armed/armored NPC
 																	["Market",2], //small truck reward
-																	["GrandPaJoe",1],
-																	["LumberYard",1], //"forest" positions
+																	["GrandPaJoe",2],
+																	["LumberYard",2], //"forest" positions
 																	["Factory",2], //"factory" positions
 																	["FieldHospital",2],
 																	["Object172M",2], //Armored Reward and NPCs
 																	["uncleabrams",2], //Armored Reward and NPCs
-																	["thecommunity",1],
+																	["thecommunity",2],
 																	["shipyard",2], //small vehicle reward
 																	["occupation",2], //location/cities positions
 																	["commsrelay",2], //"comms" vehicle reward
-																	["strelnikovtrain",1],
-																	["bastogne",1], //"forest" positions
-																	["blackhawk",1],
+																	["strelnikovtrain",2],
+																	["bastogne",2], //"forest" positions
+																	["blackhawk",2],
 																	//OUTPOSTS
 																	["OutpostAlpha",1],
 																	["OutpostBravo",1],
@@ -157,8 +157,8 @@ if (WMS_MapName == "ruha") then {
 										WMS_AI_HMG 					= "rhs_KORD_high_MSV";
 										//WMS_AI_HMG_Scope 			= "O_HMG_01_high_F";
 										//WMS_AI_HMG_Shield			= "B_G_HMG_02_high_F";
-										WMS_AI_Arty					= "rhs_2b14_82mm_msv";
 										//WMS_AI_GMG 					= "O_GMG_01_high_F"; //AMS AA battery //"RHS_ZU23_VDV"
+										WMS_AI_Arty					= "rhs_2b14_82mm_msv";
 										WMS_AMS_MineAT 				= ["rhsusf_mine_M19"];
 										WMS_ATMines					= ["rhs_mine_TM43"]; //"ATMine";"BWA3_DM31AT";
 										WMS_AMS_SpnDistMission 		= 2000;
@@ -653,21 +653,25 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
 if (WMS_MapName == "vt7") then {//Virolahti
-										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
-										execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
-										WMS_AI_MaxUnits_A 			= 180; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
-										WMS_AI_MaxUnits_B 			= 200; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
-										WMS_AI_MaxUnits_C 			= 220; //stop Base attack and missions
+										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
+										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
+										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
+										//execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
+										WMS_AI_MaxUnits_A 			= 125;
+										WMS_AI_MaxUnits_B 			= 140;
+										WMS_AI_MaxUnits_C 			= 155;
 										WMS_FastNight_Morning 		= 4; //morning start at
 										WMS_FastNight_Evening		= 17; //evening start at
 										WMS_Forests_Size			= 350;
-										WMS_Pos_Forests 			= [[2938.9,16247.5,0],[1414.13,16136.1,0],[1223.95,13935.5,0],[2799.67,14297.7,0],[5262.86,15610.8,0],[7155.53,15438.8,0],[6476.34,17313.3,0],[8043,14506,0],[8568.24,13401.2,0],[4601.78,12848.8,0],
-										[3053.23,12332.6,0],[11303.1,14868.3,0],[8704.07,16353.4,0],[13268.2,15493.1,0],[13621.4,16579.8,0],[16853,16776.4,0],[6371.5,10688.3,0],[9776.98,12182.2,0],[12721.6,12673.5,0],[13520.1,13607.6,0],[17533.4,16544.9,0],
-										[15626.8,15464.8,0],[4569.09,14421.6,0],[4092.52,15570.7,0],[6108.15,14932.4,0],[3484.54,10293.7,0],[2226.74,10908.7,0],[511.025,7630.07,0],[1152.18,9291.61,0],[4342.34,8404.16,0],[3071.75,6820.81,0],[1550.95,5980.26,0],
-										[2190.34,5497.52,0],[941.116,4474.68,0],[302.865,3484.57,0],[1936.68,1826.21,0],[1996.69,2529.92,0],[5874.02,3076.52,0],[8867.13,2567.89,0],[9584.43,2166.2,0],[8067.13,3042.16,0],[7891.6,3977.18,0],[6814.8,4598.28,0],
-										[5041.22,5098.69,0],[5026.94,6091.26,0],[4805.95,7241.29,0],[2836.7,8862.54,0],[10235.6,3970.29,0],[8703.75,4682,0],[13398.2,3968.14,0],[13430.9,4911.88,0],[11911.6,4928.24,0],[10430.8,5711.84,0],[15681.6,5066.58,0],[16437,5747.46,0],
-										[12164.7,5833.17,0],[6669.96,6324.18,0],[8484,8491.08,0],[5646.15,8436.41,0],[7445.27,10379.7,0],[5596.45,11980,0],[12414.8,9474.6,0],[11390.1,10767.9,0],[13220.8,10868.1,0],[14555.1,11505.7,0],[14591.6,9570.23,0],[12060.9,17074.5,0]]; //not autoScan
+										WMS_Pos_Forests 			= [
+											[2938.9,16247.5,0],[1414.13,16136.1,0],[1223.95,13935.5,0],[2799.67,14297.7,0],[5262.86,15610.8,0],[7155.53,15438.8,0],[6476.34,17313.3,0],[8043,14506,0],[8568.24,13401.2,0],[4601.78,12848.8,0],
+											[3053.23,12332.6,0],[11303.1,14868.3,0],[8704.07,16353.4,0],[13268.2,15493.1,0],[13621.4,16579.8,0],[16853,16776.4,0],[6371.5,10688.3,0],[9776.98,12182.2,0],[12721.6,12673.5,0],[13520.1,13607.6,0],[17533.4,16544.9,0],
+											[15626.8,15464.8,0],[4569.09,14421.6,0],[4092.52,15570.7,0],[6108.15,14932.4,0],[3484.54,10293.7,0],[2226.74,10908.7,0],[511.025,7630.07,0],[1152.18,9291.61,0],[4342.34,8404.16,0],[3071.75,6820.81,0],[1550.95,5980.26,0],
+											[2190.34,5497.52,0],[941.116,4474.68,0],[302.865,3484.57,0],[1936.68,1826.21,0],[1996.69,2529.92,0],[5874.02,3076.52,0],[8867.13,2567.89,0],[9584.43,2166.2,0],[8067.13,3042.16,0],[7891.6,3977.18,0],[6814.8,4598.28,0],
+											[5041.22,5098.69,0],[5026.94,6091.26,0],[4805.95,7241.29,0],[2836.7,8862.54,0],[10235.6,3970.29,0],[8703.75,4682,0],[13398.2,3968.14,0],[13430.9,4911.88,0],[11911.6,4928.24,0],[10430.8,5711.84,0],[15681.6,5066.58,0],[16437,5747.46,0],
+											[12164.7,5833.17,0],[6669.96,6324.18,0],[8484,8491.08,0],[5646.15,8436.41,0],[7445.27,10379.7,0],[5596.45,11980,0],[12414.8,9474.6,0],[11390.1,10767.9,0],[13220.8,10868.1,0],[14555.1,11505.7,0],[14591.6,9570.23,0],[12060.9,17074.5,0]]; //not autoScan
 										WMS_Pos_Military 			= [
+											[15071,15086.9,0],[12198.9,13637.4,0],[6799.99,12921.8,0],[2427.68,12685,0],[4258.66,10853,0],[11278.5,10717,0],[14393.6,12503.3,0],[13066.4,9554.33,0],[14684.7,5967.07,0],[11763.5,5187.08,0],[9857.09,5886.74,0],
 											[923.902,2943.37,0], //south airfield
 											[15466.4,16531.4,0], ///north airport
 											[6939.98,13718.8,0], //East, west trader
@@ -695,16 +699,20 @@ if (WMS_MapName == "vt7") then {//Virolahti
 										WMS_CamoNet_Big 			= "CamoNet_wdl_big_F";
 										WMS_para_small				= "rhs_d6_Parachute";
 										WMS_DynAI_GunshipLight 		= ["rhs_uh1h_hidf",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
-										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
-										WMS_DynAI_GunshipHeavy 		= ["rhs_uh1h_hidf_gunship",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
+										WMS_DynAI_GunshipMedium 	= ["rhs_uh1h_hidf",["hidf_tan",1],[[],[]]];
+										WMS_DynAI_GunshipHeavy 		= ["rhs_uh1h_hidf_gunship",["hidf_tan",1],[[],[]]];
 										WMS_AI_RoamingVHLcount 		= 15; //10
 										WMS_DynAI_DestroyVHL 		= 40;
-										WMS_AMS_ToRun 				= 5;
+										WMS_AMS_ToRun 				= 3;
 										WMS_AMS_remRPG 				= 90;
 										WMS_AMS_SpnDistMission 		= 2500; //minimum distance from another mission to spawn a mission
-										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
-										//WMS_AMS_CustomPos			= ["forest"];//["forest","forest","forest","random"];
+										//WMS_AMS_CustomPosFact		= ["factory"]; //"factory","random" //used to spawn "Factory Sales"
+										WMS_AMS_CustomPos			= ["forest"];//["forest","forest","forest","random"];
 										WMS_AI_HMG 					= "rhs_KORD_high_MSV";
+										WMS_AI_Arty					= "rhs_2b14_82mm_msv";
+										WMS_AMS_MineAT 				= ["rhsusf_mine_M19","ATMine","rhs_mine_TM43"];//"gm_minestatic_at_ptm3"
+										WMS_ATMines					= ["rhsusf_mine_M19","ATMine","rhs_mine_TM43"]; //"ATMine";"BWA3_DM31AT";
+										WMS_RunnerTypes				= ["ClaymoreDirectionalMine_Remote_Ammo_Scripted","SatchelCharge_Remote_Ammo_Scripted","rhs_ammo_3of69m","rhs_ammo_fab500_m54"];//["mine","satchel","shell","bomb"]
 										WMS_AI_RoamingVHL_remRPG 	= false;
 										WMS_AI_Para_remRPG 			= true;
 										WMS_AI_INFpatrol_remRPG 	= false;

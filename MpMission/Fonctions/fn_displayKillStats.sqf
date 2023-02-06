@@ -38,7 +38,7 @@ if (_Type == "NOTI") then {
 }; 
 _payload = _payload + "</t>"; 
 if (_totalBonus >= 0) then { 
-	if (_Type == "AMS")then {
+	if (_Type == "AMS" || _type == "CaptureZone")then {
 		_payload = _payload + (format ["<t align='left' color='#abf500' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //light green
 	}else{
 		if (_Type == "DFO")then{
@@ -46,18 +46,22 @@ if (_totalBonus >= 0) then {
 				_payload = _payload + "<t align='left' color='#d60000' font='EtelkaMonospacePro' size='1.4'>FRIENDLY FIRE</t>"; //red
 			};
 		}else{
-			if !(_Type == "NOTI" || _Type == "NOTIRED") then {
+			if !(_Type == "NOTI" || _Type == "NOTIRED") then { //missing: Dynamic = "Paradrop" || side missions= "HeliCrash" "Supplydrop" "Recon" //#ff8000
 				if (_Type == "JMD") then {
-					_payload = _payload + (format ["<t align='left' color='#8400ff' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //Kind of purple
+					_payload = _payload + (format ["<t align='left' color='#9000ff' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //Kind of purple
 				}else{
-					if (_type == "VHLC") then {
+					if (_type == "VHLCrew") then { //ground and air
 						_payload = _payload + (format ["<t align='left' color='#003df5' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //darker blue
 					}else{
-						if (_type == "BaseATK") then {
-							_payload = _payload + (format ["<t align='left' color='#f5d400' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //dark yellow
-						}else{
-							_payload = _payload + (format ["<t align='left' color='#00dcf5' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //light blue, DEFAULT
-						};
+						if (_type == "HeliCrash"||_type == "Supplydrop"||_type == "Recon") then { //side 'missions'
+							_payload = _payload + (format ["<t align='left' color='#ff8000' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //orange
+						} else {
+							if (_type == "BaseATK") then {
+								_payload = _payload + (format ["<t align='left' color='#f5d400' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //dark yellow
+							}else{
+								_payload = _payload + (format ["<t align='left' color='#00dcf5' font='EtelkaMonospacePro' size='1.2'>%2 Total Bonus +%1</t>", _totalBonus,_Type]); //light blue, DEFAULT
+							};
+						};	
 					};
 				};	
 			};	

@@ -247,24 +247,24 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) the
 	};
 };};};};
 if (vehicle _target iskindof "man") then {_Vcoef = [10,5,5,30,30,30,10,20,20,10,10,20,0,0,25,30,1];
-	} else {
-		if (vehicle _target iskindof "Plane") then {_Vcoef = [0,0,0,10,20,0,0,0,0,30,80,0,0,0,15,0,0]};
-		if (vehicle _target iskindof "Tank") then { _Vcoef = [2,5,0,0,30,10,40,10,30,30,50,5,10,0,15,0,2]; _vhlFull = selectRandom WMS_OPFOR_CustomVHL_Spec;};
-		if (vehicle _target isKindOf "Wheeled_Apc_F")then{_Vcoef = [2,5,0,0,30,10,40,10,30,30,50,5,10,0,15,0,5]};
-		if (vehicle _target isKindOf "MRAP_01_base_F")then{_Vcoef = [2,10,0,0,30,10,40,10,30,30,50,5,10,0,15,5,5]};
-		if (vehicle _target isKindOf "Truck_F")then{_Vcoef = [3,5,8,20,30,20,40,20,20,40,40,30,1,0,25,25,1]};
-		if (vehicle _target isKindOf "LSV_01_armed_base_F"||vehicle _target isKindOf "LSV_02_armed_base_F")then{_Vcoef = [3,5,8,20,30,20,40,20,20,40,40,30,1,0,25,25,2]};
-		if (vehicle _target iskindof "StaticWeapon") then { _Vcoef = [10,0,5,0,20,3,0,40,30,25,10,15,30,1,10,10,5]};
-		if (vehicle _target iskindof "Ship") then { _Vcoef = [5,0,0,0,0,0,0,0,5,0,100,0,5,2,5,0,0]};
-		if (vehicle _target iskindof "Bicycle") then { _Vcoef = [10,5,5,30,20,30,10,5,10,10,10,5,2,0,10,30,0]};
-		if ((typeOf (vehicle _target)) in WMS_RCWS_Vhls) then { _Vcoef = [2,5,0,0,30,10,40,10,30,30,50,5,10,0,15,0,0]};//APC copy
+	} else { //x3 for all numbers to try to find a balance
+		if (vehicle _target iskindof "Plane") then {_Vcoef = [0,0,0,30,60,0,0,0,0,90,240,0,0,0,45,0,0]};
+		if (vehicle _target iskindof "Tank") then { _Vcoef = [5,15,0,0,150,30,120,30,90,90,150,15,30,0,45,0,6]; _vhlFull = selectRandom WMS_OPFOR_CustomVHL_Spec;};
+		if (vehicle _target isKindOf "Wheeled_Apc_F")then{_Vcoef = [6,15,0,0,90,30,120,30,90,90,150,15,30,0,65,0,15]};
+		if (vehicle _target isKindOf "MRAP_01_base_F")then{_Vcoef = [6,30,0,0,90,30,120,30,90,90,150,15,30,0,45,15,15]};
+		if (vehicle _target isKindOf "Truck_F")then{_Vcoef = [9,15,24,60,90,60,120,60,60,120,120,90,3,0,75,75,3]};
+		if (vehicle _target isKindOf "LSV_01_armed_base_F"||vehicle _target isKindOf "LSV_02_armed_base_F")then{_Vcoef = [9,15,24,60,90,60,120,60,60,120,120,90,3,0,45,45,6]};
+		if (vehicle _target iskindof "StaticWeapon") then { _Vcoef = [30,0,15,0,60,9,0,120,90,45,30,45,90,3,30,30,15]};
+		if (vehicle _target iskindof "Ship") then { _Vcoef = [15,0,0,0,0,0,0,0,15,0,300,0,15,6,15,0,0]};
+		if (vehicle _target iskindof "Bicycle") then { _Vcoef = [30,15,15,90,60,90,30,15,30,30,30,15,6,0,30,90,0]};
+		if ((typeOf (vehicle _target)) in WMS_RCWS_Vhls) then { _Vcoef = [6,15,0,0,90,30,120,30,90,90,150,15,30,0,45,0,0]};//APC copy
 		if (vehicle _target iskindof "Helicopter") then {
-			if (vehicle _target iskindof "Steerable_Parachute_F") then { _Vcoef = [0,0,10,30,30,30,0,0,0,15,5,0,10,0,25,30,0];//for whatever reason, the parachute is classed as helicopter.		
+			if (vehicle _target iskindof "Steerable_Parachute_F") then { _Vcoef = [0,0,30,90,90,90,0,0,0,45,15,0,30,0,45,90,0];//for whatever reason, the parachute is classed as helicopter.		
 				} else {
-					if (vehicle _target isKindOf "Heli_Attack_01_base_F"||vehicle _target isKindOf "Heli_Attack_02_base_F")then{_Vcoef = [0,0,5,30,30,2,0,0,0,40,50,10,5,0,5,0,0];
+					if (vehicle _target isKindOf "Heli_Attack_01_base_F"||vehicle _target isKindOf "Heli_Attack_02_base_F")then{_Vcoef = [0,0,15,90,90,6,0,0,0,120,150,30,15,0,15,0,0];
 						}else{
-							if (vehicle _target isKindOf "Heli_Light_01_armed_base_F")then{_Vcoef = [0,0,5,30,30,2,0,0,0,40,50,10,5,0,5,0,0];
-								}else{_Vcoef = [0,0,5,30,30,2,0,0,0,40,50,10,5,0,5,25,0]};
+							if (vehicle _target isKindOf "Heli_Light_01_armed_base_F")then{_Vcoef = [0,0,15,90,90,6,0,0,0,120,150,30,15,0,15,0,0];
+								}else{_Vcoef = [0,0,15,90,90,6,0,0,0,120,150,30,15,0,15,45,0]};
 						};
 				};
 		};
@@ -486,10 +486,17 @@ switch (_threatScenario) do {
 		if (isnull _nearestRoad || _targetSpeed > 200) exitWith {};
 		_nearestRoadPos = position _nearestRoad; 
 		_roadConnectedTo = roadsConnectedTo _nearestRoad;  
-		_connectedRoad = _roadConnectedTo select 0;  
-		_directionRoad = [_nearestRoad, _connectedRoad] call BIS_fnc_DirTo;
-		[_nearestRoadPos, _directionRoad, _timer, _grpSize, selectrandom [1,2], _launcherChance, _skill, "army",_difficulty] spawn WMS_fnc_Compo_RoadBlock; //(this select 4)  1=MG - 2=AT
-		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		if (count _roadConnectedTo != 0) then {
+			_connectedRoad = _roadConnectedTo select 0;  //create an error if no road Connected
+			_directionRoad = [_nearestRoad, _connectedRoad] call BIS_fnc_DirTo;
+			[_nearestRoadPos, _directionRoad, _timer, _grpSize, selectrandom [1,2], _launcherChance, _skill, "army",_difficulty] spawn WMS_fnc_Compo_RoadBlock; //(this select 4)  1=MG - 2=AT
+			WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		}else {
+			//fallback to something else 
+			_distanceWPT = 600;
+			[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty] spawn WMS_fnc_infantryProgram_VHLpatrol;
+			WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		};
 		//};
 	};
 	case "bombing" : {

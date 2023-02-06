@@ -638,7 +638,7 @@ WMS_IP_buildComputer = {
 	//JUDGEMENT DAY
 	_IDnumber = _IPcomputer addAction
 	[
-		"<t size='0.9' color='#8400ff'>Judgement Day 5000$</t>",
+		"<t size='0.9' color='#9000ff'>Judgement Day 5000$</t>",
 		"
 			_target = _this select 0; _caller = _this select 1;
 			if !(WMS_JudgementDay_Run) then {
@@ -667,11 +667,11 @@ WMS_IP_buildComputer = {
 	_allActionsID pushBack _IDnumber;
 	_IDnumber = _IPcomputer addAction //remote exec for this one
 	[
-		"<t size='0.9' color='#8400ff'>Fallen Tree Cleaning 250$</t>",
+		"<t size='0.9' color='#9000ff'>Fallen Tree Cleaning 250$</t>",
 		"
 			_target = _this select 0; _caller = _this select 1;
 			if (WMS_JudgementDay_Run) then {
-				[(position _target)] remoteExec ['WMS_fnc_JMD_hideFallenTrees'];
+				[(position _target)] remoteExec ['WMS_JMD_hideFallenTrees'];
 				[_caller, 250] remoteExec ['WMS_fnc_smallTransactions'];
 			};
 			
