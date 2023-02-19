@@ -69,53 +69,6 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 										WMS_Military_CoolD			= 240;
 										//Let's make it more challenging on Ruha //FastCombat	
 										WMS_FastCombat 				= true;
-										WMS_AMS_MissionList 		= [ //missions themself and weight
-																	["MissionTest1",1],
-																	["MissionTest2",1],
-																	["ForestCamp",2], //"forest" positions
-																	["HomeDepot",2],
-																	["CombatPatrol",2],
-																	["EnyBunkers",2], //AP mines
-																	["Arbeit",2],
-																	["ArmedBandits",2],
-																	["C192Crash",2],
-																	["AmazonWH",2],
-																	["TransmissionTower",2],
-																	["GunsX3",2], //"utility" truck reward, NPC armored
-																	["Arena",0], //this one is pretty hardcore on the objects and NPCs xD
-																	["LightArmoredSteal",2], //Light Armored Reward
-																	["HeliSteal",2], //helicopter reward
-																	["AABattery",2], //no move crate
-																	["Escobar",2],
-																	["Forgotten",2],
-																	["Radar",2], //big crate reward
-																	["Construction",2], //truck reward
-																	["OldTemple",2],  //no move crate
-																	["JunkYard",2], //truck reward
-																	["OldPowerPlant",2], //vehicle reward, armed/armored NPC
-																	["Market",2], //small truck reward
-																	["GrandPaJoe",2],
-																	["LumberYard",2], //"forest" positions
-																	["Factory",2], //"factory" positions
-																	["FieldHospital",2],
-																	["Object172M",2], //Armored Reward and NPCs
-																	["uncleabrams",2], //Armored Reward and NPCs
-																	["thecommunity",2],
-																	["shipyard",2], //small vehicle reward
-																	["occupation",2], //location/cities positions
-																	["commsrelay",2], //"comms" vehicle reward
-																	["strelnikovtrain",2],
-																	["bastogne",2], //"forest" positions
-																	["blackhawk",2],
-																	//OUTPOSTS
-																	["OutpostAlpha",1],
-																	["OutpostBravo",1],
-																	["OutpostCharlie",1],
-																	["OutpostDelta",1], //+V2
-																	["OutpostEcho",1],
-																	["OutpostFoxtrot",1],
-																	["OutpostGolf",1] //+V2
-																];
 										};
 if (WMS_MapName == "ruha") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
@@ -175,53 +128,6 @@ if (WMS_MapName == "ruha") then {
 										WMS_Military_CoolD			= 240;
 										//Let's make it more challenging on Ruha //FastCombat	
 										WMS_FastCombat 				= true;
-										WMS_AMS_MissionList 	= [ //missions themself and weight
-																	["MissionTest1",1],
-																	["MissionTest2",1],
-																	["ForestCamp",2], //"forest" positions
-																	["HomeDepot",1],
-																	["CombatPatrol",1],
-																	["EnyBunkers",1], //AP mines
-																	["Arbeit",1],
-																	["ArmedBandits",1],
-																	["C192Crash",1],
-																	["AmazonWH",1],
-																	["TransmissionTower",1],
-																	["GunsX3",2], //"utility" truck reward, NPC armored
-																	["Arena",0], //this one is pretty hardcore on the objects and NPCs xD
-																	["LightArmoredSteal",2], //Light Armored Reward
-																	["HeliSteal",2], //helicopter reward
-																	["AABattery",1], //no move crate
-																	["Escobar",1],
-																	["Forgotten",1],
-																	["Radar",1], //big crate reward
-																	["Construction",2], //truck reward
-																	["OldTemple",1],  //no move crate
-																	["JunkYard",2], //truck reward
-																	["OldPowerPlant",2], //vehicle reward, armed/armored NPC
-																	["Market",2], //small truck reward
-																	["GrandPaJoe",1],
-																	["LumberYard",1], //"forest" positions
-																	["Factory",2], //"factory" positions
-																	["FieldHospital",1],
-																	["Object172M",2], //Armored Reward and NPCs
-																	["uncleabrams",2], //Armored Reward and NPCs
-																	["thecommunity",1],
-																	["shipyard",2], //small vehicle reward
-																	["occupation",1], //location/cities positions
-																	["commsrelay",2], //"comms" vehicle reward
-																	["strelnikovtrain",1],
-																	["bastogne",1], //"forest" positions
-																	["blackhawk",1],
-																	//OUTPOSTS
-																	["OutpostAlpha",1],
-																	["OutpostBravo",1],
-																	["OutpostCharlie",1],
-																	["OutpostDelta",1], //+V2
-																	["OutpostEcho",1],
-																	["OutpostFoxtrot",1],
-																	["OutpostGolf",1] //+V2
-																];
 										};
 if (WMS_MapName == "Lythium") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
@@ -291,54 +197,6 @@ if (WMS_MapName == "Lythium") then {
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										//ARMORED SERVER
 										AMS_ArmoredServer = false;
-										//AMS MISSIONS
-										WMS_AMS_MissionList 	= [ //missions themself and weight
-											["MissionTest1",1],
-											["MissionTest2",1],
-											["ForestCamp",1], //"forest" positions
-											["HomeDepot",1],
-											["CombatPatrol",1],
-											["EnyBunkers",1], //AP mines
-											["Arbeit",1],
-											["ArmedBandits",1],
-											["C192Crash",1],
-											["AmazonWH",1],
-											["TransmissionTower",1],
-											["GunsX3",2], //"utility" truck reward, NPC armored
-											["Arena",0], //this one is pretty hardcore on the objects and NPCs xD
-											["LightArmoredSteal",2], //Light Armored Reward
-											["HeliSteal",1], //helicopter reward
-											["AABattery",1], //no move crate
-											["Escobar",1],
-											["Forgotten",1],
-											["Radar",1], //big crate reward
-											["Construction",1], //truck reward
-											["OldTemple",1],  //no move crate
-											["JunkYard",1], //truck reward
-											["OldPowerPlant",2], //vehicle reward, armed/armored NPC
-											["Market",1], //small truck reward
-											["GrandPaJoe",1],
-											["LumberYard",1], //"forest" positions
-											["Factory",2], //"factory" positions
-											["FieldHospital",1],
-											["Object172M",2], //Armored Reward and NPCs
-											["uncleabrams",2], //Armored Reward and NPCs
-											["thecommunity",1],
-											["shipyard",1], //small vehicle reward
-											["occupation",1], //location/cities positions
-											["commsrelay",1], //"comms" vehicle reward
-											["strelnikovtrain",1],
-											["bastogne",1], //"forest" positions
-											["blackhawk",1],
-											//OUTPOSTS
-											["OutpostAlpha",1],
-											["OutpostBravo",1],
-											["OutpostCharlie",1],
-											["OutpostDelta",1], //+V2
-											["OutpostEcho",1],
-											["OutpostFoxtrot",1],
-											["OutpostGolf",1] //+V2
-										];
 										};
 if (WMS_MapName == "gm_weferlingen_summer") then {
 										if (true) then {diag_log format ["[MISSION MAP]|WAK|TNA|WMS| Detetected map for AI setup is: %1", worldname]};
@@ -672,13 +530,19 @@ if (WMS_MapName == "vt7") then {//Virolahti
 											[12164.7,5833.17,0],[6669.96,6324.18,0],[8484,8491.08,0],[5646.15,8436.41,0],[7445.27,10379.7,0],[5596.45,11980,0],[12414.8,9474.6,0],[11390.1,10767.9,0],[13220.8,10868.1,0],[14555.1,11505.7,0],[14591.6,9570.23,0],[12060.9,17074.5,0]]; //not autoScan
 										WMS_Pos_Military 			= [
 											[15071,15086.9,0],[12198.9,13637.4,0],[6799.99,12921.8,0],[2427.68,12685,0],[4258.66,10853,0],[11278.5,10717,0],[14393.6,12503.3,0],[13066.4,9554.33,0],[14684.7,5967.07,0],[11763.5,5187.08,0],[9857.09,5886.74,0],
+											[7571.06,705.581,0],[7810.61,354.346],[7531.29,457.565],//south island
 											[923.902,2943.37,0], //south airfield
 											[15466.4,16531.4,0], ///north airport
 											[6939.98,13718.8,0], //East, west trader
 											[2087.81,12119.9,0], //West, west trader
 											[5609.35,9424.69,0] //Harju spawn
 											]; //not autoScan //need enough space to land a chopper 
-										//WMS_Pos_Factory 			= [];	
+										WMS_Pos_Factory 			= [
+											[13943.6,10132.8,0],[13295.2,10015,0],[14489,10349,0],[14357.1,10383.8,0],[14073.8,10825.4,0],[16753.7,16028.8,0],[14912.2,15199.6,0],[14934.6,14857.9,0],[14881.9,14735,0],[14959,14774.7,0],[15124.9,14710.6,0],
+											[14881.4,14288.7,0],[14947.6,14268.1,0],[14176.3,13308.4,0],[11816.6,16238.3,0],[9031.96,16278.3,0],[1091.76,16799.3,0],[508.657,17014.5,0],[1746.47,14588.8,0],[1549.74,14219.6,0],[2195.8,13173.4,0],
+											[2280.82,13346.6,0],[2854.95,8605.62,0],[2537.71,6070.17,0],[2419.16,5931.3,0],[10339.9,4397.68,0],[10612,4471.48,0],[16608.4,4337.14,0],[16422,4631.91,0],[16067.9,6868.46,0],[16119.9,6892.46,0],[14843.2,7495.46,0],
+											[14822.1,7524.21,0],[14570.7,8164.03,0],[14558.8,8188.58,0],[13562.8,8050.69,0],[6331.21,8767.65,0],[6250.71,8766.52,0],[10850.3,13084.9,0],[10886.2,13207,0],[11008.2,13088.4,0],[11032,12969.7,0],[10759.9,13191.7,0],
+											[10780.6,13151.7,0],[11003.4,13220.6,0],[11022,12633.7,0],[1098.07,2026.85,0]];	
 										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15A","rhsusf_acc_anpeq15side","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15_bk_sc","rhsusf_acc_anpeq15_bk_top_h","rhsusf_acc_anpeq15_wmx_h","rhsusf_acc_anpeq15_wmx_light","rhsusf_acc_anpeq16a_light_top_sc","rhsusf_acc_anpeq16a_top"];
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
@@ -706,7 +570,7 @@ if (WMS_MapName == "vt7") then {//Virolahti
 										WMS_AMS_ToRun 				= 3;
 										WMS_AMS_remRPG 				= 90;
 										WMS_AMS_SpnDistMission 		= 2500; //minimum distance from another mission to spawn a mission
-										//WMS_AMS_CustomPosFact		= ["factory"]; //"factory","random" //used to spawn "Factory Sales"
+										WMS_AMS_CustomPosFact		= ["factory"]; //"factory","random" //used to spawn "Factory Sales"
 										WMS_AMS_CustomPos			= ["forest"];//["forest","forest","forest","random"];
 										WMS_AI_HMG 					= "rhs_KORD_high_MSV";
 										WMS_AI_Arty					= "rhs_2b14_82mm_msv";
@@ -831,7 +695,7 @@ if (WMS_MapName == "xcam_taunus") then {//OUTDATED	//NOTE THAT TAUNUS IS VERY LA
 																	[8068.06,18025.2,0],[4267.54,20224,0],[4325.61,20148.9,0],[2409.07,20100.8,0],[2390.68,20076.8,0],[916.996,19296.4,0],[956.071,19303.1,0],[1211.6,14720.4,0],[1208.39,14797.2,0],[3830.66,5408.97,0],[3841.21,5519.04,0],
 																	[2431.11,1339.67,0],[4435.89,13189.7,0],[4273.26,13210.2,0],[6383.18,15115.5,0],[6362.06,15185.6,0],[9976.94,16053.4,0],[9958.77,16071.3,0],[15739.6,12919,0],[15674.8,12924.8,0],[10113.5,5381.05,0],[13120.6,4742.75,0],
 																	[13169.7,4769.09,0],[14030.6,10548.2,0],[14124.9,10577.9,0]]; //need room for small camoNet
-										WMS_AMS_CustomPos			= ["forest","forest","forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
+										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales
 										};
 //ARMORED SERVER

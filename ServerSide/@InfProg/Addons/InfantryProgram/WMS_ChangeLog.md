@@ -21,6 +21,9 @@
 // - 'DynAI + Events' Player Check before spawn<br/>
 // - Integrated Messages Brodcast //DONE<br/>
 //////////////////////////////////////////////////////////////////<br/>
+v2.806_2023FEB09_GitHub <br/>
+    Updated the Roaming vehicles, if all the crew leave the vehicle > 300m, they will be destroyed after 3 checks (3*30 sec). To prevent useless vehicle crew walking around the map. <br/>
+    
 v2.794_2023JAN25_GitHub <br/>
     ADDED Judgement Day mission, can be called fron the Infantry Computer. 10 waves of NPC spawning in the building around + few civilians running<br/>
         WMS_fnc_JudgementDay<br/>

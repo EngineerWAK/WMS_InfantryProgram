@@ -11,15 +11,49 @@
 */
 
 //WMS_ParadropAI_watch pushback [time,timeToDelete,[groups],[[_vhl,[0,0,0]],[_vhl,[0,0,0]],[_vhl,[0,0,0]]],[objects],[markernames],[WPs],"reference"];
-private ["_RoamingAIvhl","_RoamingAIair","_timeAdded","_vehicles","_vhl","_lastPos","_newPos","_assKicked","_grpArray","_obj","_mkr","_wps","_ref","_ownedBy","_timeAddedAir","_vehiclesAir"];
+private ["_grpKick","_VHLgrpArray","_grpVhl","_RoamingAIvhl","_RoamingAIair","_timeAdded","_vehicles","_vhl","_lastPos","_newPos","_assKicked","_grpArray","_obj","_mkr","_wps","_ref","_ownedBy","_timeAddedAir","_vehiclesAir"];
 _RoamingAIvhl = (count WMS_AI_RoamingVHL_Running);
 _RoamingAIair = (count WMS_AI_RoamingAIR_Running);
 
 if !(_RoamingAIvhl == 0) then { 
 	if (WMS_IP_LOGs) then {diag_log format ["[Roaming VHL Watch]|WAK|TNA|WMS| %1 Vehicles Patroling", _RoamingAIvhl]};
+	//_playerList = allPlayers select {alive _x && (_x distance2D _pos < _radPlayer)} apply {[GetPosATL _x, name _x]};
 	{ 
-		_timeAdded = (_x select 0);
-		_vehicles = (_x select 3); //[[_vhl,[0,0,0]],[_vhl,[0,0,0]],[_vhl,[0,0,0]]]
+		_timeAdded 	= (_x select 0);
+		_VHLgrpArray = (_x select 2); //[_grp, _grp] //actualy only one group but still an array
+		_vehicles 	= (_x select 3); //[[_vhl,[0,0,0]],[_vhl,[0,0,0]],[_vhl,[0,0,0]]]
+		/////Clean Lost groups / abandonned vehicles
+		{
+			_grpVhl = _x getVariable ["WMS_VehicleObject", objNull]; //will be used to prevent NPC to keep walking for hours if thay abandon their vehicle
+			if (
+				!(isNull _grpVhl) && 
+				{(leader _x distance2d _grpVhl > 300)} && 
+				{(owner _grpVhl == 2)} && 
+				{{alive _x} count (crew _grpVhl) == 0} && 
+				{count (allPlayers select {alive _x && (_x distance2D _grpVhl < 300)} apply {[GetPosATL _x, name _x]}) == 0}
+			)then{
+				if (true) then {diag_log format ["[Roaming VHL Watch]|WAK|TNA|WMS| %1 is abandonned, destroying crew %2", _grpVhl, _x]};	//WMS_IP_LOGs
+				{ 
+					_x setDamage 1;
+					if (WMS_magicSmoke) then {_Shaft = "CMflare_Chaff_Ammo" createVehicle position _x};
+					deleteVehicle _x;
+				} foreach units _x;
+			}else{
+				if (isNull _grpVhl || owner _grpVhl != 2) then {
+					_grpKick = _x getVariable ["WMS_LostGrpKick", 0];
+					if (_grpKick > 3)then {	
+						if (true) then {diag_log format ["[Roaming VHL Watch]|WAK|TNA|WMS| %1 has no vehicle anymore, destroying crew", _grpVhl, _x]};	//WMS_IP_LOGs
+						{ 
+							_x setDamage 1;
+							if (WMS_magicSmoke) then {_Shaft = "CMflare_Chaff_Ammo" createVehicle position _x};
+							deleteVehicle _x;
+						} foreach units _x;
+					}else{
+						_x setVariable ["WMS_LostGrpKick", _grpKick+1, false];
+					};	
+				};
+			};
+		} forEach _VHLgrpArray;
 		/////Unstuck vehicle
 		{
 			if ((time > (_timeAdded+60)) && {alive (_x select 0)} && {side(group(_x select 0)) == EAST} && {alive (driver (_x select 0))} && {count ((position (_x select 0)) nearEntities [WMS_PlayerEntity, 300]) == 0}) then { //side EAST means there is still AI inside otherwise side UNKNOW

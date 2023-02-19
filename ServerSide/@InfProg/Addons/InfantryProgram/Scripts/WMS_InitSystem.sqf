@@ -33,9 +33,9 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.804_2023FEB04_GitHub"; //Virolahti update | Capture zone setUnits | case "roadblock" create an error sometimes if no road connected | Color Coded messages for different types of NPC | JudgementDay NPC are moving to their own eventHandlers and displaykillstat color
+WMS_System_Version 			= "v2.806_2023FEB09_GitHub"; //Lost vehicles groups without vehicles will be destroyed | Missions balance
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
-WMS_SVRstartLock 			= 90; //better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
+WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 
@@ -531,39 +531,39 @@ WMS_AMS_CustomPosFact	= ["random"]; //used to spawn "Factory Sales" //"random" o
 WMS_AMS_MissionList 	= [ //missions themself and weight
 							["MissionTest1",1],
 							["MissionTest2",1],
-							["ForestCamp",1], //"forest" positions
-							["HomeDepot",1],
-							["CombatPatrol",1],
-							["EnyBunkers",1], //AP mines
-							["Arbeit",1],
-							["ArmedBandits",1],
-							["C192Crash",1],
-							["AmazonWH",1],
-							["TransmissionTower",1],
-							["GunsX3",1], //"utility" truck reward, NPC armored
+							["ForestCamp",2], //"forest" positions
+							["HomeDepot",2],
+							["CombatPatrol",2],
+							["EnyBunkers",2], //AP mines
+							["Arbeit",2],
+							["ArmedBandits",2],
+							["C192Crash",2],
+							["AmazonWH",2],
+							["TransmissionTower",2],
+							["GunsX3",2], //"utility" truck reward, NPC armored
 							["Arena",0], //this one is pretty hardcore on the objects and NPCs xD
-							["LightArmoredSteal",1], //Light Armored Reward
-							["HeliSteal",1], //helicopter reward
-							["AABattery",1], //no move crate
-							["Escobar",1],
-							["Forgotten",1],
-							["Radar",1], //big crate reward
-							["Construction",1], //truck reward
-							["OldTemple",1],  //no move crate
-							["JunkYard",1], //truck reward
-							["OldPowerPlant",1], //vehicle reward, armed/armored NPC
-							["Market",1], //small truck reward
-							["GrandPaJoe",1],
-							["LumberYard",1], //"forest" positions
-							["Factory",1], //"factory" positions
-							["FieldHospital",1],
-							["Object172M",1], //Armored Reward and NPCs
-							["uncleabrams",1], //Armored Reward and NPCs
-							["thecommunity",1],
-							["shipyard",1], //small vehicle reward
-							["occupation",1], //location/cities positions
-							["commsrelay",1], //"comms" vehicle reward
-							["strelnikovtrain",1],
+							["LightArmoredSteal",2], //Light Armored Reward
+							["HeliSteal",2], //helicopter reward
+							["AABattery",2], //no move crate
+							["Escobar",2],
+							["Forgotten",2],
+							["Radar",2], //big crate reward
+							["Construction",2], //truck reward
+							["OldTemple",2],  //no move crate
+							["JunkYard",2], //truck reward
+							["OldPowerPlant",2], //vehicle reward, armed/armored NPC
+							["Market",2], //small truck reward
+							["GrandPaJoe",2],
+							["LumberYard",2], //"forest" positions
+							["Factory",2], //"factory" positions
+							["FieldHospital",2],
+							["Object172M",2], //Armored Reward and NPCs
+							["uncleabrams",2], //Armored Reward and NPCs
+							["thecommunity",2],
+							["shipyard",2], //small vehicle reward
+							["occupation",2], //location/cities positions
+							["commsrelay",2], //"comms" vehicle reward
+							["strelnikovtrain",2],
 							["bastogne",2], //"forest" positions
 							["blackhawk",2],
 							//OUTPOSTS

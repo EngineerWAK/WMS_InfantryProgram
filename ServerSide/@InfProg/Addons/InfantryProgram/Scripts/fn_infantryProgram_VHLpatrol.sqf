@@ -57,7 +57,7 @@ _VHLgrp = createGroup [_grpSide, false];
 //_vehic = _VHLselected createVehicle _randomPosTarget;
 _vehic = createVehicle [_VHLselected, _randomPosTarget, [], 0, "NONE"];
 _VHLgrp addVehicle _vehic;
-_vehic setVariable ["roamingAIVehicle", true, true];
+_VHLgrp setVariable ["WMS_VehicleObject", _vehic, true]; //will be used to prevent NPC to keep walking for hours if thay abandon their vehicle
 if (_vehic isKindOf "tank"||_vehic isKindOf "Wheeled_Apc_F") then {_vehic setVariable ["ace_cookoff_enable", true, true];};
 _cargoSits = _vehic emptyPositions "cargo"; //"Commander", "Driver", "Gunner"
 _drvSits = _vehic emptyPositions "Driver";
