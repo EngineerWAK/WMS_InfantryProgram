@@ -24,7 +24,8 @@ WMS_magicSmoke 				= true; //puff of smoke/shaft/flare when NPC despawn
 WMS_ServerMarkers 			= true;	//show Server FPS, AI and Deads count on the map
 WMS_forceNoRain 			= false; //no more rain!
 WMS_forceNoFog				= false; //no more fucking fog!
-WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds
+WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds //KEEP THIS TRUE IF USE THE LASTCARTRIDGE FOR VEHICLES BACKUP
+WMS_UseBattleMetrics 		= false;
 ///////////////NEW///////////////////////////////
 //v2.767
 AMS_ArmoredServer 			= false; //custom setup at end of WMS_customMapsSettings for Armored servers
@@ -33,7 +34,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.806_2023FEB09_GitHub"; //Lost vehicles groups without vehicles will be destroyed | Missions balance
+WMS_System_Version 			= "v2.807_2023MAY19_GitHub"; //BattleMetrics compatibility for restart
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings

@@ -14,14 +14,23 @@ private ["_msgr"];
 if (serverTime > (WMS_ServRestartSeconds)) then {
 		_msgr = format ['PLAYERS KICK IN %1 SECONDES', (20)];
 		[_msgr] remoteExecCall ['SystemChat', -2];
-		["EventWarning", ["SERVER RESTART", "The server will restart in 30 secondes"]] remoteExec ["BIS_fnc_showNotification", -2];
+		if (WMS_UseBattleMetrics) then {
+			["EventWarning", ["SERVER RESTART", "The server restart is now managed by BattleMetrics"]] remoteExec ["BIS_fnc_showNotification", -2];
+		}else {
+			["EventWarning", ["SERVER RESTART", "The server will restart in 30 secondes"]] remoteExec ["BIS_fnc_showNotification", -2];
+		};
 		uisleep 20;
 		{WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)];}foreach allPlayers;
+		WMS_serverCMDpwd serverCommand "#Lock";
 		if !(WMS_exileFireAndForget) then {
 			[] call WMS_fnc_permanentVehiclesLastUpdate; //TheLastCartridges permanent vehicles
 		};
 		uisleep 10;
-		WMS_serverCMDpwd serverCommand "#shutdown";
+		if (WMS_UseBattleMetrics) then {
+			//["EventWarning", ["SERVER RESTART", "The server restart is now managed by BattleMetrics, Wait For It"]] remoteExec ["BIS_fnc_showNotification", -2]; //Nobody left on the server
+		} else {
+			WMS_serverCMDpwd serverCommand "#shutdown";
+		};
 	} else {
 		if (WMS_ServRestart15minWarning) then {
 			["EventWarning", ["SERVER RESTART", "The server will restart in 15 Minutes"]] remoteExec ["BIS_fnc_showNotification", -2];
