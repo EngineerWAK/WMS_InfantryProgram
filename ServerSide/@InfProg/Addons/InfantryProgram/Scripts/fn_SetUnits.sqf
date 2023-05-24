@@ -40,7 +40,7 @@ params [
 ///////////////
 
 if (WMS_IP_LOGs) then {diag_log format ["[OPFOR AI SETUP]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_loadoutTrack","_RealFuckingSide","_poptabs","_unit","_weapRandom","_weapRandomNoSnipNoMG","_mainWeap","_pistol","_expl1","_expl2","_expl3","_launcher","_sniper","_skills"];
+private ["_rankRef","_loadoutTrack","_RealFuckingSide","_poptabs","_unit","_weapRandom","_weapRandomNoSnipNoMG","_mainWeap","_pistol","_expl1","_expl2","_expl3","_launcher","_sniper","_skills"];
 params[
 	["_units",[]],
 	["_unitFunction","Assault"],
@@ -324,6 +324,16 @@ _poptabs = 50;
 	_unit setSkill ["general", 		(_skills select 8)];
 	_unit setVariable ["WMS_Difficulty",_difficulty, true]; //will be used for AI killfeed on player EH killed
 	_unit allowFleeing 0;
+	//_unit setRank "PRIVATE"//,"CORPORAL","SERGEANT","LIEUTENANT","CAPTAIN","MAJOR","COLONEL"
+	_rankRef = _unit skill "aimingAccuracy";
+	if (_rankRef < 0.1) then {_unit setRank "PRIVATE"};
+	if (_rankRef >= 0.1 && _rankRef < 0.22) then {_unit setRank "CORPORAL"};
+	if (_rankRef >= 0.22 && _rankRef < 0.35) then {_unit setRank "SERGEANT"};
+	if (_rankRef >= 0.35 && _rankRef < 0.49) then {_unit setRank "LIEUTENANT"};
+	if (_rankRef >= 0.49 && _rankRef < 0.63) then {_unit setRank "CAPTAIN"};
+	if (_rankRef >= 0.63 && _rankRef < 0.82) then {_unit setRank "MAJOR"};
+	if (_rankRef >= 0.82 && _rankRef <= 1) then {_unit setRank "COLONEL"};
+
 	//
 	if (random 100 > 50) then {
 		_unit addPrimaryWeaponItem (selectrandom WMS_AI_Attachements);

@@ -12,6 +12,7 @@
 
 private ["_msgr"];
 if (serverTime > (WMS_ServRestartSeconds)) then {
+		WMS_serverCMDpwd serverCommand "#Lock";
 		_msgr = format ['PLAYERS KICK IN %1 SECONDES', (20)];
 		[_msgr] remoteExecCall ['SystemChat', -2];
 		if (WMS_UseBattleMetrics) then {
@@ -21,7 +22,6 @@ if (serverTime > (WMS_ServRestartSeconds)) then {
 		};
 		uisleep 20;
 		{WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)];}foreach allPlayers;
-		WMS_serverCMDpwd serverCommand "#Lock";
 		if !(WMS_exileFireAndForget) then {
 			[] call WMS_fnc_permanentVehiclesLastUpdate; //TheLastCartridges permanent vehicles
 		};
