@@ -35,7 +35,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.808_2023MAY23_GitHub"; //NPC ranks
+WMS_System_Version 			= "v2.809_2026MAY23_GitHub"; //WMS_yourServCustSettings.sqf
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -676,7 +676,6 @@ if (WMS_MapName in WMS_CustomizedMap) then {
 	execVM "\InfantryProgram\Scripts\WMS_List_VHL_Vanilla.sqf";
 	execVM "\InfantryProgram\Scripts\WMS_List_Loadout_Vanilla.sqf";
 };
-
 //Variables override for Exile Users
 if (WMS_exileFireAndForget) then {
 	WMS_Currency 			= "Poptabs";
@@ -749,6 +748,9 @@ publicVariable "WMS_WDtrader_LastTime";//NO TOUCH
 publicVariable "WMS_WDtrader_CoolDown";//NO TOUCH
 publicVariable "WMS_MoveInCargo_C130_LastTime";//NO TOUCH
 publicVariable "WMS_InfantryProgram_C130CoolDown";//NO TOUCH
+
+execVM "\InfantryProgram\Scripts\WMS_yourServCustSettings.sqf"; //I won't ever update this file, it's for you to use it to keep your own variables configs
+
 // Random server start time
 if (WMS_RandomStartTime) then {
 	WMS_Date = [(WMS_Date select 0), (WMS_Date select 1), (WMS_Date select 2), WMS_RandomStart_Hour+floor (random WMS_RandomStart_Random), 00];
