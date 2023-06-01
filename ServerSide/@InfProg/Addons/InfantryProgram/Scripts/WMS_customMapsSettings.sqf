@@ -56,6 +56,7 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 										WMS_AMS_SpnDistMission 		= 1550;
 										WMS_AI_RoamingVHLcount 		= 12; //10
 										WMS_AI_CargoUnits	 		= 4;
+										WMS_AMS_remRPG 				= 75;
 										WMS_AMS_ClnObj 				= true;
 										WMS_AMS_DelMissionFlag 		= true;
 										WMS_SupplyDropCount 		= 4; //default 2
@@ -117,6 +118,7 @@ if (WMS_MapName == "ruha") then {
 										WMS_AMS_SpnDistMission 		= 2000;
 										WMS_AI_RoamingVHLcount 		= 12; //10
 										WMS_AI_CargoUnits	 		= 4;
+										WMS_AMS_remRPG 				= 75;
 										WMS_AMS_ClnObj 				= true;
 										WMS_AMS_DelMissionFlag 		= true;
 										WMS_FastNight_Morning 		= 4; //morning start at
@@ -171,6 +173,7 @@ if (WMS_MapName == "Lythium") then {
 										WMS_AMS_SpnDistMission 		= 3500;
 										WMS_AI_RoamingVHLcount 		= 18; //10
 										WMS_AI_CargoUnits	 		= 2;
+										WMS_AMS_remRPG 				= 75;
 										WMS_AMS_ClnObj 				= false;
 										WMS_AMS_DelMissionFlag 		= true;
 										WMS_FastNight_Morning 		= 5; //morning start at
@@ -236,6 +239,7 @@ if (WMS_MapName == "gm_weferlingen_summer") then {
 										WMS_FastNight_Evening		= 19.5; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
 										WMS_DynAI_DestroyVHL 		= 25;
+										WMS_AMS_remRPG 				= 75;
 										WMS_AMS_ClnObj 				= false;
 										WMS_AMS_ToRun 				= 4;
 										WMS_Forests_Size			= 500;
@@ -249,8 +253,6 @@ if (WMS_MapName == "gm_weferlingen_summer") then {
 if (WMS_MapName == "Altis") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
-										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
-										//execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
 										WMS_forceNoFog				= true;
 										WMS_AI_MaxUnits_A 			= 130; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
 										WMS_AI_MaxUnits_B 			= 150; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
@@ -267,8 +269,8 @@ if (WMS_MapName == "Altis") then {
 																		[4185.08,15045.7,0],[3771.11,12360.9,0],[3858.33,12424.7,0],[8226.51,10906.9,0],[8170.44,10916,0],[21658.9,7786.43,0],[20268.5,8793.69,0],[20242.5,8838.65,0],[20423.9,11465.3,0],[20443.1,11451.7,0],[20583.4,15646.4,0],
 																		[20612.7,15621.5,0],[20748.6,15744.5,0],[20831.1,15772.1,0],[21263.6,16561,0],[25397.9,20321.5,0],[25398.3,20367.8,0],[25304.4,21808.6,0],[27022.7,21500.4,0],[27051.6,21468.6,0],[7569.19,12187.3,0],[5336.42,14472.7,0],
 																		[5383.63,14519.2,0],[6366.21,14893.9,0],[6724.62,15356.9,0],[9743.92,12544.2,0],[11395.5,14261.4,0],[11459.7,14267.2,0],[5410.11,17912.6,0],[5374.12,17921.8,0],[14650.2,21387.7,0]];
-										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
-										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F","rhs_weap_fgm148"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
 										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","SmokeShellRed","rhs_mag_m67","rhs_mag_m7a3_cs","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
 																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag","ACE_M14",
@@ -290,12 +292,13 @@ if (WMS_MapName == "Altis") then {
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
 										WMS_AMS_SpnDistMission 		= 3000;
 										WMS_AI_RoamingVHLcount 		= 16; //10
+										WMS_AMS_remRPG 				= 90;
 										WMS_AMS_ClnObj 				= false;
 										WMS_AMS_DelMissionFlag 		= false;
 										WMS_FastNight_Morning 		= 5; //morning start at
 										WMS_FastNight_Evening		= 18; //evening start at
 										WMS_FastNight_Night 		= 25;  //time speed
-										WMS_DynAI_DestroyVHL 		= 25;
+										WMS_DynAI_DestroyVHL 		= 40;
 										//DFO
 										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60M_DAP_MLASS"],["vtx_HH60","vtx_MH60M","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
@@ -395,6 +398,7 @@ if (WMS_MapName == "Tanoa") then {
 										WMS_AI_VHLwptDist 			= 2500;
 										WMS_AI_RoamingVHLcount 		= 16; //10
 										WMS_AMS_SpnDistMission 		= 2000;
+										WMS_AMS_remRPG 				= 75;
 										WMS_AMS_ClnObj 				= true;
 										WMS_AMS_DelMissionFlag 		= true;
 										WMS_AI_RoamingVHL_remRPG 	= true;

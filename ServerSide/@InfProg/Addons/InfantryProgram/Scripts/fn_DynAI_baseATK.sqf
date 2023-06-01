@@ -14,7 +14,7 @@
 //((_countFlag != 0) && (_targetSpeed < 100) && !((getplayerUID _DynamicThreatTarget) in WMS_DynAI_BaseAtkUIDList) && (WMS_DynAI_BaseAtkRunning < WMS_DynAI_BaseAtkMax))
 //[_DynamicThreatTarget, (_flagList select 0), _threatScenario] call WMS_fnc_DynAI_baseATK;
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAI BASEATK]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_ships","_grp1","_timer","_AIcount","_AIgrps","_RPGChance","_skill","_loadout","_unitFunction","_pos","_grps","_Towner","_Tname","_Trights","_Tlevel","_blacklist","_safePos","_startPatrol","_crows"];
+private ["_shipsButForLand","_ships","_grp1","_timer","_AIcount","_AIgrps","_RPGChance","_skill","_loadout","_unitFunction","_pos","_grps","_Towner","_Tname","_Trights","_Tlevel","_blacklist","_safePos","_startPatrol","_crows"];
 params[
 	"_target",
 	"_flag",
@@ -35,7 +35,8 @@ _startPatrol = [0,0,0];
 _fire 		= ObjNull;
 _waterWorld = surfaceIsWater (position _flag);
 _ships = ["O_Boat_Transport_01_F","O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F"];
-
+_shipsButForLand = ["O_LSV_02_armed_viper_F","O_T_APC_Wheeled_02_rcws_v2_ghex_F","O_T_APC_Tracked_02_cannon_ghex_F"]; //if the boat try to spawn on land, it will be replaced. Yes, it's quite hardcore
+_vehic = objNull;
 _Towner 	= _flag getvariable ["exileowneruid",0];
 _Tname 		= _flag getvariable ["exileterritoryname","hell"];
 _Trights 	= _flag getvariable ["exileterritorybuildrights",[0]];
@@ -94,12 +95,21 @@ for "_i" from 1 to _AIgrps do {
 		(leader _grp1) doTarget _target;
 		_safePos = [_pos, 0, 150, 2, 1, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;
 		_startPatrol = [_pos, 50, 120, 1, 1, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
-		//Give those poor divers a boat
-		_vehic = (selectRandom _ships) createVehicle [-100,-100,3000];
+		if (surfaceIsWater _safePos) then {
+			//Give those poor divers a boat
+			_vehic = (selectRandom _ships) createVehicle [-100,-100,3000];
+		} else {
+			//Or a ride
+			_vehic = (selectRandom _shipsButForLand) createVehicle [-100,-100,3000];
+		};
 		_vehic setPos _safePos;
 		_grp1 addVehicle _vehic;
 		_vehic setVehicleLock "LOCKEDPLAYER";
 		_vehic allowDamage true;
+		clearMagazineCargoGlobal _vehic; 
+		clearWeaponCargoGlobal _vehic; 
+		clearItemCargoGlobal _vehic; 
+		clearBackpackCargoGlobal _vehic;
 	}else{
 		if (WMS_DynAI_Steal) then {
 			[_grp1, _startPatrol, 200, 3, "MOVE", "SAFE", "RED", "NORMAL", "COLUMN", "this call WMS_fnc_DynAI_Steal", [5,10,15]] call CBA_fnc_taskPatrol;// AI should patrol around the base, not random waypoints
