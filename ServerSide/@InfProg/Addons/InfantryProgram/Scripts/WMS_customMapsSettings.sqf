@@ -254,9 +254,9 @@ if (WMS_MapName == "Altis") then {
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										WMS_forceNoFog				= true;
-										WMS_AI_MaxUnits_A 			= 130; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
-										WMS_AI_MaxUnits_B 			= 150; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
-										WMS_AI_MaxUnits_C 			= 170; //stop Base attack and missions
+										WMS_AI_MaxUnits_A 			= 140; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
+										WMS_AI_MaxUnits_B 			= 165; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
+										WMS_AI_MaxUnits_C 			= 190; //stop Base attack and missions
 										WMS_Pos_Forests 			= [[4358.39,18767.3,0],[3681.54,18395.7,0],[2889.47,19979.5,0],[3302.02,20703.5,0],[3826.2,21799.7,0],[3956.3,21254.3,0],[5549.58,21388,0],[4228.95,22215.2,0],[6616.83,19200.7,0],[8338.43,23208.9,0],
 																		[7174.29,20686.1,0],[8083.19,18882,0],[6126.05,16848.4,0],[14304.1,21952.5,0],[23865.5,22523.3,0],[23240.2,22503.7,0],[23902.9,23063.3,0],[26027.8,22565.2,0],[24065.5,15786.8,0],[11670.8,8949.45,0],[8376.4,22088.5,0]]; //not autoScan
 										WMS_Pos_Military 			= [[21934.3,21008.7,0],[21736.2,20993.7,0], //GhostHotel

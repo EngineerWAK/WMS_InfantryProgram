@@ -7,12 +7,13 @@
 //////////////////////////////////////////////////////////////////
 private ["_pos","_plane","_amount","_lockerMoney","_BlackFishTarget","_BlackFishTargetPos","_BlackFishTargetDist"];
 params [
-	"_playerObject"
+	"_playerObject",
+	["_amount",30000]
 ];
 
 _pos = position _playerObject;
 _plane = "B_T_VTOL_01_armed_olive_F"; //"UK3CB_BAF_Apache_AH1_CAS";
-_amount = 30000;
+//_amount = 30000;
 _lockerMoney = 0;
 if (WMS_exileFireAndForget) then {
 	_lockerMoney = _playerObject getVariable ['ExileLocker', 0];

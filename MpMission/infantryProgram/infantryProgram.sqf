@@ -23,6 +23,7 @@ WMS_IP_addActionRadio = {
 		"<t size='0.9' color='#068604'>Build InfantryProgram computer</t>",
 		"
 			_target = _this select 0; _caller = _this select 1; _theAction = _this select 2;
+			[missionNamespace, 'WMS_IP_Active_list', []] spawn BIS_fnc_getServerVariable;
 			['Building Computer', 5, {true}, 
 				{
 					[(_this select 0 select 1)] call WMS_IP_buildComputer;
@@ -339,12 +340,36 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-	//BLACKFISH SUPPORT
+	//BLACKFISH SUPPORT A
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>BlackFish Support 50k$ </t>",
+		"
+			[(_this select 1),50000] spawn WMS_fnc_IP_BlackFishSupport;
+		", 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{(time > (WMS_IP_BlackFishSup_LastT + WMS_IP_BlackFishSup_CoolD))} &&
+			{((getPlayerUID _this) in WMS_InfantryProgram_list)} &&
+			{!((getPlayerUID _this) in WMS_IP_Active_list)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+	//BLACKFISH SUPPORT B
 	_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>BlackFish Support 30k$ </t>",
 		"
-			[(_this select 1)] spawn WMS_fnc_IP_BlackFishSupport;
+			[(_this select 1),30000] spawn WMS_fnc_IP_BlackFishSupport;
 		", 
 		[],
 		1,
@@ -638,7 +663,7 @@ WMS_IP_buildComputer = {
 	//JUDGEMENT DAY
 	_IDnumber = _IPcomputer addAction
 	[
-		"<t size='0.9' color='#9000ff'>Judgement Day 5000$</t>",
+		"<t size='0.9' color='#8400ff'>Judgement Day 5000$</t>",
 		"
 			_target = _this select 0; _caller = _this select 1;
 			if !(WMS_JudgementDay_Run) then {
@@ -667,7 +692,7 @@ WMS_IP_buildComputer = {
 	_allActionsID pushBack _IDnumber;
 	_IDnumber = _IPcomputer addAction //remote exec for this one
 	[
-		"<t size='0.9' color='#9000ff'>Fallen Tree Cleaning 250$</t>",
+		"<t size='0.9' color='#8400ff'>Fallen Tree Cleaning 250$</t>",
 		"
 			_target = _this select 0; _caller = _this select 1;
 			if (WMS_JudgementDay_Run) then {

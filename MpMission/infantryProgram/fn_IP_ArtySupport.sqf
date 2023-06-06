@@ -40,7 +40,7 @@ if(_lockerMoney > _amount) then {
 	_artyTargetDist = _target distance2d _artyTarget;
 	if (_artyTargetDist < 50) then {systemchat "Target too close, cancelling Artillery support"} else {
 		[player, _amount, _lockerMoney, _artyTargetPos, _artyTargetDist, _ammoType] remoteExec ["WMS_fnc_InfantryProgram_ArtySupport",2];
-		systemChat format ["Target aquiered %1m away, setting up Artillery battry", _artyTargetDist];
+		systemChat format ["Target aquiered %1m away, setting up Artillery battery", _artyTargetDist];
 		uisleep 3;
 		systemChat format ["Firing at %1, position %2", (typeOf _artyTarget), _artyTargetPos];
 	};
