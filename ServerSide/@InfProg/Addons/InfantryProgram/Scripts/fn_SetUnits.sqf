@@ -342,7 +342,7 @@ _poptabs = 50;
 		_unit additem (selectRandom WMS_AI_inventory);
 	};
 ////////////////AMS/DYNAI/WHATEVER CHANGES
-	if (_info == "AMS" || _info == "CaptureZ") then {
+	if (_info == "AMS" || _info == "CaptureZone") then {
 		_unit setVariable ["WMS_Info", _info]; //not used yet
 		if((random 100) <= _launcherChance) then { 
 			if(WMS_AMS_AllowMissiles) then {

@@ -253,7 +253,7 @@ WMS_Weaps_HeavyBandit = [
 	//"LMG_Zafir_F",
 	"srifle_DMR_05_tan_f",
 	"srifle_DMR_06_camo_F",
-	"srifle_GM6_camo_F",
+	//"srifle_GM6_camo_F", //REMOVE THE FUCKING 50cal FUCKIN MACHINE GUN, FUCK YOU ARMA!!!!!!!!!!!!!!!!!!!!!!!
 	"srifle_LRR_tna_F"
 	],
 	[], //_mainWeapsAmmo,

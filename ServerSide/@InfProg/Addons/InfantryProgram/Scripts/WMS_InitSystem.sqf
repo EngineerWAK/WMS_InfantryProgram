@@ -35,7 +35,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.812_2023JUN05_GitHub"; //update base atk over water
+WMS_System_Version 			= "v2.814_2023JUN11_GitHub"; //Lingor customMapSettings/fix capture Zone units
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -468,10 +468,10 @@ WMS_AMS_PoptabsRwd 		= [1000,500]; //Add poptabs in the mission reward crate/veh
 			   //skills = "spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"//,"endurance"
 WMS_AMS_skillsMin 		= [0.1, 0.1, 0.005, 0.1, 0.1, 0.1, 0, 0.1, 0.1]; //MINIMUM skill mission NPCs can have //will be used to compile custom skills
 WMS_AMS_skillsMax 		= [1, 0.85, 0.85, 0.7, 0.8, 0.8, 0, 1, 0.85]; //MAXIMUM skill mission NPCs can have //will be used to compile custom skills
-WMS_AMS_skilleasy 		= [0.80, 0.8, 0.3, 0.3, 0.2, 0.6, 0, 0.6, 0.6];
-WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.4, 0.4, 0.3, 0.6, 0, 0.6, 0.8];
-WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.6, 0.5, 0.4, 0.8, 0, 0.8, 1];
-WMS_AMS_skillhardcore 	= [0.95, 1, 0.7, 0.6, 0.5, 1, 0, 1, 1];
+WMS_AMS_skilleasy 		= [0.80, 0.8, 0.25, 0.3, 0.2, 0.6, 0, 0.6, 0.6];
+WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.35, 0.4, 0.3, 0.6, 0, 0.6, 0.8];
+WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.5, 0.5, 0.4, 0.8, 0, 0.8, 1];
+WMS_AMS_skillhardcore 	= [0.95, 1, 0.6, 0.6, 0.5, 1, 0, 1, 1];
 WMS_AMS_skillstatic 	= [0.9, 0.9, 0.005, 0.25, 0.2, 0.5, 0, 0.2, 0.6]; //what ever you do, Statics destroy your ass... this skill is apply on the NPC when he get on the static (EH "getin")
 WMS_AMS_skillsniper 	= [1,0.95,0.9,0.9];  //hardcore level, easy = -0.15, moderate = -0.1, difficult = -0.05 //"spotDistance","spotTime","aimingAccuracy","aimingShake"
 WMS_AMS_SniperLoadout	= [["H_Cap_grn_BI"],["V_Chestrig_rgr","V_SmershVest_01_radio_F"]]; //[[headGears],[vests]]//custom "loadout" for NPC snipers, lighter gear so they don't neet 15 headshots to get killed
