@@ -41,14 +41,14 @@ switch (tolower _difficulty) do {
 		_markerType = WMS_CaptureZone_mkr;
 	};
 };
-_Mkr = createMarker [format ["WMS_AMS_Mkr_%1_%2",WMS_AMS_Mission_ID,round(time)], _pos];
+_Mkr = createMarker [format ["WMS_AMS_Mkr_%1_%2",round ((_pos select 0)+(_pos select 1)),round(time)], _pos];
 _Mkr setMarkerType _markerType;
 _Mkr setMarkerText _name;
 if (_difficulty == "capturezone") then {
 	_Mkr setMarkerColor "colorBLUFOR";
 };
 
-_MkrBorder = createMarker [format ["WMS_AMS_MkrBorder_%1_%2",WMS_AMS_Mission_ID,round(time)], _pos];
+_MkrBorder = createMarker [format ["WMS_AMS_MkrBorder_%1_%2",round ((_pos select 0)+(_pos select 1)),round(time)], _pos];
 if (_border) then {
 	_MkrBorder setMarkerColor "colorOrange"; //maybe change later
 	_MkrBorder setMarkerShape "ELLIPSE";

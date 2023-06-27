@@ -66,12 +66,13 @@ _lootCounts 	= (_uniParams select 5);	// [[[1,1,2],[1,1,1],[2,1,1],[1,2,1],[0,0,
 _lootType 		= (_uniParams select 6); 	// "military";
 _launcherChance = (_uniParams select 7); 	// 30;
 _clnObj 		= (_uniParams select 8); 	// WMS_AMS_ClnObj;
-_objects 		= (_uniParams select 9); 	// [["Land_House_1W01_F",[0,8,0],0,"flat"],["Land_MysteriousBell_01_F",[-0.9,5.4,0],0,"flat"]]
+_objects 		= (_uniParams select 9); 	// 
 _radiusObjects 	= (_uniParams select 10);
 //_vehicAI 		= (_uniParams select 11);
 //_vehicRwd 	= (_uniParams select 12);
 //_option 		= (_uniParams select 13);
-_lootCount = (_lootCounts select 0);
+_lootCount 		= (_lootCounts select 0);
+_MissionID 		= []call WMS_fnc_GenerateHexaID;
 
 if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 _T = round servertime;
@@ -84,7 +85,6 @@ if (typeName _pos == "STRING") then {
 		_radiusObjects = 1;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 		_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error
-
 		_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
 		_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,((_uniParams select 10)+10)];
 		{hideObjectGlobal _x} foreach _terrainobjects;
@@ -99,16 +99,12 @@ if (typeName _pos == "STRING") then {
 				_namedLocPos = selectRandom _arrayOfPos;
 				_radiusObjects = 1;
 				_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-				_pos = [_namedLocPos, 0, 50, 1, 0, 0.45, 0, _blackList, [[-999,-999,-999],[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error
-				
+				_pos = [_namedLocPos, 0, 50, 1, 0, 0.45, 0, _blackList, [[-999,-999,-999],[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error	
 			};
 		};
 	};
 /////TEST
 	if ((count _pos) == 2 || _spawnStatusOK == "OK") then {
-		//_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
-		//_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,((_uniParams select 10)+10)];
-		//{hideObjectGlobal _x} foreach _terrainobjects;
 
 	} else {
 		_pos = "random";
@@ -127,14 +123,15 @@ if (typeName _pos == "STRING") then {
 };
 _absc = floor (_pos select 0);
 _ordo = floor (_pos select 1);
-_MissionID = format ["%1_%2_%3_%4",WMS_AMS_Mission_ID,_T,_absc,_ordo];
-
+//_MissionID = format ["%1_%2_%3_%4",WMS_AMS_Mission_ID,_T,_absc,_ordo];
+/*
+//this will be managed by AMS_spawnObjects:
 switch (_objects) do {
 	case "thecommunity"		: {_objects = WMS_AMS_Obj_TheCommunity};
 	case "thecommunity2"	: {_objects = WMS_AMS_Obj_TheCommunity2};
 	case "occupation"		: {_objects = []}; //occupation use named locations building as layout
 };
-
+*/
 switch (_difficulty) do {
 	case "Easy"			: {
 		_unitsCount = _unitsCount+(round (random 2)); _skill = (0.20 + random 0.25);
@@ -212,8 +209,18 @@ WMS_AMS_Running_Array pushback [
 	_lootType,
 	_mission
 ];
+//WMS_AMS_Abuse:
+//"hexaID_AMS_Start"
+if (WMS_AMS_Abuse) then {
+	_unitsCnt = 0;
+	{
+		_unitsCnt = _unitsCnt+(count (units _x));
+	}forEach _grps;
+	missionNameSpace setVariable [format["%1_AMS_Start",_MissionID],_unitsCnt];
+};
+
 //["TaskAssigned", ["infantry Program", _msgx]] remoteExec ["BIS_fnc_showNotification", -2];
-["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([_pos select 0, _pos select 1]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
+["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([round (_pos select 0), round (_pos select 1)]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
 WMS_AMS_Missions_Running pushBack _mission;
-WMS_AMS_Mission_ID = WMS_AMS_Mission_ID+1;
+//WMS_AMS_Mission_ID = WMS_AMS_Mission_ID+1; //DEPRECATED
 WMS_AMS_MissionsCount = WMS_AMS_MissionsCount+1;

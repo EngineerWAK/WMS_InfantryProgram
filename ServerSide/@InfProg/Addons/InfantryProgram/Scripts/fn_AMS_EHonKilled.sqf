@@ -20,7 +20,6 @@ params[
 	["_unitFunction","Assault"], //not used yet
 	["_difficulty", "Hardcore"]
 ];
-if (isPlayer _instigator) then {_killer = _instigator};
 WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_AMS_AllDeads)];
 _distanceKill = (round(_killer distance _killed));
 _bonus = WMS_DynAI_respectBonus;
@@ -38,8 +37,13 @@ switch (toLower _difficulty) do {
 	case  "hardcore" 	: {_diffCoeff = 1};
 	case  "static" 		: {_diffCoeff = 1};
 };
-if (isplayer _killer) then {
+if (isplayer _killer || isplayer _instigator) then {
 	//if (WMS_AI_forceInfKillCount) then {_killer addPlayerScores [1,0,0,0,0]}; //not used anymore
+	if (isplayer _instigator) then {
+		if !(isplayer _killer) then {
+			_killer = _instigator;
+		};
+	}; //might help with artillery shit
 	_killerName = name _killer;
 	_killerUID = getPlayerUID _killer;
 	_playerRepUpdated = 0;
@@ -49,10 +53,44 @@ if (isplayer _killer) then {
   	_playerKills = profileNamespace getVariable [_playerUID_ExileKills,0];
 	_playerKills = _playerKills + 1;
 	_killer setVariable ["ExileKills", _playerKills, true];
+	/////this, I have no idea what is it xD
 	if (vehicle _killer isKindOf "Man") then {
 		_killer setVariable ["WMS_lastKill",servertime,true];
 	} else {
 		{_x setVariable ["WMS_lastKill",servertime,true];}forEach (crew (vehicle _killer));
+	};
+	/////
+	//I think it would be easier to do a vehicle check and then apply "options" than check the vehicles for every options
+	if (
+		vehicle _killer isKindOf "tank"||
+		vehicle _killer isKindOf "APC"||
+		vehicle _killer isKindOf "Heli_Attack_01_base_F"||
+		vehicle _killer isKindOf "Heli_Attack_02_base_F"||
+		vehicle _killer isKindOf "Heli_Light_01_armed_base_F"||
+		vehicle _killer isKindOf "RHS_MELB_base"||
+		typeOf vehicle _killer in WMS_RCWS_Vhls ||
+		_distanceKill >= WMS_AMS_AbuseMaxDist
+	) then {
+		//AMS_Abuse
+		if (WMS_AMS_Abuse) then {
+			_MissionID = _killed getVariable ["AMS_MissionID", ""];
+			_AMS_Abuse = missionNameSpace getVariable [format["%1_AMS_Abuse",_MissionID],0];
+			missionNameSpace setVariable [format["%1_AMS_Abuse",_MissionID],_AMS_Abuse+1];
+		};
+		//add an "Auto Black List count"
+		if (WMS_AMS_AutoBlackList)then {
+			_ABLcount = missionNameSpace getVariable [format ["%1_ABLcount",getPlayerUID _killer],0];
+			if (_ABLcount >= WMS_AMS_ABLcount && !{getPlayerUID _killer in WMS_BlackList}) then {
+				WMS_BlackList pushBack (getPlayerUID _killer);
+			}else{
+				missionNameSpace setVariable [format ["%1_ABLcount",getPlayerUID _killer],_ABLcount+1];
+			};
+		};
+		//reinforce
+		if (_killed == leader _killed && {WMS_AMS_Reinforce} && {time > (WMS_AMS_LastReinforce+WMS_AMS_ReinforceCoolD)}) then {
+			WMS_AMS_LastReinforce = serverTime;
+			[_killed,_killer,_playerRep,_distanceKill,_difficulty]call WMS_fnc_AMS_Reinforce;
+		};
 	};
 	if (WMS_exileFireAndForget) then { //FireAndForget is ONLY for Exile DB means Exile mod is running
 		format["addAccountKill:%1", getPlayerUID _killer] call ExileServer_system_database_query_fireAndForget;
@@ -63,9 +101,6 @@ if (isplayer _killer) then {
   		profileNamespace setVariable [_playerUID_ExileKills,_playerKills];
 	};
 
-	//if (WMS_AMS_DestroyStatics && {(vehicle _killed) isKindOf "StaticWeapon"}) then {vehicle _killed setDamage 1}; //works but not 100% with ACE
-	//_unit setVariable ["WMS_Static", true, false];
-	//_unit setVariable ["WMS_StaticObj", _vehicle, false];
 	if (WMS_AMS_DestroyStatics && {
 		_killed getVariable ["WMS_Static", false];
 		}) then {
@@ -75,24 +110,10 @@ if (isplayer _killer) then {
 	if (_killed == leader _killed) then {
 		if ((random 100) < WMS_AMS_DestroyVHL) then {vehicle _killed setDamage 1};
 		if (WMS_AMS_Reinforce && {time > (WMS_AMS_LastReinforce+WMS_AMS_ReinforceCoolD)}) then {
-			//if (vehicle _killer isKindOf "Heli_Light_01_armed_base_F"||vehicle _killer isKindOf "RHS_MELB_base") then {
-			if (
-				vehicle _killer isKindOf "tank"||
-				vehicle _killer isKindOf "APC"||
-				vehicle _killer isKindOf "Heli_Attack_01_base_F"||
-				vehicle _killer isKindOf "Heli_Attack_02_base_F"||
-				vehicle _killer isKindOf "Heli_Light_01_armed_base_F"||
-				vehicle _killer isKindOf "RHS_MELB_base"
-				) then {
-				[_killed,_killer,_playerRep,_distanceKill,_difficulty]call WMS_fnc_AMS_Reinforce;
-			}  else {	
-				if (_distanceKill>(WMS_AMS_RangeList select 0) && {(OPFOR countSide allUnits) < WMS_AI_MaxUnits_B}) then {
+			if (_distanceKill>(WMS_AMS_RangeList select 0) && {(OPFOR countSide allUnits) < WMS_AI_MaxUnits_B}) then {
 				[_killed,_killer,_playerRep,_distanceKill,_difficulty]call WMS_fnc_AMS_Reinforce;
 			};
 		};
-	};
-		
-		
 	};
 	//if (WMS_AMS_remRPG) then {_killed removeWeapon (secondaryWeapon _killed)};
 	if ((random 100) < WMS_AMS_remRPG) then {_killed removeWeapon (secondaryWeapon _killed)};
@@ -165,6 +186,18 @@ if (isplayer _killer) then {
 				removeVest _killed;
 			};
 			if (WMS_AMS_TrappOnArmoredK)then {
+				//remove players "mineDetector", inventory and vehicle
+				if ((items _killer) find "MineDetector" != -1) then {
+					_killer removeItems "MineDetector";
+				}else {
+					if ((typeOf vehicle _killer) != "man" && {(itemcargo vehicle _killer) find "MineDetector" != -1}) then {
+						_items = itemCargo vehicle _killer;
+						clearItemCargoGlobal vehicle _killer;
+						{
+       						if !(_x == "MineDetector") then {vehicle _killer addItemCargoGlobal [_x, 1]};
+						} forEach _items;
+					};
+				};
 				_mineType = selectRandom [(WMS_ATMines select 0),"APERSBoundingMine"];
 				_mine = createMine [_mineType, [((position _killed) select 0),((position _killed) select 1),0], [], 1 ];
 				_mine allowDamage false;
@@ -221,4 +254,10 @@ if (isplayer _killer) then {
 } else {
 	if ((_killed == leader _killed) && {(random 100) < WMS_AMS_DestroyVHL}) then {vehicle _killed setDamage 1};
 	_killed removeWeapon (secondaryWeapon _killed);
+	//AMS_Abuse, just in case everybody start to die by "accident"
+	if (WMS_AMS_Abuse) then {
+		_MissionID = _killed getVariable ["AMS_MissionID", ""];
+		_AMS_Abuse = missionNameSpace getVariable [format["%1_AMS_Abuse",_MissionID],0];
+		missionNameSpace setVariable [format["%1_AMS_Abuse",_MissionID],_AMS_Abuse+1];
+	};
 };

@@ -14,10 +14,11 @@
 //[_pos, _target, _timer,_skill,_grpSide,_loadout,_VHLfull,_lockPlayer,_useMarker,_dist1,_dist2,_WPDist] spawn WMS_fnc_infantryProgram_VHLpatrol;
 //////////////////////////////////////////////////////////////////
 if (WMS_IP_LOGs) then {diag_log format ["[VHL PATROL]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_cargoCount","_VHLcount","_VHLcount0","_VHLcount1","_VHLselected","_markerName","_markerType","_randomPosTarget","_vhl","_VHLgrp","_vehic","_markerPos","_VHLMarker1","_drvSits","_comSits","_gunSits"];
+private ["_cargoCount","_VHLcount","_VHLcount0","_VHLcount1","_VHLselected","_markerName","_markerType","_randomPosTarget","_vhl","_VHLgrp","_vehic","_markerPos","_VHLMarker1",
+		"_drvSits","_comSits","_gunSits","_unitClassName","_hexaID","_WPT_1","_wpts"];
 params[  
  "_pos",
- "_target", //USELESS
+ "_target",
  ["_timer", 600, [0]],
  ["_skill", 0.65,[0]],  
  ["_grpSide", OPFOR,[]],
@@ -33,16 +34,15 @@ params[
  ["_WPComb", "YELLOW", [""]],  
  ["_WPSpee", "NORMAL", [""]],  
  ["_infoType", "PATROL", [""]],  //"ROAMING"
- ["_difficulty", (selectRandom ["easy","moderate","difficult"])]
+ ["_difficulty", (selectRandom ["easy","moderate","difficult"])],
+ ["_triggType", "nothing"] //"reinforcementpunisher" will force player target
 
 ];
-private _playerMoney = 0;
-private _playerScore = 0;
-private _unitClassName = WMS_AI_Units_Class;
-private _hexaID = []call WMS_fnc_GenerateHexaID;
-private _WPT_1 = ObjNull;
-private _wpts	= [];
-private _blackList = allPlayers select {alive _x} apply {[getPosATL _x, 300]};
+_unitClassName = WMS_AI_Units_Class;
+_hexaID = []call WMS_fnc_GenerateHexaID;
+_WPT_1 = ObjNull;
+_wpts	= [];
+_blackList = allPlayers select {alive _x} apply {[getPosATL _x, 300]};
 if (_grpSide != OPFOR) then {
 	_unitClassName = "B_Soldier_F";
 	_blackList = [];
@@ -194,16 +194,31 @@ if (_grpSide == OPFOR ) then {
 				//params ["_unit", "_killer", "_instigator", "_useEffects"];
 				if (WMS_IP_LOGs) then {diag_log format ["[ROAMING AI VHL DESTROYED]|WAK|TNA|WMS| _this: %1", _this]};
 				if (isPlayer (_this select 1)) then {
-					[(_this select 1), "ROAMING"] call WMS_fnc_AI_rewardOnVHLdestroy;
+					if ((_this select 0) distance (_this select 1) >= WMS_AI_RoamingVHL_MaxDist||getPlayerUID (_this select 1) in WMS_BlackList) then {
+						["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! %1, %2","And THANK YOU", "For Making Our World Safer"]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", owner (_this select 1)];
+					} else {
+						[(_this select 1), "ROAMING"] call WMS_fnc_AI_rewardOnVHLdestroy;
+					};
+				} else {
+					if (isPlayer (_this select 2)) then {
+						if ((_this select 0) distance (_this select 2) >= WMS_AI_RoamingVHL_MaxDist||getPlayerUID (_this select 1) in WMS_BlackList) then {
+							["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! %1, %2","And THANK YOU", "For Making Our World Safer"]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", owner (_this select 2)];
+						} else {
+							[(_this select 2), "ROAMING"] call WMS_fnc_AI_rewardOnVHLdestroy;
+						};	
+					}
 				};
 			}
 		];
 	};
 };
+if (_triggType == "reinforcementpunisher") then {
+	(units _VHLgrp) doTarget _target;
+	(units _VHLgrp) doMove _target;
+};
 if (_grpSide == BLUFOR ) then {
 	if (_loadout == "army") then {_loadout = "army_b"};
 	{_x setVariable ["WMS_RealFuckingSide",_grpSide]}forEach units _VHLgrp;
-	//[units _VHLgrp,'SMG',10,_skill,_loadout] call WMS_fnc_DynAI_SetUnitBLU;
 	//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
 	[units _VHLgrp,'SMG',10,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	if (_useMarker) then {

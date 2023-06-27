@@ -26,6 +26,8 @@ WMS_forceNoRain 			= false; //no more rain!
 WMS_forceNoFog				= false; //no more fucking fog!
 WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds //KEEP THIS TRUE IF USE THE LASTCARTRIDGE FOR VEHICLES BACKUP
 ///////////////NEW///////////////////////////////
+//v2.220
+WMS_BanList 				= []; //will auto-ban your old unwanted players and help you to keep track of them :D
 //v2.807
 WMS_UseBattleMetrics 		= false; //BattleMetrics Doesnt like the server shutDown so this keep the WMS_ServRestart running but doesnt launch #shutdown
 //v2.767
@@ -35,7 +37,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.814_2023JUN11_GitHub"; //Lingor customMapSettings/fix capture Zone units
+WMS_System_Version 			= "v2.819_2023JUN26_GitHub"; //Lingor customMapSettings/fix capture Zone units/AMS Abuse system
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -346,6 +348,7 @@ WMS_AI_bluforPatrol_CoolDown 	= 900;
 WMS_AI_RoamingVHL				= true;
 WMS_AI_RoamingVHL_KillRep		= 250;
 WMS_AI_RoamingVHL_KillMoney		= 1500;
+WMS_AI_RoamingVHL_MaxDist		= 1200;
 WMS_AI_RoamingVHL_LastTime 		= time;
 WMS_AI_RoamingVHL_Skill			= [0.15, 0.35]; //skill + selectRandom
 WMS_AI_RoamingVHL_remRPG 		= true; //(_this select 0) removeWeapon (secondaryWeapon (_this select 0));
@@ -453,6 +456,12 @@ WMS_AMS_DestroyStatics 	= true; //with ACE, this one need a variable on the NPC 
 WMS_AMS_AddActionOnReward = true; //will create a AddAction on the crate to sell it at the traders Zone (the last cartridges), might want to keep that false if Exile
 WMS_AMS_StripOnArmoredK	= true; //remove all gears/weapons if NPC killed from tank/apc/RCWS
 WMS_AMS_TrappOnArmoredK	= true; //create a mine at the deadbody if NPC killed from tank/apc/RCWS
+WMS_AMS_AutoBlackList	= true; //will send player to temporary black list for abusing missions with tank/APC/attack chopeprs
+WMS_AMS_ABLcount		= 50; //how many mission NPC total kills before the player is sent to WMS_BlackList (until server restart)
+WMS_AMS_Abuse 			= true; //to prevent player to "abuse missions" from kilometers away in tanks/APC/attackChoppers
+WMS_AMS_AbuseLvl1 		= 60; //% of units abused before removing the loot in the crate
+WMS_AMS_AbuseLvl2 		= 80; //% of units abused before destroying the reward/crate
+WMS_AMS_AbuseMaxDist	= 2500; //max distance to kill mission NPC before abuse, sould be bigger than max WMS_AMS_RangeList
 WMS_AMS_HSDamageKill	= 4.5; //amount of damage to the head/face to instantly kill a NPC //[O Alpha 2-5:4,""head"",4.18725,bis_o2_6004,""rhs_ammo_762x51_M80_Ball"",16,bis_o2_6004,""ace_hdbracket""]
 WMS_AMS_HelmetDamage	= 2; //amount of damage to the head/face to remove NPC's helmet, keep in mind than a shot in the leg ca trigger head damage... thank you bohemia!
 WMS_AMS_DestroyVHL 		= 90; //Chances to destroy NPC mission vehicle
@@ -519,7 +528,7 @@ WMS_AMS_ClnObjT 		= 60; //objects cleaning delay after unlock the mission
 WMS_AMS_AlarmCln 		= true;
 	//WMS_AMS_TimeToWatch 	= 25; //AMS missions are checked from the 15 secondes loop WMS_15sec_Watch.sqf
 WMS_AMS_MissionsCount 	= 0; //KEEP 0
-WMS_AMS_Mission_ID 		= 0; //KEEP 0
+	//WMS_AMS_Mission_ID 		= 0; //DEPRECATED
 WMS_AMS_MkrEasy 		= "Contact_circle1"; //"ExileMissionEasyIcon"; //Mission Map Marker
 WMS_AMS_MkrModerate 	= "Contact_circle3"; //"ExileMissionModerateIcon"; //Mission Map Marker
 WMS_AMS_MkrDifficult 	= "Contact_circle4"; //"ExileMissionDifficultIcon"; //Mission Map Marker
@@ -556,8 +565,8 @@ WMS_AMS_MissionList 	= [ //missions themself and weight
 							["LumberYard",2], //"forest" positions
 							["Factory",2], //"factory" positions
 							["FieldHospital",2],
-							["Object172M",2], //Armored Reward and NPCs
-							["uncleabrams",2], //Armored Reward and NPCs
+							["Object172M",1], //Armored Reward and NPCs
+							["uncleabrams",1], //Armored Reward and NPCs
 							["thecommunity",2],
 							["shipyard",2], //small vehicle reward
 							["occupation",2], //location/cities positions

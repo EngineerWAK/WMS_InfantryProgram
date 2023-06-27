@@ -10,7 +10,7 @@
 * Do Not Re-Upload
 */
 
-private ["_T","_absc","_ordo","_MissionID","_name","_difficulty","_objects","_objList","_grpInf","_Mkrs","_Mines","_grps","_loadout","_unitFunction","_clnObj","_trigg"];
+private ["_T","_MissionID","_name","_difficulty","_objects","_objList","_grpInf","_Mkrs","_Mines","_grps","_loadout","_unitFunction","_clnObj","_trigg"];
 params[
 	["_pos", "random"],  
 	["_dir", (random 359), [0]],  
@@ -35,9 +35,7 @@ if (_pos == "random" ) then {
 	_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 	_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
 };
-_absc = floor (_pos select 0);
-_ordo = floor (_pos select 1);
-_MissionID = format ["%1_%2_%3_%4",WMS_AMS_Mission_ID,_T,_absc,_ordo];
+_MissionID = []call WMS_fnc_GenerateHexaID;
 _difficulty = selectRandom ["Moderate","Difficult","Hardcore","Hardcore"];
 _loadout = "heavyBandit";
 _unitFunction = "HeavyBandit";
@@ -54,7 +52,8 @@ switch (_difficulty) do {
 	case "Difficult" 	: {_grpCount = 2; _unitsCount = 3+(round (random 2)); _skill = (0.50 + random 0.25); _wpts = [25,4]; _radius = 90; _howMany = 15;_lootCount = [[3,2,2],[1,2,1],[4,2,1],[1,3,3],[0,0,0]]; _loadout = "BlackOps"};
 	case "Hardcore" 	: {_grpCount = 2; _unitsCount = 3+(round (random 2)); _skill = (0.70 + random 0.29); _wpts = [30,4]; _radius = 100; _howMany = 25;_lootCount = [[4,2,2],[2,1,1],[5,2,2],[1,3,3],[0,0,0]]; _loadout = "livonia";_unitFunction = "LivoniaPatrol";};
 };
-_objects = selectRandom [WMS_AMS_Obj_Arbeit,WMS_AMS_Obj_ArbeitV2,WMS_AMS_Obj_ArbeitV3];
+//_objects = selectRandom [WMS_AMS_Obj_Arbeit,WMS_AMS_Obj_ArbeitV2,WMS_AMS_Obj_ArbeitV3];
+_objects = selectRandom ["arbeit","arbeitv2","arbeitv3"];
 _objList = [_pos, _objects, _dir, _missionID] call WMS_fnc_AMS_SpawnObjects;
 
 _grpInf = [ 
@@ -105,10 +104,6 @@ _Mines = [
 	_pos,
 	_radius,	//"_radius", //100
 	_howMany	//"_howMany", //20
-	//"_mineType", [""]], //WMS_ATMines
-	//"_fireExplode", //false
-	//"_signs", //true
-	//"_steps" //36
 ] call WMS_fnc_AMS_SpawnMineField;
 
 _grps = _grpInf+_grpInf2; //array of all the different groups spawned: _grps = _grpInf+_grpVHL;
@@ -132,8 +127,15 @@ WMS_AMS_Running_Array pushback [
 	_lootType,
 	"Arbeit"
 ];
-//["TaskAssigned", ["infantry Program", _msgx]] remoteExec ["BIS_fnc_showNotification", -2];
+//WMS_AMS_Abuse:
+//"hexaID_AMS_Start"
+if (WMS_AMS_Abuse) then {
+	_unitsCnt = 0;
+	{
+		_unitsCnt = _unitsCnt+(count (units _x));
+	}forEach _grps;
+	missionNameSpace setVariable [format["%1_AMS_Start",_MissionID],_unitsCnt];
+};
 ["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([round (_pos select 0), round (_pos select 1)]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
 WMS_AMS_Missions_Running pushBack "Arbeit";
-WMS_AMS_Mission_ID = WMS_AMS_Mission_ID+1;
 WMS_AMS_MissionsCount = WMS_AMS_MissionsCount+1;

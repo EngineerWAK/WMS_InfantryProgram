@@ -11,19 +11,28 @@
 */
 
 if (WMS_IP_LOGs) then {diag_log format ["[Players Watch]|WAK|TNA|WMS| %1 player(s) connected", count allPlayers];};
-private ["_damage","_msgx","_rwdLevel","_lastPos","_riderUID","_riderRep"];
-{	//Healing camp
-	if (((getplayerUID _x) in WMS_InfantryProgram_list) && {(count (_x nearObjects ["Exile_Container_OldChest", 5])) == 1}) then {
-		if (((count (_x nearObjects ["Exile_Construction_CampFire_Static", 5])) == 1) && {(count (_x nearObjects ["Land_TentDome_F", 5])) == 1}) then {
-			_damage = getdammage _x;
-			if (_damage > 0.02) then { 
-				_x setdammage (_damage-(_damage/4));
+private ["_UID","_damage","_msgx","_rwdLevel","_lastPos","_riderUID","_riderRep"];
+{
+	_UID = (getplayerUID _x);
+	//Auto BAN, using WMS_BanList
+	if (_UID in WMS_BanList) then {
+		WMS_serverCMDpwd serverCommand format ["#BAN %1", (getPlayerUID _x)];
+		if (true) then {diag_log format ["[WMS_fnc_Watch_Players]|WAK|TNA|WMS| Player %1 SteamID %2 Auto Banned.", (name _x), _UID];};
+	};
+	//Healing camp for EXILE Mod
+	if (WMS_exileFireAndForget) then {
+		if ((_UID in WMS_InfantryProgram_list) && {(count (_x nearObjects ["Exile_Container_OldChest", 5])) == 1}) then {
+			if (((count (_x nearObjects ["Exile_Construction_CampFire_Static", 5])) == 1) && {(count (_x nearObjects ["Land_TentDome_F", 5])) == 1}) then {
+				_damage = getdammage _x;
+				if (_damage > 0.02) then { 
+					_x setdammage (_damage-(_damage/4));
+				};
 			};
 		};
 	};
 	//Healing camp
 	//Kick out vehicle
-	if (((getplayerUID _x) in WMS_InfantryProgram_list) && {(getplayerUID _x) in WMS_IP_Active_list} && {TypeOf (vehicle _x) != WMS_PlayerEntity} && {!(typeof (vehicle _x) in WMS_InfantryProgram_Vehicles)}) then {
+	if ((_UID in WMS_InfantryProgram_list) && {_UID in WMS_IP_Active_list} && {TypeOf (vehicle _x) != WMS_PlayerEntity} && {!(typeof (vehicle _x) in WMS_InfantryProgram_Vehicles)}) then {
 		if ((damage _x) >= 0 && {(damage _x) < 0.5}) then {
 			_x setdamage 0.6; 
 			removeBackpackGlobal _x;
@@ -71,15 +80,4 @@ private ["_damage","_msgx","_rwdLevel","_lastPos","_riderUID","_riderRep"];
 			_x setVariable ["lastPosition", position _x, true];
 		};
 	};
-	//cumulative reward for riding bike
-	//Force stamina/fatigue test //replaced by hardcore AI spawn
-	/*if ((getPlayerUID _x) in WMS_BlackList) then {
-		_stamitigue = _x getVariable ["Stamitigue", "OFF"];
-		if !(_stamitigue == "ON") then {
-			{player enableStamina true;} remoteExecCall ["call", _x];
-			{player enableFatigue true;} remoteExecCall ["call", _x];
-			_x setVariable ["Stamitigue", "ON"]
-		};
-	};*/
-	//Force stamina/fatigue test
 } foreach allPlayers;

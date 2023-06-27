@@ -10,7 +10,7 @@
 * Do Not Re-Upload
 */
 
-	private ["_T","_absc","_ordo","_MissionID","_name","_difficulty","_objects","_objList","_grpInf","_Mkrs","_Mines","_grps","_loadout","_forest","_unitFunction","_behavType","_trigg","_trigg"];
+	private ["_T","_MissionID","_name","_difficulty","_objects","_objList","_grpInf","_Mkrs","_Mines","_grps","_loadout","_forest","_unitFunction","_behavType","_trigg","_trigg"];
 	params[
 		["_pos", "random"],  //"random"
 		["_dir", (random 359), [0]],  
@@ -48,7 +48,7 @@
 	};
 	_absc = floor (_pos select 0);
 	_ordo = floor (_pos select 1);
-	_MissionID = format ["%1_%2_%3_%4",WMS_AMS_Mission_ID,_T,_absc,_ordo];
+	_MissionID = []call WMS_fnc_GenerateHexaID;
 	_difficulty = selectRandom ["Moderate","Difficult","Hardcore"];
 	
 	private _lootCount = [[1,1,1],[1,1,1],[3,2,2],[1,1,1],[0,0,0]]; //[_weap,_bag,_items,_ammoList,_mag]
@@ -60,9 +60,7 @@
 		case "difficult" 	: {_grpCount = 1; _unitsCount = (10+(round random 2)); _skill = (0.50 + random 0.25); _wpts = [150,4]; _radius = 150; _howMany = 30;	_lootCount = [[5,1,2],[1,1,2],[2,2,1],[1,1,2],[0,0,0]]; _loadout = selectRandom ["army","heavyBandit"]};
 		case "hardcore" 	: {_grpCount = 1; _unitsCount = (12+(round random 2)); _skill = (0.70 + random 0.29); _wpts = [200,4]; _radius = 200; _howMany = 40;	_lootCount = [[7,2,2],[2,1,2],[3,2,2],[1,2,2],[0,0,0]]; _loadout = "livonia";_unitFunction = "LivoniaPatrol";};
 	};
-	_objects = [
-		//["Flag_Syndikat_F",[0,0,0],0]
-	];
+	_objects = "cbtpatrol";
 	_objList = [_pos, _objects, _dir, _missionID] call WMS_fnc_AMS_SpawnObjects; //always keep it for the flag
 
 	_grpInf = [ 
@@ -120,9 +118,17 @@ _trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count th
 		_lootType,
 		"CombatPatrol"
 	];
+//WMS_AMS_Abuse:
+//"hexaID_AMS_Start"
+if (WMS_AMS_Abuse) then {
+	_unitsCnt = 0;
+	{
+		_unitsCnt = _unitsCnt+(count (units _x));
+	}forEach _grps;
+	missionNameSpace setVariable [format["%1_AMS_Start",_MissionID],_unitsCnt];
+};
 //["TaskAssigned", ["infantry Program", _msgx]] remoteExec ["BIS_fnc_showNotification", -2];
-["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([_pos select 0, _pos select 1]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
+["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([round (_pos select 0), round (_pos select 1)]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
 	WMS_AMS_Missions_Running pushBack "CombatPatrol";
-	WMS_AMS_Mission_ID = WMS_AMS_Mission_ID+1;
 	WMS_AMS_MissionsCount = WMS_AMS_MissionsCount+1;
 	

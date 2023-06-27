@@ -47,6 +47,7 @@ if (_type == "AMS") then {
 
 
 if (_type == "ROAMING") then {
+	//if () then {} else {}; //WMS_AI_RoamingVHL_MaxDist
 	if (WMS_exileFireAndForget) then { //DB Only for Rep, poptabs stay local
 		_playerMonUpdated = (_playerMoney+WMS_AI_RoamingVHL_KillMoney);
 		_playerScoUpdated = (_playerScore+WMS_AI_RoamingVHL_KillRep);

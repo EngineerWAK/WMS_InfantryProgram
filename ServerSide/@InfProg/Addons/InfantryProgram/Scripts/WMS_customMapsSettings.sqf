@@ -232,10 +232,11 @@ if (WMS_MapName == "Lythium") then {
 										WMS_DynAI_GunshipHeavy 		= ["rhs_uh1h_hidf_gunship",["hidf_tan",1],[[],[]]];
 										WMS_para_small				= "rhs_d6_Parachute";
 										WMS_AMS_ToRun 				= 4;
+										WMS_AMS_ReinforceCoolD 		= 45;
 										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
 										WMS_AMS_SpnDistMission 		= 3500;
-										WMS_AI_RoamingVHLcount 		= 18; //10
+										WMS_AI_RoamingVHLcount 		= 17; //10
 										WMS_AI_CargoUnits	 		= 2;
 										WMS_AMS_remRPG 				= 75;
 										WMS_AMS_ClnObj 				= false;
@@ -343,7 +344,12 @@ if (WMS_MapName == "Altis") then {
 																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_plamyam","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag"];
 										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "Bomb_03_F", "Bomb_04_F", "ammo_Bomb_SDB", "rhs_ammo_fab500_m54", "Bo_Mk82"]; //DynAI bombing is (select 0)										
 										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","rhs_ammo_kab500","rhs_ammo_fab500_m54"];
-										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
+										WMS_DynAI_RainObjects 		= [
+																	["Chemlight_blue","Land_HumanSkull_F"],
+																	["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],
+																	["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],
+																	["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],
+																	["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
@@ -471,7 +477,7 @@ if (WMS_MapName == "Tanoa") then {
 										WMS_AMS_DelMissionFlag 		= true;
 										WMS_AI_RoamingVHL_remRPG 	= true;
 										WMS_AI_Para_remRPG 			= false;
-										WMS_AI_INFpatrol_remRPG 	= true;
+										WMS_AI_INFpatrol_remRPG 	= false;
 										WMS_DynAI_remRPG 			= true;
 										WMS_AI_CargoUnits	 		= 2;
 										WMS_AMS_ToRun 				= 4;

@@ -51,7 +51,7 @@ private _option = [6,"MG","garrison"]; //[_unitCount, _unitFunction, _behavType]
 5,
 [_name,_difficulty,_loadout,_unitFunction,_behavType,_lootCounts,_lootType,_launcherChance,_clnObj,_objects,_radiusObjects,_vehicAI,_vehicRwd, _option]
 ] call WMS_fnc_AMS_Mission_Unified_B;*/
-private ["_T","_absc","_ordo","_MissionID","_name","_difficulty","_objects","_objList","_grpInf","_Mkrs","_Mines","_grps","_loadout","_unitFunction","_clnObj","_lootType","_vehicAI","_vehicRwd","_trigg"];
+private ["_T","_MissionID","_name","_difficulty","_objects","_objList","_grpInf","_Mkrs","_Mines","_grps","_loadout","_unitFunction","_clnObj","_lootType","_vehicAI","_vehicRwd","_trigg"];
 params[
 	["_pos", "random"],  
 	["_dir", (random 359), [0]],  
@@ -80,7 +80,7 @@ _radiusObjects 	= (_uniParams select 10);
 _vehicRwd 		= selectRandom (_uniParams select 12);
 _option 		= (_uniParams select 13); //used to pass the _unitFunction #2
 _lootCount 		= (_lootCounts select 0);
-
+_MissionID 		= []call WMS_fnc_GenerateHexaID;
 if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 _T = round servertime;
 if (typeName _pos == "STRING") then {
@@ -88,57 +88,6 @@ if (typeName _pos == "STRING") then {
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
 	};
-};
-_absc = floor (_pos select 0);
-_ordo = floor (_pos select 1);
-_MissionID = format ["%1_%2_%3_%4",WMS_AMS_Mission_ID,_T,_absc,_ordo];
-
-switch (_objects) do {
-	case "ArmedBandits"		: {_objects = WMS_AMS_Obj_ArmedBandits};
-	case "C192Crash"		: {_objects = WMS_AMS_Obj_C192Crash};
-	case "AmazonWH"			: {_objects = WMS_AMS_Obj_AmazonWH};
-	case "TransmissionTower": {_objects = WMS_AMS_Obj_TransmissionTower};
-	case "GunsX3"			: {_objects = WMS_AMS_Obj_GunsX3};
-	case "Arena"			: {_objects = WMS_AMS_Obj_Arena};
-	case "Factory"			: {_objects = WMS_AMS_Obj_FactoryCamp};
-	case "CkpCharlie"		: {_objects = WMS_AMS_Obj_CkpCharlie};
-	case "AdvancedCamp"		: {_objects = WMS_AMS_Obj_AdvancedCamp};//old light armored steal
-	case "LightArmored"		: {_objects = WMS_AMS_Obj_LightArmHij};
-	case "HeliSteal"		: {_objects = WMS_AMS_Obj_HeliSteal};
-	case "HeliStealV2"		: {_objects = WMS_AMS_Obj_HeliStealV2};
-	case "Arbeit"			: {_objects = WMS_AMS_Obj_Arbeit};
-	case "ArbeitV2"			: {_objects = WMS_AMS_Obj_ArbeitV2};
-	case "ArbeitV3"			: {_objects = WMS_AMS_Obj_ArbeitV3};
-	case "AABattery"		: {_objects = WMS_AMS_Obj_AABattery};
-	case "AABatteryV2"		: {_objects = WMS_AMS_Obj_AABatteryV2};
-	case "Escobar"			: {_objects = WMS_AMS_Obj_Escobar};
-	case "Forgotten"		: {_objects = WMS_AMS_Obj_Forgotten};
-	case "Radar"			: {_objects = WMS_AMS_Obj_Radar};
-	case "Construction"		: {_objects = WMS_AMS_Obj_Construction};
-	case "ConstructionV2"	: {_objects = WMS_AMS_Obj_ConstructionV2};
-	case "OldTemple"		: {_objects = WMS_AMS_Obj_OldTemple};
-	case "JunkYard"			: {_objects = WMS_AMS_Obj_JunkYard};
-	case "JunkYard_v2"		: {_objects = WMS_AMS_Obj_JunkYard_v2};
-	case "Market"			: {_objects = WMS_AMS_Obj_Market};
-	case "Market_v2"		: {_objects = WMS_AMS_Obj_Market_v2};
-	case "shipyard"			: {_objects = WMS_AMS_Obj_Shipyard};
-	case "shipyard2"		: {_objects = WMS_AMS_Obj_Shipyard2};
-	case "commsrelay"		: {_objects = WMS_AMS_Obj_Comms};
-	case "strelnikovtrain"	: {_objects = WMS_AMS_Obj_Train};
-	case "strelnikovtrain2"	: {_objects = WMS_AMS_Obj_Train2};
-	case "FieldHospital"	: {_objects = WMS_AMS_Obj_FieldHospital};
-	case "FieldHospital2"	: {_objects = WMS_AMS_Obj_FieldHospital2};
-	case "FieldHospital3"	: {_objects = WMS_AMS_Obj_FieldHospital3};
-	//OUTPOSTS
-	case "OutpostAlpha"		: {_objects = WMS_AMS_Obj_OutpostAlpha};
-	case "OutpostBravo"		: {_objects = WMS_AMS_Obj_OutpostBravo};
-	case "OutpostCharlie"	: {_objects = WMS_AMS_Obj_OutpostCharlie};
-	case "OutpostDelta"		: {_objects = WMS_AMS_Obj_OutpostDelta};
-	case "OutpostDeltaV2"	: {_objects = WMS_AMS_Obj_OutpostDeltaV2};
-	case "OutpostEcho"		: {_objects = WMS_AMS_Obj_OutpostEcho};
-	case "OutpostFoxtrot"	: {_objects = WMS_AMS_Obj_OutpostFoxtrot};
-	case "OutpostGolf"		: {_objects = WMS_AMS_Obj_OutpostGolf};
-	case "OutpostGolfV2"	: {_objects = WMS_AMS_Obj_OutpostGolfV2};
 };
 
 switch (_difficulty) do {
@@ -238,8 +187,17 @@ WMS_AMS_Running_Array pushback [
 	_lootType,
 	_mission
 ];
+//WMS_AMS_Abuse:
+//"hexaID_AMS_Start"
+if (WMS_AMS_Abuse) then {
+	_unitsCnt = 0;
+	{
+		_unitsCnt = _unitsCnt+(count (units _x));
+	}forEach _grps;
+	missionNameSpace setVariable [format["%1_AMS_Start",_MissionID],_unitsCnt];
+};
 //["TaskAssigned", ["infantry Program", _msgx]] remoteExec ["BIS_fnc_showNotification", -2];
-["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([_pos select 0, _pos select 1]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
+["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([round (_pos select 0), round (_pos select 1)]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
 WMS_AMS_Missions_Running pushBack _mission;
-WMS_AMS_Mission_ID = WMS_AMS_Mission_ID+1;
+//WMS_AMS_Mission_ID = WMS_AMS_Mission_ID+1;//DEPRECATED
 WMS_AMS_MissionsCount = WMS_AMS_MissionsCount+1;

@@ -57,14 +57,7 @@ clearItemCargoGlobal _rwd;
 clearBackpackCargoGlobal _rwd;
 //Custom Textures:
 _VHLcount = count (_className select 1);
-if (_VHLcount != 0) then {/*
-	_VHLcount0 = (_className select 1 select 0);
-	_VHLcount1 = (_className select 1 select 1);
-	if ((_VHLcount == 2) && {typeName _VHLcount0 == "STRING"} && {typeName _VHLcount1 == "SCALAR"}) then {[ _rwd, _VHLcount0] call BIS_fnc_initVehicle}; //initVehicle doesnt fucking work anymore
-	if ((_VHLcount == 2) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_rwd setObjectTextureGlobal [_VHLcount0, _VHLcount1]};
-	if ((_VHLcount == 4) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_rwd setObjectTextureGlobal [_VHLcount0, _VHLcount1]; _rwd setObjectTextureGlobal [(_className select 1 select 2),(_className select 1 select 3)]};
-	if ((_VHLcount == 6) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_rwd setObjectTextureGlobal [_VHLcount0, _VHLcount1]; _rwd setObjectTextureGlobal [(_className select 1 select 2),(_className select 1 select 3)]; _rwd setObjectTextureGlobal [(_className select 1 select 4),(_className select 1 select 5)]};
-*/
+if (_VHLcount != 0) then {
 	_VHLcount0 = (_className select 1 select 0);
 	_VHLcount1 = (_className select 1 select 1);
 	if ((_VHLcount == 2) && {typeName _VHLcount0 == "STRING"} && {typeName _VHLcount1 == "SCALAR"}) then { //initVehicle doesnt fucking work anymore
@@ -83,7 +76,6 @@ _drvSits = _rwd emptyPositions "Driver";
 if (_drvSits != 0) then {
 	WMS_AI_Units_Class createUnit [_emptyPos, _VHLgrp, "this moveinDriver _rwd"];
 };
-//[(units _VHLgrp),_unitFunction,20,_skill,_difficulty,_loadout] call WMS_fnc_AMS_SetUnits;
 //[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
 [(units _VHLgrp),_unitFunction,20,_skill,_difficulty,_loadout,nil,"AMS"] call WMS_fnc_SetUnits;
 
@@ -95,14 +87,17 @@ _rwd allowCrewInImmobile true;
 _rwd allowDamage true;
 if (_rwd isKindOf "tank"||_rwd isKindOf "Wheeled_Apc_F") then {_rwd setVariable ["ace_cookoff_enable", true, true];};
 if (WMS_exileFireAndForget) then {
-	
+	//nothing for exile yet
 }else{
 	_rwd addMPEventHandler ["mpkilled", {
 			//params ["_unit", "_killer", "_instigator", "_useEffects"];
 			if (true) then {diag_log format ["[AMS AI VHL DESTROYED]|WAK|TNA|WMS| _this: %1", _this]};
 			if (isPlayer (_this select 1)) then {
-				//[(_this select 1), "AMS"] remoteExec ['WMS_fnc_AI_rewardOnVHLdestroy', 2];
 				[(_this select 1), "AMS"] call WMS_fnc_AI_rewardOnVHLdestroy;
+			} else {
+				if (isPlayer (_this select 2)) then {
+					[(_this select 2), "AMS"] call WMS_fnc_AI_rewardOnVHLdestroy;
+				};
 			};
 		}
 	];

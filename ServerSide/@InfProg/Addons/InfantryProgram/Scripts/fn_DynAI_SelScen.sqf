@@ -408,14 +408,14 @@ switch (_threatScenario) do {
 	case "AIRpatrol" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
 		_distanceWPT = 600;
-		[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty] spawn WMS_fnc_infantryProgram_VHLpatrol;
+		[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty,_triggType] spawn WMS_fnc_infantryProgram_VHLpatrol;
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
 		//};
 	};
 	case "VHLpatrol" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
 		_distanceWPT = 300;
-		[_pos,_target,_timer,_skill,_grpSide,_loadout,_vhlFull,_lockPlayer,_useMarker,_dist1VHL,_dist2VHL,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed, _infoType,_difficulty] spawn WMS_fnc_infantryProgram_VHLpatrol;
+		[_pos,_target,_timer,_skill,_grpSide,_loadout,_vhlFull,_lockPlayer,_useMarker,_dist1VHL,_dist2VHL,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed, _infoType,_difficulty,_triggType] spawn WMS_fnc_infantryProgram_VHLpatrol;
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
 		//};
 	};
@@ -494,7 +494,7 @@ switch (_threatScenario) do {
 		}else {
 			//fallback to something else 
 			_distanceWPT = 600;
-			[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty] spawn WMS_fnc_infantryProgram_VHLpatrol;
+			[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty,_triggType] spawn WMS_fnc_infantryProgram_VHLpatrol;
 			WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
 		};
 		//};

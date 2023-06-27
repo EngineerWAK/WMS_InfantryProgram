@@ -14,7 +14,7 @@
 private ["_grps","_INFgrp","_typ","_beh","_cbt","_spd","_fmn","_WPT_1"];
 params[ 
 	"_pos",
-	["_missionID", "No_ID",[""]],
+	["_missionID", "No_ID",[""]], //hexaID
 	["_grpCount",1, [0]],  
 	["_unitsCount", 3, [0]],
 	["_wpts", [75,4]],

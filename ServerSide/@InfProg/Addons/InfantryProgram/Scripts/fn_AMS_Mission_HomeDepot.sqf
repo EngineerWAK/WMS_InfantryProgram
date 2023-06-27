@@ -10,7 +10,7 @@
 * Do Not Re-Upload
 */
 
-	private ["_T","_absc","_ordo","_MissionID","_name","_difficulty","_objects","_objList","_grpInf","_Mkrs","_Mines","_grps","_loadout","_forest","_unitFunction","_trigg"];
+	private ["_T","_MissionID","_name","_difficulty","_objects","_objList","_grpInf","_Mkrs","_Mines","_grps","_loadout","_forest","_unitFunction","_trigg"];
 	params[
 		["_pos", "random"],  //"random"
 		["_dir", (random 359), [0]],  
@@ -34,9 +34,7 @@
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
 	};
-	_absc = floor (_pos select 0);
-	_ordo = floor (_pos select 1);
-	_MissionID = format ["%1_%2_%3_%4",WMS_AMS_Mission_ID,_T,_absc,_ordo];
+	_MissionID = []call WMS_fnc_GenerateHexaID;
 	_difficulty = selectRandom ["Easy","Moderate","Difficult","Hardcore"];
 	
 	private _lootCount = [[1,1,1],[1,1,1],[3,2,2],[1,1,1],[0,0,0]]; //[_weap,_bag,_items,_ammoList,_mag]
@@ -48,7 +46,7 @@
 		case "difficult" 	: {_grpCount = 2; _unitsCount = (3+(round random 3)); _skill = (0.50 + random 0.25); _wpts = [80,4]; _radius = 75; _howMany = 15;	_lootCount = [[1,1,1],[1,1,2],[6,4,6],[1,1,2],[0,0,0]]; _loadout = selectRandom ["heavyBandit","army"]};
 		case "hardcore" 	: {_grpCount = 3; _unitsCount = (3+(round random 2)); _skill = (0.70 + random 0.29); _wpts = [125,4]; _radius = 100; _howMany = 25;	_lootCount = [[1,1,2],[1,1,2],[8,6,8],[1,2,2],[0,0,0]]; _loadout = "livonia";_unitFunction = "LivoniaPatrol";};
 	};
-	_objects = WMS_AMS_Obj_HomeDepot;
+	_objects = "homedepot";
 	_objList = [_pos, _objects, _dir, _missionID] call WMS_fnc_AMS_SpawnObjects;
 
 	_grpInf = [ 
@@ -99,10 +97,6 @@ _trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count th
 		_pos,
 		_radius,//"_radius", //100
 		_howMany//"_howMany", //20
-		//"_mineType", [""]], //WMS_ATMines
-		//"_fireExplode", //false
-		//"_signs", //true
-		//"_steps" //36
 	] call WMS_fnc_AMS_SpawnMineField;
 	_grps = _grpInf+_grpInf2; //array of all the different groups spawned: _grps = _grpInf+_grpVHL;
 	_objList = _objList;
@@ -124,9 +118,17 @@ _trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count th
 		_lootType,
 		"HomeDepot"
 	];
+//WMS_AMS_Abuse:
+//"hexaID_AMS_Start"
+if (WMS_AMS_Abuse) then {
+	_unitsCnt = 0;
+	{
+		_unitsCnt = _unitsCnt+(count (units _x));
+	}forEach _grps;
+	missionNameSpace setVariable [format["%1_AMS_Start",_MissionID],_unitsCnt];
+};
 //["TaskAssigned", ["infantry Program", _msgx]] remoteExec ["BIS_fnc_showNotification", -2];
 ["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([_pos select 0, _pos select 1]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
 	WMS_AMS_Missions_Running pushBack "HomeDepot";
-	WMS_AMS_Mission_ID = WMS_AMS_Mission_ID+1;
 	WMS_AMS_MissionsCount = WMS_AMS_MissionsCount+1;
 	

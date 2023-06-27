@@ -10,7 +10,7 @@
 * Do Not Re-Upload
 */
 
-	private ["_T","_absc","_ordo","_MissionID","_name","_difficulty","_objects","_objList","_grpInf","_Mkrs","_Mines","_grps","_loadout","_forest","_unitFunction","_trigg"];
+	private ["_T","_MissionID","_name","_difficulty","_objects","_objList","_grpInf","_Mkrs","_Mines","_grps","_loadout","_forest","_unitFunction","_trigg"];
 	params[
 		["_pos", "forest"],  //"random"
 		["_dir", (random 359), [0]],  
@@ -30,9 +30,7 @@
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 		_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
 	};
-	_absc = floor (_pos select 0);
-	_ordo = floor (_pos select 1);
-	_MissionID = format ["%1_%2_%3_%4",WMS_AMS_Mission_ID,_T,_absc,_ordo];
+	_MissionID = []call WMS_fnc_GenerateHexaID;
 
 	_difficulty = selectRandom ["Easy","Moderate","Difficult","Hardcore"];
 	_loadout = "bandit";
@@ -50,7 +48,7 @@
 		case "difficult" 	: {_grpCount = 2; _unitsCount = (3+(round random 3)); _skill = (0.50 + random 0.25); _wpts = [80,4]; _radius = 75; _howMany = 15;_lootCount = [[3,2,2],[1,2,1],[4,2,1],[1,3,3],[0,0,0]]; _loadout = selectRandom ["heavyBandit","army"]};
 		case "hardcore" 	: {_grpCount = 3; _unitsCount = (3+(round random 2)); _skill = (0.70 + random 0.29); _wpts = [125,4]; _radius = 100; _howMany = 25;_lootCount = [[4,2,2],[2,1,1],[5,2,2],[1,3,3],[0,0,0]]; _loadout = "livonia";_unitFunction = "LivoniaPatrol";};
 	};
-	_objects = WMS_AMS_Obj_ForestCamp;
+	_objects = "forestcamp";
 	_objList = [_pos, _objects, _dir, _missionID] call WMS_fnc_AMS_SpawnObjects;
 
 	_grpInf = [ 
@@ -113,9 +111,17 @@ _trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count th
 		_lootType,
 		"ForestCamp"
 	];
+//WMS_AMS_Abuse:
+//"hexaID_AMS_Start"
+if (WMS_AMS_Abuse) then {
+	_unitsCnt = 0;
+	{
+		_unitsCnt = _unitsCnt+(count (units _x));
+	}forEach _grps;
+	missionNameSpace setVariable [format["%1_AMS_Start",_MissionID],_unitsCnt];
+};
 //["TaskAssigned", ["infantry Program", _msgx]] remoteExec ["BIS_fnc_showNotification", -2];
-["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([_pos select 0, _pos select 1]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
+["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([round (_pos select 0), round (_pos select 1)]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
 	WMS_AMS_Missions_Running pushBack "ForestCamp";
-	WMS_AMS_Mission_ID = WMS_AMS_Mission_ID+1;
 	WMS_AMS_MissionsCount = WMS_AMS_MissionsCount+1;
 	
