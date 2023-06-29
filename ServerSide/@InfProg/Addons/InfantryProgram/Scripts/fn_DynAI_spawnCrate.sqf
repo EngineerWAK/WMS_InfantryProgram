@@ -26,37 +26,59 @@ params[
 	["_dist2", 350,[0]],
 	["_iterations", 3, [0]]
 ];
-
-if (_BoxType == "IP_toolKit" ) then {_parachute = WMS_para_big; _crate = WMS_AMS_Crate_noMove; _spawnType = "infantryProgram"};
+if (_BoxType == "IP_toolKit" ) then {_parachute = WMS_para_big; _crate = WMS_SupplyCrate; _spawnType = "infantryProgram"};
 if (_BoxType == "IP_launcher" ) then {_crate = "Box_Syndicate_WpsLaunch_F"; _spawnType = "infantryProgram"};
 if (_BoxType == "IP_ammo" ) then {_crate = "Box_Syndicate_Ammo_F"; _spawnType = "infantryProgram"};
+_name = "Wooden Crate";
+if (_crate == "Box_Syndicate_WpsLaunch_F") then {_name = 'Launcher Crate'};
+if (_crate == "Box_Syndicate_Wps_F") then {_name = 'Weapon Crate'};
+if (_crate == "Box_Syndicate_Ammo_F") then {_name = 'Ammo Crate'};
 _RandomPos = [_pos, _dist1, _dist2,1,0] call BIS_fnc_findSafePos;
 _Box = createVehicle [_crate, _RandomPos, [], 0, "NONE"];
 _smoke = "SmokeShellGreen" createVehicle position _Box;
 _smoke attachTo [_Box,[0,0,1]];
-
+[_Box, _Box] call ace_common_fnc_claim;
+_Box setVariable ["WMS_Name",_name, true];
 clearMagazineCargoGlobal _Box;     
 clearWeaponCargoGlobal _Box;      
 clearItemCargoGlobal _Box;      
-clearBackpackCargoGlobal _Box; 
-/*
-title = "Hide the crate in the 4th Dimension";
-condition = ((getplayerUID player) in WMS_InfantryProgram_list);
-action =" 
-	private _object = (_this select 0); 
-	_object attachTo [player, [0,1.5,-0.2],'pelvis']; 
-	_object allowDamage false; 
-	[(_this select 0), true] remoteExec ['WMS_fnc_HideObjectGlobal']; 
-	player addAction [
-		'Wooden Crate', {player removeaction (_this select 2); 
-		detach (_this select 3 select 0);
-		(_this select 3 select 0) setDamage 0;
-		[(_this select 3 select 0), false] remoteExec ['WMS_fnc_HideObjectGlobal'];  
-		(_this select 3 select 0) hideObject false;},
-		[_object]
-	];"
-	;
-*/
+clearBackpackCargoGlobal _Box;
+
+[
+	_Box, [
+		"<t size='0.9' color='#26e600'>Hide the crate in the 4th Dimension</t>",
+		" 
+			private _Box = (_this select 0); 
+			_Box attachTo [player, [0,1.5,-0.2],'pelvis']; 
+			_Box allowDamage false; 
+			[_Box, true] remoteExec ['WMS_fnc_HideObjectGlobal'];
+			_Name = _Box getVariable ['WMS_Name','wooden Box']; 
+			player addAction [
+				_Name, 
+				{
+					player removeaction (_this select 2); 
+					detach (_this select 3 select 0);
+					(_this select 3 select 0) setDamage 0;
+					[(_this select 3 select 0), false] remoteExec ['WMS_fnc_HideObjectGlobal'];  
+					(_this select 3 select 0) hideObject false;
+				},
+				[_Box]
+			];
+		", 
+		nil, 
+		1, 
+		true, 
+		true, 
+		"", 
+		"((getplayerUID player) in WMS_InfantryProgram_list)",  //WMS_IP_Active_list
+ 		5, 
+		false 
+	]
+]remoteExec [
+	"addAction",
+	0, //0 for all players //2 server only //-2 everyone but the server
+	false //JIP
+];
 switch (toLower _BoxType) do { //"medic","food","misc","weaps","IP_ammo","IP_toolKit","IP_launcher"
 	case "medic" 	: {{_Box addItemCargoGlobal [(_x select 0),(_x select 1)+(round(random (_x select 2)))]}foreach WMS_medicList};
 	case "food" 	: {{_Box addItemCargoGlobal [(_x select 0),(_x select 1)+(round(random (_x select 2)))]}foreach WMS_foodList};
@@ -91,13 +113,13 @@ switch (toLower _spawnType) do {
 			_msgx = format ["Crate spawned around %1", _msgPayload];
 			[_msgx] remoteexec ['SystemChat',0];
 			["|*|*|*|*|*| Random Player Event  |*|*|*|*|*|"] remoteexec ['SystemChat',0];
-			for "_i" from 1 to _iterations do {
 			if (WMS_exileToastMsg) then {
 				[_sessionID, 'toastRequest', ['InfoTitleAndText', ['Crate Coordinates', format['%1',[(_RandomPos select 0),(_RandomPos select 1),0]]]]] call ExileServer_system_network_send_to;
 			} else {
 				//["EventWarning", ["Disable the nuke",""]] call BIS_fnc_showNotification;
 				["TaskAssigned", ["Crate Coordinates", format['%1',[(_RandomPos select 0),(_RandomPos select 1),0]]]] remoteExec ["BIS_fnc_showNotification", owner _target];
 			}; 
+			for "_i" from 1 to _iterations do {
 			sleep 2;
 			playSound3D ["a3\dubbing_radio_f\Sfx\out2b.ogg", player, false, position _Box, 2,1,0];
 			sleep 8;
@@ -147,8 +169,8 @@ switch (toLower _spawnType) do {
 			uisleep 4;
 			detach _box;
 			for "_i" from 1 to 10 do {
-					playSound3D ["a3\dubbing_radio_f\Sfx\out2b.ogg", player, false, position _Box, 2,1,0];
-					sleep 6;
+				playSound3D ["a3\dubbing_radio_f\Sfx\out2b.ogg", player, false, position _Box, 2,1,0];
+				sleep 6;
 			};
 		};
 };

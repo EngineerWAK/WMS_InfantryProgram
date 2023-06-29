@@ -50,6 +50,7 @@ if (count _positions > 0) then {//Need to add a Player check
 	clearWeaponCargoGlobal _cargo; 
 	clearItemCargoGlobal _cargo; 
 	clearBackpackCargoGlobal _cargo;
+	[_cargo, _cargo] call ace_common_fnc_claim;
 	_bagList = (WMS_Loadout_MCB select 3)+(WMS_Loadout_M90d select 3)+(WMS_Loadout_ABU select 3)+(WMS_Loadout_bandit select 3);
 	_weapList = (WMS_Loadout_Assault select 0)+(WMS_Loadout_DMR select 0)+(WMS_Loadout_Sniper select 0)+(WMS_Loadout_SMG select 0)+(WMS_Loadout_MG select 0)+(WMS_Loadout_Sniper select 3);
 	_weap = [

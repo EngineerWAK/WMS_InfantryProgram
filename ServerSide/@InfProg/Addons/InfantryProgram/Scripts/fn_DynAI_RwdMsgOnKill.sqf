@@ -48,6 +48,26 @@ params[
 			_killer setVariable ["WMS_lastKill",servertime,true];
 		} else {
 			{_x setVariable ["WMS_lastKill",servertime,true];}forEach (crew (vehicle _killer));
+			if (speed _killer >= 5 && {WMS_DynAI_VHLkillSurprise}) then {
+				_select = selectRandom [0,3,1,1,0,1,2,3];
+				if (_select == 1) then { //grenade
+					(selectRandom WMS_DynAI_SurpriseGren) createVehicle position _killed;
+				};
+				if (_select == 2) then { //charge "DemoCharge_Remote_Ammo_Scripted"	
+					_expl1 = (WMS_RunnerTypes select 1) createVehicle (position _killed);   
+					_expl1 setDamage 1;
+				};
+				if (_select == 3) then { //Mine
+					_mineType = selectRandom [(WMS_ATMines select 0),"APERSBoundingMine"];
+					_mine = createMine [_mineType, [((position _killed) select 0),((position _killed) select 1),0], [], 1 ];
+					_mine allowDamage false;
+					EAST revealMine _mine;
+				};
+				_killed removeWeapon (primaryWeapon _killed);
+				_killed removeWeapon (secondaryWeapon _killed);
+				removeAllItems _killed;
+				removeAllWeapons _killed;
+			};
 		};
 		if (WMS_exileFireAndForget) then {
 			format["addAccountKill:%1", getPlayerUID _killer] call ExileServer_system_database_query_fireAndForget;

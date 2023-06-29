@@ -214,6 +214,6 @@ if (WMS_AMS_addPoptabsUnits) then {
 };
 //////////EVENTHANDLER(s)//////////
 _unit addEventHandler ["Killed", "
-		[(_this select 0),(_this select 1),_unitFunction,_difficulty] call WMS_fnc_AMS_EHonKilled;	
+		[(_this select 0),(_this select 1),(_this select 2),_unitFunction,_difficulty] call WMS_fnc_AMS_EHonKilled;	
 "];
 }forEach _units;

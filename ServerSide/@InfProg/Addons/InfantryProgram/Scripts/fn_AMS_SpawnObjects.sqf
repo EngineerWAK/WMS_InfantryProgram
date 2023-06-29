@@ -21,7 +21,10 @@ params[
 	];
 _objList = [];
 _staticsList = [];
-
+if (typeName _objects != "STRING") then {
+	if (true) then {diag_log format ["[AMS SPAWN OBJECTS ERROR]|WAK|TNA|WMS| _this: %1,", _this]};
+	_objects = "missiontest1";
+};
 switch (_objects) do {
 	case "missiontest1"		: {_objects = [["CamoNet_OPFOR_open_F",[0,0,0],90]]};
 	case "missiontest2"		: {_objects = WMS_AMS_Obj_GuardedTower};

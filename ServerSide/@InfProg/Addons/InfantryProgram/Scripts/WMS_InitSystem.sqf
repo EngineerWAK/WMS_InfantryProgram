@@ -37,7 +37,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.820_2023JUN26_GitHub"; //Lingor customMapSettings/fix capture Zone units/AMS Abuse system
+WMS_System_Version 			= "v2.825_2023JUN29_GitHub"; //hide function on IP crates //dynAI vehicles kill surprise
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -370,6 +370,9 @@ WMS_AI_AIRwptDist 				= 7500;
 //Dynamic Threat setup
 //////////////////////////////
 WMS_DynAI 					= true; //dynamic AI/event will "randomly" spawn on one of the players every x seconds WMS_DynAI_threatFrequency. NPCs skill adapt to the player respect
+WMS_DynAI_VHLkillSurprise	= true;	//will drop a surprise, or not, for those who enjoy easy roadkill ^^
+WMS_DynAI_SurpriseChance	= [0,3,1,1,0,1,2,3]; //0= nothing //1=grenade //2=charge //3=mine
+WMS_DynAI_SurpriseGren		= ["rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"];
 WMS_DYNAI_HSDamageKill		= 3.5; //amount of damage to the head/face to instantly kill a NPC //[O Alpha 2-5:4,""head"",4.18725,bis_o2_6004,""rhs_ammo_762x51_M80_Ball"",16,bis_o2_6004,""ace_hdbracket""]
 WMS_DYNAI_HelmetDamage		= 1.9; //amount of damage to the head/face to remove NPC's helmet, keep in mind than a shot in the leg ca trigger head damage... thank you bohemia!
 WMS_DynAI_Skills			= [0.08, 0.15, 0.25, 0.35]; //+random 0.15

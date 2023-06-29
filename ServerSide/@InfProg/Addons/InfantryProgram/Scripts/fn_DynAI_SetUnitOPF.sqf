@@ -10,16 +10,11 @@
 * Do Not Re-Upload
 */
 
-/*
-[
-	_x, 			// the Unit to set
-	"random",			// Unit options // "BunkerMG", "Assault", "random", "suicideBomber"
-	_launcherChance,// 0~100 chance
-	_skill,			// 0.1~1
-	_loadout		// loadOut type, "bandit", "army", "civilian" or "BlackOps"
-	] call WMS_fnc_SetUnits;
-
-*/
+/////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//SETUNITOPF IS NOT CALLED ANYMORE, SEE WMS_fnc_SetUnits////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
 if (WMS_IP_LOGs) then {diag_log format ["[OPFOR AI SETUP]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_poptabs","_unit","_weapRandom","_weapRandomNoSnipNoMG","_mainWeap","_pistol","_expl1","_expl2","_expl3","_launcher","_sniper","_skills"];
 params[

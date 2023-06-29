@@ -148,7 +148,8 @@ switch (_type) do {
 				_para = WMS_para_Big; 
 				_parachute  = createVehicle [_para,(_veh modelToWorld [(-5+(random 10)),(-25+(random 10)),(-25+(random 10))]), [], 5];
 				_parachute  setvelocity [0,0,-8]; 
-				_cargo = createVehicle [_load ,position _parachute, [],5];  
+				_cargo = createVehicle [_load ,position _parachute, [],5];
+				[_cargo, _cargo] call ace_common_fnc_claim;
 				clearMagazineCargoGlobal _cargo;     
 				clearWeaponCargoGlobal _cargo;     
 				clearItemCargoGlobal _cargo;     

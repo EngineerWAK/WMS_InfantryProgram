@@ -323,6 +323,7 @@ _poptabs = 50;
 	_unit setSkill ["commanding", 	(_skills select 7)];
 	_unit setSkill ["general", 		(_skills select 8)];
 	_unit setVariable ["WMS_Difficulty",_difficulty, true]; //will be used for AI killfeed on player EH killed
+	_unit setVariable ["WMS_unitFunction",_unitFunction, false];
 	_unit allowFleeing 0;
 	//_unit setRank "PRIVATE"//,"CORPORAL","SERGEANT","LIEUTENANT","CAPTAIN","MAJOR","COLONEL"
 	_rankRef = _unit skill "aimingAccuracy";
@@ -368,7 +369,7 @@ _poptabs = 50;
 			) then {
 				if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
 				//[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit; //ERROR: addDamageToUnit - badUnit
-				[_unit,_source] call WMS_fnc_AMS_EHonKilled;
+				[_unit,_source,_source,(_unit getVariable ["WMS_unitFunction","Assault"]),(_unit getVariable ["WMS_difficulty","moderate"])] call WMS_fnc_AMS_EHonKilled;
 				_unit removeEventHandler ["HandleDamage", 0];
 				if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
 				if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this]};
@@ -408,7 +409,7 @@ _poptabs = 50;
 			};
 		}];
 		_unit addEventHandler ["Killed", "
-		[(_this select 0),(_this select 1),(_this select 2),_unitFunction,_difficulty] call WMS_fnc_AMS_EHonKilled;	
+		[(_this select 0),(_this select 1),(_this select 2),(_unit getVariable ['WMS_unitFunction','Assault']),(_unit getVariable ['WMS_difficulty','moderate'])] call WMS_fnc_AMS_EHonKilled;	
 		"];//params ["_killed", "_killer", "_instigator", "_useEffects"];
 
 	} else{

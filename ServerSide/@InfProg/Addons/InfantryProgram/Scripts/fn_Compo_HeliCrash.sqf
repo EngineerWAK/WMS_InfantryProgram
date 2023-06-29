@@ -55,6 +55,7 @@ _compoRefPoint = createVehicle [(selectRandom _crates), _pos, [], 0, "NONE"];
 _compoRefPoint setVariable ['opened', false, true];
 _compoRefPoint setVariable ['openedTime', WMS_ServRestartSeconds, true];
 _compoRefPoint setDir _dir;
+[_compoRefPoint, _compoRefPoint] call ace_common_fnc_claim;
 
 {     
 	_object = createVehicle [(_x select 0), (_compoRefPoint modeltoworld [(_x select 1 select 0),(_x select 1 select 1),(_x select 1 select 2)]), [], 0, "CAN_COLLIDE"];
