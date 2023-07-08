@@ -51,6 +51,7 @@ _VHLselected =  _VHLfull select 0;
 _markerName = "";
 _markerType = "b_unknown";
 //_randomPosTarget = [_pos, _dist1, _dist2, 15, 0, 0.15] call BIS_fnc_findSafePos;
+
 _randomPosTarget = [_pos, _dist1, _dist2, 15, 0, 0.15, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;
 if(surfaceIsWater _randomPosTarget)then{_VHLselected = ((selectRandom WMS_OPFOR_CustomSEA) select 0)};
 _VHLgrp = createGroup [_grpSide, false];

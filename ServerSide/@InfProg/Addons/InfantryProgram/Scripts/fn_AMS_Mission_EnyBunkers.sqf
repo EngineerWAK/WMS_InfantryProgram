@@ -27,7 +27,8 @@ _T = round servertime;
 if (_pos == "random" ) then {
 	_radiusObjects = 18;
 	_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-	_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+	//_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+	_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],100] call WMS_fnc_BIS_findSafePosModified;
 };
 _MissionID = []call WMS_fnc_GenerateHexaID;
 _difficulty = selectRandom ["Moderate","Difficult","Hardcore"];

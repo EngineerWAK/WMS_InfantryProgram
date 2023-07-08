@@ -36,12 +36,15 @@
 		8: (Optional) ARRAY - array in format [landPosition, seaPosition], where:
 				landPosition: ARRAY - in format [x,y] or [x,y,z] - default position on land
 				seaPosition: ARRAY - in format [x,y] or [x,y,z] - default position on water
+		
+		9: (Optional) NUMBER - minimum distance from the nearest "BUILDING" //WMS
 	
 	Returns:
 		ARRAY - position solution
 		
 	*/
 	//I "modified" this BIS function to get position INSIDE the map and not kilometers away outside, it's one line, was it sooooo dificult bohemia ??
+	//And I need a building check independent of other objects //WMS
 	#define MAX_TRIES 3000
 
 	scopeName "main";
@@ -55,7 +58,8 @@
 		["_maxGradient",0], 
 		["_shoreMode",0], 
 		["_posBlacklist",[]],
-		["_defaultPos",[]]
+		["_defaultPos",[]],
+		["_buildingProximity",0]
 	];
 	// support object for center pos as well
 	if (_checkPos isEqualType objNull) then {_checkPos = getPos _checkPos};
@@ -88,6 +92,7 @@
 		if (_maxDistance <= 0) then {_maxDistance = _defaultMaxDistance};
 	};
 	private _checkProximity = _objectProximity > 0;
+	private _checkbuildings = _buildingProximity > 0;
 	private _checkBlacklist = !(_posBlacklist isEqualTo []);
 	_shoreMode = _shoreMode != 0;
 	if (_checkBlacklist) then
@@ -126,6 +131,8 @@
 			if (_this isFlatEmpty [-1, -1, _maxGradient, _gradientRadius, _waterMode, _shoreMode] isEqualTo []) exitWith {};
 			// away from other objects
 			if (_checkProximity && {!(nearestTerrainObjects [_this, [], _objectProximity, false, true] isEqualTo [])}) exitWith {};	
+			// away from buildings
+			if (_checkbuildings && {!(nearestTerrainObjects [_this, ["BUILDING"], _buildingProximity, false, true] isEqualTo [])}) exitWith {};	
 			// not inside something
 			if !(lineIntersectsSurfaces [AGLtoASL _this, AGLtoASL _this vectorAdd [0, 0, 50], objNull, objNull, false, 1, "GEOM", "NONE"] isEqualTo []) exitWith {};
 			// not in blacklist

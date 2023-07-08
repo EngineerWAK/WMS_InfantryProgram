@@ -10,6 +10,92 @@
 * Do Not Re-Upload
 */
 if (true) then {diag_log format ["[WMS Custom Map Config]|WAK|TNA|WMS| Launching at %1", servertime]};
+if (WMS_MapName == "Cam_Lao_Nam") then {
+										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_SOG.sqf";
+										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_SOG.sqf";
+										execVM "\InfantryProgram\Scripts\WMS_List_Crates_ACE_RHS_SOG.sqf";
+										WMS_AI_MaxUnits_A 			= 135; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
+										WMS_AI_MaxUnits_B 			= 155; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
+										WMS_AI_MaxUnits_C 			= 180; //stop Base attack and missions
+										WMS_AI_LaunchersOPF 		= [ //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+																		["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_M136_hp","rhs_weap_M136","vn_rpg2","vn_rpg7","vn_m20a1b1_01","vn_m72"],
+																		["vn_sa7","rhs_weap_fim92"],
+																		["launch_O_Titan_short_F"]
+																	];
+										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
+										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","rhs_mag_m67","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
+																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag","ACE_M14",
+																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag",
+																		"vn_molotov_grenade_mag","vn_chicom_grenade_mag","vn_f1_grenade_mag","vn_m14_grenade_mag","vn_m34_grenade_mag","vn_m61_grenade_mag","vn_rg42_grenade_mag","vn_rgd5_grenade_mag","vn_t67_grenade_mag"];
+										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "Bomb_03_F", "Bomb_04_F", "ammo_Bomb_SDB", "rhs_ammo_fab500_m54", "Bo_Mk82"]; //DynAI bombing is (select 0)										
+										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","rhs_ammo_kab500","rhs_ammo_fab500_m54"];
+										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
+										WMS_AI_RdoTruck 			= "vn_b_armor_m577_01"; //"rhs_gaz66_r142_vdv";
+										WMS_AI_ATstation 			= "vn_b_rok_army_static_m101_01"; //"rhs_D30_at_msv"; //roadBlock
+										WMS_AI_AAstation 			= "vn_o_nva_static_zgu1_01"; //AA battery
+										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15A","rhsusf_acc_anpeq15side","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15_bk_sc","rhsusf_acc_anpeq15_bk_top_h","rhsusf_acc_anpeq15_wmx_h","rhsusf_acc_anpeq15_wmx_light","rhsusf_acc_anpeq16a_light_top_sc","rhsusf_acc_anpeq16a_top"];
+										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
+										WMS_IP_Extract_Alt 			= 150;
+										WMS_C130_Altitude 			= 200;
+										WMS_Pos_Forests 			= [
+											[12428,6089.27,0],[13155.1,5990.56,0],[13918.5,5868.82,0],[12493.8,6849.33,0],[13194.6,7250.75,0],[13925.1,7382.36,0],[14543.6,6359.08,0],[17333.8,4917.93,0],[17603.6,4266.45,0],[17245,3460.32,0],[16787.6,5460.82,0],
+											[15958.5,4674.44,0],[11470.5,4009.81,0],[12368.8,3506.39,0],[13040,3256.33,0],[14777.3,3868.33,0],[16304,3144.46,0],[12812.9,7849.58,0],[11654.8,7721.26,0],[11536.3,8405.64,0],[10917.7,8770.87,0],[12293.1,8336.55,0],
+											[2955.23,19622.3,0],[4024.58,18809.6,0],[4952.44,19260.3,0],[3787.67,17783,0],[1264.02,16944,0],[5544.69,18552.9,0],[5567.72,17829.1,0],[3626.45,14848,0],[3044.07,14255.8,0],[648.734,13683.3,0],[1820.08,13551.7,0],
+											[3758.06,14140.6,0],[6321.2,16266.2,0],[8091.38,13903.7,0],[2685.43,12936.4,0],[3554.06,12196.1,0],[4935.99,11906.5,0],[6367.27,12311.2,0],[754.025,11528.1,0],[770.477,12465.9,0],[1945.11,10916.1,0],[3646.19,10995.1,0],
+											[2935.49,10491.7,0],[609.252,9771.12,0],[6564.68,11054.3,0],[7179.97,10583.8,0],[4044.32,9583.57,0],[1007.38,9083.45,0],[6479.14,9850.08,0],[7726.16,9353.25,0],[1273.89,8224.68,0],[3527.74,8570.16,0],
+											[4843.86,8813.64,0],[5728.95,9076.86,0],[6627.2,8514.22,0],[5531.53,8135.84,0],[5511.79,7234.3,0],[6390.3,7777.2,0],[6600.88,7007.27,0],[6801.59,5207.48,0],[8028.87,6691.4,0],[10493.3,6438.05,0],[9542.4,6704.56,0],
+											[13372.3,8843.26,0],[10157.7,9790.86,0],[13191.3,10248.2,0],[14517.3,10103.4,0],[15244.5,10034.3,0],[12924.8,10926,0],[13033.4,11682.8,0],[10292.6,11751.9,0],[9381.18,11817.7,0],[9947.11,11083.9,0],[11822.6,11620.3,0],
+											[11079,11774.9,0],[8673.76,12400.1,0],[13767.1,12143.4,0],[12240.4,15868,0],[11539.6,15631.1,0],[11006.6,16572.2,0],[9604.92,17513.2,0],[10315.6,16930.8,0],[14060,16618.2,0],[9920.79,19572.9,0],[10664.4,19207.7,0],
+											[7926.87,19589.4,0],[14912.2,19368.9,0],[16228.3,15864.8,0],[12780.1,14670.4,0],[15920.5,11976.3,0],[17781.5,10666.6,0],[17944.5,9978.17,0],[18790.9,9962.64,0],[14908.5,8469.23,0],[14444.7,1968.98,0],
+											[8370.29,17959.9,0],[7277.31,18378.2,0],[2806.54,3562.21,0],[6373.83,13725.9,0],[5097.96,12959.4,0],[8415.98,8711.45,0]]; //not autoScan
+										WMS_Pos_Military 			= [
+											[2215.69,13393.5,0],[1036.47,9391.75,0],[4908.9,13643.2,0],[6029.16,13901.9,0],[12412.9,19362.1,0],[13533.6,19192.9,0],[6930.94,5402.79,0],[6830.79,4555.39,0],[8140.09,5389.21,0],[2340.15,4017.37,0],[1946.7,3936.57,0],
+											[1954.9,4302.28,0],[11519.2,6482.52,0],[11452.2,6154.57,0],[11373.9,5760.34,0],[16080.5,3645.85,0],[15258.6,4689.59,0],[17168.8,5580.39,0],[17452.4,5575.77,0],[16241.9,6284.29,0],[16316.8,6542.98,0],[16839.3,6413.86,0],
+											[15704,7244.87,0],[15908.4,7586.65,0],[16611.3,7681.2,0],[16939.2,7476.65,0],[16149.8,7176.37,0],[17602.9,6766.45,0],[18617.7,6080.44,0],[17879.2,5796.49,0],[19239.5,7250.14,0],[20160.5,6605.22,0],[20065,7281.91,0],
+											[19347.6,5677.69,0],[19189.8,5336.49,0],[19444.4,4577.14,0],[18611,8374.57,0],[17640.8,9455.22,0],[16323.4,8118.78,0],[15937.4,8019.55,0],[16269,7612.43,0],[16941.7,7119.42,0],[16035.2,6801.08,0],[15556.6,6791.52,0],
+											[14770.7,6873.03,0],[13749.9,8393.47,0],[12854,8505.16,0],[14775,9617.43,0],[16167.6,11039.8,0],[15446.7,12028.7,0],[15876.5,12304.1,0],[16278.2,12287.7,0],[14132.5,12802.5,0],[15648.7,13530.7,0],[14395.5,15904.1,0],
+											[13306.2,17335.9,0],[12090,17657.6,0],[11819,16813.4,0],[12677.2,17354.1,0],[12135.5,16571.5,0],[11986.8,18325.6,0],[12949.2,18650.3,0],[14781.7,18454.6,0],[14791.4,16181.4,0],[12480.6,13311,0],[12941.2,13732.6,0],
+											[14509.2,15273,0],[14655.1,15607.1,0],[14511,16469.7,0],[14414.6,18280.7,0],[14184.9,18819.5,0],[16652.8,6745.6,0],[18104.2,6209.21,0],[11167.4,14821.8,0],
+											[3218.44,9059.68,0], //CheckPoints
+											[4637.63,18975,0],[3665.86,17874.3,0],[3282.48,15529.5,0] //Bunkers
+											]; //not autoScan
+										WMS_Pos_Factory 			= [
+											[14732,16140,0],[14772.1,16082.1,0],[14822,16126.1,0],[14561.3,15948.7,0],[14445,15981.6,0],[14649.8,15622.7,0],[14798.4,15632.7,0],[14651.7,15225.3,0],[14362.4,15292.7,0],[14403.3,15253.9,0],[14824.2,16226.4,0],
+											[15263.6,13723.3,0],[15273.1,13768,0],[15127.8,13570.1,0],[15073.3,13496.6,0],[14655.2,13136.5,0],[14592.9,13164.9,0],[14540.6,12967.7,0],[14823.5,12782.8,0],[13827.3,13592.1,0],[13852.5,13645.7,0],[13799.8,13652.1,0],
+											[13723.2,13649.1,0],[13728.6,13711.2,0],[13687.7,13724.1,0],[13619.1,13657.3,0],[13595.5,13727.7,0],[13592.8,13816.9,0],[13489.7,13825.2,0],[13474.4,13827.2,0],[13208.5,14075.8,0],[13129.3,14190,0],[13424.5,14150,0],
+											[13411.3,14218.7,0],[13496.1,14223.5,0],[14067.2,13559.4,0],[14106.6,13609.5,0],[13952.9,13104.8,0],[13902.4,13154.8,0],[13975.7,13196.1,0],[13674,13136.9,0],[12673.9,13403.8,0],[12635.7,13406.3,0],[12632.3,13348.8,0],
+											[12649.5,13069.6,0],[16975.6,9050,0],[16966,9123.68,0],[17054.5,9091.41,0],[17090.1,9128.74,0],[17143.7,8967.02,0],[17762.5,9439.14,0],[18139.5,6306.25,0],[18121.3,6363.81,0],[17912.3,5878.37,0],[17867.6,5937.77,0],
+											[17972.8,5853.88,0],[16131.9,3568.89,0],[16035.6,3525.65,0],[16087.9,3477.46,0],[15977.3,3581.39,0],[15942.2,3660.49,0],[16101.3,3720.48,0],[3013.6,8737.16,0],[2974.86,8728.39,0],[3026.73,8684.55,0],[3006.31,8764.71,0],
+											[3240.51,8721.34,0],[3206.86,8711.09,0],[3017.46,8882.49,0],[1082.2,15242.1,0],[13030.7,17093.7,0],[13012.3,17076.7,0],[13054.3,17009.2,0],[13274,16853.4,0]];
+										WMS_DynAI_GunshipMedium 	= ["vn_o_air_mi2_03_04",[],[[],[]]];
+										WMS_DynAI_GunshipHeavy 		= ["vn_o_air_mi2_04_02",[],[[],[]]];
+										WMS_para_small				= "rhs_d6_Parachute";
+										WMS_AMS_ToRun 				= 3; //with all the reinforcement and vehicles crew, 3 missions it's a lot
+										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
+										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
+										WMS_AI_HMG 					= "vn_o_nva_static_dshkm_high_01"; //"rhs_KORD_high_MSV";
+										WMS_AI_HMG_Scope 			= "vn_o_pl_static_sgm_high_01"; //no scope but kind of AA
+										WMS_AI_HMG_Shield			= "vn_o_vc_static_mg42_high"; //Not a shield but should be fun //"B_G_HMG_02_high_F";
+										//WMS_AI_GMG 					= "O_GMG_01_high_F"; //AMS AA battery //"RHS_ZU23_VDV"
+										WMS_AI_Arty					= "vn_o_vc_static_mortar_type63"; //"rhs_2b14_82mm_msv";
+										WMS_AMS_MineAT 				= ["vn_mine_m15","vn_mine_tm57","rhsusf_mine_M19","ATMine"];
+										WMS_ATMines					= ["rhs_mine_TM43","ATMine"];
+										WMS_AMS_SpnDistMission 		= 2000;
+										WMS_AI_RoamingVHL_citySpawn	= true; //NEW
+										WMS_AI_RoamingVHLcount 		= 16; //10
+										WMS_AI_CargoUnits	 		= 1;
+										WMS_AMS_remRPG 				= 75;
+										WMS_AMS_ClnObj 				= true;
+										WMS_AMS_DelMissionFlag 		= true;
+										WMS_FastNight_Morning 		= 5.5; //morning start at
+										WMS_FastNight_Evening		= 18; //evening start at
+										WMS_FastNight_Night 		= 20;  //time speed
+										WMS_DynAI_DestroyVHL 		= 60;
+										WMS_trig_Glob_CoolD 		= 240;
+										WMS_Forests_CoolD			= 300;
+										WMS_Military_CoolD			= 240;
+};
 if (WMS_MapName == "lingor3") then {
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";

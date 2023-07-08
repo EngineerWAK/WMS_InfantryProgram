@@ -22,7 +22,7 @@ params[
 _objList = [];
 _staticsList = [];
 if (typeName _objects != "STRING") then {
-	if (true) then {diag_log format ["[AMS SPAWN OBJECTS ERROR]|WAK|TNA|WMS| _this: %1,", _this]};
+	if (true) then {diag_log format ["[AMS SPAWN OBJECTS ERROR]|WAK|TNA|WMS|1st log _this: %1,", _this]};
 	_objects = "missiontest1";
 };
 switch (_objects) do {
@@ -95,6 +95,11 @@ switch (_objects) do {
 	case "OutpostFoxtrot"	: {_objects = WMS_AMS_Obj_OutpostFoxtrot};
 	case "OutpostGolf"		: {_objects = WMS_AMS_Obj_OutpostGolf};
 	case "OutpostGolfV2"	: {_objects = WMS_AMS_Obj_OutpostGolfV2};
+};
+
+if (typeName _objects == "STRING") then {
+	if (true) then {diag_log format ["[AMS SPAWN OBJECTS ERROR]|WAK|TNA|WMS|2nd log _this: %1,", _this]};
+	_objects = [["CamoNet_OPFOR_open_F",[0,0,0],90]];
 };
 
 _compoRefPoint = createVehicle [WMS_AMS_Flag, _pos, [], 0, "CAN_COLLIDE"];

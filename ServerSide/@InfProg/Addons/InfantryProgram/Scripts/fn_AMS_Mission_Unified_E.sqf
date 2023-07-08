@@ -87,7 +87,8 @@ _T = round servertime;
 if (typeName _pos == "STRING") then {
 	if (_pos == "random" ) then {
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		//_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],(_radiusObjects*2)] call WMS_fnc_BIS_findSafePosModified;
 	};
 };
 _absc = floor (_pos select 0);

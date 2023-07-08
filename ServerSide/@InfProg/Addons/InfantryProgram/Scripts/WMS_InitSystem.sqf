@@ -37,10 +37,10 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.825_2023JUN29_GitHub"; //hide function on IP crates //dynAI vehicles kill surprise
+WMS_System_Version 			= "v2.827_2023JUL09_GitHub"; //SOG Prairie Fire Setup and loadouts, big update
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
-WMS_CustomizedMap			= ["tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
+WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
 if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
 
 WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch launch
@@ -84,7 +84,7 @@ if !(WMS_exileFireAndForget) then {
 /////////////////////////////////
 //			VARIABLES
 /////////////////////////////////
-WMS_Currency 				= "Money"; //test for personalized currency name
+WMS_Currency 				= "$"; //test for personalized currency name
 ////////////
 WMS_AllDeadsMgr				= []; //will cleanup dead bodies after x secondes //WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_AMS_AllDeads)];
 WMS_Player_AllDeads			= 1800; //Not Used Yet
@@ -346,6 +346,7 @@ WMS_AI_bluforPatrol_LastTime 	= time;
 WMS_AI_bluforPatrol_CoolDown 	= 900;
 //Vehicle Ground:
 WMS_AI_RoamingVHL				= true;
+WMS_AI_RoamingVHL_citySpawn		= false;
 WMS_AI_RoamingVHL_KillRep		= 250;
 WMS_AI_RoamingVHL_KillMoney		= 1500;
 WMS_AI_RoamingVHL_MaxDist		= 1200;
@@ -354,6 +355,7 @@ WMS_AI_RoamingVHL_Skill			= [0.15, 0.35]; //skill + selectRandom
 WMS_AI_RoamingVHL_remRPG 		= true; //(_this select 0) removeWeapon (secondaryWeapon (_this select 0));
 WMS_AI_RoamingVHLcount 			= 10; //how many of them max
 WMS_AI_RoamingVHL_MaxKick 		= 8; //if the vehicle is stuck or doesnt move, it will be destroyed after x checks //_vhl setVariable ["WMS_KickVehAss",0,true];
+WMS_AI_LastUsedPos				= [0,0,0];
 WMS_AI_PatrolTimer_VHL 			= 1500; //+(random 300)
 WMS_AI_PlayerDistToSpawnVHL 	= 500;
 WMS_AI_PlayerDistToDespawnVHL 	= 500;
@@ -488,6 +490,7 @@ WMS_AMS_skillstatic 	= [0.9, 0.9, 0.005, 0.25, 0.2, 0.5, 0, 0.2, 0.6]; //what ev
 WMS_AMS_skillsniper 	= [1,0.95,0.9,0.9];  //hardcore level, easy = -0.15, moderate = -0.1, difficult = -0.05 //"spotDistance","spotTime","aimingAccuracy","aimingShake"
 WMS_AMS_SniperLoadout	= [["H_Cap_grn_BI"],["V_Chestrig_rgr","V_SmershVest_01_radio_F"]]; //[[headGears],[vests]]//custom "loadout" for NPC snipers, lighter gear so they don't neet 15 headshots to get killed
 WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check, it will modify NPC skills if they have a weapon from this list
+							"vn_k98k","vn_m1891","vn_m1903","vn_m1903_gl","vn_m36","vn_m38","vn_m40a1","vn_m9130","vn_vn_vz54", //SOG
 							"srifle_LRR_F","srifle_LRR_camo_F","srifle_LRR_tna_F",
 							"srifle_GM6_ghex_F","srifle_GM6_camo_F","srifle_GM6_F",
 							"hlc_rifle_FN3011Tactical_green","hlc_rifle_awmagnum","hlc_rifle_awmagnum_BL","hlc_rifle_awmagnum_FDE","hlc_rifle_FN3011Modern","hlc_rifle_M1903A1_unertl",

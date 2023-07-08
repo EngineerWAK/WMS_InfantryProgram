@@ -76,6 +76,8 @@ class CfgRemoteExec
 		class rhs_fnc_flashbang_effect 				{ allowedTargets=0; };
 		class rhs_fnc_usf_flashbang_effect 			{ allowedTargets=0; };
 
+		class vn_fnc_drm_delete_audio 				{ allowedTargets=0; };
+
 		class WMS_fnc_setVarOnPlayerRespawn			{ allowedTargets=2; };
 		class WMS_fnc_spawnLootManager 				{ allowedTargets=2; };
 		class WMS_fnc_processCargoDump 				{ allowedTargets=2; };

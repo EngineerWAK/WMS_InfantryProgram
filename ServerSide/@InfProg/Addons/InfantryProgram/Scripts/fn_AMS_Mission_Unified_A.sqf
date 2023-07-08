@@ -84,7 +84,8 @@ if (typeName _pos == "STRING") then {
 		_forest = selectRandom WMS_Pos_Forests;
 		_radiusObjects = 1;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-		_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error
+		//_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error//WMS_fnc_BIS_findSafePosModified
+		_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],(_radiusObjects*2)] call WMS_fnc_BIS_findSafePosModified;
 		_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
 		_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,((_uniParams select 10)+10)];
 		{hideObjectGlobal _x} foreach _terrainobjects;

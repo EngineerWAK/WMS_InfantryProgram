@@ -3,7 +3,7 @@
 *
 * TNA-Community
 * https://discord.gg/Zs23URtjwF
-* © 2022 {|||TNA|||}WAKeupneo
+* © 2023 {|||TNA|||}WAKeupneo
 *
 * This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
@@ -14,13 +14,13 @@
 // Infantry Program, Dynamic AI, AirAssistance, Events, Advanced Mission System<br/>
 //////////////////////////////////////////////////////////////////<br/>
 // Work In Progress:<br/>
-// - "Dynamic Flight Operations" (iceman/Project hatchet Discord): Troop transport, Cargo transport, Air Assault, CAS (Infantry, Armoured, combined), SAR, CSAR, Maritime //DONE<br/>
-// - Cities Invasion<br/>
+// - Cities Invasion (probably not)<br/>
 // ToDo:<br/>
-// - Delete NPCs in SafeZone<br/>
 // - 'DynAI + Events' Player Check before spawn<br/>
-// - Integrated Messages Brodcast //DONE<br/>
 //////////////////////////////////////////////////////////////////<br/>
+v2.827_2023JUL09_GitHub <br/>
+    SOG Prairie Fire Setup and loadouts, big update!
+
 v2.806_2023FEB09_GitHub <br/>
     Updated the Roaming vehicles, if all the crew leave the vehicle > 300m, they will be destroyed after 3 checks (3*30 sec). To prevent useless vehicle crew walking around the map. <br/>
     

@@ -33,14 +33,16 @@
 		_forest = selectRandom WMS_Pos_Forests;
 		_radiusObjects = 1;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-		_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		//_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],25] call WMS_fnc_BIS_findSafePosModified; //WMS_fnc_BIS_findSafePosModified;
 	};
 	if (count _pos == 3) then {_pos = "random" };
 	if (typeName _pos == "STRING") then {
 		if (_pos == "random" ) then {
 			_radiusObjects = 1;
 			_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, 0.4, 0, _blackList, [([] call BIS_fnc_randomPos)]] call BIS_fnc_findSafePos;
+			//_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, 0.4, 0, _blackList, [([] call BIS_fnc_randomPos)]] call BIS_fnc_findSafePos;
+			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, 0.4, 0, _blackList, [([] call BIS_fnc_randomPos)],25] call WMS_fnc_BIS_findSafePosModified;
 		};
 	};
 	if (count _pos == 3)exitwith {

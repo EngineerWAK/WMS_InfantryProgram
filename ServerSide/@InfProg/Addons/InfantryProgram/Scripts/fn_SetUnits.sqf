@@ -564,4 +564,44 @@ _poptabs = 50;
 			};
 		};
 	};
+	//SOG SNIPERS OPTICS //no optic :"vn_m1891","vn_m1903_gl","vn_m36","vn_m38",
+	//"vn_k98k","vn_m1903","vn_m40a1","vn_m9130","vn_vn_vz54"
+	//"vn_o_1_5x_k98k","vn_o_8x_m1903","vn_o_9x_m40a1","vn_o_3x_m9130","vn_o_3x_vz54",
+	//"vn_sks","vn_m4956","vn_svd"
+	//"vn_o_3x_sks","vn_o_4x_m4956","vn_o_4x_svd",
+	//"vn_o_9x_m14","vn_o_9x_m16","vn_o_4x_m16","vn_o_3x_m84","vn_o_3x_l1a1", //others
+	if (primaryWeapon _unit == "vn_k98k") then {
+		_unit addPrimaryWeaponItem "vn_o_1_5x_k98k";
+	}else{
+		if (primaryWeapon _unit == "vn_m1903") then {
+			_unit addPrimaryWeaponItem "vn_o_8x_m1903";
+		}else{
+			if (primaryWeapon _unit == "vn_m40a1") then {
+				_unit addPrimaryWeaponItem "vn_o_9x_m40a1";
+			}else{
+				if (primaryWeapon _unit == "vn_m9130") then {
+					_unit addPrimaryWeaponItem "vn_o_3x_m9130";
+				}else{
+					if (primaryWeapon _unit == "vn_vn_vz54") then {
+						_unit addPrimaryWeaponItem "vn_o_3x_vz54";
+					}else{
+						if (primaryWeapon _unit == "vn_sks") then {
+							_unit addPrimaryWeaponItem "vn_o_3x_sks";
+							_unit addPrimaryWeaponItem "vn_b_sks";
+						}else{	
+							if (primaryWeapon _unit == "vn_m4956") then {
+								_unit addPrimaryWeaponItem "vn_o_4x_m4956";
+								_unit addPrimaryWeaponItem "vn_b_m4956";
+							}else{
+								if (primaryWeapon _unit == "vn_svd") then {
+									_unit addPrimaryWeaponItem "vn_o_4x_svd";
+									_unit addPrimaryWeaponItem "vn_b_camo_svd";
+								};//else{};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
 }forEach _units;
