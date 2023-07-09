@@ -30,11 +30,20 @@ _names = [
 _name = selectRandom _names;
 if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 _T = round servertime;
+
+_tempRadius = _radius;
+if (WMS_AMS_ForceRadius)then{
+	_radius = 3;
+};
 if (_pos == "random" ) then {
-	_radiusObjects = 25;
+	//_radiusObjects = 25;
 	_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 	//_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
-	_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],80] call WMS_fnc_BIS_findSafePosModified;
+	_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
+};
+_tempRadius = _radius;
+if (WMS_AMS_ForceRadius)then{
+	_radius = _tempRadius;
 };
 _MissionID = []call WMS_fnc_GenerateHexaID;
 _difficulty = selectRandom ["Moderate","Difficult","Hardcore","Hardcore"];
@@ -55,7 +64,7 @@ switch (_difficulty) do {
 };
 //_objects = selectRandom [WMS_AMS_Obj_Arbeit,WMS_AMS_Obj_ArbeitV2,WMS_AMS_Obj_ArbeitV3];
 _objects = selectRandom ["arbeit","arbeitv2","arbeitv3"];
-_objList = [_pos, _objects, _dir, _missionID] call WMS_fnc_AMS_SpawnObjects;
+_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects;
 
 _grpInf = [ 
 		_pos,

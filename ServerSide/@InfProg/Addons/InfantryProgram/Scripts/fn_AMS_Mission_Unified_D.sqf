@@ -82,12 +82,20 @@ _lootCount = (_lootCounts select 0);
 _MissionID = []call WMS_fnc_GenerateHexaID;
 if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 _T = round servertime;
+_tempRadius = _radiusObjects;
+if (WMS_AMS_ForceRadius)then{
+	_radiusObjects = 3;
+};
 if (typeName _pos == "STRING") then {
 	if (_pos == "random" ) then {
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 		//_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
-		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],(_radiusObjects*2)] call WMS_fnc_BIS_findSafePosModified;
+		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],(_tempRadius*2)] call WMS_fnc_BIS_findSafePosModified;
 	};
+};
+_tempRadius = _radiusObjects;
+if (WMS_AMS_ForceRadius)then{
+	_radiusObjects = _tempRadius;
 };
 
 switch (_difficulty) do {
@@ -105,7 +113,7 @@ switch (_difficulty) do {
 		};
 };
 
-_objList = [_pos, _objects, _dir, _missionID] call WMS_fnc_AMS_SpawnObjects;
+_objList = [_pos, _objects, _dir, _missionID,_radiusObjects] call WMS_fnc_AMS_SpawnObjects;
 
 _grpInf = [ 
 		_pos,

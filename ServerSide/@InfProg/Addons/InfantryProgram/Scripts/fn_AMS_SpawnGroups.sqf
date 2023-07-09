@@ -11,7 +11,7 @@
 */
 
 //////////////////////////////////////////////////////////////////
-private ["_grps","_INFgrp","_typ","_beh","_cbt","_spd","_fmn","_WPT_1"];
+private ["_unitsClass","_grps","_INFgrp","_typ","_beh","_cbt","_spd","_fmn","_WPT_1"];
 params[ 
 	"_pos",
 	["_missionID", "No_ID",[""]], //hexaID
@@ -26,6 +26,7 @@ params[
 	["_difficulty", "Hardcore", [""]]
 	];
 _grps = [];
+_unitsClass = selectRandom WMS_AMS_UnitClass;
 _typ = "MOVE"; _beh = "SAFE"; _cbt = "YELLOW"; _spd = "NORMAL"; _fmn = "COLUMN";
 switch (toLower _behavType) do {
 	case "patrol"		: {_typ = "MOVE"; 	_beh = "AWARE"; 	_cbt = "YELLOW";_spd = "NORMAL"; 	_fmn = "COLUMN"};
@@ -43,7 +44,7 @@ for "_i" from 1 to _grpCount do {
 	for "_i" from 1 to _unitsCount do {
 		_randomPos = [_pos, 0, (_wpts select 0), 1, 0, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos;
 		//[center, minDist, maxDist, objDist, waterMode, maxGrad, shoreMode, blacklistPos, defaultPos] call BIS_fnc_findSafePos
-		WMS_AMS_UnitClass createUnit [_randomPos, _INFgrp];
+		_unitsClass createUnit [_randomPos, _INFgrp];
 		//uisleep 0.2;
 	};
 	//if !(WMS_HeadlessOwnerID == 2) then {_INFgrp setGroupOwner WMS_HeadlessOwnerID};

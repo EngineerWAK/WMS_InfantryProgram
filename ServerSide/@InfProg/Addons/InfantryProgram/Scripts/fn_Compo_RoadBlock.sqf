@@ -24,7 +24,7 @@ _directionRoad = [_nearestRoad, _connectedRoad] call BIS_fnc_DirTo;
 [_nearestRoadPos, _directionRoad, 120, 4, true, 50, 0.7, "army"] call WMS_fnc_Compo_RoadBlock;
 */
 if (WMS_IP_LOGs) then {diag_log format ["[ROADBLOCK]|WAK|TNA|WMS| _this = %1", _this];};
-private ["_safePos","_objList","_objectCompos","_grps","_objects","_compoRefPoint","_MGgrp1","_MGgrp2","_INFgrp","_number","_sound"];
+private ["_unitsClass","_safePos","_objList","_objectCompos","_grps","_objects","_compoRefPoint","_MGgrp1","_MGgrp2","_INFgrp","_number","_sound"];
 params[  
 		"_pos",  
 		["_dirCompo", 359, [0]],  
@@ -36,7 +36,7 @@ params[
 		["_loadout", "bandit", [""]],
  		["_difficulty", "difficult"]
 ];
-
+_unitsClass = selectRandom WMS_AI_Units_Class;
 _safePos = [_pos, 15, 60, 3, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
 _objList = [];
 _grps = [];
@@ -142,14 +142,14 @@ if (_armed==1) then {
 	_grps pushBack _MGgrp1;
 	_MGgrp2 = createGroup [OPFOR, false];
 	_grps pushBack _MGgrp2;
-	WMS_AI_Units_Class createUnit [
+	_unitsClass createUnit [
 		_compoRefPoint modeltoworld [0,3.55,0],
 		_MGgrp1
 	];
 	[units _MGgrp1,'BunkerMG',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	uisleep 0.2;
 	_MGgrp1 setFormDir (_dirCompo);
-	WMS_AI_Units_Class createUnit [
+	_unitsClass createUnit [
 		_compoRefPoint modeltoworld [0,-1,0], 
 		_MGgrp2
 	];
@@ -161,7 +161,7 @@ if (_armed==2) then { //AT CANNON NEED TO UNDERSTAND IT'S NOT AN AA STATION
 	_grps pushBack _MGgrp1;
 	_MGgrp2 = createGroup [OPFOR, false];
 	_grps pushBack _MGgrp2;
-	WMS_AI_Units_Class createUnit [
+	_unitsClass createUnit [
 		_compoRefPoint modeltoworld [0,1,0],
 		_MGgrp1
 	];
@@ -189,7 +189,7 @@ if (_armed==2) then { //AT CANNON NEED TO UNDERSTAND IT'S NOT AN AA STATION
 	[units _MGgrp1,'assault',0,0.1,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	uisleep 0.2;
 	_MGgrp1 setFormDir (_dirCompo);
-	WMS_AI_Units_Class createUnit [
+	_unitsClass createUnit [
 		_compoRefPoint modeltoworld [0,-3.45,0], 
 		_MGgrp2
 	];
@@ -203,7 +203,7 @@ if (_AIcount > 0) then {
 	_INFgrp = createGroup [OPFOR, false];
 	_grps pushBack _INFgrp;
 	for "_i" from 1 to _AIcount do {
-		WMS_AI_Units_Class createUnit [
+		_unitsClass createUnit [
 			_safePos, 
 			_INFgrp
 	];

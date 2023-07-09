@@ -29,21 +29,28 @@
 	if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 	_clnObj = WMS_AMS_ClnObj;
 	_T = round servertime;
+	_tempRadius = _radius;
+	if (WMS_AMS_ForceRadius)then{
+		_radius = 3;
+	};
 	if (_pos == "forest" ) then {
 		_forest = selectRandom WMS_Pos_Forests;
-		_radiusObjects = 1;
+		_radius = 1;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 		//_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
-		_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],25] call WMS_fnc_BIS_findSafePosModified; //WMS_fnc_BIS_findSafePosModified;
+		_pos = [_forest, 0, 400, _radius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified; //WMS_fnc_BIS_findSafePosModified;
 	};
 	if (count _pos == 3) then {_pos = "random" };
 	if (typeName _pos == "STRING") then {
 		if (_pos == "random" ) then {
-			_radiusObjects = 1;
+			//_radiusObjects = 1;
 			_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 			//_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, 0.4, 0, _blackList, [([] call BIS_fnc_randomPos)]] call BIS_fnc_findSafePos;
-			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, 0.4, 0, _blackList, [([] call BIS_fnc_randomPos)],25] call WMS_fnc_BIS_findSafePosModified;
+			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, 0.4, 0, _blackList, [([] call BIS_fnc_randomPos)],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
 		};
+	};
+	if (WMS_AMS_ForceRadius)then{
+		_radius = _tempRadius;
 	};
 	if (count _pos == 3)exitwith {
 		if (WMS_IP_LOGs) then {diag_log format ["[AMS POSITION ERROR %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
@@ -63,7 +70,7 @@
 		case "hardcore" 	: {_grpCount = 1; _unitsCount = (12+(round random 2)); _skill = (0.70 + random 0.29); _wpts = [200,4]; _radius = 200; _howMany = 40;	_lootCount = [[7,2,2],[2,1,2],[3,2,2],[1,2,2],[0,0,0]]; _loadout = "livonia";_unitFunction = "LivoniaPatrol";};
 	};
 	_objects = "cbtpatrol";
-	_objList = [_pos, _objects, _dir, _missionID] call WMS_fnc_AMS_SpawnObjects; //always keep it for the flag
+	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects; //always keep it for the flag
 
 	_grpInf = [ 
 			_pos,

@@ -82,12 +82,15 @@ if (WMS_MapName == "Cam_Lao_Nam") then {
 										WMS_AMS_MineAT 				= ["vn_mine_m15","vn_mine_tm57","rhsusf_mine_M19","ATMine"];
 										WMS_ATMines					= ["rhs_mine_TM43","ATMine"];
 										WMS_AMS_SpnDistMission 		= 2000;
+										WMS_DynAI_Skills			= [0.06, 0.12, 0.20, 0.29]; //+random 0.15
 										WMS_AI_RoamingVHL_citySpawn	= true; //NEW
 										WMS_AI_RoamingVHLcount 		= 16; //10
 										WMS_AI_CargoUnits	 		= 1;
 										WMS_AMS_remRPG 				= 75;
 										WMS_AMS_ClnObj 				= true;
 										WMS_AMS_DelMissionFlag 		= true;
+										WMS_AMS_CleanMapObj			= true;
+										WMS_AMS_ForceRadius			= true; //3m
 										WMS_FastNight_Morning 		= 5.5; //morning start at
 										WMS_FastNight_Evening		= 18; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
@@ -95,6 +98,58 @@ if (WMS_MapName == "Cam_Lao_Nam") then {
 										WMS_trig_Glob_CoolD 		= 240;
 										WMS_Forests_CoolD			= 300;
 										WMS_Military_CoolD			= 240;
+										WMS_AI_Units_Class 			= ["vn_c_men_13","vn_c_men_01","vn_c_men_05","vn_c_men_09",
+																	"vn_i_men_rla_01","vn_i_men_rla_02",
+																	"vn_o_men_nva_dc_01","vn_o_men_nva_dc_13","vn_o_men_nva_dc_08",
+																	"vn_o_men_nva_marine_03","vn_o_men_nva_marine_10","vn_o_men_nva_marine_04"];
+										WMS_AMS_UnitClass 			= WMS_AI_Units_Class;
+										WMS_AMS_MissionList 	= 	[ //missions themself and weight
+																	["MissionTest1",0],
+																	["MissionTest2",0],
+																	["ForestCamp",3], //"forest" positions
+																	["HomeDepot",2],
+																	["CombatPatrol",3],
+																	["EnyBunkers",2], //AP mines
+																	["Arbeit",1],
+																	["ArmedBandits",2],
+																	["C192Crash",2],
+																	["AmazonWH",2],
+																	["TransmissionTower",2],
+																	["GunsX3",2], //"utility" truck reward, NPC armored
+																	["Arena",0], //this one is pretty hardcore on the objects and NPCs xD
+																	["LightArmoredSteal",2], //Light Armored Reward
+																	["HeliSteal",2], //helicopter reward
+																	["AABattery",2], //no move crate
+																	["Escobar",2],
+																	["Forgotten",2],
+																	["Radar",2], //big crate reward
+																	["Construction",2], //truck reward
+																	["OldTemple",2],  //no move crate
+																	["JunkYard",2], //truck reward
+																	["OldPowerPlant",2], //vehicle reward, armed/armored NPC
+																	["Market",2], //small truck reward
+																	["GrandPaJoe",2],
+																	["LumberYard",3], //"forest" positions
+																	["Factory",3], //"factory" positions
+																	["FieldHospital",2],
+																	["Object172M",1], //Armored Reward and NPCs
+																	["uncleabrams",1], //Armored Reward and NPCs
+																	["thecommunity",2],
+																	["shipyard",2], //small vehicle reward
+																	["occupation",3], //location/cities positions
+																	["commsrelay",2], //"comms" vehicle reward
+																	["strelnikovtrain",2],
+																	["bastogne",3], //"forest" positions
+																	["blackhawk",2],
+																	//OUTPOSTS
+																	["OutpostAlpha",1],
+																	["OutpostBravo",1],
+																	["OutpostCharlie",1],
+																	["OutpostDelta",1], //+V2
+																	["OutpostEcho",1],
+																	["OutpostFoxtrot",1],
+																	["OutpostGolf",1] //+V2
+																	];
 };
 if (WMS_MapName == "lingor3") then {
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
@@ -806,7 +861,7 @@ if (WMS_MapName == "tem_kujari") then {	//OUTDATED //I used Kujari as Custom Arm
 										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
 										WMS_Humanicrate 			= "R3F_WeaponStock"; //"CargoNet_01_box_F"
-										WMS_AI_Units_Class 			= "C_man_p_fugitive_F_afro"	;
+										WMS_AI_Units_Class 			= ["C_man_p_fugitive_F_afro"]	;
 										WMS_DynAI_GunshipMedium 	= ["RHS_UH60M_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_DynAI_GunshipHeavy 		= ["RHS_UH1Y_d_GS",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_RandomStart_Hour 		= 5;

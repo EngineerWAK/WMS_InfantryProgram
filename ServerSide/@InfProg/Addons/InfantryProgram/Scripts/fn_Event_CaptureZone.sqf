@@ -361,7 +361,7 @@ WMS_fnc_spawnCaptureZoneObjects = {
 	_objectsList
 };
 WMS_fnc_captureZoneWaves = {
-	private ["_loadoutList","_launcherChance","_skill","_loadout","_timer","_grps","_INFgrp","_randomPos","_wpt"];
+	private ["_unitsClass","_loadoutList","_launcherChance","_skill","_loadout","_timer","_grps","_INFgrp","_randomPos","_wpt"];
 	params [
 		"_pos", 
 		"_typeR",
@@ -370,6 +370,7 @@ WMS_fnc_captureZoneWaves = {
 		"_distR",
 		"_difficulty"
 	];
+	_unitsClass = selectRandom WMS_AMS_UnitClass;
 	_loadoutList = ["bandit","heavybandit","army"];
 	_launcherChance = 10;
 	_skill = 0.5;
@@ -424,7 +425,7 @@ WMS_fnc_captureZoneWaves = {
 		_randomPos = [_pos, (_distR select 0), (_distR select 1), 1, 0, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos;
 		for "_i" from 1 to _unitsR do {
 			//_randomPos = [_pos, (_distR select 0), (_distR select 1), 1, 0, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos; //different _pos for each unit, they regroup before moving to the point
-			WMS_AMS_UnitClass createUnit [_randomPos, _INFgrp];
+			_unitsClass createUnit [_randomPos, _INFgrp];
 		};
 	};
 	{

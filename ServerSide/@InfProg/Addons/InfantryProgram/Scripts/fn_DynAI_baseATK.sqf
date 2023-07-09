@@ -14,7 +14,7 @@
 //((_countFlag != 0) && (_targetSpeed < 100) && !((getplayerUID _DynamicThreatTarget) in WMS_DynAI_BaseAtkUIDList) && (WMS_DynAI_BaseAtkRunning < WMS_DynAI_BaseAtkMax))
 //[_DynamicThreatTarget, (_flagList select 0), _threatScenario] call WMS_fnc_DynAI_baseATK;
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAI BASEATK]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_shipsButForLand","_ships","_grp1","_timer","_AIcount","_AIgrps","_RPGChance","_skill","_loadout","_unitFunction","_pos","_grps","_Towner","_Tname","_Trights","_Tlevel","_blacklist","_safePos","_startPatrol","_crows"];
+private ["_unitsClass","_shipsButForLand","_ships","_grp1","_timer","_AIcount","_AIgrps","_RPGChance","_skill","_loadout","_unitFunction","_pos","_grps","_Towner","_Tname","_Trights","_Tlevel","_blacklist","_safePos","_startPatrol","_crows"];
 params[
 	"_target",
 	"_flag",
@@ -43,6 +43,7 @@ _Trights 	= _flag getvariable ["exileterritorybuildrights",[0]];
 _Tlevel 	= _flag getvariable ["exileterritorylevel",1];
 _Ttravelers = _flag getVariable ["WMS_BaseFriends", ["1"]]; //fasttravelers UID added to the territory
 _Tlevel 	= (_Tlevel+(count _Ttravelers)-1);
+_unitsClass = selectRandom WMS_AI_Units_Class;
 
 _blacklist = [_pos,750,200,150,100]call WMS_fnc_AMS_SpnAiBlkListFull;
 
@@ -80,7 +81,7 @@ for "_i" from 1 to _AIgrps do {
 	_grp1 = createGroup [OPFOR, false];
 	_grps pushBack _grp1;
 	for "_i" from 1 to _AIcount do {
-		WMS_AI_Units_Class createUnit [
+		_unitsClass createUnit [
 			_safePos, 
 			_grp1
 		];

@@ -93,7 +93,7 @@ _Rcoef = [10,5,5,20,20,5,5,0,2,5,1,0,0,0,0,0,0]; //Respect coef bambi
 _Vcoef = [10,5,5,30,30,30,10,20,20,10,10,20,0,0,0,0,0]; //Vehicle coef on foot
 if (_threatScenario != "traders") then {
 if (_playerRep < (WMS_DynAI_RepLvlAdapt select 0) ) then { 
-		_Rcoef = [10,5,5,20,20,5,5,0,2,5,1,0,0,0,20,25];
+		_Rcoef = [10,5,5,20,20,5,5,0,2,5,1,0,0,0,35,25];
 		_grpSize = 2+(round (random 1));
 		_timer = 120;
 		_altitude = 250;
@@ -117,7 +117,7 @@ if (_playerRep < (WMS_DynAI_RepLvlAdapt select 0) ) then {
 		_lockPlayer = false;
 	} else {
 if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 0) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 1)}) then {
-		_Rcoef = [5,2,4,15,20,10,5,10,10,5,5,0,0,0,15,30,0];
+		_Rcoef = [5,2,4,15,20,10,5,10,10,5,5,0,0,0,15,35,0];
 		_grpSize = 3+(round (random 2));
 		_timer = 240;
 		_altitude = 175;
@@ -144,7 +144,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 0) && {_playerRep < (WMS_DynAI_R
 		_difficulty = "moderate";
 	} else {
 if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 2)}) then {
-		_Rcoef = [3,1,3,10,20,20,10,15,20,20,20,25,5,0,10,25,3];
+		_Rcoef = [3,1,3,10,20,20,10,15,20,20,20,25,5,0,10,35,3];
 		_grpSize = 4+(round (random 2));
 		_timer = 360;
 		_altitude = 150;
@@ -172,7 +172,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_R
 		_difficulty = "difficult";
 	} else {
 if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) then {
-		_Rcoef = [1,1,2,5,20,20,15,20,20,20,30,30,10,5,10,20,6];
+		_Rcoef = [1,1,2,5,20,20,15,20,20,20,30,30,10,5,10,35,6];
 		_grpSize = 4+(round (random 3));
 		_timer = 600;
 		_altitude = 125;
@@ -201,7 +201,7 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) the
 }else{
 	if(_playerRep >= 100000)then {//thats basicaly from blacklist
 		_Rcoef = [
-			30,	//"rain"
+			35,	//"rain"
 			1,	//"paracrate"
 			1,	//"spawncrate"
 			5,	//"escarmouche
@@ -214,9 +214,9 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) the
 			20,	//"AIRpatrol"
 			40,	//"AIRassault"
 			20,	//"arty"
-			15,	//"bombing"
+			25,	//"bombing"
 			5,	//"EOD"
-			25,	//"BBQcamp"
+			20,	//"BBQcamp"
 			10	//"ParaBombs"
 			]; //
 		_grpSize = 5+(round (random 3));

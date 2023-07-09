@@ -135,7 +135,7 @@ WMS_Loadout_Sniper = [
 WMS_Loadout_SMG = [
 	[
 		//"rhs_weap_pp2000", "SMG_01_F", "SMG_02_F", "SMG_03C_black", "SMG_05_F", "rhsusf_weap_MP7A2","rhs_weap_m3a1","rhs_weap_savz61",
-		"vn_f1","vn_ppsh41","vn_izh54_shorty","vn_m3a1","vn_sten","vn_type64","vn_k50m","vn_l2a3","vn_mat49","vn_m45","vn_mat49_vc","vn_mpu","vn_mp40","vn_m1928_tommy","vn_pps43","vn_vz61"
+		"vn_f1_smg","vn_ppsh41","vn_izh54_shorty","vn_m3a1","vn_sten","vn_type64","vn_k50m","vn_l2a3","vn_mat49","vn_m45","vn_mat49_vc","vn_mpu","vn_mp40","vn_m1928_tommy","vn_pps43","vn_vz61"
 	], //_mainWeaps,
 	[], //_mainWeapsAmmo,
 	["optic_Aco_smg","optic_Holosight_smg_blk_F"], //_scopes
@@ -156,35 +156,35 @@ WMS_Loadout_SURPAT = [//grey green brown
 	["vn_o_helmet_nva_10","vn_o_helmet_nva_09","vn_o_helmet_vc_05","vn_o_helmet_vc_04","vn_o_helmet_nva_03",
 	"SURPAT_Helmet1","SURPAT_Helmet1","SURPAT_Helmet2","SURPAT_Helmet1","SURPAT_Helmet1","SURPAT_Helmet2","SURPAT_Helmet3","H_Booniehat_mgrn","H_Booniehat_khk","H_Booniehat_oli"],//Helmet,"H_Watchcap_khk","SURPAT_Boonie"
 	["vn_o_pack_01","vn_o_pack_02","vn_o_pack_03","vn_o_pack_05","SURPAT_Backpack_Compact","SURPAT_Backpack_Kitbag"],//Backpack
-	["G_Balaclava_oli","G_Balaclava_blk","vn_b_acc_m17_01_gh","vn_o_acc_goggles_03_gh"]  //_googles/_facewear
+	["G_Balaclava_oli","G_Balaclava_blk","vn_b_acc_m17_01","vn_o_acc_goggles_03"]  //_googles/_facewear
 ];
 WMS_Loadout_AOR1 = [//desert
 	["AOR1_Camo_SS","AOR1_TP_Camo","AOR1_Camo_Cyre","AOR1_Camo_Cyre_TS","AOR1_Camo_Cyre_TP","AOR1_Camo_Cyre_GP","vn_o_uniform_nva_army_01_01","vn_o_uniform_nva_army_01_02","vn_o_uniform_nva_army_03_02","vn_o_uniform_nva_army_09_02","vn_o_uniform_pl_army_03_11"],//Uniform
 	["AOR1_Vest_1","AOR1_Vest_2","AOR1_Vest_3","AOR1_Vest_4","AOR1_Vest_5","vn_o_vest_01","vn_o_vest_06","vn_o_vest_03","vn_o_vest_07","vn_o_vest_02","vn_o_vest_08"],//Vest
 	["AOR1_Helmet1","AOR1_Helmet1","AOR1_Helmet2","AOR1_Helmet1","AOR1_Helmet1","AOR1_Helmet2","vn_o_helmet_nva_03","vn_o_helmet_nva_08","vn_o_helmet_nva_06","vn_o_pl_cap_01_01","vn_b_boonie_09_07"],//Helmet,"AOR1_Boonie","H_Bandanna_sand","H_Bandanna_cbr"
 	["vn_o_pack_01","vn_o_pack_02","vn_o_pack_03","vn_o_pack_05","AOR1_Backpack_Kitbag","AOR1_Backpack_Compact","B_Kitbag_cbr"],//Backpack
-	["G_Balaclava_oli","G_Balaclava_blk","vn_b_acc_m17_01_gh","vn_o_acc_goggles_03_gh"]  //_googles//_facewear
+	["G_Balaclava_oli","G_Balaclava_blk","vn_b_acc_m17_01","vn_o_acc_goggles_03"]  //_googles//_facewear
 ];
 WMS_Loadout_MCB = [ //black
 	 ["MCB_Camo_Cyre","MCB_Camo_Cyre_TS","MCB_Camo_Cyre_TP","MCB_Camo_Cyre_GS","MCB_Camo_Cyre_GP","vn_o_uniform_vc_mf_01_07","vn_o_uniform_vc_01_01","vn_o_uniform_vc_mf_11_07","vn_o_uniform_vc_mf_03_07","vn_o_uniform_vc_mf_09_07"], //_uniforms
 	 ["MCB_Vest_1","MCB_Vest_2","MCB_Vest_3","MCB_Vest_4","MCB_Vest_5","MCB_Vest_6","MCB_Vest_7","vn_o_vest_01","vn_o_vest_06","vn_o_vest_03","vn_o_vest_07","vn_o_vest_02","vn_o_vest_08"], //_vests
 	 ["MCB_Helmet1","MCB_Helmet1","MCB_Helmet2","MCB_Helmet1","MCB_Helmet1","MCB_Helmet2","vn_o_boonie_nva_02_02","vn_o_helmet_nva_10","vn_o_helmet_tsh3_01","vn_o_boonie_nva_02_02","vn_o_helmet_nva_10","vn_o_helmet_tsh3_01"], //,"rhsgref_helmet_m1942","H_Beret_blk"_helmets,"H_Bandanna_gry","MCB_Boonie"
 	 ["MCB_Backpack_Compact","MCB_Backpack_KitBag","MCB_Backpack_KitBag"], //_Backpacks
-	 ["G_Balaclava_oli","G_Balaclava_blk","vn_b_acc_m17_01_gh","vn_o_acc_goggles_03_gh"]  //_googles//_facewear
+	 ["G_Balaclava_oli","G_Balaclava_blk","vn_b_acc_m17_01","vn_o_acc_goggles_03"]  //_googles//_facewear
 ];
 WMS_Loadout_M90d = [//desert
 	 ["M90d_Camo_Cyre","M90d_Camo_Cyre_GS","M90d_Camo_Cyre_GP","vn_o_uniform_nva_army_01_01","vn_o_uniform_nva_army_01_02","vn_o_uniform_nva_army_03_02","vn_o_uniform_nva_army_09_02","vn_o_uniform_pl_army_03_11"], //_uniforms
 	 ["M90d_Vest_1","M90d_Vest_2","M90d_Vest_3","M90d_Vest_4","vn_o_vest_01","vn_o_vest_06","vn_o_vest_03","vn_o_vest_07","vn_o_vest_02","vn_o_vest_08"], //_vests
 	 ["M90d_Helmet1","M90d_Helmet1","M90d_Helmet2","M90d_Helmet1","M90d_Helmet1","M90d_Helmet2","vn_o_helmet_nva_03","vn_o_helmet_nva_08","vn_o_helmet_nva_06","vn_o_pl_cap_01_01","vn_b_boonie_09_07"], //_helmets,"H_Watchcap_cbr","M90d_Boonie""H_Bandanna_sand","H_Bandanna_cbr",
 	 ["vn_o_pack_01","vn_o_pack_02","vn_o_pack_03","vn_o_pack_05","M90d_Backpack_KitBag","B_AssaultPack_ocamo","B_Carryall_ocamo"], //_Backpacks
-	 ["G_Balaclava_oli","G_Balaclava_blk","vn_b_acc_m17_01_gh","vn_o_acc_goggles_03_gh"]  //_googles/_facewear
+	 ["G_Balaclava_oli","G_Balaclava_blk","vn_b_acc_m17_01","vn_o_acc_goggles_03"]  //_googles/_facewear
 ];
 WMS_Loadout_ABU = [ //grey
 	 ["ABU_BS_Camo","ABU_BS_Camo_SS","ABU_Camo","ABU_Camo_SS","ABU_GP_Camo","ABU_GP_Camo_SS","ABU_BP_Camo","ABU_BP_Camo_SS","vn_o_uniform_vc_01_03","vn_o_uniform_vc_03_03","vn_o_uniform_vc_05_03"], //_uniforms
-	 ["ABU_Vest_1","ABU_Vest_2","ABU_Vest_3","ABU_Vest_4","ABU_Vest_5""vn_o_vest_01","vn_o_vest_06","vn_o_vest_03","vn_o_vest_07","vn_o_vest_02","vn_o_vest_08"], //_vests
+	 ["ABU_Vest_1","ABU_Vest_2","ABU_Vest_3","ABU_Vest_4","ABU_Vest_5","vn_o_vest_01","vn_o_vest_06","vn_o_vest_03","vn_o_vest_07","vn_o_vest_02","vn_o_vest_08"], //_vests
 	 ["ABU_Helmet1","ABU_Helmet2","ABU_Helmet1","ABU_Helmet2","vn_o_boonie_nva_02_02","vn_o_helmet_nva_10","vn_o_helmet_nva_09","vn_o_pl_cap_02_02"], //_helmets,"H_Beret_blk","H_Bandanna_gry","H_Bandanna_gry","ABU_Boonie","ABU_Cap"
 	 ["vn_o_pack_01","vn_o_pack_02","vn_o_pack_03","vn_o_pack_05","vn_o_pack_04","ABU_Backpack_Compact","ABU_Backpack_Kitbag","MCB_Backpack_Kitbag"], //_Backpacks
-	 ["G_Balaclava_oli","G_Balaclava_blk","vn_b_acc_m17_01_gh","vn_o_acc_goggles_03_gh"]  //_googles/_facewear
+	 ["G_Balaclava_oli","G_Balaclava_blk","vn_b_acc_m17_01","vn_o_acc_goggles_03"]  //_googles/_facewear
 ];
 
 WMS_Loadout_Civilian = [
@@ -203,8 +203,8 @@ WMS_Loadout_Scientist = [ //NEED SPECIFIC STUFF !!!
 ];
 WMS_Loadout_Bandit = [
 	[	 //_uniforms
-		"vn_o_uniform_nva_army_01_03","vn_o_uniform_nva_army_10_04","vn_o_uniform_nva_army_03_04","vn_o_uniform_nva_army_05_04","vn_o_uniform_vc_mf_01_07","vn_o_uniform_vn_reg_11_08","vn_o_uniform_vc_mf_11_07","vn_o_uniform_vn_reg_11_09",
-		"vn_o_uniform_vn_reg_11_10","vn_o_uniform_vn_reg_12_09","vn_o_uniform_vc_02_02","vn_o_uniform_vc_02_03","vn_o_uniform_vc_03_02","vn_o_uniform_vc_03_03","vn_o_uniform_vc_05_01","vn_o_uniform_vc_mf_09_07"
+		"vn_o_uniform_nva_army_01_03","vn_o_uniform_nva_army_10_04","vn_o_uniform_nva_army_03_04","vn_o_uniform_nva_army_05_04","vn_o_uniform_vc_mf_01_07","vn_o_uniform_vc_reg_11_08","vn_o_uniform_vc_mf_11_07","vn_o_uniform_vc_reg_11_09",
+		"vn_o_uniform_vc_reg_11_10","vn_o_uniform_vc_reg_12_09","vn_o_uniform_vc_02_02","vn_o_uniform_vc_02_03","vn_o_uniform_vc_03_02","vn_o_uniform_vc_03_03","vn_o_uniform_vc_05_01","vn_o_uniform_vc_mf_09_07"
 	],
 	[ //_vests
 		"vn_o_vest_01","vn_o_vest_06","vn_o_vest_03","vn_o_vest_07","vn_o_vest_02","vn_o_vest_08","vn_o_vest_vc_01","vn_o_vest_vc_05","vn_o_vest_vc_04","vn_o_vest_vc_03","vn_o_vest_vc_02", //light vest
@@ -233,7 +233,7 @@ WMS_Loadout_HeavyBandit = [
 	[
 		"vn_o_uniform_nva_army_01_02","vn_o_uniform_nva_army_12_02","vn_o_uniform_nva_army_02_02","vn_o_uniform_nva_army_03_02","vn_o_uniform_nva_dc_13_07","vn_o_uniform_nva_dc_13_08","vn_o_uniform_nva_dc_13_04","vn_o_uniform_nva_dc_13_02",
 		"vn_o_uniform_nva_army_01_03","vn_o_uniform_nva_army_10_04","vn_o_uniform_nva_army_03_04","vn_o_uniform_nva_army_05_04","vn_o_uniform_pl_army_01_12","vn_o_uniform_pl_army_04_12","vn_o_uniform_pl_army_02_13","vn_o_uniform_pl_army_01_14",
-		"vn_o_uniform_vc_mf_01_07","vn_o_uniform_vn_reg_11_08","vn_o_uniform_vc_mf_11_07","vn_o_uniform_vn_reg_11_09","vn_o_uniform_vn_reg_11_10","vn_o_uniform_vn_reg_12_09","vn_o_uniform_vc_02_02","vn_o_uniform_vc_02_03"
+		"vn_o_uniform_vc_mf_01_07","vn_o_uniform_vc_reg_11_08","vn_o_uniform_vc_mf_11_07","vn_o_uniform_vc_reg_11_09","vn_o_uniform_vc_reg_11_10","vn_o_uniform_vc_reg_12_09","vn_o_uniform_vc_02_02","vn_o_uniform_vc_02_03"
 	], //_uniforms
 	[
 		"vn_o_vest_01","vn_o_vest_06","vn_o_vest_03","vn_o_vest_07","vn_o_vest_02","vn_o_vest_08","vn_o_vest_vc_01","vn_o_vest_vc_05","vn_o_vest_vc_04","vn_o_vest_vc_03","vn_o_vest_vc_02", //light vest
@@ -254,14 +254,14 @@ WMS_Weaps_HeavyBandit = [
 	[ //_mainWeaps,
 	"vn_m16",
 	"vn_m2carbine",
-	"vn_vn_xm16e1",
-	"vn_vn_xm177e1",
+	"vn_xm16e1",
+	"vn_xm177e1",
 	"vn_xm177_xm148",
 	"vn_xm177_stock",
-	"vn_vn_l1a1_02",
-	"vn_vn_m4956",
+	"vn_l1a1_02",
+	"vn_m4956",
 	"vn_sks",
-	"vn_vn_vz54",
+	"vn_vz54",
 	"vn_m1891",
 	"vn_m38",
 	"vn_rpd_shorty_01",
@@ -314,7 +314,7 @@ WMS_Loadout_Livonia = [
 	],
 	[  //_googles/_facewear
 		"G_RegulatorMask_F","G_AirPurifyingRespirator_02_sand_F","G_AirPurifyingRespirator_02_black_F","G_Balaclava_blk",
-		"vn_b_acc_m17_02_gh","vn_o_acc_goggles_03_gh","vn_o_poncho_01_01_gh"
+		"vn_b_acc_m17_02","vn_o_acc_goggles_03","vn_o_poncho_01_01"
 	]
 ];
 WMS_Weaps_LivoniaMix = [
@@ -325,9 +325,9 @@ WMS_Weaps_LivoniaMix = [
 		"vn_xm177e1_camo",
 		"vn_xm177_camo",
 		"vn_xm177_m203_camo",
-		"vn_vn_l1a1_xm148_camo",
-		"vn_vn_l1a1_03_camo",
-		"vn_vn_l1a1_01_camo",
+		"vn_l1a1_xm148_camo",
+		"vn_l1a1_03_camo",
+		"vn_l1a1_01_camo",
 		"vn_m14_camo",
 		"vn_k98k",
 		"vn_m40a1_camo", //only here, do not spawn in the editor

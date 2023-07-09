@@ -13,7 +13,7 @@
 // [[0,0,0],120, 2+random 2,50,(0.3+(random 0.55)),"bandit"] call WMS_fnc_DynAI_BBQcamp;
 //////////////////////////////////////////////////////////////////
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAI BBQ Camp]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_safePos","_safePos2","_grps","_InfGrp_O","_fire"];
+private ["_unitsClass","_safePos","_safePos2","_grps","_InfGrp_O","_fire"];
 params[
 	"_pos",
 	["_timer", 300],
@@ -25,6 +25,7 @@ params[
 ];
 _safePos = [_pos, 0, 25, 2, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
 _grps = [];
+_unitsClass = selectRandom WMS_AI_Units_Class;
 /////BBQ Object(s)
 _fire = createVehicle ["Campfire_burning_F", _safePos, [], 0, "NONE"];
 _flag = createVehicle [WMS_OPFOR_Flag, _safePos, [], 5, "NONE"];
@@ -32,7 +33,7 @@ _flag = createVehicle [WMS_OPFOR_Flag, _safePos, [], 5, "NONE"];
 _InfGrp_O = createGroup [OPFOR, false];
 _grps pushBack _InfGrp_O;
 for "_i" from 1 to _AIcount do {
-		WMS_AI_Units_Class createUnit [
+		_unitsClass createUnit [
 		_safePos, 
 		_InfGrp_O
 	];

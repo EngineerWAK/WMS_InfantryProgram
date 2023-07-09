@@ -23,7 +23,7 @@ WMS_Watch_Triggers_Logs		= false; //RPT logs
 WMS_magicSmoke 				= true; //puff of smoke/shaft/flare when NPC despawn
 WMS_ServerMarkers 			= true;	//show Server FPS, AI and Deads count on the map
 WMS_forceNoRain 			= false; //no more rain!
-WMS_forceNoFog				= false; //no more fucking fog!
+WMS_forceNoFog				= false; //no more f u c k i n g fog!
 WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds //KEEP THIS TRUE IF USE THE LASTCARTRIDGE FOR VEHICLES BACKUP
 ///////////////NEW///////////////////////////////
 //v2.220
@@ -37,7 +37,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.827_2023JUL09_GitHub"; //SOG Prairie Fire Setup and loadouts, big update
+WMS_System_Version 			= "v2.829_2023JUL09_GitHub"; //SOG Prairie Fire Setup and loadouts //custom radius to spawn missions easier in forest maps
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -325,7 +325,7 @@ WMS_AI_HMG_Shield		= "B_G_HMG_02_high_F";
 WMS_AI_Arty				= "O_Mortar_01_F";
 WMS_AI_GMG 				= "O_GMG_01_high_F"; //AMS AA battery //"RHS_ZU23_VDV"
 WMS_AI_Attachements		= ["acc_flashlight","acc_pointer_IR"]; //lot of RHS stuff on customMapsSetting TANOA
-WMS_AI_Units_Class 		= selectRandom ["O_G_Soldier_F","O_Soldier_F","O_T_Soldier_A_F","O_R_Gorka_F"];//,"O_G_Engineer_F","O_T_Engineer_F","O_Engineer_F" "C_man_p_fugitive_F_afro"
+WMS_AI_Units_Class 		= ["O_G_Soldier_F","O_Soldier_F","O_T_Soldier_A_F","O_R_Gorka_F"];//,"O_G_Engineer_F","O_T_Engineer_F","O_Engineer_F" "C_man_p_fugitive_F_afro"
 WMS_AI_Additems 		= [1,2]; //items to ad to NPCs inventory, select 0 + random select 1
 WMS_AI_MaxUnits_A 		= 100; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
 WMS_AI_MaxUnits_B 		= 110; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
@@ -479,6 +479,8 @@ WMS_AMS_addPoptabsUnits = false; //Exile
 WMS_AMS_poptabsUnits 	= [25,25]; //Exile
 WMS_AMS_addPoptabsRwd 	= false;  //Exile //Add poptabs in the mission reward crate/vehicle
 WMS_AMS_PoptabsRwd 		= [1000,500]; //Add poptabs in the mission reward crate/vehicle
+WMS_AMS_CleanMapObj		= false; //when mission spawn, clean trees and maybe buildings around
+WMS_AMS_ForceRadius		= false; //when mission spawn, use default 3m radius to look for a position witout objects
 			   //skills = "spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"//,"endurance"
 WMS_AMS_skillsMin 		= [0.1, 0.1, 0.005, 0.1, 0.1, 0.1, 0, 0.1, 0.1]; //MINIMUM skill mission NPCs can have //will be used to compile custom skills
 WMS_AMS_skillsMax 		= [1, 0.85, 0.85, 0.7, 0.8, 0.8, 0, 1, 0.85]; //MAXIMUM skill mission NPCs can have //will be used to compile custom skills
@@ -500,7 +502,7 @@ WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check,
 							"rhs_weap_m38_rail",
 							"rhs_weap_XM2010_wd","rhs_weap_XM2010_d","rhs_weap_XM2010_sa","rhs_weap_XM2010"
 						];
-WMS_AMS_UnitClass 		= selectRandom ["O_G_Soldier_F","O_Soldier_F","O_T_Soldier_A_F"]; //AI classename, will be used to create mission AIs, Maybe engineer can repair in Exile?
+WMS_AMS_UnitClass 		= ["O_G_Soldier_F","O_Soldier_F","O_T_Soldier_A_F"]; //AI classename, will be used to create mission AIs, Maybe engineer can repair in Exile?
 WMS_AMS_LauncherChance 	= 25; //% chance to get a launcher
 WMS_AMS_remRPG 			= 50; //% chance to delete the launcher at NPC death
 WMS_AMS_Crate_S 		= "Box_NATO_Wps_F"; //Mission small crate

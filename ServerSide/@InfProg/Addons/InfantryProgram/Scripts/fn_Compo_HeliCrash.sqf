@@ -14,7 +14,7 @@
 // [[0,0,0],random 359,2+random 2, false] call WMS_fnc_Compo_HeliCrash;
 //////////////////////////////////////////////////////////////////
 if (WMS_IP_LOGs) then {diag_log format ["[HELICRASH]|WAK|TNA|WMS| _this = %1", _this];};
-private ["_objList","_objects","_compoRefPoint","_Grp","_staticList","_triggCapture","_sound"];
+private ["_unitsClass","_objList","_objects","_compoRefPoint","_Grp","_staticList","_triggCapture","_sound"];
 params[  
 		"_pos",  
 		["_dir", (random 359)],  
@@ -26,7 +26,7 @@ params[
 		["_wrecks", ["Land_Wreck_Heli_Attack_01_F","Land_Wreck_Heli_Attack_02_F","Land_UWreck_Heli_Attack_02_F","Land_UWreck_MV22_F","Land_Wreck_Plane_Transport_01_F"]],
 		["_crates", ["CargoNet_01_box_F"]]
 ];
-
+_unitsClass = selectRandom WMS_AMS_UnitClass;
 _sound = selectRandom ["helicrash","helicrash"];
 playSound3D [MISSION_ROOT+format["Custom\Ogg\%1.ogg",_sound], _pos, false, _pos, 3, 1, 0];
 
@@ -97,7 +97,7 @@ if (WMS_exileToastMsg) then {
 if (_guard > 0) then {
 	_Grp = creategroup [OPFOR, true];
 	for "_i" from 1 to _guard do {
-		WMS_AMS_UnitClass createUnit [_pos, _Grp];
+		_unitsClass createUnit [_pos, _Grp];
 		uisleep 0.2;
 	};
 	//[(units _Grp),'Assault',15,_skill,_loadout] call;

@@ -38,7 +38,7 @@ params[
  ["_triggType", "nothing"] //"reinforcementpunisher" will force player target
 
 ];
-_unitClassName = WMS_AI_Units_Class;
+_unitClassName = selectRandom WMS_AI_Units_Class;
 _hexaID = []call WMS_fnc_GenerateHexaID;
 _WPT_1 = ObjNull;
 _wpts	= [];

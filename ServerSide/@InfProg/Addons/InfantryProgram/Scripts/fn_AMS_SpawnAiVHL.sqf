@@ -11,7 +11,7 @@
 */
 
 //[_pos,_skill,_unitFunction,_loadout,_behavType,_wpts,_missionID,_className] call WMS_fnc_AMS_SpawnAiVHL //return [_rwd,_VHLgrp]
-private ["_emptyPos","_rwd","_VHLgrp"];
+private ["_unitsClass","_emptyPos","_rwd","_VHLgrp"];
 params[
 	"_pos",
 	["_skill", (0.3+random 0.5), [0]],
@@ -26,6 +26,7 @@ params[
 ];
 private _playerMoney = 0;
 private _playerScore = 0;
+_unitsClass = selectRandom WMS_AI_Units_Class;
 if (WMS_IP_LOGs) then {diag_log format ["[AMS SPAWN AI VHL]|WAK|TNA|WMS| _this = %1 *****", _this]};
 _vehicle = (_className select 0);
 _emptyPos = _pos findEmptyPosition [25,100,_vehicle];
@@ -70,11 +71,11 @@ if (_VHLcount != 0) then {
 };
 
 {
-	WMS_AI_Units_Class createUnit [_emptyPos, _VHLgrp, "this moveinTurret [_rwd, _x]"];
+	_unitsClass createUnit [_emptyPos, _VHLgrp, "this moveinTurret [_rwd, _x]"];
 }forEach (allTurrets _rwd);
 _drvSits = _rwd emptyPositions "Driver";
 if (_drvSits != 0) then {
-	WMS_AI_Units_Class createUnit [_emptyPos, _VHLgrp, "this moveinDriver _rwd"];
+	_unitsClass createUnit [_emptyPos, _VHLgrp, "this moveinDriver _rwd"];
 };
 //[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
 [(units _VHLgrp),_unitFunction,20,_skill,_difficulty,_loadout,nil,"AMS"] call WMS_fnc_SetUnits;

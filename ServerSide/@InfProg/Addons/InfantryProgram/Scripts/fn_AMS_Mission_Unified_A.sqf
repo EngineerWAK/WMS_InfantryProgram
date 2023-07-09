@@ -76,19 +76,24 @@ _MissionID 		= []call WMS_fnc_GenerateHexaID;
 
 if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 _T = round servertime;
-
+_tempRadius = _radiusObjects;
+if (WMS_AMS_ForceRadius)then{
+	_radiusObjects = 3;
+};
 if (typeName _pos == "STRING") then {
 	_spawnStatusOK = "NotOK";
 /////TEST spawn forest
-	if (_pos == "forest" ) then {
+	if (_pos == "forest") then {
 		_forest = selectRandom WMS_Pos_Forests;
 		_radiusObjects = 1;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 		//_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error//WMS_fnc_BIS_findSafePosModified
-		_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],(_radiusObjects*2)] call WMS_fnc_BIS_findSafePosModified;
-		_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
-		_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,((_uniParams select 10)+10)];
-		{hideObjectGlobal _x} foreach _terrainobjects;
+		_pos = [_forest, 0, 400, 1, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],(_tempRadius*2)] call WMS_fnc_BIS_findSafePosModified;
+		if !(WMS_AMS_CleanMapObj) then {
+			_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
+			_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,((_uniParams select 10)+10)];
+			{hideObjectGlobal _x} foreach _terrainobjects;
+		};
 	}else {
 /////TEST spawn factory
 		if (_pos == "factory" ) then {
@@ -114,7 +119,7 @@ if (typeName _pos == "STRING") then {
 	if (typeName _pos == "STRING") then {
 		if (_pos == "random" ) then {
 			_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call BIS_fnc_findSafePos;
 		};
 	}else{
 		if (_pos select 0 == -999 || _pos select 0 == 0) exitWith {
@@ -122,9 +127,9 @@ if (typeName _pos == "STRING") then {
 		};
 	};
 };
-_absc = floor (_pos select 0);
-_ordo = floor (_pos select 1);
-//_MissionID = format ["%1_%2_%3_%4",WMS_AMS_Mission_ID,_T,_absc,_ordo];
+if (WMS_AMS_ForceRadius)then{
+	_radiusObjects = _tempRadius;
+};
 /*
 //this will be managed by AMS_spawnObjects:
 switch (_objects) do {
@@ -148,7 +153,7 @@ switch (_difficulty) do {
 		};
 };
 
-_objList = [_pos, _objects, _dir, _missionID] call WMS_fnc_AMS_SpawnObjects;
+_objList = [_pos, _objects, _dir, _missionID,_radiusObjects] call WMS_fnc_AMS_SpawnObjects;
 
 _grpInf = [ 
 		_pos,

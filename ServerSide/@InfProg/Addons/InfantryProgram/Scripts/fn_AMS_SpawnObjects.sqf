@@ -17,13 +17,21 @@ params[
 	"_pos",
 	"_objects",  
 	["_dirCompo", 359, [0]],
-	["_missionID", "No_ID", [""]]
+	["_missionID", "No_ID", [""]],
+	["_radius", 10, [0]]
 	];
 _objList = [];
 _staticsList = [];
 if (typeName _objects != "STRING") then {
 	if (true) then {diag_log format ["[AMS SPAWN OBJECTS ERROR]|WAK|TNA|WMS|1st log _this: %1,", _this]};
 	_objects = "missiontest1";
+};
+if (WMS_AMS_CleanMapObj) then {
+	if !(_objects in ["occupation","Factory","cbtpatrol","bastogne","forestcamp"]) then {
+		_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
+		_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,(_radius*1.5)];
+		{hideObjectGlobal _x} foreach _terrainobjects;
+	};
 };
 switch (_objects) do {
 	case "missiontest1"		: {_objects = [["CamoNet_OPFOR_open_F",[0,0,0],90]]};
@@ -36,7 +44,7 @@ switch (_objects) do {
 	case "GunsX3"			: {_objects = WMS_AMS_Obj_GunsX3};
 	case "Arena"			: {_objects = WMS_AMS_Obj_Arena};
 	case "Factory"			: {_objects = WMS_AMS_Obj_FactoryCamp};
-	case "CkpCharlie"		: {_objects = WMS_AMS_Obj_CkpCharlie};
+	case "CkpCharlie"		: {_objects = WMS_AMS_Obj_CkpCharlie}; //WTF? where is this one from??
 	case "AdvancedCamp"		: {_objects = WMS_AMS_Obj_AdvancedCamp};
 	case "HeliSteal"		: {_objects = WMS_AMS_Obj_HeliSteal};
 	case "HeliStealV2"		: {_objects = WMS_AMS_Obj_HeliStealV2};
@@ -96,7 +104,6 @@ switch (_objects) do {
 	case "OutpostGolf"		: {_objects = WMS_AMS_Obj_OutpostGolf};
 	case "OutpostGolfV2"	: {_objects = WMS_AMS_Obj_OutpostGolfV2};
 };
-
 if (typeName _objects == "STRING") then {
 	if (true) then {diag_log format ["[AMS SPAWN OBJECTS ERROR]|WAK|TNA|WMS|2nd log _this: %1,", _this]};
 	_objects = [["CamoNet_OPFOR_open_F",[0,0,0],90]];

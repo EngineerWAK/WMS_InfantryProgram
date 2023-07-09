@@ -25,11 +25,18 @@
 	if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 	_T = round servertime;
 	_forest = selectRandom WMS_Pos_Forests;
+	_tempRadius = _radius;
+	if (WMS_AMS_ForceRadius)then{
+		_radius = 3;
+	};
 	if (_pos == "forest" ) then {
-		_radiusObjects = 5;
+		//_radiusObjects = 5;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 		//_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;//WMS_fnc_BIS_findSafePosModified
-		_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],30] call WMS_fnc_BIS_findSafePosModified;
+		_pos = [_forest, 0, 400, _radius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],25] call WMS_fnc_BIS_findSafePosModified;
+	};
+	if (WMS_AMS_ForceRadius)then{
+		_radius = _tempRadius;
 	};
 	_MissionID = []call WMS_fnc_GenerateHexaID;
 
@@ -50,7 +57,7 @@
 		case "hardcore" 	: {_grpCount = 3; _unitsCount = (3+(round random 2)); _skill = (0.70 + random 0.29); _wpts = [125,4]; _radius = 100; _howMany = 25;_lootCount = [[4,2,2],[2,1,1],[5,2,2],[1,3,3],[0,0,0]]; _loadout = "livonia";_unitFunction = "LivoniaPatrol";};
 	};
 	_objects = "forestcamp";
-	_objList = [_pos, _objects, _dir, _missionID] call WMS_fnc_AMS_SpawnObjects;
+	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects;
 
 	_grpInf = [ 
 			_pos,

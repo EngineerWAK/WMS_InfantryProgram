@@ -28,13 +28,16 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 	["vn_o_wheeled_z157_repair_pl",[],[[],[]]],
 	["vn_o_wheeled_z157_01_pl",[],[[],[]]],
 	["vn_o_armor_btr50pk_03_nva65",["btr50_10",1],[[],[]]],
-	["vn_o_armor_m577_01",["m577_12",1],[[],[]]],
+	["vn_b_wheeled_m151_01_usmc",["m151_14",1],[[],[]]],
+	["vn_b_wheeled_m151_02_usmc",["m151_14",1],[[],[]]],
+	["vn_b_wheeled_m151_01_usmc",["m151_14",1],[[],[]]],
+	["vn_b_wheeled_m151_02_usmc",["m151_14",1],[[],[]]],
 	//
 	["rhsusf_m998_d_4dr_fulltop",[],[[],[]]],
 	["rhsusf_m1025_d",[],[[],[]]],
-	["rhsusf_M1078A1P2_D_open_fmtv_usarmy",[],[[],[]]],
-	["rhsusf_M1078A1P2_D_fmtv_usarmy",[],[[],[]]],
-	["rhsusf_M1078A1P2_B_D_fmtv_usarmy",[],[[],[]]],
+	//["rhsusf_M1078A1P2_D_open_fmtv_usarmy",[],[[],[]]],
+	//["rhsusf_M1078A1P2_D_fmtv_usarmy",[],[[],[]]],
+	//["rhsusf_M1078A1P2_B_D_fmtv_usarmy",[],[[],[]]],
 	["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
 	["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
 	["rhs_gaz66_ammo_vv",[0,"rhsafrf\addons\rhs_gaz66_camo\data\gaz66_sand_co.paa",1,"rhsafrf\addons\rhs_gaz66\data\tentru_co.paa"],[[],[]]],

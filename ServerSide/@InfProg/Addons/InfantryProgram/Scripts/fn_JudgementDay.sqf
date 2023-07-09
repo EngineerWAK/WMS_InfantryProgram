@@ -208,7 +208,7 @@ if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_PLAYER_CREATE]|WAK|TNA|W
 
 WMS_JMD_createOPF = {
 	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF _this = %1", _this]}; //if (WMS_IP_LOGs)
-	private ["_houseCount","_houseCountMax","_launcherChance","_playerKills","_timeStart","_playerRep","_playersPosList","_spawnPosList","_houses","_posToPush","_spawnPos"];
+	private ["_unitsClass","_houseCount","_houseCountMax","_launcherChance","_playerKills","_timeStart","_playerRep","_playersPosList","_spawnPosList","_houses","_posToPush","_spawnPos"];
 	params[  
 		"_pos",
 		"_OPFgroup",
@@ -218,6 +218,7 @@ WMS_JMD_createOPF = {
 		["_loadout", selectRandom ["BlackOps","livonia","tiger","scientist"]],
 		["_difficulty", "difficult"]
 	];
+	_unitsClass = selectRandom WMS_AMS_UnitClass;
 	_timeStart = serverTime;
 	_playerRep = 0;
 	_playerKills = 100;
@@ -261,7 +262,7 @@ WMS_JMD_createOPF = {
 	for "_i" from 1 to _count do {
 		_spawnPos = selectRandom _spawnPosList;
 		_spawnPosList deleteAt (_spawnPosList find _spawnPos);
-		WMS_AMS_UnitClass createUnit [_spawnPos, _OPFgroup];
+		_unitsClass createUnit [_spawnPos, _OPFgroup];
 		uisleep 0.1;
 	};
 	[(units _OPFgroup), "judgementday", _launcherChance, _skill,_difficulty,_loadout,nil,"JMD"] call WMS_fnc_SetUnits;
