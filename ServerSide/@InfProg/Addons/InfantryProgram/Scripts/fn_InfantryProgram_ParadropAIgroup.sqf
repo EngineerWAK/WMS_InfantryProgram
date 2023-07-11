@@ -38,7 +38,11 @@ params[
 
 _PatrolVRmkrList = [];
 _smokeGrenade = "SmokeShellOrange";
-_paraGrp = [[(_pos select 0),(_pos select 1),_altitude], _grpSide, _grpSize] call BIS_fnc_spawnGroup;
+_units = [];
+for "_i" from 1 to _grpSize do {
+	_units pushBack (selectRandom WMS_AI_Units_Class);
+};
+_paraGrp = [[(_pos select 0),(_pos select 1),_altitude], _grpSide, _units] call BIS_fnc_spawnGroup;
 _leaderGrp = Leader _paraGrp;
 { 
 	_randomSpawnPos = [[(_pos select 0),(_pos select 1),_altitude] , _dist1, _dist2, 0, 1, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;

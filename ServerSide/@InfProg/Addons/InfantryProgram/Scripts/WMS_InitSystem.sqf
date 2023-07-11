@@ -37,7 +37,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.829_2023JUL09_GitHub"; //SOG Prairie Fire Setup and loadouts //custom radius to spawn missions easier in forest maps
+WMS_System_Version 			= "v2.832_2023JUL12_GitHub"; //SOG Prairie Fire Setup and loadouts //custom radius to spawn missions easier in forest maps
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -49,6 +49,11 @@ WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch la
 WMS_InfantryProgram_Vehicles = [ //Maybe add _vehicle setvariable ["IP_ExtractionVehicle", true, true]; to the extraction vehicles at spawn and use it to filter
 	//"Exile_Bike_MountainBike", //bike from XM8
 	//"B_Quadbike_01_F",
+	//SOG
+	"vn_b_air_uh1d_02_06",
+	"vn_i_armor_m113_acav_04",
+	"vn_b_air_oh6a_02",
+	/////
 	"Steerable_Parachute_F", //parachute
 	"rhsgref_hidf_canoe",
 
@@ -480,7 +485,8 @@ WMS_AMS_poptabsUnits 	= [25,25]; //Exile
 WMS_AMS_addPoptabsRwd 	= false;  //Exile //Add poptabs in the mission reward crate/vehicle
 WMS_AMS_PoptabsRwd 		= [1000,500]; //Add poptabs in the mission reward crate/vehicle
 WMS_AMS_CleanMapObj		= false; //when mission spawn, clean trees and maybe buildings around
-WMS_AMS_ForceRadius		= false; //when mission spawn, use default 3m radius to look for a position witout objects
+WMS_AMS_ForceRadius		= false; //when mission spawn, use default radius to look for a position witout objects
+WMS_AMS_DefRad			= 0; //Defaut Forced radius. You might want to keep 0 since anyway, objects will be hidden
 			   //skills = "spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"//,"endurance"
 WMS_AMS_skillsMin 		= [0.1, 0.1, 0.005, 0.1, 0.1, 0.1, 0, 0.1, 0.1]; //MINIMUM skill mission NPCs can have //will be used to compile custom skills
 WMS_AMS_skillsMax 		= [1, 0.85, 0.85, 0.7, 0.8, 0.8, 0, 1, 0.85]; //MAXIMUM skill mission NPCs can have //will be used to compile custom skills
@@ -544,6 +550,8 @@ WMS_AMS_MkrHardcore 	= "Contact_circle2"; //"ExileMissionHardcoreIcon"; //Missio
 WMS_AMS_TradersIcons 	= ["Select"]; //"ExileTraderZoneIcon","ExileAircraftTraderIcon" //map marker to check to find traders
 WMS_AMS_CustomPos		= ["random"];//["forest","forest","forest","random"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 WMS_AMS_CustomPosFact	= ["random"]; //used to spawn "Factory Sales" //"random" or "factory"
+WMS_AMS_CanSelect 		= true;//keep true, FastCombat deactivation re-launch customMapsSettings and you don't want restart a 20 positions selection in the middle of the round
+WMS_AMS_preSelectPos 	= []; //pushback 20 positions pre-selected BEFORE the server unlock to prevent lags when mission spawn //if (WMS_AMS_CleanMapObj && WMS_AMS_ForceRadius)then {};
 WMS_AMS_MissionList 	= [ //missions themself and weight
 							["MissionTest1",1],
 							["MissionTest2",1],

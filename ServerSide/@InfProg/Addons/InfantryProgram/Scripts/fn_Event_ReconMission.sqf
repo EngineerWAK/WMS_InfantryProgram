@@ -67,7 +67,11 @@ WMS_fnc_recon_Create_Guards = {
 	};
 	switch (_type) do { 
 		case  "infantry" : {
-			_patrolGrp = [_pos, OPFOR, (selectRandom [2,3,4,5])] call BIS_fnc_spawnGroup;
+			_units = [];
+			for "_i" from 1 to (selectRandom [2,3,4,5]) do {
+				_units pushBack (selectRandom WMS_AI_Units_Class);
+			};
+			_patrolGrp = [_pos, OPFOR, _units] call BIS_fnc_spawnGroup;
 			[(units _patrolGrp),'Random',100,WMS_Recon_Guards_Skill,nil,"army",nil,"Recon"] call WMS_fnc_SetUnits;
 			[_patrolGrp, _pos, 75, 5, "MOVE", "AWARE", "RED", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 			WMS_Recon_AIgrps pushback _patrolGrp;

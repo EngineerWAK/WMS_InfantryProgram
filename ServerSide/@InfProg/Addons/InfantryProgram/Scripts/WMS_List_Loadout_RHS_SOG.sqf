@@ -84,12 +84,12 @@ WMS_Loadout_DEfleck = WMS_Loadout_Tiger; //I don't use BWM anymore
 WMS_Loadout_Assault = [//545 556 57 58
 	[ //_mainWeaps
 		"arifle_MX_F","arifle_SPAR_01_khk_F","arifle_MXC_F","arifle_Mk20_plain_F",//NPC doesnt know how to use SDAR outside of water
-		"vn_f1_smg","vn_ppsh41","vn_type64","vn_mat49","vn_k50m","vn_m45","vn_mp40","vn_pps52", //SMGs
+		"vn_f1_smg","vn_ppsh41","vn_type64_smg","vn_mat49","vn_k50m","vn_m45","vn_mp40","vn_pps52", //SMGs
 		"rhs_weap_ak105_zenitco01_b33","rhs_weap_ak74m_npz","rhs_weap_aks74n_npz","rhs_weap_savz58v","vn_xm177_m203_camo","vn_xm177_camo","vn_m16_xm148","vn_m16_camo","vn_type56","vn_ak_01"
 	],
 	[], //_mainWeapsAmmo
 	["optic_mrco","rhsusf_acc_ACOG_USMC","rhs_acc_okp7_picatinny","rhsusf_acc_compm4","rhsusf_acc_su230"], //_scopes
-	["vn_type64","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
+	["vn_m10","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
 ];
 WMS_Loadout_AssaultPlus = [//66 68 762
 	[
@@ -100,7 +100,7 @@ WMS_Loadout_AssaultPlus = [//66 68 762
 		], //_mainWeaps
 	[], //_mainWeapsAmmo
 	["optic_mrco","rhsusf_acc_ACOG_USMC","rhs_acc_okp7_picatinny","rhsusf_acc_compm4","rhsusf_acc_su230"], //_scopes
-	["vn_type64","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
+	["vn_m10","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
 ];
 WMS_Loadout_DMR = [
 	[	
@@ -110,7 +110,7 @@ WMS_Loadout_DMR = [
 	], //_mainWeaps,
 	[], //_mainWeapsAmmo,
 	["rhsusf_acc_ACOG_USMC","rhsusf_acc_su230","optic_DMS"], //_scopes
-	["vn_type64","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
+	["vn_m10","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
 ];
 WMS_Loadout_MG = [ //arifle_RPK12_F, LMG_Mk200_black_F
 	[
@@ -120,7 +120,7 @@ WMS_Loadout_MG = [ //arifle_RPK12_F, LMG_Mk200_black_F
 	], //_mainWeaps,
 	[], //_mainWeapsAmmo,
 	[], //_scopes
-	["vn_type64","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
+	["vn_m10","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
 ];
 WMS_Loadout_Sniper = [
 	[
@@ -130,16 +130,16 @@ WMS_Loadout_Sniper = [
 	], //_mainWeaps,
 	[], //_mainWeapsAmmo,
 	["optic_DMS","optic_KHS_blk","optic_AMS","optic_lrps","rhsusf_acc_M8541","rhsusf_acc_LEUPOLDMK4","rhsusf_acc_M8541_mrds","rhsusf_acc_nxs_5522x56_md","rhsusf_acc_nxs_3515x50f1_md_sun","rhsusf_acc_M8541_low"], //_scopes
-	["vn_type64","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
+	["vn_m10","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
 ];
 WMS_Loadout_SMG = [
 	[
 		//"rhs_weap_pp2000", "SMG_01_F", "SMG_02_F", "SMG_03C_black", "SMG_05_F", "rhsusf_weap_MP7A2","rhs_weap_m3a1","rhs_weap_savz61",
-		"vn_f1_smg","vn_ppsh41","vn_izh54_shorty","vn_m3a1","vn_sten","vn_type64","vn_k50m","vn_l2a3","vn_mat49","vn_m45","vn_mat49_vc","vn_mpu","vn_mp40","vn_m1928_tommy","vn_pps43","vn_vz61"
+		"vn_f1_smg","vn_ppsh41","vn_izh54_shorty","vn_m3a1","vn_sten","vn_type64_smg","vn_k50m","vn_l2a3","vn_mat49","vn_m45","vn_mat49_vc","vn_mpu","vn_mp40","vn_m1928_tommy","vn_pps43","vn_vz61"
 	], //_mainWeaps,
 	[], //_mainWeapsAmmo,
 	["optic_Aco_smg","optic_Holosight_smg_blk_F"], //_scopes
-	["vn_type64","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
+	["vn_m10","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
 ];
 
 
@@ -222,12 +222,12 @@ WMS_Loadout_Bandit = [
 WMS_Loadout_LightWeaps = [
 	[ //_mainWeaps,
 		"arifle_Mk20_plain_F","arifle_TRG20_F","arifle_AKS_F","sgun_HunterShotgun_01_F",
-		"vn_f1_smg","vn_ppsh41","vn_type64","vn_mat49","vn_k50m","vn_m45","vn_mp40","vn_pps52", //SMGs
+		"vn_f1_smg","vn_ppsh41","vn_type64_smg","vn_mat49","vn_k50m","vn_m45","vn_mp40","vn_pps52", //SMGs
 		"rhs_weap_ak105_zenitco01_b33","rhs_weap_ak74m_npz","vn_xm177","vn_m16","vn_ak_01"
 	],
 	[], //_mainWeapsAmmo,
 	["optic_Holosight","optic_ACO_grn","optic_MRCO","optic_Arco","optic_Holosight_khk_F","optic_Holosight_blk_F"], //_scopes
-	["vn_type64","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
+	["vn_m10","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
 ];
 WMS_Loadout_HeavyBandit = [
 	[
@@ -295,7 +295,7 @@ WMS_Weaps_HeavyBandit = [
 	"optic_LRPS",
 	"optic_AMS"
 	],
-	["vn_type64","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
+	["vn_m10","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
 ];
 WMS_Loadout_Livonia = [
 	["U_O_R_Gorka_01_brown_F","U_O_R_Gorka_01_camo_F","U_O_R_Gorka_01_F"], //_uniforms
@@ -358,7 +358,7 @@ WMS_Weaps_LivoniaMix = [
 	 	"optic_Arco_AK_arid_F",
 	 	"optic_DMS_weathered_Kir_F"
 	],
-	["vn_izh54_p","vn_m10","vn_m1911","vn_vz61_p","vn_hp","vn_type64","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
+	["vn_izh54_p","vn_m10","vn_m1911","vn_vz61_p","vn_hp","vn_type64_smg","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols
 ];
 WMS_Loadout_diver = [
 	["U_I_Wetsuit","U_O_Wetsuit","U_B_Wetsuit","vn_b_uniform_seal_09_01"], //uniforms
@@ -371,7 +371,7 @@ WMS_Weaps_Diver = [
 	["arifle_SDAR_F","vn_mk1_udg"], //primary
 	[], //primaryAmmo not used
 	["optic_Holosight_blk_F"], //scope
-	["vn_izh54_p","vn_m10","vn_m1911","vn_vz61_p","vn_hp","vn_type64","rhsusf_weap_MP7A2_folded_desert","rhs_weap_pp2000_folded"] //pistol //NPC doesnt lnpw how to use SDAR outside of weater, they need better secondary
+	["vn_izh54_p","vn_m10","vn_m1911","vn_vz61_p","vn_hp","vn_type64_smg","rhsusf_weap_MP7A2_folded_desert","rhs_weap_pp2000_folded"] //pistol //NPC doesnt lnpw how to use SDAR outside of weater, they need better secondary
 ];
 
 publicVariable "WMS_Loadout_AOR2";

@@ -19,6 +19,7 @@ openMap true;
 		[player,_pos] remoteExec ["WMS_fnc_infantryProgram_extraction",2];
 		WMS_Loc_InfProg_Extraction_Last = time;
 		systemchat format ["%1 extraction requested, destination %2", player, _pos];
+		playSound3D [getMissionPath 'Custom\Ogg\Vietnam.ogg', player, false, position player, 5];
 		openMap false;
 		true 
 	};

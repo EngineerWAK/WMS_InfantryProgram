@@ -38,6 +38,9 @@ if (WMS_MapName == "Cam_Lao_Nam") then {
 										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
 										WMS_IP_Extract_Alt 			= 150;
 										WMS_C130_Altitude 			= 200;
+										WMS_ExtractionChopper_Type 	= ["vn_b_air_uh1d_02_06"];  //infantry program Active List only
+										WMS_ExtractionVehicle_Type 	= ["vn_i_armor_m113_acav_04"];  //infantry program Active List only
+										WMS_DeliveryChopper_Type 	= ["vn_b_air_oh6a_02"];  //infantry program Active List only
 										WMS_Pos_Forests 			= [
 											[12428,6089.27,0],[13155.1,5990.56,0],[13918.5,5868.82,0],[12493.8,6849.33,0],[13194.6,7250.75,0],[13925.1,7382.36,0],[14543.6,6359.08,0],[17333.8,4917.93,0],[17603.6,4266.45,0],[17245,3460.32,0],[16787.6,5460.82,0],
 											[15958.5,4674.44,0],[11470.5,4009.81,0],[12368.8,3506.39,0],[13040,3256.33,0],[14777.3,3868.33,0],[16304,3144.46,0],[12812.9,7849.58,0],[11654.8,7721.26,0],[11536.3,8405.64,0],[10917.7,8770.87,0],[12293.1,8336.55,0],
@@ -71,21 +74,21 @@ if (WMS_MapName == "Cam_Lao_Nam") then {
 										WMS_DynAI_GunshipMedium 	= ["vn_o_air_mi2_03_04",[],[[],[]]];
 										WMS_DynAI_GunshipHeavy 		= ["vn_o_air_mi2_04_02",[],[[],[]]];
 										WMS_para_small				= "rhs_d6_Parachute";
-										WMS_AMS_ToRun 				= 3; //with all the reinforcement and vehicles crew, 3 missions it's a lot
-										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
-										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
 										WMS_AI_HMG 					= "vn_o_nva_static_dshkm_high_01"; //"rhs_KORD_high_MSV";
 										WMS_AI_HMG_Scope 			= "vn_o_pl_static_sgm_high_01"; //no scope but kind of AA
 										WMS_AI_HMG_Shield			= "vn_o_vc_static_mg42_high"; //Not a shield but should be fun //"B_G_HMG_02_high_F";
 										//WMS_AI_GMG 					= "O_GMG_01_high_F"; //AMS AA battery //"RHS_ZU23_VDV"
 										WMS_AI_Arty					= "vn_o_vc_static_mortar_type63"; //"rhs_2b14_82mm_msv";
 										WMS_AMS_MineAT 				= ["vn_mine_m15","vn_mine_tm57","rhsusf_mine_M19","ATMine"];
-										WMS_ATMines					= ["rhs_mine_TM43","ATMine"];
+										WMS_ATMines					= WMS_AMS_MineAT;
 										WMS_AMS_SpnDistMission 		= 2000;
 										WMS_DynAI_Skills			= [0.06, 0.12, 0.20, 0.29]; //+random 0.15
 										WMS_AI_RoamingVHL_citySpawn	= true; //NEW
 										WMS_AI_RoamingVHLcount 		= 16; //10
 										WMS_AI_CargoUnits	 		= 1;
+										WMS_AMS_ToRun 				= 4; 
+										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
+										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
 										WMS_AMS_remRPG 				= 75;
 										WMS_AMS_ClnObj 				= true;
 										WMS_AMS_DelMissionFlag 		= true;
@@ -150,6 +153,18 @@ if (WMS_MapName == "Cam_Lao_Nam") then {
 																	["OutpostFoxtrot",1],
 																	["OutpostGolf",1] //+V2
 																	];
+																	//////////bottom of this function
+																	/*if (WMS_AMS_CleanMapObj && WMS_AMS_ForceRadius && WMS_AMS_CanSelect)then {
+																		if (true) then {diag_log format ["[WMS_CustomMapsSettings]|WAK|TNA|WMS| Starting pre_selection of AMS Positions at %1", servertime]};
+																		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
+																		for "_i" from 1 to 20 do
+																		{
+																			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), WMS_AMS_DefRad, 0, WMS_AMS_MaxGrad, 0, WMS_AMS_preSelectPos+_blackList, [([] call BIS_fnc_randomPos),[]],100] call WMS_fnc_BIS_findSafePosModified;
+																			if ((count _pos) == 2) then {WMS_AMS_preSelectPos pushBack _pos};
+																		};
+																		WMS_AMS_CanSelect = false;
+																		if (true) then {diag_log format ["[WMS_CustomMapsSettings]|WAK|TNA|WMS| Pre_selection of AMS Positions DONE at %1, %2 positions", servertime, count WMS_AMS_preSelectPos]};
+																	};*/
 };
 if (WMS_MapName == "lingor3") then {
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
@@ -970,4 +985,16 @@ if (AMS_ArmoredServer)then {
 		["rhs_btr60_vv", ["3tone",1],[[],[]]]
 	];
 	};
+};
+//////////
+if (WMS_AMS_CleanMapObj && WMS_AMS_ForceRadius && WMS_AMS_CanSelect)then {
+	if (true) then {diag_log format ["[WMS_CustomMapsSettings]|WAK|TNA|WMS| Starting pre_selection of AMS Positions at %1", servertime]};
+	_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
+	for "_i" from 1 to 20 do
+	{
+		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), WMS_AMS_DefRad, 0, WMS_AMS_MaxGrad, 0, WMS_AMS_preSelectPos+_blackList, [([] call BIS_fnc_randomPos),[]],100] call WMS_fnc_BIS_findSafePosModified;
+		if ((count _pos) == 2 && (((_pos select 0) + (_pos select 1)) != 0)) then {WMS_AMS_preSelectPos pushBack _pos};
+	};
+	WMS_AMS_CanSelect = false;
+	if (true) then {diag_log format ["[WMS_CustomMapsSettings]|WAK|TNA|WMS| Pre_selection of AMS Positions DONE at %1, %2 positions", servertime, count WMS_AMS_preSelectPos]};
 };

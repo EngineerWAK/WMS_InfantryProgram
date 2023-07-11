@@ -43,19 +43,22 @@ _PatrolVRmkrList = [];
 _smokeGrenade = "SmokeShellOrange";
 _patrolGrp = grpNull;
 _posFar = [_pos, 150, 400] call BIS_fnc_findSafePos;
-
+_units = [];
+for "_i" from 1 to _grpSize do {
+	_units pushBack (selectRandom WMS_AI_Units_Class);
+};
 if (_FrontSpawn) then {
 	//Spawn at distance in front of the target
 	_posShift = [_target,WMS_DynAI_distToPlayers,_dist2,10,36,true] call WMS_fnc_AMS_ChkSpawnAngleShift;
 	if (_posShift select 0) then {
 		_posFar = selectRandom (_posShift select 1); 
-		_patrolGrp = [_posFar, _grpSide, _grpSize] call BIS_fnc_spawnGroup;
+		_patrolGrp = [_posFar, _grpSide, _units] call BIS_fnc_spawnGroup;
 	};
 	if (!(_posShift select 0)) exitWith {
 		diag_log format ["[INFANTRY PATROL]|WAK|TNA|WMS| No position(s) available to spawn | %1", _posShift]
 	};
 } else {
-	_patrolGrp = [_pos, _grpSide, _grpSize] call BIS_fnc_spawnGroup;
+	_patrolGrp = [_pos, _grpSide, _units] call BIS_fnc_spawnGroup;
 };
 {_x setVariable ["WMS_RealFuckingSide",_grpSide]}foreach units _patrolGrp;
 //if !(WMS_HeadlessOwnerID == 2) then {_patrolGrp setGroupOwner WMS_HeadlessOwnerID};

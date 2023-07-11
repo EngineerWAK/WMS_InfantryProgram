@@ -120,7 +120,7 @@ if (count _positions > 0) then {//Need to add a Player check
 		_paraGrp = createGroup [OPFOR, false];
 		_grps pushBack _paraGrp;
 		for "_i" from 1 to _AIcount do {
-			"O_Soldier_F" createUnit [
+			(selectRandom WMS_AI_Units_Class) createUnit [
 			_pos, 
 			_paraGrp
 			];

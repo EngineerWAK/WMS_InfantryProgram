@@ -31,22 +31,43 @@
 	_T = round servertime;
 	_tempRadius = _radius;
 	if (WMS_AMS_ForceRadius)then{
-		_radius = 3;
+		_radius = WMS_AMS_DefRad;
 	};
 	if (_pos == "forest" ) then {
 		_forest = selectRandom WMS_Pos_Forests;
 		_radius = 1;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-		//_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
-		_pos = [_forest, 0, 400, _radius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified; //WMS_fnc_BIS_findSafePosModified;
+		_pos = [_forest, 0, 400, _radius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		//_pos = [_forest, 0, 400, _radius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified; //no need for this one
 	};
 	if (count _pos == 3) then {_pos = "random" };
 	if (typeName _pos == "STRING") then {
 		if (_pos == "random" ) then {
 			//_radiusObjects = 1;
 			_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-			//_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, 0.4, 0, _blackList, [([] call BIS_fnc_randomPos)]] call BIS_fnc_findSafePos;
-			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, 0.4, 0, _blackList, [([] call BIS_fnc_randomPos)],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
+			//////////NEW//////////
+			if (count WMS_AMS_preSelectPos != 0) then {
+				if (count allPlayers != 0)then{
+					_playersPos = [];
+					_preSelectPos = [];
+					{_playersPos pushBack (position _x)}forEach allPlayers;
+					{
+						_npPos = [_playersPos, _x] call BIS_fnc_nearestPosition;
+						if (_npPos distance2d _x > 300) then {_preSelectPos pushBack _x};
+					}forEach WMS_AMS_preSelectPos;
+					if (count _preSelectPos != 0) then {
+						_pos = selectRandom _preSelectPos;
+						WMS_AMS_preSelectPos deleteAt (WMS_AMS_preSelectPos find _pos);
+					}else{
+						_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
+					};
+				}else{
+					_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
+				};
+			}else{
+				//////////NEW\\\\\\\\\\
+				_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, 0, 0, _blackList, [([] call BIS_fnc_randomPos)],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
+			};
 		};
 	};
 	if (WMS_AMS_ForceRadius)then{

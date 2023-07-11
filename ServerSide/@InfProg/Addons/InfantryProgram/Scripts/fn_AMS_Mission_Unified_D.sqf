@@ -84,13 +84,34 @@ if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _th
 _T = round servertime;
 _tempRadius = _radiusObjects;
 if (WMS_AMS_ForceRadius)then{
-	_radiusObjects = 3;
+	_radiusObjects = WMS_AMS_DefRad;
 };
 if (typeName _pos == "STRING") then {
 	if (_pos == "random" ) then {
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-		//_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+	//////////NEW//////////
+	if (count WMS_AMS_preSelectPos != 0) then {
+		if (count allPlayers != 0)then{
+			_playersPos = [];
+			_preSelectPos = [];
+			{_playersPos pushBack (position _x)}forEach allPlayers;
+			{
+				_npPos = [_playersPos, _x] call BIS_fnc_nearestPosition;
+				if (_npPos distance2d _x > 300) then {_preSelectPos pushBack _x};
+			}forEach WMS_AMS_preSelectPos;
+			if (count _preSelectPos != 0) then {
+				_pos = selectRandom _preSelectPos;
+				WMS_AMS_preSelectPos deleteAt (WMS_AMS_preSelectPos find _pos);
+			}else{
+				_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
+			};
+		}else{
+			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
+		};
+	}else{
+	//////////NEW\\\\\\\\\\
 		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],(_tempRadius*2)] call WMS_fnc_BIS_findSafePosModified;
+	};
 	};
 };
 _tempRadius = _radiusObjects;

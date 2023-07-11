@@ -156,7 +156,7 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
-	_IDnumber = _IPcomputer addAction
+	/*_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Rolling</t>",
 		"
@@ -175,7 +175,7 @@ WMS_IP_buildComputer = {
 		",
 		5
 	];
-	_allActionsID pushBack _IDnumber;
+	_allActionsID pushBack _IDnumber;*/
 	//LOADOUT	
 	_IDnumber = _IPcomputer addAction
 	[
