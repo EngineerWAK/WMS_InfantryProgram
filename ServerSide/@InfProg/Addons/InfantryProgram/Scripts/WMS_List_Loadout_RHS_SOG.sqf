@@ -35,9 +35,8 @@ WMS_AI_inventory = [//"AntimalaricumVaccine",//"Laptop_Unfolded",
 	"vn_prop_food_meal_01_01","vn_prop_food_meal_01_02","vn_prop_food_meal_01_03","vn_prop_food_meal_01_04","vn_prop_food_meal_01_05","vn_prop_food_meal_01_06","vn_prop_food_meal_01_07",
 	"vn_prop_food_meal_01_08","vn_prop_food_meal_01_09","vn_prop_food_meal_01_10","vn_prop_food_meal_01_11","vn_prop_food_meal_01_12","vn_prop_food_meal_01_13","vn_prop_food_meal_01_14",
 	"vn_prop_food_meal_01_15","vn_prop_food_meal_01_16","vn_prop_food_meal_01_17","vn_prop_food_meal_01_18",
-	"vn_o_item_firstaidkit","vn_b_item_medikit_01","vn_b_item_trapkit","vn_b_item_wiretap","vn_b_item_firstaidkit","vn_o_3x_l1a1","vn_o_3x_sks","vn_o_1_5x_k98k",
+	"vn_o_item_firstaidkit","vn_b_item_medikit_01","vn_b_item_wiretap","vn_b_item_firstaidkit","vn_o_3x_l1a1","vn_o_3x_sks","vn_o_1_5x_k98k",//,"vn_b_item_trapkit" that's a freaking mine detector
 	"vn_o_4x_svd","vn_o_3x_m84","vn_o_4x_m16","vn_b_type56","vn_b_m1903","vn_b_m4956","vn_s_hp","vn_s_mc10","vn_s_sten","vn_molotov_grenade_mag",
-	"vn_b_item_bandage_01","vn_b_item_bugjuice_01","vn_b_item_cigs_01","vn_b_item_gunoil_01","vn_b_item_lighter_01","vn_b_item_rations_01",
 	"rhs_pdu4","ACE_Yardage450","rhsusf_bino_lrf_Vector21","ACE_Vector","I_UavTerminal","ACE_RangeCard","ACE_Flashlight_Maglite_ML300L","rhsusf_bino_m24_ARD","rhsusf_bino_leopold_mk4","rhsusf_bino_lerca_1200_black",
 	"Laserdesignator_03"
 	];

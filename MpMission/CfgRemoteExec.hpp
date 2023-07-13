@@ -80,6 +80,7 @@ class CfgRemoteExec
 		class vn_fnc_drm_request_audio 				{ allowedTargets=0; };
 		class vn_fnc_music_start 					{ allowedTargets=0; };
 		class vn_fnc_music_stop 					{ allowedTargets=0; };
+		class vn_fnc_music_play 					{ allowedTargets=2; };
 
 		class WMS_fnc_setVarOnPlayerRespawn			{ allowedTargets=2; };
 		class WMS_fnc_spawnLootManager 				{ allowedTargets=2; };

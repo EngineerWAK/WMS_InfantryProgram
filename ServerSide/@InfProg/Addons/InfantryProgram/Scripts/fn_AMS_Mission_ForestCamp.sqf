@@ -24,15 +24,15 @@
 	_name = "Forest Camp";
 	if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 	_T = round servertime;
-	_forest = selectRandom WMS_Pos_Forests;
 	_tempRadius = _radius;
 	if (WMS_AMS_ForceRadius)then{
 		_radius = WMS_AMS_DefRad;
 	};
 	if (_pos == "forest" ) then {
+		_forest = selectRandom WMS_Pos_Forests;
 		//_radiusObjects = 5;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-		_pos = [_forest, 0, 400, _radius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],25] call WMS_fnc_BIS_findSafePosModified;
+		_pos = [_forest, 0, 400, _tempRadius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],25] call WMS_fnc_BIS_findSafePosModified;
 	};
 	if (WMS_AMS_ForceRadius)then{
 		_radius = _tempRadius;

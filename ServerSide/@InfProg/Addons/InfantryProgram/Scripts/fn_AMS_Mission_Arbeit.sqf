@@ -38,7 +38,7 @@ if (WMS_AMS_ForceRadius)then{
 if (_pos == "random" ) then {
 	_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 	//////////NEW//////////
-	if (count WMS_AMS_preSelectPos != 0) then {
+	if (count WMS_AMS_preSelectPos != 0) then {//"_radMission",WMS_AMS_SpnDistMission
 		if (count allPlayers != 0)then{
 			_playersPos = [];
 			_preSelectPos = [];

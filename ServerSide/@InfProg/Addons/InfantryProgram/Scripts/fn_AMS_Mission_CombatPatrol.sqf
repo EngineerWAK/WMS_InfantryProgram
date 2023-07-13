@@ -37,7 +37,7 @@
 		_forest = selectRandom WMS_Pos_Forests;
 		_radius = 1;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-		_pos = [_forest, 0, 400, _radius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
+		_pos = [_forest, 0, 400, _tempRadius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
 		//_pos = [_forest, 0, 400, _radius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified; //no need for this one
 	};
 	if (count _pos == 3) then {_pos = "random" };

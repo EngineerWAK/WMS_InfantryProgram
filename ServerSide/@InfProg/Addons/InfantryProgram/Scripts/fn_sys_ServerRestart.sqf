@@ -21,7 +21,9 @@ if (serverTime > (WMS_ServRestartSeconds)) then {
 			["EventWarning", ["SERVER RESTART", "The server will restart in 30 secondes"]] remoteExec ["BIS_fnc_showNotification", -2];
 		};
 		uisleep 20;
-		{WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)];}foreach allPlayers;
+		{
+			if (hasInterface && {(count(getPlayerUID _x))==17}) then {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]};//do not kick the HC
+		}foreach allPlayers;
 		if !(WMS_exileFireAndForget) then {
 			[] call WMS_fnc_permanentVehiclesLastUpdate; //TheLastCartridges permanent vehicles
 		};

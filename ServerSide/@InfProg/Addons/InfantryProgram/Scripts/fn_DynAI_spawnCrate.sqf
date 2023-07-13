@@ -62,7 +62,12 @@ clearBackpackCargoGlobal _Box;
 					[(_this select 3 select 0), false] remoteExec ['WMS_fnc_HideObjectGlobal'];  
 					(_this select 3 select 0) hideObject false;
 				},
-				[_Box]
+				[_Box] 
+				2, 
+				true, 
+				true, 
+				'', 
+				'(vehicle player isKindOf 'man')',
 			];
 		", 
 		nil, 
