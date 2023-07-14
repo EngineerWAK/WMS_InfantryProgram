@@ -80,4 +80,4 @@ private ["_UID","_damage","_msgx","_rwdLevel","_lastPos","_riderUID","_riderRep"
 			_x setVariable ["lastPosition", position _x, true];
 		};
 	};
-} foreach allPlayers;
+} foreach (allPlayers select {alive _x && {count getplayerUID _x == 17 }} apply {_x});

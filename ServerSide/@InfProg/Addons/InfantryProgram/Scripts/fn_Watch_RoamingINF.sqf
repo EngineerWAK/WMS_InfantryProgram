@@ -16,7 +16,8 @@ private ["_posLeader","_paradropAIrunning","_patrolAIrunningOP","_patrolAIrunnin
 _paradropAIrunning 	= (count WMS_AI_Paradrop_Watch);
 _patrolAIrunningOP 	= (count WMS_AI_OPFORpatrol_Running);
 _patrolAIrunningBL 	= (count WMS_AI_bluforPatrol_Running);
-_DynAIrunning 		= (count WMS_DynAI_Running);
+_DynAIrunning 		= (count WMS_DynAI_Running);//[[8097.41,8337.41,[O Bravo 1-4],[],[],[],[],"O Bravo 1-4"]]
+_posLeader = [worldsize/2,worldsize/2,0];
 _cnt = 0;
 
 if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF Watch]|WAK|TNA|WMS| paradrop: %1, infantry OPFOR: %2, infantry BLUFOR: %3, DynAI: %4", _paradropAIrunning,_patrolAIrunningOP,_patrolAIrunningBL,_DynAIrunning]};
@@ -28,8 +29,8 @@ if !(_paradropAIrunning == 0) then {
 	{ 
 		//if (time > (_x select 1) && count ((position (leader (_x select 2 select 0))) nearEntities [WMS_PlayerEntity, WMS_AI_PlayerDistToDespawnINF]) == 0) then { //test player presence but not if they are in vehicle
 		if (time > (_x select 1)) then {
-			_posLeader = (position (leader (_x select 2 select 0)));
-			if (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)} apply {_x}) == 0) then { //test player presence
+			if !(isNull leader (_x select 2 select 0)) then {_posLeader = (position (leader (_x select 2 select 0)));};
+			if ((isNull leader (_x select 2 select 0)) || (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)} apply {_x}) == 0)) then {
 				if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF Paradrop Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 				_grpArray = (_x select 2);
 				_vhl = (_x select 3);
@@ -59,10 +60,9 @@ if !(_paradropAIrunning == 0) then {
 //patrol OPFOR
 if !(_patrolAIrunningOP == 0) then { 
 	{ 
-		//if (time > (_x select 1) && count ((position (leader (_x select 2 select 0))) nearEntities [WMS_PlayerEntity, WMS_AI_PlayerDistToDespawnINF]) == 0) then { //test player presence
 		if (time > (_x select 1)) then {
-			_posLeader = (position (leader (_x select 2 select 0)));
-			if (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)} apply {_x}) == 0) then { //test player presence
+			if !(isNull leader (_x select 2 select 0)) then {_posLeader = (position (leader (_x select 2 select 0)));};
+			if ((isNull leader (_x select 2 select 0)) || (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)} apply {_x}) == 0)) then {
 				if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF patrol Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 				_grpArray = (_x select 2);
 				_vhl = (_x select 3);
@@ -119,6 +119,9 @@ if !(_patrolAIrunningBL == 0) then {
 	} foreach WMS_AI_bluforPatrol_Running;
 };
 //DynAI
+				/*count (allPlayers select {alive _x && {(_x distance2D [12169.5,19392.3,0]) <= 1}} apply {_x}) //this work, server or local
+				count (allPlayers select {alive _x && (_x distance2D [12169.5,19392.3,0]) <= 20} apply {_x}) //this work, server or local
+				count (allPlayers select {alive _x && (_x distance2D [12169.5,19392.3,0] < WMS_AI_PlayerDistToDespawnINF)} apply {_x}) //this work, server*/
 if !(_DynAIrunning == 0) then { 
 	{ 
 		{
@@ -128,8 +131,8 @@ if !(_DynAIrunning == 0) then {
 			_x set [1, 0];
 		};
 		if (time > (_x select 1)) then {
-			_posLeader = (position (leader (_x select 2 select 0)));
-			if (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)} apply {_x}) == 0) then { //test player presence
+			if !(isNull leader (_x select 2 select 0)) then {_posLeader = (position (leader (_x select 2 select 0)));};
+			if ((isNull leader (_x select 2 select 0)) || (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)} apply {_x}) == 0)) then {
 				if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF patrol Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 				_grpArray = (_x select 2);
 				_vhl = (_x select 3);

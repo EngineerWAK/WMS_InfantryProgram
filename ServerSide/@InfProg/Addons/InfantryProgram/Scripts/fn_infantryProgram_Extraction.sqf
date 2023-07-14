@@ -23,6 +23,20 @@ params [
   ["_vehicVarName","fuckingDumbName"] //WTF is this _vehicVarName for ???
 ];
 if !(typeName _pos == "ARRAY") exitWith {diag_log format ["[EXTRACTION CHOPPER]|TNA|TNA|TNA|TNA|TNA| Chopper Transport _pos fuckedup %1", _pos];};
+
+_HC1 = missionNameSpace getVariable ["WMS_HC1",false]; //set by HC1 itself then publicVariable //This can not work, obviously...
+_HC1_ID = 2;
+if (isServer && _HC1)then{
+  {if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
+};
+if (isServer && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+    //get the HC1 owner
+
+    //the Easiest way would be for the HC to run the same function and just send "_this"
+		[format["[RECEIVING OFFLOAD FROM SERVER]WMS_fnc_InfantryProgram_Extraction _this = %1",_this]] RemoteExec ["diag_log",_HC1_ID];
+		_this RemoteExec ["WMS_fnc_InfantryProgram_Extraction",_HC1_ID];
+}else{
+  //the all function should go there I guess
 private _RandomPosSpawn = [_target, 1500, 2500] call BIS_fnc_findSafePos;
 private _RandomPosExtract = [_target, 0, 100, 20, 0, 0.15, 0, [], [(position _target),[]]] call BIS_fnc_findSafePos;
 private _RandomPosDest = [_pos, 0, 200, 20, 0, 0.15, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
@@ -65,7 +79,7 @@ _WPT_paradrop setWaypointType "LOAD";
 _WPT_paradrop setWaypointCombatMode "BLUE";
 _WPT_paradrop setWaypointbehaviour  "CARELESS";
 waitUntil  {(_vehic distance2D _RandomPosExtract) <= 200 || !(alive _vehic)}; //NEED A TRIGGER
-if (WMS_exileToastMsg) then {["toastRequest", ["InfoTitleAndText", [format ["Incoming %1 Extraction Chopper",(typeof _vehic)]]]] call ExileServer_system_network_send_broadcast};
+if (WMS_exileToastMsg && isServer) then {["toastRequest", ["InfoTitleAndText", [format ["Incoming %1 Extraction Chopper",(typeof _vehic)]]]] call ExileServer_system_network_send_broadcast};
 [_grp, _RandomPosExtract, _Helipad_1] spawn BIS_fnc_wpLand; //I think there is an error with this one
 waitUntil {!(vehicle _target == _target) || !(alive _target) || !(alive _vehic)};
 uisleep 5;
@@ -89,14 +103,15 @@ _WPT_paradrop2 setWaypointbehaviour  "CARELESS";
  waituntil  {(_this select 0) distance2d (_this select 4) <= 200 || !(alive (_this select 0))};
  uisleep 60;
  systemchat format ["%1 Extraction done.",(_this select 0)];
-if (WMS_exileToastMsg) then {["toastRequest", ["InfoTitleAndText", [format ["%1 Extraction Done",(typeof (_this select 0))]]]] call ExileServer_system_network_send_broadcast};
+if (WMS_exileToastMsg && isServer) then {["toastRequest", ["InfoTitleAndText", [format ["%1 Extraction Done",(typeof (_this select 0))]]]] call ExileServer_system_network_send_broadcast};
  uisleep (60+random 60);
  (_this select 0) setfuel 0;
  (_this select 0) setdamage 0.9;
  {deletevehicle _x} foreach units(_this select 2);
 };
 [_vehic, _grp, _WPT_paradrop, _WPT_paradrop1, _WPT_paradrop2, _Helipad_1, _Helipad_2] spawn {
- waituntil  {!(alive (_this select 0)) || !(alive (_this select 0))};
-if (WMS_exileToastMsg) then {["toastRequest", ["InfoTitleAndText", [format ["%1 Extraction Done",(typeof (_this select 0))]]]] call ExileServer_system_network_send_broadcast};
- [(_this select 1),[(_this select 5),(_this select 6)],[],[(_this select 2),(_this select 3),(_this select 4)]] call WMS_fnc_lvl2_cleanup;
+ waituntil  {!(alive (_this select 0)) || !(alive (_this select 0))}; //WTF ???
+if (WMS_exileToastMsg && isServer) then {["toastRequest", ["InfoTitleAndText", [format ["%1 Extraction Done",(typeof (_this select 0))]]]] call ExileServer_system_network_send_broadcast};
+ [(_this select 1),[(_this select 5),(_this select 6)],[],[(_this select 2),(_this select 3),(_this select 4)]] call WMS_fnc_lvl2_cleanup; //this is sooooooooooooo old
+};
 };

@@ -11,7 +11,7 @@
 */
 
 private ["_playerCount","_waitingTime","_DynamicThreatTarget","_threatScenario","_threatCoefs","_flagList","_countFlag","_targetSpeed"];
-_playerCount = count allPlayers;
+_playerCount = count (allPlayers select {alive _x && {count getplayerUID _x == 17 }} apply {_x});
 if (WMS_IP_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| Player(s) connected: %1", _playerCount]};
 _waitingTime = WMS_DynAI_threatFrequency;
 _threatCoefs = WMS_DynAI_threatCoefs;
@@ -38,7 +38,8 @@ if (_playerCount == 3) then {
 };
 //Looking for a target
 if (_playerCount > 0 && {(time > (WMS_DynAI_LastTime+_waitingTime))} && {((OPFOR countSide allUnits) < WMS_AI_MaxUnits_C)}) then {
-	WMS_DynAI_TargetList = allplayers;
+	//WMS_DynAI_TargetList = allplayers; //allPlayers include HCs
+	WMS_DynAI_TargetList = (allPlayers select {alive _x && {count getplayerUID _x == 17 }} apply {_x}); //yeah, it's a stupid way but it works
 	_DynamicThreatTarget = selectrandom WMS_DynAI_TargetList;
 	_threatScenario = "GoForIt";
 	//here look for the JudgementDay Marker, if true _threatScenario = "judgementDay";

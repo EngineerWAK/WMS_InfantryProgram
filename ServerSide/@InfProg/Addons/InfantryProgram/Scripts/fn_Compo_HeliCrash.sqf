@@ -95,6 +95,11 @@ if (WMS_exileToastMsg) then {
 	];
 
 if (_guard > 0) then {
+_HC1 = missionNameSpace getVariable ["WMS_HC1",false];
+_HC1_ID = 2;
+if (isServer && _HC1)then{
+  {if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
+};
 	_Grp = creategroup [OPFOR, true];
 	for "_i" from 1 to _guard do {
 		_unitsClass createUnit [_pos, _Grp];
@@ -121,10 +126,17 @@ if (_guard > 0) then {
 			uisleep 0.1;
 		} forEach _staticList;
 	};
-	[_Grp, _Pos, 50, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 	{	
 		_x setVariable ["lambs_danger_disableAI", true];//deactivate LambsDanger
 		_x setVariable ["lambs_danger_disableGroupAI", true];//deactivate LambsDanger
 	}forEach units _grp;
+	if (isServer && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+		if (true) then {diag_log format ["[WMS_fnc_CompoHeliCrash]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _Grp]};
+		_Grp setGroupOwner _HC1_ID;
+		//{_x setGroupOwner _HC1_ID}forEach units _Grp;
+		[_Grp, _Pos, 50, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol", _HC1_ID];
+	}else{
+		[_Grp, _Pos, 50, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+	};
 };
 //WMS_DynAI_Running pushback [time,(time+(_timer)),_grps,[],_objList,[],[],"ALARM"];

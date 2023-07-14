@@ -11,14 +11,14 @@
 */
 
 //////////
-//[_target,_pos, _timer, _spawnType, _iterations]spawn WMS_fnc_DynAI_Runner
+//[_target,_pos, _serverTimer, _spawnType, _iterations]spawn WMS_fnc_DynAI_Runner
 //////////////////////////////////////////////////////////////////
 if (WMS_IP_LOGs) then {diag_log format ["[SUICIDE BOMBER]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_exploList","_run","_safePos","_grp","_runner","_sessionID","_expl1","_expl2","_expl3"];
 params[
 	"_target",
 	"_pos",
-	["_timer", 120],
+	["_Timer", 120],
 	["_spawnType", "player"],
 	["_iterations", 1],
 	["_exploType",(selectRandom ["mine","satchel","shell","bomb"])] //"mine","satchel","shell","bomb"
@@ -107,7 +107,7 @@ if (WMS_exileToastMsg) then {
 } else {
 	["EventWarning", ["Suicide Bomber", "Incoming Runner!!!"]] remoteExec ["BIS_fnc_showNotification", owner _target];
 };
-WMS_DynAI_Running pushback [time,(time+(_timer)),[_grp],[],[],[],[],""];
+WMS_DynAI_Running pushback [serverTime,(serverTime+_Timer),[_grp],[],[],[],[],""];
 
 //while {alive leader _grp} do {
 while {_run} do {

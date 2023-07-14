@@ -36,6 +36,15 @@ params[
 _posStart = [_pos, _Dist1, _Dist2, 30, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;  
 _posInfGrp = _posStart;
 _posLand = _pos; 
+_units = [];
+for "_i" from 1 to _grpSize do {
+	_units pushBack (selectRandom WMS_AI_Units_Class);
+};
+_HC1 = missionNameSpace getVariable ["WMS_HC1",false];
+_HC1_ID = 2;
+if (isServer && _HC1)then{
+	{if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
+};
 if(surfaceIsWater _pos)then{
 	_posLand = [_pos, 5, 350, 25, 1, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;  
 	_posInfGrp = [_pos, 50, 200, 1, 1, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
@@ -77,17 +86,7 @@ _WPT_2 setwaypointSpeed "LIMITED";
 _WPT_2 setWaypointCombatMode "RED";  
 _WPT_2 setWaypointbehaviour  "COMBAT";   
   
-_transport = [_posStart, (random 359), _choppa2 select 0, OPFOR] call bis_fnc_spawnvehicle;  
-/*
-//init texture
-_VHLcountC2 = count (_choppa2 select 1);
-if (_VHLcountC2 != 0) then {
-	_VHLcount0 = (_choppa2 select 1 select 0);
-	_VHLcount1 = (_choppa2 select 1 select 1);
-	if ((_VHLcountC2 == 2) && {typeName _VHLcount0 == "STRING"} && {typeName _VHLcount1 == "SCALAR"}) then {[ _vehic, _VHLcount0] call BIS_fnc_initVehicle};
-	if ((_VHLcountC2 == 2) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_vehic setObjectTextureGlobal [_VHLcount0, _VHLcount1]};
-	if ((_VHLcountC2 == 4) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_vehic setObjectTextureGlobal [_VHLcount0, _VHLcount1]; _vehic setObjectTextureGlobal [(_choppa2 select 1 select 2),(_choppa2 select 1 select 3)]};
-};*/  
+_transport = [_posStart, (random 359), _choppa2 select 0, OPFOR] call bis_fnc_spawnvehicle;
 _transportGRP = _transport select 2;  
 _vehic2 = _transport select 0;
 _vehic2 lockDriver true;
@@ -103,32 +102,34 @@ _WPT_1b setWaypointCombatMode "BLUE";
 _WPT_1b setWaypointbehaviour  "CARELESS"; 
 
 uisleep 1;
-_INFgrp = [_posInfGrp, EAST, _grpSize] call BIS_fnc_spawnGroup;
-//uisleep 1; 
-if (WMS_DynAI_Steal) then { //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
-	[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
-	} else {
-	[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
-}; 
+_INFgrp = [_posInfGrp, EAST, _units] call BIS_fnc_spawnGroup;
 { 
  _x moveInCargo _vehic2; 
 }forEach units _INFgrp;
+
 uisleep 1; 
 [(units _INFgrp), "Random", 15, _skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits; //'Random' won't be enough, need a specific "OccRandom" with EH
+//uisleep 1;
+
+		if (isServer && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+			if (true) then {diag_log format ["[WMS_fnc_DynAI_AirAssault]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _INFgrp]};
+			_INFgrp setGroupOwner _HC1_ID;
+		//{_x setGroupOwner _HC1_ID}forEach units _INFgrp;
+			if (WMS_DynAI_Steal) then { //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
+				[units _INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
+			} else {
+				[units _INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID]; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
+			}; 
+		}else{
+			if (WMS_DynAI_Steal) then { //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
+				[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
+			} else {
+				[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
+			}; 
+		};
 
 uisleep 3;
-//_WPT_1c = _INFgrp addWaypoint [_pos, 50];  //this waypoint is deleted by CBA_fnc_taskPatrol
-/*_WPT_1c = _INFgrp addWaypoint [_posInfGrp, 50];       
-_WPT_1c setWaypointType "MOVE";  
-_WPT_1c setwaypointSpeed "FULL";  
-_WPT_1c setWaypointCombatMode "YELLOW";  
-_WPT_1c setWaypointbehaviour  "COMBAT";*/
-/*if (WMS_DynAI_Steal) then { //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
-	[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
-	} else {
-	[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
-};*/
-deleteWaypoint [_INFgrp, 0];
+deleteWaypoint [_INFgrp, 0]; //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
 _WPT_2b = _transportGRP addWaypoint [[-1000,-1000,0], 150];  
 _WPT_2b setWaypointType "MOVE";    
 

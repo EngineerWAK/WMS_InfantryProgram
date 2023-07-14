@@ -28,6 +28,11 @@ params[
 ];
 _posList = [];
 _grps = [];
+_HC1 = missionNameSpace getVariable ["WMS_HC1",false];
+_HC1_ID = 2;
+if (isServer && _HC1)then{
+	{if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
+};
 /////
 if (count (_pos nearObjects ["Building", _radius]) > 0) then {
 	_posList = [nearestBuilding _pos] call BIS_fnc_buildingPositions;
@@ -39,18 +44,30 @@ if (count (_pos nearObjects ["Building", _radius]) > 0) then {
 	_grps pushBack _InfGrp_O;
 	for "_i" from 1 to _AIcount do {
 		if (count _posList >= 1) then { _pos = selectRandom _posList};
-		"O_Soldier_F" createUnit [
+			(selectRandom WMS_AI_Units_Class) createUnit [
 			_pos, 
 			_InfGrp_O
 		];
 	uisleep 0.1;
 	};
 	[(units _InfGrp_O),'Assault',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
-	if (WMS_DynAI_Steal) then {
-		[_InfGrp_O, _Pos, 25, 4, "SENTRY", "STEALTH", "YELLOW", "NORMAL", "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
-	} else {
-		[_InfGrp_O, _Pos, 25, 4, "SENTRY", "STEALTH", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
-};
+	
+	if (isServer && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+		if (true) then {diag_log format ["[WMS_fnc_DynAI_BuildingGuards]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _InfGrp_O]};
+		_InfGrp_O setGroupOwner _HC1_ID;
+		//{_x setGroupOwner _HC1_ID}forEach units _InfGrp_O;
+		if (WMS_DynAI_Steal) then {
+			[units _InfGrp_O, _Pos, 25, 4, "SENTRY", "STEALTH", "YELLOW", "NORMAL", "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
+		} else {
+			[units _InfGrp_O, _Pos, 25, 4, "SENTRY", "STEALTH", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
+		};
+	}else{
+		if (WMS_DynAI_Steal) then {
+			[_InfGrp_O, _Pos, 25, 4, "SENTRY", "STEALTH", "YELLOW", "NORMAL", "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
+		} else {
+			[_InfGrp_O, _Pos, 25, 4, "SENTRY", "STEALTH", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+		};
+	};
 	WMS_CustomTrig_LastT = time;
 	WMS_trig_Glob_LastT = time;
 if (WMS_DynAI_RdoChatter && !(WMS_FastCombat)) then {

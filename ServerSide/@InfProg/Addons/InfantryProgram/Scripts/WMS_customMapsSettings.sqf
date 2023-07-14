@@ -11,6 +11,7 @@
 */
 if (true) then {diag_log format ["[WMS Custom Map Config]|WAK|TNA|WMS| Launching at %1", servertime]};
 if (WMS_MapName == "Cam_Lao_Nam") then {
+										WMS_OffloadToHC1			= true; //WORKINPROGRESS!!!!!
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_SOG.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_SOG.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_Crates_ACE_RHS_SOG.sqf";

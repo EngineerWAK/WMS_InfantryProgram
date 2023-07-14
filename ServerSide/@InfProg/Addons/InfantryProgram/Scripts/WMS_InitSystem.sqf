@@ -26,6 +26,8 @@ WMS_forceNoRain 			= false; //no more rain!
 WMS_forceNoFog				= false; //no more f u c k i n g fog!
 WMS_ServRestart 			= true;	//will shut down the server after WMS_ServRestartSeconds //KEEP THIS TRUE IF USE THE LASTCARTRIDGE FOR VEHICLES BACKUP
 ///////////////NEW///////////////////////////////
+//v2.836
+WMS_OffloadToHC1			= false;//WORK IN PROGRESS, DO NOT TOUCH!!!
 //v2.220
 WMS_BanList 				= []; //will auto-ban your old unwanted players and help you to keep track of them :D
 //v2.807
@@ -37,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.835_2023JUL13_GitHub"; //SOG Prairie Fire Setup and loadouts //custom radius to spawn missions easier in forest maps
+WMS_System_Version 			= "v2.836_2023JUL14_GitHub"; //SOG Prairie Fire Setup and loadouts //working on Headless Client crap...
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings

@@ -26,6 +26,11 @@ params[
 _safePos = [_pos, 0, 25, 2, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
 _grps = [];
 _unitsClass = selectRandom WMS_AI_Units_Class;
+_HC1 = missionNameSpace getVariable ["WMS_HC1",false];
+_HC1_ID = 2;
+if (isServer && _HC1)then{
+	{if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
+};
 /////BBQ Object(s)
 _fire = createVehicle ["Campfire_burning_F", _safePos, [], 0, "NONE"];
 _flag = createVehicle [WMS_OPFOR_Flag, _safePos, [], 5, "NONE"];
@@ -40,6 +45,14 @@ for "_i" from 1 to _AIcount do {
 uisleep 0.1;
 };
 [(units _InfGrp_O),'Assault',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
-[_InfGrp_O, _safePos, 10, 3, "SENTRY", "SAFE", "RED", "NORMAL", "DIAMOND", "", [1,2,3]] call CBA_fnc_taskPatrol;
+
+		if (isServer && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+			if (true) then {diag_log format ["[WMS_fnc_DynAI_BBQcamp]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _InfGrp_O]};
+			_InfGrp_O setGroupOwner _HC1_ID;
+			//{_x setGroupOwner _HC1_ID}forEach units _InfGrp_O;
+			[units _InfGrp_O, _safePos, 10, 3, "SENTRY", "SAFE", "RED", "NORMAL", "DIAMOND", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
+		}else{
+			[_InfGrp_O, _safePos, 10, 3, "SENTRY", "SAFE", "RED", "NORMAL", "DIAMOND", "", [1,2,3]] call CBA_fnc_taskPatrol;
+		};
 
 WMS_DynAI_Running pushback [time,(time+(_timer)),_grps,[],[_fire,_flag],[],[],""];

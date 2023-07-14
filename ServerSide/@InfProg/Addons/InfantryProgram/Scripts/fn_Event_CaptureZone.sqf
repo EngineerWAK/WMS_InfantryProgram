@@ -446,7 +446,7 @@ WMS_fnc_captureZoneWaves = {
 		{ 
 			_randomSpawnPos = [[_pos] , 0, 100, 0, 1, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos;
 			_x setpos [(_randomSpawnPos select 0),(_randomSpawnPos select 1),100]; 
-			_x setVariable ["WMS_RealFuckingSide",OPFOR];
+			_x setVariable ["WMS_RealFuckingSide",OPFOR,true];
 		} forEach units _paraGrp ;
 		//[(units _paraGrp),'para',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 		[(units _paraGrp),'para',_launcherChance,_skill,nil,_loadout,nil,"CaptureZone"] call WMS_fnc_SetUnits;
