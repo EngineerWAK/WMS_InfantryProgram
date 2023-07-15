@@ -15,7 +15,7 @@ diag_log format ["[Infantry Program Watch Thread]|WAK|TNA|WMS| 90sec Watch start
 while {true} do {
 	uisleep 91; //uisleep 14, uisleep 31, uisleep 59, uisleep 91, uisleep 120, uisleep 239
 	//WMS_AI_watchNdestroy
-	call WMS_fnc_Watch_RoamingINF;
+	call WMS_fnc_Watch_RoamingINF; //each HC/Server could watch his own stuff I guess ?
 	//DynAI Target selection
-	call WMS_fnc_Watch_DynAI;
+	call WMS_fnc_Watch_DynAI; //each HC/Server could watch his own stuff I guess ?
 };

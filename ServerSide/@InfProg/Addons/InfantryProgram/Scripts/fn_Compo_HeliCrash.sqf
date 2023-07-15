@@ -97,7 +97,7 @@ if (WMS_exileToastMsg) then {
 if (_guard > 0) then {
 _HC1 = missionNameSpace getVariable ["WMS_HC1",false];
 _HC1_ID = 2;
-if (isServer && _HC1)then{
+if (isDedicated && _HC1)then{
   {if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
 };
 	_Grp = creategroup [OPFOR, true];
@@ -106,7 +106,7 @@ if (isServer && _HC1)then{
 		uisleep 0.2;
 	};
 	//[(units _Grp),'Assault',15,_skill,_loadout] call;
-	[(units _Grp),'Assault',15,_skill,nil,_loadout,nil,"HeliCrash"] call WMS_fnc_SetUnits;
+	//[(units _Grp),'Assault',15,_skill,nil,_loadout,nil,"HeliCrash"] call WMS_fnc_SetUnits;
 	if (_armed) then {
 		_staticList = [
 			[(selectRandom _statics),[-3.84341,0.221521,0],281.969,[true,true]],
@@ -130,13 +130,15 @@ if (isServer && _HC1)then{
 		_x setVariable ["lambs_danger_disableAI", true];//deactivate LambsDanger
 		_x setVariable ["lambs_danger_disableGroupAI", true];//deactivate LambsDanger
 	}forEach units _grp;
-	if (isServer && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+	if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
 		if (true) then {diag_log format ["[WMS_fnc_CompoHeliCrash]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _Grp]};
 		_Grp setGroupOwner _HC1_ID;
-		//{_x setGroupOwner _HC1_ID}forEach units _Grp;
-		[_Grp, _Pos, 50, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol", _HC1_ID];
+		[(units _Grp),'Assault',15,_skill,nil,_loadout,nil,"HeliCrash"] remoteExec ["WMS_fnc_SetUnits", _HC1_ID];
+		//[_Grp, _Pos, 50, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol", _HC1_ID];
+		[_Grp, _Pos, 100, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol", _HC1_ID];
 	}else{
-		[_Grp, _Pos, 50, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+		[(units _Grp),'Assault',15,_skill,nil,_loadout,nil,"HeliCrash"] call WMS_fnc_SetUnits;
+		[_Grp, _Pos, 100, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 	};
 };
 //WMS_DynAI_Running pushback [time,(time+(_timer)),_grps,[],_objList,[],[],"ALARM"];

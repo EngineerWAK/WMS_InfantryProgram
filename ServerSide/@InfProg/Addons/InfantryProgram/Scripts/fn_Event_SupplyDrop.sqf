@@ -119,7 +119,7 @@ if (count _positions > 0) then {//Need to add a Player check
 	if (_INFpatrol) then {//change this for paradrop created in this fonction then pushback all elements for management
 		_HC1 = missionNameSpace getVariable ["WMS_HC1",false];
 		_HC1_ID = 2;
-		if (isServer && _HC1)then{
+		if (isDedicated && _HC1)then{
   			{if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
 		};
 		_paraGrp = createGroup [OPFOR, false];
@@ -134,16 +134,18 @@ if (count _positions > 0) then {//Need to add a Player check
 			_randomSpawnPos = [[(_pos select 0),(_pos select 1),_altitude] , 5, 50, 0, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
 			_x setpos [(_randomSpawnPos select 0),(_randomSpawnPos select 1),_altitude]; 
 		} forEach units _paraGrp ;
-		[(units _paraGrp),'Para',30,(0.2 + random 0.4),nil,"livonia",nil,"Supplydrop"] call WMS_fnc_SetUnits; //paradrop
+		//[(units _paraGrp),'Para',30,(0.2 + random 0.4),nil,"livonia",nil,"Supplydrop"] call WMS_fnc_SetUnits; //paradrop
 		if (WMS_IP_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Infantry Patrol created, %1, %2 NPC",_paraGrp, _AIcount]};
 
-		if (isServer && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
 			if (true) then {diag_log format ["[WMS_fnc_Event_SupplyDrop]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _paraGrp]};
 			_paraGrp setGroupOwner _HC1_ID;
-			//{_x setGroupOwner _HC1_ID}forEach units _paraGrp;
-			[units _paraGrp, _Pos, 50, 4, "MOVE", "SAFE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
+			[(units _paraGrp),'Para',30,(0.2 + random 0.4),nil,"livonia",nil,"Supplydrop"] remoteExec ["WMS_fnc_SetUnits",_HC1_ID]; //paradrop
+			//[units _paraGrp, _Pos, 50, 4, "MOVE", "SAFE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
+			[units _paraGrp, _Pos, 200, 4, "MOVE", "SAFE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol",_HC1_ID];
 		}else{
-			[_paraGrp, _Pos, 50, 4, "MOVE", "SAFE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+			[(units _paraGrp),'Para',30,(0.2 + random 0.4),nil,"livonia",nil,"Supplydrop"] call WMS_fnc_SetUnits; //paradrop
+			[_paraGrp, _Pos, 200, 4, "MOVE", "SAFE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 		};
 	};
 //Create the Infantry group

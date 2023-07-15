@@ -184,7 +184,7 @@ if (_grpSide == OPFOR ) then {
 			};
 		};
 	}; 
-	{_x setVariable ["WMS_RealFuckingSide",_grpSide]}forEach units _VHLgrp;
+	{_x setVariable ["WMS_RealFuckingSide",_grpSide,true]}forEach units _VHLgrp;
 	[(units _VHLgrp),'SMG',WMS_DynAI_LauncherChance,_skill,_difficulty,_loadout,nil,"VHLCrew"] call WMS_fnc_SetUnits;
 	//if !(WMS_HeadlessOwnerID == 2) then {_VHLgrp setGroupOwner WMS_HeadlessOwnerID};
 	//if (HC1 in allPlayers) then {_VHLgrp setGroupOwner (owner HC1)};
@@ -219,7 +219,7 @@ if (_triggType == "reinforcementpunisher") then {
 };
 if (_grpSide == BLUFOR ) then {
 	if (_loadout == "army") then {_loadout = "army_b"};
-	{_x setVariable ["WMS_RealFuckingSide",_grpSide]}forEach units _VHLgrp;
+	{_x setVariable ["WMS_RealFuckingSide",_grpSide,true]}forEach units _VHLgrp;
 	//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
 	[units _VHLgrp,'SMG',10,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	if (_useMarker) then {

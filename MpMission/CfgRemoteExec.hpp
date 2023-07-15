@@ -123,20 +123,25 @@ class CfgRemoteExec
 		class WMS_fnc_InfantryProgram_INFbyChopper 	{ allowedTargets=2; };//InfantryProgram   //EXILE
 		class WMS_fnc_InfantryProgram_Weapons 		{ allowedTargets=2; };//InfantryProgram   //EXILE
 		class WMS_fnc_InfantryProgram_C130		    { allowedTargets=2; };//InfantryProgram   //EXILE
-		class WMS_fnc_infantryProgram_extraction	{ allowedTargets=2; };//InfantryProgram   //EXILE
+		class WMS_fnc_infantryProgram_extraction	{ allowedTargets=0; };//InfantryProgram   //EXILE
 		class WMS_fnc_InfantryProgram_ArtySupport	{ allowedTargets=2; };//InfantryProgram   //EXILE
 		class WMS_fnc_infantryProgram_GNDextraction	{ allowedTargets=2; };//InfantryProgram   //EXILE
 		class WMS_fnc_infantryProgram_BlackFish		{ allowedTargets=2; };//InfantryProgram   //EXILE
 		class WMS_fnc_InfantryProgram_buy			{ allowedTargets=2; };//InfantryProgram   //EXILE
 		
 		class WMS_fnc_JudgementDay					{ allowedTargets=2; };
-		class WMS_JMD_hideFallenTrees			{ allowedTargets=2; };
+		class WMS_JMD_hideFallenTrees				{ allowedTargets=2; };
 
 		class WMS_fnc_DFO_Event		   				{ allowedTargets=2; }; //server side only
 
 		class WMS_fnc_client_createBaseMarkers		{ allowedTargets=0; }; //thats a weird one but trying
 		class WMS_fnc_client_3Dmarkers		   		{ allowedTargets=0; };
 		class WMS_fnc_client_LBIS			   		{ allowedTargets=0; };
+
+		//HC Stuff
+		class WMS_fnc_waypoints_Patrol 				{ allowedTargets=0; };//to replace the trusty CBA one, at least on HC
+		class WMS_fnc_SetUnits 						{ allowedTargets=0; };//HC remote setUnits
+		class WMS_fnc_ServerProfileNameSpace 		{ allowedTargets=0; };//send serverProfile update from the HC, will need some safetry things
 
 		//class WMS_fnc_Event_HVT		   			{ allowedTargets=2; }; //not finished
 		//class WMS_fnc_DynAI_RwdMsgOnKill			{ allowedTargets=2; }; //filter for HC1 remoteExec EHrewards

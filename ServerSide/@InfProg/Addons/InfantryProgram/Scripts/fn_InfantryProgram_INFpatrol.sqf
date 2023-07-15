@@ -12,7 +12,7 @@
 
 //////////
 //[_pos,_target,_timer,_skill,_grpSize,_grpSide,_loadout,_FrontSpawn,_launcherChance,_dist1,_dist2,_WPDist,_WPType,_WPBeha,_WPComb,_WPSpee]callcall WMS_fnc_InfantryProgram_INFpatrol
-//[_target,_RandomPosDest,(round(2+(random 3))),_patrolLoadout,600,250,_missionType,_vhl] call WMS_fnc_InfantryProgram_INFsquad; //Old
+//[_target,_RandomPosDest,(round(2+(random 3))),_patrolLoadout,600,250,_missionType,_vhl] call WMS_fnc_InfantryProgram_INFpatrol; //Old
 //////////////////////////////////////////////////////////////////
 
 if (WMS_IP_LOGs) then {diag_log format ["[INFANTRY PATROL]|WAK|TNA|WMS| _this = %1", _this]};
@@ -42,12 +42,15 @@ params[
 _PatrolVRmkrList = [];
 _smokeGrenade = "SmokeShellOrange";
 _patrolGrp = grpNull;
+_info = "DYNAI";
+/////HC STUFF/////
 _posFar = [_pos, 150, 400] call BIS_fnc_findSafePos;
-_HC1 = missionNameSpace getVariable ["WMS_HC1",false]; //set by HC1 itself then publicVariable //This can not work, obviously...
+_HC1 = missionNameSpace getVariable ["WMS_HC1",false];
 _HC1_ID = 2;
-if (isServer && _HC1)then{
+if (isDedicated && _HC1)then{
   {if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
 };
+/////HC STUFF\\\\\
 _units = [];
 for "_i" from 1 to _grpSize do {
 	_units pushBack (selectRandom WMS_AI_Units_Class);
@@ -65,7 +68,7 @@ if (_FrontSpawn) then {
 } else {
 	_patrolGrp = [_pos, _grpSide, _units] call BIS_fnc_spawnGroup;
 };
-{_x setVariable ["WMS_RealFuckingSide",_grpSide]}foreach units _patrolGrp;
+{_x setVariable ["WMS_RealFuckingSide",_grpSide,true]}foreach units _patrolGrp;
 
 _posDZ = position (Leader _patrolGrp);
 
@@ -80,9 +83,9 @@ if (_grpSide == OPFOR ) then {
 	};
 	if (WMS_IP_LOGs) then {diag_log format ["[INFANTRY PATROL GROUP]|TNA|TNA|TNA|TNA|TNA| Side = %1", _grpSide]};
 	_smokeGrenade = "SmokeShellRed";
-	[(units _patrolGrp),'Random',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+	//[(units _patrolGrp),'Random',_launcherChance,_skill,_difficulty,_loadout,nil,_info] call WMS_fnc_SetUnits;
 ////////////////NEW, HC OFFLOAD TEST////////////////
-	if (isServer && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+	/*if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
 		[format["[RECEIVING OFFLOAD FROM SERVER]WMS_fnc_InfantryProgram_INFpatrol %1",([time,(time+(_timer+(random _timer))),[_patrolGrp],[],[],[],[],""])]] RemoteExec ["diag_log",_HC1_ID];
 		//HC DO NOT HAVE THE HABILITY YET TO MANAGE THAT, SO KEEP IT SERVER SIDE TO SEE WHAT IS HAPPENING
 		WMS_AI_OPFORpatrol_Running pushback [time,(time+(_timer+(random _timer))),[_patrolGrp],[],[],[],[],""]; //IF OFFLOAD ON HC, I GUESS THEY WONT EXIST ANYMORE
@@ -90,7 +93,9 @@ if (_grpSide == OPFOR ) then {
 	}else{
 		WMS_AI_OPFORpatrol_Running pushback [time,(time+(_timer+(random _timer))),[_patrolGrp],[],[],[],[],""]; //IF OFFLOAD ON HC, I GUESS THEY WONT EXIST ANYMORE
 		WMS_AI_OPFORpatrol_LastTarget set [0,_target];
-	};
+	};*/
+	WMS_AI_OPFORpatrol_Running pushback [time,(time+(_timer+(random _timer))),[_patrolGrp],[],[],[],[],""]; //IF OFFLOAD ON HC, I GUESS THEY WONT EXIST ANYMORE
+	WMS_AI_OPFORpatrol_LastTarget set [0,_target];
 	WMS_AI_OPFORPatrol_LastTime = time;
 ////////////////////////////////////////////////
 	publicVariable "WMS_AI_OPFORPatrol_LastTime";
@@ -109,7 +114,7 @@ if (_grpSide == BLUFOR ) then {
 	if (_loadout == "army") then {_loadout = "army_b"};
 	//[units _patrolGrp,'Random',_launcherChance,_skill,_loadout] call WMS_fnc_DynAI_SetUnitBLU;
 	//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
-	[units _patrolGrp,'Random',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+	//[(units _patrolGrp),'Random',_launcherChance,_skill,_difficulty,_loadout,nil,_info] call WMS_fnc_SetUnits;
 	WMS_AI_bluforPatrol_Running pushback [time,(time+(_timer+(random _timer))),[_patrolGrp],[],_PatrolVRmkrList,[],[],""];
 	WMS_AI_bluforPatrol_LastTime = time;
 	publicVariable "WMS_AI_bluforPatrol_LastTime";
@@ -121,19 +126,22 @@ if (_grpSide == BLUFOR ) then {
 	} forEach (units _patrolGrp);
 };
 ////////////////NEW, HC OFFLOAD TEST////////////////
-if (isServer && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
 	if (true) then {diag_log format ["[WMS_fnc_InfantryProgram_INFpatrol]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _patrolGrp]};
 	_patrolGrp setGroupOwner _HC1_ID;
-	//{_x setgroupOwner _HC1_ID}forEach (units _patrolGrp);
+	[(units _patrolGrp),'Random',_launcherChance,_skill,_difficulty,_loadout,nil,_info] remoteExec ["WMS_fnc_SetUnits",_HC1_ID];
 	if (_steal) then {
-		[format["[RECEIVING OFFLOAD FROM SERVER]WMS_fnc_InfantryProgram_INFpatrol %1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11",_patrolGrp, _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]]] RemoteExec ["diag_log",_HC1_ID];
-		[(units _patrolGrp), _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] RemoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
+		[format["[RECEIVING OFFLOAD FROM SERVER]WMS_fnc_InfantryProgram_INFpatrol %1",([_patrolGrp, _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]])]] RemoteExec ["diag_log",_HC1_ID];
+		//[(units _patrolGrp), _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] RemoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
+		[(units _patrolGrp), _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] RemoteExec ["WMS_fnc_Waypoints_Patrol",_HC1_ID];
 	} else {
-		[format["[RECEIVING OFFLOAD FROM SERVER]WMS_fnc_InfantryProgram_INFpatrol %1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11",_patrolGrp, _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]]] RemoteExec ["diag_log",_HC1_ID];
-		[(units _patrolGrp), _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] RemoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
+		[format["[RECEIVING OFFLOAD FROM SERVER]WMS_fnc_InfantryProgram_INFpatrol %1",([_patrolGrp, _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]])]] RemoteExec ["diag_log",_HC1_ID];
+		//[(units _patrolGrp), _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] RemoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
+		[(units _patrolGrp), _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] RemoteExec ["WMS_fnc_Waypoints_Patrol",_HC1_ID];
 	};
 }else {
 	////////////////NORMAL WAY////////////////
+	[(units _patrolGrp),'Random',_launcherChance,_skill,_difficulty,_loadout,nil,_info] call WMS_fnc_SetUnits;
 	if (_steal) then {
 		[_patrolGrp, _pos, _WPDist, 3, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
 	} else {

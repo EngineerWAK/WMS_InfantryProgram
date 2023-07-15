@@ -54,7 +54,7 @@ private _vehicVarName = format["CHOPPA_%1_%2", getplayerUID _target, time];
 _vehic setvehicleVarName _vehicVarName;
 _vehic setVehicleLock "LOCKEDPLAYER";
 if (_missionType == "INFbyChopper" ) then {
-  [_target,_RandomPosDest,_vhl,_missionType,(round(2+(random 3))),_patrolLoadout,600,250] call WMS_fnc_InfantryProgram_INFsquad;
+  [_target,_RandomPosDest,_vhl,_missionType,(round(2+(random 3))),_patrolLoadout,600,250] call WMS_fnc_InfantryProgram_INFsquad; //THIS NEED TO CHANGE TO GET RID OF THE FUNCTION
 } else { 
 if (_missionType == "WDtrader" ) then {
   [_target,_RandomPosDest,300,_vhl] call WMS_fnc_InfantryProgram_WDtrader;

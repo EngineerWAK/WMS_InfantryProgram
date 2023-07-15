@@ -90,21 +90,23 @@ while {true} do {
 	};
 	uisleep 59;
 	call WMS_fnc_AllDeadsMgr;
-	//weather
-	if (WMS_forceNoRain && {Rain != 0}) then{10 setRain 0};
-	if (WMS_forceNoFog && {fog != 0}) then{10 setFog 0};
-	//Player Watch, the Original one
-	if (count allPlayers != 0) then {call WMS_fnc_Watch_Players};
-	//fast Night
-	if (WMS_FastNight) then {call WMS_fnc_sys_FastNights};
-	//Server restart 
-	if (WMS_ServRestart && {serverTime > (WMS_ServRestartSeconds-900)}) then {
-		[] spawn WMS_fnc_sys_ServerRestart; //I don't like this "spawn"
+	if (isDedicated) then {
+		//weather
+		if (WMS_forceNoRain && {Rain != 0}) then{10 setRain 0};
+		if (WMS_forceNoFog && {fog != 0}) then{10 setFog 0};
+		//Player Watch, the Original one
+		if (count allPlayers != 0) then {call WMS_fnc_Watch_Players};
+		//fast Night
+		if (WMS_FastNight) then {call WMS_fnc_sys_FastNights};
+		//Server restart 
+		if (WMS_ServRestart && {serverTime > (WMS_ServRestartSeconds-900)}) then {
+			[] spawn WMS_fnc_sys_ServerRestart; //I don't like this "spawn"
+		};
 	};
 	///////////////////////////////
 	//DFO
 	///////////////////////////////
-	if (WMS_DynamicFlightOps) then {
+	if (isDedicated && WMS_DynamicFlightOps) then { //isDedicated for now
 		if (count WMS_DFO_Running != 0) then {
 			{
 				if (((_x select 7) == "DFO")) then { //if it's not "DFO", it's really fuckedUp
@@ -123,7 +125,7 @@ while {true} do {
 	/////////////////////////////
 	//JUDGEMENT DAY
 	/////////////////////////////
-	if (WMS_JudgementDay && {WMS_JudgementDay_Run}) then {
+	if (isDedicated && WMS_JudgementDay && {WMS_JudgementDay_Run}) then { //isDedicated for now
 		_unitsToWatch = [];
 		{
 			{

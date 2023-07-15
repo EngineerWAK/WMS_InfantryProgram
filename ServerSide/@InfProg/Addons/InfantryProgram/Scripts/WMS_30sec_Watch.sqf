@@ -19,5 +19,5 @@ while {true} do {
 	//WMS_AI_RoamingVHL_Watch
 	if (WMS_AI_RoamingVHL || WMS_AI_RoamingAIR) then {call WMS_fnc_Watch_RoamingVhl};
 	//Markers Update
-	if (WMS_ServerMarkers) then {call WMS_fnc_sys_ServerMarkersUpdate};
+	if (isDedicated && WMS_ServerMarkers) then {call WMS_fnc_sys_ServerMarkersUpdate};
 };

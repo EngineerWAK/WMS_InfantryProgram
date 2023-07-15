@@ -10,7 +10,7 @@
 * Do Not Re-Upload
 */
 if (true) then {diag_log format ["[WMS Custom Map Config]|WAK|TNA|WMS| Launching at %1", servertime]};
-if (WMS_MapName == "Cam_Lao_Nam") then {
+if (worldName == "Cam_Lao_Nam") then {
 										WMS_OffloadToHC1			= true; //WORKINPROGRESS!!!!!
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_SOG.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_SOG.sqf";
@@ -110,8 +110,9 @@ if (WMS_MapName == "Cam_Lao_Nam") then {
 										WMS_trig_Glob_CoolD 		= 240;
 										WMS_Forests_CoolD			= 300;
 										WMS_Military_CoolD			= 240;
-										WMS_AI_Units_Class 			= ["vn_c_men_13","vn_c_men_01","vn_c_men_05","vn_c_men_09",
-																	"vn_i_men_rla_01","vn_i_men_rla_02",
+										WMS_AI_Units_Class 			= [
+																	//"vn_c_men_13","vn_c_men_01","vn_c_men_05","vn_c_men_09",//thats a lot of mess
+																	//"vn_i_men_rla_01","vn_i_men_rla_02",
 																	"vn_o_men_nva_dc_01","vn_o_men_nva_dc_13","vn_o_men_nva_dc_08",
 																	"vn_o_men_nva_marine_03","vn_o_men_nva_marine_10","vn_o_men_nva_marine_04"];
 										WMS_AMS_UnitClass 			= WMS_AI_Units_Class;
@@ -175,7 +176,7 @@ if (WMS_MapName == "Cam_Lao_Nam") then {
 																		if (true) then {diag_log format ["[WMS_CustomMapsSettings]|WAK|TNA|WMS| Pre_selection of AMS Positions DONE at %1, %2 positions", servertime, count WMS_AMS_preSelectPos]};
 																	};*/
 };
-if (WMS_MapName == "lingor3") then {
+if (worldName == "lingor3") then {
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										WMS_AI_MaxUnits_A 			= 130; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
@@ -239,7 +240,7 @@ if (WMS_MapName == "lingor3") then {
 										WMS_Forests_CoolD			= 300;
 										WMS_Military_CoolD			= 240;
 };
-if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global Mobilization assets
+if (worldName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global Mobilization assets
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_CHAM_gm.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_CHAM_gm.sqf";
 										WMS_AI_MaxUnits_A 			= 120; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
@@ -300,7 +301,7 @@ if (WMS_MapName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global
 										//Let's make it more challenging on Ruha //FastCombat	
 										WMS_FastCombat 				= true;
 										};
-if (WMS_MapName == "ruha") then {	
+if (worldName == "ruha") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										WMS_AI_MaxUnits_A 			= 120; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
@@ -360,7 +361,7 @@ if (WMS_MapName == "ruha") then {
 										//Let's make it more challenging on Ruha //FastCombat	
 										WMS_FastCombat 				= true;
 										};
-if (WMS_MapName == "Lythium") then {	
+if (worldName == "Lythium") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										WMS_forceNoRain 			= true;
@@ -431,7 +432,7 @@ if (WMS_MapName == "Lythium") then {
 										//ARMORED SERVER
 										AMS_ArmoredServer = false;
 										};
-if (WMS_MapName == "gm_weferlingen_summer") then {
+if (worldName == "gm_weferlingen_summer") then {
 										if (true) then {diag_log format ["[MISSION MAP]|WAK|TNA|WMS| Detetected map for AI setup is: %1", worldname]};
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_weferlingen.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_weferlingen.sqf";
@@ -480,7 +481,7 @@ if (WMS_MapName == "gm_weferlingen_summer") then {
 										
 										WMS_AL_VhlBalance			= [1,1,0,1,1,0,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 };
-if (WMS_MapName == "Altis") then {	
+if (worldName == "Altis") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										WMS_forceNoFog				= true;
@@ -554,7 +555,7 @@ if (WMS_MapName == "Altis") then {
 																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
-if (WMS_MapName == "Tanoa") then {		
+if (worldName == "Tanoa") then {		
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
@@ -663,7 +664,7 @@ if (WMS_MapName == "Tanoa") then {
 																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
-if (WMS_MapName == "Enoch") then {		//Livonia
+if (worldName == "Enoch") then {		//Livonia
 										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
 										//execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
 										//execVM "\InfantryProgram\Scripts\WMS_List_VHL_Namalsk.sqf";
@@ -753,7 +754,7 @@ if (WMS_MapName == "Enoch") then {		//Livonia
 																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
-if (WMS_MapName == "vt7") then {//Virolahti
+if (worldName == "vt7") then {//Virolahti
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
@@ -845,7 +846,7 @@ if (WMS_MapName == "vt7") then {//Virolahti
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
 
-if (WMS_MapName == "Malden") then {	//VERY OUTDATED
+if (worldName == "Malden") then {	//VERY OUTDATED
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_Vanilla.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_Vanilla.sqf";
 										WMS_IP_Extract_Alt 			= 150;
@@ -869,7 +870,7 @@ if (WMS_MapName == "Malden") then {	//VERY OUTDATED
 										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
 										WMS_AMS_CustomPos			= ["random"];
 									};
-if (WMS_MapName == "tem_kujari") then {	//OUTDATED //I used Kujari as Custom Armored combat server so the roaming AI drives Tanks, not quadbikes ^^
+if (worldName == "tem_kujari") then {	//OUTDATED //I used Kujari as Custom Armored combat server so the roaming AI drives Tanks, not quadbikes ^^
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_FullMod.sqf";
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","BWA3_PzF3_Tandem_Loaded","BWA3_Bunkerfaust_Loaded","BWA3_RGW90_Loaded"],["rhs_weap_igla"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
@@ -906,7 +907,7 @@ if (WMS_MapName == "tem_kujari") then {	//OUTDATED //I used Kujari as Custom Arm
 										AMS_ArmoredServer = true;
 									};
 
-if (WMS_MapName == "xcam_taunus") then {//OUTDATED	//NOTE THAT TAUNUS IS VERY LAGGY SERVER<>CLIENT
+if (worldName == "xcam_taunus") then {//OUTDATED	//NOTE THAT TAUNUS IS VERY LAGGY SERVER<>CLIENT
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										WMS_WaterSource				= "Land_Jbad_Misc_Well_C";
@@ -996,7 +997,7 @@ if (AMS_ArmoredServer)then {
 	};
 };
 //////////
-if (WMS_AMS_CleanMapObj && WMS_AMS_ForceRadius && WMS_AMS_CanSelect)then {
+if (isdedicated && WMS_AMS_CleanMapObj && WMS_AMS_ForceRadius && WMS_AMS_CanSelect)then {
 	if (true) then {diag_log format ["[WMS_CustomMapsSettings]|WAK|TNA|WMS| Starting pre_selection of AMS Positions at %1", servertime]};
 	_preSelectPosBlackList = [];
 	_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;

@@ -29,6 +29,8 @@ params[
 	_malusDist 		= 0;
 	_payload 		= [[format ["KILLED %1",toUpper(name _killed)],_bonus]];
 	_msgx 			= "";
+	_playerRep = 0;
+	_playerKills = 0;
 
 	if (((random 100) < WMS_DynAI_DestroyVHL) && (_killed == leader _killed)) then {vehicle _killed setDamage 1};
 
@@ -40,8 +42,13 @@ params[
 		_playerRepUpdated = 0;
 		_playerUID_ExileKills = "ExileKills_"+_killerUID;
 		_playerUID_ExileScore = "ExileScore_"+_killerUID;
-  		_playerRep = profileNamespace getVariable [_playerUID_ExileScore,0];
-  		_playerKills = profileNamespace getVariable [_playerUID_ExileKills,0];
+		if (isDedicated)then{
+  			_playerRep = profileNamespace getVariable [_playerUID_ExileScore,0];
+  			_playerKills = profileNamespace getVariable [_playerUID_ExileKills,0];
+		}else{
+			_playerRep = _killer getVariable ["ExileScore",0];
+			_playerKills = _killer getVariable ["ExileKills",0];
+		};
 		_playerKills = _playerKills + 1;
 		_killer setVariable ["ExileKills", _playerKills, true];
 		if (vehicle _killer isKindOf "Man") then {
@@ -75,7 +82,11 @@ params[
 			(owner _killer) publicVariableClient "ExileClientPlayerKills";
 			ExileClientPlayerKills = nil;
 			} else {
-  				profileNamespace setVariable [_playerUID_ExileKills,_playerKills];
+				if (isDedicated)then{
+					profileNamespace setVariable [_playerUID_ExileKills,_playerKills];
+				}else{
+					[_playerUID_ExileKills,_playerKills,"set",_Killer] remoteExec ["WMS_fnc_ServerProfileNameSpace",2];
+				};
 			};
 
 		if (_info == 'BaseATK' && (WMS_DynAI_BaseATKReinforce) && (time > (WMS_DynAI_BaseATKReinforce_Last+WMS_DynAI_BaseATKReinforce_CD)) && (_killed == leader _killed)) then {
@@ -106,7 +117,11 @@ params[
 				(owner _killer) publicVariableClient "ExileClientPlayerScore";
 				ExileClientPlayerScore = nil;
 			} else {
-  				profileNamespace setVariable [_playerUID_ExileScore,_playerRepUpdated];
+				if (isDedicated)then{
+					profileNamespace setVariable [_playerUID_ExileScore,_playerRepUpdated];
+				}else{
+					[_playerUID_ExileScore,_playerRepUpdated,"set",_Killer] remoteExec ["WMS_fnc_ServerProfileNameSpace",2];
+				};
 			};
 		} else {
 			_bonus = 0;

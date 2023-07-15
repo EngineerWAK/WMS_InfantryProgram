@@ -42,7 +42,7 @@ for "_i" from 1 to _grpSize do {
 };
 _HC1 = missionNameSpace getVariable ["WMS_HC1",false];
 _HC1_ID = 2;
-if (isServer && _HC1)then{
+if (isDedicated && _HC1)then{
 	{if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
 };
 if(surfaceIsWater _pos)then{
@@ -111,25 +111,29 @@ uisleep 1;
 [(units _INFgrp), "Random", 15, _skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits; //'Random' won't be enough, need a specific "OccRandom" with EH
 //uisleep 1;
 
-		if (isServer && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
 			if (true) then {diag_log format ["[WMS_fnc_DynAI_AirAssault]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _INFgrp]};
 			_INFgrp setGroupOwner _HC1_ID;
-		//{_x setGroupOwner _HC1_ID}forEach units _INFgrp;
+			[(units _INFgrp), "Random", 15, _skill,_difficulty,_loadout,nil,"DYNAI"] remoteExec ["WMS_fnc_SetUnits",_HC1_ID];
 			if (WMS_DynAI_Steal) then { //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
-				[units _INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
+				[units _INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol",_HC1_ID];
 			} else {
-				[units _INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID]; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
-			}; 
+				[units _INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol",_HC1_ID]; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
+			};
+			uisleep 3;
 		}else{
+			[(units _INFgrp), "Random", 15, _skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 			if (WMS_DynAI_Steal) then { //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
 				[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
 			} else {
 				[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
 			}; 
+			uisleep 3;
+			deleteWaypoint [_INFgrp, 0];
 		};
 
-uisleep 3;
-deleteWaypoint [_INFgrp, 0]; //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
+//uisleep 3;
+//deleteWaypoint [_INFgrp, 0]; //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
 _WPT_2b = _transportGRP addWaypoint [[-1000,-1000,0], 150];  
 _WPT_2b setWaypointType "MOVE";    
 

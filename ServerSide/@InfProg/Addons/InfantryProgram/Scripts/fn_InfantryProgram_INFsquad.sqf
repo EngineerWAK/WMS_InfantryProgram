@@ -27,15 +27,6 @@ params[
 	["_distanceWPT", 100, [0]]
       
 ];
-/*private _target = (_this select 0);
-private _startPatrolPos = (_this select 1);
-private _soldiersInTheGrp = (_this select 2);
-private _patrolLoadout = (_this select 3);
-private _patrolTimer = (_this select 4);
-private _distanceWPT = (_this select 5);
-private _missionType = (_this select 6);
-private _vhl = (_this select 7); //[vehicle name,[all crew],group]
-diag_log format ["[INFANTRY SQUAD]|TNA|TNA|TNA|TNA|TNA| _this = %1", _this];*/
 _backpackChance = 75;
 _launcherChance = 50;
 _googleChance = 50;
@@ -117,13 +108,6 @@ private _scopes = ["hlc_optic_HensoldtZO_lo_Docter","BWA3_optic_ZO4x30i_MicroT2"
 		deleteVehicle (_this select 0);
 	};
 } forEach units _GrpPatrol ;
-
-/* from OPFOR patrol
-private _spawnPos = _target modelToWorld [(-50+(random 100)),_distSpawn,0];
-private _randomSpawnPos = [[(_spawnPos select 0),(_spawnPos select 1),0] , 15, 50, 1, 0, 0, 0, [], [_spawnPos,[]]] call BIS_fnc_findSafePos;
-private _GrpPatrol = [_randomSpawnPos, OPFOR, _soldiersInTheGrp] call BIS_fnc_spawnGroup; //50m diameter 400m front of the target, will be 350/450m away
-[_GrpPatrol, position _target, _distanceWPT, 5, "MOVE", "SAFE", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
- */
 
 private _WPT_inf = _GrpPatrol addWaypoint [_startPatrolPos, 0];     
 _WPT_inf setWaypointType "GETOUT";

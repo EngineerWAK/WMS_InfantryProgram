@@ -171,6 +171,9 @@ class CfgFunctions {
 			class AllDeadsMgr		{};
 			class JudgementDay		{};
 			class PunishPunks		{};
+
+			class waypoints_Patrol 	{};
+			class ServerProfileNameSpace  	{};
 		};
 	};
 };

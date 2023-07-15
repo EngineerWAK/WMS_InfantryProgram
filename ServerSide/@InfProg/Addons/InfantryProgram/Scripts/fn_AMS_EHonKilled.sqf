@@ -24,6 +24,8 @@ WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_AMS_AllDeads)];
 _distanceKill = (round(_killer distance _killed));
 _bonus = WMS_DynAI_respectBonus;
 _difficulty = _killed getVariable "WMS_Difficulty";
+_playerRep = 0;
+_playerKills = 0;
 //_adjustedSkills = _killed getVariable "AMS_AdjustedSkills"; //Not Used Yet, includ VCOM functions
 if (_distanceKill > WMS_AMS_distBonusMax) then {_bonus = 0};
 _bonusDist = round (_distanceKill * WMS_AMS_distBonusCoef);
@@ -49,8 +51,13 @@ if (isplayer _killer || isplayer _instigator) then {
 	_playerRepUpdated = 0;
 	_playerUID_ExileKills = "ExileKills_"+_killerUID;
 	_playerUID_ExileScore = "ExileScore_"+_killerUID;
-  	_playerRep = profileNamespace getVariable [_playerUID_ExileScore,0];
-  	_playerKills = profileNamespace getVariable [_playerUID_ExileKills,0];
+	if (isDedicated)then{
+  		_playerRep = profileNamespace getVariable [_playerUID_ExileScore,0];
+  		_playerKills = profileNamespace getVariable [_playerUID_ExileKills,0];
+	}else{
+		_playerRep = _killer getVariable ["ExileScore",0];
+		_playerKills = _killer getVariable ["ExileKills",0];
+	};
 	_playerKills = _playerKills + 1;
 	_killer setVariable ["ExileKills", _playerKills, true];
 	/////this, I have no idea what is it xD
@@ -72,13 +79,13 @@ if (isplayer _killer || isplayer _instigator) then {
 		_distanceKill >= WMS_AMS_AbuseMaxDist
 	) then {
 		//AMS_Abuse
-		if (WMS_AMS_Abuse) then {
+		if (WMS_AMS_Abuse) then {//THAT WILL BE A "PROBLEM" WITH HC
 			_MissionID = _killed getVariable ["AMS_MissionID", ""];
 			_AMS_Abuse = missionNameSpace getVariable [format["%1_AMS_Abuse",_MissionID],0];
 			missionNameSpace setVariable [format["%1_AMS_Abuse",_MissionID],_AMS_Abuse+1];
 		};
 		//add an "Auto Black List count"
-		if (WMS_AMS_AutoBlackList)then {
+		if (WMS_AMS_AutoBlackList)then {//THAT WILL BE A "PROBLEM" WITH HC
 			_ABLcount = missionNameSpace getVariable [format ["%1_ABLcount",getPlayerUID _killer],0];
 			if (_ABLcount >= WMS_AMS_ABLcount && !{getPlayerUID _killer in WMS_BlackList}) then {
 				WMS_BlackList pushBack (getPlayerUID _killer);
@@ -98,7 +105,11 @@ if (isplayer _killer || isplayer _instigator) then {
 		(owner _killer) publicVariableClient "ExileClientPlayerKills";
 		ExileClientPlayerKills = nil;
 	} else {
-  		profileNamespace setVariable [_playerUID_ExileKills,_playerKills];
+		if (isDedicated)then{
+			profileNamespace setVariable [_playerUID_ExileKills,_playerKills];
+		}else{
+			[_playerUID_ExileKills,_playerKills,"set",_Killer] remoteExec ["WMS_fnc_ServerProfileNameSpace",2];
+		};
 	};
 
 	if (WMS_AMS_DestroyStatics && {
@@ -133,7 +144,11 @@ if (isplayer _killer || isplayer _instigator) then {
 			(owner _killer) publicVariableClient "ExileClientPlayerScore";
 			ExileClientPlayerScore = nil;
 		} else {
-  			_serverSide_ExileScore = profileNamespace setVariable [_playerUID_ExileScore,_playerRepUpdated];
+			if (isDedicated)then{
+				profileNamespace setVariable [_playerUID_ExileScore,_playerRepUpdated];
+			}else{
+				[_playerUID_ExileScore,_playerRepUpdated,"set",_Killer] remoteExec ["WMS_fnc_ServerProfileNameSpace",2];
+			};
 		};
 	} else {
 		_bonus = 0;
@@ -255,7 +270,7 @@ if (isplayer _killer || isplayer _instigator) then {
 	if ((_killed == leader _killed) && {(random 100) < WMS_AMS_DestroyVHL}) then {vehicle _killed setDamage 1};
 	_killed removeWeapon (secondaryWeapon _killed);
 	//AMS_Abuse, just in case everybody start to die by "accident"
-	if (WMS_AMS_Abuse) then {
+	if (WMS_AMS_Abuse) then { //THAT WILL BE A "PROBLEM" WITH HC
 		_MissionID = _killed getVariable ["AMS_MissionID", ""];
 		_AMS_Abuse = missionNameSpace getVariable [format["%1_AMS_Abuse",_MissionID],0];
 		missionNameSpace setVariable [format["%1_AMS_Abuse",_MissionID],_AMS_Abuse+1];

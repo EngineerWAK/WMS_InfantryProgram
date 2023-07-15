@@ -26,16 +26,19 @@ if !(typeName _pos == "ARRAY") exitWith {diag_log format ["[EXTRACTION CHOPPER]|
 
 _HC1 = missionNameSpace getVariable ["WMS_HC1",false]; //set by HC1 itself then publicVariable //This can not work, obviously...
 _HC1_ID = 2;
-if (isServer && _HC1)then{
+if (isDedicated && _HC1)then{
   {if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
 };
-if (isServer && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+/////THIS WILL CHANGE/////
+if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
     //get the HC1 owner
 
     //the Easiest way would be for the HC to run the same function and just send "_this"
 		[format["[RECEIVING OFFLOAD FROM SERVER]WMS_fnc_InfantryProgram_Extraction _this = %1",_this]] RemoteExec ["diag_log",_HC1_ID];
 		_this RemoteExec ["WMS_fnc_InfantryProgram_Extraction",_HC1_ID];
 }else{
+/////THIS WILL CHANGE\\\\\
+
   //the all function should go there I guess
 private _RandomPosSpawn = [_target, 1500, 2500] call BIS_fnc_findSafePos;
 private _RandomPosExtract = [_target, 0, 100, 20, 0, 0.15, 0, [], [(position _target),[]]] call BIS_fnc_findSafePos;

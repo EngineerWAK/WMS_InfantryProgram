@@ -39,13 +39,18 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.836_2023JUL14_GitHub"; //SOG Prairie Fire Setup and loadouts //working on Headless Client crap...
+WMS_System_Version 			= "v2.838_2023JUL15_GitHub"; //working on Headless Client crap...
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
-if (true) then {diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]};
-
-WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch launch
+if (isDedicated) then {	
+	diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]
+}else{
+	diag_log format ["[WMS Starting On HeadlessClient]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]
+};
+if (isDedicated) then {
+	WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch launch
+};
 {
 	if (hasInterface && {(count(getPlayerUID _x))==17}) then {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]};//do not kick the HC
 }foreach allPlayers; //kick all players trying to connect before the server is locked-ready-unlocked
@@ -210,9 +215,7 @@ WMS_JudgementDay_items	= [ //ABSOLUTLY NOT VANILLA YET! xD //in fn_setUnits.sqf
 							["ACE_fortify","ACE_NVG_Wide","rhs_radio_R187P1","ToolKit","Money_stack_quest","ACE_personalAidKit", "rhsusf_acc_aac_762sdn6_silencer","rhs_acc_pbs1"]
 						];
 WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]]; //dynamic, NO TOUCH //[_playerObject,_pos(computer),_waveNumber(1 to 10),[_CIVgroup],[_OPFgroup],[],[_triggerOPF,_triggerCIV,_triggerPLAYER],[_markers],[_objectsOrMines]];
-publicVariable "WMS_JudgementDay"; //NO TOUCH
-publicVariable "WMS_JudgementDay_Run"; //NO TOUCH
-publicVariable "WMS_JudgementDay_Rad"; //NO TOUCH
+
 //////////////////////////////
 //AmbientLife
 //////////////////////////////
@@ -303,15 +306,6 @@ if (WMS_DynamicFlightOps) then { //Dynamic Flight Operations, for REAL Arma "pil
 	WMS_DFO_RunReinforce	= []; //KEEP EMPTY
 		//WMS_DFO_ToDelete		= []; //KEEP EMPTY //[timeToDelete,[objects]]
 	WMS_DFO_AceIsRunning 	= false; //this should go in WMS_InfantryProgram
-	publicVariable "WMS_DFO_Running"; //NO TOUCH
-	publicVariable "WMS_DFO_MaxRunning"; //NO TOUCH
-	publicVariable "WMS_DFO_LastCall"; //NO TOUCH
-	publicVariable "WMS_DFO_CoolDown"; //NO TOUCH
-	publicVariable "WMS_DFO_UsePilotsList"; //NO TOUCH
-	publicVariable "WMS_DFO_PilotsList"; //NO TOUCH
-	publicVariable "WMS_DFO_MissionTypes"; //NO TOUCH
-	publicVariable "WMS_DFO_AceIsRunning"; //NO TOUCH
-	publicVariable "WMS_DFO_Reward"; //NO TOUCH
 	//Maps custom settings
 	if (worldName in WMS_DFO_NoSeaMaps) then {
 		WMS_DFO_SarSeaPosition	= "random";
@@ -695,11 +689,9 @@ WMS_WaterSource			= "Land_ConcreteWell_02_F"; //ACE //Force this object to becom
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+MISSION_ROOT = format ["mpmissions\%1.%2\", "__cur_mp", worldName]; //I should remove this crap
 
-WMS_MapName = worldname;
-MISSION_ROOT = format ["mpmissions\%1.%2\", "__cur_mp", WMS_MapName]; //I should remove this crap
-
-if (WMS_MapName in WMS_CustomizedMap) then {
+if (worldName in WMS_CustomizedMap) then {
 	execVM "\InfantryProgram\Scripts\WMS_customMapsSettings.sqf";
 }else {
 	execVM "\InfantryProgram\Scripts\WMS_List_VHL_Vanilla.sqf";
@@ -755,33 +747,10 @@ CIVILIAN setFriend [East, 0.8];
 ////////////////////////////////////////////////////
 //////////NOTHING TO SETUP AFTER THIS
 ////////////////////////////////////////////////////
-publicVariable "WMS_DynAI_BaseFlag";//NO TOUCH //used to build the computer/spawn beacon
-publicVariable "WMS_InfantryProgram_list";//NO TOUCH
-publicVariable "WMS_IP_Active_list";//NO TOUCH
-publicVariable "WMS_InfantryProgram_Vehicles";//NO TOUCH
-publicVariable "WMS_Compo_BunkerCamp_LastTime";//NO TOUCH
-publicVariable "WMS_Compo_BunkerCamp_CoolDown";//NO TOUCH
-publicVariable "WMS_IP_ArtySup_LastT";//NO TOUCH
-publicVariable "WMS_IP_ArtySup_CoolD";//NO TOUCH
-publicVariable "WMS_IP_BlackFishSup_LastT";//NO TOUCH
-publicVariable "WMS_IP_BlackFishSup_CoolD";//NO TOUCH
-publicVariable "WMS_IP_ExtractChop_LastT";//NO TOUCH
-publicVariable "WMS_IP_ExtractChop_CoolD";//NO TOUCH
-publicVariable "WMS_Extraction_GND_LastTime";//NO TOUCH
-publicVariable "WMS_Extraction_GND_CoolDown";//NO TOUCH
-publicVariable "WMS_INFbyChopper_LastTime";//NO TOUCH
-publicVariable "WMS_INFbyChopper_CoolDown";//NO TOUCH
-publicVariable "WMS_INFsquad_LastTime";//NO TOUCH
-publicVariable "WMS_INFsquad_CoolDown";//NO TOUCH
-publicVariable "WMS_WDtrader_LastTime";//NO TOUCH
-publicVariable "WMS_WDtrader_CoolDown";//NO TOUCH
-publicVariable "WMS_MoveInCargo_C130_LastTime";//NO TOUCH
-publicVariable "WMS_InfantryProgram_C130CoolDown";//NO TOUCH
-
 execVM "\InfantryProgram\Scripts\WMS_yourServCustSettings.sqf"; //I won't ever update this file, it's for you to use it to keep your own variables configs
 
 // Random server start time
-if (WMS_RandomStartTime) then {
+if (WMS_RandomStartTime && isDedicated) then {
 	WMS_Date = [(WMS_Date select 0), (WMS_Date select 1), (WMS_Date select 2), WMS_RandomStart_Hour+floor (random WMS_RandomStart_Random), 00];
 	setdate WMS_Date;
 	if (true) then {diag_log format ["[SERVER DATE/TIME]|WAK|TNA|WMS| Changing server date/time, target time: %1, real time: %2", WMS_Date, date]};
@@ -798,15 +767,15 @@ WMS_AMS_TradersArr = [];
 // Get position from location and water position
 [] call WMS_fnc_CollectPos;
 // Create triggers
-if (WMS_DynAI_triggers) then {execVM "\InfantryProgram\Scripts\WMS_AI_Create_triggers.sqf"};
+if (WMS_DynAI_triggers && isDedicated) then {execVM "\InfantryProgram\Scripts\WMS_AI_Create_triggers.sqf"};
 // Start Random Events system
-if (WMS_Events) 		then {execVM "\InfantryProgram\Scripts\WMS_Event_Start.sqf"};
+if (WMS_Events && isDedicated) 		then {execVM "\InfantryProgram\Scripts\WMS_Event_Start.sqf"}; //event would be great on HC
 // Start Mission system
-if (WMS_AMS)			then {execVM "\InfantryProgram\Scripts\WMS_AMS_Start.sqf"};
+if (WMS_AMS && isDedicated)			then {execVM "\InfantryProgram\Scripts\WMS_AMS_Start.sqf"};
 // Start DynamicFlightOps
-if (WMS_DynamicFlightOps)then {execVM "\InfantryProgram\Scripts\DFO\WMS_DFO_init.sqf"};
+if (WMS_DynamicFlightOps && isDedicated)then {execVM "\InfantryProgram\Scripts\DFO\WMS_DFO_init.sqf"};
 // Start Ambient Life
-if (WMS_AmbientLife)	then {execVM "\InfantryProgram\Scripts\AL\WMS_AL_Functions.sqf"};
+if (WMS_AmbientLife && isDedicated)	then {execVM "\InfantryProgram\Scripts\AL\WMS_AL_Functions.sqf"};
 // Territory Protection system
 //if (true) 				then {execVM "\InfantryProgram\Scripts\WMS_TerritoryProtection.sqf"};
 //Server Info Markers
@@ -838,9 +807,48 @@ WMS_AMS_Missions 				= [];//Leave it empty //processed/weighted missions list
 WMS_AMS_Missions_Running 		= [];//Leave it empty //Mission actualy running to be sure all running missions are different
 WMS_activatedTriggs 			= []; //Leave it empty
 WMS_IP_Active_list 				= []; //player get in there if they are in the InfantryProgram list and they do "join the program" on the built computer
+
+if (isDedicated) then {
+publicVariable "WMS_DynAI_BaseFlag";//NO TOUCH //used to build the computer/spawn beacon
+publicVariable "WMS_InfantryProgram_list";//NO TOUCH
+publicVariable "WMS_IP_Active_list";//NO TOUCH
+publicVariable "WMS_InfantryProgram_Vehicles";//NO TOUCH
+publicVariable "WMS_Compo_BunkerCamp_LastTime";//NO TOUCH
+publicVariable "WMS_Compo_BunkerCamp_CoolDown";//NO TOUCH
+publicVariable "WMS_IP_ArtySup_LastT";//NO TOUCH
+publicVariable "WMS_IP_ArtySup_CoolD";//NO TOUCH
+publicVariable "WMS_IP_BlackFishSup_LastT";//NO TOUCH
+publicVariable "WMS_IP_BlackFishSup_CoolD";//NO TOUCH
+publicVariable "WMS_IP_ExtractChop_LastT";//NO TOUCH
+publicVariable "WMS_IP_ExtractChop_CoolD";//NO TOUCH
+publicVariable "WMS_Extraction_GND_LastTime";//NO TOUCH
+publicVariable "WMS_Extraction_GND_CoolDown";//NO TOUCH
+publicVariable "WMS_INFbyChopper_LastTime";//NO TOUCH
+publicVariable "WMS_INFbyChopper_CoolDown";//NO TOUCH
+publicVariable "WMS_INFsquad_LastTime";//NO TOUCH
+publicVariable "WMS_INFsquad_CoolDown";//NO TOUCH
+publicVariable "WMS_WDtrader_LastTime";//NO TOUCH
+publicVariable "WMS_WDtrader_CoolDown";//NO TOUCH
+publicVariable "WMS_MoveInCargo_C130_LastTime";//NO TOUCH
+publicVariable "WMS_InfantryProgram_C130CoolDown";//NO TOUCH
+publicVariable "WMS_JudgementDay"; //NO TOUCH
+publicVariable "WMS_JudgementDay_Run"; //NO TOUCH
+publicVariable "WMS_JudgementDay_Rad"; //NO TOUCH
+publicVariable "WMS_DFO_Running"; //NO TOUCH
+publicVariable "WMS_DFO_MaxRunning"; //NO TOUCH
+publicVariable "WMS_DFO_LastCall"; //NO TOUCH
+publicVariable "WMS_DFO_CoolDown"; //NO TOUCH
+publicVariable "WMS_DFO_UsePilotsList"; //NO TOUCH
+publicVariable "WMS_DFO_PilotsList"; //NO TOUCH
+publicVariable "WMS_DFO_MissionTypes"; //NO TOUCH
+publicVariable "WMS_DFO_AceIsRunning"; //NO TOUCH
+publicVariable "WMS_DFO_Reward"; //NO TOUCH
 publicVariable "WMS_IP_Active_list";
 publicVariable "WMS_exileFireAndForget";
 publicVariable "WMS_ServRestartSeconds"; //so TheLastCartridges clients can get the timer for the statBar
-if (WMS_ServerMarkers) then {execVM "\InfantryProgram\Scripts\WMS_ServerMarkers.sqf"};
+};
+if (WMS_ServerMarkers && isDedicated) then {execVM "\InfantryProgram\Scripts\WMS_ServerMarkers.sqf"};
 // Init System Watchs
-[]spawn WMS_fnc_sys_Init_Watchs;
+if (isDedicated) then {
+	[]spawn WMS_fnc_sys_Init_Watchs;
+};
