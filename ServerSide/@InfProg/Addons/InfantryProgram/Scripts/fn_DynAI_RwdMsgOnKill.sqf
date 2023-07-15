@@ -169,7 +169,11 @@ params[
 			} else {
 				if (WMS_IP_LOGs) then {diag_log format ["[DynAI_KILLED_MESSAGE]|WAK|TNA|WMS|Killer:%1, Payload: %2",_killer, _payload]};
 				//[_payload,"NotAMS"] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)];
-				[_payload,_info] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)];//WMS_fnc_displayKillStats is clientSide (mission.sqm)
+				if (isDedicated) then {
+					[_payload,_info] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)];//WMS_fnc_displayKillStats is clientSide (mission.sqm)
+				}else{
+					[_payload,_info,_killer] remoteExec ['WMS_fnc_transitKillStats',2]; //yep... I know...
+				};
 			};
 		};
 		if (WMS_DynAI_ejectDeads) then {moveout _killed};

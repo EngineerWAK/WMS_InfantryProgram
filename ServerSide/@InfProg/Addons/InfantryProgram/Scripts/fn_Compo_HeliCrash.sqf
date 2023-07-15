@@ -134,7 +134,6 @@ if (isDedicated && _HC1)then{
 		if (true) then {diag_log format ["[WMS_fnc_CompoHeliCrash]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _Grp]};
 		_Grp setGroupOwner _HC1_ID;
 		[(units _Grp),'Assault',15,_skill,nil,_loadout,nil,"HeliCrash"] remoteExec ["WMS_fnc_SetUnits", _HC1_ID];
-		//[_Grp, _Pos, 50, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol", _HC1_ID];
 		[_Grp, _Pos, 100, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol", _HC1_ID];
 	}else{
 		[(units _Grp),'Assault',15,_skill,nil,_loadout,nil,"HeliCrash"] call WMS_fnc_SetUnits;

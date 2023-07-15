@@ -118,7 +118,7 @@ uisleep 1;
 			if (WMS_DynAI_Steal) then { //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
 				[units _INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol",_HC1_ID];
 			} else {
-				[units _INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol",_HC1_ID]; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
+				[units _INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol",_HC1_ID];
 			};
 			uisleep 3;
 		}else{
@@ -126,7 +126,7 @@ uisleep 1;
 			if (WMS_DynAI_Steal) then { //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there
 				[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "this call WMS_fnc_DynAI_Steal", [1,2,3]] call CBA_fnc_taskPatrol;
 			} else {
-				[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol; //NEW //if (WMS_DynAI_Steal) then {[_grp] call WMS_DynAI_steal};
+				[_INFgrp, _pos, _WPDist, 4, _WPType, _WPBeha, _WPComb, _WPSpee, "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 			}; 
 			uisleep 3;
 			deleteWaypoint [_INFgrp, 0];

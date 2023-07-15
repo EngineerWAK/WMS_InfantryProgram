@@ -95,8 +95,6 @@ if (_grpSide == BLUFOR ) then {
 	};*/
 };
 
-//[(units _paraGrp),'para',_launcherChance,_skill,_difficulty,_loadout,nil,_info] call WMS_fnc_SetUnits;//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info];
-
 _smokePos = [
 	[((_pos select 0)-50),(_pos select 1),150],
 	[((_pos select 0)+50),(_pos select 1),150],

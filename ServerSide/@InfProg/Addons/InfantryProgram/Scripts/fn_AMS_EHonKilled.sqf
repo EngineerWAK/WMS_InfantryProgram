@@ -178,8 +178,11 @@ if (isplayer _killer || isplayer _instigator) then {
 			[_killer, "showFragRequest", [_payload]] call ExileServer_system_network_send_to;
 		} else {
 			if (WMS_IP_LOGs) then {diag_log format ["[AMS_AI_KILLED_MESSAGE]|WAK|TNA|WMS|Killer:%1, Payload: %2",_killer, _payload]};
-			//_payload remoteExecCall ['WMS_fnc_gui_hud_showKillDetails',(owner _killer)];
-			[_payload,"AMS"] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)];
+				if (isDedicated) then {
+					[_payload,"AMS"] remoteExec ['WMS_fnc_displayKillStats',(owner _killer)];//WMS_fnc_displayKillStats is clientSide (mission.sqm)
+				}else{
+					[_payload,"AMS",_killer] remoteExec ['WMS_fnc_transitKillStats',2]; //yep... I know...
+				};
 		};
 	};
 	if (WMS_AMS_ejectDeads) then {moveout _killed};

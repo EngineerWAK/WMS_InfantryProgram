@@ -34,8 +34,8 @@ if (_setGet isEqualTo "set")then{
 	if ("ExileKills" in _playerUID_Datas) then {
 		(_killer setVariable ["ExileKills", 0, true]);
 	}else{
-		if ("ExileMoney" in _playerUID_Datas) then {
-			(_killer setVariable ["ExileMoney", 0, true]);
+		if ("ExileScore" in _playerUID_Datas) then {
+			(_killer setVariable ["ExileScore", 0, true]);
 		};
 	};
 };

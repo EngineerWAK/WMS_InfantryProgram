@@ -44,7 +44,6 @@ for "_i" from 1 to _AIcount do {
 	];
 uisleep 0.1;
 };
-//[(units _InfGrp_O),'Assault',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 
 		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
 			if (true) then {diag_log format ["[WMS_fnc_DynAI_BBQcamp]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _InfGrp_O]};

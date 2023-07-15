@@ -174,6 +174,7 @@ class CfgFunctions {
 
 			class waypoints_Patrol 	{};
 			class ServerProfileNameSpace  	{};
+			class transitKillStats  	{};
 		};
 	};
 };

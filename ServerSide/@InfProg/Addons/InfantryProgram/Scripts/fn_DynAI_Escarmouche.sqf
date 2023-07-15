@@ -65,16 +65,11 @@ for "_i" from 1 to _AIcount do {
 	];
 	uisleep 0.1;
 };
-{_x setVariable ["WMS_RealFuckingSide",BLUFOR]}foreach units _InfGrp_B;
-//[units _InfGrp_B,'Assault',_launcherChance,_skill,'civilian'] call WMS_fnc_DynAI_SetUnitBLU;
-//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
-//[units _InfGrp_B,'Assault',_launcherChance,_skill,nil,'civilian',nil,"DYNAI"] call WMS_fnc_SetUnits;
 
 		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
 			if (true) then {diag_log format ["[WMS_fnc_DynAI_Escarmouche]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _InfGrp_B]};
 			_InfGrp_B setGroupOwner _HC1_ID;
 			[units _InfGrp_B,'Assault',_launcherChance,_skill,nil,'civilian',nil,"DYNAI"] remoteExec ["WMS_fnc_SetUnits",_HC1_ID];
-			//[units _InfGrp_B, _Pos, 75, 3, "MOVE", "COMBAT", "RED", "NORMAL", "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
 			[units _InfGrp_B, _Pos, 75, 3, "MOVE", "COMBAT", "RED", "NORMAL", "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol",_HC1_ID];
 		}else{
 			[units _InfGrp_B,'Assault',_launcherChance,_skill,nil,'civilian',nil,"DYNAI"] call WMS_fnc_SetUnits;
