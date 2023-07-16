@@ -24,7 +24,7 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 ["O_Truck_03_covered_F",[],[[],[]]],
 ["O_Truck_02_transport_F",[],[[],[]]],
 ["O_Truck_02_covered_F",[],[[],[]]],
-	["Exile_Car_Van_Guerilla02",[],[[],[]]],
+	/*["Exile_Car_Van_Guerilla02",[],[[],[]]],
 	["Exile_Car_Van_Guerilla03",[],[[],[]]],
 	["Exile_Car_V3S_Covered",[],[[],[]]],
 	["Exile_Car_HMMWV_UNA_Desert",[],[[],[]]],
@@ -32,7 +32,7 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 	["Exile_Car_Van_Box_Guerilla03",[],[[],[]]],
 	["Exile_Car_Offroad_Guerilla10",[],[[],[]]],
 	["Exile_Car_Offroad_Guerilla11",[],[[],[]]],
-	["Exile_Car_Offroad_Guerilla06",[],[[],[]]],
+	["Exile_Car_Offroad_Guerilla06",[],[[],[]]],*/
 	["Lada_Civ_04",[],[[],[]]]
 	//["B_LSV_01_unarmed_sand_F",[],[[],[]]],
 ];
@@ -40,9 +40,9 @@ WMS_OPFOR_CustomVHL_Armed = [
 	["O_G_Offroad_01_AT_F",[],[[],[]]],
 	["O_G_Offroad_01_armed_F",[],[[],[]]],
 	["O_MRAP_02_hmg_F",[],[[],[]]],
-	["O_LSV_02_armed_F",[],[[],[]]],
+	["O_LSV_02_armed_F",[],[[],[]]]/*,
 	["Exile_Car_HMMWV_M134_Desert",[],[[],[]]],
-	["Exile_Car_Offroad_Armed_Guerilla10",[],[[],[]]]
+	["Exile_Car_Offroad_Armed_Guerilla10",[],[[],[]]]*/
 ];
 WMS_OPFOR_CustomVHL_Spec = [ //Heavy armed
 	["O_APC_Tracked_02_cannon_F",[],[[],[]]],
@@ -78,7 +78,7 @@ WMS_AMS_LightArmed = [
 ["O_G_Offroad_01_AT_F",[],[[],[]]],
 ["O_G_Offroad_01_armed_F",[],[[],[]]],
 	//["O_LSV_02_armed_black_F",[],[[],[]]],
-	["Exile_Car_Offroad_Armed_Guerilla12",[],[[],[]]],
+	/*["Exile_Car_Offroad_Armed_Guerilla12",[],[[],[]]],*/
 	["O_G_Offroad_01_AT_F",[],[[],[]]], //RED
 	["I_C_Offroad_02_LMG_F",[],[[],[]]],
 	["I_C_Offroad_02_AT_F",[],[[],[]]],
