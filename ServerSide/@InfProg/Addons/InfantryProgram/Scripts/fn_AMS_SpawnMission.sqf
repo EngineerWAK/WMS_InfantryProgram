@@ -17,6 +17,7 @@ params [
 	];
 
 if (WMS_IP_LOGs) then {diag_log format ["[AMS MISSION SPAWN]|WAK|TNA|WMS| _this: %1 || _mission: %2", _this, _mission]};
+["EventCustom", ["Advanced Mission System", (format ["Spawning %1, get ready for some Lag",_mission]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
 _debugTime1 = time;
 if (_mission == "no") then { //obiously can not work anymore
 	if (WMS_IP_LOGs) then {diag_log "WMS_AMS_* Mission name fucked-up"};

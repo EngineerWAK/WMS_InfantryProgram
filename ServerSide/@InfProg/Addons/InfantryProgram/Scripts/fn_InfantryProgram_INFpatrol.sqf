@@ -43,8 +43,8 @@ _PatrolVRmkrList = [];
 _smokeGrenade = "SmokeShellOrange";
 _patrolGrp = grpNull;
 _info = "DYNAI";
-/////HC STUFF/////
 _posFar = [_pos, 150, 400] call BIS_fnc_findSafePos;
+/////HC STUFF/////
 _HC1 = missionNameSpace getVariable ["WMS_HC1",false];
 _HC1_ID = 2;
 if (isDedicated && _HC1)then{
@@ -93,7 +93,12 @@ if (_grpSide == OPFOR ) then {
 			_sessionID = _target getVariable ['ExileSessionID','']; 
 			[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['You got Spoted Bro', 'Incoming Special Forces']]] call ExileServer_system_network_send_to;
 		} else {
-			["EventWarning", ["You got Spoted Bro", "Incoming Special Forces"]] remoteExec ["BIS_fnc_showNotification", owner _target];
+			if (isDedicated)then{
+				["EventWarning", ["You got Spoted Bro", "Incoming Special Forces"]] remoteExec ["BIS_fnc_showNotification", owner _target];
+			}else{
+				//Here I need to send the reqest to the server and the server send the remoteexec to the _target
+				[["EventWarning", ["You got Spoted Bro", "Incoming Special Forces"]],_target] remoteExec ["WMS_fnc_remoteNotification", 2];
+			};
 		};  
 	};
 };
@@ -113,7 +118,7 @@ if (_grpSide == BLUFOR ) then {
 };
 ////////////////NEW, HC OFFLOAD TEST////////////////
 if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
-	if (true) then {diag_log format ["[WMS_fnc_InfantryProgram_INFpatrol]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _patrolGrp]};
+	if (true) then {diag_log format ["[WMS_fnc_InfantryProgram_INFpatrol]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2, Pos = %3", _HC1_ID, _patrolGrp, _Pos]};
 	_patrolGrp setGroupOwner _HC1_ID;
 	[(units _patrolGrp),'Random',_launcherChance,_skill,_difficulty,_loadout,nil,_info] remoteExec ["WMS_fnc_SetUnits",_HC1_ID];
 	if (_steal) then {

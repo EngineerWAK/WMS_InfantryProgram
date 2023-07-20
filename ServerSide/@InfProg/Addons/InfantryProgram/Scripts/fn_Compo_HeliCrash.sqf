@@ -131,7 +131,7 @@ if (isDedicated && _HC1)then{
 		_x setVariable ["lambs_danger_disableGroupAI", true];//deactivate LambsDanger
 	}forEach units _grp;
 	if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
-		if (true) then {diag_log format ["[WMS_fnc_CompoHeliCrash]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _Grp]};
+		if (true) then {diag_log format ["[WMS_fnc_CompoHeliCrash]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2, pos = %3", _HC1_ID, _Grp, _pos]};
 		_Grp setGroupOwner _HC1_ID;
 		[(units _Grp),'Assault',15,_skill,nil,_loadout,nil,"HeliCrash"] remoteExec ["WMS_fnc_SetUnits", _HC1_ID];
 		[_Grp, _Pos, 100, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol", _HC1_ID];

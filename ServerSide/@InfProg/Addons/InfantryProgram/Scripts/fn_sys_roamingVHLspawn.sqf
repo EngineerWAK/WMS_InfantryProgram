@@ -15,12 +15,17 @@ private ["_VHLAIrunning","_skillgnd","_skillair","_vhlFull","_vhl2","_pos2","_lo
 //uisleep 400;
 WMS_AI_RoamingVHLlist = WMS_OPFOR_CustomVHL_Unarmed + WMS_OPFOR_CustomVHL_Armed;
 WMS_AI_RoamingAIRlist = WMS_OPFOR_CustomAIR_Unarmed + WMS_OPFOR_CustomAIR_Armed;
-
+if !(isDedicated) exitwith {diag_log "GO F U C K YOURSELF F U C K I N G HC | GO F U C K YOURSELF F U C K I N G HC | GO F U C K YOURSELF F U C K I N G HC | GO F U C K YOURSELF F U C K I N G HC | GO F U C K YOURSELF F U C K I N G HC"};
 if (WMS_AI_RoamingVHL) then {
+	_VHLAIrunning = 0;
 	_pos2 = [0,0,0];
-	_VHLAIrunning = (count WMS_AI_RoamingVHL_Running);
+	if (isDedicated) then {
+		_VHLAIrunning = (count WMS_AI_RoamingVHL_Running);
+	}else{
+		_VHLAIrunning = (count WMS_AI_RoamingVHL_Run_HC);
+	};
 	_skillgnd= (WMS_AI_RoamingVHL_Skill select 0)+(random (WMS_AI_RoamingVHL_Skill select 1));
-	if (WMS_IP_LOGs) then { diag_log format ["[AI VHL SPAWN]|WAK|TNA|WMS| %1 Vehicles Patroling", _VHLAIrunning]};
+	if (true) then { diag_log format ["[AI VHL SPAWN]|WAK|TNA|WMS| %1 Vehicles Patroling", _VHLAIrunning]};
 	if (_VHLAIrunning < WMS_AI_RoamingVHLcount && ((OPFOR countSide allUnits) < WMS_AI_MaxUnits_B)) then {
 		_vhlFull = selectRandom WMS_AI_RoamingVHLlist;
 		_vhl2 = (_vhlFull select 0);
@@ -32,8 +37,9 @@ if (WMS_AI_RoamingVHL) then {
 			if (count WMS_Roads != 0) then { 
 				_road = selectRandom WMS_Roads;
 				//_pos = position _road; //if they are too slow to move, they WILL spawn on eachothers
-				_pos2 = [position _road, 0, 50, 10, 0, 0, 0, _blackList, [((position _road) findEmptyPosition [5,150,_vhl2]),[]]] call BIS_fnc_FindSafePos;
-				if (_pos2 distance2D WMS_AI_LastUsedPos < 15) then {
+				//_pos2 = [position _road, 0, 50, 2, 0, 0, 0, _blackList, [((position _road) findEmptyPosition [5,150,_vhl2]),[]]] call BIS_fnc_FindSafePos;
+				_pos2 = ((position _road) findEmptyPosition [0,150,_vhl2]);
+				if ((count _pos2 != 0) || (_pos2 distance2D WMS_AI_LastUsedPos < 15)) then {
 					_pos2 = [_pos2, 25, 250, 25, 0, 0, 0, _blackList, [((position _road) findEmptyPosition [5,150,_vhl2]),[]]] call BIS_fnc_FindSafePos;
 				};
 				_dir = direction _road;
@@ -54,7 +60,12 @@ if (WMS_AI_RoamingVHL) then {
 	};
 };
 if (WMS_AI_RoamingAIR) then {
-	_AIRAIrunning = (count WMS_AI_RoamingAIR_Running);
+	_AIRAIrunning = 0;
+	if (isDedicated) then {
+		_AIRAIrunning = (count WMS_AI_RoamingAIR_Running);
+	}else{
+		_AIRAIrunning = (count WMS_AI_RoamingAIR_Run_HC);
+	};
 	_skillair= (WMS_AI_RoamingAIR_Skill select 0)+(random (WMS_AI_RoamingAIR_Skill select 1));
 	if (WMS_IP_LOGs) then { diag_log format ["[AI AIR SPAWN]|WAK|TNA|WMS| %1 Choppers Flying", _AIRAIrunning]};
 	if (_AIRAIrunning < WMS_AI_RoamingAIRcount && ((OPFOR countSide allUnits) < WMS_AI_MaxUnits_B)) then {

@@ -20,8 +20,16 @@ params [
 		"_triggType", //"trigger"//"dynamic"//"reinforcement"
 		["_info","random",[""]]
 	];
+	
+/////HC STUFF/////
+_HC1 = missionNameSpace getVariable ["WMS_HC1",false];
+_HC1_ID = 2;
+if (isDedicated && _HC1)then{
+  {if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
+};
+/////HC STUFF\\\\\
+
 _threatScenario = "nothing";
-//if ((_grp knowsAbout _target) == 4 && (_target distance2D (Leader _grp)) > 700 && time > (WMS_reinforcement_last+WMS_reinforcement_CoolD)) then {call reinforcement};
 //FROM FUNCTIONS:
 //change with respect: _grpSize,_timer,_altitude,_skill,_iterations,_artyChanceHE,_dist1,_dist2,_loadout,_choppa1
 _FrontSpawn = true; 		//INFpatrol
@@ -401,28 +409,51 @@ switch (_threatScenario) do {
 	case "traders" : {};
 	case "INFpatrol" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
+		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+			[_pos,_target,_timer,_skill,_grpSize,_grpSide,_loadout,_FrontSpawn,_launcherChance,_dist1INF,_dist2INF,_distanceWPT,_WPType,_WPbehavior,_WPcombatMod,_WPSpeed,nil,_difficulty]remoteExec ["WMS_fnc_InfantryProgram_INFpatrol",_HC1_ID];
+		}else{
 			[_pos,_target,_timer,_skill,_grpSize,_grpSide,_loadout,_FrontSpawn,_launcherChance,_dist1INF,_dist2INF,_distanceWPT,_WPType,_WPbehavior,_WPcombatMod,_WPSpeed,nil,_difficulty]call WMS_fnc_InfantryProgram_INFpatrol;
-			WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		};
+		
+		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		publicVariable "WMS_DynAI_RunningCount";
 		//};
 	};
 	case "AIRpatrol" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
 		_distanceWPT = 600;
-		[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty,_triggType] spawn WMS_fnc_infantryProgram_VHLpatrol;
+		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+			[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty,_triggType] remoteExec ["WMS_fnc_infantryProgram_VHLpatrol",_HC1_ID];
+		}else{
+			[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty,_triggType] spawn WMS_fnc_infantryProgram_VHLpatrol;
+		};
+		
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
 		//};
 	};
 	case "VHLpatrol" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
 		_distanceWPT = 300;
-		[_pos,_target,_timer,_skill,_grpSide,_loadout,_vhlFull,_lockPlayer,_useMarker,_dist1VHL,_dist2VHL,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed, _infoType,_difficulty,_triggType] spawn WMS_fnc_infantryProgram_VHLpatrol;
+		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+			[_pos,_target,_timer,_skill,_grpSide,_loadout,_vhlFull,_lockPlayer,_useMarker,_dist1VHL,_dist2VHL,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed, _infoType,_difficulty,_triggType] remoteExec ["WMS_fnc_infantryProgram_VHLpatrol",_HC1_ID];
+		}else{
+			[_pos,_target,_timer,_skill,_grpSide,_loadout,_vhlFull,_lockPlayer,_useMarker,_dist1VHL,_dist2VHL,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed, _infoType,_difficulty,_triggType] spawn WMS_fnc_infantryProgram_VHLpatrol;
+		};
+		
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		publicVariable "WMS_DynAI_RunningCount";
 		//};
 	};
 	case "paradrop" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
-		[_pos,_target,_timer,_skill,_grpSize,_grpSide,_loadout,_altitude,_launcherChance,_dist1PARA,_dist2PARA,_distanceWPT,_WPType,"COMBAT",_WPcombatMod,_WPspeed,_difficulty]call WMS_fnc_InfantryProgram_ParadropAIgroup;
+		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+			[_pos,_target,_timer,_skill,_grpSize,_grpSide,_loadout,_altitude,_launcherChance,_dist1PARA,_dist2PARA,_distanceWPT,_WPType,"COMBAT",_WPcombatMod,_WPspeed,_difficulty]remoteExec ["WMS_fnc_InfantryProgram_ParadropAIgroup",_HC1_ID];
+		}else{
+			[_pos,_target,_timer,_skill,_grpSize,_grpSide,_loadout,_altitude,_launcherChance,_dist1PARA,_dist2PARA,_distanceWPT,_WPType,"COMBAT",_WPcombatMod,_WPspeed,_difficulty]call WMS_fnc_InfantryProgram_ParadropAIgroup;
+		};
+		
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		publicVariable "WMS_DynAI_RunningCount";
 		//};
 	};
 	case "building" : {
@@ -443,33 +474,59 @@ switch (_threatScenario) do {
 				_pos = [_pos, 250, 350, 0, 0, 0, 0, _playerBlkList, [[]]] call BIS_fnc_findSafePos;
 			};
 		};
-		[_pos,_radius,_timer,_grpSize,_launcherChance,_skill,_loadout,_difficulty] spawn WMS_fnc_DynAI_BuildingGuards;
+		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+			[_pos,_radius,_timer,_grpSize,_launcherChance,_skill,_loadout,_difficulty] remoteExec ["WMS_fnc_DynAI_BuildingGuards",_HC1_ID];
+		}else{
+			[_pos,_radius,_timer,_grpSize,_launcherChance,_skill,_loadout,_difficulty] spawn WMS_fnc_DynAI_BuildingGuards;
+		};
+		
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		publicVariable "WMS_DynAI_RunningCount";
 	};
 	case "runner" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
-		[_target,_pos, _timer, _spawnType, _iterM]spawn WMS_fnc_DynAI_Runner;
+		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+			[_target,_pos, _timer, _spawnType, _iterM]remoteExec ["WMS_fnc_DynAI_Runner",_HC1_ID];
+		}else{
+			[_target,_pos, _timer, _spawnType, _iterM]spawn WMS_fnc_DynAI_Runner;
+		};
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		publicVariable "WMS_DynAI_RunningCount";
 		//};
 	};
 	case "escarmouche" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
 		_pos = [_pos, 250, 400, 0, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos; //if spawn on player
-		[_pos,120, 2+(round random 3),10,_skill,"bandit",_difficulty] spawn WMS_fnc_DynAI_Escarmouche;
+		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+			[_pos,120, 2+(round random 3),10,_skill,"bandit",_difficulty] remoteExec ["WMS_fnc_DynAI_Escarmouche",_HC1_ID];
+		}else{
+			[_pos,120, 2+(round random 3),10,_skill,"bandit",_difficulty] spawn WMS_fnc_DynAI_Escarmouche;
+		};	
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		publicVariable "WMS_DynAI_RunningCount";
 		//};
 	};
 	case "BBQcamp" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
 		_pos = [_pos, 0, 50, 1, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos; //trigger spawn only, Forest/cities
-		[_pos,300+(random 200), _grpSize,15,_skill,_loadout,_difficulty] spawn WMS_fnc_DynAI_BBQcamp;
+		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+			[_pos,300+(random 200), _grpSize,15,_skill,_loadout,_difficulty] remoteExec ["WMS_fnc_DynAI_BBQcamp",_HC1_ID];
+		}else{
+			[_pos,300+(random 200), _grpSize,15,_skill,_loadout,_difficulty] spawn WMS_fnc_DynAI_BBQcamp;
+		};
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		publicVariable "WMS_DynAI_RunningCount";
 		//};
 	};
 	case "AIRassault" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
-		[_pos,_target,_skill,_loadout,_grpSize,_timer,_choppa1,_choppa2,nil,nil,nil,nil,nil,nil,nil,_difficulty] spawn WMS_fnc_DynAI_AirAssault; //Optional: _skill,_loadout,_grpSize,_timer,_choppa1,_choppa2
+		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+			[_pos,_target,_skill,_loadout,_grpSize,_timer,_choppa1,_choppa2,nil,nil,nil,nil,nil,nil,nil,_difficulty] remoteExec ["WMS_fnc_DynAI_AirAssault",_HC1_ID]; //Optional: _skill,_loadout,_grpSize,_timer,_choppa1,_choppa2
+		}else{
+			[_pos,_target,_skill,_loadout,_grpSize,_timer,_choppa1,_choppa2,nil,nil,nil,nil,nil,nil,nil,_difficulty] spawn WMS_fnc_DynAI_AirAssault; //Optional: _skill,_loadout,_grpSize,_timer,_choppa1,_choppa2
+		};
 		WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+		publicVariable "WMS_DynAI_RunningCount";
 		//};
 	};
 	case "roadblock" : {
@@ -489,13 +546,24 @@ switch (_threatScenario) do {
 		if (count _roadConnectedTo != 0) then {
 			_connectedRoad = _roadConnectedTo select 0;  //create an error if no road Connected
 			_directionRoad = [_nearestRoad, _connectedRoad] call BIS_fnc_DirTo;
-			[_nearestRoadPos, _directionRoad, _timer, _grpSize, selectrandom [1,2], _launcherChance, _skill, "army",_difficulty] spawn WMS_fnc_Compo_RoadBlock; //(this select 4)  1=MG - 2=AT
+			if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+				[_nearestRoadPos, _directionRoad, _timer, _grpSize, selectrandom [1,2], _launcherChance, _skill, "army",_difficulty] remoteExec ["WMS_fnc_Compo_RoadBlock",_HC1_ID]; //(this select 4)  1=MG - 2=AT
+			}else{
+				[_nearestRoadPos, _directionRoad, _timer, _grpSize, selectrandom [1,2], _launcherChance, _skill, "army",_difficulty] spawn WMS_fnc_Compo_RoadBlock; //(this select 4)  1=MG - 2=AT
+			};
 			WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+			publicVariable "WMS_DynAI_RunningCount";
 		}else {
 			//fallback to something else 
 			_distanceWPT = 600;
-			[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty,_triggType] spawn WMS_fnc_infantryProgram_VHLpatrol;
+			if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
+				[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty,_triggType] remoteExec ["WMS_fnc_infantryProgram_VHLpatrol",_HC1_ID];
+			}else{
+				[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty,_triggType] spawn WMS_fnc_infantryProgram_VHLpatrol;
+			};
+			
 			WMS_DynAI_RunningCount = WMS_DynAI_RunningCount +1;
+			publicVariable "WMS_DynAI_RunningCount";
 		};
 		//};
 	};
@@ -536,5 +604,6 @@ switch (_threatScenario) do {
 		_load = selectRandom WMS_DynAI_EODBombs;
 		[_pos,_load,30,5,1,2] spawn WMS_fnc_DynAI_RainObjects;
 	};
+	
 	//case "action" : {};//Replaced by BBQcamp
 };

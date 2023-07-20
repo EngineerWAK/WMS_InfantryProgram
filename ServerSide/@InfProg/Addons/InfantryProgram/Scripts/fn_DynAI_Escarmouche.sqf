@@ -45,7 +45,7 @@ for "_i" from 1 to _AIcount do {
 //[(units _InfGrp_O),'Assault',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 
 		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
-			if (true) then {diag_log format ["[WMS_fnc_DynAI_Escarmouche]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _InfGrp_O]};
+			if (true) then {diag_log format ["[WMS_fnc_DynAI_Escarmouche]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2, pos = %3", _HC1_ID, _InfGrp_O,_pos]};
 			_InfGrp_O setGroupOwner _HC1_ID;
 			[(units _InfGrp_O),'Assault',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] remoteExec ["WMS_fnc_SetUnits",_HC1_ID];
 			//[units _InfGrp_O, _Pos, 75, 3, "MOVE", "COMBAT", "RED", "NORMAL", "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_RemoteTaskPatrol",_HC1_ID];
@@ -67,7 +67,7 @@ for "_i" from 1 to _AIcount do {
 };
 
 		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
-			if (true) then {diag_log format ["[WMS_fnc_DynAI_Escarmouche]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _InfGrp_B]};
+			if (true) then {diag_log format ["[WMS_fnc_DynAI_Escarmouche]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2, pos = %3", _HC1_ID, _InfGrp_B,_pos]};
 			_InfGrp_B setGroupOwner _HC1_ID;
 			[units _InfGrp_B,'Assault',_launcherChance,_skill,nil,'civilian',nil,"DYNAI"] remoteExec ["WMS_fnc_SetUnits",_HC1_ID];
 			[units _InfGrp_B, _Pos, 75, 3, "MOVE", "COMBAT", "RED", "NORMAL", "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol",_HC1_ID];

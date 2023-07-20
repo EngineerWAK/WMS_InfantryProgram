@@ -37,6 +37,7 @@ switch (_objects) do {
 	case "missiontest1"		: {_objects = [["CamoNet_OPFOR_open_F",[0,0,0],90]]};
 	case "missiontest2"		: {_objects = WMS_AMS_Obj_GuardedTower};
 
+	case "LightArmored"		: {_objects = WMS_AMS_Obj_LightArmHij};
 	case "ArmedBandits"		: {_objects = WMS_AMS_Obj_ArmedBandits};
 	case "C192Crash"		: {_objects = WMS_AMS_Obj_C192Crash};
 	case "AmazonWH"			: {_objects = WMS_AMS_Obj_AmazonWH};
@@ -44,7 +45,7 @@ switch (_objects) do {
 	case "GunsX3"			: {_objects = WMS_AMS_Obj_GunsX3};
 	case "Arena"			: {_objects = WMS_AMS_Obj_Arena};
 	case "Factory"			: {_objects = WMS_AMS_Obj_FactoryCamp};
-	case "CkpCharlie"		: {_objects = WMS_AMS_Obj_CkpCharlie}; //WTF? where is this one from??
+		case "CkpCharlie"		: {_objects = WMS_AMS_Obj_CkpCharlie}; //WTF? where is this one from??
 	case "AdvancedCamp"		: {_objects = WMS_AMS_Obj_AdvancedCamp};
 	case "HeliSteal"		: {_objects = WMS_AMS_Obj_HeliSteal};
 	case "HeliStealV2"		: {_objects = WMS_AMS_Obj_HeliStealV2};
@@ -52,6 +53,7 @@ switch (_objects) do {
 	case "ArbeitV2"			: {_objects = WMS_AMS_Obj_ArbeitV2};
 	case "ArbeitV3"			: {_objects = WMS_AMS_Obj_ArbeitV3};
 	case "AABattery"		: {_objects = WMS_AMS_Obj_AABattery};
+	case "AABatteryV2"		: {_objects = WMS_AMS_Obj_AABatteryV2};
 	case "Escobar"			: {_objects = WMS_AMS_Obj_Escobar};
 	case "Forgotten"		: {_objects = WMS_AMS_Obj_Forgotten};
 	case "Radar"			: {_objects = WMS_AMS_Obj_Radar};

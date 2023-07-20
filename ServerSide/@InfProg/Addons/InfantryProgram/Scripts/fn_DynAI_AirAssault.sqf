@@ -112,7 +112,7 @@ uisleep 1;
 //uisleep 1;
 
 		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
-			if (true) then {diag_log format ["[WMS_fnc_DynAI_AirAssault]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _INFgrp]};
+			if (true) then {diag_log format ["[WMS_fnc_DynAI_AirAssault]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2, pos = %3", _HC1_ID, _INFgrp,_pos]};
 			_INFgrp setGroupOwner _HC1_ID;
 			[(units _INFgrp), "Random", 15, _skill,_difficulty,_loadout,nil,"DYNAI"] remoteExec ["WMS_fnc_SetUnits",_HC1_ID];
 			if (WMS_DynAI_Steal) then { //CBA create a FUCKING waypoint at _posStart so those morons run ALL THE WAY BACK to there

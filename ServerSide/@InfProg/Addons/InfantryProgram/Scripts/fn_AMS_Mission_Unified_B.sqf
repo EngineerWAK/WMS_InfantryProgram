@@ -91,7 +91,7 @@ if (typeName _pos == "STRING") then {
 /////TEST spawn forest
 	if (_pos == "forest" ) then {
 		_forest = selectRandom WMS_Pos_Forests;
-		_radiusObjects = 1;
+		_radiusObjects = 0;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 		_pos = [_forest, 0, 300, _tempRadius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call BIS_fnc_findSafePos;
 		//_pos = [_forest, 0, 400, _radiusObjects, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],(_tempRadius*2)] call WMS_fnc_BIS_findSafePosModified; //"bastogne" takes about 30 secondes to spawn, server stuck for all thit time
@@ -99,6 +99,7 @@ if (typeName _pos == "STRING") then {
 		_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
 		_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,((_uniParams select 10)+10)];
 		{hideObjectGlobal _x} foreach _terrainobjects;
+		_spawnStatusOK = "OK";
 	}else {
 /////TEST spawn forest
 		if (_pos == "factory" ) then {
@@ -114,6 +115,7 @@ if (typeName _pos == "STRING") then {
 				_radiusObjects = 1;
 				_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 				_pos = [_namedLocPos, 0, 50, 1, 0, 0.45, 0, _blackList, [[-999,-999,-999],[]]] call BIS_fnc_findSafePos; //output is x,y no z unless error
+				_spawnStatusOK = "OK";
 			};
 		};
 	};
@@ -127,29 +129,29 @@ if (typeName _pos == "STRING") then {
 	if (typeName _pos == "STRING") then {
 		if (_pos == "random" ) then {
 			_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
-	//////////NEW//////////
-	if (count WMS_AMS_preSelectPos != 0) then {
-		if (count allPlayers != 0)then{
-			_playersPos = [];
-			_preSelectPos = [];
-			{_playersPos pushBack (position _x)}forEach allPlayers;
-			{
-				_npPos = [_playersPos, _x] call BIS_fnc_nearestPosition;
-				if (_npPos distance2d _x > 300) then {_preSelectPos pushBack _x};
-			}forEach WMS_AMS_preSelectPos;
-			if (count _preSelectPos != 0) then {
-				_pos = selectRandom _preSelectPos;
-				WMS_AMS_preSelectPos deleteAt (WMS_AMS_preSelectPos find _pos);
+			//////////NEW//////////
+			if (count WMS_AMS_preSelectPos != 0) then {
+				if (count allPlayers != 0)then{
+					_playersPos = [];
+					_preSelectPos = [];
+					{_playersPos pushBack (position _x)}forEach allPlayers;
+					{
+						_npPos = [_playersPos, _x] call BIS_fnc_nearestPosition;
+						if (_npPos distance2d _x > 300) then {_preSelectPos pushBack _x};
+					}forEach WMS_AMS_preSelectPos;
+					if (count _preSelectPos != 0) then {
+						_pos = selectRandom _preSelectPos;
+						WMS_AMS_preSelectPos deleteAt (WMS_AMS_preSelectPos find _pos);
+					}else{
+						_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
+					};
+				}else{
+					_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
+				};
 			}else{
-				_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
+				//////////NEW\\\\\\\\\\
+				_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call BIS_fnc_findSafePos;
 			};
-		}else{
-			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radius, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call WMS_fnc_BIS_findSafePosModified;
-		};
-	}else{
-	//////////NEW\\\\\\\\\\
-			_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), _radiusObjects, 0, WMS_AMS_MaxGrad, 0, _blackList, [([] call BIS_fnc_randomPos),[]],_tempRadius*2] call BIS_fnc_findSafePos;
-		};
 		};
 	}else{
 		if (_pos select 0 == -999 || _pos select 0 == 0) exitWith {

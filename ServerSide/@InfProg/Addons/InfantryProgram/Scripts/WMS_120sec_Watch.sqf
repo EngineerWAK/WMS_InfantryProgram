@@ -15,12 +15,12 @@ diag_log format ["[Infantry Program Watch Thread]|WAK|TNA|WMS| 120sec Watch star
 while {true} do {
 	uisleep 120; //uisleep 14, uisleep 31, uisleep 59, uisleep 91, uisleep 120, 240 is in WMS_TheLastCartridges
 	//Trigger Watch 
-	if (WMS_Trigg_Reinforce && {((count WMS_activatedTriggs) != 0)}) then {call WMS_fnc_Watch_Triggers};//Triggers campers activity check
+	if (isDedicated && WMS_Trigg_Reinforce && {((count WMS_activatedTriggs) != 0)}) then {call WMS_fnc_Watch_Triggers};//Triggers campers activity check
 	//Event Watch
-	if (WMS_Events && {(count WMS_Events_list > 0)}) then {call WMS_fnc_Watch_Events};
+	if (isDedicated && WMS_Events && {(count WMS_Events_list > 0)}) then {call WMS_fnc_Watch_Events};
 	//RoamingVHL spawn
-	if (WMS_AI_RoamingVHL || WMS_AI_RoamingAIR) then {call WMS_fnc_sys_RoamingVHLspawn};
-	if (WMS_AmbientLife) then {
+	if (isDedicated && {WMS_AI_RoamingVHL || WMS_AI_RoamingAIR}) then {call WMS_fnc_sys_RoamingVHLspawn}; //ONLY DEDICATED FOR NOW
+	if (isDedicated && WMS_AmbientLife) then {
 		if (WMS_AL_LOGs) then {diag_log format ['|WAK|TNA|WMS|WMS_fnc_AL_ManagementLoop Side: %1, Units: %4, server FPS %2, players %3', WMS_AL_Faction, diag_fps, count allPlayers, (WMS_AL_Faction countSide allUnits)]};
 		{
 			//destroying stuck vehicles

@@ -32,10 +32,10 @@ _result = 0;
 if (_setGet isEqualTo "set")then{
 	profileNamespace setVariable [_playerUID_Datas,_playerUpdated];
 	if ("ExileKills" in _playerUID_Datas) then {
-		(_killer setVariable ["ExileKills", 0, true]);
+		(_killer setVariable ["ExileKills", _playerUpdated, true]);
 	}else{
 		if ("ExileScore" in _playerUID_Datas) then {
-			(_killer setVariable ["ExileScore", 0, true]);
+			(_killer setVariable ["ExileScore", _playerUpdated, true]);
 		};
 	};
 };

@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.840_2023JUL16_GitHub"; //working on Headless Client crap... //removed Exile vehicles from "vanilla" config
+WMS_System_Version 			= "v2.848_2023JUL19_GitHub"; //working on Headless Client crap... //removed Exile vehicles from "vanilla" config
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -671,7 +671,7 @@ WMS_CustomTrig_Chance		= 60;
 ////////////////////
 WMS_PlayerEntity		= "I_Survivor_F"; //"Exile_Unit_Player"; //used for blacklist, player distance check //(count ((position _x select 0) nearEntities [WMS_PlayerEntity, 200]) == 0)
 
-WMS_OPFOR_Flag			= "Flag_CSAT_F"; //default flag for Bandits, different than AMS so no interactions with findpositions
+WMS_OPFOR_Flag			= "Flag_CSAT_F"; //default flag for Bandits, different than AMS so no interactions with findpositions //vn_flag_vc
 WMS_BLUE_Flag			= "Flag_blue_F"; //default flag for Allieds, different than AMS so no interactions with findpositions
 WMS_AMS_Flag 			= "Flag_Syndikat_F"; //flag will get a _flag setVariable ["AMS_MissionID",_missionID,true];
 WMS_Utility_Item_1 		= "ACE_Cellphone"; //"Exile_Item_FireExtinguisher"; //used for haloJump in Exile (with infantry program)
@@ -764,20 +764,6 @@ WMS_AMS_TradersArr = [];
 		WMS_AMS_TradersArr pushBack [_traderPos,WMS_AMS_SpnDistTrader];
 	};
 }forEach allMapMarkers;
-// Get position from location and water position
-[] call WMS_fnc_CollectPos;
-// Create triggers
-if (WMS_DynAI_triggers && isDedicated) then {execVM "\InfantryProgram\Scripts\WMS_AI_Create_triggers.sqf"};
-// Start Random Events system
-if (WMS_Events && isDedicated) 		then {execVM "\InfantryProgram\Scripts\WMS_Event_Start.sqf"}; //event would be great on HC
-// Start Mission system
-if (WMS_AMS && isDedicated)			then {execVM "\InfantryProgram\Scripts\WMS_AMS_Start.sqf"};
-// Start DynamicFlightOps
-if (WMS_DynamicFlightOps && isDedicated)then {execVM "\InfantryProgram\Scripts\DFO\WMS_DFO_init.sqf"};
-// Start Ambient Life
-if (WMS_AmbientLife && isDedicated)	then {execVM "\InfantryProgram\Scripts\AL\WMS_AL_Functions.sqf"};
-// Territory Protection system
-//if (true) 				then {execVM "\InfantryProgram\Scripts\WMS_TerritoryProtection.sqf"};
 //Server Info Markers
 WMS_markerFPS = objNull;
 WMS_markerUnits = objNull;
@@ -797,6 +783,8 @@ WMS_AI_OPFORpatrol_LastTarget	= [];//Leave it empty //WMS_OPFORpatrol_LastTarget
 WMS_AI_bluforPatrol_Running 	= [];//Leave it empty //WMS_OPFORpatrol_Running pushBack [time,(time+(_patrolTimer+(random _patrolTimer))),[_paraGrp],[],_PatrolVRmkrList,[],[],""];
 WMS_AI_RoamingVHL_Running 		= [];//Leave it empty //for cleanup
 WMS_AI_RoamingAIR_Running 		= [];//Leave it empty //for cleanup
+WMS_AI_RoamingVHL_Run_HC 		= [];//Leave it empty //for cleanup
+WMS_AI_RoamingAIR_Run_HC 		= [];//Leave it empty //for cleanup
 WMS_DynAI_Running 				= [];//Leave it empty
 WMS_DynAI_LastTarget 			= [];//Leave it empty
 WMS_DynAI_TargetList 			= [];//Leave it empty
@@ -846,9 +834,25 @@ publicVariable "WMS_DFO_Reward"; //NO TOUCH
 publicVariable "WMS_IP_Active_list";
 publicVariable "WMS_exileFireAndForget";
 publicVariable "WMS_ServRestartSeconds"; //so TheLastCartridges clients can get the timer for the statBar
+publicVariable "WMS_AMS_TradersArr";
 };
+// Get position from location and water position
+[] call WMS_fnc_CollectPos;
+// Create triggers
+if (WMS_DynAI_triggers && isDedicated) then {execVM "\InfantryProgram\Scripts\WMS_AI_Create_triggers.sqf"};
+// Start Random Events system
+if (WMS_Events && isDedicated) 		then {execVM "\InfantryProgram\Scripts\WMS_Event_Start.sqf"}; //event would be great on HC
+// Start Mission system
+if (WMS_AMS && isDedicated)			then {execVM "\InfantryProgram\Scripts\WMS_AMS_Start.sqf"};
+// Start DynamicFlightOps
+if (WMS_DynamicFlightOps && isDedicated)then {execVM "\InfantryProgram\Scripts\DFO\WMS_DFO_init.sqf"};
+// Start Ambient Life
+if (WMS_AmbientLife && isDedicated)	then {execVM "\InfantryProgram\Scripts\AL\WMS_AL_Functions.sqf"};
+// Territory Protection system
+//if (true) 				then {execVM "\InfantryProgram\Scripts\WMS_TerritoryProtection.sqf"};
 if (WMS_ServerMarkers && isDedicated) then {execVM "\InfantryProgram\Scripts\WMS_ServerMarkers.sqf"};
 // Init System Watchs
-if (isDedicated) then {
+//if (isDedicated) then {
+if (true) then {
 	[]spawn WMS_fnc_sys_Init_Watchs;
 };

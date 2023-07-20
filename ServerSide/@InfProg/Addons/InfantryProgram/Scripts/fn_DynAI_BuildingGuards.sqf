@@ -52,7 +52,7 @@ if (count (_pos nearObjects ["Building", _radius]) > 0) then {
 	};
 	
 	if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
-		if (true) then {diag_log format ["[WMS_fnc_DynAI_BuildingGuards]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _InfGrp_O]};
+		if (true) then {diag_log format ["[WMS_fnc_DynAI_BuildingGuards]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2, pos = %3", _HC1_ID, _InfGrp_O,_pos]};
 		_InfGrp_O setGroupOwner _HC1_ID;
 		[(units _InfGrp_O),'Assault',_launcherChance,_skill,_difficulty,_loadout,nil,"DYNAI"] remoteExec ["WMS_fnc_SetUnits",_HC1_ID];
 		if (WMS_DynAI_Steal) then {

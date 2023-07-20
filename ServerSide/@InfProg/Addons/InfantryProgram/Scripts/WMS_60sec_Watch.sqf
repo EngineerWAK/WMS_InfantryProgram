@@ -18,7 +18,7 @@ if !(WMS_FastCombat) then {WMS_FastCombatActive = true;}; //force the regular VA
 while {true} do {
 	//uisleep 59; //MOVED MIDDLE TO GET NEW VARs AS FAST AS POSSIBLE //uisleep 14, uisleep 31, uisleep 59, uisleep 91, uisleep 120, uisleep 239
 	//Fast combat, re-set the variables
-	if (WMS_FastCombat) then {
+	if (isDedicated && WMS_FastCombat) then {
 		if !(WMS_FastCombatActive) then {
 			WMS_DynAI_threatFrequency_T = WMS_DynAI_threatFrequencyFC; // = 300;
 			WMS_DynAI_threatCoefs_T 	= WMS_DynAI_threatCoefsFC; // 	= [1.5,1.35,1.15]; //[1player,2players,3players]

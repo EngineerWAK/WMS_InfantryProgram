@@ -22,8 +22,11 @@ if (time > _timeToWait) then {
 	};
 
 	if (_type == "HeliCrash") then {
-		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), 15, 0, 0.15] call BIS_fnc_findSafePos;
+		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), 15, 0, 0.20] call BIS_fnc_findSafePos;
 		if (WMS_IP_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Processing Event: %1 @%2", _type, _pos];};
+		if (surfaceIsWater _pos) then {
+			_pos = [] call BIS_fnc_randomPos;
+		};
 		[_pos,(random 359),(2+round(random 2)), false] spawn WMS_fnc_Compo_HeliCrash;
 	};
 

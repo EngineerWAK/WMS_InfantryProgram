@@ -236,8 +236,16 @@ if (_grpSide == BLUFOR ) then {
 		};  
 	};
 };
-if (_VHLselected iskindof "helicopter" || _VHLselected iskindof "plane") then {
-	WMS_AI_RoamingAIR_Running pushback [time,(time+(_timer+(random _timer))),[_VHLgrp],[[_vehic,(position _vehic)]],[],[_markerName],_wpts,""];
-	} else {
-	WMS_AI_RoamingVHL_Running pushback [time,(time+(_timer+(random _timer))),[_VHLgrp],[[_vehic,(position _vehic)]],[],[_markerName],_wpts,""];
+if (isDedicated)then{
+	if (_VHLselected iskindof "helicopter" || _VHLselected iskindof "plane") then {
+		WMS_AI_RoamingAIR_Running pushback [time,(time+(_timer+(random _timer))),[_VHLgrp],[[_vehic,(position _vehic)]],[],[_markerName],_wpts,""];
+		} else {
+		WMS_AI_RoamingVHL_Running pushback [time,(time+(_timer+(random _timer))),[_VHLgrp],[[_vehic,(position _vehic)]],[],[_markerName],_wpts,""];
+	};
+}else{
+	if (_VHLselected iskindof "helicopter" || _VHLselected iskindof "plane") then {
+		WMS_AI_RoamingAIR_Run_HC pushback [time,(time+(_timer+(random _timer))),[_VHLgrp],[[_vehic,(position _vehic)]],[],[_markerName],_wpts,""];
+		} else {
+		WMS_AI_RoamingVHL_Run_HC pushback [time,(time+(_timer+(random _timer))),[_VHLgrp],[[_vehic,(position _vehic)]],[],[_markerName],_wpts,""];
+	};
 };

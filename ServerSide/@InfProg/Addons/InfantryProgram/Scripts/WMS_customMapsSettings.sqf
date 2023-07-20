@@ -89,6 +89,7 @@ if (worldName == "Cam_Lao_Nam") then {
 										//WMS_AI_GMG 					= "O_GMG_01_high_F"; //AMS AA battery //"RHS_ZU23_VDV"
 										WMS_AI_Arty					= "vn_o_vc_static_mortar_type63"; //"rhs_2b14_82mm_msv";
 										WMS_AMS_MineAT 				= ["vn_mine_m15","vn_mine_tm57","rhsusf_mine_M19","ATMine"];
+										WMS_OPFOR_Flag				= "vn_flag_vc"; //default flag for Bandits, different than AMS so no interactions with findpositions //vn_flag_vc
 										WMS_ATMines					= WMS_AMS_MineAT;
 										WMS_AMS_SpnDistMission 		= 2000;
 										WMS_DynAI_Skills			= [0.06, 0.12, 0.20, 0.29]; //+random 0.15
@@ -556,6 +557,7 @@ if (worldName == "Altis") then {
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
 if (worldName == "Tanoa") then {		
+										WMS_OffloadToHC1			= true; //WORKINPROGRESS!!!!!
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
@@ -636,11 +638,14 @@ if (worldName == "Tanoa") then {
 										WMS_DynAI_GunshipHeavy 		= ["RHS_UH1Y_d_GS",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										WMS_para_small				= "rhs_d6_Parachute";
 										WMS_AI_VHLwptDist 			= 2500;
+										WMS_AI_RoamingVHL_citySpawn	= true; //NEW
 										WMS_AI_RoamingVHLcount 		= 16; //10
 										WMS_AMS_SpnDistMission 		= 2000;
-										WMS_AMS_remRPG 				= 75;
+										WMS_AMS_remRPG 				= 80;
 										WMS_AMS_ClnObj 				= true;
 										WMS_AMS_DelMissionFlag 		= true;
+										WMS_AMS_ForceRadius			= true;
+										WMS_AMS_CleanMapObj			= true;
 										WMS_AI_RoamingVHL_remRPG 	= true;
 										WMS_AI_Para_remRPG 			= false;
 										WMS_AI_INFpatrol_remRPG 	= false;

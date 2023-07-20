@@ -477,9 +477,10 @@ _poptabs = 50;
 						//if (WMS_IP_LOGs) then {format ['Target Hit, %1', (_unit skill "aimingAccuracy")] remoteexec ['hint', (owner _instigator)]}; //debug
 					};
 				}];
-				_unit addEventHandler ["Killed", " 
-					[(_this select 0),(_this select 1)] call WMS_fnc_DynAI_RwdMsgOnKill;
-				"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
+				_unit addMPEventHandler ["MPKilled", " 
+					params ['_unit', '_killer', '_instigator', '_useEffects'];
+					if (isDedicated) then {[_unit,_killer] call WMS_fnc_DynAI_RwdMsgOnKill;};
+				"];
 			} else { //Need a "PunishPunk call here"
 				_unit addEventHandler ["killed", "
 					if (WMS_DynAI_remRPG) then {(_this select 0) removeWeapon (secondaryWeapon (_this select 0))};

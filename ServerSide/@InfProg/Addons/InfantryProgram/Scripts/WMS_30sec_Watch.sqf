@@ -20,4 +20,10 @@ while {true} do {
 	if (WMS_AI_RoamingVHL || WMS_AI_RoamingAIR) then {call WMS_fnc_Watch_RoamingVhl};
 	//Markers Update
 	if (isDedicated && WMS_ServerMarkers) then {call WMS_fnc_sys_ServerMarkersUpdate};
+	
+	if (isDedicated && {WMS_AI_RoamingVHL || WMS_AI_RoamingAIR}) then { //ONLY DEDICATED FOR NOW
+		if ((count WMS_AI_RoamingVHL_Running) < (WMS_AI_RoamingVHLcount/2))then{
+			call WMS_fnc_sys_RoamingVHLspawn;
+		};
+	};
 };

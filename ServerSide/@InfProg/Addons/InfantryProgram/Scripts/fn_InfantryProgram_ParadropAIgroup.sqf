@@ -40,7 +40,6 @@ _PatrolVRmkrList = [];
 _smokeGrenade = "SmokeShellOrange";
 _info = "Paradrop";//"DYNAI"
 /////HC STUFF/////
-_posFar = [_pos, 150, 400] call BIS_fnc_findSafePos;
 _HC1 = missionNameSpace getVariable ["WMS_HC1",false];
 _HC1_ID = 2;
 if (isDedicated && _HC1)then{
@@ -104,7 +103,7 @@ _smokePos = [
 _smokeGrenade createVehicle (selectRandom _smokePos);
 ////////////////NEW, HC OFFLOAD TEST////////////////
 if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
-	if (true) then {diag_log format ["[WMS_fnc_InfantryProgram_ParadropAIgroup]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2", _HC1_ID, _paraGrp]};
+	if (true) then {diag_log format ["[WMS_fnc_InfantryProgram_ParadropAIgroup]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2, pos = %3", _HC1_ID, _paraGrp, _pos]};
 	_paraGrp setGroupOwner _HC1_ID;
 	[(units _paraGrp),'para',_launcherChance,_skill,_difficulty,_loadout,nil,_info] remoteExec ["WMS_fnc_SetUnits",_HC1_ID];
 	if (WMS_DynAI_Steal) then {
