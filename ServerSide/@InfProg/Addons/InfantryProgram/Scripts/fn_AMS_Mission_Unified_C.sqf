@@ -87,6 +87,11 @@ _tempRadius = _radiusObjects;
 if (WMS_AMS_ForceRadius)then{
 	_radiusObjects = WMS_AMS_DefRad;
 };
+
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Start Mission _pos selection, server time %1, %2", serverTime, _name]};
+/////////////////
+
 if (typeName _pos == "STRING") then {
 	if (_pos == "random" ) then {
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
@@ -115,6 +120,12 @@ if (typeName _pos == "STRING") then {
 	};
 	};
 };
+
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission _pos selection DONE, server time %1, %2", serverTime, _name]};
+/////////////////
+uisleep 1;
+
 if (WMS_AMS_ForceRadius)then{
 	_radiusObjects = _tempRadius;
 };
@@ -135,6 +146,7 @@ switch (_difficulty) do {
 };
 
 _objList = [_pos, _objects, _dir, _missionID,_radiusObjects] call WMS_fnc_AMS_SpawnObjects;
+uisleep 1;
 
 _grpInf = [ 
 		_pos,
@@ -149,6 +161,7 @@ _grpInf = [
 		_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 		_difficulty
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
+uisleep 1;
 
 _grpInf2 = [ 
 	_pos,
@@ -163,8 +176,10 @@ _grpInf2 = [
 	_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 	_difficulty	
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
+uisleep 1;
 
 _Mkrs = [_pos,_difficulty,_name,true] call WMS_fnc_AMS_CreateMarker;
+
 
 _trigg =  createTrigger ["EmptyDetector", _pos, true];
 _trigg setVariable ["WMS_CallAIgroup",[_grpInf, _pos],true];
@@ -179,7 +194,7 @@ _trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count th
 	", 
 	"
 	"];
-
+uisleep 1;
 _Mines = [
 	_pos,
 	_radius,	//"_radius", //100
@@ -189,7 +204,8 @@ _Mines = [
 	//"_signs", //true
 	//"_steps" //36
 ] call WMS_fnc_AMS_SpawnMineField;
-
+uisleep 1;
+_rwd = ObjNull;
 if (_forceParaRwd) then {
 	_rwd = _vehicRwd; //if (typeName (_rwds select 0) == "STRING")
 } else {
@@ -230,3 +246,7 @@ if (WMS_AMS_Abuse) then {
 WMS_AMS_Missions_Running pushBack _mission;
 //WMS_AMS_Mission_ID = WMS_AMS_Mission_ID+1;//DEPRECATED
 WMS_AMS_MissionsCount = WMS_AMS_MissionsCount+1;
+
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission SPAWNED, server time %1, %2", serverTime, _name]};
+/////////////////

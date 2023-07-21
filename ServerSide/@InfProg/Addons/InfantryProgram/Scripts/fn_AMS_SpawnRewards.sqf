@@ -90,6 +90,10 @@ clearMagazineCargoGlobal _cargo;
 clearWeaponCargoGlobal _cargo; 
 clearItemCargoGlobal _cargo; 
 clearBackpackCargoGlobal _cargo;
+if ((typeOf _cargo) == WMS_AMS_Crate_noMove) then {
+	[_cargo, _cargo] call ace_common_fnc_claim;
+	_cargo setVariable ['vn_log_enablePickup', false];
+};
 private _poptabs = (WMS_AMS_PoptabsRwd select 0) + round (random(WMS_AMS_PoptabsRwd select 1));
 private _weapList = (WMS_Loadout_SMG select 0)+(WMS_Loadout_Sniper select 3);
 private _bagList = (WMS_Loadout_AOR2 select 3)+(WMS_Loadout_M90 select 3)+(WMS_Loadout_Scorpion select 3)+(WMS_Loadout_Tiger select 3);

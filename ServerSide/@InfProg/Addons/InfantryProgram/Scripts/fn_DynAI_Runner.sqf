@@ -105,7 +105,12 @@ if (WMS_exileToastMsg) then {
 		sleep 1;
 	};
 } else {
-	["EventWarning", ["Suicide Bomber", "Incoming Runner!!!"]] remoteExec ["BIS_fnc_showNotification", owner _target];
+	if (isDedicated)then{
+		["EventWarning", ["Suicide Bomber", "Incoming Runner!!!"]] remoteExec ["BIS_fnc_showNotification", owner _target];
+	}else{
+		//Here I need to send the reqest to the server and the server send the remoteexec to the _target
+		[["EventWarning", ["Suicide Bomber", "Incoming Runner!!!"]],_target] remoteExec ["WMS_fnc_remoteNotification", 2];
+	};
 };
 WMS_DynAI_Running pushback [serverTime,(serverTime+_Timer),[_grp],[],[],[],[],""];
 

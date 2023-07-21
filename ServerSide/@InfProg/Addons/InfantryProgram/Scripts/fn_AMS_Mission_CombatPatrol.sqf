@@ -33,6 +33,11 @@
 	if (WMS_AMS_ForceRadius)then{
 		_radius = WMS_AMS_DefRad;
 	};
+	
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Start Mission _pos selection, server time %1, %2", serverTime, _name]};
+/////////////////
+
 	if (_pos == "forest" ) then {
 		_forest = selectRandom WMS_Pos_Forests;
 		_radius = 1;
@@ -76,8 +81,11 @@
 	if (count _pos == 3)exitwith {
 		if (WMS_IP_LOGs) then {diag_log format ["[AMS POSITION ERROR %2]|WAK|TNA|WMS| _this: %1", _this, _name]};
 	};
-	_absc = floor (_pos select 0);
-	_ordo = floor (_pos select 1);
+
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission _pos selection DONE, server time %1, %2", serverTime, _name]};
+/////////////////
+
 	_MissionID = []call WMS_fnc_GenerateHexaID;
 	_difficulty = selectRandom ["Moderate","Difficult","Hardcore"];
 	
@@ -161,4 +169,8 @@ if (WMS_AMS_Abuse) then {
 ["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([round (_pos select 0), round (_pos select 1)]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
 	WMS_AMS_Missions_Running pushBack "CombatPatrol";
 	WMS_AMS_MissionsCount = WMS_AMS_MissionsCount+1;
+
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission SPAWNED, server time %1, %2", serverTime, _name]};
+/////////////////
 	

@@ -27,7 +27,7 @@ while {true} do {
 	uisleep 14; //uisleep 14, uisleep 31, uisleep 59, uisleep 91, uisleep 120, uisleep 239
 	if (isDedicated && {_unlockServer} && {(time > WMS_SVRstartLock)}) then {
 		{
-			if (hasInterface && {(count(getPlayerUID _x))==17}) then {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]};//do not kick the HC
+			if (count(getPlayerUID _x)==17) then {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]};//do not kick the HC
 		}foreach allPlayers;
 		WMS_serverCMDpwd serverCommand "#unlock";
 		_unlockServer = false;

@@ -11,7 +11,7 @@
 */
 if (true) then {diag_log format ["[WMS Custom Map Config]|WAK|TNA|WMS| Launching at %1", servertime]};
 if (worldName == "Cam_Lao_Nam") then {
-										WMS_OffloadToHC1			= true; //WORKINPROGRESS!!!!!
+										WMS_OffloadToHC1			= false; //WORKINPROGRESS!!!!!
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_SOG.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_SOG.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_Crates_ACE_RHS_SOG.sqf";
@@ -108,9 +108,14 @@ if (worldName == "Cam_Lao_Nam") then {
 										WMS_FastNight_Evening		= 17.7; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
 										WMS_DynAI_DestroyVHL 		= 60;
+										WMS_triggCheck				= 300; //Active triggers will check their area to respawn "dynamic" stuff on players if no NPCs around
+										WMS_triggCheckChance		= 65; //chance to send reinforcement at _target position
 										WMS_trig_Glob_CoolD 		= 240;
 										WMS_Forests_CoolD			= 300;
-										WMS_Military_CoolD			= 240;
+										WMS_Military_CoolD			= 170;
+										WMS_AL_VHLmax				= 10; //Max vehicles (all included) running at the same time
+										WMS_AL_UnitMax				= 0; //Max units (groups if _CombatBehav true) patroling at the same time
+										WMS_AL_VhlBalance			= [2,2,0,2,2,2,2,2]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 										WMS_AI_Units_Class 			= [
 																	//"vn_c_men_13","vn_c_men_01","vn_c_men_05","vn_c_men_09",//thats a lot of mess
 																	//"vn_i_men_rla_01","vn_i_men_rla_02",

@@ -22,7 +22,7 @@ if (serverTime > (WMS_ServRestartSeconds)) then {
 		};
 		uisleep 20;
 		{
-			if (hasInterface && {(count(getPlayerUID _x))==17}) then {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]};//do not kick the HC
+			if (count(getPlayerUID _x)==17) then {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]};//do not kick the HC
 		}foreach allPlayers;
 		if !(WMS_exileFireAndForget) then {
 			[] call WMS_fnc_permanentVehiclesLastUpdate; //TheLastCartridges permanent vehicles

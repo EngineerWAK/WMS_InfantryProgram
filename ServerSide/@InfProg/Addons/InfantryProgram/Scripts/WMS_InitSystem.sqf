@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.848_2023JUL19_GitHub"; //working on Headless Client crap... //removed Exile vehicles from "vanilla" config
+WMS_System_Version 			= "v2.850_2023JUL20_GitHub"; //working on Headless Client crap... //AMS Missions debug to find out the lag at mission spawn
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -52,7 +52,7 @@ if (isDedicated) then {
 	WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch launch
 };
 {
-	if (hasInterface && {(count(getPlayerUID _x))==17}) then {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]};//do not kick the HC
+	if (count(getPlayerUID _x)==17) then {WMS_serverCMDpwd serverCommand format ["#kick %1", (getPlayerUID _x)]};//do not kick the HC
 }foreach allPlayers; //kick all players trying to connect before the server is locked-ready-unlocked
 
 WMS_InfantryProgram_Vehicles = [ //Maybe add _vehicle setvariable ["IP_ExtractionVehicle", true, true]; to the extraction vehicles at spawn and use it to filter

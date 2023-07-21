@@ -22,16 +22,25 @@ params[
 	];
 _objList = [];
 _staticsList = [];
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Start AMS_spawnObjects, server time %1, %2", serverTime, _objects]};
+/////////////////
 if (typeName _objects != "STRING") then {
 	if (true) then {diag_log format ["[AMS SPAWN OBJECTS ERROR]|WAK|TNA|WMS|1st log _this: %1,", _this]};
 	_objects = "missiontest1";
 };
 if (WMS_AMS_CleanMapObj) then {
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Start cleanMapObjects, server time %1, %2", serverTime, _objects]};
+/////////////////
 	if !(_objects in ["occupation","Factory","cbtpatrol","bastogne","forestcamp"]) then {
 		_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
 		_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,(_radius*1.5)];
 		{hideObjectGlobal _x} foreach _terrainobjects;
 	};
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|CleanMapObjects done, server time %1, %2", serverTime, _objects]};
+/////////////////
 };
 switch (_objects) do {
 	case "missiontest1"		: {_objects = [["CamoNet_OPFOR_open_F",[0,0,0],90]]};
@@ -111,6 +120,10 @@ if (typeName _objects == "STRING") then {
 	_objects = [["CamoNet_OPFOR_open_F",[0,0,0],90]];
 };
 
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission Object selected, server time %1, %2 objects", serverTime, count _objects]};
+/////////////////
+
 _compoRefPoint = createVehicle [WMS_AMS_Flag, _pos, [], 0, "CAN_COLLIDE"];
 _objList pushback _compoRefPoint;
 _compoRefPoint setDir _dirCompo;
@@ -179,6 +192,9 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 		}];
 	};
 } forEach _objects;
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission Objects spawned, server time %1,", serverTime]};
+/////////////////
 _compoRefPoint setVariable ["AMS_MissionStatus","RUNNING",true];
 _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 _compoRefPoint setVariable ["WMS_StaticsList", _staticsList];

@@ -28,12 +28,22 @@
 	if (WMS_AMS_ForceRadius)then{
 		_radius = WMS_AMS_DefRad;
 	};
+
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Start Mission _pos selection, server time %1, %2", serverTime, _name]};
+/////////////////
+
 	if (_pos == "forest" ) then {
 		_forest = selectRandom WMS_Pos_Forests;
 		//_radiusObjects = 5;
 		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
 		_pos = [_forest, 0, 400, _tempRadius, 0, 0.45, 0, _blackList, [([] call BIS_fnc_randomPos),[]],25] call WMS_fnc_BIS_findSafePosModified;
 	};
+
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission _pos selection DONE, server time %1, %2", serverTime, _name]};
+/////////////////
+
 	if (WMS_AMS_ForceRadius)then{
 		_radius = _tempRadius;
 	};
@@ -131,4 +141,8 @@ if (WMS_AMS_Abuse) then {
 ["EventCustom", ["Advanced Mission System", (format ["%1 @ %2, %3",_name, ([round (_pos select 0), round (_pos select 1)]), _difficulty]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
 	WMS_AMS_Missions_Running pushBack "ForestCamp";
 	WMS_AMS_MissionsCount = WMS_AMS_MissionsCount+1;
+
+//SPAWN LAG DEBUG
+if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission SPAWNED, server time %1, %2", serverTime, _name]};
+/////////////////
 	

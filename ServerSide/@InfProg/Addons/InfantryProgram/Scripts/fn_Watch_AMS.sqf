@@ -25,7 +25,33 @@ if ((WMS_AMS_MissionsCount < WMS_AMS_ToRun) && {_fps > WMS_AMS_MinFPS} && {time 
 		if (WMS_IP_LOGs) then {
 			diag_log format ["[AMS WATCH]|WAK|TNA|WMS| Mission %1 Already Running", _missionToSpawn];
 		};
-	} else {[_missionToSpawn] call WMS_fnc_AMS_SpawnMission;};
+	} else {
+		//SPAWN LAG DEBUG
+		if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission Selected, 3 secondes to launch spawn, server time %1, %2", serverTime, _missionToSpawn]};
+		/////////////////
+		["EventCustomGreen", ["Advanced Mission System", (format ["Spawning %1, get ready for some Lag",_missionToSpawn]), "\A3\ui_f\data\GUI\Cfg\GameTypes\seize_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
+		
+		/*if (isDedicated && {missionNameSpace getVariable ["WMS_HC1",false]}) then {
+			_HC1_ID = 2;
+			{if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
+			if (_HC1_ID != 2)then{
+				//here, need a solution to make the HC find a position, but not for ALL missions
+					//[_missionToSpawn] remoteExec ["WMS_fnc_AMS_remoteFindPos",_HC1_ID];
+				//HC Send back:
+					//[_missionToSpawn,[0,0,0]] remoteExec ["WMS_fnc_AMS_SpawnMission",2];
+			}else{
+				[_missionToSpawn] call WMS_fnc_AMS_SpawnMission;
+			};
+		}else{
+			[_missionToSpawn] call WMS_fnc_AMS_SpawnMission;
+		};*/
+
+		[_missionToSpawn]spawn {
+			uisleep 3; //wait a bit so we might finally get the message BEFORE the mission spawn...
+			_this call WMS_fnc_AMS_SpawnMission;
+			//MAYBE THE LAG COME FROM THE HIDEOBJECTGLOBAL
+		};
+	};
 	
 };
 

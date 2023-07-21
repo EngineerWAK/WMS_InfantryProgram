@@ -196,14 +196,26 @@ if (_grpSide == OPFOR ) then {
 				if (WMS_IP_LOGs) then {diag_log format ["[ROAMING AI VHL DESTROYED]|WAK|TNA|WMS| _this: %1", _this]};
 				if (isPlayer (_this select 1)) then {
 					if ((_this select 0) distance (_this select 1) >= WMS_AI_RoamingVHL_MaxDist||getPlayerUID (_this select 1) in WMS_BlackList) then {
-						["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! %1, %2","And THANK YOU", "For Making Our World Safer"]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", owner (_this select 1)];
+						//["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! %1, %2","And THANK YOU", "For Making Our World Safer"]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", owner (_this select 1)];
+						if (isDedicated)then{
+							["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! %1, %2","And THANK YOU", "For Making Our World Safer"]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", owner (_this select 1)];
+						}else{
+							//Here I need to send the reqest to the server and the server send the remoteexec to the _target
+							[["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! %1, %2","And THANK YOU", "For Making Our World Safer"]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]],(_this select 1)] remoteExec ["WMS_fnc_remoteNotification", 2];
+						};
 					} else {
 						[(_this select 1), "ROAMING"] call WMS_fnc_AI_rewardOnVHLdestroy;
 					};
 				} else {
 					if (isPlayer (_this select 2)) then {
 						if ((_this select 0) distance (_this select 2) >= WMS_AI_RoamingVHL_MaxDist||getPlayerUID (_this select 1) in WMS_BlackList) then {
-							["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! %1, %2","And THANK YOU", "For Making Our World Safer"]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", owner (_this select 2)];
+							//["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! %1, %2","And THANK YOU", "For Making Our World Safer"]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", owner (_this select 2)];
+							if (isDedicated)then{
+								["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! %1, %2","And THANK YOU", "For Making Our World Safer"]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]] remoteExec ["BIS_fnc_showNotification", owner (_this select 2)];
+							}else{
+								//Here I need to send the reqest to the server and the server send the remoteexec to the _target
+								[["EventCustomGreen", ["Roaming Vehicle Elimination", (format ["Congratulation ! %1, %2","And THANK YOU", "For Making Our World Safer"]), "\A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\cargoPut_ca.paa"]],(_this select 2)] remoteExec ["WMS_fnc_remoteNotification", 2];
+							};
 						} else {
 							[(_this select 2), "ROAMING"] call WMS_fnc_AI_rewardOnVHLdestroy;
 						};	

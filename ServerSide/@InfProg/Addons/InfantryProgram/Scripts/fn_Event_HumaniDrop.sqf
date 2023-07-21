@@ -150,6 +150,7 @@ switch (_type) do {
 				_parachute  setvelocity [0,0,-8]; 
 				_cargo = createVehicle [_load ,position _parachute, [],5];
 				[_cargo, _cargo] call ace_common_fnc_claim;
+				_cargo setVariable ['vn_log_enablePickup', false];
 				clearMagazineCargoGlobal _cargo;     
 				clearWeaponCargoGlobal _cargo;     
 				clearItemCargoGlobal _cargo;     
