@@ -46,8 +46,8 @@ if (_servDeads < 30) then {
 	if (_servDeads >= 30 && _servDeads <= 50) then {
 		WMS_markerDeads setMarkerColor "ColorYellow";
 	} else {
-		WMS_markerDeads setMarkerColor "ColorRed"; //_servDeads > 40;
-		{ deleteVehicle _x } forEach allDeadMen;
+		WMS_markerDeads setMarkerColor "ColorRed"; //_servDeads > 50;
+		{if (!isplayer _x)then {deleteVehicle _x}; } forEach allDeadMen;
 	};
 };
 //WMS_FastCombatMkr = false;

@@ -54,24 +54,51 @@ if (count _positions > 0) then {//Need to add a Player check
 	_cargo setVariable ["vn_log_enablePickup", false];
 	_bagList = (WMS_Loadout_MCB select 3)+(WMS_Loadout_M90d select 3)+(WMS_Loadout_ABU select 3)+(WMS_Loadout_bandit select 3);
 	_weapList = (WMS_Loadout_Assault select 0)+(WMS_Loadout_DMR select 0)+(WMS_Loadout_Sniper select 0)+(WMS_Loadout_SMG select 0)+(WMS_Loadout_MG select 0)+(WMS_Loadout_Sniper select 3);
-	_weap = [
-		[selectRandom _weapList,(5+floor(random 8))]
-	];
+	////////////////////
+	_weap = [];
 	_ammoList = [];
+	_itemList = [];
+	_bag = [];
+	if (worldName == "Cam_Lao_Nam") then {
+		_weap = [
+			[selectRandom _weapList,(3+round(random 5))],
+			[selectRandom _weapList,(3+round(random 5))],
+			[selectRandom _weapList,(3+round(random 5))]
+		];
+		_item = WMS_AI_inventory+[WMS_Utility_Item_2]+[WMS_Utility_Item_2];
+		_itemList = [
+			(selectRandom _item),
+			(selectRandom _item),
+			(selectRandom _item),
+			(selectRandom _item),
+			(selectRandom _item)
+		];
+		_bag = [
+			[selectRandom _bagList,(1+round(random 3))],
+			[selectRandom _bagList,(1+round(random 3))],
+			[selectRandom _bagList,(1+round(random 3))]
+		];
+	}else{
+		_weap = [
+			[selectRandom _weapList,(5+round(random 8))]
+		];
+		_item = WMS_AI_inventory+[WMS_Utility_Item_2]+[WMS_Utility_Item_2];
+		_itemList = [
+			(selectRandom _item),
+			(selectRandom _item),
+			(selectRandom _item)
+		];
+		_bag = [
+			[selectRandom _bagList,(1+round(random 5))] 
+		];
+	};
 	{_ammoList pushBack ((getArray (configfile >> "CfgWeapons" >> (_x select 0) >> "magazines")) select 0)}forEach _weap;
-	_item = WMS_AI_inventory+[WMS_Utility_Item_2]+[WMS_Utility_Item_2];
-	_itemList = [
-		(selectRandom _item),
-		(selectRandom _item),
-		(selectRandom _item)
-	];
-	_bag = [
-		[selectRandom _bagList,(1+floor(random 5))] 
-	];
-	{_cargo addItemCargoGlobal [_x,(1+floor(random 5))]} forEach _itemList;
-	{_cargo addMagazineCargoGlobal [_x,(5+floor(random 8))]} forEach _ammoList;
-	{_cargo addBackpackCargoGlobal [(_x select 0),(_x select 1)]} forEach _bag;
+	/////////////////////////
+
 	{_cargo addWeaponCargoGlobal [(_x select 0),(_x select 1)]} forEach _weap;
+	{_cargo addItemCargoGlobal [_x,(1+round(random 5))]} forEach _itemList;
+	{_cargo addBackpackCargoGlobal [(_x select 0),(_x select 1)]} forEach _bag;
+	{_cargo addMagazineCargoGlobal [_x,(5+round(random 8))]} forEach _ammoList;
 	if (WMS_IP_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Crate created and Filled, %1",_cargo]};
 //Paradrop the crate and fil it
 //Create the Markers

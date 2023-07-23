@@ -26,7 +26,6 @@ _bonus = WMS_DynAI_respectBonus;
 _difficulty = _killed getVariable "WMS_Difficulty";
 _playerRep = 0;
 _playerKills = 0;
-//_adjustedSkills = _killed getVariable "AMS_AdjustedSkills"; //Not Used Yet, includ VCOM functions
 if (_distanceKill > WMS_AMS_distBonusMax) then {_bonus = 0};
 _bonusDist = round (_distanceKill * WMS_AMS_distBonusCoef);
 _malusDist = 0;

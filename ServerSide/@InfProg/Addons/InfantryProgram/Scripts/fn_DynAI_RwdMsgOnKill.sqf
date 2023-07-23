@@ -55,7 +55,8 @@ params[
 			_killer setVariable ["WMS_lastKill",servertime,true];
 		} else {
 			{_x setVariable ["WMS_lastKill",servertime,true];}forEach (crew (vehicle _killer));
-			if (speed _killer >= 5 && {WMS_DynAI_VHLkillSurprise}) then {
+			//if (speed _killer >= 5 && {WMS_DynAI_VHLkillSurprise}) then {
+			if (WMS_DynAI_VHLkillSurprise && {vehicle _killed isKindOf "Man"}) then {
 				_select = selectRandom [0,3,1,1,0,1,2,3];
 				if (_select == 1) then { //grenade
 					(selectRandom WMS_DynAI_SurpriseGren) createVehicle position _killed;
@@ -89,8 +90,7 @@ params[
 				};
 			};
 
-		if (_info == 'BaseATK' && (WMS_DynAI_BaseATKReinforce) && (time > (WMS_DynAI_BaseATKReinforce_Last+WMS_DynAI_BaseATKReinforce_CD)) && (_killed == leader _killed)) then {
-			//[_killer] call WMS_fnc_DynAI_BaseATK_Reinforce;
+		if (WMS_DynAI_BaseATKReinforce && { _info == 'BaseATK'} && {(time > (WMS_DynAI_BaseATKReinforce_Last+WMS_DynAI_BaseATKReinforce_CD)) && (_killed == leader _killed)}) then {
 			WMS_DynAI_BaseATKReinforce_Last = time;
 			_flag = _killed getVariable ["BaseATKflag", nil];
 			_types = _flag getVariable ["BaseATKReinforce", ["paradrop"]];//_types = ["runner","paradrop","VHLpatrol","AIRpatrol","AIRassault"];
@@ -177,9 +177,6 @@ params[
 			};
 		};
 		if (WMS_DynAI_ejectDeads) then {moveout _killed};
-		//saveProfileNamespace;
-		//Add hideBody addaction here
-		//if (_info == "DYNAI") then {_hideBodyColor		= "<t size='1' color='#00dcf5'>Hide Body</t>"};//"DYNAI" is default color
 		if (_info == "BaseATK") then {_hideBodyColor	= "<t size='1' color='#f5d400'>Hide Body</t>"};
 		if (_info == "JMD") then {_hideBodyColor		= "<t size='1' color='#9000ff'>Hide Body</t>"};
 		if (_info == "VHLCrew") then {_hideBodyColor		= "<t size='1' color='#003df5'>Hide Body</t>"};

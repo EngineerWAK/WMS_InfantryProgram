@@ -356,7 +356,19 @@ _poptabs = 50;
 			_unit setVariable ["ExileMoney",(floor _poptabs),true];
 		};
 		//////////EVENTHANDLER(s)//////////AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//
-		_unit addEventHandler ["HandleDamage", { 
+		_unit addMPEventHandler ["MPKilled", "
+			if(isDedicated)then{[(_this select 0),(_this select 1),(_this select 2),(_unit getVariable ['WMS_unitFunction','Assault']),(_unit getVariable ['WMS_difficulty','moderate'])] call WMS_fnc_AMS_EHonKilled;};	
+		"];//params ["_killed", "_killer", "_instigator", "_useEffects"];
+		/////
+		_unit addEventHandler ["Hit", {
+			params ["_unit", "_source", "_damage", "_instigator"];
+			if (isPlayer _instigator && {vehicle _instigator == _instigator}) then {
+				_acc = _unit skill "aimingAccuracy";
+				_unit setSkill ["aimingAccuracy", (_acc*0.8)];
+			};
+		}];
+		/////
+		_unit addEventHandler ["HandleDamage", { //THIS NEED TO BE LIGHTER AND CALL AN EH FUNCTION
 			params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
 			//if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HandleDamage, _this = %1",_this]}; //this one spam A LOT of logs
 			if (
@@ -371,6 +383,7 @@ _poptabs = 50;
 				//[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit; //ERROR: addDamageToUnit - badUnit
 				[_unit,_source,_source,(_unit getVariable ["WMS_unitFunction","Assault"]),(_unit getVariable ["WMS_difficulty","moderate"])] call WMS_fnc_AMS_EHonKilled;
 				_unit removeEventHandler ["HandleDamage", 0];
+				_unit removeMPEventHandler ["MPKilled", 0];
 				if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
 				if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this]};
 				if (alive _unit) then {//looks stupid but it seems that the NPC sometimes die before the setDamage 1
@@ -401,17 +414,6 @@ _poptabs = 50;
   				};
 			};
 		}];
-		_unit addEventHandler ["Hit", {
-			params ["_unit", "_source", "_damage", "_instigator"];
-			if (isPlayer _instigator && {vehicle _instigator == _instigator}) then {
-				_acc = _unit skill "aimingAccuracy";
-				_unit setSkill ["aimingAccuracy", (_acc*0.8)];
-			};
-		}];
-		_unit addEventHandler ["Killed", "
-		[(_this select 0),(_this select 1),(_this select 2),(_unit getVariable ['WMS_unitFunction','Assault']),(_unit getVariable ['WMS_difficulty','moderate'])] call WMS_fnc_AMS_EHonKilled;	
-		"];//params ["_killed", "_killer", "_instigator", "_useEffects"];
-
 	} else{
 		if (_info == "DYNAI" ||_info == "VHLCrew" ||_info == "HeliCrash" ||_info == "Paradrop" ||_info == "Supplydrop" ||_info == "Recon") then {
 			_unit setVariable ["WMS_Info", _info]; //not used yet
@@ -424,7 +426,21 @@ _poptabs = 50;
 			};
 			//////////EVENTHANDLER(s)//////////DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//
 			if (_RealFuckingSide == OPFOR || _RealFuckingSide == EAST) then { //yes it's the same but you never know
-				_unit addEventHandler ["HandleDamage", {
+				_unit addMPEventHandler ["MPKilled", " 
+					params ['_unit', '_killer', '_instigator', '_useEffects'];
+					if (isDedicated) then {[_unit,_killer] call WMS_fnc_DynAI_RwdMsgOnKill;};
+				"];
+				/////
+				_unit addEventHandler ["Hit", {
+					params ["_unit", "_source", "_damage", "_instigator"];
+					if (isPlayer _instigator && {alive _unit} && {vehicle _instigator == _instigator}) then {
+						_acc = _unit skill "aimingAccuracy";
+						_unit setSkill ["aimingAccuracy", (_acc*0.8)];
+						//if (WMS_IP_LOGs) then {format ['Target Hit, %1', (_unit skill "aimingAccuracy")] remoteexec ['hint', (owner _instigator)]}; //debug
+					};
+				}];
+				/////
+				_unit addEventHandler ["HandleDamage", { //THIS NEED TO BE LIGHTER AND CALL AN EH FUNCTION
 					params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
 					//if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HandleDamage, _this = %1",_this]}; //this one spam A LOT of logs
 					if (
@@ -439,6 +455,7 @@ _poptabs = 50;
 						//[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit; //ERROR: addDamageToUnit - badUnit
 						[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
 						_unit removeEventHandler ["HandleDamage", 0];
+						_unit removeMPEventHandler ["MPKilled", 0];
 						if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
 						if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this]};
 						if (alive _unit) then {//looks stupid but it seems that the NPC sometimes die before the setDamage 1
@@ -469,18 +486,6 @@ _poptabs = 50;
   						};
 					};
 				}];
-				_unit addEventHandler ["Hit", {
-					params ["_unit", "_source", "_damage", "_instigator"];
-					if (isPlayer _instigator && {alive _unit} && {vehicle _instigator == _instigator}) then {
-						_acc = _unit skill "aimingAccuracy";
-						_unit setSkill ["aimingAccuracy", (_acc*0.8)];
-						//if (WMS_IP_LOGs) then {format ['Target Hit, %1', (_unit skill "aimingAccuracy")] remoteexec ['hint', (owner _instigator)]}; //debug
-					};
-				}];
-				_unit addMPEventHandler ["MPKilled", " 
-					params ['_unit', '_killer', '_instigator', '_useEffects'];
-					if (isDedicated) then {[_unit,_killer] call WMS_fnc_DynAI_RwdMsgOnKill;};
-				"];
 			} else { //Need a "PunishPunk call here"
 				_unit addEventHandler ["killed", "
 					if (WMS_DynAI_remRPG) then {(_this select 0) removeWeapon (secondaryWeapon (_this select 0))};
@@ -510,7 +515,11 @@ _poptabs = 50;
 						_unit setVariable ["ExileMoney",_poptabs,true];
 					};
 					//////////EVENTHANDLER(s)/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY
-					_unit addEventHandler ["HandleDamage", {
+					_unit addMPEventHandler ["MPKilled", " 
+						if(isDedicated)then{[(_this select 0),(_this select 1)] call WMS_fnc_DynAI_RwdMsgOnKill;};
+					"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
+					/////
+					_unit addEventHandler ["HandleDamage", { //THIS NEED TO BE LIGHTER AND CALL AN EH FUNCTION
 						params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
 						if (
 							isPlayer _source && 
@@ -522,6 +531,7 @@ _poptabs = 50;
 							if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
 							[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
 							_unit removeEventHandler ["HandleDamage", 0];
+							_unit removeMPEventHandler ["MPKilled", 0];
 							if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this]};
 							if (alive _unit) then {
 								_unit setDamage 1;
@@ -550,9 +560,6 @@ _poptabs = 50;
   							};
 						};
 					}];
-					_unit addEventHandler ["Killed", " 
-						[(_this select 0),(_this select 1)] call WMS_fnc_DynAI_RwdMsgOnKill;
-					"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
 					//NO REDUCED ACCURACY FOR THEM
 					/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY
 				} else{

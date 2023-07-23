@@ -153,6 +153,8 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 	if ((count _x) > 3 && {(_x select 3) == "static"}) then { 
 		_staticsList pushBack _object;
 		_object allowDamage true;
+		_object enableWeaponDisassembly false;
+		_object lock 3;
 		//here create the dynamic skill set "static" with a "getin" and "getOut" EH
 		_object addEventHandler ["GetIn", {
 			params ["_vehicle", "_role", "_unit", "_turret"];

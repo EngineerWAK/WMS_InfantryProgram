@@ -25,13 +25,22 @@ if (worldName == "Cam_Lao_Nam") then {
 																	];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["RHS_AN2","RHS_AN2","RHS_AN2"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
-										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","rhs_mag_m67","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
+										WMS_AI_grenades 			= ["rhs_mag_an_m14_th3",
 																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag","ACE_M14",
-																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag",
+																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_rgo","rhs_grenade_khattabka_vog25_mag",
+																		"vn_m7_grenade_mag","vn_m14_early_grenade_mag","vn_rkg3_grenade_mag","vn_rgd33_grenade_mag",
 																		"vn_molotov_grenade_mag","vn_chicom_grenade_mag","vn_f1_grenade_mag","vn_m14_grenade_mag","vn_m34_grenade_mag","vn_m61_grenade_mag","vn_rg42_grenade_mag","vn_rgd5_grenade_mag","vn_t67_grenade_mag"];
-										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "Bomb_03_F", "Bomb_04_F", "ammo_Bomb_SDB", "rhs_ammo_fab500_m54", "Bo_Mk82"]; //DynAI bombing is (select 0)										
-										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","rhs_ammo_kab500","rhs_ammo_fab500_m54"];
-										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
+										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "vn_bomb_500_mk82_se_ammo", "vn_bomb_500_mk82_dc_ammo", "vn_bomb_2000_gbu8_he_ammo", "rhs_ammo_fab500_m54", "Bo_Mk82","vn_bomb_750_m117_he_ammo","vn_bomb_100_m47_wp_ammo"]; //DynAI bombing is (select 0)										
+										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","vn_bomb_2000_gbu8_he_ammo","vn_bomb_1000_mk83_he_ammo","vn_bomb_100_m47_wp_ammo","vn_bomb_750_blu1b_fb_ammo","vn_bomb_15000_blu82_dc_ammo"];
+																		//vn_bomb_mk36_destructor_mine_ammo //this one do not explode, it stick in the ground and wait... :D
+										WMS_DynAI_RainObjects 		= [ //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
+																		["Chemlight_blue","Land_HumanSkull_F"],
+																		["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo ","rhs_ammo_m397","vn_bomb_mk36_destructor_mine_ammo"],
+																		["vn_m34_grenade_ammo","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst","vn_bomb_mk36_destructor_mine_ammo"],
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"]
+																	];
+										WMS_RunnerTypes				= ["ClaymoreDirectionalMine_Remote_Ammo_Scripted","SatchelCharge_Remote_Ammo_Scripted","Sh_155mm_AMOS","vn_bomb_100_m47_wp_ammo"];//["mine","satchel","shell","bomb"] //[3 front, 1 front, 2 front, 1 back]
 										WMS_AI_RdoTruck 			= "vn_b_armor_m577_01"; //"rhs_gaz66_r142_vdv";
 										WMS_AI_ATstation 			= "vn_b_rok_army_static_m101_01"; //"rhs_D30_at_msv"; //roadBlock
 										WMS_AI_AAstation 			= "vn_o_nva_static_zgu1_01"; //AA battery
@@ -62,13 +71,14 @@ if (worldName == "Cam_Lao_Nam") then {
 											[9604.92,17513.2,0],[14060,16618.2,0],[10664.4,19207.7,0],[14762.3,19285.5,0],[16228.3,15864.8,0],[14444.7,1968.98,0],[8370.29,17959.9,0],[7277.31,18378.2,0],[2806.54,3562.21,0],[6373.83,13725.9,0],
 											[5097.96,12959.4,0],[8415.98,8711.45,0]];
 										WMS_Pos_Military 			= [
-											[2215.69,13393.5,0],[1036.47,9391.75,0],[4908.9,13643.2,0],[6029.16,13901.9,0],[12412.9,19362.1,0],[13533.6,19192.9,0],[6930.94,5402.79,0],[6830.79,4555.39,0],[8140.09,5389.21,0],[2340.15,4017.37,0],[1946.7,3936.57,0],
-											[1954.9,4302.28,0],[11519.2,6482.52,0],[11452.2,6154.57,0],[11373.9,5760.34,0],[16080.5,3645.85,0],[15258.6,4689.59,0],[17168.8,5580.39,0],[17452.4,5575.77,0],[16241.9,6284.29,0],[16316.8,6542.98,0],[16839.3,6413.86,0],
+											[2215.69,13393.5,0],[1036.47,9391.75,0],[4908.9,13643.2,0],[6029.16,13901.9,0],[12412.9,19362.1,0],[13533.6,19192.9,0],[6930.94,5402.79,0],[6840.31,4553.8,0],[8140.09,5389.21,0],[2262.79,4027.41,0],[2043.68,3958.12,0],
+											[1872.52,4199.2,0],[11519.2,6482.52,0],[11452.2,6154.57,0],[11373.9,5760.34,0],[16080.5,3645.85,0],[15105,4706.5,0],[17168.8,5580.39,0],[17452.4,5575.77,0],[16241.9,6284.29,0],[16316.8,6542.98,0],[16839.3,6413.86,0],
 											[15704,7244.87,0],[15908.4,7586.65,0],[16611.3,7681.2,0],[16939.2,7476.65,0],[16149.8,7176.37,0],[17602.9,6766.45,0],[18617.7,6080.44,0],[17879.2,5796.49,0],[19239.5,7250.14,0],[20160.5,6605.22,0],[20065,7281.91,0],
-											[19347.6,5677.69,0],[19189.8,5336.49,0],[19444.4,4577.14,0],[18611,8374.57,0],[17640.8,9455.22,0],[16323.4,8118.78,0],[15937.4,8019.55,0],[16269,7612.43,0],[16941.7,7119.42,0],[16035.2,6801.08,0],[15556.6,6791.52,0],
-											[14770.7,6873.03,0],[13749.9,8393.47,0],[12854,8505.16,0],[14775,9617.43,0],[16167.6,11039.8,0],[15446.7,12028.7,0],[15876.5,12304.1,0],[16278.2,12287.7,0],[14132.5,12802.5,0],[15648.7,13530.7,0],[14395.5,15904.1,0],
-											[13306.2,17335.9,0],[12090,17657.6,0],[11819,16813.4,0],[12677.2,17354.1,0],[12135.5,16571.5,0],[11986.8,18325.6,0],[12949.2,18650.3,0],[14781.7,18454.6,0],[14791.4,16181.4,0],[12480.6,13311,0],[12941.2,13732.6,0],
-											[14509.2,15273,0],[14655.1,15607.1,0],[14511,16469.7,0],[14414.6,18280.7,0],[14184.9,18819.5,0],[16652.8,6745.6,0],[18104.2,6209.21,0],[11167.4,14821.8,0],
+											[19347.6,5677.69,0],[19189.8,5336.49,0],[19444.4,4577.14,0],[18620.3,8357.75,0],[17629.2,9431.19,0],[16323.4,8118.78,0],[15937.9,7976.11,0],[16269,7612.43,0],[16941.7,7119.42,0],[16035.2,6801.08,0],[15556.6,6791.52,0],
+											[14707.9,6945.11,0],[13749.9,8393.47,0],[12854,8505.16,0],[14775,9617.43,0],[16167.6,11039.8,0],[15446.7,12028.7,0],[15876.5,12304.1,0],[16278.2,12287.7,0],[14132.5,12802.5,0],[15648.7,13530.7,0],[14395.5,15904.1,0],
+											[13306.2,17335.9,0],[12024,17625.8,0],[11819,16813.4,0],[12677.2,17354.1,0],[12135.5,16571.5,0],[11986.8,18325.6,0],[12949.2,18650.3,0],[14781.7,18454.6,0],[14791.4,16181.4,0],[12480.6,13311,0],[12941.2,13732.6,0],
+											[14509.2,15273,0],[14655.1,15607.1,0],[14511,16469.7,0],[14414.6,18280.7,0],[14184.9,18819.5,0],[16647.6,6726.87,0],[18104.2,6209.21,0],[11167.4,14821.8,0],[15214.1,4456.82,0],[15381.7,4647.97,0],[14837.5,6792.94,0],
+											[18519.4,8520.39,0],[12159.7,17707.1,0],[19161.6,13520.9,0],[2112.71,4316.92,0],
 											[3218.44,9059.68,0], //CheckPoints
 											[4637.63,18975,0],[3665.86,17874.3,0],[3282.48,15529.5,0] //Bunkers
 											]; //not autoScan
@@ -96,6 +106,8 @@ if (worldName == "Cam_Lao_Nam") then {
 										WMS_AI_RoamingVHL_citySpawn	= true; //NEW
 										WMS_AI_RoamingVHLcount 		= 16; //10
 										WMS_AI_CargoUnits	 		= 1;
+										WMS_SupplyDropCount 		= 4; //default 2
+										WMS_HumaniDropCount 		= 4; //default 3
 										WMS_AMS_ToRun 				= 4; 
 										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
@@ -122,6 +134,16 @@ if (worldName == "Cam_Lao_Nam") then {
 																	"vn_o_men_nva_dc_01","vn_o_men_nva_dc_13","vn_o_men_nva_dc_08",
 																	"vn_o_men_nva_marine_03","vn_o_men_nva_marine_10","vn_o_men_nva_marine_04"];
 										WMS_AMS_UnitClass 			= WMS_AI_Units_Class;
+										WMS_AL_Units				= [//infantry classname, do not mix factions!
+																	"vn_c_men_22","vn_c_men_29","vn_c_men_30","vn_c_men_32","vn_c_men_18","vn_c_men_06","vn_c_men_08","vn_c_men_01","vn_c_men_03","vn_c_men_09","vn_c_men_11"
+																	]; 
+										WMS_AL_Vehicles				= [[ //[[AIR],[GROUND],[SEA]]
+																	"vn_b_air_uh1b_01_09","vn_b_air_uh1d_04_09","RHS_Mi8amt_civilian","C_Heli_Light_01_civil_F","rhs_uh1h_idap"
+																	],[
+																	"vn_c_bicycle_02","vn_c_car_02_01","vn_c_bicycle_02","vn_c_car_03_01","vn_c_bicycle_02","vn_c_car_01_01","vn_c_bicycle_02","vn_c_car_04_01"
+																	],[
+																	"vn_c_boat_01_03","vn_c_boat_01_01","vn_c_boat_02_03","vn_c_boat_02_04","vn_c_boat_08_02","vn_c_boat_07_02","vn_c_boat_07_01","vn_c_boat_08_01"
+																	]];
 										WMS_AMS_MissionList 	= 	[ //missions themself and weight
 																	["MissionTest1",0],
 																	["MissionTest2",0],
@@ -169,6 +191,11 @@ if (worldName == "Cam_Lao_Nam") then {
 																	["OutpostFoxtrot",1],
 																	["OutpostGolf",1] //+V2
 																	];
+										WMS_AMS_StaticPos_1			= []; //VC //patrol
+										WMS_AMS_StaticPos_2			= []; //PATHET //patrol, garrison positions
+										WMS_AMS_StaticPos_3			= []; //PAVN  //patrol, garrison positions //ARTY 1
+										WMS_AMS_StaticPos_4			= []; //KHMER //patrol, garrison positions //ARTY 2
+										execVM "\InfantryProgram\Scripts\AMS_StaticMissionsOBJ_Cam_Lao_Nam.sqf";
 																	//////////bottom of this function
 																	/*if (WMS_AMS_CleanMapObj && WMS_AMS_ForceRadius && WMS_AMS_CanSelect)then {
 																		if (true) then {diag_log format ["[WMS_CustomMapsSettings]|WAK|TNA|WMS| Starting pre_selection of AMS Positions at %1", servertime]};
