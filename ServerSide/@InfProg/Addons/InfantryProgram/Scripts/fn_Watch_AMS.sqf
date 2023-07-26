@@ -10,7 +10,7 @@
 * Do Not Re-Upload
 */
 
-private ["_AMSRunningMissions","_fps","_missionToSpawn","_missionVarName","_pos","_clnT","_grps","_vhls","_objs","_Mines","_mkrs","_wps","_ref","_rwds","_name","_difficulty","_clnObj","_lootCount","_lootType","_mission","_flag","_cnt","_crateOwner","_msg"];
+private ["_unitsToFire","_AMSRunningMissions","_fps","_missionToSpawn","_missionVarName","_pos","_clnT","_grps","_vhls","_objs","_Mines","_mkrs","_wps","_ref","_rwds","_name","_difficulty","_clnObj","_lootCount","_lootType","_mission","_flag","_cnt","_crateOwner","_msg"];
 _AMSRunningMissions = (count WMS_AMS_Running_Array);
 _fps = diag_fps;
 if (WMS_IP_LOGs) then {
@@ -99,6 +99,20 @@ if (_AMSRunningMissions > 0) then {
 				[_grps,_vhls,_objs,_Mines,_mkrs,_wps,_rwds,_msg] call WMS_fnc_AMS_TimedOut;
 				WMS_AMS_Running_Array deleteAt (WMS_AMS_Running_Array find _x);
 				WMS_AMS_Missions_Running deleteAt (WMS_AMS_Missions_Running find _mission)
+			};
+		};
+		if (_flag getVariable ["WMS_AMS_DoFire",false])then{
+			if (serverTime > (_flag getVariable ["WMS_AMS_DoFireNext",serverTime]))then {
+				_unitsToFire = [];
+				{
+					{
+						if (_x isKindOf "Man" && {typeOf (vehicle _x) in WMS_AMS_ArtyDoFire})then{_unitsToFire pushBack _x};
+					}forEach units _x;
+				}foreach _grps;
+				if (count _unitsToFire != 0)then{
+					[_unitsToFire] spawn WMS_fnc_AMS_Mission_Static_DoFire;
+					_flag setVariable ["WMS_AMS_DoFireNext",serverTime+300+(random 450)];
+				};
 			};
 		};
 	} foreach WMS_AMS_Running_Array;

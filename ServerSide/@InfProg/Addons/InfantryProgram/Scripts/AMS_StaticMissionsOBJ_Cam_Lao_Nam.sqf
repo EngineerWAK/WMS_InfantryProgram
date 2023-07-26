@@ -1,5 +1,6 @@
 // Export of 'AMS_StaticMissions.Cam_Lao_Nam' by {|||TNA|||} WAKeupneo on v0.9
 
+if (true) then {diag_log format ["[AMS_StaticMissionsObj_Cam_lao_Nam]|WAK|TNA|WMS|SPAWNING serverTime = %1", serverTime]};
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Init
 params [["_layerWhiteList",[],[[]]],["_layerBlacklist",[],[[]]],["_posCenter",[0,0,0],[[]]],["_dir",0,[0]],["_idBlacklist",[],[[]]]];
@@ -6131,7 +6132,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item3) then {
 		this = _item3;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6139,7 +6140,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item6) then {
 		this = _item6;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -6148,7 +6149,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item7) then {
 		this = _item7;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6156,7 +6157,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item8) then {
 		this = _item8;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6164,7 +6165,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item16) then {
 		this = _item16;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -6178,7 +6179,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item21) then {
 		this = _item21;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6186,7 +6187,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item24) then {
 		this = _item24;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6194,7 +6195,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item25) then {
 		this = _item25;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6202,7 +6203,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item26) then {
 		this = _item26;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -6211,7 +6212,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item27) then {
 		this = _item27;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6219,7 +6220,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item29) then {
 		this = _item29;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6227,7 +6228,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item30) then {
 		this = _item30;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6235,7 +6236,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item35) then {
 		this = _item35;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6243,7 +6244,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item37) then {
 		this = _item37;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6251,7 +6252,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item41) then {
 		this = _item41;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6259,7 +6260,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item42) then {
 		this = _item42;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6267,7 +6268,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item43) then {
 		this = _item43;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -6276,7 +6277,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item44) then {
 		this = _item44;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6284,7 +6285,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item45) then {
 		this = _item45;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -6293,7 +6294,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item46) then {
 		this = _item46;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6381,7 +6382,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item67) then {
 		this = _item67;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6389,7 +6390,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item68) then {
 		this = _item68;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6397,7 +6398,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item69) then {
 		this = _item69;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6405,7 +6406,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item70) then {
 		this = _item70;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6413,7 +6414,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item71) then {
 		this = _item71;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -6422,7 +6423,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item72) then {
 		this = _item72;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -6431,7 +6432,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item73) then {
 		this = _item73;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6439,7 +6440,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item74) then {
 		this = _item74;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6447,7 +6448,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item75) then {
 		this = _item75;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6455,7 +6456,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item76) then {
 		this = _item76;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6463,7 +6464,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item77) then {
 		this = _item77;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6471,7 +6472,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item78) then {
 		this = _item78;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6479,7 +6480,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item79) then {
 		this = _item79;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6492,7 +6493,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item81) then {
 		this = _item81;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6500,7 +6501,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item82) then {
 		this = _item82;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6508,7 +6509,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item84) then {
 		this = _item84;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6516,7 +6517,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item85) then {
 		this = _item85;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6524,7 +6525,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item86) then {
 		this = _item86;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6532,7 +6533,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item87) then {
 		this = _item87;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6540,7 +6541,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item88) then {
 		this = _item88;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6548,7 +6549,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item89) then {
 		this = _item89;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6566,7 +6567,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item92) then {
 		this = _item92;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6574,7 +6575,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item93) then {
 		this = _item93;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6587,7 +6588,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item95) then {
 		this = _item95;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6595,7 +6596,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item96) then {
 		this = _item96;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6603,7 +6604,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item97) then {
 		this = _item97;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6611,7 +6612,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item98) then {
 		this = _item98;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6624,7 +6625,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item103) then {
 		this = _item103;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6632,7 +6633,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item104) then {
 		this = _item104;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6640,7 +6641,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item105) then {
 		this = _item105;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6648,7 +6649,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item106) then {
 		this = _item106;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6656,7 +6657,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item107) then {
 		this = _item107;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6669,7 +6670,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item109) then {
 		this = _item109;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6677,7 +6678,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item110) then {
 		this = _item110;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6685,7 +6686,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item111) then {
 		this = _item111;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6831,7 +6832,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item147) then {
 		this = _item147;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6839,7 +6840,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item148) then {
 		this = _item148;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6847,7 +6848,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item149) then {
 		this = _item149;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6855,7 +6856,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item150) then {
 		this = _item150;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6863,7 +6864,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item151) then {
 		this = _item151;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6871,7 +6872,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item152) then {
 		this = _item152;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6879,7 +6880,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item153) then {
 		this = _item153;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -6919,7 +6920,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item162) then {
 		this = _item162;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7007,7 +7008,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item182) then {
 		this = _item182;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7015,7 +7016,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item183) then {
 		this = _item183;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7023,7 +7024,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item184) then {
 		this = _item184;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7036,7 +7037,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item186) then {
 		this = _item186;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7044,7 +7045,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item187) then {
 		this = _item187;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7053,7 +7054,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item188) then {
 		this = _item188;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7062,7 +7063,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item189) then {
 		this = _item189;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7071,7 +7072,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item190) then {
 		this = _item190;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7083,7 +7084,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item192) then {
 		this = _item192;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7097,7 +7098,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item194) then {
 		this = _item194;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7105,7 +7106,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item195) then {
 		this = _item195;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7113,7 +7114,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item196) then {
 		this = _item196;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7121,7 +7122,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item197) then {
 		this = _item197;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7129,7 +7130,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item198) then {
 		this = _item198;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7137,7 +7138,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item199) then {
 		this = _item199;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7145,7 +7146,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item200) then {
 		this = _item200;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7153,7 +7154,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item201) then {
 		this = _item201;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7226,7 +7227,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item218) then {
 		this = _item218;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7234,7 +7235,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item219) then {
 		this = _item219;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7242,7 +7243,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item220) then {
 		this = _item220;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7250,7 +7251,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item221) then {
 		this = _item221;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7258,7 +7259,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item222) then {
 		this = _item222;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7280,7 +7281,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item226) then {
 		this = _item226;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7288,7 +7289,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item228) then {
 		this = _item228;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7297,7 +7298,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item229) then {
 		this = _item229;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7305,7 +7306,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item230) then {
 		this = _item230;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7313,7 +7314,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item231) then {
 		this = _item231;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7321,7 +7322,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item233) then {
 		this = _item233;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7329,7 +7330,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item234) then {
 		this = _item234;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7342,7 +7343,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item236) then {
 		this = _item236;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7350,7 +7351,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item237) then {
 		this = _item237;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7419,7 +7420,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item253) then {
 		this = _item253;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7427,7 +7428,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item254) then {
 		this = _item254;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7435,7 +7436,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item255) then {
 		this = _item255;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7448,7 +7449,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item257) then {
 		this = _item257;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7456,7 +7457,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item258) then {
 		this = _item258;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7464,7 +7465,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item259) then {
 		this = _item259;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7472,7 +7473,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item260) then {
 		this = _item260;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7480,7 +7481,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item261) then {
 		this = _item261;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7489,7 +7490,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item262) then {
 		this = _item262;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7498,7 +7499,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item263) then {
 		this = _item263;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7523,7 +7524,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item269) then {
 		this = _item269;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7531,7 +7532,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item272) then {
 		this = _item272;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7572,7 +7573,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item281) then {
 		this = _item281;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7580,7 +7581,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item282) then {
 		this = _item282;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7588,7 +7589,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item284) then {
 		this = _item284;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7596,7 +7597,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item285) then {
 		this = _item285;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7604,7 +7605,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item286) then {
 		this = _item286;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7612,7 +7613,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item287) then {
 		this = _item287;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7625,7 +7626,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item289) then {
 		this = _item289;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7633,7 +7634,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item290) then {
 		this = _item290;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7641,7 +7642,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item291) then {
 		this = _item291;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7650,7 +7651,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item292) then {
 		this = _item292;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -7659,7 +7660,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item293) then {
 		this = _item293;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7667,7 +7668,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item294) then {
 		this = _item294;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7675,7 +7676,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item295) then {
 		this = _item295;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7683,7 +7684,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item296) then {
 		this = _item296;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7691,7 +7692,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item297) then {
 		this = _item297;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7799,7 +7800,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item323) then {
 		this = _item323;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7807,7 +7808,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item324) then {
 		this = _item324;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7815,7 +7816,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item325) then {
 		this = _item325;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7832,7 +7833,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item328) then {
 		this = _item328;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7872,7 +7873,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item337) then {
 		this = _item337;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7884,7 +7885,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item340) then {
 		this = _item340;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7969,7 +7970,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item360) then {
 		this = _item360;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7982,7 +7983,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item362) then {
 		this = _item362;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -7999,7 +8000,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item365) then {
 		this = _item365;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8007,7 +8008,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item366) then {
 		this = _item366;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8024,7 +8025,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item369) then {
 		this = _item369;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8032,7 +8033,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item370) then {
 		this = _item370;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8060,7 +8061,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item377) then {
 		this = _item377;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8068,7 +8069,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item378) then {
 		this = _item378;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8076,7 +8077,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item379) then {
 		this = _item379;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8165,7 +8166,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item400) then {
 		this = _item400;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8173,7 +8174,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item401) then {
 		this = _item401;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8181,7 +8182,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item402) then {
 		this = _item402;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8189,7 +8190,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item403) then {
 		this = _item403;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8197,7 +8198,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item404) then {
 		this = _item404;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8205,7 +8206,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item405) then {
 		this = _item405;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8213,7 +8214,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item406) then {
 		this = _item406;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8221,7 +8222,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item407) then {
 		this = _item407;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8237,7 +8238,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item411) then {
 		this = _item411;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8245,7 +8246,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item412) then {
 		this = _item412;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8253,7 +8254,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item413) then {
 		this = _item413;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8329,7 +8330,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item435) then {
 		this = _item435;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8337,7 +8338,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item436) then {
 		this = _item436;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8410,7 +8411,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item452) then {
 		this = _item452;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -8419,7 +8420,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item453) then {
 		this = _item453;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -8428,7 +8429,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item454) then {
 		this = _item454;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -8491,7 +8492,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item469) then {
 		this = _item469;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];;
@@ -8499,7 +8500,7 @@ this setVariable ['vn_log_enablePickup', false];;
 	if !(isnull _item470) then {
 		this = _item470;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -8508,7 +8509,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item471) then {
 		this = _item471;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -8517,7 +8518,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item472) then {
 		this = _item472;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -8526,7 +8527,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item473) then {
 		this = _item473;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -8540,7 +8541,7 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 	if !(isnull _item475) then {
 		this = _item475;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -8549,7 +8550,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item476) then {
 		this = _item476;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -8558,7 +8559,7 @@ this enableWeaponDisassembly false;;
 	if !(isnull _item477) then {
 		this = _item477;
 		this setVariable ["WMS_AMS_StaticOBJ", true];
-this lock 3;
+this lock 2;
 this enableRopeAttach false;
 [this, this] call ace_common_fnc_claim; 
 this setVariable ['vn_log_enablePickup', false];
@@ -8952,11 +8953,4 @@ this setVariable ["WMS_AMS_StaticOBJ", true];;
 		this setVariable ["WMS_AMS_StaticOBJ", true];;
 	};
 };
-
-
-///////////////////////////////////////////////////////////////////////////////////////////
-// Module activations (only once everything is spawned and connected)
-
-
-///////////////////////////////////////////////////////////////////////////////////////////
-//[[_objects,_groups,_triggers,_waypoints,_logics,_markers],[_objectIDs,_groupIDs,_triggerIDs,_waypointIDs,_logicIDs,_markerIDs]]
+if (true) then {diag_log format ["[AMS_StaticMissionsObj_Cam_lao_Nam]|WAK|TNA|WMS|SPAWNED serverTime = %1", serverTime]};

@@ -151,6 +151,8 @@ class CfgFunctions {
 			class AMS_ChkSpawnAngleShift	{};
 			class AMS_AdjustOnLeaderKia {};
 			class AMS_callBackAIgroups {};
+			class AMS_Mission_Static_DoFire {};
+			class AMS_Mission_Static_A {};
 
 			class AMS_Annihilator		{};
 

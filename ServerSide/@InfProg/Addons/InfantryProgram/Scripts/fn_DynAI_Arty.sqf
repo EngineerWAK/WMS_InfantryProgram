@@ -32,7 +32,7 @@ if((random 100) <= _artyChanceHE) then {
 	_O_Arty82mm doArtilleryFire [_posTargetCounter, "8Rnd_82mm_Mo_shells", _rounds];
 	uisleep 30;
 	deletevehicle (_O_Arty82mm select 0);
-{	deletevehicle _x} forEach units (_O_Arty82mm select 2);
+	{deletevehicle _x} forEach units (_O_Arty82mm select 2);
 } else {
 	_O_Arty82mm doArtilleryFire [_posTargetCounter, "8Rnd_82mm_Mo_Smoke_white", _rounds];
 	uisleep 30;

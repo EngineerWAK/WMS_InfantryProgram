@@ -182,6 +182,9 @@ if (worldName == "Cam_Lao_Nam") then {
 																	["strelnikovtrain",2],
 																	["bastogne",3], //"forest" positions
 																	["blackhawk",2],
+																	//STATICS
+																	["VC Arty",5],
+																	["VC Patrol",5],
 																	//OUTPOSTS
 																	["OutpostAlpha",1],
 																	["OutpostBravo",1],

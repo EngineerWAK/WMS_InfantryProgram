@@ -84,7 +84,7 @@ while {true} do {
 			WMS_DFO_AllDeads			= WMS_DFO_AllDeads*2;
 			WMS_Others_AllDeads			= WMS_Others_AllDeads*2;
 
-			execVM "\InfantryProgram\Scripts\WMS_customMapsSettings.sqf";
+			//execVM "\InfantryProgram\Scripts\WMS_customMapsSettings.sqf"; //yeah but no, not anymore, I hae to find another solution because this launch a second time WMS_customMapsSettings at server start
 			WMS_FastCombatActive = false;
 		};
 	};

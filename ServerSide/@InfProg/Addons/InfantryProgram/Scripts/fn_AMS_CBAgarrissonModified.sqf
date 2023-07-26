@@ -26,7 +26,7 @@ params ["_group", "_position"];
 // leader should not issue attack orders
 //_group enableAttack false;
 
-private _staticWeapons = _position nearObjects ["StaticWeapon", 50] select {locked _x != 2 && {_x emptyPositions "gunner" > 0}};
+private _staticWeapons = _position nearObjects ["StaticWeapon", 200] select {locked _x != 2 && {_x emptyPositions "gunner" > 0}};
 private _buildings = (_position nearObjects ["Building", 50]) apply {_x buildingPos -1} select {count _x > 0};
 
 {
@@ -45,8 +45,8 @@ private _buildings = (_position nearObjects ["Building", 50]) apply {_x building
             _buildings = _buildings select {count _x > 0};
         };
         // prevent units from crouching or going prone
-        //_x setUnitPos "UP";
-        // doMoveAndStay
+        _x setUnitPos "UP";
+        //doMoveAndStay
         [_x, _position] spawn {
             params ["_unit", "_position"];
             _unit doMove _position;

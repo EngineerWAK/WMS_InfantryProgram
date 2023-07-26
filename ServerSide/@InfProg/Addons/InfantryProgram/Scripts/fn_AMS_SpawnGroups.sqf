@@ -51,6 +51,7 @@ for "_i" from 1 to _grpCount do {
 	//if (HC1 in allPlayers) then {_INFgrp setGroupOwner (owner HC1)};
 };
 {
+	if (_behavType == "random") then {_behavType = (selectRandom ["patrol","defend","hide"])};
 	//[(units _x),_unitFunction,_LauncherChance,_skill,_difficulty,_loadout] call WMS_fnc_AMS_SetUnits;
 	//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
 	[(units _x),_unitFunction,_LauncherChance,_skill,_difficulty,_loadout,nil,"AMS"] call WMS_fnc_SetUnits;

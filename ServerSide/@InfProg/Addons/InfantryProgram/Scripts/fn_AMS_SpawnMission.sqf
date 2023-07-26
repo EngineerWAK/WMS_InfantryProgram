@@ -26,6 +26,41 @@ _debugTime1 = time;
 if (_mission == "no") then { //obiously can not work anymore
 	if (WMS_IP_LOGs) then {diag_log "WMS_AMS_* Mission name fucked-up"};
 } else {
+	///////////////////////////////////
+	//////////STATIC MISSIONS//////////
+	///////////////////////////////////
+	//2 kind of static mission for now, using 4 different positions arrays, 2 for patrols/camp, 2 for arty
+	if(_mission == "VC Arty")then{
+		_objects 	= "";//"classename" //NO OBJECTS IN STATIC MISSIONS
+		_behav 		= "random";
+		[_pos,(random 359),1,3,0.5,[100,3],150,10, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
+			[
+				["VC Arty"],["Moderate","Difficult","Difficult","Hardcore"],["heavyBandit","heavyBandit","bandit"],["Assault","HeavyBandit"],[_behav],
+				[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, count of each, + random]
+				[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+				[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+				[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
+				"military",50,false,_objects,28,nil,nil,[12,"Assault","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+			],_mission
+		] spawn WMS_fnc_AMS_Mission_Static_A; //1 to 3 grps patrol, 1 group garrison, no vehicle, no vehicle reward, static already on the ground
+	};
+	if(_mission == "VC Patrol")then{
+		_objects 	= "";//"classename" //NO OBJECTS IN STATIC MISSIONS
+		_behav 		= "random";
+		[_pos,(random 359),1,4,0.5,[150,3],150,10, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
+			[
+				["VC Patrol"],["Moderate","Difficult","Difficult","Hardcore"],["heavyBandit","bandit","bandit"],["Assault","HeavyBandit"],[_behav],
+				[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, count of each, + random]
+				[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+				[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
+				[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
+				"military",50,false,_objects,28,nil,nil,[10,"Assault","garrison"] //loot type, launcher chance, WMS_AMS_ClnObj, layout, layout radius
+			],_mission
+		] spawn WMS_fnc_AMS_Mission_Static_A; //1 to 3 grps patrol, 1 group garrison, no vehicle, no vehicle reward, static already on the ground
+	};
+	///////////////////////////////////
+	//////////STATIC MISSIONS\\\\\\\\\\
+	///////////////////////////////////
 	if(_mission == "blackhawk")then{
 		_objects 	= (selectRandom ["blackhawk","blackhawk_v2"]);//"classename"
 		_behav 		= (selectRandom ["patrol","defend","hide"]);
