@@ -1,6 +1,26 @@
 # WMS_InfantryProgram
 
 
+v2.855_2023JUL26_GitHub <br/>
+    Introducing "Static Missions" with "dynamic" NPC artillery (at least for Cam_Lao_Nam but can work for any map) <br/>
+    Build all your static missions in the mission editor on the map you want tp play them, export to sqf, put this sqf in \InfantryProgram\Scripts\ and call it from WMS_customMapsSettings. <br/>
+    One file for all the missions on the map. I use 4 different flags (hidden) to get the position and push the positions in 4 different arrays. <br/>
+    WMS_fnc_AMS_Mission_Static_A to manage the missions spawn from the 4 postions arrays <br/>
+    WMS_fnc_Mission_Static_DoFire to force artillery to fire on random named positions <br/>
+    WMS_AMS_ArtyDoFire 		= ["vn_o_pl_static_d44_01","vn_b_aus_army_static_m101_02","vn_o_kr_static_h12"]; <br/>
+    WMS_AMS_MissionList [ <br/>
+        ... <br/>
+        //STATICS <br/>
+        ["VC Arty",5], <br/>
+        ["VC Patrol",5], <br/>
+        ... <br/>
+    ]; <br/>
+    WMS_AMS_StaticPos_1			= []; //VC //patrol //pushback from AMS_StaticMissionsOBJ_Cam_Lao_Nam.sqf <br/>
+    WMS_AMS_StaticPos_2			= []; //PATHET //patrol, garrison positions //pushback from AMS_StaticMissionsOBJ_Cam_Lao_Nam.sqf <br/>
+    WMS_AMS_StaticPos_3			= []; //PAVN  //patrol, garrison positions //ARTY 1 //pushback from AMS_StaticMissionsOBJ_Cam_Lao_Nam.sqf <br/>
+    WMS_AMS_StaticPos_4			= []; //KHMER //patrol, garrison positions //ARTY 2 //pushback from AMS_StaticMissionsOBJ_Cam_Lao_Nam.sqf <br/>
+    execVM "\InfantryProgram\Scripts\AMS_StaticMissionsOBJ_Cam_Lao_Nam.sqf"; <br/>
+    
 v2.794_2023JAN25_GitHub<br/>
     ADDED Judgement Day mission, can be called fron the Infantry Computer. 10 waves of NPC spawning in the building around + few civilians running<br/>
         WMS_fnc_JudgementDay<br/>
