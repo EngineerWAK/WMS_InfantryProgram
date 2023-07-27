@@ -1,5 +1,5 @@
 /**
-* InfantryProgram
+* WMS_fnc_AMS_SpawnMineField
 *
 * TNA-Community
 * https://discord.gg/Zs23URtjwF
@@ -37,7 +37,7 @@ for "_i" from 1 to _howMany do {
 	//CIVILIAN revealMine _mine;
 	//WEST revealMine _mine;
 	EAST revealMine _mine;
-	//sleep 0.1; 
+	//uisleep 0.15; 
 };
 _randDirOffset = random 45;
 for "_i" from 0 to 359 step _steps do {

@@ -1,5 +1,5 @@
 /**
-* InfantryProgram
+* WMS_fnc_AMS_SpawnObjects
 *
 * TNA-Community
 * https://discord.gg/Zs23URtjwF
@@ -193,6 +193,7 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 			};	
 		}];
 	};
+//	uisleep 0.2;
 } forEach _objects;
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission Objects spawned, server time %1,", serverTime]};

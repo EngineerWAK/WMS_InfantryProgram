@@ -1,5 +1,5 @@
 /**
-* InfantryProgram
+* WMS_fnc_AMS_SpawnGroups
 *
 * TNA-Community
 * https://discord.gg/Zs23URtjwF
@@ -45,10 +45,11 @@ for "_i" from 1 to _grpCount do {
 		_randomPos = [_pos, 0, (_wpts select 0), 1, 0, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos;
 		//[center, minDist, maxDist, objDist, waterMode, maxGrad, shoreMode, blacklistPos, defaultPos] call BIS_fnc_findSafePos
 		_unitsClass createUnit [_randomPos, _INFgrp];
-		//uisleep 0.2;
+		//uisleep 0.3;
 	};
 	//if !(WMS_HeadlessOwnerID == 2) then {_INFgrp setGroupOwner WMS_HeadlessOwnerID};
 	//if (HC1 in allPlayers) then {_INFgrp setGroupOwner (owner HC1)};
+	//uisleep 0.3;
 };
 {
 	if (_behavType == "random") then {_behavType = (selectRandom ["patrol","defend","hide"])};
@@ -79,6 +80,7 @@ for "_i" from 1 to _grpCount do {
 		};
 	};	
 	{_x setVariable ["AMS_MissionID",_missionID,true]}forEach (units _x);
+	//uisleep 2;
 }forEach _grps;
 if (WMS_IP_LOGs) then {diag_log format ["[AMS GROUP]|WAK|TNA|WMS| return _grps: %1,", _grps]};
 _grps

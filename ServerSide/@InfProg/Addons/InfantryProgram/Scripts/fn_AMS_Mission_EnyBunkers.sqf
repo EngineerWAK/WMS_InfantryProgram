@@ -64,7 +64,7 @@ if (_pos == "random" ) then {
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission _pos selection DONE, server time %1, %2", serverTime, _name]};
 /////////////////
-
+uisleep 1;
 if (WMS_AMS_ForceRadius)then{
 	_radius = _tempRadius;
 };
@@ -75,6 +75,7 @@ _unitFunction = "HeavyBandit";
 _launcherChance = 30;
 _behavType = "hide"; //NO CAP Unless "CBTpatrol"
 _clnObj = WMS_AMS_ClnObj; //WMS_AMS_ClnObj;
+_Mkrs = [_pos,_difficulty,_name,true] call WMS_fnc_AMS_CreateMarker;
 
 private _lootCount = [[1,1,2],[1,1,1],[2,1,1],[1,2,1],[0,0,0]]; //[_weap,_bag,_items,_ammoList,_mag]
 private _lootType = "military";
@@ -88,7 +89,7 @@ switch (_difficulty) do {
 
 _objects 	= selectRandom ["EnemyBunker","EnemyBunkerV2"];
 _objList 	= [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects;
-
+uisleep 5;
 _grpInf = [ 
 		_pos,
 		_missionID,
@@ -102,22 +103,7 @@ _grpInf = [
 		_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 		_difficulty
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-
-_Mkrs = [_pos,_difficulty,_name,true] call WMS_fnc_AMS_CreateMarker;
-
-_trigg =  createTrigger ["EmptyDetector", _pos, true];
-_trigg setVariable ["WMS_CallAIgroup",[_grpInf, _pos],true];
-_trigg setTriggerArea [5, 5, 0, false];
-_trigg setTriggerActivation ["ANYPLAYER", "PRESENT", true];
-_trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count thislist) > 0", 
-	"
-	if (true) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
-	_CallBackAIgroup = thisTrigger getVariable ['WMS_CallAIgroup',[[],[0,0,0]]];
-	_CallBackAIgroup call WMS_fnc_AMS_callBackAIgroups;
-	deleteVehicle thisTrigger;
-	", 
-	"
-	"];
+uisleep 5;
 
 _grpInf2 = [ 
 	_pos,
@@ -132,18 +118,23 @@ _grpInf2 = [
 	_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 	_difficulty	
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-
+uisleep 5;
 _Mines = [
 	_pos,
 	_radius,	//"_radius", //100
 	_howMany	//"_howMany", //20
 ] call WMS_fnc_AMS_SpawnMineField;
+uisleep 4;
 _Mines2 = [
 	_pos,
 	_radius,//"_radius", //100
 	_howMany,//"_howMany", //20
 	[WMS_AMS_MineAP] //"_mineType", [""]], //WMS_ATMines
 ] call WMS_fnc_AMS_SpawnMineField;
+uisleep 4;
+
+_trigg = [_pos,(_grpInf+_grpInf2)]call WMS_fnc_AMS_createTriggCallBackGrps;
+
 
 _grps = _grpInf+_grpInf2; //array of all the different groups spawned: _grps = _grpInf+_grpVHL;
 _Mines = _Mines+_Mines2;

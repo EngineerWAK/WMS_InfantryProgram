@@ -141,6 +141,7 @@ if (typeName _pos == "STRING") exitWith {diag_log format ["[AMS MISSION SPAWN]|W
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission _pos selection DONE, server time %1, %2", serverTime, _name]};
 /////////////////
 uisleep 1;
+_Mkrs = [_pos,_difficulty,_name,true] call WMS_fnc_AMS_CreateMarker;
 
 switch (_difficulty) do {
 	case "Easy"			: {
@@ -192,7 +193,7 @@ if (_mission == "VC Arty")then {
 		_static enableWeaponDisassembly false;
 	}forEach _staticList;
 };
-uisleep 1;
+uisleep 5;
 
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Spawning first group, server time %1, %2", serverTime, _name]};
@@ -210,7 +211,7 @@ _grpInf = [
 		_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 		_difficulty
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 1;
+uisleep 5;
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Spawning second group, server time %1, %2", serverTime, _name]};
 /////////////////
@@ -230,13 +231,13 @@ if (_garUnitsCnt != 0) then {
 		_difficulty	
 	] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
 };
-uisleep 1;
+uisleep 5;
 
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Creating markers and trigger, server time %1, %2", serverTime, _name]};
 /////////////////
-_Mkrs = [_pos,_difficulty,_name,true] call WMS_fnc_AMS_CreateMarker;
-
+_trigg = [_pos,(_grpInf+_grpInf2)]call WMS_fnc_AMS_createTriggCallBackGrps;
+/*
 _trigg =  createTrigger ["EmptyDetector", _pos, true];
 _trigg setVariable ["WMS_CallAIgroup",[_grpInf, _pos],true];
 _trigg setTriggerArea [5, 5, 0, false];
@@ -249,8 +250,7 @@ _trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count th
 	deleteVehicle thisTrigger;
 	", 
 	"
-	"];
-uisleep 1;
+	"];*/
 
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Spawning mineField, server time %1, %2", serverTime, _name]};
@@ -264,7 +264,7 @@ _Mines = [
 	//"_signs", //true
 	//"_steps" //36
 ] call WMS_fnc_AMS_SpawnMineField;
-uisleep 1;
+uisleep 5;
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|MineField Spawned, server time %1, %2", serverTime, _name]};
 /////////////////

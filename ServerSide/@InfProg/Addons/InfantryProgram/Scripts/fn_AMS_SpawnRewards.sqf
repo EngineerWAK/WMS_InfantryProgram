@@ -20,7 +20,7 @@ params[
 	"_target", //flag for missions, _smoke for Capture Zone //smoke doesnt work properly
 	"_rwds", //array of objects to fill/unlock
 	["_lootCount",[[1,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]], //[_weap,_bag,_items,_ammoList,_mag]
-	["_lootType", "military", [""]],
+	["_lootType", "military", [""]], //"meds"
 	["_Msg", "Mission Reward", [""]],  
 	["_load", WMS_AMS_Crate_L, [""]],
 	["_difficulty", "Moderate"],  
@@ -240,6 +240,37 @@ if (_msg == "Mission Reward") then {//[_weap,_bag,_items,_ammoList,_mag]
 	if (WMS_AMS_addPoptabsRwd) then {
 		_cargo setVariable ["ExileMoney",(floor _poptabs),true];
 	};
+	//Force Medical Facility
+	if (_lootType == "meds") then {
+		if (WMS_IP_LOGs) then {diag_log format ["|WAK|TNA|WMS| Respawning %1 as Medical Facility", _cargo];};
+		_cargo setVariable ["ace_medical_isMedicalFacility", true, true];
+		_cargo setVariable ["WMS_resetFatigueTimer", time, true];
+		//[player, nil] call ace_advanced_fatigue_fnc_handlePlayerChanged; //addAction "Reset Fatigue" for owner;
+		[ //params ["_target", "_caller", "_actionId", "_arguments"];
+			_cargo,
+			[
+				"<t size='1' color='#528ffa'>Reset ACE Fatigue</t>",
+				"
+				[(_this select 1), objNull] call ace_advanced_fatigue_fnc_handlePlayerChanged;
+				(_this select 0) setVariable ['WMS_resetFatigueTimer', time, true];
+				",
+				[], //argument accessible in the script (_this select 3)
+				1,
+				true,
+				true,
+				"",
+				"('ACE_personalAidKit' in (items _this)) &&
+				{(time >= (60 + (_target getVariable ['WMS_resetFatigueTimer', time])))} && 
+				{(vehicle _this == _this)}",
+				5
+			]
+		] remoteExec [
+			"addAction",
+			0, //0 for all players //2 server only //-2 everyone but the server
+			true //JIP
+		];
+	};
+	//maybe here add a "flip" option
 };
 waitUntil {((position _cargo) select 2) < 25};
 if !(_SmokeColor == "none") then {

@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.855_2023JUL26_GitHub"; //First try AMS Static missions //Static missions arty system
+WMS_System_Version 			= "v2.856_2023JUL27_GitHub"; //First try AMS Static missions //Static missions arty system
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -520,7 +520,7 @@ WMS_AMS_MineSign 		= "Land_Sign_MinesTall_English_F"; //signs around mine fields
 WMS_AMS_ToRun 			= 3; //how many missions maximun at the same time
 WMS_AMS_MinFPS 			= 15; //diag_fps, above this, missions won't spawn
 WMS_AMS_LastSpawn 		= -600;//Keep minus so first mission can spawn before server unlock
-WMS_AMS_MissionTimeout 	= [9000, 1800]; //_this select 0 + random _this select 1
+WMS_AMS_MissionTimeout 	= [WMS_ServRestartSeconds, 1800]; //_this select 0 + random _this select 1
 WMS_AMS_TbtwMissions 	= [300, 120]; //Time between 2 missions to spawn //_this select 0 + random _this select 1
 WMS_AMS_MaxGrad 		= 0.15; //terrain grade max to spawn a mission
 WMS_AMS_RangeList 		= [300,500,750,1000,1500]; //Killer distance for AI reinforcement

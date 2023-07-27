@@ -64,7 +64,7 @@ if (_pos == "random" ) then {
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission _pos selection DONE, server time %1, %2", serverTime, _name]};
 /////////////////
-
+uisleep 1;
 	if (WMS_AMS_ForceRadius)then{
 		_radius = _tempRadius;
 	};
@@ -77,6 +77,7 @@ if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission _pos
 	_clnObj = WMS_AMS_ClnObj;
 	private _lootCount = [[1,1,2],[1,1,1],[2,1,1],[1,2,2],[0,0,0]]; //[_weap,_bag,_items,_ammoList,_mag]
 	private _lootType = "random";
+	_Mkrs = [_pos,_difficulty,_name,true] call WMS_fnc_AMS_CreateMarker;
 
 	switch (toLower _difficulty) do {
 		case "easy"			: {_grpCount = 1; _unitsCount = (3+(round random 2)); _skill = (0.20 + random 0.25); _wpts = [25,3]; _radius = 30; _howMany = 5;};
@@ -88,7 +89,7 @@ if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission _pos
 	//_objects = [["CamoNet_OPFOR_open_F",[0,0,0],90]];
 	_objects = "missiontest1";
 	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects;
-
+uisleep 5;
 	_grpInf = [ 
 			_pos,
 			_missionID,
@@ -102,29 +103,16 @@ if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission _pos
 			_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 			_difficulty
 	] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-	
-	_Mkrs = [_pos,_difficulty,_name,true] call WMS_fnc_AMS_CreateMarker;
+uisleep 5;
 
-_trigg =  createTrigger ["EmptyDetector", _pos, true];
-_trigg setVariable ["WMS_CallAIgroup",[_grpInf, _pos],true];
-_trigg setTriggerArea [5, 5, 0, false];
-_trigg setTriggerActivation ["ANYPLAYER", "PRESENT", true];
-_trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count thislist) > 0", 
-	"
-	if (true) then {Diag_log format ['|WAK|TNA|WMS| AMS MISSION TRIGGER,  thisList = %1, thisTrigger = %2', (thisList select 0), thisTrigger];};
-	_CallBackAIgroup = thisTrigger getVariable ['WMS_CallAIgroup',[[],[0,0,0]]];
-	_CallBackAIgroup call WMS_fnc_AMS_callBackAIgroups;
-	deleteVehicle thisTrigger;
-	", 
-	"
-	"];
+_trigg = [_pos,_grpInf]call WMS_fnc_AMS_createTriggCallBackGrps;
 
 	_Mines = [
 		_pos,
 		_radius,//"_radius", //100
 		_howMany//"_howMany", //20
 	] call WMS_fnc_AMS_SpawnMineField;
-
+uisleep 5;
 	_vehic = [
 		_pos,
 		_skill,
@@ -137,6 +125,7 @@ _trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count th
 		false, //_strictPos //true for statics with coordinates
 		_difficulty
 	] call WMS_fnc_AMS_SpawnAiVHL; //return [_VHL,_VHLgrp]
+uisleep 3;
 	_VHL = (_vehic select 0);
 	_VHLgrp = (_vehic select 1);
 
