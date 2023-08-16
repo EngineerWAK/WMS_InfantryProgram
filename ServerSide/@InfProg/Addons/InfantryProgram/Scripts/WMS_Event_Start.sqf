@@ -44,6 +44,9 @@ if (WMS_ReconMission) then {
 if (WMS_CaptureZone) then {
 	_selectedEventsList pushback [WMS_CaptureZoneDelay,"CaptureZone"];
 };
+if (WMS_TargetConvoy) then {
+	_selectedEventsList pushback [WMS_TargetConvoyDelay,"TargetConvoy"];
+};
 
 if (WMS_IP_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Events Watch Selected: %1", _selectedEventsList];};
 

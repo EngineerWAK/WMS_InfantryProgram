@@ -63,6 +63,7 @@ class CfgFunctions {
 			class SetUnits					{};
 			class FindRoad					{};
 			class SetPatrol					{};
+			class EHonKilled_Basic			{};
 			//not yet done:
 			class CreateUnits			{};
 			class CreateVehicle			{};
@@ -72,7 +73,8 @@ class CfgFunctions {
 			class Event_HumaniDrop			{};
 			class Event_CaptureZone			{};
 			class Event_ReconMission		{};
-			class Event_HVT					{};
+			class Event_Convoy				{};
+			class Event_HVT					{}; //very far from finished
 
 			class sys_FastNights 			{};
 			class sys_roamingVHLspawn 		{};

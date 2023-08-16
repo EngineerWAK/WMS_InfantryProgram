@@ -265,7 +265,7 @@ WMS_Weaps_HeavyBandit = [
 	"vn_m38",
 	"vn_rpd_shorty_01",
 	"vn_dp28",
-	"vn_wmg42",
+	"vn_mg42",
 	"rhs_weap_hk416d10_LMT",
 	"rhs_weap_m16a4_imod",
 	"rhs_weap_mk18_KAC",

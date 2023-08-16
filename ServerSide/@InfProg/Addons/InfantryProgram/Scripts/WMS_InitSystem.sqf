@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.856_2023JUL27_GitHub"; //First try AMS Static missions //Static missions arty system
+WMS_System_Version 			= "v2.858_2023AUG15_GitHub"; //Adjusted AMS Skills//new Enemy Convoy Event
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -215,6 +215,15 @@ WMS_JudgementDay_items	= [ //ABSOLUTLY NOT VANILLA YET! xD //in fn_setUnits.sqf
 							["ACE_fortify","ACE_NVG_Wide","rhs_radio_R187P1","ToolKit","Money_stack_quest","ACE_personalAidKit", "rhsusf_acc_aac_762sdn6_silencer","rhs_acc_pbs1"]
 						];
 WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]]; //dynamic, NO TOUCH //[_playerObject,_pos(computer),_waveNumber(1 to 10),[_CIVgroup],[_OPFgroup],[],[_triggerOPF,_triggerCIV,_triggerPLAYER],[_markers],[_objectsOrMines]];
+
+WMS_TargetConvoy 		= false; //Map specific for positions
+WMS_TargetConvoyDelay 	= 1500;
+WMS_TargetConvoyLoot 	= [[5,1,1],[2,1,2],[5,1,2],[1,3,3],[0,0,0]];//[_weap,_bag,_items,_ammoList,_mag] //how many type, now may from type, + random
+WMS_TargetConvoyPos 	= []; //[[pos,dir],[pos,dir],[pos,dir],[pos,dir],...]
+WMS_TargetConvoyVHL 	= [[],[],[],[]]; //[[logistic],[escort],[SEA_logistic],[SEA_escort]]
+WMS_TargetConvoyUnits 	= []; //pushBack from convoy spawn
+WMS_TargetConvoyMkrs 	= []; //pushBack
+WMS_TargetConvoyPosRew 	= []; //pushBack
 
 //////////////////////////////
 //AmbientLife
@@ -486,13 +495,13 @@ WMS_AMS_CleanMapObj		= false; //when mission spawn, clean trees and maybe buildi
 WMS_AMS_ForceRadius		= false; //when mission spawn, use default radius to look for a position witout objects
 WMS_AMS_DefRad			= 0; //Defaut Forced radius. You might want to keep 0 since anyway, objects will be hidden
 			   //skills = "spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"//,"endurance"
-WMS_AMS_skillsMin 		= [0.1, 0.1, 0.005, 0.1, 0.1, 0.1, 0, 0.1, 0.1]; //MINIMUM skill mission NPCs can have //will be used to compile custom skills
-WMS_AMS_skillsMax 		= [1, 0.85, 0.85, 0.7, 0.8, 0.8, 0, 1, 0.85]; //MAXIMUM skill mission NPCs can have //will be used to compile custom skills
-WMS_AMS_skilleasy 		= [0.80, 0.8, 0.25, 0.3, 0.2, 0.6, 0, 0.6, 0.6];
-WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.35, 0.4, 0.3, 0.6, 0, 0.6, 0.8];
-WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.5, 0.5, 0.4, 0.8, 0, 0.8, 1];
-WMS_AMS_skillhardcore 	= [0.95, 1, 0.6, 0.6, 0.5, 1, 0, 1, 1];
-WMS_AMS_skillstatic 	= [0.9, 0.9, 0.005, 0.25, 0.2, 0.5, 0, 0.2, 0.6]; //what ever you do, Statics destroy your ass... this skill is apply on the NPC when he get on the static (EH "getin")
+WMS_AMS_skillsMin 		= [0.1, 0.1, 0.005, 0.1, 0.05, 0.1, 0, 0.1, 0.1]; //MINIMUM skill mission NPCs can have //will be used to compile custom skills
+WMS_AMS_skillsMax 		= [1, 0.85, 0.85, 0.7, 0.75, 0.8, 0, 1, 0.85]; //MAXIMUM skill mission NPCs can have //will be used to compile custom skills
+WMS_AMS_skilleasy 		= [0.80, 0.8, 0.25, 0.3, 0.1, 0.6, 0, 0.6, 0.6];
+WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.35, 0.4, 0.2, 0.6, 0, 0.6, 0.8];
+WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.5, 0.5, 0.3, 0.8, 0, 0.8, 1];
+WMS_AMS_skillhardcore 	= [0.95, 1, 0.6, 0.6, 0.4, 1, 0, 1, 1];
+WMS_AMS_skillstatic 	= [0.9, 0.9, 0.005, 0.25, 0.1, 0.5, 0, 0.2, 0.6]; //what ever you do, Statics destroy your ass... this skill is apply on the NPC when he get on the static (EH "getin")
 WMS_AMS_skillsniper 	= [1,0.95,0.9,0.9];  //hardcore level, easy = -0.15, moderate = -0.1, difficult = -0.05 //"spotDistance","spotTime","aimingAccuracy","aimingShake"
 WMS_AMS_SniperLoadout	= [["H_Cap_grn_BI"],["V_Chestrig_rgr","V_SmershVest_01_radio_F"]]; //[[headGears],[vests]]//custom "loadout" for NPC snipers, lighter gear so they don't neet 15 headshots to get killed
 WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check, it will modify NPC skills if they have a weapon from this list

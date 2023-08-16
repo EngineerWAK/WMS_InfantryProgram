@@ -18,4 +18,37 @@ while {true} do {
 	call WMS_fnc_Watch_RoamingINF; //each HC/Server could watch his own stuff I guess ?
 	//DynAI Target selection
 	call WMS_fnc_Watch_DynAI; //each HC/Server could watch his own stuff I guess ?
+
+	//Lost Convoy Event management
+	if (WMS_TargetConvoy && {count WMS_TargetConvoyUnits != 0}) then {
+		_TargetConvoyUnits = WMS_TargetConvoyUnits select {(alive _x)};
+		if (count _TargetConvoyUnits == 0)then {
+			//succes
+			{_x setMarkerColor "colorGreen";}forEach WMS_TargetConvoyMkrs;
+			//reward at convoy position, not marker position 
+			_triggSucces = createTrigger ["EmptyDetector", WMS_TargetConvoyPosRew, true];
+			_triggSucces setTriggerActivation ["ANYPLAYER", "PRESENT", true]; 
+			_triggSucces setTriggerArea [50, 50, 0, false,50];
+			_triggSucces setTriggerStatements  
+			[ 
+				"this",  
+				"
+					_smoke = 'smokeShellGreen' createVehicle WMS_TargetConvoyPosRew;
+					{deleteMarker _x}forEach WMS_TargetConvoyMkrs;
+					WMS_TargetConvoyMkrs = [];
+					_phone = 'Land_MobilePhone_old_F' createVehicle WMS_TargetConvoyPosRew;
+					_crateOwner = ([WMS_TargetConvoyPosRew, WMS_AMS_PlayerDistDelete] call WMS_fnc_AMS_ClstPlayer);
+					_phone setVariable ['AMS_UnlockedBy',[_crateOwner],true];
+					_phone setVariable ['AMS_MissionID','CaptureZone',true];
+					[_phone,[],WMS_TargetConvoyLoot,'military','Mission Reward',nil,'moderate',150] spawn WMS_fnc_AMS_SpawnRewards;
+					WMS_TargetConvoyPosRew = [];
+					WMS_TargetConvoyUnits = [];
+					WMS_Events_list pushback [(servertime+WMS_TargetConvoyDelay),'TargetConvoy'];
+					WMS_Events_list sort true;
+					deleteVehicle thisTrigger;
+				",  
+  				"" 
+			];
+		};
+	};
 };

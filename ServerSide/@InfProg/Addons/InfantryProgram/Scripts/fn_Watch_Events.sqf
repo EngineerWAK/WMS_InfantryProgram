@@ -51,6 +51,11 @@ if (time > _timeToWait) then {
 		if (WMS_IP_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Processing Event: %1", _type];};
 		["random", (selectRandom ["layout1","layout2","layout3","layout4","layout5"])] spawn WMS_fnc_Event_CaptureZone;
 	};
+	//TargetConvoy
+	if (_type == "TargetConvoy" && {count WMS_TargetConvoyUnits == 0}) then {
+		if (WMS_IP_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Processing Event: %1", _type];};
+		[]call WMS_fnc_Event_Convoy;
+	};
 	WMS_Events_list deleteAt 0;
 };
 

@@ -584,7 +584,7 @@ _poptabs = 50;
 		if (primaryWeapon _unit == "vn_m1903") then {
 			_unit addPrimaryWeaponItem "vn_o_8x_m1903";
 		}else{
-			if (primaryWeapon _unit == "vn_m40a1") then {
+			if (primaryWeapon _unit == "vn_m40a1"||primaryWeapon _unit == "vn_m40a1_camo") then {
 				_unit addPrimaryWeaponItem "vn_o_9x_m40a1";
 			}else{
 				if (primaryWeapon _unit == "vn_m9130") then {
