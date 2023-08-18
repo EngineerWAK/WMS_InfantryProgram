@@ -16,7 +16,7 @@ sleep 30;
 Diag_log format ['|WAK|TNA|WMS| Creating %1 Local Triggers', (count WMS_Pos_Locals)];
 {
 private _trigLocals = nil;
-if (WMS_Pos_Rdz != 0) then {_trigLocals = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Rdz]],[]] call BIS_fnc_randomPos]} else {_trigLocals = createTrigger ["EmptyDetector", _x]};
+if (WMS_Pos_Rdz != 0) then {_trigLocals = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Rdz]],[]] call BIS_fnc_randomPos,true]} else {_trigLocals = createTrigger ["EmptyDetector", _x,true]};
 //_trigLocals setVariable ["WMS_triggRef",[position _trigLocals, _trigLocals, round time],true];
 _trigLocals setTriggerArea [WMS_trigLocals_Size, WMS_trigLocals_Size, 0, false, WMS_trigLocals_Size];
 _trigLocals setTriggerActivation ["ANYPLAYER", "PRESENT", true];
@@ -39,7 +39,7 @@ uisleep 1;
 Diag_log format ['|WAK|TNA|WMS| Creating %1 Village Triggers', (count WMS_Pos_Villages)];
 {
 private _trigVillages = nil;
-if (WMS_Pos_Rdz != 0) then {_trigVillages = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Rdz]],[]] call BIS_fnc_randomPos]} else {_trigVillages = createTrigger ["EmptyDetector", _x]};
+if (WMS_Pos_Rdz != 0) then {_trigVillages = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Rdz]],[]] call BIS_fnc_randomPos,true]} else {_trigVillages = createTrigger ["EmptyDetector", _x,true]};
 //_trigVillages setVariable ["WMS_triggRef",[position _trigVillages, _trigVillages, round time],true];
 _trigVillages setTriggerArea [WMS_trigVillages_Size, WMS_trigVillages_Size, 0, false, WMS_trigVillages_Size];
 _trigVillages setTriggerActivation ["ANYPLAYER", "PRESENT", true];
@@ -62,7 +62,7 @@ uisleep 1;
 Diag_log format ['|WAK|TNA|WMS| Creating %1 City Triggers', (count WMS_Pos_Cities)];
 {
 private _trigCities = nil;
-if (WMS_Pos_Rdz != 0) then {_trigCities = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Rdz]],[]] call BIS_fnc_randomPos]} else {_trigCities = createTrigger ["EmptyDetector", _x]};
+if (WMS_Pos_Rdz != 0) then {_trigCities = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Rdz]],[]] call BIS_fnc_randomPos,true]} else {_trigCities = createTrigger ["EmptyDetector", _x,true]};
 //_trigCities setVariable ["WMS_triggRef",[position _trigCities, _trigCities, round time],true];
 _trigCities setTriggerArea [WMS_trigCities_Size, WMS_trigCities_Size, 0, false, WMS_trigCities_Size];
 _trigCities setTriggerActivation ["ANYPLAYER", "PRESENT", true];
@@ -85,7 +85,7 @@ uisleep 1;
 Diag_log format ['|WAK|TNA|WMS| Creating %1 Capital Triggers', (count WMS_Pos_Capitals)];
 {
 private _trigCapitals = nil;
-if (WMS_Pos_Rdz != 0) then {_trigCapitals = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Rdz]],[]] call BIS_fnc_randomPos]} else {_trigCapitals = createTrigger ["EmptyDetector", _x]};
+if (WMS_Pos_Rdz != 0) then {_trigCapitals = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Rdz]],[]] call BIS_fnc_randomPos,true]} else {_trigCapitals = createTrigger ["EmptyDetector", _x,true]};
 //_trigCapitals setVariable ["WMS_triggRef",[position _trigCapitals, _trigCapitals, round time],true];
 _trigCapitals setTriggerArea [WMS_trigCapitals_Size, WMS_trigCapitals_Size, 0, false, WMS_trigCapitals_Size];
 _trigCapitals setTriggerActivation ["ANYPLAYER", "PRESENT", true];
@@ -108,7 +108,7 @@ uisleep 1;
 Diag_log format ['|WAK|TNA|WMS| Creating %1 Hills Triggers', (count WMS_Pos_Hills)];
 {
 private _trigHills = nil;
-if (WMS_Pos_Rdz != 0) then {_trigHills = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Rdz]],[]] call BIS_fnc_randomPos]} else {_trigHills = createTrigger ["EmptyDetector", _x]};
+if (WMS_Pos_Rdz != 0) then {_trigHills = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Rdz]],[]] call BIS_fnc_randomPos,true]} else {_trigHills = createTrigger ["EmptyDetector", _x,true]};
 //_trigHills setVariable ["WMS_triggRef",[position _trigHills, _trigHills, round time],true];
 _trigHills setTriggerArea [WMS_trigHills_Size, WMS_trigHills_Size, 0, false, WMS_trigHills_Size];
 _trigHills setTriggerActivation ["ANYPLAYER", "PRESENT", true];
@@ -130,7 +130,7 @@ WMS_activatedTriggs deleteAt (WMS_activatedTriggs find _trigRef);"];
 if ((count WMS_Pos_Forests) > 0) then {
 	Diag_log format ['|WAK|TNA|WMS| Creating %1 Forests Triggers', (count WMS_Pos_Forests)];
 	{
-	private _trigForest = createTrigger ["EmptyDetector", _x];
+	private _trigForest = createTrigger ["EmptyDetector", _x,true];
 	_trigForest setTriggerArea [WMS_Forests_Size, WMS_Forests_Size, 0, false, WMS_Forests_Size];
 	_trigForest setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 	_trigForest setTriggerStatements ["this",
@@ -148,7 +148,7 @@ uisleep 1;
 if ((count WMS_Pos_Military) > 0) then {
 	Diag_log format ['|WAK|TNA|WMS| Creating %1 Military Triggers', (count WMS_Pos_Military)];
 	{
-	private _trigMilitary = createTrigger ["EmptyDetector", _x];
+	private _trigMilitary = createTrigger ["EmptyDetector", _x,true];
 	_trigMilitary setTriggerArea [WMS_Military_Size, WMS_Military_Size, 0, false, WMS_Military_Size];
 	_trigMilitary setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 	_trigMilitary setTriggerStatements ["this",
@@ -168,7 +168,7 @@ if (((count WMS_Pos_CustomTrig) > 0) && ((count WMS_Pos_CustomTrig) < (WMS_Custo
 	Diag_log format ['|WAK|TNA|WMS| Creating %1 Customs Triggers', (count WMS_Pos_CustomTrig)];
 	{
 	private _trigCustom = nil;
-	if (WMS_Pos_Custom_Rdz != 0) then {_trigCustom = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Custom_Rdz]],[]] call BIS_fnc_randomPos]} else {_trigCustom = createTrigger ["EmptyDetector", _x]};
+	if (WMS_Pos_Custom_Rdz != 0) then {_trigCustom = createTrigger ["EmptyDetector", [[[_x, WMS_Pos_Custom_Rdz]],[]] call BIS_fnc_randomPos,true]} else {_trigCustom = createTrigger ["EmptyDetector", _x,true]};
 	_trigCustom setTriggerArea [WMS_CustomTrig_Size, WMS_CustomTrig_Size, 0, false, WMS_CustomTrig_Size];
 	_trigCustom setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 	_trigCustom setTriggerStatements [

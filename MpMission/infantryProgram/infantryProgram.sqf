@@ -75,7 +75,7 @@ WMS_IP_buildComputer = {
 	_IPcomputer setVariable ['WMS_allowTreeCleaning',false];
 	_IPcomputer setVariable ['WMS_allowJudgementDay',false];
 
-	if (WMS_JudgementDay && {!(WMS_JudgementDay_Run)} && {player getVariable ['ExileMoney', 0] >= 5000} && {player getVariable ['ExileMoney', 0] >= 5000}) then {
+	if (WMS_JudgementDay && {!(WMS_JudgementDay_Run)} && {player getVariable ['ExileMoney', 0] >= 5000} && {player getVariable ['ExileScore', 0] >= 5000}) then {
 		_playersPosList = allPlayers select {alive _x && (_x distance2D (position player) < 100)} apply {GetPosATL _x};
 		_houses = position player nearObjects ["house", 55];
 		_spawnPosList = [];
@@ -135,6 +135,47 @@ WMS_IP_buildComputer = {
 	];
 	_allActionsID pushBack _IDnumber;
 
+	//SPAWN BEACON
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#ff5324'>Activate Spawn Beacon</t>",
+		"
+			_target = _this select 0; _caller = _this select 1;
+			if ((_this select 1) getVariable ['ExileScore', 0] >= (_this select 3) select 2) then {
+				hint ((_this select 3) select 4);
+				_myRespawn = [_caller,(position _target),'Spawn Beacon'] call BIS_fnc_addRespawnPosition;
+				diag_log format['[WMS_IP DEBUG] addRespawnPosition variable %1',_myRespawn];
+				_mkr = _target getVariable 'WMS_Loc_SpawnBeacon_Mkr';
+				_target setVariable ['WMS_Loc_canSpawnBeacon',false,true];
+				_target setVariable ['WMS_Loc_SpawnBeacon',_myRespawn,true]; 
+  				_mkr setMarkerTypeLocal 'respawn_para';
+				_flagList = nearestObjects [player, [WMS_DynAI_BaseFlag], 325];
+				if (count _flagList == 0) then {
+					_mkr setMarkerColorLocal 'colorIndependent';
+				}else{
+					_mkr setMarkerColorLocal 'ColorOrange';
+				};
+			} else {
+				hint 'Bro! your respect is too low';
+				execVM 'Custom\Intro\levels.sqf';
+			};
+		", 
+		['SpawnBeacon',2500,6000,'SpawnBeacon','Spawn Beacon Activated'],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{_target getVariable ['WMS_Loc_canSpawnBeacon',true]} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+	/*
 	//SOUND TEST //playSound3D ['A3\Sounds_F\sfx\blip1.wss', _caller]
 	_IDnumber = _IPcomputer addAction
 	[
@@ -155,7 +196,7 @@ WMS_IP_buildComputer = {
 		",
 		5
 	];
-	_allActionsID pushBack _IDnumber;
+	_allActionsID pushBack _IDnumber;*/
 	/*_IDnumber = _IPcomputer addAction
 	[
 		"<t size='0.9' color='#068604'>Rolling</t>",
@@ -620,46 +661,6 @@ WMS_IP_buildComputer = {
 	];
 	_allActionsID pushBack _IDnumber;
 	
-	//SPAWN BEACON
-	_IDnumber = _IPcomputer addAction
-	[
-		"<t size='0.9' color='#ff5324'>Activate Spawn Beacon</t>",
-		"
-			_target = _this select 0; _caller = _this select 1;
-			if ((_this select 1) getVariable ['ExileScore', 0] >= (_this select 3) select 2) then {
-				hint ((_this select 3) select 4);
-				_myRespawn = [_caller,(position _target),'Spawn Beacon'] call BIS_fnc_addRespawnPosition;
-				diag_log format['[WMS_IP DEBUG] addRespawnPosition variable %1',_myRespawn];
-				_mkr = _target getVariable 'WMS_Loc_SpawnBeacon_Mkr';
-				_target setVariable ['WMS_Loc_canSpawnBeacon',false,true];
-				_target setVariable ['WMS_Loc_SpawnBeacon',_myRespawn,true]; 
-  				_mkr setMarkerTypeLocal 'respawn_para';
-				_flagList = nearestObjects [player, [WMS_DynAI_BaseFlag], 325];
-				if (count _flagList == 0) then {
-					_mkr setMarkerColorLocal 'colorIndependent';
-				}else{
-					_mkr setMarkerColorLocal 'ColorOrange';
-				};
-			} else {
-				hint 'Bro! your respect is too low';
-				execVM 'Custom\Intro\levels.sqf';
-			};
-		", 
-		['SpawnBeacon',2500,6000,'SpawnBeacon','Spawn Beacon Activated'],
-		1,
-		true,
-		true,
-		"",
-		"	
-			(alive _target) &&
-			{('rhs_radio_R187P1' in (assigneditems _this))} &&
-			{_target getVariable ['WMS_Loc_canSpawnBeacon',true]} &&
-			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
-			{(vehicle _this == _this)};
-		",
-		5
-	];
-	_allActionsID pushBack _IDnumber;
 	//JUDGEMENT DAY
 	_IDnumber = _IPcomputer addAction
 	[

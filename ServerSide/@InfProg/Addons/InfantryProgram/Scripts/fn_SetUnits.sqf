@@ -428,7 +428,7 @@ _poptabs = 50;
 			if (_RealFuckingSide == OPFOR || _RealFuckingSide == EAST) then { //yes it's the same but you never know
 				_unit addMPEventHandler ["MPKilled", " 
 					params ['_unit', '_killer', '_instigator', '_useEffects'];
-					if (isDedicated) then {[_unit,_killer] call WMS_fnc_DynAI_RwdMsgOnKill;};
+					if (isDedicated) then {[_unit,_killer,_instigator] call WMS_fnc_DynAI_RwdMsgOnKill;};
 				"];
 				/////
 				_unit addEventHandler ["Hit", {

@@ -107,31 +107,47 @@ _vhl3Obj setDir _dir;
 _vhl3Obj setPos _posBack;
 
 //Infantry grps, "drivers", gunners
-_GunnersGrp = createGroup [OPFOR, false];
+_GunnersGrp = grpNull;
 _DriversGrp = createGroup [OPFOR, false];
+_GunnersGrp setVariable ["lambs_danger_disableGroupAI", true];
+_DriversGrp setVariable ["lambs_danger_disableGroupAI", true];
+
 {
+	if (surfaceIsWater _pos) then {
+		(selectRandom WMS_AI_Units_Class) createUnit [_pos, _DriversGrp, "this moveinAny _vehic"];
+	}else{
+		(selectRandom WMS_AI_Units_Class) createUnit [_pos, _DriversGrp, ""];
+	};
 	_x lockDriver true;
 	_x setvehiclelock "LOCKEDPLAYER";
 	_x Setfuel 0;
 	_x forceSpeed 0;
+	_allowTurret = false;
+	_GunnersGrp addVehicle _x;
 	_gunSits = _x emptyPositions "Gunner";
+	if (_gunSits != 0)then{
+		_GunnersGrp = createGroup [OPFOR, false];
+		_allowTurret = true;
+	};
+	_turArray = allTurrets [_x, false];
+	diag_log format ["friendly message, this vehicle %1, turrets %2",TypeOf _x, _turArray];
+	_turSits = count _turArray;
+	_arrayRef = 0;
 	clearMagazineCargoGlobal _x; 
 	clearWeaponCargoGlobal _x; 
 	clearItemCargoGlobal _x; 
 	clearBackpackCargoGlobal _x;
 	WMS_TargetConvoyUnits pushBack _x;
 	_x allowDamage true;
-	_vehic = _x;
-	if (_gunSits != 0) then {
-		for "_i" from 1 to _gunSits do {
-			(selectRandom WMS_AI_Units_Class) createUnit [_pos, _GunnersGrp, "this moveinGunner _vehic"];
+	if (_turSits != 0 && {_allowTurret}) then {
+		for "_i" from 1 to _turSits do {
+			private _unit = _GunnersGrp createUnit [(selectRandom WMS_AI_Units_Class), _pos, [], 25, "NONE"];
+			_unit assignAsTurret [_x, (_turArray select _arrayRef)];
+			_arrayRef = (_arrayRef+1);
+			diag_log format ["friendly message, this unit %1, group %2, is assigned to %3",_unit, (group _unit), (assignedVehicle _unit)];
 		};	
 	};
-	if (surfaceIsWater _pos) then {
-		(selectRandom WMS_AI_Units_Class) createUnit [_pos, _DriversGrp, "this moveinAny _vehic"];
-	}else{
-		(selectRandom WMS_AI_Units_Class) createUnit [_pos, _GunnersGrp, ""];
-	};
+	(units _GunnersGrp) orderGetIn true;
 }forEach [_vhl1Obj,_vhl2Obj,_vhl3Obj];
 //Infantry loadouts//skills//EH, probably no message to display but kill count, no punishment, obviously
 //lets keep the original loadouts, just remove the primary weapon and items
@@ -152,7 +168,8 @@ _DriversGrp = createGroup [OPFOR, false];
 	_x allowFleeing 0;
 	_x setRank selectRandom ["PRIVATE","CORPORAL","SERGEANT","LIEUTENANT","CAPTAIN","MAJOR","COLONEL"];
 	WMS_TargetConvoyUnits pushBack _x;
-	_x setVariable ["WMS_RealFuckingSide",OPFOR];
+	//_x setVariable ["lambs_danger_disableAI", true];
+	//_x setVariable ["WMS_RealFuckingSide",OPFOR];
 	_x addMPEventHandler ["MPKilled", " 
 		if(isDedicated)then{
 			[_this select 0,_this select 1,_this select 2] call WMS_fnc_EHonKilled_Basic;
@@ -162,11 +179,18 @@ _DriversGrp = createGroup [OPFOR, false];
 {
 	removeAllItems _x;
 	removeAllWeapons _x;
-	_x additem "FirstAidKit";
 	if !(surfaceIsWater _pos) then {
+		removeBackpack _x;
 		_x addBackpackGlobal "B_Carryall_cbr";
 		[_x, selectrandom (WMS_AI_LaunchersOPF select (selectRandom [1,2])), 3] call BIS_fnc_addWeapon;
+	}else{
+		removeUniform _x;
+		removeVest _x;
+		_x addUniform "U_O_Wetsuit";
+		_x addVest "V_RebreatherIA";
+		_x addGoggles "G_O_Diving";
 	};
+	_x additem "FirstAidKit";
 	[_x, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
 	_x setSkill ["spotDistance", 	1];
 	_x setSkill ["spotTime", 		1];
@@ -180,6 +204,7 @@ _DriversGrp = createGroup [OPFOR, false];
 	_x allowFleeing 0;
 	_x setRank selectRandom ["PRIVATE","CORPORAL","SERGEANT","LIEUTENANT","CAPTAIN","MAJOR","COLONEL"];
 	WMS_TargetConvoyUnits pushBack _x;
+	_x setVariable ["lambs_danger_disableAI", true];
 	_x setVariable ["WMS_RealFuckingSide",OPFOR];
 	_x addMPEventHandler ["MPKilled", " 
 		if(isDedicated)then{
@@ -192,18 +217,18 @@ _mkrPos = [(((_pos select 0) -750)+random 1500),(((_pos select 1) -750)+random 1
 _Mkr = createMarker [format ["WMS_CVY_Mkr_%1",round(time)], _mkrPos];
 _Mkr setMarkerType "o_antiair";
 _Mkr setMarkerText "Lost Enemy Convoy, All Weapons Allowed";
-_Mkr setMarkerColor "colorRed";
+_Mkr setMarkerColor "colorEAST";
 WMS_TargetConvoyMkrs pushBack _Mkr;
 
 _MkrBorder = createMarker [format ["WMS_CVY_MkrBorder_%1",round(time)], _mkrPos];
 _MkrBorder setMarkerColor "colorOrange";
 _MkrBorder setMarkerShape "ELLIPSE";
 _MkrBorder setMarkerBrush "border";
-_MkrBorder setMarkerSize [2000,2000];
+_MkrBorder setMarkerSize [1250,1250];
 WMS_TargetConvoyMkrs pushBack _MkrBorder;
 
 //reward crate ? or trigger
 //see WMS_90Sec_Watch
 
 //friendly message broadcast "Lost Enemy Convoy, blablabla"
-["EventCustom", ["Lost Enemy Convoy", (format ["An Enemy Convoy is Lost around @ %1, Destroy it!",([round (_mkrPos select 0), round (_mkrPos select 1)])]), "\A3\ui_f\data\GUI\Cfg\GameTypes\defend_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
+["EventCustom", ["Lost Enemy Convoy", (format ["An Enemy Convoy is Lost around %1, Destroy it!",([round (_mkrPos select 0), round (_mkrPos select 1)])]), "\A3\ui_f\data\GUI\Cfg\GameTypes\defend_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];

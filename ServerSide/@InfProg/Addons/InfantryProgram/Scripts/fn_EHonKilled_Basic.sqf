@@ -23,10 +23,10 @@ params[
 WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_AMS_AllDeads)];
 _playerRep = 0;
 _playerKills = 0;
-if (isplayer _killer || isplayer _instigator) then {
-	if (isplayer _instigator) then {
-		_killer = _instigator;
-	}; //might help with artillery shit
+if (isplayer _instigator) then {
+	_killer = _instigator;
+}; //might help with artillery shit
+if (isplayer _killer) then {
 	_distanceKill	= (round(_killer distance _killed));
 	_bonus 			= WMS_DynAI_respectBonus;
 	if (_distanceKill > WMS_DynAI_distBonusMax) then {_bonus = 0};
@@ -70,4 +70,26 @@ if (isplayer _killer || isplayer _instigator) then {
 			[_playerUID_ExileKills,_playerKills,"set",_Killer] remoteExec ["WMS_fnc_ServerProfileNameSpace",2];
 		};
 	};
+	[_killed,
+			[
+				"<t size='1' color='#ff8000'>Hide Body</t>",	// title
+				{
+					params ["_target", "_caller", "_actionId", "_arguments"]; // script
+					hideBody _target;
+					_caller removeAction _actionId;
+					[_target]spawn{uisleep 5; deleteVehicle (_this select 0)};
+				},
+				nil,		// arguments
+				1.5,		// priority
+				true,		// showWindow
+				true,		// hideOnUse
+				"",			// shortcut
+				"!(alive _target)", 	// condition
+				1.5			// radius
+			]
+		] remoteExec [
+			"addAction",
+			0, //0 for all players
+			false //JIP
+		];
 };

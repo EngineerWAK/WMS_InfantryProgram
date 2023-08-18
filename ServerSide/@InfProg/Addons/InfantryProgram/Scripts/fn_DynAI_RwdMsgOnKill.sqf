@@ -15,8 +15,12 @@ if (WMS_IP_LOGs) then {diag_log format ["[DYNAI REWARDS]|WAK|TNA|WMS| _this = %1
 private ["_info","_unit","_msgx","_sessionID","_unitName","_payload","_bonus","_distanceKill","_playerRep","_bonusDist","_malusDist","_type"];
 params[
 	"_killed",
-	"_killer"
+	"_killer",
+	"_instigator"
 ];
+	if (isplayer _instigator) then {
+		_killer = _instigator;
+	}; //might help with artillery shit
 	WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_DynAi_AllDeads)];
 	_info 			= _killed getVariable ["WMS_Info", "nothingYet"]; //"BaseATK" //"JMD"
 	_hideBodyColor	= "<t size='1' color='#00dcf5'>Hide Body</t>";//LightBlue

@@ -20,6 +20,9 @@ params[
 	["_unitFunction","Assault"], //not used yet
 	["_difficulty", "Hardcore"]
 ];
+if (isplayer _instigator) then {
+	_killer = _instigator;
+}; //might help with artillery shit
 WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_AMS_AllDeads)];
 _distanceKill = (round(_killer distance _killed));
 _bonus = WMS_DynAI_respectBonus;
@@ -38,7 +41,7 @@ switch (toLower _difficulty) do {
 	case  "hardcore" 	: {_diffCoeff = 1};
 	case  "static" 		: {_diffCoeff = 1};
 };
-if (isplayer _killer || isplayer _instigator) then {
+if (isplayer _killer) then {
 	//if (WMS_AI_forceInfKillCount) then {_killer addPlayerScores [1,0,0,0,0]}; //not used anymore
 	if (isplayer _instigator) then {
 		if !(isplayer _killer) then {

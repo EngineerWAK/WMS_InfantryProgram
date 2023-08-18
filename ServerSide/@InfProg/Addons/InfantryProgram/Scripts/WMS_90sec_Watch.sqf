@@ -25,6 +25,7 @@ while {true} do {
 		if (count _TargetConvoyUnits == 0)then {
 			//succes
 			{_x setMarkerColor "colorGreen";}forEach WMS_TargetConvoyMkrs;
+			["EventCustomGreen", ["Lost Enemy Convoy", "Enemy Convoy Destroyed!", "\A3\ui_f\data\GUI\Cfg\GameTypes\defend_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
 			//reward at convoy position, not marker position 
 			_triggSucces = createTrigger ["EmptyDetector", WMS_TargetConvoyPosRew, true];
 			_triggSucces setTriggerActivation ["ANYPLAYER", "PRESENT", true]; 
