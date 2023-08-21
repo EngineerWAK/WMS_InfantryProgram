@@ -115,7 +115,7 @@ WMS_OPFOR_CustomAIR_Armed = [
 	["vn_o_air_mi2_03_06",[],[[],[]]],
 	["vn_o_air_mi2_03_04",[],[[],[]]],
 	//
-	["RHS_Mi24Vt_vvsc",["Camo3",1],[[],[]]], //one minigun
+	["RHS_Mi24Vt_vvsc",["Camo3",1],[[],[]]], //one minigun //but f u c k i n g annoying
 	["RHS_Mi8mt_vv",[],[[],[]]]
 ];
 WMS_OPFOR_CustomAIR_Spec = [

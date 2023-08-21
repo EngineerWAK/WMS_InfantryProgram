@@ -154,7 +154,8 @@ if (worldName == "Cam_Lao_Nam") then {
 																	[
 																		"vn_b_wheeled_m54_ammo_airport","vn_o_wheeled_z157_fuel_kr","vn_o_wheeled_z157_repair_kr","vn_o_wheeled_z157_02_kr","vn_o_armor_btr50pk_01_nva65","vn_o_armor_btr50pk_03_nva65",
 																		"vn_o_armor_m577_02","vn_o_armor_m577_01","vn_o_wheeled_z157_03_nva65","vn_o_wheeled_z157_01_nva65","vn_o_wheeled_z157_ammo_nvam","rhs_gaz66_ammo_vv",
-																		"rhs_gaz66_r142_vv","rhs_gaz66_ap2_vv","rhs_kamaz5350_ammo_vv","RHS_Ural_Repair_VV_01","rhs_zil131_flatbed_cover_vv","rhs_9k79_K"
+																		"rhs_gaz66_r142_vv","rhs_gaz66_ap2_vv","rhs_kamaz5350_ammo_vv","RHS_Ural_Repair_VV_01","rhs_zil131_flatbed_cover_vv",
+																		"rhs_9k79_K","O_Radar_System_02_F","O_SAM_System_04_F","vn_sa2","vn_o_static_rsna75"
 																	],[
 																		"vn_o_armor_m113_acav_06_kr","vn_o_wheeled_btr40_mg_06_pl","vn_o_wheeled_btr40_mg_03_pl","vn_o_wheeled_z157_mg_02_pl","vn_o_armor_btr50pk_02_nva65","vn_o_armor_m125_01",
 																		"vn_o_armor_pt76b_01_nva65","vn_o_armor_t54b_01_nva65","vn_o_armor_type63_01_nva65","vn_o_armor_m41_01","rhsgref_tla_btr60","rhsgref_tla_offroad_armed",

@@ -14,7 +14,8 @@
 private ["_VHLAIrunning","_skillgnd","_skillair","_vhlFull","_vhl2","_pos2","_loadout","_AIRAIrunning","_AIRFull","_AIR","_pos3"];
 //uisleep 400;
 WMS_AI_RoamingVHLlist = WMS_OPFOR_CustomVHL_Unarmed + WMS_OPFOR_CustomVHL_Armed;
-WMS_AI_RoamingAIRlist = WMS_OPFOR_CustomAIR_Unarmed + WMS_OPFOR_CustomAIR_Armed;
+//WMS_AI_RoamingAIRlist = WMS_OPFOR_CustomAIR_Unarmed + WMS_OPFOR_CustomAIR_Armed;
+WMS_AI_RoamingAIRlist = WMS_OPFOR_CustomAIR_Unarmed;
 if !(isDedicated) exitwith {diag_log "GO F U C K YOURSELF F U C K I N G HC | GO F U C K YOURSELF F U C K I N G HC | GO F U C K YOURSELF F U C K I N G HC | GO F U C K YOURSELF F U C K I N G HC | GO F U C K YOURSELF F U C K I N G HC"};
 if (WMS_AI_RoamingVHL) then {
 	_VHLAIrunning = 0;

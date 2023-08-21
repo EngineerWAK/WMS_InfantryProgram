@@ -43,7 +43,7 @@ WMS_TargetConvoyMkrs = []; //pushBack
 WMS_TargetConvoyPosRew = []; //pushBack
 */
 
-private ["_MkrBorder","_Mkr","_mkrPos","_vehic","_gunSits","_GunnersGrp","_DriversGrp","_posFront","_posBack","_space","_posDir","_pos","_dir","_vhl1","_vhl2","_vhl3","_array","_vhl1Obj","_vhl2Obj","_vhl3Obj"];
+private ["_AAlist","_MkrBorder","_Mkr","_mkrPos","_vehic","_gunSits","_GunnersGrp","_DriversGrp","_posFront","_posBack","_space","_posDir","_pos","_dir","_vhl1","_vhl2","_vhl3","_array","_vhl1Obj","_vhl2Obj","_vhl3Obj"];
 
 if (count WMS_TargetConvoyPos == 0) exitWith {diag_log "friendly error message no position in the list"};
 _posFailed = true;
@@ -66,6 +66,12 @@ if (count _playersClose == 0)then{
 	};
 };
 if (_posFailed)exitWith {diag_log "friendly error message player present EVERYWHERE!"};
+_AAlist = [
+	"O_Radar_System_02_F",
+	"O_SAM_System_04_F",
+	"vn_sa2",
+	"vn_o_static_rsna75"
+];
 WMS_TargetConvoyPos deleteAt (WMS_TargetConvoyPos find _posDir);
 _pos = _posDir select 0;
 _dir = _posDir select 1;
@@ -89,10 +95,21 @@ if (surFaceIsWater _pos)then{
 	_vhl3 = selectRandom (WMS_TargetConvoyVHL select _array);
 };
 
-_vhl1Obj = _vhl1 createVehicle [0,0,800];
-_vhl1Obj allowDamage false;
-_vhl1Obj setDir _dir;
-_vhl1Obj setPos _pos;
+_GunnersUnits = [];
+_vhl1Obj = objNull;
+if(_vhl1 in _AAlist)then{
+	_GunnersGrp = createGroup [OPFOR, true];
+	_AAFull = [_pos, _dir, _vhl1, _GunnersGrp] call bis_fnc_spawnvehicle;
+	_vhl1Obj = (_AAFull select 0); 
+	//_grpAA = (_AAFull select 2);
+	{_GunnersUnits pushBack _x;}forEach units (_AAFull select 2);
+}else{
+	_vhl1Obj = _vhl1 createVehicle [0,0,800];
+	_vhl1Obj allowDamage false;
+	_vhl1Obj setDir _dir;
+	_vhl1Obj setPos _pos;
+};
+
 _posFront = _vhl1Obj modelToWorld [0, _space, 0.5]; //give it some wiggle room in case it's not flat 
 _posBack = _vhl1Obj modelToWorld [0, -_space, 0.5];
 
@@ -108,8 +125,7 @@ _vhl3Obj setPos _posBack;
 
 //Infantry grps, "drivers", gunners
 _GunnersGrp = grpNull;
-_DriversGrp = createGroup [OPFOR, false];
-_GunnersGrp setVariable ["lambs_danger_disableGroupAI", true];
+_DriversGrp = createGroup [OPFOR, true];
 _DriversGrp setVariable ["lambs_danger_disableGroupAI", true];
 
 {
@@ -123,11 +139,12 @@ _DriversGrp setVariable ["lambs_danger_disableGroupAI", true];
 	_x Setfuel 0;
 	_x forceSpeed 0;
 	_allowTurret = false;
-	_GunnersGrp addVehicle _x;
 	_gunSits = _x emptyPositions "Gunner";
-	if (_gunSits != 0)then{
-		_GunnersGrp = createGroup [OPFOR, false];
+	if (_gunSits != 0 && {!(typeOf _x in _AAlist)})then{
+		_GunnersGrp = createGroup [OPFOR, true];
 		_allowTurret = true;
+		_GunnersGrp addVehicle _x;
+		_GunnersGrp setVariable ["lambs_danger_disableGroupAI", true];
 	};
 	_turArray = allTurrets [_x, false];
 	diag_log format ["friendly message, this vehicle %1, turrets %2",TypeOf _x, _turArray];
@@ -141,14 +158,20 @@ _DriversGrp setVariable ["lambs_danger_disableGroupAI", true];
 	_x allowDamage true;
 	if (_turSits != 0 && {_allowTurret}) then {
 		for "_i" from 1 to _turSits do {
-			private _unit = _GunnersGrp createUnit [(selectRandom WMS_AI_Units_Class), _pos, [], 25, "NONE"];
+			_unit = _GunnersGrp createUnit [(selectRandom WMS_AI_Units_Class), _pos, [], 25, "NONE"];
 			_unit assignAsTurret [_x, (_turArray select _arrayRef)];
+			_GunnersUnits pushBack _unit;
 			_arrayRef = (_arrayRef+1);
 			diag_log format ["friendly message, this unit %1, group %2, is assigned to %3",_unit, (group _unit), (assignedVehicle _unit)];
 		};	
 	};
-	(units _GunnersGrp) orderGetIn true;
+	//(units _GunnersGrp) orderGetIn true;
 }forEach [_vhl1Obj,_vhl2Obj,_vhl3Obj];
+
+if !(_vhl1 in _AAlist)then{
+	_GunnersUnits orderGetIn true;
+};
+
 //Infantry loadouts//skills//EH, probably no message to display but kill count, no punishment, obviously
 //lets keep the original loadouts, just remove the primary weapon and items
 {
@@ -175,7 +198,7 @@ _DriversGrp setVariable ["lambs_danger_disableGroupAI", true];
 			[_this select 0,_this select 1,_this select 2] call WMS_fnc_EHonKilled_Basic;
 		};
 	"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
-}forEach (units _GunnersGrp);
+}forEach _GunnersUnits;
 {
 	removeAllItems _x;
 	removeAllWeapons _x;

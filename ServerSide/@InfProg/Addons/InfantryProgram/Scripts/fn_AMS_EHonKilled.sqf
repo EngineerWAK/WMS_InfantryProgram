@@ -89,7 +89,7 @@ if (isplayer _killer) then {
 		//add an "Auto Black List count"
 		if (WMS_AMS_AutoBlackList)then {//THAT WILL BE A "PROBLEM" WITH HC
 			_ABLcount = missionNameSpace getVariable [format ["%1_ABLcount",getPlayerUID _killer],0];
-			if (_ABLcount >= WMS_AMS_ABLcount && !{getPlayerUID _killer in WMS_BlackList}) then {
+			if (_ABLcount >= WMS_AMS_ABLcount && {!(getPlayerUID _killer in WMS_BlackList)}) then {
 				WMS_BlackList pushBack (getPlayerUID _killer);
 			}else{
 				missionNameSpace setVariable [format ["%1_ABLcount",getPlayerUID _killer],_ABLcount+1];
