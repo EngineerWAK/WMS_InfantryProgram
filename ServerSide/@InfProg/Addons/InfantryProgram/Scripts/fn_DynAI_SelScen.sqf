@@ -403,6 +403,14 @@ if (_triggType == "DFO") then {
 //calculate probabilities and select the scenario
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| _threatScenario = %1", _threatScenario]};
 
+private _flagList = (position _target) nearObjects [WMS_DynAI_BaseFlag, WMS_DynAI_distToFlag];
+private _dangerList = ["bombing","arty","ParaBombs","rain"];
+if (count _flaglist != 0) then {
+	if (_threatScenario in _dangerList) then {
+		_threatScenario = selectRandom ["AIRpatrol","paradrop"];
+	};
+};
+
 switch (_threatScenario) do {
 	case "<null>" : {diag_log "[DYNAMIC THREAT ERROR]|WAK|TNA|WMS| ERROR IN SCENARIO SELECTION"};
 	case "nothing" : {};

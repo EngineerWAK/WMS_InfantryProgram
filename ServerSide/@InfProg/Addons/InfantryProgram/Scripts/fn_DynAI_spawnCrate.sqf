@@ -43,7 +43,7 @@ clearMagazineCargoGlobal _Box;
 clearWeaponCargoGlobal _Box;      
 clearItemCargoGlobal _Box;      
 clearBackpackCargoGlobal _Box;
-
+if (_crate != WMS_SupplyCrate) then {
 [
 	_Box, [
 		"<t size='0.9' color='#26e600'>Hide the crate in the 4th Dimension</t>",
@@ -84,6 +84,7 @@ clearBackpackCargoGlobal _Box;
 	0, //0 for all players //2 server only //-2 everyone but the server
 	false //JIP
 ];
+};
 switch (toLower _BoxType) do { //"medic","food","misc","weaps","IP_ammo","IP_toolKit","IP_launcher"
 	case "medic" 	: {{_Box addItemCargoGlobal [(_x select 0),(_x select 1)+(round(random (_x select 2)))]}foreach WMS_medicList};
 	case "food" 	: {{_Box addItemCargoGlobal [(_x select 0),(_x select 1)+(round(random (_x select 2)))]}foreach WMS_foodList};

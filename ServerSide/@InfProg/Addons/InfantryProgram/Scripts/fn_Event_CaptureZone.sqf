@@ -379,6 +379,8 @@ WMS_fnc_captureZoneWaves = {
 	_grps = [];
 	_INFgrp = nil;
 	_wpts = [];
+	_createTank = false;
+	_createChoppa = false;
 
 	_playerList = allPlayers select {alive _x && (_x distance2D _pos < 300)} apply {[_x, GetPosATL _x, getPlayerUID _x]};
 	_playerCnt = count _playerList;
@@ -419,15 +421,41 @@ WMS_fnc_captureZoneWaves = {
 		};
 	};
 
+	if (WMS_CaptureZone_Farm > 5) then { //choppers //skill +0.25 max 0.95
+		_skill = _skill +0.25;
+		if (_skill > 0.95)then{_skill = 0.95};
+		[_pos,_playerList select 0 select 0,_timer,_skill,OPFOR,_loadout,[selectRandom WMS_CaptureZone_Vhl select 0,[],[[],[]]],true,false,1500,5000,600,nil,"AWARE",nil,nil,nil,_difficulty,"reinforcementpunisher"] spawn WMS_fnc_infantryProgram_VHLpatrol;
+		if (WMS_CaptureZone_CT) then {
+			[_pos,_playerList select 0 select 0,_timer,_skill,OPFOR,_loadout,[selectRandom WMS_CaptureZone_Vhl select 1,[],[[],[]]],true,false,250,750,150,nil,"AWARE",nil,nil,nil,_difficulty,"reinforcementpunisher"] spawn WMS_fnc_infantryProgram_VHLpatrol;
+			WMS_CaptureZone_CT = false;
+		};
+		WMS_CaptureZone_Farm = WMS_CaptureZone_Farm -1;
+	}else{
+		if (WMS_CaptureZone_Farm > 3) then { //tank //skill +0.15 max 0.80
+			_skill = _skill +0.15;
+			if (_skill > 0.80)then{_skill = 0.80};
+			[_pos,_playerList select 0 select 0,_timer,_skill,OPFOR,_loadout,[selectRandom WMS_CaptureZone_Vhl select 1,[],[[],[]]],true,false,250,750,150,nil,"AWARE",nil,nil,nil,_difficulty,"reinforcementpunisher"] spawn WMS_fnc_infantryProgram_VHLpatrol;
+			
+			if (WMS_CaptureZone_CC) then{
+				[_pos,_playerList select 0 select 0,_timer,_skill,OPFOR,_loadout,[selectRandom WMS_CaptureZone_Vhl select 0,[],[[],[]]],true,false,1500,5000,600,nil,"AWARE",nil,nil,nil,_difficulty,"reinforcementpunisher"] spawn WMS_fnc_infantryProgram_VHLpatrol;
+				WMS_CaptureZone_CC = false
+			};
+			WMS_CaptureZone_Farm = WMS_CaptureZone_Farm -1;
+		};
+	};
+
 	for "_i" from 1 to (_grpsR+_playerCnt) do {
 		_INFgrp = createGroup [OPFOR, false];
 		_grps pushBack _INFgrp;
-		_randomPos = [_pos, (_distR select 0), (_distR select 1), 1, 0, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos;
+		//[center, minDist, maxDist, objDist, waterMode, maxGrad, shoreMode, blacklistPos, defaultPos] call BIS_fnc_findSafePos
+		//_randomPos = [_pos, _dist1, _dist2, 15, 0, 0.15, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;
+		_randomPos = [_pos, (_distR select 0), (_distR select 1), 0.5, 0, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos;
 		for "_i" from 1 to _unitsR do {
 			//_randomPos = [_pos, (_distR select 0), (_distR select 1), 1, 0, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos; //different _pos for each unit, they regroup before moving to the point
 			_unitsClass createUnit [_randomPos, _INFgrp];
 		};
 	};
+
 	{
 		//[(units _x),'assault',_launcherChance,_skill,nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 		[(units _x),'assault',_launcherChance,_skill,nil,_loadout,nil,"CaptureZone"] call WMS_fnc_SetUnits;
@@ -444,7 +472,7 @@ WMS_fnc_captureZoneWaves = {
 		
 		_paraGrp = [[(_pos select 0),(_pos select 1),100], OPFOR, _grpsR] call BIS_fnc_spawnGroup;
 		{ 
-			_randomSpawnPos = [[_pos] , 0, 100, 0, 1, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos;
+			_randomSpawnPos = [_pos , 0, 100, 0, 1, 0, 0, [], [_pos,_pos]] call BIS_fnc_findSafePos;
 			_x setpos [(_randomSpawnPos select 0),(_randomSpawnPos select 1),100]; 
 			_x setVariable ["WMS_RealFuckingSide",OPFOR,true];
 		} forEach units _paraGrp ;
@@ -481,7 +509,6 @@ WMS_fnc_captureZoneEvents = {
 	};
 	if (WMS_IP_LOGs) then {diag_log format ['CAPTUREZONE_REINFORCEMENTS = %1',WMS_captureZoneEvents];};
 };
-
 _Mkrs = [_pos,"capturezone","Capture Zone",true] call WMS_fnc_AMS_CreateMarker;
 //(thisTrigger getVariable 'markerObject') setMarkerColor 'colorGUER';
 //(thisTrigger getVariable 'markerObject') setMarkerColor 'colorBLUFOR';
@@ -519,6 +546,7 @@ _triggCapture setTriggerStatements
   		"
 		[(thisTrigger getVariable 'startR'),(thisTrigger getVariable 'iterations'),(thisTrigger getVariable 'cumulCoolD'),(thisTrigger getVariable 'cooldR')]call WMS_fnc_captureZoneEvents;
 		['EventCustomGreen', ['Capture Zone', (format ['%1 Started to Capture the Bandits Camp, %2s timer',(name (thisList select 0)),(thisTrigger getVariable 'captureTimer')]), '\A3\ui_f\data\GUI\Cfg\GameTypes\defend_ca.paa']] remoteExec ['BIS_fnc_showNotification', -2];
+		WMS_CaptureZone_Farm 	= WMS_CaptureZone_Farm+1;
 		if (triggerActivated (thisTrigger getVariable ['triggContest', objNul])) then {
 			{_x setObjectTextureGlobal [0, (thisTrigger getVariable 'textureR')];}foreach (thisTrigger getVariable ['CaptureZone_Bdr', []]);
 			(thisTrigger getVariable 'markerObject') setMarkerColor 'colorOPFOR';
@@ -624,7 +652,9 @@ while {_zoneStatus_Running} do {
 			{deleteVehicle _x}forEach _Mines;
 			{deleteMarker _x} foreach _mkrs;
 			{deleteVehicle _x}forEach _CaptureZone_Bdr;
-
+			WMS_CaptureZone_Farm = 0;
+			WMS_CaptureZone_CT = true;
+			WMS_CaptureZone_CC = true;
 			_zoneStatus_Running = false;
 			_smoke = "SmokeShellBlue" createVehicle _pos;
 			_phone = "Land_MobilePhone_old_F" createVehicle _pos;

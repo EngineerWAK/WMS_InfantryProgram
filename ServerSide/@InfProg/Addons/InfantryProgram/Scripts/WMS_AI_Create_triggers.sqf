@@ -12,7 +12,28 @@
 //execVM "\TNACommunity\Scripts\WMS_AI_Create_triggers.sqf";
 [] spawn {
 Diag_log format ['|WAK|TNA|WMS|WMS_AI_Create_triggers Waiting 30 secondes to create all triggers. %1', serverTime];
-sleep 30;
+
+uisleep 15;
+	private _Pos_Forests = [];
+	if ((count WMS_Pos_Forests) > WMS_TriggForestMax) then {
+		for "_i" from 1 to WMS_TriggForestMax do {
+			_posF = selectRandom WMS_Pos_Forests;
+			_Pos_Forests pushBack _posF;
+			WMS_Pos_Forests deleteAt (WMS_Pos_Forests find _posF);
+		};
+		WMS_Pos_Forests = _Pos_Forests;
+	};
+	private _Pos_Villages = [];
+	if ((count WMS_Pos_Villages) > WMS_TriggVillageMax) then {
+		for "_i" from 1 to WMS_TriggVillageMax do {
+			_posV = selectRandom WMS_Pos_Villages;
+			_Pos_Villages pushBack _posV;
+			WMS_Pos_Villages deleteAt (WMS_Pos_Villages find _posV);
+		};
+		WMS_Pos_Villages = _Pos_Villages;
+	};
+uisleep 15;
+
 Diag_log format ['|WAK|TNA|WMS| Creating %1 Local Triggers', (count WMS_Pos_Locals)];
 {
 private _trigLocals = nil;

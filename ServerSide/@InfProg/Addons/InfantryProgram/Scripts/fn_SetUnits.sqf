@@ -369,49 +369,15 @@ _poptabs = 50;
 		}];
 		/////
 		_unit addEventHandler ["HandleDamage", { //THIS NEED TO BE LIGHTER AND CALL AN EH FUNCTION
-			params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
-			//if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HandleDamage, _this = %1",_this]}; //this one spam A LOT of logs
+			//params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
 			if (
-				isPlayer _source && 
-				{alive _unit} && 
-				{(_selection == "head") || (_selection == "face_hub")}&& 
-				{(vehicle _unit) isKindOf "man"} && 
-				{(vehicle _source) isKindOf "man"} &&
-				{_damage >= WMS_AMS_HSDamageKill}
+				isPlayer (_this select 3) && 
+				{alive (_this select 0)} && 
+				{((_this select 1) == "head") || ((_this select 1) == "face_hub")} && 
+				{(vehicle (_this select 0)) isKindOf "man"} &&
+				{(_this select 2) >= WMS_AMS_HSDamageKill}
 			) then {
-				if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
-				//[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit; //ERROR: addDamageToUnit - badUnit
-				[_unit,_source,_source,(_unit getVariable ["WMS_unitFunction","Assault"]),(_unit getVariable ["WMS_difficulty","moderate"])] call WMS_fnc_AMS_EHonKilled;
-				_unit removeEventHandler ["HandleDamage", 0];
-				_unit removeMPEventHandler ["MPKilled", 0];
-				if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
-				if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this]};
-				if (alive _unit) then {//looks stupid but it seems that the NPC sometimes die before the setDamage 1
-					_unit setDamage 1;
-					_source addPlayerScores [1,0,0,0,0];
-				}; 
-			}else {
-				if (
-					isPlayer _source && 
-					{alive _unit} && 
-					{(_selection == "head") || (_selection == "face_hub")} && 
-					{headgear _unit != ""} && 
-					{_damage >= WMS_AMS_HelmetDamage} && 
-					{(vehicle _source) isKindOf "man"} && 
-					{(vehicle _unit) isKindOf "man" || (vehicle _unit) isKindOf "StaticWeapon"}
-				) then {
-					playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
-    				_h = headgear _unit;
-    				removeHeadgear _unit;
-    				_nv = ((assignedItems _unit) select {_x find "NV" > -1}) select 0;
-					if (isNil "_nv") then {_unit unlinkItem _nv};
-    				_w = createVehicle ["WeaponHolderSimulated",ASLtoATL eyePos _unit,[],0,"CAN_COLLIDE"];
-    				_w addItemCargoGlobal [_h,1];
-    				_w setVelocity [5 * sin (_source getdir _unit), 5 * cos (_source getDir _unit), 0.3];
-    				_w addTorque [random 0.02, random .02, random .02];
-					if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this]};
-					WMS_AllDeadsMgr pushBack [_w,(serverTime+WMS_Others_AllDeads)];
-  				};
+				[(_this select 0), (_this select 1), (_this select 2),(_this select 3),(_this select 6)]call WMS_fnc_EH_HandleDamage;
 			};
 		}];
 	} else{
@@ -441,53 +407,19 @@ _poptabs = 50;
 				}];
 				/////
 				_unit addEventHandler ["HandleDamage", { //THIS NEED TO BE LIGHTER AND CALL AN EH FUNCTION
-					params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
-					//if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits fucking useless eventHandler HandleDamage, _this = %1",_this]}; //this one spam A LOT of logs
-					if (
-						isPlayer _source && 
-						{alive _unit} && 
-						{(_selection == "head") || (_selection == "face_hub")} && 
-						//{(vehicle _source) isKindOf "man"} && 
-						{(vehicle _unit) isKindOf "man"} &&
-						{_damage >= WMS_DYNAI_HSDamageKill}
-					) then {
-						if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
-						//[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit; //ERROR: addDamageToUnit - badUnit
-						[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
-						_unit removeEventHandler ["HandleDamage", 0];
-						_unit removeMPEventHandler ["MPKilled", 0];
-						if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};
-						if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this]};
-						if (alive _unit) then {//looks stupid but it seems that the NPC sometimes die before the setDamage 1
-							_unit setDamage 1;
-							_source addPlayerScores [1,0,0,0,0];
-						}; 
-					}else {
+						//params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
 						if (
-							isPlayer _source && 
-							{_damage >= WMS_DYNAI_HelmetDamage} && 
-							{alive _unit} && 
-							{(_selection == "head") || (_selection == "face_hub")} && 
-							{headgear _unit != ""} && 
-							//{(vehicle _source) isKindOf "man"} && 
-							{(vehicle _unit) isKindOf "man"}
+							isPlayer (_this select 3) && 
+							{alive (_this select 0)} && 
+							{((_this select 1) == "head") || ((_this select 1) == "face_hub")} && 
+							{(vehicle (_this select 0)) isKindOf "man"} &&
+							{(_this select 2) >= WMS_DYNAI_HSDamageKill}
 						) then {
-							playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
-    						_h = headgear _unit;
-    						removeHeadgear _unit;
-    						_nv = ((assignedItems _unit) select {_x find "NV" > -1}) select 0;
-							if (isNil "_nv") then {_unit unlinkItem _nv};
-    						_w = createVehicle ["WeaponHolderSimulated",ASLtoATL eyePos _unit,[],0,"CAN_COLLIDE"];
-    						_w addItemCargoGlobal [_h,1];
-    						_w setVelocity [5 * sin (_source getdir _unit), 5 * cos (_source getDir _unit), 0.3];
-    						_w addTorque [random 0.02, random .02, random .02];
-							if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this]};
-							WMS_AllDeadsMgr pushBack [_w,(serverTime+WMS_Others_AllDeads)];
-  						};
-					};
-				}];
+							[(_this select 0), (_this select 1), (_this select 2),(_this select 3),(_this select 6)]call WMS_fnc_EH_HandleDamage;
+						};
+					}];
 			} else { //Need a "PunishPunk call here"
-				_unit addEventHandler ["killed", "
+				/*_unit addEventHandler ["killed", "
 					if (WMS_DynAI_remRPG) then {(_this select 0) removeWeapon (secondaryWeapon (_this select 0))};
 					if (isplayer (_this select 1) && (damage (_this select 1) < 0.9)) then {
 						removeAllWeapons (_this select 0);
@@ -498,7 +430,12 @@ _poptabs = 50;
 						private _sessionID = (_this select 1) getVariable ['ExileSessionID',''];
 						[_sessionID, 'toastRequest', ['ErrorTitleAndText', ['STOP doing that, Fat Fuck', '-15% heath']]] call ExileServer_system_network_send_to;
 					};
-				"];
+				"];*/
+				_unit addMPEventHandler ["MPKilled",{ 
+					params ['_unit', '_killer', '_instigator', '_useEffects'];
+					if(isPlayer _instigator)then{_killer = _instigator};
+					if (isServer)then{[_killer] call WMS_fnc_AL_PunishPunks;};
+				}];
 			};
 		} else{
 			if (_info == "AL") then {
@@ -520,44 +457,15 @@ _poptabs = 50;
 					"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
 					/////
 					_unit addEventHandler ["HandleDamage", { //THIS NEED TO BE LIGHTER AND CALL AN EH FUNCTION
-						params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
+						//params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];
 						if (
-							isPlayer _source && 
-							{alive _unit} && 
-							{(_selection == "head") || (_selection == "face_hub")} && 
-							{(vehicle _unit) isKindOf "man"} &&
-							{_damage >= WMS_DYNAI_HSDamageKill}
+							isPlayer (_this select 3) && 
+							{alive (_this select 0)} && 
+							{((_this select 1) == "head") || ((_this select 1) == "face_hub")} && 
+							{(vehicle (_this select 0)) isKindOf "man"} &&
+							{(_this select 2) >= WMS_DYNAI_HSDamageKill}
 						) then {
-							if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
-							[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
-							_unit removeEventHandler ["HandleDamage", 0];
-							_unit removeMPEventHandler ["MPKilled", 0];
-							if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot Kill, _this = %1",_this]};
-							if (alive _unit) then {
-								_unit setDamage 1;
-								_source addPlayerScores [1,0,0,0,0];
-							}; 
-						}else {
-							if (
-								isPlayer _source && 
-								{_damage >= WMS_DYNAI_HelmetDamage} && 
-								{alive _unit} && 
-								{(_selection == "head") || (_selection == "face_hub")} && 
-								{headgear _unit != ""} && 
-								{(vehicle _unit) isKindOf "man"}
-							) then {
-								playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2];
-    							_h = headgear _unit;
-    							removeHeadgear _unit;
-    							_nv = ((assignedItems _unit) select {_x find "NV" > -1}) select 0;
-								if (isNil "_nv") then {_unit unlinkItem _nv};
-    							_w = createVehicle ["WeaponHolderSimulated",ASLtoATL eyePos _unit,[],0,"CAN_COLLIDE"];
-    							_w addItemCargoGlobal [_h,1];
-    							_w setVelocity [5 * sin (_source getdir _unit), 5 * cos (_source getDir _unit), 0.3];
-    							_w addTorque [random 0.02, random .02, random .02];
-								if (WMS_IP_LOGs) then {Diag_log format ["|WAK|TNA|WMS|WMS_fnc_SetUnits HandleDamage HeadShot remove Helmet, _this = %1",_this]};
-								WMS_AllDeadsMgr pushBack [_w,(serverTime+WMS_Others_AllDeads)];
-  							};
+							[(_this select 0), (_this select 1), (_this select 2),(_this select 3),(_this select 6)]call WMS_fnc_EH_HandleDamage;
 						};
 					}];
 					//NO REDUCED ACCURACY FOR THEM

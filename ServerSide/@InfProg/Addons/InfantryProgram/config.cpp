@@ -64,6 +64,7 @@ class CfgFunctions {
 			class FindRoad					{};
 			class SetPatrol					{};
 			class EHonKilled_Basic			{};
+			class EH_HandleDamage			{};
 			//not yet done:
 			class CreateUnits			{};
 			class CreateVehicle			{};

@@ -43,11 +43,11 @@ switch (toLower _difficulty) do {
 };
 if (isplayer _killer) then {
 	//if (WMS_AI_forceInfKillCount) then {_killer addPlayerScores [1,0,0,0,0]}; //not used anymore
-	if (isplayer _instigator) then {
+	/*if (isplayer _instigator) then {
 		if !(isplayer _killer) then {
 			_killer = _instigator;
 		};
-	}; //might help with artillery shit
+	}; //might help with artillery shit*/
 	_killerName = name _killer;
 	_killerUID = getPlayerUID _killer;
 	_playerRepUpdated = 0;
@@ -76,6 +76,9 @@ if (isplayer _killer) then {
 		vehicle _killer isKindOf "Heli_Attack_01_base_F"||
 		vehicle _killer isKindOf "Heli_Attack_02_base_F"||
 		vehicle _killer isKindOf "Heli_Light_01_armed_base_F"||
+		vehicle _killer isKindOf "vn_helicopter_base"||
+		vehicle _killer isKindOf "vn_boat_armed_base"||
+		vehicle _killer isKindOf "Plane_Base_F"||
 		vehicle _killer isKindOf "RHS_MELB_base"||
 		typeOf vehicle _killer in WMS_RCWS_Vhls ||
 		_distanceKill >= WMS_AMS_AbuseMaxDist

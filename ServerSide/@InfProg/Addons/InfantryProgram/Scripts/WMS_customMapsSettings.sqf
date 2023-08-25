@@ -106,9 +106,9 @@ if (worldName == "Cam_Lao_Nam") then {
 										WMS_AI_RoamingVHL_citySpawn	= true; //NEW
 										WMS_AI_RoamingVHLcount 		= 16; //10
 										WMS_AI_CargoUnits	 		= 1;
-										WMS_SupplyDropCount 		= 3; //default 2
+										//WMS_SupplyDropCount 		= 2; //default 2
 										//WMS_HumaniDropCount 		= 4; //default 3
-										WMS_AMS_ToRun 				= 4; 
+										WMS_AMS_ToRun 				= 3; 
 										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
 										WMS_AMS_remRPG 				= 75;
@@ -116,6 +116,7 @@ if (worldName == "Cam_Lao_Nam") then {
 										WMS_AMS_DelMissionFlag 		= true;
 										WMS_AMS_CleanMapObj			= true;
 										WMS_AMS_ForceRadius			= true; //3m
+										WMS_CaptureZone_Vhl			= [["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],["vn_o_armor_ot54_01","vn_o_armor_m41_01","vn_o_armor_t54b_01","vn_o_armor_type63_01"]]; //[air],[gnd] //rhsgref_mi24g_CAS
 										WMS_FastNight_Morning 		= 5.5; //morning start at
 										WMS_FastNight_Evening		= 17.7; //evening start at
 										WMS_FastNight_Night 		= 20;  //time speed
@@ -144,6 +145,13 @@ if (worldName == "Cam_Lao_Nam") then {
 																	],[
 																	"vn_c_boat_01_03","vn_c_boat_01_01","vn_c_boat_02_03","vn_c_boat_02_04","vn_c_boat_08_02","vn_c_boat_07_02","vn_c_boat_07_01","vn_c_boat_08_01"
 																	]];
+										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
+																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["vn_m34_grenade_ammo","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst","vn_bomb_mk36_destructor_mine_ammo"], //wave 7 & 8
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"] //wave 9 & 10
+																	];
 										//NEW CONVOY EVENT
 										WMS_TargetConvoy 			= true;
 										WMS_TargetConvoyPos 		= [ //[[pos,dir],[pos,dir],[pos,dir],[pos,dir],...]

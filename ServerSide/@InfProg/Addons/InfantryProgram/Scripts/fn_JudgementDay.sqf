@@ -208,7 +208,7 @@ if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_PLAYER_CREATE]|WAK|TNA|W
 
 WMS_JMD_createOPF = {
 	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF _this = %1", _this]}; //if (WMS_IP_LOGs)
-	private ["_unitsClass","_houseCount","_houseCountMax","_launcherChance","_playerKills","_timeStart","_playerRep","_playersPosList","_spawnPosList","_houses","_posToPush","_spawnPos"];
+	private ["_wave","_unitsClass","_houseCount","_houseCountMax","_launcherChance","_playerKills","_timeStart","_playerRep","_playersPosList","_spawnPosList","_houses","_posToPush","_spawnPos"];
 	params[  
 		"_pos",
 		"_OPFgroup",
@@ -218,6 +218,30 @@ WMS_JMD_createOPF = {
 		["_loadout", selectRandom ["BlackOps","livonia","tiger","scientist"]],
 		["_difficulty", "difficult"]
 	];
+	uisleep 3;
+	_wave = (WMS_JudgementDay_Array select 2);
+	if (_wave == 10) then {_count = round(_count+(_count/2))};
+	playSound3D ["A3\sounds_f\ambient\objects\bell_big.wss", player, false, [_pos select 0, _pos select 1, 100], 3, 1, 0];
+	
+	//a little rain Object before AI spawn
+	_dropList = [];
+	if(_wave == 1||_wave == 2)then{_dropList = (WMS_JudgementDay_Drop select 0)};
+	if(_wave == 3||_wave == 4)then{_dropList = (WMS_JudgementDay_Drop select 1)};
+	if(_wave == 5||_wave == 6)then{_dropList = (WMS_JudgementDay_Drop select 2)};
+	if(_wave == 7||_wave == 8)then{_dropList = (WMS_JudgementDay_Drop select 3)};
+	if(_wave == 9||_wave == 10)then{_dropList = (WMS_JudgementDay_Drop select 4)};
+	_load = selectRandom _dropList;
+	_alti = 80;
+	_radius = 100;
+	_iterO = 12;
+	_delay = 0.25;
+	if (_load == "rhs_ammo_nspn_red") then {_alti = 150;_delay = 1;};
+	if (_load == "rhs_ammo_fakels") then {_alti = 65;_delay = 0.8;};
+	if (_load == "rhs_ammo_m397" || _load == "rhs_rpg7v2_type63_airburst") then {_iterO = 8;_delay = 0.6; _alti = 350};
+	if (_load == "vn_bomb_100_m47_wp_ammo"||_load == "vn_bomb_mk36_destructor_mine_ammo"||_load == "vn_bomb_750_m117_he_ammo") then {_delay = 1.6;_alti = 250;_iterO = 4;_radius = 150;};
+	[_pos,_load,_radius,_alti,_iterO,_delay] spawn WMS_fnc_DynAI_RainObjects; //optional: _load,_radius,_altitude,_iterations,_delay
+	uisleep 6;
+
 	_unitsClass = selectRandom WMS_AMS_UnitClass;
 	_timeStart = serverTime;
 	_playerRep = 0;
@@ -227,7 +251,9 @@ WMS_JMD_createOPF = {
 	_spawnPosList = [];
 	_houseCountMax = 250;//about 6 secondes at sleep 0.025 //maximum house to look for positions, otherwise it can take "quite some time"...
 	_houses = _pos nearObjects ["house", WMS_JudgementDay_Rad]; //building = 660 = 1752 positions...
+	_houses = _houses select {!(typeOf _x in WMS_JudgementDay_Ban)};
 	_houseCount = (count _houses);
+
 	if (_houseCount < _houseCountMax) then {_houseCountMax = _houseCount};
 	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF %1 buildings found in %2 secondes",_houseCount,(serverTime - _timeStart)]}; //if (WMS_IP_LOGs)
 	/////Will be used later to modify NPCs skill/number
@@ -235,9 +261,9 @@ WMS_JMD_createOPF = {
 		//_playerRep = _playerObject getVariable ["exileScore",0];
 		_playerKills = _playerObject getVariable ["exileKills",100];
 	};
-	if (_playerKills <= 99) then {_difficulty = "moderate"; _skill = 0.3};
+	if (_playerKills <= 99) then {_difficulty = "moderate"; _skill = 0.35};
 	if (_playerKills >= 1000) then {_difficulty = "hardcore"; _skill = 0.5};
-	if !(vehicle _playerObject iskindOf "man") then {_launcherChance = 100; _difficulty = "hardcore"; _skill = 0.75};
+	if !(vehicle _playerObject iskindOf "man") then {_launcherChance = 100; _difficulty = "hardcore"; _skill = 0.85};
 	/////
 	uisleep 0.2;
 	for "_i" from 1 to _houseCountMax do {
@@ -258,7 +284,8 @@ WMS_JMD_createOPF = {
 
 	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF %1 Building Positions found in %2 secondes",( count _spawnPosList),(serverTime - _timeStart)]}; //if (WMS_IP_LOGs)
 	if (count _spawnPosList < _count) then {_count = (count _spawnPosList)};
-	playSound3D ["A3\sounds_f\ambient\objects\bell_big.wss", player, false, [_pos select 0, _pos select 1, 100], 3, 1, 0];
+	//display wave message to all players
+	[[[format ['Judgement Day, Wave %1',_wave]]],'NOTIRED'] remoteExec ['WMS_fnc_displaykillStats',-2];
 	for "_i" from 1 to _count do {
 		_spawnPos = selectRandom _spawnPosList;
 		_spawnPosList deleteAt (_spawnPosList find _spawnPos);
@@ -272,8 +299,6 @@ WMS_JMD_createOPF = {
 	//remove all weaponHolders in the zone
 	[_pos]spawn WMS_JMD_RemoveWeapHold;
 
-	//display wave message to all players
-	[[[format ['Judgement Day, Wave %1',(WMS_JudgementDay_Array select 2)]]],'NOTIRED'] remoteExec ['WMS_fnc_displaykillStats',-2];
 };
 WMS_JMD_createCIV = {
 	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createCIV _this = %1", _this]}; //if (WMS_IP_LOGs)
@@ -350,7 +375,7 @@ WMS_JMD_Hell = { //FAIL
 	
 	//FAIL message/sound
 	playSound3D [getMissionPath	'Custom\Ogg\germanwin.ogg', player, false, _pos, 2, 1, 0];
-	WMS_triggCheck_T = WMS_triggCheck_T*0.5;
+	//WMS_triggCheck_T = WMS_triggCheck_T*0.5;
 	WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]];
 	//display wave message to all players
 	[[['Judgement Day Failed! HA HA!']],'NOTIRED'] remoteExec ['WMS_fnc_displaykillStats',-2];
@@ -406,14 +431,14 @@ WMS_JMD_Heaven = {
 	
 	_smoke = "SmokeShellBlue" createVehicle _pos;
 	_phone = "Land_MobilePhone_old_F" createVehicle _pos;
-	_crateOwner = ([_pos, WMS_AMS_PlayerDistDelete] call WMS_fnc_AMS_ClstPlayer);
+	//_crateOwner = ([_pos, WMS_AMS_PlayerDistDelete] call WMS_fnc_AMS_ClstPlayer);
 	if (WMS_IP_LOGs) then {diag_log format ["||||||||||CAPTUREZONE_OWNER|||||||||| %1",_crateOwner]};
 	_phone setVariable ["AMS_UnlockedBy",[_crateOwner],true];
 	_phone setVariable ["AMS_MissionID","CaptureZone",true];
-	[_phone,[],_rewards,"military","Mission Reward",nil,_difficulty,150] spawn WMS_fnc_AMS_SpawnRewards;
-	WMS_triggCheck_T = WMS_triggCheck_T*0.5;
+	[_phone,[],_rewards,"military","Mission Reward",WMS_AMS_Crate_XL,_difficulty,150] spawn WMS_fnc_AMS_SpawnRewards;
+	//WMS_triggCheck_T = WMS_triggCheck_T*0.5;
 	WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]];
-	[[[format ['Judgement Day Victory... Paradroping Reward around %1',_pos]]],'NOTI'] remoteExec ['WMS_fnc_displaykillStats',-2];
+	[[[format ['Judgement Day Victory... Paradroping Reward around %1',([(_pos select 0),(_pos select 1)])]]],'NOTI'] remoteExec ['WMS_fnc_displaykillStats',-2];
 };
 WMS_JMD_watch_OPF = {
 	private ["_unitPos","_unitKicked","_smoke","_IR"];
@@ -472,12 +497,15 @@ WMS_JMD_hideFallenTrees = {
 	_list = nearestTerrainObjects [_pos, ['Tree','small tree', 'Bush'], WMS_JudgementDay_Rad] select {damage _x == 1};
 	{_x hideObjectGlobal true} forEach _list;
 };
+
+[[['JUDGEMENT DAY']],'NOTIRED'] remoteExec ['WMS_fnc_displaykillStats',-2];
+
 //create OPF
 {[_pos,_x,_playerObject]spawn WMS_JMD_createOPF}forEach [_OPFgroup];
 uisleep 13;
 //create CIV
 {[_pos,_x]call WMS_JMD_createCIV}forEach [_CIVgroup1,_CIVgroup2,_CIVgroup3,_CIVgroup4,_CIVgroup5];
 uisleep 2;
-WMS_triggCheck_T = WMS_triggCheck_T*2; //slowDown the triggers, will have to work on that to not slow down ALL the triggers
+//WMS_triggCheck_T = WMS_triggCheck_T*2; //slowDown the triggers, will have to work on that to not slow down ALL the triggers
 WMS_JudgementDay_Run = true;
 publicVariable "WMS_JudgementDay_Run";

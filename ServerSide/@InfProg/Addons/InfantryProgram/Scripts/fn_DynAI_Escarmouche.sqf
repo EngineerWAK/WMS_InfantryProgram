@@ -65,7 +65,7 @@ for "_i" from 1 to _AIcount do {
 	];
 	uisleep 0.1;
 };
-
+{_x setVariable ["WMS_RealFuckingSide",BLUFOR,true]}foreach units _InfGrp_B;
 		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
 			if (true) then {diag_log format ["[WMS_fnc_DynAI_Escarmouche]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2, pos = %3", _HC1_ID, _InfGrp_B,_pos]};
 			_InfGrp_B setGroupOwner _HC1_ID;

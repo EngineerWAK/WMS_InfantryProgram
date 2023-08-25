@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.862_2023AUG18_GitHub"; //DynAI triggers are now local to the server //AMS EH
+WMS_System_Version 			= "v2.868_2023AUG25_GitHub"; //DynAI triggers are now local to the server //AMS EH //prevent bombing in territory //JMD stuff
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -196,10 +196,14 @@ WMS_Recon_Guards_Chance = 75;
 WMS_Recon_Guards_Skill 	= 0.6;
 	
 WMS_CaptureZone			= true; //Kill the first group of NPC, get inside and stay alive until the end of the timer //many stuff is setup in the function itself WMS_fnc_CaptureZone
+WMS_CaptureZone_CT		= true; //dynamic, create a tank in case of farming
+WMS_CaptureZone_CC		= true; //dynamic, create a chopper in case of farming
 WMS_CaptureZoneDelay	= 300;
 WMS_CaptureZone_Rad 	= [25,35,50]; //Capture zone Radius //only _radius select 0 is used
 WMS_CaptureZone_Tmr		= [240, 400, 600, 900]; //time to capture the zone //easy, moderate, difficult, hardcore
-WMS_CaptureZone_mkr		= "selector_selectedEnemy";
+WMS_CaptureZone_Mkr		= "selector_selectedEnemy";
+WMS_CaptureZone_Vhl		= [["O_Heli_Light_02_dynamicLoadout_F","O_Heli_Attack_02_dynamicLoadout_F"],["O_APC_Tracked_02_cannon_F","O_APC_Wheeled_02_rcws_v2_F","O_MBT_04_command_F"]]; //[air],[gnd]
+WMS_CaptureZone_Farm 	= 0; //dynamic, Capture zone farming check
 	//WMS_CaptureZone_Wav		= [5,7,9]; //AI Waves to come
 	//WMS_CaptureZone_Dis		= [100,300]; //AI waves spawn distances
 	//WMS_CaptureZone_Bdr 		= []; //Sign_Sphere25cm_F objects
@@ -208,6 +212,16 @@ WMS_JudgementDay	 	= true;
 WMS_JudgementDay_Run 	= false; //dynamic, KEEP FALSE
 WMS_JudgementDay_Rad 	= 100; //Mission Radius
 WMS_JudgementDay_Mkr	= "Contact_pencilTask2"; //will be used to slow down other dynamic spawns, keep something players can not put themself on the map
+WMS_JudgementDay_Ban 	= [ //banned "house" like freacking ricefield
+							"Land_vn_dyke_10"
+						];
+WMS_JudgementDay_Drop	= [
+								["Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+								["SmokeShellRed","Chemlight_blue","mini_Grenade","Land_HumanSkull_F"], //wave 3 & 4
+								["SmokeShellRed","Chemlight_blue","mini_Grenade","GrenadeHand"], //wave 5 & 6
+								["SmokeShellRed","mini_Grenade","GrenadeHand"], //wave 7 & 8
+								["Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","GrenadeHand","GrenadeHand"] //wave 9 & 10
+							]; //because otherwhise that wont be fun, custom rain object at each wave
 WMS_JudgementDay_items	= [ //ABSOLUTLY NOT VANILLA YET! xD //in fn_setUnits.sqf
 							["ACE_fortify","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_bunch","ACE_wirecutter"],
 							["ACE_fortify","ACE_NVG_Wide","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_roll","ACE_wirecutter", "rhsusf_acc_rotex_mp7"],
@@ -427,7 +441,13 @@ WMS_DynAI_LastTime 			= time; //NO TOUCH
 WMS_DynAI_GunshipLight 		= ["B_Heli_Light_01_dynamicLoadout_F",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]];
 WMS_DynAI_GunshipMedium 	= ["B_CTRG_Heli_Transport_01_sand_F",[],[[],[]]];
 WMS_DynAI_GunshipHeavy 		= ["B_Heli_Attack_01_dynamicLoadout_F",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]]; //Mi-48 is fucking too heavy but nothing else for now
-WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["SmokeShellRed","Chemlight_blue","mini_Grenade","Land_HumanSkull_F"],["SmokeShellRed","Chemlight_blue","mini_Grenade","GrenadeHand"],["SmokeShellRed","mini_Grenade","GrenadeHand"],["Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","GrenadeHand","GrenadeHand"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000]]
+WMS_DynAI_RainObjects 		= [
+								["Chemlight_blue","Land_HumanSkull_F"],
+								["SmokeShellRed","Chemlight_blue","mini_Grenade","Land_HumanSkull_F"],
+								["SmokeShellRed","Chemlight_blue","mini_Grenade","GrenadeHand"],
+								["SmokeShellRed","mini_Grenade","GrenadeHand"],
+								["Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","GrenadeHand","GrenadeHand"]
+							]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000]]
 WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F"]; //some forest triggers will detonate a bomb around the center of the forest's trigger
 //Base attack:
 WMS_DynAI_useBaseAtk 		= true; //Base attack if the player/target is near a territory
@@ -613,6 +633,8 @@ WMS_AMS_MissionList 	= [ //missions themself and weight
 WMS_DynAI_triggers 		= true; //will create a bunch of triggers to spawn "dynamic" stuff on players
 WMS_Pos_AutoScan 		= true; //KEEP TRUE UNLESS YOU KNOW WHAT YOU ARE DOING, AND YOU PROBABLY DON'T
 WMS_Trigg_Reinforce		= true;
+WMS_TriggForestMax		= 25;
+WMS_TriggVillageMax		= 35;
 WMS_trigMaxSpeed		= 100; //maximum spead to fire up the trigger, there is no point to spawn infantry group in a forest for a jet flying around
 WMS_triggCheck			= 600; //Active triggers will check their area to respawn "dynamic" stuff on players if no NPCs around
 WMS_triggCheckChance	= 50; 	//chance to send reinforcement at _target position

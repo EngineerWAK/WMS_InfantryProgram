@@ -78,6 +78,8 @@ WMS_IP_buildComputer = {
 	if (WMS_JudgementDay && {!(WMS_JudgementDay_Run)} && {player getVariable ['ExileMoney', 0] >= 5000} && {player getVariable ['ExileScore', 0] >= 5000}) then {
 		_playersPosList = allPlayers select {alive _x && (_x distance2D (position player) < 100)} apply {GetPosATL _x};
 		_houses = position player nearObjects ["house", 55];
+		_JudgementDay_Ban = ["Land_vn_dyke_10"];
+		_houses = _houses select {!(typeOf _x in _JudgementDay_Ban)};
 		_spawnPosList = [];
 		if ((count _houses) >= 60) then {
 			for "_i" from 1 to 60 do {
