@@ -20,7 +20,7 @@ params[
 	["_unitFunction","Assault"], //not used yet
 	["_difficulty", "Hardcore"] //not used yet
 ];
-WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_AMS_AllDeads)];
+WMS_AllDeadsMgr pushBack [_killed,(serverTime+500)];
 _playerRep = 0;
 _playerKills = 0;
 if (isplayer _instigator) then {

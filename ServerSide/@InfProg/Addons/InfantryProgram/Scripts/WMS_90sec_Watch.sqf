@@ -24,8 +24,11 @@ while {true} do {
 		_TargetConvoyUnits = WMS_TargetConvoyUnits select {(alive _x)};
 		if (count _TargetConvoyUnits == 0)then {
 			//succes
-			{_x setMarkerColor "colorGreen";}forEach WMS_TargetConvoyMkrs;
-			["EventCustomGreen", ["Lost Enemy Convoy", "Enemy Convoy Destroyed!", "\A3\ui_f\data\GUI\Cfg\GameTypes\defend_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
+			if (WMS_TargetConvoyNoti) then {
+				{_x setMarkerColor "colorGreen";}forEach WMS_TargetConvoyMkrs;
+				["EventCustomGreen", ["Lost Enemy Convoy", "Enemy Convoy Destroyed!", "\A3\ui_f\data\GUI\Cfg\GameTypes\defend_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];
+				WMS_TargetConvoyNoti = false;
+			};
 			//reward at convoy position, not marker position 
 			_triggSucces = createTrigger ["EmptyDetector", WMS_TargetConvoyPosRew, true];
 			_triggSucces setTriggerActivation ["ANYPLAYER", "PRESENT", true]; 
@@ -38,6 +41,7 @@ while {true} do {
 					{deleteMarker _x}forEach WMS_TargetConvoyMkrs;
 					WMS_TargetConvoyMkrs = [];
 					_phone = 'Land_MobilePhone_old_F' createVehicle WMS_TargetConvoyPosRew;
+					WMS_AllDeadsMgr pushBack [_phone,(serverTime+WMS_Others_AllDeads)];
 					_crateOwner = ([WMS_TargetConvoyPosRew, WMS_AMS_PlayerDistDelete] call WMS_fnc_AMS_ClstPlayer);
 					_phone setVariable ['AMS_UnlockedBy',[_crateOwner],true];
 					_phone setVariable ['AMS_MissionID','CaptureZone',true];

@@ -35,7 +35,7 @@ for "i" from 1 to (selectrandom WMS_Recon_Steps) do {
 };
 diag_log format ["[Event]|WAK|TNA|WMS| Recon Mission %1 positions recorded", count WMS_Recon_pos_list];
 
-WMS_fnc_recon_DefineVHL = {
+/*WMS_fnc_recon_DefineVHL = { //not used yet
 	params[ 
 		"_target"
 	];
@@ -53,7 +53,7 @@ WMS_fnc_recon_DefineVHL = {
 		};
 	};
 _transport; //"none","foot","tank","APC","MRAP","truck","LSV","attack","pawnee","chopper"
-};
+};*/
 
 WMS_fnc_recon_Create_Guards = {
 	params[ 
@@ -82,7 +82,7 @@ WMS_fnc_recon_Create_Guards = {
 	diag_log format ["[Event]|WAK|TNA|WMS| Recon Mission Spawned group %1 at %2", _patrolGrp, _pos];
 };
 
-WMS_fnc_recon_Create_Objects = {
+/*WMS_fnc_recon_Create_Objects = { //not used yet
 	params[ 
 		"_pos", 
 		["_type", "none"]
@@ -105,7 +105,7 @@ WMS_fnc_recon_Create_Objects = {
 			WMS_Recon_Objects pushback _captureZone;
 		};
 	}; 
-};
+};*/
 
 WMS_fnc_Recon_Create_Trigger = {
 	_positions = _this;
@@ -164,6 +164,7 @@ WMS_fnc_Recon_Delete_trigger = {
 	//_speaker = _target nearEntities [WMS_PlayerEntity, WMS_AMS_PlayerDistSucces]; //from AMS
 	//[(_speaker select 0), _talk] remoteExec ['say3D',0,false]; //from AMS
 	playSound3D [MISSION_ROOT+format["Custom\Ogg\%1.ogg","uspointcaptured"], (_this select 1), false, position (_this select 1), 4, 1, 0]; //from AMS
+	_pos = position (_this select 1);
 	deleteVehicle (_this select 1); //flag
 	deleteMarker (_this select 2); //central marker
 	deleteMarker (_this select 3); //border
@@ -172,10 +173,18 @@ WMS_fnc_Recon_Delete_trigger = {
 		hint 'Mission accomplished soldier!';
 		['Mission accomplished soldier!'] remoteExecCall ['SystemChat',_target];
 		_smoke = "SmokeShellGreen" createVehicle position (_this select 0); //position thisTrigger
-		_smoke setVariable ["AMS_UnlockedBy",_target,true]; //needed for AMS paradrop
-		_smoke setVariable ["AMS_MissionID","Recon",true]; //needed for AMS paradrop
+		//_smoke setVariable ["AMS_UnlockedBy",_target,true]; //needed for AMS paradrop
+		//_smoke setVariable ["AMS_MissionID","Recon",true]; //needed for AMS paradrop
 		//[_target,_rwds,_lootCount,_lootType,_Msg,_load,_difficulty,_Altitude,_SmokeColor,_LightColor] spawn WMS_fnc_AMS_SpawnRewards; //[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]//[_weap,_bag,_items,_ammoList,_mag]
-		[_smoke,[],WMS_Recon_Rewards,"military","Mission Reward",nil,"hardcore",150] spawn WMS_fnc_AMS_SpawnRewards; //"Recon Mission Done" doesnt work yet
+			////////////////////
+			_phone = 'Land_MobilePhone_old_F' createVehicle _pos;
+			WMS_AllDeadsMgr pushBack [_phone,(serverTime+WMS_Others_AllDeads)];
+			//_crateOwner = ([WMS_TargetConvoyPosRew, WMS_AMS_PlayerDistDelete] call WMS_fnc_AMS_ClstPlayer);
+			_phone setVariable ['AMS_UnlockedBy',[_target],true];
+			_phone setVariable ['AMS_MissionID','Recon',true];
+			//[_phone,[],WMS_TargetConvoyLoot,'military','Mission Reward',nil,'moderate',150] spawn WMS_fnc_AMS_SpawnRewards;
+			////////////////////////////////////////
+		[_phone,[],WMS_Recon_Rewards,"military","Mission Reward",nil,"hardcore",150] spawn WMS_fnc_AMS_SpawnRewards; //"Recon Mission Done" doesnt work yet
 		deleteVehicle (_this select 0); //thisTrigger
 		{{_x setDamage 1} foreach units _x;} foreach WMS_Recon_AIgrps; //Clean all the groups
 		WMS_Recon_AIgrps = []; //reset the spawned group array

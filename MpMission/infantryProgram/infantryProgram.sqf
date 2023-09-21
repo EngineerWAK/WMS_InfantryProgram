@@ -129,7 +129,6 @@ WMS_IP_buildComputer = {
 		"",
 		"
 			(alive _target) &&
-			{stance player == 'CROUCH'} &&
 			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
 			{(vehicle _this == _this)};
 		",
@@ -171,6 +170,27 @@ WMS_IP_buildComputer = {
 			(alive _target) &&
 			{('rhs_radio_R187P1' in (assigneditems _this))} &&
 			{_target getVariable ['WMS_Loc_canSpawnBeacon',true]} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+	//SPAWN BEACON EMPTY LINE
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#ff5324'>-------- ----- ------</t>",
+		"
+		", 
+		nil,
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{!(_target getVariable ['WMS_Loc_canSpawnBeacon',true])} &&
 			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
 			{(vehicle _this == _this)};
 		",

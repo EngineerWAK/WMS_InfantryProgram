@@ -30,7 +30,7 @@ if !(_paradropAIrunning == 0) then {
 		//if (time > (_x select 1) && count ((position (leader (_x select 2 select 0))) nearEntities [WMS_PlayerEntity, WMS_AI_PlayerDistToDespawnINF]) == 0) then { //test player presence but not if they are in vehicle
 		if (time > (_x select 1)) then {
 			if !(isNull leader (_x select 2 select 0)) then {_posLeader = (position (leader (_x select 2 select 0)));};
-			if ((isNull leader (_x select 2 select 0)) || (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)} apply {_x}) == 0)) then {
+			if ((isNull leader (_x select 2 select 0)) || (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)}) == 0)) then {
 				if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF Paradrop Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 				_grpArray = (_x select 2);
 				_vhl = (_x select 3);
@@ -62,7 +62,7 @@ if !(_patrolAIrunningOP == 0) then {
 	{ 
 		if (time > (_x select 1)) then {
 			if !(isNull leader (_x select 2 select 0)) then {_posLeader = (position (leader (_x select 2 select 0)));};
-			if ((isNull leader (_x select 2 select 0)) || (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)} apply {_x}) == 0)) then {
+			if ((isNull leader (_x select 2 select 0)) || (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)}) == 0)) then {
 				if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF patrol Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 				_grpArray = (_x select 2);
 				_vhl = (_x select 3);
@@ -132,7 +132,7 @@ if !(_DynAIrunning == 0) then {
 		};
 		if (time > (_x select 1)) then {
 			if !(isNull leader (_x select 2 select 0)) then {_posLeader = (position (leader (_x select 2 select 0)));};
-			if ((isNull leader (_x select 2 select 0)) || (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)} apply {_x}) == 0)) then {
+			if ((isNull leader (_x select 2 select 0)) || (count (allPlayers select {alive _x && (_x distance2D _posLeader < WMS_AI_PlayerDistToDespawnINF)}) == 0)) then {
 				if (WMS_IP_LOGs) then {diag_log format ["[RoamingINF patrol Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 				_grpArray = (_x select 2);
 				_vhl = (_x select 3);

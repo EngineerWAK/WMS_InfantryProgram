@@ -67,22 +67,43 @@ if (isplayer _killer) then {
 		_killer setVariable ["WMS_lastKill",servertime,true];
 	} else {
 		{_x setVariable ["WMS_lastKill",servertime,true];}forEach (crew (vehicle _killer));
-	};
-	/////
-	//I think it would be easier to do a vehicle check and then apply "options" than check the vehicles for every options
-	if (
-		vehicle _killer isKindOf "tank"||
-		vehicle _killer isKindOf "APC"||
-		vehicle _killer isKindOf "Heli_Attack_01_base_F"||
-		vehicle _killer isKindOf "Heli_Attack_02_base_F"||
-		vehicle _killer isKindOf "Heli_Light_01_armed_base_F"||
-		vehicle _killer isKindOf "vn_helicopter_base"||
-		vehicle _killer isKindOf "vn_boat_armed_base"||
-		vehicle _killer isKindOf "Plane_Base_F"||
-		vehicle _killer isKindOf "RHS_MELB_base"||
-		typeOf vehicle _killer in WMS_RCWS_Vhls ||
-		_distanceKill >= WMS_AMS_AbuseMaxDist
-	) then {
+		/////
+		//I think it would be easier to do a vehicle check and then apply "options" than check the vehicles for every options
+		if (
+			vehicle _killer isKindOf "tank"||
+			vehicle _killer isKindOf "APC"||
+			vehicle _killer isKindOf "Heli_Attack_01_base_F"||
+			vehicle _killer isKindOf "Heli_Attack_02_base_F"||
+			vehicle _killer isKindOf "Heli_Light_01_armed_base_F"||
+			vehicle _killer isKindOf "rhs_uh1h_base"||
+			vehicle _killer isKindOf "vn_helicopter_base"||
+			vehicle _killer isKindOf "vn_boat_armed_base"||
+			vehicle _killer isKindOf "Plane_Base_F"||
+			vehicle _killer isKindOf "RHS_MELB_base"||
+			typeOf vehicle _killer in WMS_RCWS_Vhls ||
+			_distanceKill >= WMS_AMS_AbuseMaxDist
+		) then {
+			/*//AMS_Abuse
+			if (WMS_AMS_Abuse) then {//THAT WILL BE A "PROBLEM" WITH HC
+				_MissionID = _killed getVariable ["AMS_MissionID", ""];
+				_AMS_Abuse = missionNameSpace getVariable [format["%1_AMS_Abuse",_MissionID],0];
+				missionNameSpace setVariable [format["%1_AMS_Abuse",_MissionID],_AMS_Abuse+1];
+			};
+			//add an "Auto Black List count"
+			if (WMS_AMS_AutoBlackList)then {//THAT WILL BE A "PROBLEM" WITH HC
+				_ABLcount = missionNameSpace getVariable [format ["%1_ABLcount",getPlayerUID _killer],0];
+				if (_ABLcount >= WMS_AMS_ABLcount && {!(getPlayerUID _killer in WMS_BlackList)}) then {
+					WMS_BlackList pushBack (getPlayerUID _killer);
+				}else{
+					missionNameSpace setVariable [format ["%1_ABLcount",getPlayerUID _killer],_ABLcount+1];
+				};
+			};*/
+			//reinforce
+			if (_killed == leader _killed && {WMS_AMS_Reinforce} && {time > (WMS_AMS_LastReinforce+WMS_AMS_ReinforceCoolD)}) then {
+				WMS_AMS_LastReinforce = serverTime;
+				[_killed,_killer,_playerRep,_distanceKill,_difficulty]call WMS_fnc_AMS_Reinforce;
+			};
+		};
 		//AMS_Abuse
 		if (WMS_AMS_Abuse) then {//THAT WILL BE A "PROBLEM" WITH HC
 			_MissionID = _killed getVariable ["AMS_MissionID", ""];
@@ -97,11 +118,6 @@ if (isplayer _killer) then {
 			}else{
 				missionNameSpace setVariable [format ["%1_ABLcount",getPlayerUID _killer],_ABLcount+1];
 			};
-		};
-		//reinforce
-		if (_killed == leader _killed && {WMS_AMS_Reinforce} && {time > (WMS_AMS_LastReinforce+WMS_AMS_ReinforceCoolD)}) then {
-			WMS_AMS_LastReinforce = serverTime;
-			[_killed,_killer,_playerRep,_distanceKill,_difficulty]call WMS_fnc_AMS_Reinforce;
 		};
 	};
 	if (WMS_exileFireAndForget) then { //FireAndForget is ONLY for Exile DB means Exile mod is running

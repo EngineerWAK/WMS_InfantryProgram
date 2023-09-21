@@ -24,7 +24,7 @@ _type = "reinforcement";
 _flare = "F_Signal_Red" createvehicle getposATL _killed;
 _info = "none";
 _annihilatorChance = 25;
-_DynAIList = ["rain","INFpatrol","runner","paradrop","VHLpatrol","AIRpatrol","AIRassault","arty","bombing","random"];
+_DynAIList = ["rain","INFpatrol","runner","paradrop","VHLpatrol","AIRpatrol","AIRassault","arty","bombing","ParaBombs","random"];
 
 switch (toLower _difficulty) do {
 	case  "easy" 		: {_annihilatorChance = 40};
@@ -55,7 +55,7 @@ if (vehicle _killer isKindOf "tank"||vehicle _killer isKindOf "APC") then {
 		];
 	};
 }else {
-	if (vehicle _killer isKindOf "Heli_Attack_01_base_F"||vehicle _killer isKindOf "Heli_Attack_02_base_F") then {
+	if (vehicle _killer isKindOf "Heli_Attack_01_base_F"||vehicle _killer isKindOf "Heli_Attack_02_base_F"||vehicle _killer isKindOf "vn_helicopter_base"||vehicle _killer isKindOf "rhs_uh1h_base") then {
 		if (_annihilatorChance*0.5 > random 100) then {
 			_info = "Annihilator";
 			_timer = 240;
@@ -119,6 +119,28 @@ if (vehicle _killer isKindOf "tank"||vehicle _killer isKindOf "APC") then {
 					];
 				};
 			}else{
+				if(vehicle _killer isKindOf "Plane_Base_F"||vehicle _killer isKindOf "vn_boat_armed_base")then{			
+					if (_annihilatorChance > random 100) then {
+						_info = "Annihilator";
+						_timer = 300;
+					} else {
+						_type = "reinforcementpunisher";
+						_info = selectRandom [
+							//"rain","rain","rain","rain",
+							//"INFpatrol",
+							//"runner",
+							//"paradrop",
+							//"VHLpatrol","VHLpatrol",
+							"AIRpatrol","AIRpatrol","AIRpatrol",
+							//"AIRassault",
+							//"arty",
+							"bombing","bombing",
+							//"ParaBombs","ParaBombs",
+							"Annihilator"//,
+							//"random"
+						];
+					};
+				}else{
 //"Regular" reinforcement, by distance:
 if (_distance > ((WMS_AMS_RangeList select 0)+10) && _distance <= (WMS_AMS_RangeList select 1)  ) then {
 	_info = selectRandom [
@@ -202,6 +224,7 @@ if (_distance > (WMS_AMS_RangeList select 4)) then {
 		"random","random"
 		];
 	};
+};
 };
 };
 };

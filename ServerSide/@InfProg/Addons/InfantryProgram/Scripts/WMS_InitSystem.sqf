@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.868_2023AUG25_GitHub"; //DynAI triggers are now local to the server //AMS EH //prevent bombing in territory //JMD stuff
+WMS_System_Version 			= "v2.877_2023SEP18_GitHub"; //DynAI triggers are now local to the server //AMS EH //prevent bombing in territory //JMD stuff
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -220,7 +220,7 @@ WMS_JudgementDay_Drop	= [
 								["SmokeShellRed","Chemlight_blue","mini_Grenade","Land_HumanSkull_F"], //wave 3 & 4
 								["SmokeShellRed","Chemlight_blue","mini_Grenade","GrenadeHand"], //wave 5 & 6
 								["SmokeShellRed","mini_Grenade","GrenadeHand"], //wave 7 & 8
-								["Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","GrenadeHand","GrenadeHand"] //wave 9 & 10
+								["Sh_155mm_AMOS","GrenadeHand","GrenadeHand"] //wave 9 & 10
 							]; //because otherwhise that wont be fun, custom rain object at each wave
 WMS_JudgementDay_items	= [ //ABSOLUTLY NOT VANILLA YET! xD //in fn_setUnits.sqf
 							["ACE_fortify","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_bunch","ACE_wirecutter"],
@@ -375,7 +375,7 @@ WMS_AI_RoamingVHL				= true;
 WMS_AI_RoamingVHL_citySpawn		= false;
 WMS_AI_RoamingVHL_KillRep		= 250;
 WMS_AI_RoamingVHL_KillMoney		= 1500;
-WMS_AI_RoamingVHL_MaxDist		= 1200;
+WMS_AI_RoamingVHL_MaxDist		= 750;
 WMS_AI_RoamingVHL_LastTime 		= time;
 WMS_AI_RoamingVHL_Skill			= [0.15, 0.35]; //skill + selectRandom
 WMS_AI_RoamingVHL_remRPG 		= true; //(_this select 0) removeWeapon (secondaryWeapon (_this select 0));
@@ -405,6 +405,7 @@ WMS_DYNAI_HSDamageKill		= 3.5; //amount of damage to the head/face to instantly 
 WMS_DYNAI_HelmetDamage		= 1.9; //amount of damage to the head/face to remove NPC's helmet, keep in mind than a shot in the leg ca trigger head damage... thank you bohemia!
 WMS_DynAI_Skills			= [0.08, 0.15, 0.25, 0.35]; //+random 0.15
 WMS_DynAI_RepLvlAdapt		= [1000, 24000, 50000]; //0/easy/1000/moderate/24000/difficult/50000/hardcore
+WMS_DynAI_KillLvlAdapt		= [175, 300, 1500]; //0/easy/175/moderate/300/difficult/750/hardcore //will be used for military triggers
 WMS_DynAI_threatFrequency 	= 900; //will be *2 if only 1 player and *1.5 time if 2 players
 WMS_DynAI_threatCoefs 		= [2,1.5,1.2]; //[1player,2players,3players]
 WMS_DynAI_addPoptabsINF 	= false; //Exile mod
@@ -638,6 +639,7 @@ WMS_TriggVillageMax		= 35;
 WMS_trigMaxSpeed		= 100; //maximum spead to fire up the trigger, there is no point to spawn infantry group in a forest for a jet flying around
 WMS_triggCheck			= 600; //Active triggers will check their area to respawn "dynamic" stuff on players if no NPCs around
 WMS_triggCheckChance	= 50; 	//chance to send reinforcement at _target position
+WMS_triggCheckChaMil		= 75; 	//chance to send reinforcement at _target position //MILITARY triggers
 WMS_triggCheckDist		= 300;	//minimun player distance from other AI to send reinforcement
 WMS_Pos_Rdz 			= 50; 	//randomize trigger position, so the trigger is not always at the same position
 

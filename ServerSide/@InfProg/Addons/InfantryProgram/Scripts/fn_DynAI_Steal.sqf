@@ -31,7 +31,7 @@ if (time > (WMS_DynAI_Steal_last + WMS_DynAI_Steal_Cooldown)) then {
 	if (count _vhlList != 0 && (IsNull (ObjectParent (vehicle (leader _grp))))) then {
 		{
 			//if ((crew _x isEqualTo []) && (locked _x != 2) && ((_x getVariable "ExileIsLocked") != -1) && ((owner _x) != 2)) then { //WORKS BUT ONLY FOR EXILE, or add the variable to the vehicle init
-			if ((crew _x isEqualTo []) && (locked _x != 2) && ((owner _x) != 2)) then {
+			if ((crew _x isEqualTo []) && {alive _x} && {(locked _x != 2)} && {((owner _x) != 2)}) then {
 				_grp addvehicle _x;
 				leader _grp assignAsDriver _x;
 				(units _grp) orderGetIn true;

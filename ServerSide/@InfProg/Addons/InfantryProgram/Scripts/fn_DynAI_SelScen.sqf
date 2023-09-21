@@ -11,6 +11,7 @@
 */
 
 //[_target, _pos, _triggType] call WMS_fnc_DynAI_selScen;
+//[(thisList select 0), (position thisTrigger), 'trigger', 'MILITARY'] call WMS_fnc_DynAI_selScen;
 //////////////////////////////////////////////////////////////////
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_armedVhlList","_posList","_vhlFull","_Rcoef","_Vcoef","_countPlayersAround","_targetSpeed","_targetDirection","_playerRep","_bonus","_markerType","_threatScenario","_FrontSpawn","_grpSize","_grpSide","_timer","_distanceWPT","_WPType","_combatMod","_behavior","_speed","_launcherChance","_backpackChance","_altitude","_nearestRoad","_nearestRoadPos","_radius","_direction","_load","_iterations","_delay","_artyChanceHE","_BoxType","_crate","_spawnType","_dist1","_dist2","_loadout","_choppa1","_choppa2","_lockPlayer","_useMarker"];
@@ -28,6 +29,40 @@ if (isDedicated && _HC1)then{
   {if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
 };
 /////HC STUFF\\\\\
+_playerRep = _target getVariable ['ExileScore', 25000];
+_playerKill = _target getVariable ['ExileKills', 4999];
+_threatLVL = "EASY";
+
+if ((getPlayerUID _target) in WMS_BlackList) then {
+	_threatLVL = "BLACKLIST";
+	_playerRep = 100000;
+	};
+
+/////THREAT LEVEL/////
+//WMS_DynAI_RepLvlAdapt	= [1000, 24000, 50000]; //0/easy/1000/moderate/24000/difficult/50000/hardcore
+//WMS_DynAI_KillLvlAdapt = [100, 250, 750]; //0/easy/100/moderate/250/difficult/750/hardcore //will be used for military triggers
+if((_triggType == "trigger" && {_info == 'MILITARY'}) || (_triggType == "reinforcement" && {_info == 'MILITARY'}))then{
+	if (_playerKill >= 5000||_playerRep >= 100000)then {_threatLVL = "BLACKLIST"}else{
+		if (_playerKill >= (WMS_DynAI_KillLvlAdapt select 2) && {_playerKill < 5000}) then {_threatLVL = "HARDCORE"}else{
+			if (_playerKill >= (WMS_DynAI_KillLvlAdapt select 1) && {_playerKill < (WMS_DynAI_KillLvlAdapt select 2)}) then {_threatLVL = "DIFFICULT"}else{
+				if (_playerKill >= (WMS_DynAI_KillLvlAdapt select 0) && {_playerKill < (WMS_DynAI_KillLvlAdapt select 1)}) then {_threatLVL = "MODERATE"}else{
+					if (_playerKill < (WMS_DynAI_KillLvlAdapt select 0)) then {_threatLVL = "EASY"};
+				};
+			};
+		};
+	};
+}else{
+	if (_playerRep >= 100000)then {_threatLVL = "BLACKLIST"}else{
+		if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) then {_threatLVL = "HARDCORE"}else{
+			if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 2)}) then {_threatLVL = "DIFFICULT"}else{
+				if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 0) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 1)}) then {_threatLVL = "MODERATE"}else{
+					if (_playerRep < (WMS_DynAI_RepLvlAdapt select 0)) then {_threatLVL = "EASY"};
+				};
+			};
+		};
+	};
+};
+//_threatLVL = "ARMORED";
 
 _threatScenario = "nothing";
 //FROM FUNCTIONS:
@@ -80,15 +115,14 @@ _infoType = "Patrol";
 _difficulty = "easy";
 _targetSpeed = speed _target;
 _targetDirection = getDir _target;
-_playerRep = _target getVariable ['ExileScore', 25000];
 _bonus = (damage _target)*100; //player = _target
 //wanna use a Tank/APC/RCWS turret? enjoy! Welcome to the HVT world :D
 if ((typeOf (vehicle _target)) in WMS_RCWS_Vhls || vehicle _target iskindof "Tank" || vehicle _target isKindOf "Wheeled_Apc_F") then {
 	if !(vehicle _target iskindof "O_APC_Wheeled_02_rcws_v2_F" || vehicle _target iskindof "B_APC_Tracked_01_CRV_F") then { //Marid and CRV are forced UNARMED and used as logistic
+		_threatLVL = "ARMORED";
 		_playerRep = 50000;
 		};
 	};
-if ((getPlayerUID _target) in WMS_BlackList) then {_playerRep = 100000;};
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| target speed = %1, direction = %2, respect = %3, bonus = %4", _targetSpeed, _targetDirection, _playerRep, _bonus]};
 
 //find if player is in traders or not
@@ -100,7 +134,8 @@ if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| target sp
 _Rcoef = [10,5,5,20,20,5,5,0,2,5,1,0,0,0,0,0,0]; //Respect coef bambi
 _Vcoef = [10,5,5,30,30,30,10,20,20,10,10,20,0,0,0,0,0]; //Vehicle coef on foot
 if (_threatScenario != "traders") then {
-if (_playerRep < (WMS_DynAI_RepLvlAdapt select 0) ) then { 
+//if (_playerRep < (WMS_DynAI_RepLvlAdapt select 0) ) then { 
+if(_threatLVL == "EASY")then{
 		_Rcoef = [10,5,5,20,20,5,5,0,2,5,1,0,0,0,35,25];
 		_grpSize = 2+(round (random 1));
 		_timer = 120;
@@ -124,7 +159,8 @@ if (_playerRep < (WMS_DynAI_RepLvlAdapt select 0) ) then {
 		_choppa1 = selectRandom [WMS_DynAI_GunshipLight,WMS_DynAI_GunshipMedium];
 		_lockPlayer = false;
 	} else {
-if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 0) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 1)}) then {
+//if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 0) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 1)}) then {
+if(_threatLVL == "MODERATE")then{
 		_Rcoef = [5,2,4,15,20,10,5,10,10,5,5,0,0,0,15,35,0];
 		_grpSize = 3+(round (random 2));
 		_timer = 240;
@@ -151,7 +187,8 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 0) && {_playerRep < (WMS_DynAI_R
 		_WPcombatMod = "RED";
 		_difficulty = "moderate";
 	} else {
-if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 2)}) then {
+//if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_RepLvlAdapt select 2)}) then {
+if(_threatLVL == "DIFFICULT")then{
 		_Rcoef = [3,1,3,10,20,20,10,15,20,20,20,25,5,0,10,35,3];
 		_grpSize = 4+(round (random 2));
 		_timer = 360;
@@ -179,7 +216,8 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 1) && {_playerRep < (WMS_DynAI_R
 		_WPcombatMod = "RED";
 		_difficulty = "difficult";
 	} else {
-if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) then {
+//if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) then {
+if(_threatLVL == "HARDCORE" || _threatLVL == "ARMORED")then{
 		_Rcoef = [1,1,2,5,20,20,15,20,20,20,30,30,10,5,10,35,6];
 		_grpSize = 4+(round (random 3));
 		_timer = 600;
@@ -207,25 +245,26 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) the
 		_WPcombatMod = "RED";
 		_difficulty = "hardcore";
 }else{
-	if(_playerRep >= 100000)then {//thats basicaly from blacklist
+	//if(_playerRep >= 100000)then {//thats basicaly from blacklist
+	if(_threatLVL == "BLACKLIST")then{
 		_Rcoef = [
-			35,	//"rain"
+			35,	//"rain"		//0
 			1,	//"paracrate"
 			1,	//"spawncrate"
 			5,	//"escarmouche
 			15,	//"INFpatrol"
 			20,	//"building"
-			10,	//"roadblock"
+			10,	//"roadblock"	//6
 			10,	//"runner"
 			30,	//"paradrop"
-			25,	//"VHLpatrol"
-			20,	//"AIRpatrol"
+			25,	//"VHLpatrol" 	//9
+			20,	//"AIRpatrol"	//10
 			40,	//"AIRassault"
 			20,	//"arty"
-			25,	//"bombing"
+			25,	//"bombing"		//13
 			5,	//"EOD"
 			20,	//"BBQcamp"
-			10	//"ParaBombs"
+			10	//"ParaBombs"	//16
 			]; //
 		_grpSize = 5+(round (random 3));
 		_timer = 900;
@@ -254,29 +293,48 @@ if (_playerRep >= (WMS_DynAI_RepLvlAdapt select 2) && {_playerRep < 100000}) the
 		_difficulty = "hardcore";
 	};
 };};};};
-if (vehicle _target iskindof "man") then {_Vcoef = [10,5,5,30,30,30,10,20,20,10,10,20,0,0,25,30,1];
-	} else { //x3 for all numbers to try to find a balance
-		if (vehicle _target iskindof "Plane") then {_Vcoef = [0,0,0,30,60,0,0,0,0,90,240,0,0,0,45,0,0]};
-		if (vehicle _target iskindof "Tank") then { _Vcoef = [5,15,0,0,150,30,120,30,90,90,150,15,30,0,45,0,6]; _vhlFull = selectRandom WMS_OPFOR_CustomVHL_Spec;};
-		if (vehicle _target isKindOf "Wheeled_Apc_F")then{_Vcoef = [6,15,0,0,90,30,120,30,90,90,150,15,30,0,65,0,15]};
-		if (vehicle _target isKindOf "MRAP_01_base_F")then{_Vcoef = [6,30,0,0,90,30,120,30,90,90,150,15,30,0,45,15,15]};
-		if (vehicle _target isKindOf "Truck_F")then{_Vcoef = [9,15,24,60,90,60,120,60,60,120,120,90,3,0,75,75,3]};
-		if (vehicle _target isKindOf "LSV_01_armed_base_F"||vehicle _target isKindOf "LSV_02_armed_base_F")then{_Vcoef = [9,15,24,60,90,60,120,60,60,120,120,90,3,0,45,45,6]};
-		if (vehicle _target iskindof "StaticWeapon") then { _Vcoef = [30,0,15,0,60,9,0,120,90,45,30,45,90,3,30,30,15]};
-		if (vehicle _target iskindof "Ship") then { _Vcoef = [15,0,0,0,0,0,0,0,15,0,300,0,15,6,15,0,0]};
-		if (vehicle _target iskindof "Bicycle") then { _Vcoef = [30,15,15,90,60,90,30,15,30,30,30,15,6,0,30,90,0]};
-		if ((typeOf (vehicle _target)) in WMS_RCWS_Vhls) then { _Vcoef = [6,15,0,0,90,30,120,30,90,90,150,15,30,0,45,0,0]};//APC copy
-		if (vehicle _target iskindof "Helicopter") then {
-			if (vehicle _target iskindof "Steerable_Parachute_F") then { _Vcoef = [0,0,30,90,90,90,0,0,0,45,15,0,30,0,45,90,0];//for whatever reason, the parachute is classed as helicopter.		
-				} else {
-					if (vehicle _target isKindOf "Heli_Attack_01_base_F"||vehicle _target isKindOf "Heli_Attack_02_base_F")then{_Vcoef = [0,0,15,90,90,6,0,0,0,120,150,30,15,0,15,0,0];
-						}else{
-							if (vehicle _target isKindOf "Heli_Light_01_armed_base_F")then{_Vcoef = [0,0,15,90,90,6,0,0,0,120,150,30,15,0,15,0,0];
-								}else{_Vcoef = [0,0,15,90,90,6,0,0,0,120,150,30,15,0,15,45,0]};
+if (vehicle _target iskindof "man") then {
+	_Vcoef = [10,5,5,30,30,30,10,20,20,10,10,20,0,0,25,30,1];
+} else { //x3 for all numbers to try to find a balance
+	if (vehicle _target iskindof "Plane") then {_Vcoef = [0,0,0,30,60,0,0,0,0,90,240,0,0,0,45,0,0]}else{
+		if (vehicle _target iskindof "Tank") then { 
+			_Vcoef = [0,0,0,0,90,30,120,0,0,150,250,0,30,60,15,0,6]; 
+			_vhlFull = selectRandom WMS_OPFOR_CustomVHL_Spec;
+			_choppa1 = selectRandom WMS_OPFOR_CustomAIR_Spec;
+		}else{
+			if (vehicle _target isKindOf "Wheeled_Apc_F")then{_Vcoef = [0,0,0,0,90,30,120,30,90,90,175,15,30,0,65,0,15]}else{
+				if (vehicle _target isKindOf "MRAP_01_base_F")then{_Vcoef = [6,30,0,0,90,30,120,30,90,90,150,15,30,0,45,15,15]}else{
+					if (vehicle _target isKindOf "Truck_F")then{_Vcoef = [9,15,24,60,90,60,120,60,60,120,120,90,3,0,75,75,3]}else{
+						if (vehicle _target isKindOf "LSV_01_armed_base_F"||vehicle _target isKindOf "LSV_02_armed_base_F")then{_Vcoef = [9,15,24,60,90,60,120,60,60,120,120,90,3,0,45,45,6]}else{
+							if (vehicle _target iskindof "StaticWeapon") then { _Vcoef = [30,0,15,0,60,9,0,120,90,45,30,45,90,3,30,30,15]}else{
+								if (vehicle _target iskindof "Ship") then { _Vcoef = [15,0,0,0,0,0,0,0,15,0,300,0,15,6,15,0,0]}else{
+									if (vehicle _target iskindof "Bicycle") then { _Vcoef = [30,15,15,90,60,90,30,15,30,30,30,15,6,0,30,90,0]}else{
+										if ((typeOf (vehicle _target)) in WMS_RCWS_Vhls) then { _Vcoef = [0,0,0,0,90,30,120,30,90,90,175,15,30,0,65,0,15];_choppa1 = selectRandom WMS_OPFOR_CustomAIR_Spec;}else{//APC copy
+											if (vehicle _target iskindof "Helicopter") then {
+												if (vehicle _target iskindof "Steerable_Parachute_F") then { //for whatever reason, the parachute is classed as helicopter.	
+													_Vcoef = [0,0,30,90,90,90,0,0,0,45,15,0,30,0,45,90,0];	
+												} else {
+													if (vehicle _target isKindOf "Heli_Attack_01_base_F"||vehicle _target isKindOf "Heli_Attack_02_base_F")then{
+														_Vcoef = [0,0,0,0,0,0,0,0,0,150,300,30,15,0,15,0,0];
+														_choppa1 = selectRandom WMS_OPFOR_CustomAIR_Spec;
+													}else{
+														if (vehicle _target isKindOf "Heli_Light_01_armed_base_F")then{
+															_Vcoef = [0,0,15,90,90,6,0,0,0,120,250,30,15,0,15,0,0];
+														}else{_Vcoef = [0,0,5,10,10,6,0,0,0,120,200,30,15,0,15,45,0]};
+													};
+												};
+											};
+										};
+									};
+								};
+							};
 						};
+					};
 				};
+			};
 		};
 	};
+};
 
 if (_triggType == "trigger") then { //FOREST
 	_FrontSpawn = false;
@@ -403,7 +461,7 @@ if (_triggType == "DFO") then {
 //calculate probabilities and select the scenario
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS| _threatScenario = %1", _threatScenario]};
 
-private _flagList = (position _target) nearObjects [WMS_DynAI_BaseFlag, WMS_DynAI_distToFlag];
+private _flagList = (position _target) nearObjects [WMS_DynAI_BaseFlag, (WMS_DynAI_distToFlag*1.5)];
 private _dangerList = ["bombing","arty","ParaBombs","rain"];
 if (count _flaglist != 0) then {
 	if (_threatScenario in _dangerList) then {
@@ -429,7 +487,7 @@ switch (_threatScenario) do {
 	};
 	case "AIRpatrol" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
-		_distanceWPT = 600;
+		_distanceWPT = 450;
 		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
 			[_pos,_target,_timer,_skill,_grpSide,_loadout,_choppa1,_lockPlayer,_useMarker,_dist1AIR,_dist2AIR,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed,nil,_difficulty,_triggType] remoteExec ["WMS_fnc_infantryProgram_VHLpatrol",_HC1_ID];
 		}else{
@@ -441,7 +499,7 @@ switch (_threatScenario) do {
 	};
 	case "VHLpatrol" : {
 		//if (WMS_DynAI_RunningCount <= WMS_DynAI_MaxRunning) then {
-		_distanceWPT = 300;
+		_distanceWPT = 250;
 		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
 			[_pos,_target,_timer,_skill,_grpSide,_loadout,_vhlFull,_lockPlayer,_useMarker,_dist1VHL,_dist2VHL,_distanceWPT,_WPType,"AWARE",_WPcombatMod,_WPSpeed, _infoType,_difficulty,_triggType] remoteExec ["WMS_fnc_infantryProgram_VHLpatrol",_HC1_ID];
 		}else{

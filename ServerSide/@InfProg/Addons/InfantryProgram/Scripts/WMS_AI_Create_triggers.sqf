@@ -44,8 +44,8 @@ _trigLocals setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 _trigLocals setTriggerStatements ["this",
 "if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| LOCAL TRIGGER,  thisList = %1, thisTrigger = %2 *****', (thisList select 0), thisTrigger];};
 private _triggTime = round Time;
-thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime],true];
-WMS_activatedTriggs pushBack [thisTrigger, _triggTime];
+thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime, 'LOCAL'],true];
+WMS_activatedTriggs pushBack [thisTrigger, _triggTime, 'LOCAL'];
 if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_trigLocals_LastT + WMS_trigLocals_CoolD_T))} && {((random 100) < WMS_trigLocals_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_trigLocals_LastT = time;
@@ -67,8 +67,8 @@ _trigVillages setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 _trigVillages setTriggerStatements ["this",
 "if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| VILLAGE TRIGGER,  thisList = %1, thisTrigger = %2 *****', (thisList select 0), thisTrigger];};
 private _triggTime = round Time;
-thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime],true];
-WMS_activatedTriggs pushBack [thisTrigger, _triggTime];
+thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime, 'VILLAGE'],true];
+WMS_activatedTriggs pushBack [thisTrigger, _triggTime, 'VILLAGE'];
 if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_trigVillages_LastT + WMS_trigVillages_CoolD_T))} && {((random 100) < WMS_trigVillages_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_trigVillages_LastT = time;
@@ -90,8 +90,8 @@ _trigCities setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 _trigCities setTriggerStatements ["this",
 "if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| CITY TRIGGER,  thisList = %1, thisTrigger = %2 *****', (thisList select 0), thisTrigger];};
 private _triggTime = round Time;
-thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime],true];
-WMS_activatedTriggs pushBack [thisTrigger, _triggTime];
+thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime, 'CITY'],true];
+WMS_activatedTriggs pushBack [thisTrigger, _triggTime, 'CITY'];
 if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_trigCities_LastT + WMS_trigCities_CoolD_T))} && {((random 100) < WMS_trigCities_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_trigCities_LastT = time;
@@ -113,8 +113,8 @@ _trigCapitals setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 _trigCapitals setTriggerStatements ["this",
 "if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| CAPITAL TRIGGER,  thisList = %1, thisTrigger = %2 *****', (thisList select 0), thisTrigger];};
 private _triggTime = round Time;
-thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime],true];
-WMS_activatedTriggs pushBack [thisTrigger, _triggTime];
+thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime, 'CAPITAL'],true];
+WMS_activatedTriggs pushBack [thisTrigger, _triggTime, 'CAPITAL'];
 if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_trigCapitals_LastT + WMS_trigCapitals_CoolD_T))} && {((random 100) < WMS_trigCapitals_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_trigCapitals_LastT = time;
@@ -136,8 +136,8 @@ _trigHills setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 _trigHills setTriggerStatements ["this",
 "if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| HILL TRIGGER,  thisList = %1, thisTrigger = %2 *****', (thisList select 0), thisTrigger];};
 private _triggTime = round Time;
-thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime],true];
-WMS_activatedTriggs pushBack [thisTrigger, _triggTime];
+thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime, 'HILL'],true];
+WMS_activatedTriggs pushBack [thisTrigger, _triggTime, 'HILL'];
 if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_trigHills_LastT + WMS_trigHills_CoolD_T))} && {((random 100) < WMS_trigHills_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_trigHills_LastT = time;
@@ -174,12 +174,17 @@ if ((count WMS_Pos_Military) > 0) then {
 	_trigMilitary setTriggerActivation ["ANYPLAYER", "PRESENT", true];
 	_trigMilitary setTriggerStatements ["this",
 "if (WMS_IP_LOGs) then {Diag_log format ['|WAK|TNA|WMS| MILITARY TRIGGER,  thisList = %1, thisTrigger = %2 *****', (thisList select 0), thisTrigger];};
+private _triggTime = round Time;
+thisTrigger setVariable ['WMS_triggRef',[thisTrigger, _triggTime, 'MILITARY'],true];
+WMS_activatedTriggs pushBack [thisTrigger, _triggTime, 'MILITARY'];
 if (time > (WMS_trig_Glob_LastT + WMS_trig_Glob_CoolD_T) && {(time > (WMS_Military_LastT + WMS_Military_CoolD_T))} && {((random 100) < WMS_Military_Ch_T)} && {(speed (thisList select 0) < WMS_trigMaxSpeed)}) then {
 			WMS_trig_Glob_LastT = time;
 			WMS_Military_LastT = time;
 			[(thisList select 0), (position thisTrigger), 'trigger', 'MILITARY'] call WMS_fnc_DynAI_selScen;
 		};	
-	","if (WMS_IP_LOGs) then {Diag_Log '***** MILITARY TRIGGER test end *****';};"];
+	","if (WMS_IP_LOGs) then {Diag_Log '***** MILITARY TRIGGER test end *****';};
+	private _trigRef = thisTrigger getVariable 'WMS_triggRef';
+	WMS_activatedTriggs deleteAt (WMS_activatedTriggs find _trigRef);"];
 	}forEach WMS_Pos_Military;
 uisleep 1;
 };

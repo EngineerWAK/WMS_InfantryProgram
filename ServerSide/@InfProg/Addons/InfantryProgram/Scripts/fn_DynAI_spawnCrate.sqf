@@ -51,7 +51,7 @@ if (_crate != WMS_SupplyCrate) then {
 			private _Box = (_this select 0); 
 			_Box attachTo [player, [0,1.5,-0.2],'pelvis']; 
 			_Box allowDamage false; 
-			[_Box, true] remoteExec ['WMS_fnc_HideObjectGlobal'];
+			[_Box, true] remoteExec ['WMS_fnc_HideObjectGlobal',2];
 			_Name = _Box getVariable ['WMS_Name','wooden Box']; 
 			player addAction [
 				_Name, 
@@ -59,15 +59,15 @@ if (_crate != WMS_SupplyCrate) then {
 					player removeaction (_this select 2); 
 					detach (_this select 3 select 0);
 					(_this select 3 select 0) setDamage 0;
-					[(_this select 3 select 0), false] remoteExec ['WMS_fnc_HideObjectGlobal'];  
+					[(_this select 3 select 0), false] remoteExec ['WMS_fnc_HideObjectGlobal',2]; 
 					(_this select 3 select 0) hideObject false;
 				},
-				[_Box] 
+				[_Box],
 				2, 
 				true, 
 				true, 
 				'', 
-				'(vehicle player isKindOf 'man')',
+				'((vehicle player) == player)'
 			];
 		", 
 		nil, 

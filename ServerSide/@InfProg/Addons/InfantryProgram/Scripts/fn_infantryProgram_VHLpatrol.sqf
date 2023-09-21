@@ -14,8 +14,8 @@
 //[_pos, _target, _timer,_skill,_grpSide,_loadout,_VHLfull,_lockPlayer,_useMarker,_dist1,_dist2,_WPDist] spawn WMS_fnc_infantryProgram_VHLpatrol;
 //////////////////////////////////////////////////////////////////
 if (WMS_IP_LOGs) then {diag_log format ["[VHL PATROL]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_cargoCount","_VHLcount","_VHLcount0","_VHLcount1","_VHLselected","_markerName","_markerType","_randomPosTarget","_vhl","_VHLgrp","_vehic","_markerPos","_VHLMarker1",
-		"_drvSits","_comSits","_gunSits","_unitClassName","_hexaID","_WPT_1","_wpts"];
+private ["_pathern","_posEAST","_posNORD","_posWEST","_posSOUTH","_cargoCount","_VHLcount","_VHLcount0","_VHLcount1","_VHLselected","_markerName","_markerType","_randomPosTarget","_vhl","_VHLgrp","_vehic","_markerPos","_VHLMarker1",
+		"_drvSits","_comSits","_gunSits","_unitClassName","_hexaID","_WPT_1","_WPT_2","_WPT_3","_WPT_4","_wpts"];
 params[  
  "_pos",
  "_target",
@@ -65,20 +65,22 @@ _drvSits = _vehic emptyPositions "Driver";
 if (_drvSits != 0) then {
 	_unitClassName createUnit [_randomPosTarget, _VHLgrp, "this moveinDriver _vehic"];
 };
-/////
-_comSits = _vehic emptyPositions "Commander";
-_gunSits = _vehic emptyPositions "Gunner";
-if (_comSits != 0) then {
-	_unitClassName createUnit [_randomPosTarget, _VHLgrp, "this moveinCommander _vehic"];
-};
-if (_gunSits != 0) then {
-	for "_i" from 1 to _gunSits do {
-		_unitClassName createUnit [_randomPosTarget, _VHLgrp, "this moveinGunner _vehic"];
-	};	
-};
-if (WMS_IP_LOGs) then {diag_log format ["[VHL PATROL]|WAK|TNA|WMS| Vehicle: %1, Cargo: %2, Driver: %3, Commander: %4, _Gunner: %5, AllTurret: %6", _VHLselected, _cargoSits,_drvSits,_comSits,_gunSits, (count allTurrets _vehic)]};
-
-if (_loadout == "livonia" && _WPBeha == "SAFE") then {_WPBeha == "AWARE"};
+////////////////////////from "Lost enemy convoy"
+	_turArray = allTurrets [_vehic, false];
+	_turSits = count _turArray;
+	if (_turSits > 4) then {_turSits = 4};
+	_arrayRef = 0;
+	if (_turSits != 0) then {
+		for "_i" from 1 to _turSits do {
+			_unit = _VHLgrp createUnit [(selectRandom WMS_AI_Units_Class), _randomPosTarget, [], 25, "NONE"];
+			_unit assignAsTurret [_vehic, (_turArray select _arrayRef)];
+			//_GunnersUnits pushBack _unit;
+			diag_log format ["[VHL PATROL]|WAK|TNA|WMS|friendly message, this unit %1, group %2, is assigned to %3, turret %4",_unit, (group _unit), (assignedVehicle _unit),(_turArray select _arrayRef)];
+			_arrayRef = (_arrayRef+1);
+		};	
+	};
+	(units _VHLgrp) orderGetIn true;
+///////////////////////////////
 //init texture
 _VHLcount = count (_VHLfull select 1);
 if (_VHLcount != 0) then {
@@ -93,6 +95,20 @@ if (_VHLcount != 0) then {
 	if ((_VHLcount == 6) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_vehic setObjectTextureGlobal [_VHLcount0, _VHLcount1]; _vehic setObjectTextureGlobal [(_VHLfull select 1 select 2),(_VHLfull select 1 select 3)]; _vehic setObjectTextureGlobal [(_VHLfull select 1 select 4),(_VHLfull select 1 select 5)]};
 };
 //init texture end
+/////
+//_comSits = _vehic emptyPositions "Commander";
+_gunSits = _vehic emptyPositions "Gunner"; //that count ONLY 1 gunner, not all the turrets, see ""Lost enemy convoy"
+/*if (_comSits != 0) then {
+	_unitClassName createUnit [_randomPosTarget, _VHLgrp, "this moveinCommander _vehic"];
+};*/
+if (_gunSits != 0) then {
+	//for "_i" from 1 to _gunSits do {
+		_unitClassName createUnit [_randomPosTarget, _VHLgrp, "this moveinGunner _vehic"];
+	//};	
+};
+if (WMS_IP_LOGs) then {diag_log format ["[VHL PATROL]|WAK|TNA|WMS| Vehicle: %1, Cargo: %2, Driver: %3, Commander: %4, _Gunner: %5, AllTurret: %6", _VHLselected, _cargoSits,_drvSits,_comSits,_gunSits, (count allTurrets _vehic)]};
+
+if (_loadout == "livonia" && _WPBeha == "SAFE") then {_WPBeha == "AWARE"};
 if (_lockPlayer) then {
 	_vehic setvehiclelock "LOCKEDPLAYER";
 	_vehic setvehiclelock "LOCKED";
@@ -147,12 +163,45 @@ if (_VHLselected iskindof "helicopter") then {_markerType = "b_air"; _vehic limi
 	};
 };
 if (_infoType != "ROAMING") then {
-	_WPT_1 = _VHLgrp addWaypoint [_pos, 100, 0];
+	//use _WPDist to create other waypoints
+	_posNORD = [(_pos select 0), ((_pos select 1)+(_WPDist/2)+(random _WPDist)), 0]; //NORD
+	_posSOUTH = [(_pos select 0), ((_pos select 1)-(_WPDist/2)-(random _WPDist)), 0];//SOUTH
+	_posEAST = [((_pos select 0)+(_WPDist/2)+(random _WPDist)), (_pos select 1), 0];//EAST
+	_posWEST = [((_pos select 0)-(_WPDist/2)-(random _WPDist)), (_pos select 1), 0];//WEST
+	_pathern = selectRandom [
+				[_posNORD,_posSOUTH,_posEAST,_posWEST],
+				[_posSOUTH,_posNORD,_posWEST,_posEAST],
+				[_posSOUTH,_posWEST,_posNORD,_posEAST],
+				[_posEAST,_posNORD,_posWEST,_posSOUTH]
+				];
+
+	_WPT_1 = _VHLgrp addWaypoint [([[[(_pathern select 0), 50]], []] call BIS_fnc_randomPos), 100, 0];//[[[position player, 50]], []] call BIS_fnc_randomPos;
 	_WPT_1 setWaypointType _WPType;
 	_WPT_1 setwaypointSpeed _WPSpee;
 	_WPT_1 setWaypointCombatMode _WPComb;
 	_WPT_1 setWaypointbehaviour  _WPBeha;
 	_wpts pushBack _WPT_1;
+		
+	_WPT_2 = _VHLgrp addWaypoint [(_pathern select 1), 100, 1];
+	_WPT_2 setWaypointType "MOVE";
+	_WPT_2 setwaypointSpeed _WPSpee;
+	_WPT_2 setWaypointCombatMode _WPComb;
+	_WPT_2 setWaypointbehaviour  _WPBeha;
+	_wpts pushBack _WPT_2;
+	
+	_WPT_3 = _VHLgrp addWaypoint [(_pathern select 2), 100, 2];
+	_WPT_3 setWaypointType "MOVE";
+	_WPT_3 setwaypointSpeed _WPSpee;
+	_WPT_3 setWaypointCombatMode _WPComb;
+	_WPT_3 setWaypointbehaviour  _WPBeha;
+	_wpts pushBack _WPT_3;
+	
+	_WPT_4 = _VHLgrp addWaypoint [(_pathern select 3), 100, 3];
+	_WPT_4 setWaypointType "CYCLE";
+	_WPT_4 setwaypointSpeed _WPSpee;
+	_WPT_4 setWaypointCombatMode _WPComb;
+	_WPT_4 setWaypointbehaviour  _WPBeha;
+	_wpts pushBack _WPT_4;
 };
 switch (_infoType) do {
 	case "ROAMING" : {
@@ -161,19 +210,19 @@ switch (_infoType) do {
 	};
 	case "Occupation" : {
 		_vehic setVariable ["WMS_KickVehAss",999,true]; //No Kickass for occupation, not set yet in Wach&Destroy
-		[_VHLgrp,_pos, _WPDist] call BIS_fnc_taskPatrol;
+		//[_VHLgrp,_pos, _WPDist] call BIS_fnc_taskPatrol;
 	};
 	case "BaseATK" : {
 		_vehic setVariable ["WMS_KickVehAss",999,true];
-		[_VHLgrp,_pos, _WPDist] call BIS_fnc_taskPatrol;
+		//[_VHLgrp,_pos, _WPDist] call BIS_fnc_taskPatrol;
 	};
 	case "PATROL" : {
 		_vehic setVariable ["WMS_KickVehAss",0,true]; //for the unstick fonction
-		[_VHLgrp,_pos, _WPDist] call BIS_fnc_taskPatrol;
+		//[_VHLgrp,_pos, _WPDist] call BIS_fnc_taskPatrol;
 	};
 };
 if (_grpSide == OPFOR ) then {
-	if ((_cargoSits > 0) && WMS_AI_AddCargoUnits && {(OPFOR countSide allUnits) < WMS_AI_MaxUnits_A} && {!(_VHLselected iskindof "helicopter")} && {!(_VHLselected iskindof "plane")}) then {
+	if ((_cargoSits > 0) && WMS_AI_AddCargoUnits && {_turSits <= 3} && {(OPFOR countSide allUnits) < WMS_AI_MaxUnits_A} && {!(_VHLselected iskindof "helicopter")} && {!(_VHLselected iskindof "plane")}) then {
 		if (_cargoSits >= WMS_AI_CargoUnits) then {
 			for "_i" from 1 to WMS_AI_CargoUnits do {
 				_unitClassName createUnit [_randomPosTarget, _VHLgrp, "this moveincargo _vehic"];

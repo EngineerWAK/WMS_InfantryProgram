@@ -300,6 +300,7 @@ WMS_Loadout_Livonia = [
 	["U_O_R_Gorka_01_brown_F","U_O_R_Gorka_01_camo_F","U_O_R_Gorka_01_F"], //_uniforms
 	[ //_vests
 		"rhs_6b45_rifleman","rhs_6b45_rifleman_2","rhs_6b45_grn","rhs_6b45_mg",
+		"V_CarrierRigKBT_01_light_EAF_F","V_CarrierRigKBT_01_heavy_Olive_F","V_CarrierRigKBT_01_heavy_EAF_F","V_CarrierRigKBT_01_Olive_F","V_CarrierRigKBT_01_EAF_F","V_CarrierRigKBT_01_light_EAF_F","V_CarrierRigKBT_01_heavy_Olive_F","V_CarrierRigKBT_01_heavy_EAF_F","V_CarrierRigKBT_01_Olive_F","V_CarrierRigKBT_01_EAF_F",
 		"vn_b_vest_anzac_01","vn_b_vest_anzac_06","vn_b_vest_anzac_03","vn_b_vest_anzac_05","vn_b_vest_anzac_04","vn_b_vest_usmc_03","vn_b_vest_usmc_01","vn_b_vest_usmc_04","vn_b_vest_usarmy_14","vn_b_vest_seal_02",
 		"rhs_6b3_holster","rhs_6b3_R148","rhs_6b3_AK","rhs_6b3_AK_2","rhs_6b3_AK_3","rhs_6b3_RPK","rhs_6b3_VOG","rhs_6b3_VOG_2","rhs_6b45_mg","rhs_6b45_off","rhs_6b45_rifleman","rhs_6b45_rifleman_2","rhs_6b45_grn","rhs_6b45_light"
 	],
@@ -318,21 +319,32 @@ WMS_Loadout_Livonia = [
 ];
 WMS_Weaps_LivoniaMix = [
 	[ //_mainWeaps,
-		"vn_m1897", //shotgun
+		//"vn_m1897", //shotgun
 		"vn_m16_camo",
 		"vn_m16_xm148",
 		"vn_xm177e1_camo",
 		"vn_xm177_camo",
+		"srifle_LRR_tna_F",
+		"srifle_LRR_F",
+		"srifle_LRR_camo_F",
 		"vn_xm177_m203_camo",
 		"vn_l1a1_xm148_camo",
 		"vn_l1a1_03_camo",
 		"vn_l1a1_01_camo",
+		"srifle_DMR_03_khaki_F",
+		"srifle_DMR_03_woodland_F",
+		"srifle_DMR_04_Tan_F", //ASP-1 kir
 		"vn_m14_camo",
-		"vn_k98k",
+		//"vn_k98k",
 		"vn_m40a1_camo", //only here, do not spawn in the editor
-		"vn_m1903",
+		//"vn_m1903",
 		"vn_m63a_cdo",
 		"vn_rpd_shorty",
+		"srifle_DMR_07_ghex_F", //QBU
+		"vn_mg42",
+		"vn_m60",
+		"arifle_MXM_khk_F",
+		"vn_m60",
 		"vn_m60",
 		"arifle_ARX_ghex_F",
 		"rhs_weap_hk416d145_wd",
@@ -341,12 +353,14 @@ WMS_Weaps_LivoniaMix = [
 		"rhs_weap_XM2010_sa",
 		"rhs_weap_m40a5_wd",
 		"rhs_weap_m24sws_wd",
+		"arifle_MXM_khk_F",
 		"arifle_RPK12_arid_F",
 		"arifle_AK12U_arid_F",
 		"arifle_MSBS65_Mark_camo_F",
 		"arifle_MSBS65_camo_F",
+		"arifle_MXM_khk_F",
 		"arifle_MSBS65_GL_camo_F",
-		"SMG_03_khaki",
+		//"SMG_03_khaki",
 		"LMG_Mk200_black_F",
 		"rhs_weap_sr25_ec_wd"
 	],
@@ -355,6 +369,8 @@ WMS_Weaps_LivoniaMix = [
 		"optic_Holosight_arid_F",
 	 	"optic_Arco_arid_F",
 	 	"optic_Arco_AK_arid_F",
+	 	"optic_DMS_weathered_Kir_F",
+	 	"optic_DMS_weathered_Kir_F",
 	 	"optic_DMS_weathered_Kir_F"
 	],
 	["vn_izh54_p","vn_m10","vn_m1911","vn_vz61_p","vn_hp","vn_type64_smg","vn_m1895","vn_ppk","vn_fkb1_pm","vn_p38"] //_pistols

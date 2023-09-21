@@ -35,7 +35,7 @@ if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Start cleanM
 /////////////////
 	if !(_objects in ["occupation","Factory","cbtpatrol","bastogne","forestcamp"]) then {
 		_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
-		_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,(_radius*1.5)];
+		_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,(_radius*1.1)];
 		{hideObjectGlobal _x} foreach _terrainobjects;
 	};
 //SPAWN LAG DEBUG

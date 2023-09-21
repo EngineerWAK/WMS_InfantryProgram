@@ -104,7 +104,7 @@ _poptabs = 50;
 		case "hardcore" 	: {_poptabs = round _poptabs*2.5};
 		case "static" 		: {_poptabs = round _poptabs*0.5}; //no static yet
 	};
-	if(WMS_ForceDiverOverWater && {surfaceIsWater (position _unit)})then{
+	if(WMS_ForceDiverOverWater && {surfaceIsWater (position _unit)} && {(ATLToASL (position _unit) select 2 < -2)})then{
 		_unit forceaddUniform selectrandom (WMS_Loadout_Diver select 0); 
 		_unit addVest selectrandom (WMS_Loadout_Diver select 1);
 		_unit addHeadGear selectrandom (WMS_Loadout_Diver select 2);
@@ -262,7 +262,7 @@ _poptabs = 50;
 			};
 		};
 		_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
-		if (_mainWeap in WMS_AMS_sniperList) then {
+		if (_mainWeap in WMS_AMS_sniperList && {_loadoutTrack != "livonia"}) then {
 			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
 			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
 			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
@@ -308,7 +308,27 @@ _poptabs = 50;
 		_unit setSkill ["aimingShake", 	(_sniper select 3)];
 		_unit setVariable ["WMS_skills",[(_sniper select 0),(_sniper select 1),(_sniper select 2),(_sniper select 3),(_skills select 4),(_skills select 5),(_skills select 5),(_skills select 6),(_skills select 8)],true]; //will be used for AI killfeed on player EH killed
 		//_unit setName selectRandom ["John McClane","John Rambo","Lucky Luke","Vasily Zaitsev","John Wick"];
-		_unit setName selectRandom [["Master Sergeant Gunnery Beckett","Master Sergeant Gunnery","Beckett"],["Bob Lee Swagger","Bob Lee","Swagger"],["Jack Reacher","Jack","Reacher"],["John McClane","John","McClane"],["John Rambo","John","Rambo"],["Lucky Luke","Lucky","Luke"],["Vasily Zaitsev","Vasily","Zaitsev"],["John Wick","John","Wick"]];
+		_unit setName selectRandom [ //"Master Sergeant Gunnery Beckett" is toooooo long for display
+			["Stephen Paddock","Stephen","Paddock"],
+			["Charles Whitman","Charles","Whitman"],
+			["Frank Carter","Frank","Carter"],
+			["Fedir Dyachenko","Fedir","Dyachenko"],
+			["Travis Bickle","Travis","Bickle"],
+			["Casey Ryback","Casey","Ryback"],
+			["John Matrix","John","Matrix"],
+			["Harry Callahan","Harry","Callahan"],
+			["Marion Cobretti","Marion","Cobretti"],
+			["Snake Plissken","Snake","Plissken"],
+			["Lee Harvey Osvald","Lee Harvey","Osvald"],
+			["MGySgt Beckett","MGySgt","Beckett"],
+			["Bob Lee Swagger","Bob Lee","Swagger"],
+			["Jack Reacher","Jack","Reacher"],
+			["John McClane","John","McClane"],
+			["John Rambo","John","Rambo"],
+			["Lucky Luke","Lucky","Luke"],
+			["Vasily Zaitsev","Vasily","Zaitsev"],
+			["John Wick","John","Wick"]
+			];
 		if (WMS_IP_LOGs) then {diag_log format ["[AMS/DynAI AI SETUP]|WAK|TNA|WMS|We Got A Sniper Here! %1, %2", (name _unit), (primaryWeapon _unit)]};
 	} else {
 		_unit setSkill ["spotDistance", (_skills select 0)];
@@ -356,9 +376,10 @@ _poptabs = 50;
 			_unit setVariable ["ExileMoney",(floor _poptabs),true];
 		};
 		//////////EVENTHANDLER(s)//////////AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//
-		_unit addMPEventHandler ["MPKilled", "
-			if(isDedicated)then{[(_this select 0),(_this select 1),(_this select 2),(_unit getVariable ['WMS_unitFunction','Assault']),(_unit getVariable ['WMS_difficulty','moderate'])] call WMS_fnc_AMS_EHonKilled;};	
-		"];//params ["_killed", "_killer", "_instigator", "_useEffects"];
+		_unit addMPEventHandler ["MPKilled", {
+			if(isDedicated)then{[(_this select 0),(_this select 1),(_this select 2),((_this select 0) getVariable ['WMS_unitFunction','Assault']),((_this select 0) getVariable ['WMS_difficulty','moderate'])] call WMS_fnc_AMS_EHonKilled;};
+			(_this select 0) removeMPEventHandler ["MPKilled", 0];	
+		}];//params ["_killed", "_killer", "_instigator", "_useEffects"];
 		/////
 		_unit addEventHandler ["Hit", {
 			params ["_unit", "_source", "_damage", "_instigator"];
@@ -392,10 +413,12 @@ _poptabs = 50;
 			};
 			//////////EVENTHANDLER(s)//////////DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//DYNAI//
 			if (_RealFuckingSide == OPFOR || _RealFuckingSide == EAST) then { //yes it's the same but you never know
-				_unit addMPEventHandler ["MPKilled", " 
-					params ['_unit', '_killer', '_instigator', '_useEffects'];
-					if (isDedicated) then {[_unit,_killer,_instigator] call WMS_fnc_DynAI_RwdMsgOnKill;};
-				"];
+				_unit addMPEventHandler ["MPKilled",{  
+					//params ['_unit', '_killer', '_instigator', '_useEffects'];
+					if (isDedicated) then {[(_this select 0), (_this select 1), (_this select 2)] call WMS_fnc_DynAI_RwdMsgOnKill;};
+					(_this select 0) removeMPEventHandler ["MPKilled", 0];
+					}
+				];
 				/////
 				_unit addEventHandler ["Hit", {
 					params ["_unit", "_source", "_damage", "_instigator"];
@@ -435,6 +458,7 @@ _poptabs = 50;
 					params ['_unit', '_killer', '_instigator', '_useEffects'];
 					if(isPlayer _instigator)then{_killer = _instigator};
 					if (isServer)then{[_killer] call WMS_fnc_AL_PunishPunks;};
+					_unit removeMPEventHandler ["MPKilled", 0];
 				}];
 			};
 		} else{
@@ -452,9 +476,10 @@ _poptabs = 50;
 						_unit setVariable ["ExileMoney",_poptabs,true];
 					};
 					//////////EVENTHANDLER(s)/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY
-					_unit addMPEventHandler ["MPKilled", " 
+					_unit addMPEventHandler ["MPKilled",{  
 						if(isDedicated)then{[(_this select 0),(_this select 1)] call WMS_fnc_DynAI_RwdMsgOnKill;};
-					"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
+						(_this select 0) removeMPEventHandler ["MPKilled", 0];
+					}];//params ["_unit", "_killer", "_instigator", "_useEffects"];
 					/////
 					_unit addEventHandler ["HandleDamage", { //THIS NEED TO BE LIGHTER AND CALL AN EH FUNCTION
 						//params ["_unit", "_selection", "_damage", "_source", "_projectile", "_hitIndex", "_instigator", "_hitPoint"];

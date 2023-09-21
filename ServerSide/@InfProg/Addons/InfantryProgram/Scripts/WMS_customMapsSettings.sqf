@@ -129,9 +129,7 @@ if (worldName == "Cam_Lao_Nam") then {
 										WMS_AL_VHLmax				= 10; //Max vehicles (all included) running at the same time
 										WMS_AL_UnitMax				= 0; //Max units (groups if _CombatBehav true) patroling at the same time
 										WMS_AL_VhlBalance			= [2,2,0,2,2,2,2,2]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
-										WMS_AI_Units_Class 			= [
-																	//"vn_c_men_13","vn_c_men_01","vn_c_men_05","vn_c_men_09",//thats a lot of mess
-																	//"vn_i_men_rla_01","vn_i_men_rla_02",
+										WMS_AI_Units_Class 			= [ //KEEP OPFOR UNITS ONLY!!!
 																	"vn_o_men_nva_dc_01","vn_o_men_nva_dc_13","vn_o_men_nva_dc_08",
 																	"vn_o_men_nva_marine_03","vn_o_men_nva_marine_10","vn_o_men_nva_marine_04"];
 										WMS_AMS_UnitClass 			= WMS_AI_Units_Class;
@@ -163,12 +161,12 @@ if (worldName == "Cam_Lao_Nam") then {
 																		"vn_b_wheeled_m54_ammo_airport","vn_o_wheeled_z157_fuel_kr","vn_o_wheeled_z157_repair_kr","vn_o_wheeled_z157_02_kr","vn_o_armor_btr50pk_01_nva65","vn_o_armor_btr50pk_03_nva65",
 																		"vn_o_armor_m577_02","vn_o_armor_m577_01","vn_o_wheeled_z157_03_nva65","vn_o_wheeled_z157_01_nva65","vn_o_wheeled_z157_ammo_nvam","rhs_gaz66_ammo_vv",
 																		"rhs_gaz66_r142_vv","rhs_gaz66_ap2_vv","rhs_kamaz5350_ammo_vv","RHS_Ural_Repair_VV_01","rhs_zil131_flatbed_cover_vv",
-																		"rhs_9k79_K","O_Radar_System_02_F","O_SAM_System_04_F","vn_sa2","vn_o_static_rsna75"
+																		"rhs_9k79_K","O_Radar_System_02_F","O_SAM_System_04_F","vn_sa2","vn_o_static_rsna75","O_SAM_System_04_F","vn_sa2","O_SAM_System_04_F","vn_sa2","O_SAM_System_04_F","vn_sa2","O_SAM_System_04_F","vn_sa2","O_SAM_System_04_F","vn_sa2"
 																	],[
-																		"vn_o_armor_m113_acav_06_kr","vn_o_wheeled_btr40_mg_06_pl","vn_o_wheeled_btr40_mg_03_pl","vn_o_wheeled_z157_mg_02_pl","vn_o_armor_btr50pk_02_nva65","vn_o_armor_m125_01",
-																		"vn_o_armor_pt76b_01_nva65","vn_o_armor_t54b_01_nva65","vn_o_armor_type63_01_nva65","vn_o_armor_m41_01","rhsgref_tla_btr60","rhsgref_tla_offroad_armed",
+																		"RHS_M6_wd","rhs_zsu234_aa","vn_b_wheeled_m54_mg_02","vn_o_wheeled_btr40_mg_03_pl","vn_o_armor_m113_acav_06_kr","vn_o_wheeled_btr40_mg_06_pl","vn_o_wheeled_btr40_mg_03_pl","vn_o_wheeled_z157_mg_02_pl","vn_o_armor_btr50pk_02_nva65","vn_o_armor_m125_01",
+																		"RHS_M6_wd","rhs_zsu234_aa","vn_b_wheeled_m54_mg_02","vn_o_wheeled_btr40_mg_03_pl","vn_o_armor_pt76b_01_nva65","vn_o_armor_t54b_01_nva65","vn_o_armor_type63_01_nva65","vn_o_armor_m41_01","rhsgref_tla_btr60","rhsgref_tla_offroad_armed",
 																		"rhs_btr80a_vv","rhs_tigr_sts_3camo_vv","rhs_bmp2k_vv","rhs_bmp1d_vv","rhs_zsu234_aa","rhs_2s1_at_tv",
-																		"rhs_2s3_at_tv","rhs_t72ba_tv","rhs_t80","rhs_bmp3_msv","rhsgref_BRDM2_msv"		
+																		"RHS_M6_wd","rhs_2s3_at_tv","rhs_t72ba_tv","rhs_t80","rhs_bmp3_msv","rhsgref_BRDM2_msv"		
 																	],[
 																		"vn_o_boat_08_01_kr","vn_o_boat_08_02_kr","rhsgref_hidf_rhib","vn_b_boat_06_01","B_Boat_Armed_01_minigun_F","B_SDV_01_F","rhsusf_mkvsoc","vn_o_boat_04_01"		
 																	],[
@@ -203,7 +201,7 @@ if (worldName == "Cam_Lao_Nam") then {
 																	["Market",2], //small truck reward
 																	["GrandPaJoe",2],
 																	["LumberYard",3], //"forest" positions
-																	["Factory",3], //"factory" positions
+																	["Factory",4], //"factory" positions
 																	["FieldHospital",2],
 																	["Object172M",1], //Armored Reward and NPCs
 																	["uncleabrams",1], //Armored Reward and NPCs
@@ -214,8 +212,8 @@ if (worldName == "Cam_Lao_Nam") then {
 																	["strelnikovtrain",2],
 																	["bastogne",3], //"forest" positions
 																	["blackhawk",2],
-																	//STATICS
-																	["VC Arty",5],
+																	//STATICS MISSIONS, MUST HAVE POSITIONS!!!
+																	["VC Arty",10],
 																	["VC Patrol",5],
 																	//OUTPOSTS
 																	["OutpostAlpha",1],
@@ -307,6 +305,17 @@ if (worldName == "lingor3") then {
 										WMS_trig_Glob_CoolD 		= 240;
 										WMS_Forests_CoolD			= 300;
 										WMS_Military_CoolD			= 240;
+										WMS_CaptureZone_Vhl			= [ //[air],[gnd]
+																		["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],
+																		["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_t72bb_tv","rhs_t72bd_tv","rhs_t80bvk","rhs_t90am_tv","rhs_bmd1r","rhs_bmd2","rhs_bmd4m_vdv","rhs_bmp1k_vdv","rhs_bmp2_vdv"]
+																	];
+										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
+																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																	];
 };
 if (worldName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global Mobilization assets
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_CHAM_gm.sqf";
@@ -368,6 +377,17 @@ if (worldName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global M
 										WMS_Military_CoolD			= 240;
 										//Let's make it more challenging on Ruha //FastCombat	
 										WMS_FastCombat 				= true;
+										WMS_CaptureZone_Vhl			= [ //[air],[gnd]
+																		["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],
+																		["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_t72bb_tv","rhs_t72bd_tv","rhs_t80bvk","rhs_t90am_tv","rhs_bmd1r","rhs_bmd2","rhs_bmd4m_vdv","rhs_bmp1k_vdv","rhs_bmp2_vdv"]
+																	];
+										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
+																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																	];
 										};
 if (worldName == "ruha") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
@@ -428,6 +448,17 @@ if (worldName == "ruha") then {
 										WMS_Military_CoolD			= 240;
 										//Let's make it more challenging on Ruha //FastCombat	
 										WMS_FastCombat 				= true;
+										WMS_CaptureZone_Vhl			= [ //[air],[gnd]
+																		["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],
+																		["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_t72bb_tv","rhs_t72bd_tv","rhs_t80bvk","rhs_t90am_tv","rhs_bmd1r","rhs_bmd2","rhs_bmd4m_vdv","rhs_bmp1k_vdv","rhs_bmp2_vdv"]
+																	];
+										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
+																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																	];
 										};
 if (worldName == "Lythium") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
@@ -499,6 +530,17 @@ if (worldName == "Lythium") then {
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										//ARMORED SERVER
 										AMS_ArmoredServer = false;
+										WMS_CaptureZone_Vhl			= [ //[air],[gnd]
+																		["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],
+																		["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_t72bb_tv","rhs_t72bd_tv","rhs_t80bvk","rhs_t90am_tv","rhs_bmd1r","rhs_bmd2","rhs_bmd4m_vdv","rhs_bmp1k_vdv","rhs_bmp2_vdv"]
+																	];
+										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
+																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																	];
 										};
 if (worldName == "gm_weferlingen_summer") then {
 										if (true) then {diag_log format ["[MISSION MAP]|WAK|TNA|WMS| Detetected map for AI setup is: %1", worldname]};
@@ -548,6 +590,17 @@ if (worldName == "gm_weferlingen_summer") then {
 										WMS_DynAI_GunshipHeavy 		= ["rhs_uh1h_hidf_gunship",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]];
 										
 										WMS_AL_VhlBalance			= [1,1,0,1,1,0,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
+										WMS_CaptureZone_Vhl			= [ //[air],[gnd]
+																		["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],
+																		["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_t72bb_tv","rhs_t72bd_tv","rhs_t80bvk","rhs_t90am_tv","rhs_bmd1r","rhs_bmd2","rhs_bmd4m_vdv","rhs_bmp1k_vdv","rhs_bmp2_vdv"]
+																	];
+										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
+																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																	];
 };
 if (worldName == "Altis") then {	
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS.sqf";
@@ -623,6 +676,17 @@ if (worldName == "Altis") then {
 																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										};
+										WMS_CaptureZone_Vhl			= [ //[air],[gnd]
+																		["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],
+																		["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_t72bb_tv","rhs_t72bd_tv","rhs_t80bvk","rhs_t90am_tv","rhs_bmd1r","rhs_bmd2","rhs_bmd4m_vdv","rhs_bmp1k_vdv","rhs_bmp2_vdv"]
+																	];
+										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
+																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																	];
 if (worldName == "Tanoa") then {		
 										WMS_OffloadToHC1			= true; //WORKINPROGRESS!!!!!
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
@@ -735,6 +799,17 @@ if (worldName == "Tanoa") then {
 																	["rhs_vdv_combatcrew","rhs_vdv_mflora_at","rhs_vdv_mflora_aa","rhs_vdv_medic","rhs_mvd_izlom_arifleman_rpk","rhs_mvd_izlom_machinegunner","rhs_vdv_efreitor","rhs_vdv_rifleman","rhs_vdv_grenadier"], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
 																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
+										WMS_CaptureZone_Vhl			= [ //[air],[gnd]
+																		["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],
+																		["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_t72bb_tv","rhs_t72bd_tv","rhs_t80bvk","rhs_t90am_tv","rhs_bmd1r","rhs_bmd2","rhs_bmd4m_vdv","rhs_bmp1k_vdv","rhs_bmp2_vdv"]
+																	];
+										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
+																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																	];
 										};
 if (worldName == "Enoch") then {		//Livonia
 										//execVM "\InfantryProgram\Scripts\WMS_List_Loadout_FullMod.sqf";
@@ -825,6 +900,17 @@ if (worldName == "Enoch") then {		//Livonia
 																	["rhs_vdv_combatcrew","rhs_vdv_mflora_at","rhs_vdv_mflora_aa","rhs_vdv_medic","rhs_mvd_izlom_arifleman_rpk","rhs_mvd_izlom_machinegunner","rhs_vdv_efreitor","rhs_vdv_rifleman","rhs_vdv_grenadier"], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
 																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
+										WMS_CaptureZone_Vhl			= [ //[air],[gnd]
+																		["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],
+																		["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_t72bb_tv","rhs_t72bd_tv","rhs_t80bvk","rhs_t90am_tv","rhs_bmd1r","rhs_bmd2","rhs_bmd4m_vdv","rhs_bmp1k_vdv","rhs_bmp2_vdv"]
+																	];
+										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
+																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																	];
 										};
 if (worldName == "vt7") then {//Virolahti
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
@@ -916,6 +1002,17 @@ if (worldName == "vt7") then {//Virolahti
 																	["rhs_vdv_combatcrew","rhs_vdv_mflora_at","rhs_vdv_mflora_aa","rhs_vdv_medic","rhs_mvd_izlom_arifleman_rpk","rhs_mvd_izlom_machinegunner","rhs_vdv_efreitor","rhs_vdv_rifleman","rhs_vdv_grenadier"], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
 																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
 																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
+										WMS_CaptureZone_Vhl			= [ //[air],[gnd]
+																		["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],
+																		["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_t72bb_tv","rhs_t72bd_tv","rhs_t80bvk","rhs_t90am_tv","rhs_bmd1r","rhs_bmd2","rhs_bmd4m_vdv","rhs_bmp1k_vdv","rhs_bmp2_vdv"]
+																	];
+										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
+																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																	];
 										};
 
 if (worldName == "Malden") then {	//VERY OUTDATED

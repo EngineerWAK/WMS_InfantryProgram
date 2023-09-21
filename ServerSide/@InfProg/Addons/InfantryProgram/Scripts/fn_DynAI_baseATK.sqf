@@ -37,14 +37,15 @@ _waterWorld = surfaceIsWater (position _flag);
 _ships = ["O_Boat_Transport_01_F","O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F"];
 _shipsButForLand = ["O_LSV_02_armed_viper_F","O_T_APC_Wheeled_02_rcws_v2_ghex_F","O_T_APC_Tracked_02_cannon_ghex_F"]; //if the boat try to spawn on land, it will be replaced. Yes, it's quite hardcore
 _vehic = objNull;
+_The1M 		= _flag getVariable ["TheOneMillionDollarsBase",false];
 _Towner 	= _flag getvariable ["exileowneruid",0];
 _Tname 		= _flag getvariable ["exileterritoryname","hell"];
 _Trights 	= _flag getvariable ["exileterritorybuildrights",[0]];
-_Tlevel 	= _flag getvariable ["exileterritorylevel",1];
-_Ttravelers = _flag getVariable ["WMS_BaseFriends", ["1"]]; //fasttravelers UID added to the territory
+_Tlevel 	= _flag getvariable ["exileterritorylevel",6];
+_Ttravelers = _flag getVariable ["WMS_BaseFriends", ["1","1","1","1","1"]]; //fasttravelers UID added to the territory
 _Tlevel 	= (_Tlevel+(count _Ttravelers)-1);
 _unitsClass = selectRandom WMS_AI_Units_Class;
-
+if (_The1M) then {_Tlevel = 11};
 _blacklist = [_pos,750,200,150,100]call WMS_fnc_AMS_SpnAiBlkListFull;
 
 switch (_Tlevel) do { //Base lvl1 = 0.15 to 0.3, lvl2 & lvl3 = 0.15 to 0.35, , lvl4 & lvl5 = 0.2 to 0.4, lvl6 & lvl7 = 0.25 to 0.5, lvl8 & lvl9 = 0.3 to 0.55, lvl10 0.35 to 0.6
@@ -57,7 +58,8 @@ switch (_Tlevel) do { //Base lvl1 = 0.15 to 0.3, lvl2 & lvl3 = 0.15 to 0.35, , l
 	case 7 : {_timer = 2100;_AIcount = 5;_AIgrps = 3;_RPGChance = 20;_skill = (0.25+random 0.25);_difficulty = "hardcore";_unitFunction = "random";_loadout = selectRandom ["army"];_ships = ["O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F"];}; //15
 	case 8 : {_timer = 2600;_AIcount = 6;_AIgrps = 3;_RPGChance = 25;_skill = (0.3+random 0.25);_difficulty = "hardcore";_loadout = selectRandom ["army","livonia"];_ships = ["O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F"];}; //12
 	case 9 : {_timer = 3100;_AIcount = 6;_AIgrps = 3;_RPGChance = 25;_skill = (0.3+random 0.25);_difficulty = "hardcore";_loadout = selectRandom ["army","livonia","livonia"];_ships = ["O_Boat_Armed_01_hmg_F","O_Boat_Armed_01_hmg_F","O_G_Boat_Transport_02_F"];}; //18
-	case 10 : {_timer = 3600;_AIcount = 5;_AIgrps = 4;_RPGChance = 30;_skill = (0.35+random 0.25);_difficulty = "hardcore";_unitFunction = "livoniapatrol";_loadout = selectRandom ["livonia"];_ships = ["O_Boat_Armed_01_hmg_F"];}; //20
+	case 10 : {_timer = 3600;_AIcount = 5;_AIgrps = 4;_RPGChance = 30;_skill = (0.4+random 0.2);_difficulty = "hardcore";_unitFunction = "livoniapatrol";_loadout = selectRandom ["livonia"];_ships = ["O_Boat_Armed_01_hmg_F"];}; //20
+	case 11 : {_timer = 3600;_AIcount = 5;_AIgrps = 5;_RPGChance = 30;_skill = (0.5+random 0.2);_difficulty = "hardcore";_unitFunction = "livoniapatrol";_loadout = selectRandom ["livonia"];_ships = ["O_Boat_Armed_01_hmg_F"];}; //25
     default {_timer = 3600;_AIcount = 5;_AIgrps = 4;_RPGChance = 30;_skill = (0.35+random 0.25);_unitFunction = "livoniapatrol";_loadout = selectRandom ["livonia"];};
 };
 

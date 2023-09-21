@@ -47,10 +47,11 @@ private ["_AAlist","_MkrBorder","_Mkr","_mkrPos","_vehic","_gunSits","_GunnersGr
 
 if (count WMS_TargetConvoyPos == 0) exitWith {diag_log "friendly error message no position in the list"};
 _posFailed = true;
-	_TargetConvoyPos = [];
-	_posDir = selectRandom WMS_TargetConvoyPos;
-	//need a player check here
-	_playersClose = allPlayers select {(_posDir select 0) distance _x < 500};
+_TargetConvoyPos = [];
+_posDir = selectRandom WMS_TargetConvoyPos;
+WMS_TargetConvoyNoti = true;
+//need a player check here
+_playersClose = allPlayers select {(_posDir select 0) distance _x < 750};
 if (count _playersClose == 0)then{
 	_posFailed = false;
 }else{
@@ -72,6 +73,7 @@ _AAlist = [
 	"vn_sa2",
 	"vn_o_static_rsna75"
 ];
+_typ = "SENTRY"; _beh = "COMBAT"; 	_cbt = "YELLOW";	_spd = "NORMAL"; 	_fmn = "STAG COLUMN";
 WMS_TargetConvoyPos deleteAt (WMS_TargetConvoyPos find _posDir);
 _pos = _posDir select 0;
 _dir = _posDir select 1;
@@ -98,11 +100,22 @@ if (surFaceIsWater _pos)then{
 _GunnersUnits = [];
 _vhl1Obj = objNull;
 if(_vhl1 in _AAlist)then{
-	_GunnersGrp = createGroup [OPFOR, true];
-	_AAFull = [_pos, _dir, _vhl1, _GunnersGrp] call bis_fnc_spawnvehicle;
+	_GunnersGrpAA = createGroup [OPFOR, true];
+	_AAFull = [_pos, _dir, _vhl1, _GunnersGrpAA] call bis_fnc_spawnvehicle;
 	_vhl1Obj = (_AAFull select 0); 
 	//_grpAA = (_AAFull select 2);
-	{_GunnersUnits pushBack _x;}forEach units (_AAFull select 2);
+	{
+		_GunnersUnits pushBack _x;
+	}forEach units _GunnersGrpAA;
+	_vhl1Obj setvehiclelock "LOCKEDPLAYER";
+
+		_WPT_1 = _GunnersGrpAA addWaypoint [(position (leader _GunnersGrpAA)), 15];
+		_WPT_1 setWaypointType _typ;
+		_WPT_1 setwaypointSpeed _spd;
+		_WPT_1 setWaypointCombatMode "RED";
+		_WPT_1 setWaypointbehaviour  _beh;
+		//[_GunnersGrp] call CBA_fnc_taskDefend; //NO!
+
 }else{
 	_vhl1Obj = _vhl1 createVehicle [0,0,800];
 	_vhl1Obj allowDamage false;
@@ -161,17 +174,17 @@ _DriversGrp setVariable ["lambs_danger_disableGroupAI", true];
 			_unit = _GunnersGrp createUnit [(selectRandom WMS_AI_Units_Class), _pos, [], 25, "NONE"];
 			_unit assignAsTurret [_x, (_turArray select _arrayRef)];
 			_GunnersUnits pushBack _unit;
+			diag_log format ["friendly message, this unit %1, group %2, is assigned to %3, turret %4",_unit, (group _unit), (assignedVehicle _unit),(_turArray select _arrayRef)];
 			_arrayRef = (_arrayRef+1);
-			diag_log format ["friendly message, this unit %1, group %2, is assigned to %3",_unit, (group _unit), (assignedVehicle _unit)];
 		};	
 	};
+	_x setUnloadInCombat [false, false];
 	//(units _GunnersGrp) orderGetIn true;
 }forEach [_vhl1Obj,_vhl2Obj,_vhl3Obj];
 
-if !(_vhl1 in _AAlist)then{
+//if !(_vhl1 in _AAlist)then{ //NOPE!
 	_GunnersUnits orderGetIn true;
-};
-
+//};
 //Infantry loadouts//skills//EH, probably no message to display but kill count, no punishment, obviously
 //lets keep the original loadouts, just remove the primary weapon and items
 {
@@ -183,8 +196,8 @@ if !(_vhl1 in _AAlist)then{
 	_x setSkill ["spotTime", 		1];
 	_x setSkill ["aimingAccuracy", 	0.2];
 	_x setSkill ["aimingShake", 	0.5];
-	_x setSkill ["aimingSpeed", 	0.2];
-	_x setSkill ["reloadSpeed", 	0.9];
+	_x setSkill ["aimingSpeed", 	0.3];
+	_x setSkill ["reloadSpeed", 	0.75];
 	_x setSkill ["courage", 		0.1];
 	_x setSkill ["commanding", 		0.1];
 	_x setSkill ["general", 		0.7];
@@ -198,6 +211,7 @@ if !(_vhl1 in _AAlist)then{
 			[_this select 0,_this select 1,_this select 2] call WMS_fnc_EHonKilled_Basic;
 		};
 	"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
+
 }forEach _GunnersUnits;
 {
 	removeAllItems _x;
@@ -205,7 +219,7 @@ if !(_vhl1 in _AAlist)then{
 	if !(surfaceIsWater _pos) then {
 		removeBackpack _x;
 		_x addBackpackGlobal "B_Carryall_cbr";
-		[_x, selectrandom (WMS_AI_LaunchersOPF select (selectRandom [1,2])), 3] call BIS_fnc_addWeapon;
+		[_x, selectrandom (WMS_AI_LaunchersOPF select (selectRandom [1,2])), 2] call BIS_fnc_addWeapon;
 	}else{
 		removeUniform _x;
 		removeVest _x;
@@ -235,6 +249,22 @@ if !(_vhl1 in _AAlist)then{
 		};
 	"];//params ["_unit", "_killer", "_instigator", "_useEffects"];
 }forEach (units _DriversGrp);
+
+	
+	_WPT_2 = _GunnersGrp addWaypoint [(position (leader _GunnersGrp)), 50];
+	_WPT_2 setWaypointType _typ;
+	_WPT_2 setwaypointSpeed _spd;
+	_WPT_2 setWaypointCombatMode "RED";
+	_WPT_2 setWaypointbehaviour  _beh;
+	//[_GunnersGrp] call CBA_fnc_taskDefend;//NO!
+
+	_WPT_3 = _DriversGrp addWaypoint [(position (leader _DriversGrp)), 50];
+	_WPT_3 setWaypointType _typ;
+	_WPT_3 setwaypointSpeed _spd;
+	_WPT_3 setWaypointCombatMode _cbt;
+	_WPT_3 setWaypointbehaviour  _beh;
+	//[_DriversGrp] call CBA_fnc_taskDefend;//NO!
+
 //Map marker, radom +-500m
 _mkrPos = [(((_pos select 0) -750)+random 1500),(((_pos select 1) -750)+random 1500)];
 _Mkr = createMarker [format ["WMS_CVY_Mkr_%1",round(time)], _mkrPos];
@@ -252,6 +282,25 @@ WMS_TargetConvoyMkrs pushBack _MkrBorder;
 
 //reward crate ? or trigger
 //see WMS_90Sec_Watch
-
+//they are soooo dumb that they will need a large trigger to target flying players, probably 3 or 4km Radius
+_triggMorons = createTrigger ["EmptyDetector", WMS_TargetConvoyPosRew, true];
+_triggMorons setTriggerActivation ["ANYPLAYER", "PRESENT", true]; 
+_triggMorons setTriggerArea [6000, 6000, 0, false,6000];
+_triggMorons setVariable ["_GunnersUnits",_GunnersUnits];
+_triggMorons setTriggerStatements  
+	[ 
+		"this && {({vehicle _x isKindOf 'air'} count thisList) > 0}",  
+		"
+			private _GunnersUnits = thisTrigger getVariable ['_GunnersUnits',[]];
+			{
+				private _flyingPlayer = _x;
+				if(vehicle _flyingPlayer isKindOf 'air')then{
+					if (true) then {diag_log format ['[LOST CONVOY]friendly message, this player %1, in this vehicle %2, got Convoy attention', (name _flyingPlayer), (typeOf vehicle _flyingPlayer)]};
+					{_x doTarget}forEach _GunnersUnits;
+				};
+			}forEach thisList;
+		",  
+		"" 
+	];
 //friendly message broadcast "Lost Enemy Convoy, blablabla"
 ["EventCustom", ["Lost Enemy Convoy", (format ["An Enemy Convoy is Lost around %1, Destroy it!",([round (_mkrPos select 0), round (_mkrPos select 1)])]), "\A3\ui_f\data\GUI\Cfg\GameTypes\defend_ca.paa"]] remoteExec ["BIS_fnc_showNotification", -2];

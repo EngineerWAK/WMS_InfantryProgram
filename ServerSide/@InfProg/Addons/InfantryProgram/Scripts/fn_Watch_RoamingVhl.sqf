@@ -84,12 +84,15 @@ if !(_RoamingAIvhl == 0) then {
 		} forEach _VHLgrpArray;
 		/////Unstuck vehicle
 		{
+			private _posCheck = position (_x select 0);
 			if (
 				(time > (_timeAdded+60)) && 
 				{alive (_x select 0)} && 
 				{side(group(_x select 0)) == EAST} && 
 				{alive (driver (_x select 0))} && 
-				{count ((position (_x select 0)) nearEntities [WMS_PlayerEntity, 300]) == 0}) then { //side EAST means there is still AI inside otherwise side UNKNOW
+				//{count ((position (_x select 0)) nearEntities [WMS_PlayerEntity, 300]) == 0} //do not work if player in vehicle
+				{count (allPlayers select {alive _x && ((_x distance2D _posCheck) < 300)}) == 0}
+			) then { //side EAST means there is still AI inside otherwise side UNKNOW
 				_vhl = (_x select 0);
 				_lastPos = (_x select 1);
 				_newPos = position _vhl;
@@ -190,7 +193,12 @@ if !(_RoamingAIvhl == 0) then {
 		};
 		/////Unstuck vehicle
 		/////Delete Timed out vehicles
-		if (time > (_x select 1) && {count ((position (leader (_x select 2 select 0))) nearEntities [WMS_PlayerEntity, WMS_AI_PlayerDistToDespawnVHL]) == 0}) then {//totaly not sure this filter is doing the job
+		//if (time > (_x select 1) && {count ((position (leader (_x select 2 select 0))) nearEntities [WMS_PlayerEntity, WMS_AI_PlayerDistToDespawnVHL]) == 0}) then {//totaly not sure this filter is doing the job //NO!!!!!!!!!
+		if (time > (_x select 1)) then {
+			private _grpCheck = (_x select 2 select 0);
+			private _PlayersAround = allPlayers select {alive _x && (_x distance2D (leader _grpCheck) < WMS_AI_PlayerDistToDespawnVHL)};
+			if (WMS_IP_LOGs) then {diag_log format ["[Roaming VHL Watch]|WAK|TNA|WMS|_PlayersAround = %1", _PlayersAround]};
+			if ((count _PlayersAround) == 0) then {
 			if (WMS_IP_LOGs) then {diag_log format ["[Roaming VHL Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 			_grpArray = (_x select 2);
 			_obj = (_x select 4);
@@ -224,7 +232,7 @@ if !(_RoamingAIvhl == 0) then {
 			}else{
 				WMS_AI_RoamingVHL_Run_HC deleteAt (WMS_AI_RoamingVHL_Run_HC find _x);
 			};
-			
+			};
 		};
 		/////Delete Timed out vehicles
 	} foreach _RoamingVHL_Running;
@@ -243,14 +251,14 @@ if !(_RoamingAIair == 0) then {
 	//HC F U C K I N G stuff
 		_timeAddedAir = (_x select 0);
 		_vehiclesAir = (_x select 3);
-		if (time > (_x select 1) && {count ((position (leader (_x select 2 select 0))) nearEntities [WMS_PlayerEntity, WMS_AI_PlayerDistToDespawnAIR]) == 0}) then { //dearEntities doesnt work if player in vehicle
+		private _grpCheck = (_x select 2 select 0);
+		if (time > (_x select 1) && {count (allPlayers select {alive _x && (_x distance2D (leader _grpCheck) < WMS_AI_PlayerDistToDespawnAIR)}) == 0}) then {
 			if (WMS_IP_LOGs) then {diag_log format ["[Roaming AIR Watch]|WAK|TNA|WMS| %1 to be deleted", _x]};
 			_grpArray = (_x select 2);
 			_obj = (_x select 4);
 			_mkr = (_x select 5);
 			_wps = (_x select 6);
 			_ref = (_x select 7);
-			//if (_ref == "") then {};
 			{
 				{ 
 					if (WMS_magicSmoke) then {_Shaft = "CMflare_Chaff_Ammo" createVehicle position _x};
@@ -260,7 +268,6 @@ if !(_RoamingAIair == 0) then {
 			{
 				_ownedBy = (owner (_x select 0));
 				if (WMS_IP_LOGs) then {diag_log format ["[Roaming AIR OWNERS]|WAK|TNA|WMS| vehicle: %1 owned by: %2",(_x select 0), _ownedBy]};
-				//if (count getPlayerUID(driver(_x select 0)) == 0 && (_ownedBy != _HC1_ID)) then {//meh...
 				if ((_ownedBy != 2) && (_ownedBy != _HC1_ID)) then {
 					if (true) then {diag_log format ["[Roaming AIR OWNERS]|WAK|TNA|WMS| vehicle: %1 owned by a player",(_x select 0)]};
 					PlaySound3D ["A3\Sounds_F\sfx\hint-4.wss", (_x select 0), false, position (_x select 0), 2, 1, 0];

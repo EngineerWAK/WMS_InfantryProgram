@@ -273,6 +273,7 @@ WMS_JMD_createOPF = {
 			_posToPush = _x;
 			{
 				if (_posToPush distance2d _x > 25) then {
+						//_spawnPosList pushBack (AGLtoASL _posToPush); //TRY TO USE AGL POSITIONS TO PREVENT AI TO SPAWN UNDER BUILDINGS
 						_spawnPosList pushBack _posToPush;
 					}else{
 						if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF Position %1 to close to player %2",_posToPush,_x]}; //if (WMS_IP_LOGs)
