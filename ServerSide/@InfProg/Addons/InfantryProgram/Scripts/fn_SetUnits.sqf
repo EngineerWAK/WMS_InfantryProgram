@@ -153,7 +153,7 @@ _poptabs = 50;
 		removeBackpackGlobal _unit;
 		_unit addBackpack "B_Parachute";
 		_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
-		if (_mainWeap in WMS_AMS_sniperList) then {
+		if (_mainWeap in WMS_AMS_sniperList && {_loadoutTrack != "livonia"}) then {
 			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
 			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
 			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
@@ -170,7 +170,7 @@ _poptabs = 50;
 	case  "random" : {
 		_weaps = selectRandom _weapRandom;
 		_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
-		if (_mainWeap in WMS_AMS_sniperList) then {
+		if (_mainWeap in WMS_AMS_sniperList && {_loadoutTrack != "livonia"}) then {
 			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
 			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
 			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
@@ -187,8 +187,8 @@ _poptabs = 50;
 	case  "livoniapatrol" : {
 		_mainWeap = [_unit, selectrandom (WMS_Weaps_LivoniaMix select 0), 5, 0] call BIS_fnc_addWeapon;
 		if (_mainWeap in WMS_AMS_sniperList) then {
-			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
-			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
+			//_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
+			//_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
 			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
 			_mags = ((getArray (configfile >> "CfgWeapons" >> _mainWeap >> "magazines")) select 0);
 			_unit addMagazine _mags;
@@ -262,7 +262,7 @@ _poptabs = 50;
 			};
 		};
 		_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
-		if (_mainWeap in WMS_AMS_sniperList && {_loadoutTrack != "livonia"}) then {
+		if ((_mainWeap in WMS_AMS_sniperList) && {_loadoutTrack != "livonia"}) then {
 			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
 			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
 			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
@@ -282,7 +282,7 @@ _poptabs = 50;
 	};
 	default {
 		_mainWeap = [_unit, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
-		if (_mainWeap in WMS_AMS_sniperList) then {
+		if ((_mainWeap in WMS_AMS_sniperList) && {_loadoutTrack != "livonia"}) then {
 			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
 			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
 			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);

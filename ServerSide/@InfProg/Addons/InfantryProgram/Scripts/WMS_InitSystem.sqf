@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.877_2023SEP18_GitHub"; //DynAI triggers are now local to the server //AMS EH //prevent bombing in territory //JMD stuff
+WMS_System_Version 			= "v2.879_2023SEP23_GitHub"; //DynAI triggers are now local to the server //AMS EH //prevent bombing in territory //JMD stuff
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -528,7 +528,7 @@ WMS_AMS_SniperLoadout	= [["H_Cap_grn_BI"],["V_Chestrig_rgr","V_SmershVest_01_rad
 WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check, it will modify NPC skills if they have a weapon from this list
 							"vn_k98k","vn_m1891","vn_m1903","vn_m1903_gl","vn_m36","vn_m38","vn_m40a1","vn_m9130","vn_vn_vz54", //SOG
 							"srifle_LRR_F","srifle_LRR_camo_F","srifle_LRR_tna_F",
-							"srifle_GM6_ghex_F","srifle_GM6_camo_F","srifle_GM6_F",
+							"srifle_GM6_ghex_F","srifle_GM6_camo_F","srifle_GM6_F","srifle_DMR_04_Tan_F",
 							"hlc_rifle_FN3011Tactical_green","hlc_rifle_awmagnum","hlc_rifle_awmagnum_BL","hlc_rifle_awmagnum_FDE","hlc_rifle_FN3011Modern","hlc_rifle_M1903A1_unertl",
 							"rhs_weap_m24sws_blk","rhs_weap_m24sws_d","rhs_weap_m24sws_wd","rhs_weap_m24sws",
 							"rhs_weap_m40a5_wd","rhs_weap_m40a5_d","rhs_weap_m40a5","rhs_weap_dsr1",

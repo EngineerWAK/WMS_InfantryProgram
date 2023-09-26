@@ -72,7 +72,12 @@ if(_waterWorld)then{
 	}else{
 		_safePos = [_pos, 250, 500, 2, 0, 0, 0, _blacklist, [[],[]]] call BIS_fnc_findSafePos;//[x,y] ok, [x,y,0] not ok
 		_startPatrol = [_pos, 50, 120, 1, 0, 0, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
-		_flag setVariable ["BaseATKReinforce", ["INFpatrol","runner","paradrop","VHLpatrol","INFpatrol","AIRpatrol","AIRassault"],true]; //VHLpatrol can take FOR EVER To get to the base
+		if (_Tlevel == 11) then{
+			_flag setVariable ["BaseATKReinforce", ["INFpatrol","VHLpatrol","INFpatrol","AIRpatrol","runner","INFpatrol","paradrop","VHLpatrol","INFpatrol","AIRpatrol","AIRassault","INFpatrol"],true]; //VHLpatrol can take FOR EVER To get to the base
+		}else{
+			_flag setVariable ["BaseATKReinforce", ["INFpatrol","runner","paradrop","VHLpatrol","INFpatrol","AIRpatrol","AIRassault"],true]; //VHLpatrol can take FOR EVER To get to the base
+		};
+		
 	};
 if (count _safePos == 3) exitWith {diag_log format ["[DynAI BASEATK]|WAK|TNA|WMS| %1 Attack FAILD! No position found", _Tname]};
 playSound3D ["A3\Sounds_F\environment\ambient\battlefield\battlefield_firefight4.wss", _flag, false, position _flag, 6, 1, 0];

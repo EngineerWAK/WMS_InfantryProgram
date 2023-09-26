@@ -289,14 +289,16 @@ _triggMorons setTriggerArea [6000, 6000, 0, false,6000];
 _triggMorons setVariable ["_GunnersUnits",_GunnersUnits];
 _triggMorons setTriggerStatements  
 	[ 
-		"this && {({vehicle _x isKindOf 'air'} count thisList) > 0}",  
+		"
+		this && {({vehicle _x isKindOf 'air'} count thisList) > 0}
+		",  
 		"
 			private _GunnersUnits = thisTrigger getVariable ['_GunnersUnits',[]];
 			{
 				private _flyingPlayer = _x;
 				if(vehicle _flyingPlayer isKindOf 'air')then{
 					if (true) then {diag_log format ['[LOST CONVOY]friendly message, this player %1, in this vehicle %2, got Convoy attention', (name _flyingPlayer), (typeOf vehicle _flyingPlayer)]};
-					{_x doTarget}forEach _GunnersUnits;
+					{_x doTarget _flyingPlayer}forEach _GunnersUnits;
 				};
 			}forEach thisList;
 		",  

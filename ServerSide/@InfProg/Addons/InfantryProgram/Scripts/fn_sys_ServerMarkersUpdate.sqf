@@ -40,10 +40,10 @@ if (_servUnits < WMS_AI_MaxUnits_A) then {
 		WMS_markerUnits setMarkerColor "ColorRed"; //_servUnits > WMS_AI_MaxUnits_C;
 	};
 };
-if (_servDeads < 40) then {
+if (_servDeads < 50) then {
 	WMS_markerDeads setMarkerColor "ColorGreen";
 } else {
-	if (_servDeads >= 40 && _servDeads <= 75) then {
+	if (_servDeads >= 50 && _servDeads <= 75) then {
 		WMS_markerDeads setMarkerColor "ColorYellow";
 	} else {
 		WMS_markerDeads setMarkerColor "ColorRed"; //_servDeads > 50;
