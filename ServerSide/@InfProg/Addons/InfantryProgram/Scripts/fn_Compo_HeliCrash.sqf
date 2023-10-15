@@ -13,6 +13,13 @@
 //////////////////////////////////////////////////////////////////
 // [[0,0,0],random 359,2+random 2, false] call WMS_fnc_Compo_HeliCrash;
 //////////////////////////////////////////////////////////////////
+/*
+//Some "objects" need a position check in a loop to prevent players to move them, like base statics, traders container and maybe some crates
+_objToCheck = missionNameSpace getVariable ["WMS_ObjectsToCheck",[]];
+_objToCheck pushBack _container;
+missionNameSpace setVariable ["WMS_ObjectsToCheck",_objToCheck]; //this will be useful later
+_container setVariable ["WMS_SafPosCheckASL",(getPosASL _container)]; //this will be useful later
+*/
 if (WMS_IP_LOGs) then {diag_log format ["[HELICRASH]|WAK|TNA|WMS| _this = %1", _this];};
 private ["_unitsClass","_objList","_objects","_compoRefPoint","_Grp","_staticList","_triggCapture","_sound"];
 params[  

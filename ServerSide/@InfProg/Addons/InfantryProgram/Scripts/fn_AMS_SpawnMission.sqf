@@ -622,9 +622,9 @@ if (_mission == "no") then { //obiously can not work anymore
 		};
 		if(_mission == "MissionTest1")then{[] spawn WMS_fnc_AMS_Mission_MissionTest1;};
 		if(_mission == "MissionTest2")then{[] spawn WMS_fnc_AMS_Mission_MissionTest2;};
-		if(_mission == "ForestCamp")then{["forest"] spawn WMS_fnc_AMS_Mission_ForestCamp;};
+		if(_mission == "ForestCamp")then{[selectRandom WMS_AMS_CustomPos] spawn WMS_fnc_AMS_Mission_ForestCamp;};
 		if(_mission == "HomeDepot")then{[] spawn WMS_fnc_AMS_Mission_HomeDepot;};
-		if(_mission == "CombatPatrol")then{[(selectRandom WMS_AMS_CustomPos)] spawn WMS_fnc_AMS_Mission_CombatPatrol;};
+		if(_mission == "CombatPatrol")then{[selectRandom WMS_AMS_CustomPos] spawn WMS_fnc_AMS_Mission_CombatPatrol;};
 		if(_mission == "EnyBunkers")then{[] spawn WMS_fnc_AMS_Mission_EnyBunkers;};
 		if(_mission == "Arbeit")then{[] spawn WMS_fnc_AMS_Mission_Arbeit;};
 	WMS_AMS_LastSpawn = time;

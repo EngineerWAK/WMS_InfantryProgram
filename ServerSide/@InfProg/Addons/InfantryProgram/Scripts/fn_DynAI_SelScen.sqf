@@ -29,11 +29,68 @@ if (isDedicated && _HC1)then{
   {if (name _x == "HC1" && {!hasInterface})then{_HC1_ID = owner _x};}forEach AllPlayers;
 };
 /////HC STUFF\\\\\
-_playerRep = _target getVariable ['ExileScore', 25000];
-_playerKill = _target getVariable ['ExileKills', 4999];
+/*
+_playerUID_ExileKills = "ExileKills_"+_targetUID;
+_playerUID_ExileMoney = "ExileMoney_"+_targetUID;
+_playerUID_ExileScore = "ExileScore_"+_targetUID;
+_playerUID_ExileDeath = "ExileDeath_"+_targetUID;
+
+_playerKills = profileNamespace getVariable [_playerUID_ExileKills,0];
+_playerMoney = profileNamespace getVariable [_playerUID_Exilemoney,0];
+_playerScore = profileNamespace getVariable [_playerUID_ExileScore,0];
+_playerDeath = profileNamespace getVariable [_playerUID_ExileDeath,0];
+*/
+_playerUID = getPlayerUID _target;
+
+_playerRep = 0;
+_playerKill = 0;
+if ((vehicle _target) iskindOf "man") then { //it's overkill but I need datas for debug
+	_playerRep = _target getVariable ['ExileScore', 99999]; //this do not work 100% of the time if in vehicle!
+	_playerKill = _target getVariable ['ExileKills', 99999];
+	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player NOT in vehicle, ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
+	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player NOT in vehicle, ExileKills: target = %1, position = %2, Kills = %3, vehicle = %4", _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
+	if (_playerRep == 99999) then {
+		if (WMS_exileFireAndForget)then{//Will do the Exile later
+			_playerRep = 25999;
+		}else{ //TheLastCartridges
+			_playerRep = profileNamespace getVariable ["ExileScore_"+_playerUID,25999];
+		};
+		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
+	};
+	if (_playerKill == 99999) then {
+		if (WMS_exileFireAndForget)then{//Will do the Exile later
+			_playerKill = 4999;
+		}else{ //TheLastCartridges
+			_playerKill = profileNamespace getVariable ["ExileKills_"+_playerUID,4999];
+		};
+		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileKills: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
+	};
+}else{
+	_playerRep = _target getVariable ['ExileScore', 99999]; //this do not work 100% of the time if in vehicle!
+	_playerKill = _target getVariable ['ExileKills', 99999];
+	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player IS in vehicle, ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
+	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player IS in vehicle, ExileKills: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
+	if (_playerRep == 99999) then {
+		if (WMS_exileFireAndForget)then{//Will do the Exile later
+			_playerRep = 25999;
+		}else{ //TheLastCartridges
+			_playerRep = profileNamespace getVariable ["ExileScore_"+_playerUID,25999];
+		};
+		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
+	};
+	if (_playerKill == 99999) then {
+		if (WMS_exileFireAndForget)then{//Will do the Exile later
+			_playerKill = 4999;
+		}else{ //TheLastCartridges
+			_playerKill = profileNamespace getVariable ["ExileKills_"+_playerUID,4999];
+		};
+		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileKills: target = %1, position = %2, Kills = %3, vehicle = %4", _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
+	};
+};
+
 _threatLVL = "EASY";
 
-if ((getPlayerUID _target) in WMS_BlackList) then {
+if (_playerUID in WMS_BlackList) then {
 	_threatLVL = "BLACKLIST";
 	_playerRep = 100000;
 	};

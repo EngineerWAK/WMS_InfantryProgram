@@ -10,7 +10,7 @@
 * Do Not Re-Upload
 */
 
-private ["_type","_pos","_grpArray","_vhl","_obj","_mkr","_wps","_ref","_cnt","_openedTime"];
+private ["_blackList","_type","_pos","_grpArray","_vhl","_obj","_mkr","_wps","_ref","_cnt","_openedTime"];
 _type = ((WMS_Events_list select 0) select 1);
 _timeToWait = ((WMS_Events_list select 0) select 0);
 if (WMS_IP_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Next Event: %1 @%2",_type,_timeToWait];};
@@ -22,7 +22,9 @@ if (time > _timeToWait) then {
 	};
 
 	if (_type == "HeliCrash") then {
-		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), 15, 0, 0.20] call BIS_fnc_findSafePos;
+		//MUST CALL A BLACKLIST
+		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
+		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), 15, 0, 0.20,0,_blackList] call BIS_fnc_findSafePos;
 		if (WMS_IP_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Processing Event: %1 @%2", _type, _pos];};
 		if (surfaceIsWater _pos && {(((ATLtoASL _pos) select 2) < -1)}) then {
 			_pos = [] call BIS_fnc_randomPos;

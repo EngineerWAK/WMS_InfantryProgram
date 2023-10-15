@@ -10,6 +10,14 @@
 * Do Not Re-Upload
 */
 
+/*
+//Some "objects" need a position check in a loop to prevent players to move them, like base statics, traders container and maybe some crates
+_objToCheck = missionNameSpace getVariable ["WMS_ObjectsToCheck",[]];
+_objToCheck pushBack _container;
+missionNameSpace setVariable ["WMS_ObjectsToCheck",_objToCheck]; //this will be useful later
+_container setVariable ["WMS_SafPosCheckASL",(getPosASL _container)]; //this will be useful later
+*/
+
 //action = "openMap true; onMapSingleClick { onMapSingleClick {}; [player,_pos,'sab_vehic_J',1] remoteExec ['WMS_fnc_ParadropMissionRequest']; openMap false; true };";
 if (WMS_IP_LOGs) then {diag_log format ["[HUMANITARIAN DROP]|WAK|TNA|WMS| _this = %1", _this]};
 

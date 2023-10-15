@@ -81,7 +81,7 @@ WMS_Loadout_Assault = [//545 556 57 58
 		], //_mainWeaps
 	 [], //_mainWeapsAmmo
 	 ["optic_mrco","rhsusf_acc_ACOG_USMC","rhs_acc_okp7_picatinny","rhsusf_acc_compm4","rhsusf_acc_su230"], //_scopes
-	 ["hgun_p07_f","rhs_weap_tt33","hlc_pistol_P239"] //_pistols
+	 ["hgun_p07_f","rhs_weap_tt33","hlc_pistol_C96_Wartime"] //_pistols
 ];
 WMS_Loadout_AssaultPlus = [//66 68 762
 	 [
@@ -93,7 +93,7 @@ WMS_Loadout_AssaultPlus = [//66 68 762
 		], //_mainWeaps
 	 [], //_mainWeapsAmmo
 	 ["optic_mrco","rhsusf_acc_ACOG_USMC","rhs_acc_okp7_picatinny","rhsusf_acc_compm4","rhsusf_acc_su230"], //_scopes
-	 ["hgun_p07_f","hlc_pistol_P239"] //_pistols
+	 ["hgun_p07_f","hlc_pistol_C96_Wartime"] //_pistols
 ];
 WMS_Loadout_DMR = [
 	 [	

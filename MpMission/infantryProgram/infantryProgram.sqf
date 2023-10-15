@@ -197,6 +197,54 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
+	//[player, position player, getDir player, (1800 + random 1800), 1, 999] call WMS_fnc_Compo_BunkerCamp;
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>Build The Camp (30min) 500$</t>",
+		{
+			_target = _this select 0; _caller = _this select 1;
+			[_caller, (position _caller), (getDir _caller), 1800, 0, 500] remoteExec ['WMS_fnc_Compo_BunkerCamp',2];
+		}, 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{((getPlayerUID _this) in WMS_IP_Active_list)} &&
+			{(serverTime > (WMS_Compo_BunkerCamp_LastTime+2100))} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>Build The Armed Camp (30min) 10000$</t>",
+		{
+			_target = _this select 0; _caller = _this select 1;
+			[_caller, (position _caller), (getDir _caller), 1800, 1, 10000] remoteExec ['WMS_fnc_Compo_BunkerCamp',2];
+		}, 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{((getPlayerUID _this) in WMS_IP_Active_list)} &&
+			{(serverTime > (WMS_Compo_BunkerCamp_LastTime+2100))} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+
 	/*
 	//SOUND TEST //playSound3D ['A3\Sounds_F\sfx\blip1.wss', _caller]
 	_IDnumber = _IPcomputer addAction
@@ -246,6 +294,28 @@ WMS_IP_buildComputer = {
 		"
 			_target = _this select 0; _caller = _this select 1;
 			[_caller, [], (position _caller), WMS_Loadout_Scorpion, 2500] remoteExec ['WMS_fnc_InfantryProgram_loadouts',2];
+		", 
+		[],
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{((getPlayerUID _this) in WMS_IP_Active_list)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>Equipement AOR2 2.5k$</t>",
+		"
+			_target = _this select 0; _caller = _this select 1;
+			[_caller, [], (position _caller), WMS_Loadout_AOR2, 2500] remoteExec ['WMS_fnc_InfantryProgram_loadouts',2];
 		", 
 		[],
 		1,

@@ -11,6 +11,15 @@
 */
 
 //[] spawn WMS_fnc_SupplyDrop;
+
+/*
+//Some "objects" need a position check in a loop to prevent players to move them, like base statics, traders container and maybe some crates
+_objToCheck = missionNameSpace getVariable ["WMS_ObjectsToCheck",[]];
+_objToCheck pushBack _container;
+missionNameSpace setVariable ["WMS_ObjectsToCheck",_objToCheck]; //this will be useful later
+_container setVariable ["WMS_SafPosCheckASL",(getPosASL _container)]; //this will be useful later
+*/
+
 if (WMS_IP_LOGs) then {diag_log format ["[ENEMY SUPPLYDROP]|WAK|TNA|WMS|  Supply Drop Called, %1",_this]};
 private ["_grps","_vhls","_objs","_mkrs","_posForest","_pos","_rad","_target", "_Mkr", "_Mkr2","_minePos","_mine","_randDirOffset","_sign","_posPara","_parachute","_cargo","_bagList","_weapList","_weap","_ammoList","_item","_itemList","_bag","_MkrName","_Mkr2Name","_Mkr","_Mkr2","_triggCapture","_paraGrp","_randomSpawnPos","_smoke","_Light"]; 
 params[

@@ -106,7 +106,7 @@ if (_gunSits != 0) then {
 		_unitClassName createUnit [_randomPosTarget, _VHLgrp, "this moveinGunner _vehic"];
 	//};	
 };
-if (WMS_IP_LOGs) then {diag_log format ["[VHL PATROL]|WAK|TNA|WMS| Vehicle: %1, Cargo: %2, Driver: %3, Commander: %4, _Gunner: %5, AllTurret: %6", _VHLselected, _cargoSits,_drvSits,_comSits,_gunSits, (count allTurrets _vehic)]};
+if (WMS_IP_LOGs) then {diag_log format ["[VHL PATROL]|WAK|TNA|WMS| Vehicle: %1, Cargo: %2, Driver: %3, Commander: %4, _Gunner: %5, AllTurret: %6", _VHLselected, _cargoSits,_drvSits,"xx",_gunSits, (count allTurrets _vehic)]};
 
 if (_loadout == "livonia" && _WPBeha == "SAFE") then {_WPBeha == "AWARE"};
 if (_lockPlayer) then {

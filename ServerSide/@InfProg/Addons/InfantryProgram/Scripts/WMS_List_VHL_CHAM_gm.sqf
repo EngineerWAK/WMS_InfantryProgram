@@ -15,6 +15,7 @@
 //[ _vehicle, [(_CustomVHL select 1 select 0),(_CustomVHL select 1 select 1)], true, false ] call BIS_fnc_initVehicle;
 ////////////////////
 WMS_OPFOR_CustomVHL_Unarmed = [
+	/*//old
 	["gm_gc_army_ural44202",["gm_gc_win",1],[[],[]]], //"gm_gc_ols"
 	["gm_gc_army_ural4320_reammo",["gm_gc_win",1],[[],[]]], 
 	["gm_gc_army_ural375d_refuel",["gm_gc_win",1],[[],[]]], 
@@ -30,7 +31,27 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 	["gm_pl_army_uaz469_cargo",["gm_pl_olw",1],[[],[]]], //UAZ
 	["gm_gc_army_uaz469_cargo",["gm_gc_wdl",1],[[],[]]], //UAZ
 	["gm_pl_army_uaz469_cargo",["gm_pl_olw",1],[[],[]]], //UAZ
-	["gm_gc_army_uaz469_cargo",["gm_gc_wdl",1],[[],[]]], //UAZ
+	["gm_gc_army_uaz469_cargo",["gm_gc_wdl",1],[[],[]]], //UAZ*/
+
+	//new
+	["gm_gc_army_brdm2um",["gm_gc_des",1],[[false],[]]],
+	["gm_gc_army_btr60pa",["gm_gc_des",1],[[false],[]]],
+	["gm_ge_army_typ253_mp",["gm_ge_trp",1],[[false],[]]],
+	["gm_ge_army_typ253_cargo",["gm_ge_trp",1],[[false],[]]],
+	["gm_ge_army_u1300l_firefighter",["gm_ge_trp",1],[[false],[]]],
+	["gm_ge_army_typ247_cargo",["gm_ge_trp",1],[[false],[]]],
+	["gm_ge_bgs_w123_cargo",["gm_carc_tan",1],[[false],[]]],
+	["gm_ge_army_fuchsa0_command",["gm_ge_trp",1],[[false],[]]],
+
+	["gm_gc_army_ural375d_cargo",["gm_gc_des",1],[[false],[]]],
+	["gm_gc_army_ural4320_repair",["gm_gc_des",1],[[false],[]]],
+	["gm_gc_army_ural44202",["gm_gc_des",1],[[false],[]]],
+	["gm_gc_army_uaz469_cargo",["gm_gc_des",1],[[false],[]]],
+	["gm_gc_army_ural4320_reammo",["gm_gc_des",1],[[false],[]]],
+	["gm_gc_army_ural375d_refuel",["gm_gc_des",1],[[false],[]]],
+	["gm_ge_army_iltis_cargo",["gm_ge_trp",1],[[false],[]]],
+	["gm_ge_army_u1300l_medic",["gm_ge_trp_rc",1],[[false],[]]],
+	["gm_ge_army_typ1200_cargo",["gm_ge_trp",1],[[false],[]]],
 
 	["rhs_tigr_m_3camo_msv",[],[[],[]]],
 	["rhsusf_M1238A1_socom_d",[],[[],[]]],
@@ -58,10 +79,25 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 	["rhsusf_m1240a1_usarmy_d",[],[[],[]]]
 ];
 WMS_OPFOR_CustomVHL_Armed = [
+	//Old
 	["gm_gc_army_pt76b",["gm_gc_win",1],[[],[]]], //thats a tank xD 76mm
 	["gm_dk_army_u1300l_container",["gm_dk_des",1],[[],[]]],
 	["gm_ge_army_fuchsa0_command",["gm_ge_des",1],[[],[]]],
 	["gm_ge_army_iltis_mg3",["gm_ge_des",1],[[],[]]],
+
+	//new
+	//["gm_gc_army_btr60pa_dshkm",["gm_gc_des",1],[[true],[]]],
+	["gm_gc_army_btr60pb",["gm_gc_des",1],[[true],[]]],
+	["gm_gc_army_p601",["gm_carc_tan",1],[[true],[]]],
+	//["gm_gc_army_brdm2",["gm_gc_des",1],[[true],[]]],
+	["gm_gc_army_ural375d_mlrs",["gm_gc_des",1],[[true],[]]],
+	//["gm_gc_army_uaz469_dshkm",["gm_gc_des",1],[[true],[]]],
+	["gm_ge_army_iltis_mg3",["gm_ge_trp",1],[[true],[]]],
+	["gm_ge_army_iltis_mg3",["gm_ge_trp",1],[[true],[]]],
+	["gm_ge_army_u1300l_container",["gm_ge_trp",1],[[true],[]]],
+	["gm_ge_army_u1300l_repair",["gm_ge_trp",1],[[true],[]]],
+	["gm_ge_army_u1300l_cargo",["gm_ge_trp",1],[[true],[]]],
+	["gm_ge_army_u1300l_cargo",["gm_ge_trp",1],[[true],[]]],
 
 	["rhsusf_m1165a1_gmv_m134d_m240_socom_d",[],[[],[]]],
 	["I_C_Offroad_02_LMG_F",[],[[],[]]],
@@ -79,9 +115,24 @@ WMS_OPFOR_CustomVHL_Armed = [
 	["rhsgref_BRDM2_HQ_msv",["takistan",1],[[],[]]]
 ];
 WMS_OPFOR_CustomVHL_Spec = [
+	//Old
 	["gm_dk_army_m113a1dk_apc",["gm_dk_des",1],[[],[]]],
 	["gm_dk_army_m113a1dk_engineer",["gm_dk_des",1],[[],[]]],
 	["gm_gc_army_t55am2b",["gm_gc_ols",1],[[],[]]], //most advanced T55 //olove mud
+
+	//New
+	["gm_gc_army_pt76b",["gm_gc_des",1],[[true],[]]],
+	["gm_gc_army_t55am2b",["gm_gc_des",1],[[true],[]]],
+	["gm_gc_army_zsu234v1",["gm_gc_des",1],[[true],[]]],
+	["gm_gc_army_bmp1sp2",["gm_gc_des",1],[[true],[]]],
+	["gm_gc_army_t55",["gm_gc_des",1],[[true],[]]],
+	["gm_gc_army_t55ak",["gm_gc_des",1],[[true],[]]],
+	["gm_ge_army_bpz2a0",["gm_ge_trp",1],[[true],[]]],
+	["gm_ge_army_Leopard1a1",["gm_ge_trp",1],[[true],[]]],
+	["gm_ge_army_Leopard1a3",["gm_ge_trp",1],[[true],[]]],
+	["gm_ge_army_Leopard1a5",["gm_ge_trp",1],[[true],[]]],
+	["gm_ge_army_m113a1g_command",["gm_ge_trp",1],[[true],[]]],
+	["gm_ge_army_gepard1a1",["gm_ge_trp",1],[[true],[]]],
 
 	["rhs_btr80a_vv",[0,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_01_tri01_co.paa",1,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_02_tri01_co.paa",2,"rhsafrf\addons\rhs_btr80_camo\data\rhs_btr80_03_tri01_co.paa"],[[],[]]],
 	["rhs_brm1k_vv",[1,"rhsafrf\addons\rhs_bmp_camo\data\bmp_2_desert_co.paa",2,"rhsafrf\addons\rhs_bmp_camo\data\bmp_3_desert_co.paa",4,"rhsafrf\addons\rhs_bmp_camo\data\bmp_5_desert_co.paa"],[[],[]]],
@@ -96,7 +147,14 @@ WMS_OPFOR_CustomVHL_Spec = [
 	["rhsusf_m1a2sep1tuskid_usarmy",[],[[],[]]]
 ];
 WMS_OPFOR_CustomAIR_Transport = [
+	//Old
 	["gm_ge_army_ch53g",["gm_ge_olu",1],[[],[]]],
+
+	//new
+	["gm_ge_army_ch53gs",["gm_ge_olo",1],[[false],[]]],
+	["gm_gc_airforce_mi2p",["gm_gc_brb",1],[[false],[]]],
+	["gm_gc_airforce_mi2sr",["gm_gc_brb",1],[[false],[]]],
+
 	["RHS_Mi24Vt_vvsc",["Camo3",1],[[],[]]], //one minigun
 	["RHS_Mi8AMT_vvsc",[],[[],[]]],
 	["rhsgref_ins_Mi8amt",["Camo5",1],[[],[]]],
@@ -104,8 +162,15 @@ WMS_OPFOR_CustomAIR_Transport = [
 	["B_Heli_Transport_03_unarmed_F",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa", 1,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]] //black huron
 ];
 WMS_OPFOR_CustomAIR_Unarmed = [
+	//Old
 	["gm_pl_airforce_mi2ch",[],[[],[]]],
 	["gm_pl_airforce_mi2p",[],[[],[]]],
+
+	//New
+	["gm_gc_airforce_mi2p",["gm_gc_brb",1],[[false],[]]],
+	["gm_gc_airforce_mi2sr",["gm_gc_brb",1],[[false],[]]],
+	["gm_ge_army_bo105m_vbh",["gm_ge_hornet",1],[[false],[]]], //+3 cargo
+	["gm_ge_army_bo105p1m_vbh",["gm_ge_hornet",1],[[false],[]]], //+3 cargo
 
 	["RHS_Mi8AMT_vvsc",[],[[],[]]],
 	["rhsgref_ins_Mi8amt",["Camo5",1],[[],[]]],
@@ -113,8 +178,13 @@ WMS_OPFOR_CustomAIR_Unarmed = [
 	["RHS_UH1Y_UNARMED_d",[0,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa",1,"a3\air_f_exp\heli_transport_01\data\heli_transport_01_ext01_sand_co.paa"],[[],[]]]
 ];
 WMS_OPFOR_CustomAIR_Armed = [
+	//Old
 	["gm_pl_airforce_mi2urn",[],[[],[]]],
 	["gm_pl_airforce_mi2us",[],[[],[]]],
+	
+	//New
+	["gm_gc_airforce_mi2t",["gm_gc_brb",1],[[false],[]]], //true, door PK
+	["gm_gc_airforce_mi2us",["gm_gc_brb",1],[[false],[]]], //true, 4 HMG
 
 	["RHS_Mi24Vt_vvsc",["Camo3",1],[[],[]]], //one minigun
 	["RHS_Mi8mt_vv",[],[[],[]]],
@@ -129,6 +199,13 @@ WMS_OPFOR_CustomAIR_Spec = [
 	//["UK3CB_BAF_Apache_AH1",[0,"a3\air_f_beta\heli_attack_02\data\heli_attack_02_body1_co.paa"],[[],[]]], //from Mi280 ,"\rhsafrf\addons\rhs_mi28\data\rhs_mi28_01_camo_co.paa"
 	//["UK3CB_BAF_Wildcat_AH1_CAS_8C",[0,"R3F_Retex\data\LYNX\heli_light_03_DA_R3F_co.paa"],[[],[]]],
 	//["O_T_VTOL_02_infantry_grey_F",[],[[],[]]], //big OP shit from bohemia, as usual
+
+	//new
+	["gm_pl_airforce_mi2urpg",["gm_pl_wdl",1],[[true],[]]], // Side canon, AA miss, AT miss,
+	["gm_gc_airforce_mi2us",["gm_gc_brb",1],[[false],[]]], //true, 4 HMG
+	["gm_gc_airforce_mi2urn",["gm_gc_brb",1],[[false],[]]], //true, 2 rockets pods
+	["gm_ge_army_bo105p_pah1",["gm_ge_hornet",1],[[true],[]]], //side HOT x6
+	
 	["RHS_Ka52_UPK23_vvsc",[],[[],[]]],
 	["RHS_Mi8AMTSh_UPK23_vvsc",[],[[],[]]],
 	["RHS_Mi8MTV3_UPK23_vvsc",[],[[],[]]],

@@ -46,6 +46,8 @@ _Mkr setMarkerType _markerType;
 _Mkr setMarkerText _name;
 if (_difficulty == "capturezone") then {
 	_Mkr setMarkerColor "colorBLUFOR";
+}else {
+	_Mkr setMarkerColor WMS_AMS_MkrColor;
 };
 
 _MkrBorder = createMarker [format ["WMS_AMS_MkrBorder_%1_%2",round ((_pos select 0)+(_pos select 1)),round(time)], _pos];

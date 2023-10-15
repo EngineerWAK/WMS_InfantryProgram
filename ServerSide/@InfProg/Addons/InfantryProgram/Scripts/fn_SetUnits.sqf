@@ -186,7 +186,7 @@ _poptabs = 50;
 	};
 	case  "livoniapatrol" : {
 		_mainWeap = [_unit, selectrandom (WMS_Weaps_LivoniaMix select 0), 5, 0] call BIS_fnc_addWeapon;
-		if (_mainWeap in WMS_AMS_sniperList) then {
+		if (_mainWeap in WMS_AMS_sniperList && {_loadoutTrack != "livonia"}) then {
 			//_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
 			//_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
 			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
@@ -362,6 +362,7 @@ _poptabs = 50;
 	for "_i" from 1 to _itemsCount do {
 		_unit additem (selectRandom WMS_AI_inventory);
 	};
+	if (leader _unit == _unit) then {_unit additem "FlashDisk"}; //for the "claimItem" challenge
 ////////////////AMS/DYNAI/WHATEVER CHANGES
 	if (_info == "AMS" || _info == "CaptureZone") then {
 		_unit setVariable ["WMS_Info", _info]; //not used yet
@@ -457,8 +458,12 @@ _poptabs = 50;
 				_unit addMPEventHandler ["MPKilled",{ 
 					params ['_unit', '_killer', '_instigator', '_useEffects'];
 					if(isPlayer _instigator)then{_killer = _instigator};
-					if (isServer)then{[_killer] call WMS_fnc_AL_PunishPunks;};
-					_unit removeMPEventHandler ["MPKilled", 0];
+					if (isServer && {isPlayer _killer})then{
+						[_killer, 0.8] call WMS_fnc_AL_PunishPunks;
+						_unit removeMPEventHandler ["MPKilled", 0];
+						moveOut _unit;
+						deleteVehicle _unit;
+					};
 				}];
 			};
 		} else{

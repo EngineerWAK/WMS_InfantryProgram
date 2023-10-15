@@ -17,102 +17,158 @@
 
 if (WMS_IP_LOGs) then {diag_log format ["[INFANTRY by CHOPPER]|TNA|TNA|TNA|TNA|TNA| _this check, _this = %1", _this]};
 
-private _target = (_this select 0);
-private _pos = (_this select 1); 
-private _plane = selectRandom WMS_DeliveryChopper_Type;
-private _empty = (_this select 3);
-private _missionType = (_this select 4);
-private _patrolLoadout = selectrandom [WMS_Loadout_AOR2, WMS_Loadout_M90, WMS_Loadout_Scorpion, WMS_Loadout_Tiger, WMS_Loadout_UKtmp, WMS_Loadout_UKwdl, WMS_Loadout_FRce, WMS_Loadout_DEfleck];
-private _RandomPosSpawn = [_target, 1500, 2500] call BIS_fnc_findSafePos;
-private _RandomPosDest = [_pos, 0, 150, 20, 0, 0.15, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
-private _RandomPosEnd = [_RandomPosDest, worldSize, (worldSize*1.2)] call BIS_fnc_findSafePos;
-private _amount = 999;
-private _WPtype = "TR UNLOAD";
-if (worldName == "Tanoa") then {_patrolLoadout = selectrandom [WMS_Loadout_AOR2, WMS_Loadout_M90, WMS_Loadout_Scorpion, WMS_Loadout_Tiger, WMS_Loadout_DEfleck];};
+private ["_Loadout","_lockerMoney","_RandomPosSpawn","_RandomPosDest","_RandomPosEnd","_WPtype","_vhl","_vehic","_grp"];
+params[
+  "_target",
+	["_pos",(position (_this select 0))],
+	["_choppa", (selectRandom WMS_DeliveryChopper_Type)],
+	["_empty", 0],
+	["_missionType", "INFbyChopper"],//"WDtrader"
+  ["_price",10000]
+];
+_Loadout = selectRandom ["aor2","scorpion","m90"];
+_lockerMoney = 0;
+_RandomPosSpawn = [_target, 1100, 2900] call BIS_fnc_findSafePos;
+_RandomPosDest = [_pos, 0, 150, 20, 0, 0.15, 0, [], [_pos,[]]] call BIS_fnc_findSafePos;
+_RandomPosEnd = [-4999,-4999,999];
+_WPtype = "TR UNLOAD";
+_assaultGrp = nil;
 
-    if (_missionType == "INFbyChopper" ) then {_amount = 5000} else {
-      if (_missionType == "WDtrader" ) then {_amount = 1500} else {
-      
-    };
-    };
-    private _lockerMoney = _target getVariable ['ExileLocker', 0];
-    if(_lockerMoney > _amount) then
-    { 
-		_lockerMoney1 = _target getVariable ['ExileLocker', 0];
-    _playerMoney = _target getVariable ['ExileMoney', 0];
-		_lockerMoney = _lockerMoney1 - _amount;
-		_poptabsplayer = _playerMoney + _lockerMoney;
-		_target setVariable ['ExilePopTabsCheck', _poptabsplayer];
-		_target setVariable ['ExileMoney', _playerMoney, true];
-		_target setVariable ['ExileLocker', _lockerMoney, true];
-    	format['updateLocker:%1:%2', _lockerMoney, (getPlayerUID _target)] call ExileServer_system_database_query_fireAndForget;
+//private _patrolLoadout = selectrandom [WMS_Loadout_AOR2, WMS_Loadout_M90, WMS_Loadout_Scorpion, WMS_Loadout_Tiger, WMS_Loadout_UKtmp, WMS_Loadout_UKwdl, WMS_Loadout_FRce, WMS_Loadout_DEfleck];
+ /////ACCOUNTING
+	if (WMS_exileFireAndForget)then {
+		_lockerMoney = _target getVariable ['ExileLocker', 0];
+	}else{
+		_lockerMoney = _target getVariable ['ExileMoney', 0];
+	};
+	
+	if(_lockerMoney >= _price) then { 
+		if (WMS_exileFireAndForget)then {
+			_lockerMoney1 = _target getVariable ['ExileLocker', 0];
+    		_playerMoney = _target getVariable ['ExileMoney', 0];
+			_lockerMoney = _lockerMoney1 - _price;
+			_poptabsplayer = _playerMoney + _lockerMoney;
+			_target setVariable ['ExilePopTabsCheck', _poptabsplayer];
+			_target setVariable ['ExileMoney', _playerMoney, true];
+			_target setVariable ['ExileLocker', _lockerMoney, true];
+    		format['updateLocker:%1:%2', _lockerMoney, (getPlayerUID _target)] call ExileServer_system_database_query_fireAndForget;
+		}else {
+			[_target, _price] call WMS_fnc_smallTransactions; //TheLastCartridges
+		};
+  /////
+_vhl = [_RandomPosSpawn, (random 359), _choppa, BLUFOR] call bis_fnc_spawnvehicle; //0:created vehicle (Object), 1:all crew (Array of Objects), 2:vehicle's group
+_vehic = (_vhl select 0);
+_grp = (_vhl select 2);
 
-private _vhl = [_RandomPosSpawn, (random 359), _plane, BLUFOR] call bis_fnc_spawnvehicle; //0:created vehicle (Object), 1:all crew (Array of Objects), 2:vehicle's group
-private _vehic = (_vhl select 0);
-private _grp = (_vhl select 2);
-private _vehicVarName = format["CHOPPA_%1_%2", getplayerUID _target, time];
-_vehic setvehicleVarName _vehicVarName;
+ /* private _vehicVarName = format["CHOPPA_%1_%2", getplayerUID _target, time]; //WHY ???
+  _vehic setvehicleVarName _vehicVarName;*/
+
 _vehic setVehicleLock "LOCKEDPLAYER";
-if (_missionType == "INFbyChopper" ) then {
-  [_target,_RandomPosDest,_vhl,_missionType,(round(2+(random 3))),_patrolLoadout,600,250] call WMS_fnc_InfantryProgram_INFsquad; //THIS NEED TO CHANGE TO GET RID OF THE FUNCTION
-} else { 
-if (_missionType == "WDtrader" ) then {
-  [_target,_RandomPosDest,300,_vhl] call WMS_fnc_InfantryProgram_WDtrader;
-} else { }};
 clearMagazineCargoGlobal _vehic;
 clearWeaponCargoGlobal _vehic;
 clearItemCargoGlobal _vehic;
 clearBackpackCargoGlobal _vehic;     
-
 _vehic flyInHeight WMS_IP_Extract_Alt;
+
+if (_missionType == "INFbyChopper" ) then {
+  //[_target,_RandomPosDest,_vhl,_missionType,(round(2+(random 3))),_patrolLoadout,600,250] call WMS_fnc_InfantryProgram_INFsquad; //THIS NEED TO CHANGE TO GET RID OF THE FUNCTION
+  /////New One here:
+  //_assaultGrp = createGroup [BLUFOR,false];
+  _assaultGrp = [_RandomPosSpawn, BLUFOR, (selectRandom [3,4,5,6])] call BIS_fnc_spawnGroup;
+
+  /////[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info];
+  [(units _assaultGrp),"random",25,(0.6 + random 0.35),nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+  {
+    _x setVariable ["WMS_RealFuckingSide",BLUFOR];
+    _x moveInCargo _vehic;
+	  //_PatrolVRmkr = createVehicle ["VR_Area_01_square_1x1_grey_F",[0,0,0], [], 10];
+	  //_PatrolVRmkr setObjectTextureGlobal [0, "#(rgb,8,8,3)color(0,1,0,0.15)"];
+	  //_PatrolVRmkr attachTo [_x,[0,0,0]];
+  } forEach units _assaultGrp;
+  /////this will go with the "TR UNLOAD" trigger:
+  //[_assaultGrp, _RandomPosDest, 75, 3, "MOVE", "COMBAT", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
+  /////need a cleanup for _assaultGrp
+
+  WMS_INFsquad_LastTime = time;
+  publicVariable "WMS_INFsquad_LastTime";
+} else { 
+  if (_missionType == "WDtrader" ) then {
+   [_target,_RandomPosDest,300,_vhl] call WMS_fnc_InfantryProgram_WDtrader;
+  } else {
+  
+  };
+};
 WMS_INFbyChopper_LastTime = time;
 publicVariable "WMS_INFbyChopper_LastTime";
 
 private _Helipad_1 = "Land_HelipadEmpty_F" createVehicle _RandomPosDest;
 private _GreenSmoke = "SmokeShellOrange" createVehicle _RandomPosDest;
 {
+  _x setVariable ["WMS_RealFuckingSide",BLUFOR];
   removeAllItems _x;
   removeAllWeapons _x;
   removeBackpackGlobal _x;
-  _x forceAddUniform "AOR2_Camo_Cyre";
-  _x addVest "AOR2_Vest_1";
-  _x additem "FirstAidKit";
-  _x addGoggles "G_Balaclava_oli";
+ // _x forceAddUniform "AOR2_Camo_Cyre";
+ // _x addVest "AOR2_Vest_1";
+ // _x additem "FirstAidKit";
+ // _x addGoggles "G_Balaclava_oli";
   _x disableAI "AUTOTARGET";
   _x disableAI "TARGET";
   _x disableAI "AUTOCOMBAT";
   _x allowfleeing 0;
-} forEach units _grp ;
+} forEach units _grp;
+
+//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info];
+[(units _grp),"smg",25,(0.6 + random 0.35),nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 
 private _WPT_INFbyCHOPPER1 = _grp addWaypoint [_RandomPosDest, 0];
 _WPT_INFbyCHOPPER1 setWaypointType _WPtype;
 _WPT_INFbyCHOPPER1 setWaypointCombatMode "BLUE";
 _WPT_INFbyCHOPPER1 setWaypointbehaviour  "CARELESS";
+
 waitUntil  {(_vehic distance2D _RandomPosDest) <= 200};
-["toastRequest", ["InfoTitleAndText", [format ["Incoming %1, Infantry Reinforcement Chopper",(typeof _vehic)]]]] call ExileServer_system_network_send_broadcast;
+if (WMS_exileFireAndForget) then {
+  ["toastRequest", ["InfoTitleAndText", [format ["Incoming %1, Infantry Reinforcement Chopper",(typeof _vehic)]]]] call ExileServer_system_network_send_broadcast;
+}else{
+  //TheLastCartridges message or hint or systemchat
+};
+
+////////////////////////MUST CHANGE FOR TRIGGERS////////////////////////////
 //[_grp, _RandomPosDest, _Helipad_1] spawn BIS_fnc_wpLand;
-waituntil {_vehic distance _Helipad_1 <=5};
+waituntil {_vehic distance _Helipad_1 <=5}; //MUST CHANGE FOR TRIGGERS
 uisleep 5;
 _vehic flyInHeight WMS_IP_Extract_Alt;
 
 private _WPT_INFbyCHOPPER2 = _grp addWaypoint [_RandomPosEnd, 150];
 _WPT_INFbyCHOPPER2 setWaypointType "MOVE";
-
-0 = [_vehic, _RandomPosDest, _grp] spawn {
+[_vehic, _RandomPosDest, _grp] spawn { //MUST CHANGE FOR TRIGGERS
  waituntil  {(_this select 0) distance2d (_this select 1) <= 200};
  uisleep (round(120+(random 60)));
  (_this select 0) setfuel 0;
  (_this select 0) setdamage 0.9;
  {deletevehicle _x} foreach units(_this select 2);
 };
-1 = [_vehic, _grp, _WPT_INFbyCHOPPER1, _WPT_INFbyCHOPPER2, _Helipad_1] spawn {
+[_vehic, _grp, _WPT_INFbyCHOPPER1, _WPT_INFbyCHOPPER2, _Helipad_1] spawn { //MUST CHANGE FOR TRIGGERS
  waituntil  {!(alive (_this select 0))};
  //[_group,[_vehicles],[_markers],[_waypoint]] call WMS_fnc_Ivl2_cleanup;
  [(_this select 1),[(_this select 4)],[],[(_this select 2),(_this select 3)]] call WMS_fnc_lvl2_cleanup;
 };
+////////////////////////MUST CHANGE FOR TRIGGERS\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    } else {
-      if (WMS_IP_LOGs) then {
- 	    diag_log format ["[INFANTRY by CHOPPER]|TNA|TNA|TNA|TNA|TNA|  %1 too poor to get a chopper |TNA|TNA|TNA|TNA|TNA|", _target];
-      };
-    };
+} else {
+  /////PUNISHMENT
+  if (WMS_IP_LOGs) then {
+    diag_log format ["[INFANTRY by CHOPPER]|TNA|TNA|TNA|TNA|TNA|  %1 too poor to get a chopper |TNA|TNA|TNA|TNA|TNA|", _target];
+  };
+  if (WMS_exileFireAndForget) then {
+	  if (WMS_exileToastMsg) then {["toastRequest", ["ErrorTitleOnly", ["Earth to earth, ashes to ashes, dust to dust"]]] call ExileServer_system_network_send_broadcast};
+  }else{
+    //TheLastCartridges message or hint or systemchat
+  };
+	_Target allowDamage true;
+	private _fire = "test_EmptyObjectForFirebig" createVehicle [0,0,0]; 
+	_fire attachto [_target,[0,0,0]]; 
+	playSound3D ["A3\sounds_f\ambient\objects\bell_big.wss", _target, false, _pos, 3, 1, 0]; //todo: check if _target will work if its not a player.
+	//uisleep 600; //todo: replace this by independent cleaning function like '[600,[_fire]] call WMS_fnc_cleanUp;'
+	//deletevehicle _fire;
+};

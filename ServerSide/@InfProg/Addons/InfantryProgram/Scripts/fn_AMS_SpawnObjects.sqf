@@ -12,7 +12,7 @@
 
 //////////////////////////////////////////////////////////////////
 if (WMS_IP_LOGs) then {diag_log format ["[AMS SPAWN OBJECTS]|WAK|TNA|WMS| _this: %1,", _this]};
-private ["_staticsList","_objList","_compoRefPoint","_object","_objectVectoriel","_gradient"];
+private ["_objectsToDespawn","_terrainobjects","_noCleanMap","_staticsList","_objList","_compoRefPoint","_object","_objectVectoriel","_gradient"];
 params[  
 	"_pos",
 	"_objects",  
@@ -22,6 +22,7 @@ params[
 	];
 _objList = [];
 _staticsList = [];
+_noCleanMap = ["occupation","Factory","cbtpatrol","bastogne","forestcamp"];
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Start AMS_spawnObjects, server time %1, %2", serverTime, _objects]};
 /////////////////
@@ -33,7 +34,7 @@ if (WMS_AMS_CleanMapObj) then {
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Start cleanMapObjects, server time %1, %2", serverTime, _objects]};
 /////////////////
-	if !(_objects in ["occupation","Factory","cbtpatrol","bastogne","forestcamp"]) then {
+	if !(_objects in _noCleanMap) then {
 		_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
 		_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,(_radius*1.1)];
 		{hideObjectGlobal _x} foreach _terrainobjects;

@@ -22,7 +22,7 @@ params [
 	["_timer",1800], //1800
 	["_armed", 0], //0 - 1
 	["_amount", 999], //price or '999 will be the magic number for non poptabs check'
-	["_Loadout", selectRandom ["AOR2","scorpion","tiger","fleck"]]
+	["_Loadout", selectRandom ["aor2","scorpion","m90"]]
 ];
 private _objList = [];
 private _campGrp1 = grpNull;
@@ -31,17 +31,26 @@ private _campGrp3 = grpNull;
 private _lockerMoney = 0;
 private _MGlist = [];
 if (_amount == 999) then { _lockerMoney = "Lets Punch It" } else { 
-	_lockerMoney = _target getVariable ['ExileLocker', 0];
+	if (WMS_exileFireAndForget)then {
+		_lockerMoney = _target getVariable ['ExileLocker', 0];
+	}else{
+		_lockerMoney = _target getVariable ['ExileMoney', 0];
+	};
+	
 	if(_lockerMoney > _amount) then //this is the second check, shouldnt be false.
     { 
-		_lockerMoney1 = _target getVariable ['ExileLocker', 0];
-    	_playerMoney = _target getVariable ['ExileMoney', 0];
-		_lockerMoney = _lockerMoney1 - _amount;
-		_poptabsplayer = _playerMoney + _lockerMoney;
-		_target setVariable ['ExilePopTabsCheck', _poptabsplayer];
-		_target setVariable ['ExileMoney', _playerMoney, true];
-		_target setVariable ['ExileLocker', _lockerMoney, true];
-    	format['updateLocker:%1:%2', _lockerMoney, (getPlayerUID _target)] call ExileServer_system_database_query_fireAndForget;
+		if (WMS_exileFireAndForget)then {
+			_lockerMoney1 = _target getVariable ['ExileLocker', 0];
+    		_playerMoney = _target getVariable ['ExileMoney', 0];
+			_lockerMoney = _lockerMoney1 - _amount;
+			_poptabsplayer = _playerMoney + _lockerMoney;
+			_target setVariable ['ExilePopTabsCheck', _poptabsplayer];
+			_target setVariable ['ExileMoney', _playerMoney, true];
+			_target setVariable ['ExileLocker', _lockerMoney, true];
+    		format['updateLocker:%1:%2', _lockerMoney, (getPlayerUID _target)] call ExileServer_system_database_query_fireAndForget;
+		}else {
+			[_target, _amount] call WMS_fnc_smallTransactions; //TheLastCartridges
+		};
 	} else {
 		_armed = 0;
 		_timer = 5;
@@ -55,7 +64,7 @@ if (_amount == 999) then { _lockerMoney = "Lets Punch It" } else {
 	};
 };
 private _objects = [ 
-	[WMS_CamoNet_Open,[0,0,0],46.8031,[true,false]],
+	//[WMS_CamoNet_Open,[0,0,0],46.8031,[true,false]], //this one looks cool but it's pain in the ass for visibility
 	["Land_BagBunker_Small_F",[-1.8912,3.94984,-0.1],178.3,[true,false]],
 	["Land_BagBunker_Small_F",[-0.62328,-3.95558,-0.1],57.9,[true,false]],
 	["Land_BagBunker_Small_F",[4.60304,-2.61888,-0.1],287.4,[true,false]],
@@ -128,7 +137,7 @@ if (_armed == 1) then {
 	{_x setVariable ["WMS_RealFuckingSide",BLUFOR]}foreach _MGlist;
 	//[_MGlist,'BunkerMG',0,(0.5 + random 0.4),_loadout] call WMS_fnc_DynAI_SetUnitBLU;
 	//[_units,_unitFunction,_launcherChance,_skill,_difficulty,_loadout,_weaps,_info]; //NEW
-	[_MGlist,'BunkerMG',0,(0.5 + random 0.4),nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
+	[_MGlist,'BunkerMG',0,(0.6 + random 0.35),nil,_loadout,nil,"DYNAI"] call WMS_fnc_SetUnits;
 	deleteVehicle _compoRefPoint;
 } else {
 	deleteVehicle _compoRefPoint;

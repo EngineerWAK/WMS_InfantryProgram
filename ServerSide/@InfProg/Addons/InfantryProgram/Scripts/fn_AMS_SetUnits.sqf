@@ -27,7 +27,7 @@
 */
 if (WMS_IP_LOGs) then {diag_log format ["[AMS AI SETUP]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_skills","_poptabs","_unit","_weapRandom","_weapRandomNoSnipNoMG","_mainWeap","_pistol","_launcher","_sniper"];
-params[
+/*params[
 	["_units",[]],
 	["_unitFunction","Assault"],
 	["_launcherChance", 25],
@@ -55,6 +55,12 @@ switch (toLower _loadout) do {
 							_weapRandom = [WMS_Weaps_LivoniaMix];
 							_weapRandomNoSnipNoMG = [WMS_Weaps_LivoniaMix];
 						};
+	case "army_b" : {_Loadout = selectrandom [WMS_Loadout_AOR2, WMS_Loadout_M90, WMS_Loadout_Scorpion, WMS_Loadout_Tiger, WMS_Loadout_DEfleck]};
+	case "aor2" : {_Loadout = WMS_Loadout_AOR2};
+	case "m90" : {_Loadout = WMS_Loadout_M90};
+	case "scorpion" : {_Loadout = WMS_Loadout_Scorpion};
+	case "tiger" : {_Loadout = WMS_Loadout_Tiger};
+	case "fleck" : {_Loadout = WMS_Loadout_DEfleck}; //not used anymore, from german mod
 };
 _skills = [_skill,_difficulty]call WMS_fnc_AMS_ConvertSkills;
 _sniper = [1,0.95,0.95,0.95];
@@ -213,7 +219,22 @@ if (WMS_AMS_addPoptabsUnits) then {
 	_unit setVariable ["ExileMoney",(floor _poptabs),true];
 };
 //////////EVENTHANDLER(s)//////////
-_unit addEventHandler ["Killed", "
-		[(_this select 0),(_this select 1),(_this select 2),_unitFunction,_difficulty] call WMS_fnc_AMS_EHonKilled;	
-"];
-}forEach _units;
+if ((_unit getVariable ["WMS_RealFuckingSide", OPFOR]) == BLUFOR) then {
+	_unit addEventHandler ["Killed", { 
+		params ['_killed', '_killer', '_instigator', '_useEffects'];
+		if (isPlayer _instigator)then{_killer = _instigator};
+		if (isPlayer _killer) then {
+			[_killer,0.8]call WMS_fnc_PunishPunks;
+			if !((vehicle _killer) isKindOf 'man') then {
+				{moveOut _x}forEach (crew (vehicle _killer));
+			};
+			deleteVehicle (_this select 0);
+		};
+			
+	}];
+}else{
+	_unit addEventHandler ["Killed", "
+			[(_this select 0),(_this select 1),(_this select 2),_unitFunction,_difficulty] call WMS_fnc_AMS_EHonKilled;	
+	"];
+};
+}forEach _units;*/

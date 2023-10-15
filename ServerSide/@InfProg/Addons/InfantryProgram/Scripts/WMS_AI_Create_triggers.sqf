@@ -32,6 +32,15 @@ uisleep 15;
 		};
 		WMS_Pos_Villages = _Pos_Villages;
 	};
+	private _Pos_trigLocals = [];
+	if ((count WMS_Pos_Locals) > WMS_TriggLocalMax) then {
+		for "_i" from 1 to WMS_TriggLocalMax do {
+			_posV = selectRandom WMS_Pos_Locals;
+			_Pos_trigLocals pushBack _posV;
+			WMS_Pos_Locals deleteAt (WMS_Pos_Locals find _posV);
+		};
+		WMS_Pos_Locals = _Pos_trigLocals;
+	};
 uisleep 15;
 
 Diag_log format ['|WAK|TNA|WMS| Creating %1 Local Triggers', (count WMS_Pos_Locals)];

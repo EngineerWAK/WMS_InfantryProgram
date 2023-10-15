@@ -39,10 +39,10 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.879_2023SEP23_GitHub"; //DynAI triggers are now local to the server //AMS EH //prevent bombing in territory //JMD stuff
+WMS_System_Version 			= "v2.887_2023OCT14_GitHub"; //DynAI triggers are now local to the server //AMS EH //prevent bombing in territory //JMD stuff
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
-WMS_CustomizedMap			= ["Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
+WMS_CustomizedMap			= ["SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
 if (isDedicated) then {	
 	diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]
 }else{
@@ -372,7 +372,7 @@ WMS_AI_bluforPatrol_LastTime 	= time;
 WMS_AI_bluforPatrol_CoolDown 	= 900;
 //Vehicle Ground:
 WMS_AI_RoamingVHL				= true;
-WMS_AI_RoamingVHL_citySpawn		= false;
+WMS_AI_RoamingVHL_citySpawn		= true;
 WMS_AI_RoamingVHL_KillRep		= 250;
 WMS_AI_RoamingVHL_KillMoney		= 1500;
 WMS_AI_RoamingVHL_MaxDist		= 750;
@@ -572,6 +572,7 @@ WMS_AMS_AlarmCln 		= true;
 	//WMS_AMS_TimeToWatch 	= 25; //AMS missions are checked from the 15 secondes loop WMS_15sec_Watch.sqf
 WMS_AMS_MissionsCount 	= 0; //KEEP 0
 	//WMS_AMS_Mission_ID 		= 0; //DEPRECATED
+WMS_AMS_MkrColor		= "ColorBlack"; //v2.887 //SPE_Normandy map is basically white with all marking black, mission marker will be colorOPFOR
 WMS_AMS_MkrEasy 		= "Contact_circle1"; //"ExileMissionEasyIcon"; //Mission Map Marker
 WMS_AMS_MkrModerate 	= "Contact_circle3"; //"ExileMissionModerateIcon"; //Mission Map Marker
 WMS_AMS_MkrDifficult 	= "Contact_circle4"; //"ExileMissionDifficultIcon"; //Mission Map Marker
@@ -634,14 +635,16 @@ WMS_AMS_MissionList 	= [ //missions themself and weight
 WMS_DynAI_triggers 		= true; //will create a bunch of triggers to spawn "dynamic" stuff on players
 WMS_Pos_AutoScan 		= true; //KEEP TRUE UNLESS YOU KNOW WHAT YOU ARE DOING, AND YOU PROBABLY DON'T
 WMS_Trigg_Reinforce		= true;
-WMS_TriggForestMax		= 25;
-WMS_TriggVillageMax		= 35;
 WMS_trigMaxSpeed		= 100; //maximum spead to fire up the trigger, there is no point to spawn infantry group in a forest for a jet flying around
 WMS_triggCheck			= 600; //Active triggers will check their area to respawn "dynamic" stuff on players if no NPCs around
 WMS_triggCheckChance	= 50; 	//chance to send reinforcement at _target position
-WMS_triggCheckChaMil		= 75; 	//chance to send reinforcement at _target position //MILITARY triggers
+WMS_triggCheckChaMil	= 75; 	//chance to send reinforcement at _target position //MILITARY triggers
 WMS_triggCheckDist		= 300;	//minimun player distance from other AI to send reinforcement
 WMS_Pos_Rdz 			= 50; 	//randomize trigger position, so the trigger is not always at the same position
+
+WMS_TriggForestMax		= 25; //maximum of this trigger will be crated
+WMS_TriggVillageMax		= 35; //maximum of this trigger will be crated
+WMS_TriggLocalMax		= 150; //maximum of this trigger will be crated
 
 WMS_trigLocals_Size 	= 350; //size of the different triggers
 WMS_trigVillages_Size 	= 350;

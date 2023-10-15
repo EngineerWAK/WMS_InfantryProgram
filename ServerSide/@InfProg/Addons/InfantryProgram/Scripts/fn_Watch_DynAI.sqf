@@ -10,7 +10,7 @@
 * Do Not Re-Upload
 */
 
-private ["_playerCount","_waitingTime","_DynamicThreatTarget","_threatScenario","_threatCoefs","_flagList","_countFlag","_targetSpeed"];
+private ["_playerConnect","_playerCount","_waitingTime","_DynamicThreatTarget","_threatScenario","_threatCoefs","_flagList","_countFlag","_targetSpeed"];
 _playerCount = count (allPlayers select {alive _x && {count getplayerUID _x == 17 }} apply {_x});
 if (WMS_IP_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| Player(s) connected: %1", _playerCount]};
 _waitingTime = WMS_DynAI_threatFrequency;
@@ -41,7 +41,15 @@ if (_playerCount > 0 && {(time > (WMS_DynAI_LastTime+_waitingTime))} && {((OPFOR
 	//WMS_DynAI_TargetList = allplayers; //allPlayers include HCs
 	WMS_DynAI_TargetList = (allPlayers select {alive _x && {count getplayerUID _x == 17 }} apply {_x}); //yeah, it's a stupid way but it works
 	_DynamicThreatTarget = selectrandom WMS_DynAI_TargetList;
+	/////
+	//_playerConnect = missionNameSpace setVariable ["WMS_PlayerConnect", serverTime]; //registered as serverTime in initPlayerLocal
+	//_target setVariable ["WMS_PlayerConnect", _playerConnect]; //from RamdomizeSpawnZone
+	/////
 	_threatScenario = "GoForIt";
+	_playerConnect = _DynamicThreatTarget getVariable ["WMS_PlayerConnect", (serverTime+1800)];
+	if (serverTime < _playerConnect+900) then {
+		_threatScenario = "Nothing";
+	};
 	//here look for the JudgementDay Marker, if true _threatScenario = "judgementDay";
 	{
 		if ((_x isKindOf WMS_JudgementDay_Mkr) && {((getMarkerPos _x) distance2D _DynamicThreatTarget)<= 150}) then {_threatScenario = "judgementDay"}; //{}
@@ -58,6 +66,10 @@ if (_playerCount > 0 && {(time > (WMS_DynAI_LastTime+_waitingTime))} && {((OPFOR
 			//if still someone in the list, try a last time
 			_threatScenario = "GoForIt";
 			_DynamicThreatTarget = selectRandom WMS_DynAI_TargetList;
+			_playerConnect = _DynamicThreatTarget getVariable ["WMS_PlayerConnect", (serverTime+1800)];
+			if (serverTime < _playerConnect+900) then {
+				_threatScenario = "Nothing";
+			};
 			{
 				if ((_x isKindOf WMS_JudgementDay_Mkr) && {((getMarkerPos _x) distance2D _DynamicThreatTarget)<= 150}) then {_threatScenario = "judgementDay"}; //{}
 			}forEach allMapMarkers;

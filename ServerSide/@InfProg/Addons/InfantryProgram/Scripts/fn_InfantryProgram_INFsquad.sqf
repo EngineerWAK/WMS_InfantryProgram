@@ -61,7 +61,7 @@ private _launchers = ["launch_RPG7_F"];
 private _grenades = ["HandGrenade"];
 private _scopes = ["hlc_optic_HensoldtZO_lo_Docter","BWA3_optic_ZO4x30i_MicroT2","optic_DMS","BWA3_optic_PMII_ShortdotCC"];
 
-{
+{ //DEPRECATED
 	removeAllItems _x;
 	removeAllWeapons _x;
 	removeVest _x;
