@@ -22,6 +22,8 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 	["rhsusf_m1025_d",[],[[],[]]],
 	["rhsusf_m998_d_2dr",[],[[],[]]],
 	["rhsusf_m998_d_4dr_fulltop",[],[[],[]]],
+	["rhsusf_m998_d_4dr_fulltop",[],[[],[]]],
+	["rhsusf_m998_d_4dr_fulltop",[],[[],[]]],
 	["rhsusf_m1025_d",[],[[],[]]],
 	["rhsusf_m1151_usarmy_d",[],[[],[]]],
 	["rhsusf_M1078A1P2_B_D_CP_fmtv_usarmy",[],[[],[]]],
@@ -34,15 +36,19 @@ WMS_OPFOR_CustomVHL_Unarmed = [
 	["rhsusf_M1078A1P2_B_D_fmtv_usarmy",[],[[],[]]],
 	["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
 	["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
+	["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
+	["rhs_uaz_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\uaz_main_ind_co.paa"],[[],[]]], //
 	//["C_SUV_01_F",[],[[],[]]],
 	["rhs_gaz66_ammo_vv",[0,"rhsafrf\addons\rhs_gaz66_camo\data\gaz66_sand_co.paa",1,"rhsafrf\addons\rhs_gaz66\data\tentru_co.paa"],[[],[]]],
+	["rhs_gaz66_vv",[0,"rhsafrf\addons\rhs_gaz66_camo\data\gaz66_sand_co.paa",1,"rhsafrf\addons\rhs_gaz66\data\tentru_co.paa"],[[],[]]],
+	["rhs_gaz66_vv",[0,"rhsafrf\addons\rhs_gaz66_camo\data\gaz66_sand_co.paa",1,"rhsafrf\addons\rhs_gaz66\data\tentru_co.paa"],[[],[]]],
 	["rhs_gaz66_vv",[0,"rhsafrf\addons\rhs_gaz66_camo\data\gaz66_sand_co.paa",1,"rhsafrf\addons\rhs_gaz66\data\tentru_co.paa"],[[],[]]],
 	["B_LSV_01_unarmed_sand_F",[],[[],[]]],
 	["rhsusf_m1240a1_usarmy_d",[],[[],[]]]
 ];
 WMS_OPFOR_CustomVHL_Armed = [
 	["rhsusf_m1165a1_gmv_m134d_m240_socom_d",[],[[],[]]],
-	["I_C_Offroad_02_LMG_F",[],[[],[]]],
+	//["I_C_Offroad_02_LMG_F",[],[[],[]]],
 	["rhsusf_m1151_m240_v2_usarmy_d",[],[[],[]]],
 	["rhsusf_m1151_m240_v2_usarmy_d",[],[[],[]]],
 	["rhs_btr60_vv",[0,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\btr60_body_co.paa",1,"rhsgref\addons\rhsgref_vehicles_ret\data\tak\btr60_details_co.paa"],[[],[]]],
@@ -52,7 +58,7 @@ WMS_OPFOR_CustomVHL_Armed = [
 	["rhsusf_m113d_usarmy",[],[[],[]]],
 	["rhsusf_m113d_usarmy_M240",[],[[],[]]],
 	["rhsusf_m113d_usarmy_M240",[],[[],[]]],
-	["rhsusf_stryker_m1127_m2_d",["Tan",1],[[],[]]],
+	["rhsusf_stryker_m1127_m2_d",["Tan",1],[[],[]]], //useless
 	//["rhsusf_M1239_M2_Deploy_socom_d",[],[[],[]]] //NOPE
 	["rhsgref_BRDM2_HQ_msv",["takistan",1],[[],[]]]
 ];

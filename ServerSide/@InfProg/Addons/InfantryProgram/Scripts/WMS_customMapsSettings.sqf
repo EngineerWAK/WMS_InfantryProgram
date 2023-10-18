@@ -68,8 +68,9 @@ if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 										WMS_DeliveryChopper_Type 	= ["vn_b_air_oh6a_02"];  //infantry program Active List only
 										WMS_Pos_Forests 			= [[9494.79,3399.92,0],[9783.08,3480.52,0],[12044.6,406.423,0],[9469.58,2642.46,0],[8653.28,1356.58,0],[1606.69,2536.37,0],[1648.18,7501.36,0],[998.966,7324.75,0],[3614.67,8915.57,0],[5614.6,9114.27,0],[5760.93,10304.5,0],[2371.16,11396.8,0],[3172.97,12067.2,0],[1557.41,11932.5,0],[361.521,11877.9,0],[7676.29,6540.47,0],[8040.64,6163.11,0],[3806.91,741.29,0]]; //not autoScan
 										WMS_Pos_Military 			= [
-																		[8395.4,10355.2,0],[2145.17,9981.55,0],//spawnzone militaties
-																		[8126.45,1072.32,0],[8332.92,5871.59,0],[7497.79,6294.32,0],[7970.25,6562.33,0],[9520.03,3272.08,0],[9909.93,3265.97,0],[9787.57,3718.25,0],
+																		[8409.72,1428.64,0],[8962.97,4018.31,0],[4118.53,9155.36,0],[2914.18,7122.82,0],[3613.49,1365.72,0],[4030.74,3067.38,0], //ckp
+																		[8395.4,10355.2,0],[2145.17,9981.55,0],[5036.9,4343.66,0],[8166.22,1082.36,0],//spawnzone militaties
+																		[8332.92,5871.59,0],[7497.79,6294.32,0],[7970.25,6562.33,0],[9520.03,3272.08,0],[9909.93,3265.97,0],[9787.57,3718.25,0],[1838.69,3834.36,0],
 																		[7939.52,6166.63],[7900.78,5971,0],[7909.17,6335.32,0],[9712.57,3455.85,0] //Bunkers
 																		]; //not autoScan
 										WMS_Pos_Factory 			= [];
@@ -84,7 +85,7 @@ if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 										WMS_AMS_MineAT 				= ["vn_mine_m15","vn_mine_tm57","rhsusf_mine_M19","ATMine"];
 										WMS_OPFOR_Flag				= "SPE_FlagCarrier_GER"; //default flag for Bandits, different than AMS so no interactions with findpositions //vn_flag_vc
 										WMS_ATMines					= WMS_AMS_MineAT;
-										WMS_AMS_SpnDistMission 		= 2200;
+										WMS_AMS_SpnDistMission 		= 1500;
 										WMS_DynAI_Skills			= [0.06, 0.11, 0.18, 0.23]; //+random 0.15
 										WMS_AI_RoamingVHL_citySpawn	= true; //NEW
 										WMS_AI_RoamingVHLcount 		= 15; //10
@@ -109,6 +110,7 @@ if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 										WMS_FastNight_Day 			= 4; //day time speed //default 6
 										WMS_FastNight_Night 		= 25; //time speed //default 38
 										WMS_DynAI_DestroyVHL 		= 60;
+										WMS_trigLocals_Chance 		= 70;
 										WMS_triggCheck				= 300; //Active triggers will check their area to respawn "dynamic" stuff on players if no NPCs around
 										WMS_triggCheckChance		= 65; //chance to send reinforcement at _target position
 										WMS_trig_Glob_CoolD 		= 240;
@@ -908,6 +910,7 @@ if (worldName == "Tanoa") then {
 										WMS_FastNight_Night 		= 25;  //time speed
 										WMS_forceNoFog				= true;
 										WMS_forceNorain 			= true;
+										WMS_DynAI_Skills			= [0.06, 0.11, 0.18, 0.23]; //+random 0.15
 										WMS_AL_VhlBalance			= [2,2,0,2,0,2,1,2]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15A","rhsusf_acc_anpeq15side","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15_bk_sc","rhsusf_acc_anpeq15_bk_top_h","rhsusf_acc_anpeq15_wmx_h","rhsusf_acc_anpeq15_wmx_light","rhsusf_acc_anpeq16a_light_top_sc","rhsusf_acc_anpeq16a_top"];
 										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];

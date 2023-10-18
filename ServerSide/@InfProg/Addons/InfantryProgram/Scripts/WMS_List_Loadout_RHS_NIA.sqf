@@ -251,8 +251,9 @@ WMS_Weaps_HeavyBandit = [
 	"LMG_Mk200_black_F",
 	"arifle_MX_SW_F",
 	//"LMG_Zafir_F",
-	"srifle_DMR_05_tan_f",
-	"srifle_DMR_06_camo_F",
+	"srifle_DMR_06_olive_F",
+	//"srifle_DMR_05_tan_f",//Cyrus
+	"srifle_DMR_06_camo_F", //M14
 	//"srifle_GM6_camo_F", //REMOVE THE FUCKING 50cal FUCKIN MACHINE GUN, FUCK YOU ARMA!!!!!!!!!!!!!!!!!!!!!!!
 	"srifle_LRR_tna_F"
 	],
@@ -321,7 +322,9 @@ WMS_Weaps_LivoniaMix = [
 	 "SMG_03_khaki",
 	 "LMG_Mk200_black_F", //LMG
 	 "rhs_weap_sr25_ec_wd",
-	 "srifle_DMR_02_camo_F"
+	 "srifle_DMR_07_ghex_F", //QBU
+	 "srifle_DMR_01_F" //vs121
+	 //"srifle_DMR_02_camo_F" //MAR-10
 	 ],
 	 [], //_mainWeapsAmmo,
 	 [ //_scopes
