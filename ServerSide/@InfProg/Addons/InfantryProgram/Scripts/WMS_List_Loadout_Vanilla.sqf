@@ -559,6 +559,15 @@ WMS_Loadout_SURPAT = [ //URBAN
 	 ["G_Balaclava_blk"]  //_googles/_facewear
 ];
 
+WMS_Loadout_LocalOPFOR = [ //this is a new NPC loadout using equipement specific from the map or main mod like german army for GM, VC for SOG, etc...
+						   // this loadout will be changed in customMapSettings
+	 ["U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F","U_I_C_Soldier_Para_5_F"], //_uniforms
+	 ["V_BandollierB_khk","V_Chestrig_khk","V_TacVest_khk","V_TacVestCamo_khk","V_HarnessOSpec_brn","V_TacChestrig_cbr_F"], //_vests
+	 ["H_Booniehat_khk","H_Cap_headphones","H_Shemag_olive","H_Shemag_tan","H_Watchcap_khk","H_MilCap_ghex_F"], //_helmets
+	 ["B_AssaultPack_khk","B_FieldPack_khk","B_OutdoorPack_tan"], //_Backpacks
+	 []  //_googles/_facewear
+];
+
 WMS_Loadout_Scientist = [ //NEED SPECCIFIC STUFF !!!
 	 ["U_C_Poloshirt_burgundy","U_C_Poloshirt_stripped","U_Competitor","U_C_man_sport_2_F","U_C_Man_casual_3_F","U_C_Man_casual_5_F"], //_uniforms
 	 ["V_BandollierB_blk","V_Chestrig_blk","V_TacVest_blk","V_Pocketed_black_F"], //_vests

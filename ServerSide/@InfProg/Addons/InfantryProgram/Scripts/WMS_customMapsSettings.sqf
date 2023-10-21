@@ -12,6 +12,23 @@
 if (true) then {diag_log format ["[WMS Custom Map Config]|WAK|TNA|WMS| Launching at %1", servertime]};
 
 WMS_OffloadToHC1 = false; //WORKINPROGRESS!!!!! Keep false
+/* //export NPC loadouts:
+_result = [[],[],[],[],[],[]];
+{
+ (_result select 0) pushBackUnique uniform _x;
+ (_result select 1) pushBackUnique vest _x;
+ (_result select 2) pushBackUnique headgear _x;
+ (_result select 3) pushBackUnique backpack _x;
+ (_result select 4) pushBackUnique goggles _x;
+}forEach allunits;
+_result
+*/
+WMS_Loadout_LocalOPFOR = [ 	//HERE IN CASE IT IS FORGOTEN IN THE CUSTOM SETTINGS
+							//this is a new NPC loadout using equipement specific from the map or main mod like german army for GM, VC for SOG, etc...
+						   	//this loadout will be changed in customMapSettings
+							["U_O_CombatUniform_ocamo"],["rhsusf_plateframe_rifleman"],["rhsusf_opscore_paint_pelt_nsw_cam"],["B_Kitbag_cbr"],["G_Bandanna_Syndikat1"]  //_googles/_facewear
+						];
+
 if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 										
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_SPE_GM_SOG.sqf";
@@ -27,6 +44,14 @@ if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 																		"gm_gc_army_antitank_assistant_mpiak74n_rpg7_80_str","gm_gc_army_rifleman_mpiak74n_80_str","gm_gc_army_rifleman_mpiak74n_80_str","gm_pl_army_sf_squadleader_akmn_80_moro",
 																		"gm_pl_army_sf_machinegunner_rpk_80_moro","gm_pl_army_sf_marksman_svd_80_moro","gm_pl_army_sf_antitank_akmn_fagot_80_moro","gm_pl_army_sf_demolition_pm63_80_moro",
 																		"gm_pl_army_sf_grenadier_akm_pallad_80_moro"
+																	];
+										WMS_Loadout_LocalOPFOR 		= [ //this is a new NPC loadout using equipement specific from the map or main mod like german army for GM, VC for SOG, etc...
+						   												// this loadout will be changed in customMapSettings
+	 																	["U_SPE_ST_Soldier_Camo2","U_SPE_ST_Soldier_Camo","U_SPE_ST_MGunner_E44","U_SPE_ST_Soldier_E44_Camo2","U_SPE_ST_Soldier_E44_Camo","U_SPE_ST_Tank_crew_spring_open"],
+																		["Specter_RAV","MCB_LBT_vest","V_CarrierRigKBT_01_light_Olive_F","V_SPE_GER_VestSTG","V_PlateCarrier1_rgr_noflag_F","rhs_6b2_chicom"],
+																		["H_SPE_ST_Helmet2","H_SPE_ST_Helmet","H_SPE_ST_Helmet3","H_SPE_GER_HelmetUtility","H_SPE_GER_HelmetUtility_Grass","H_SPE_GER_Helmet_net_painted"],
+																		["B_SPE_GER_Tonister41_Frame","B_SPE_GER_A_frame_ST_MGCan","B_SPE_GER_Tonister41_Frame_Full_ST","B_SPE_GER_A_frame_MGCan_zelt","B_SPE_GER_A_frame_Full","B_SPE_GER_Belt_bag_zelt_trop"],
+																		["G_Balaclava_Flames1","G_Balaclava_Flecktarn","G_Balaclava_Scarecrow_01","G_Balaclava_Skull1","G_Balaclava_Tropentarn","G_Balaclava_BlueStrips"]//_googles/_facewear
 																	];
 										WMS_AMS_UnitClass 			= WMS_AI_Units_Class;
 										WMS_AI_LaunchersOPF 		= [ //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
@@ -103,19 +128,28 @@ if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 										WMS_AMS_ForceRadius			= true; //3m
 										WMS_AMS_DefRad				= 8; //Defaut Forced radius. You might want to keep 0 since anyway, objects will be hidden
 										WMS_CaptureZone_Vhl			= [["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],["vn_o_armor_ot54_01","vn_o_armor_m41_01","vn_o_armor_t54b_01","vn_o_armor_type63_01"]]; //[air],[gnd] //rhsgref_mi204g_CAS
-										WMS_RandomStart_Hour 		= 4;
+										WMS_RandomStart_Hour 		= 3;
 										WMS_RandomStart_Random 		= 8;
-										WMS_FastNight_Morning 		= 5.5; //morning start at
-										WMS_FastNight_Evening		= 17.7; //evening start at
-										WMS_FastNight_Day 			= 4; //day time speed //default 6
+										WMS_FastNight_Morning 		= 5; //morning start at
+										WMS_FastNight_Evening		= 18; //evening start at
+										WMS_FastNight_Day 			= 7; //day time speed //default 6
 										WMS_FastNight_Night 		= 25; //time speed //default 38
 										WMS_DynAI_DestroyVHL 		= 60;
-										WMS_trigLocals_Chance 		= 70;
+										WMS_trigLocals_Chance 		= 75;
+										WMS_Forests_Chance			= 60; //40
+										WMS_Military_Chance			= 97; //90
 										WMS_triggCheck				= 300; //Active triggers will check their area to respawn "dynamic" stuff on players if no NPCs around
 										WMS_triggCheckChance		= 65; //chance to send reinforcement at _target position
-										WMS_trig_Glob_CoolD 		= 240;
+										WMS_trig_Glob_CoolD 		= 210;
+										WMS_trigLocals_CoolD 		= 350;
+										WMS_trigVillages_CoolD 		= 350;
+										WMS_trigCities_CoolD 		= 350;
+										WMS_trigCapitals_CoolD 		= 250;
+										WMS_trigHills_CoolD 		= 300;
 										WMS_Forests_CoolD			= 300;
-										WMS_Military_CoolD			= 170;
+										WMS_Military_CoolD			= 140;
+										WMS_Military_Size			= 260;
+
 										WMS_AL_VHLmax				= 10; //Max vehicles (all included) running at the same time
 										WMS_AL_UnitMax				= 0; //Max units (groups if _CombatBehav true) patroling at the same time
 										WMS_AL_VhlBalance			= [1,1,0,1,1,0,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation

@@ -168,6 +168,41 @@ WMS_Loadout_SMG = [
 			//"V_Chestrig_khk","V_HarnessOGL_gry","rhs_lifchik_vog","V_TacVest_brn"
 //green:	"H_Booniehat_mgrn","H_Booniehat_khk","H_Booniehat_oli","H_Booniehat_taiga","H_Watchcap_khk","H_Bandanna_khk","H_Cap_grn","H_Cap_oli"
 			//"V_Chestrig_rgr","V_Chestrig_oli","V_HarnessOGL_ghex_F","V_TacVest_oli"
+
+WMS_Loadout_AORU = [//light green/tan camo //NPC //NEW
+	[//Uniform
+		"AORU_Camo_Cyre_Tee","AORU_Camo_Cyre","AORU_Camo_Cyre_GP","AORU_Camo_Cyre_GS","AORU_Camo_Cyre_TP","AORU_Camo_Cyre_TS","AORU_Camo","AORU_Camo_BDU_GP","AORU_Camo_BDU_TP","AORU_Camo_BDU",
+		"AORU_GP_Camo","AORU_GS_Camo","AORU_TP_Camo","AORU_TS_Camo","AORU_Camo_SS","AORU_GP_Camo_SS","AORU_GS_Camo_SS","AORU_TP_Camo_SS","AORU_TS_Camo_SS"
+	],
+	[//Vest
+		"V_Chestrig_khk","V_TacVest_khk","V_PlateCarrier1_rgr_noflag_F","V_PlateCarrier2_rgr_noflag_F",//Vanilla
+		"gm_ge_vest_armor_90_machinegunner_flk","gm_ge_vest_90_medic_flk","gm_ge_army_vest_80_demolition", //GM
+		//"V_SPE_DAK_PioneerVest","V_SPE_GER_VestUnterofficer", //SPE
+		//"vn_o_vest_01","vn_o_vest_06","vn_o_vest_03","vn_o_vest_07","vn_o_vest_02","vn_o_vest_08", //SOG
+		"rhs_6b13_EMR","rhs_6b2_lifchik","rhs_6b45_desert","rhs_6b5_rifleman_spetsodezhda","rhs_6b5_rifleman_ttsko","rhs_6sh92_vsr_vog","rhs_lifchik","rhsgref_6b23_khaki_sniper",//RHS
+		"rhsusf_iotv_ocp_Grenadier","rhsusf_iotv_ocp_Squadleader","rhsusf_mbav_grenadier","rhsusf_plateframe_machinegunner","rhsusf_spc_patchless","rhsusf_spcs_ocp_rifleman",//RHS
+		"AORU_Vest_1","AORU_Vest_2","AORU_Vest_3","AORU_Vest_4","AORU_Vest_5","Specter_MBSS_PACA_TAN","Specter_LBT_vest_TAN", //VSM
+		"AORU_Vest_1","AORU_Vest_2","AORU_Vest_3","AORU_Vest_4","AORU_Vest_5","Specter_MBSS_PACA_TAN","Specter_LBT_vest_TAN" //VSM
+	],
+	[//Helmet
+		"H_HelmetSpecB_Paint1","H_HelmetSpecB_Paint2","H_HelmetSpecB_Sand","H_HelmetSpecB_SnakeSkin",//vanilla
+		"gm_ge_ff_headgear_m35_53_tan","gm_ge_bgs_headgear_psh77_cover_up_str","gm_ge_bgs_headgear_psh77_cover_down_str","gm_xx_headgear_headwrap_crew_01_trp", //GM
+		//"H_SPE_GER_HelmetUtility","H_SPE_GER_HelmetCamo3_OS","H_SPE_GER_HelmetUtility_Grass","H_SPE_GER_Helmet_ns_wire_painted",//SPE
+		//"vn_o_helmet_nva_03","vn_o_helmet_nva_08","vn_o_helmet_nva_06","vn_o_pl_cap_01_01","vn_b_boonie_09_07"
+		"AORU_Boonie","AORU_Cap","AORU_helmet1","AORU_helmet2" //VSM
+	],
+	[//Backpack
+		"B_Carryall_cbr","B_FieldPack_cbr","B_Kitbag_tan","B_TacticalPack_ocamo","B_ViperHarness_hex_F","B_ViperLightHarness_khk_F", //Vanilla
+		"gm_ge_army_backpack_90_trp", //GM
+		//"B_SPE_GER_A_frame_MGCan","B_SPE_GER_A_frame_sturm_licht","B_SPE_GER_A_frame_Full","B_SPE_GER_Belt_bag_zelt_trop","B_SPE_GER_A_frame_ST_MGCan","B_SPE_GER_Tonister41_Frame_ST","B_SPE_GER_Tonister41_Frame_Full", //SPE
+		//"vn_o_pack_01","vn_o_pack_02","vn_o_pack_03","vn_o_pack_05", //SOG
+		"AORU_Backpack_Compact","AORU_Backpack_Kitbag","AORU_Backpack_Compact","AORU_Backpack_Kitbag","AORU_Backpack_Compact","AORU_Backpack_Kitbag"//VSM *3
+	],
+	[ //_googles//_facewear
+		"G_Balaclava_oli","G_Balaclava_Scarecrow_01","G_Balaclava_Flecktarn","G_Balaclava_Tropentarn","G_Balaclava_Skull1"
+	]
+];
+
 WMS_Loadout_AOR1 = [//desert
 	[//Uniform
 		"AOR1_Camo_Cyre_Tee","AOR1_Camo_Cyre","AOR1_Camo_Cyre_GP","AOR1_Camo_Cyre_GS","AOR1_Camo_Cyre_TP","AOR1_Camo_Cyre_TS","AOR1_Camo","AOR1_Camo_BDU_GP","AOR1_Camo_BDU_TP","AOR1_Camo_BDU","AOR1_GP_Camo",

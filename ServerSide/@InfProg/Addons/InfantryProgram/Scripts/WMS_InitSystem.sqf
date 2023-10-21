@@ -39,14 +39,14 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.888_2023OCT17_GitHub"; //SPE_Normandy update
+WMS_System_Version 			= "v2.891_2023OCT21_GitHub"; //SPE_Normandy update //WMS_Loadout_LocalOPFOR //AORU NPC loadout
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
 if (isDedicated) then {	
-	diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]
+	diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS|Initializing AI/Missions system at %1, rev %2", servertime, WMS_System_Version]
 }else{
-	diag_log format ["[WMS Starting On HeadlessClient]|WAK|TNA|WMS| Initialisation of the AI system at %1, rev %2", servertime, WMS_System_Version]
+	diag_log format ["[WMS Starting On HeadlessClient]|WAK|TNA|WMS|Initializing AI/Missions system at %1, rev %2", servertime, WMS_System_Version]
 };
 if (isDedicated) then {
 	WMS_serverCMDpwd serverCommand "#Lock"; //will be unlocked at WMS_15sec_Watch launch

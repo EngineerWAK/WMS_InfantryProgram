@@ -56,16 +56,24 @@ _loadoutTrack = _loadout; //yeah, I messed up...
 _waveLevel = 1; //used for Judgement Day, smg at first waves then increase _weapRandomNoSnipNoMG, assaut, random
 _weapRandom = [WMS_Loadout_Assault, WMS_Loadout_Assault, WMS_Loadout_SMG, WMS_Loadout_DMR, WMS_Loadout_MG, WMS_Loadout_Sniper, WMS_Weaps_HeavyBandit];
 _weapRandomNoSnipNoMG = [WMS_Loadout_Assault, WMS_Loadout_Assault, WMS_Loadout_SMG, WMS_Loadout_DMR];
+if (_loadout == "army")then{
+	_loadout = selectRandom ["aoru","m90d","abu","blackops","aor1","surpat","localopfor","localopfor"]; //more "localopfor"
+	_loadoutTrack = _loadout;
+	}; //do the selectRandom before the switch
+if (_loadout == "army_b")then{_loadout = selectRandom ["aor2","m90","scorpion","tiger","fleck"]}; //do the selectRandom before the switch
 switch (toLower _loadout) do {
 	case "civilian" : {_loadout = WMS_Loadout_Civilian; _weaps = WMS_Loadout_LightWeaps};
 	case "bandit" 	: {_loadout = WMS_Loadout_Bandit; _weaps = WMS_Loadout_LightWeaps};
 	case "heavybandit" 	: {_loadout = WMS_Loadout_HeavyBandit; _weaps = WMS_Weaps_HeavyBandit};
-	case "army" 	: {_loadout = selectRandom [WMS_Loadout_M90d, WMS_Loadout_ABU, WMS_Loadout_MCB, WMS_Loadout_AOR1, WMS_Loadout_SURPAT]};
+	//case "army" 	: {_loadout = selectRandom [WMS_Loadout_M90d, WMS_Loadout_ABU, WMS_Loadout_MCB, WMS_Loadout_AOR1, WMS_Loadout_SURPAT,WMS_Loadout_LocalOPFOR]};
+	case "army" 	: {_loadout = WMS_Loadout_LocalOPFOR}; //"army" should not happen anymore
+	case "aoru" 	: {_loadout = WMS_Loadout_AORU;}; //NEW
 	case "abu" 		: {_loadout = WMS_Loadout_ABU;};
 	case "m90d" 	: {_loadout = WMS_Loadout_M90d;};
 	case "aor1" 	: {_loadout = WMS_Loadout_AOR1;};
 	case "surpat" 	: {_loadout = WMS_Loadout_SURPAT;};
 	case "blackops" : {_loadout = WMS_Loadout_MCB;};
+	case "localopfor" : {_loadout = WMS_Loadout_LocalOPFOR;};
 	case "diver" 	: {_loadout = WMS_Loadout_Diver;};
 	case "scientist": {_loadout = WMS_Loadout_Scientist;};
 	case "livonia" 	: {
@@ -74,12 +82,13 @@ switch (toLower _loadout) do {
 						_weapRandom = [WMS_Weaps_LivoniaMix];
 						_weapRandomNoSnipNoMG = [WMS_Weaps_LivoniaMix];
 						};
-	case "army_b" 		: {_Loadout = selectrandom [WMS_Loadout_AOR2, WMS_Loadout_M90, WMS_Loadout_Scorpion, WMS_Loadout_Tiger, WMS_Loadout_DEfleck]};
+	//case "army_b" 		: {_Loadout = selectrandom [WMS_Loadout_AOR2, WMS_Loadout_M90, WMS_Loadout_Scorpion, WMS_Loadout_Tiger, WMS_Loadout_DEfleck]};
+	case "army_b" 		: {_Loadout = WMS_Loadout_AOR2}; //"army_b" should not happen anymore
 	case "aor2" 		: {_Loadout = WMS_Loadout_AOR2};
 	case "m90" 			: {_Loadout = WMS_Loadout_M90};
 	case "scorpion" 	: {_Loadout = WMS_Loadout_Scorpion};
 	case "tiger" 		: {_Loadout = WMS_Loadout_Tiger};
-	case "fleck"		: {_Loadout = WMS_Loadout_DEfleck};
+	case "fleck"		: {_Loadout = WMS_Loadout_DEfleck}; //BWmod not used anymore
 };
 _skills = [_skill,_difficulty]call WMS_fnc_AMS_ConvertSkills;
 _sniper = WMS_AMS_skillsniper; //[1,0.95,0.95,0.95]
@@ -91,6 +100,7 @@ _poptabs = 50;
 	removeAllWeapons _unit;
 	removeBackpackGlobal _unit;
 	removeUniform _unit;
+	removeAllAssignedItems _unit; //remove map, compas and probably re-add map or compas later. due to new "realMeanOnly" respawn inventory
 	//
 	_itemsCount = (WMS_AI_Additems select 0) + round (random (WMS_AI_Additems select 1));
 	_RealFuckingSide = _unit getVariable ["WMS_RealFuckingSide",OPFOR];
@@ -301,6 +311,7 @@ _poptabs = 50;
 		if (true) then {diag_log format ["[AMS/DynAI AI SETUP]|WAK|TNA|WMS|Something went wrong!!! Adding Emergency Parachute to %1, %2", (name _unit), (position _unit)]};
 	};
 	if (_loadoutTrack == "scientist") then {if (goggles _unit != "") then {removeGoggles _unit};_unit addGoggles selectrandom (WMS_Loadout_Scientist select 4);};
+	if (_loadoutTrack == "localopfor") then {if (goggles _unit != "") then {removeGoggles _unit};_unit addGoggles selectrandom (WMS_Loadout_LocalOPFOR select 4);};
 	if (_mainWeap in WMS_AMS_sniperList) then {
 		_unit setSkill ["spotDistance", (_sniper select 0)];
 		_unit setSkill ["spotTime", 	(_sniper select 1)];
@@ -362,7 +373,19 @@ _poptabs = 50;
 	for "_i" from 1 to _itemsCount do {
 		_unit additem (selectRandom WMS_AI_inventory);
 	};
-	if (leader _unit == _unit) then {_unit additem "FlashDisk"}; //for the "claimItem" challenge
+	if (leader _unit == _unit) then {
+		_unit additem "FlashDisk"; //for the "claimItem" challenge
+		if ((random 100) < 25) then { //25% chance to spawn an item
+			_specialItem = selectRandom [
+				"ItemCompass","ItemCompass",
+				"ItemMap",
+				"ItemWatch","ACE_Altimeter",
+				"ItemRadio","rhsusf_radio_anprc152"
+			];
+			_unit addItem _specialItem;
+			_unit assignItem _specialItem;
+		};
+	};
 ////////////////AMS/DYNAI/WHATEVER CHANGES
 	if (_info == "AMS" || _info == "CaptureZone") then {
 		_unit setVariable ["WMS_Info", _info]; //not used yet

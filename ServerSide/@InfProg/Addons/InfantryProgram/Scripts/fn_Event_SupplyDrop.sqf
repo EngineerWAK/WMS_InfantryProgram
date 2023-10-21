@@ -176,10 +176,10 @@ if (count _positions > 0) then {//Need to add a Player check
 		if (isDedicated && {_HC1} && {_HC1_ID != 2} && {WMS_OffloadToHC1}) then {
 			if (true) then {diag_log format ["[WMS_fnc_Event_SupplyDrop]|WMS|TNA|WAK| Offloading group to HC1, ID = %1, group = %2, pos = %3", _HC1_ID, _paraGrp, _Pos]};
 			_paraGrp setGroupOwner _HC1_ID;
-			[(units _paraGrp),'Para',30,(0.2 + random 0.4),nil,"livonia",nil,"Supplydrop"] remoteExec ["WMS_fnc_SetUnits",_HC1_ID]; //paradrop
+			[(units _paraGrp),'Para',30,(0.2 + random 0.4),nil,(selectRandom ["livonia","localopfor"]),nil,"Supplydrop"] remoteExec ["WMS_fnc_SetUnits",_HC1_ID]; //paradrop
 			[units _paraGrp, _Pos, 200, 4, "MOVE", "SAFE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] remoteExec ["WMS_fnc_Waypoints_Patrol",_HC1_ID];
 		}else{
-			[(units _paraGrp),'Para',30,(0.2 + random 0.4),nil,"livonia",nil,"Supplydrop"] call WMS_fnc_SetUnits; //paradrop
+			[(units _paraGrp),'Para',30,(0.2 + random 0.4),nil,(selectRandom ["livonia","localopfor"]),nil,"Supplydrop"] call WMS_fnc_SetUnits; //paradrop
 			[_paraGrp, _Pos, 200, 4, "MOVE", "SAFE", "YELLOW", "NORMAL", "COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 		};
 	};
