@@ -358,14 +358,14 @@ _poptabs = 50;
 	_unit allowFleeing 0;
 	//_unit setRank "PRIVATE"//,"CORPORAL","SERGEANT","LIEUTENANT","CAPTAIN","MAJOR","COLONEL"
 	_rankRef = _unit skill "aimingAccuracy";
-	if (_rankRef < 0.1) then {_unit setRank "PRIVATE"};
-	if (_rankRef >= 0.1 && _rankRef < 0.22) then {_unit setRank "CORPORAL"};
-	if (_rankRef >= 0.22 && _rankRef < 0.35) then {_unit setRank "SERGEANT"};
-	if (_rankRef >= 0.35 && _rankRef < 0.49) then {_unit setRank "LIEUTENANT"};
-	if (_rankRef >= 0.49 && _rankRef < 0.63) then {_unit setRank "CAPTAIN"};
-	if (_rankRef >= 0.63 && _rankRef < 0.82) then {_unit setRank "MAJOR"};
+	if (_rankRef < 0.1) then {_unit setRank "PRIVATE"}else{
+	if (_rankRef >= 0.1 && _rankRef < 0.22) then {_unit setRank "CORPORAL"}else{
+	if (_rankRef >= 0.22 && _rankRef < 0.35) then {_unit setRank "SERGEANT"}else{
+	if (_rankRef >= 0.35 && _rankRef < 0.49) then {_unit setRank "LIEUTENANT"}else{
+	if (_rankRef >= 0.49 && _rankRef < 0.63) then {_unit setRank "CAPTAIN"}else{
+	if (_rankRef >= 0.63 && _rankRef < 0.82) then {_unit setRank "MAJOR"}else{
 	if (_rankRef >= 0.82 && _rankRef <= 1) then {_unit setRank "COLONEL"};
-
+	};};};};};};
 	//
 	if (random 100 > 50) then {
 		_unit addPrimaryWeaponItem (selectrandom WMS_AI_Attachements);
@@ -375,7 +375,7 @@ _poptabs = 50;
 	};
 	if (leader _unit == _unit) then {
 		_unit additem "FlashDisk"; //for the "claimItem" challenge
-		if ((random 100) < 25) then { //25% chance to spawn an item
+		if ((random 100) < 35) then { //35% chance to spawn an item
 			_specialItem = selectRandom [
 				"ItemCompass","ItemCompass",
 				"ItemMap",
