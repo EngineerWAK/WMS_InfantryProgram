@@ -46,7 +46,7 @@ if (_playerCount > 0 && {(time > (WMS_DynAI_LastTime+_waitingTime))} && {((OPFOR
 	//_target setVariable ["WMS_PlayerConnect", _playerConnect]; //from RamdomizeSpawnZone
 	/////
 	_threatScenario = "GoForIt";
-	_playerConnect = _DynamicThreatTarget getVariable ["WMS_PlayerConnect", (serverTime+1800)];
+	_playerConnect = _DynamicThreatTarget getVariable ["WMS_PlayerConnect", serverTime];
 	if (serverTime < _playerConnect+900) then {
 		_threatScenario = "Nothing";
 	};
@@ -66,7 +66,7 @@ if (_playerCount > 0 && {(time > (WMS_DynAI_LastTime+_waitingTime))} && {((OPFOR
 			//if still someone in the list, try a last time
 			_threatScenario = "GoForIt";
 			_DynamicThreatTarget = selectRandom WMS_DynAI_TargetList;
-			_playerConnect = _DynamicThreatTarget getVariable ["WMS_PlayerConnect", (serverTime+1800)];
+			_playerConnect = _DynamicThreatTarget getVariable ["WMS_PlayerConnect", serverTime];
 			if (serverTime < _playerConnect+900) then {
 				_threatScenario = "Nothing";
 			};
