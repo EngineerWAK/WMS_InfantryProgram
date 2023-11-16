@@ -77,7 +77,7 @@ if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 										WMS_DynAI_RainObjects 		= [ //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
 																		["Chemlight_blue","Land_HumanSkull_F"],
 																		["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],
-																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo ","rhs_ammo_m397","vn_bomb_mk36_destructor_mine_ammo"],
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo","rhs_ammo_m397","vn_bomb_mk36_destructor_mine_ammo"],
 																		["vn_m34_grenade_ammo","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst","vn_bomb_mk36_destructor_mine_ammo"],
 																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"]
 																	];
@@ -94,6 +94,8 @@ if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 										WMS_DeliveryChopper_Type 	= ["vn_b_air_oh6a_02"];  //infantry program Active List only
 										WMS_Pos_Forests 			= [[9494.79,3399.92,0],[9783.08,3480.52,0],[12044.6,406.423,0],[9469.58,2642.46,0],[8653.28,1356.58,0],[1606.69,2536.37,0],[1648.18,7501.36,0],[998.966,7324.75,0],[3614.67,8915.57,0],[5614.6,9114.27,0],[5760.93,10304.5,0],[2371.16,11396.8,0],[3172.97,12067.2,0],[1557.41,11932.5,0],[361.521,11877.9,0],[7676.29,6540.47,0],[8040.64,6163.11,0],[3806.91,741.29,0]]; //not autoScan
 										WMS_Pos_Military 			= [
+																		[11105.1,11301.2,0], [11272.3,11120.6,0], [11051.7,10919.8,0], [10803.4,10828.9,0], //St Lo
+																		[10994.7,10051.7,0], [10835.9,10238.5,0], [10261.2,10312.6,0], //north airfield, st lo
 																		[8409.72,1428.64,0],[8962.97,4018.31,0],[4118.53,9155.36,0],[2914.18,7122.82,0],[3613.49,1365.72,0],[4030.74,3067.38,0], //ckp
 																		[8395.4,10355.2,0],[2145.17,9981.55,0],[5036.9,4343.66,0],[8166.22,1082.36,0],//spawnzone militaties
 																		[8332.92,5871.59,0],[7497.79,6294.32,0],[7970.25,6562.33,0],[9520.03,3272.08,0],[9909.93,3265.97,0],[9787.57,3718.25,0],[1838.69,3834.36,0],
@@ -167,7 +169,7 @@ if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
 																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
-																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["vn_m34_grenade_ammo","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst","vn_bomb_mk36_destructor_mine_ammo"], //wave 7 & 8
 																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"] //wave 9 & 10
 																	];
@@ -226,7 +228,7 @@ if (worldName == "Cam_Lao_Nam") then {
 										WMS_DynAI_RainObjects 		= [ //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
 																		["Chemlight_blue","Land_HumanSkull_F"],
 																		["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],
-																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo ","rhs_ammo_m397","vn_bomb_mk36_destructor_mine_ammo"],
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo","rhs_ammo_m397","vn_bomb_mk36_destructor_mine_ammo"],
 																		["vn_m34_grenade_ammo","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst","vn_bomb_mk36_destructor_mine_ammo"],
 																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"]
 																	];
@@ -339,7 +341,7 @@ if (worldName == "Cam_Lao_Nam") then {
 										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
 																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
-																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["vn_m34_grenade_ammo","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst","vn_bomb_mk36_destructor_mine_ammo"], //wave 7 & 8
 																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"] //wave 9 & 10
 																	];
