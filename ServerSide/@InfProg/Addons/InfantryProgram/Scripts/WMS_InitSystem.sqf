@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.894_2023NOV16_GitHub"; //"WMS_PlayerConnect" was wrong in fn_Watch_DynAI 
+WMS_System_Version 			= "v2.895_2023NOV24_GitHub"; //fix for WMS_fnc_AMS_SpnAiBlkListFull, from 31 sec to 1.
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -582,6 +582,7 @@ WMS_AMS_CustomPos		= ["random"];//["forest","forest","forest","random"]; //used 
 WMS_AMS_CustomPosFact	= ["random"]; //used to spawn "Factory Sales" //"random" or "factory"
 WMS_AMS_CanSelect 		= true;//keep true, FastCombat deactivation re-launch customMapsSettings and you don't want restart a 20 positions selection in the middle of the round
 WMS_AMS_preSelectPos 	= []; //pushback 20 positions pre-selected BEFORE the server unlock to prevent lags when mission spawn //if (WMS_AMS_CleanMapObj && WMS_AMS_ForceRadius)then {};
+	//WMS_AMS_MissionsPos		= []; //will be used to get missions positions and not check all map object to find a flag... //but later, let's use the missions array first
 WMS_AMS_MissionList 	= [ //missions themself and weight
 							["MissionTest1",1],
 							["MissionTest2",1],

@@ -89,7 +89,7 @@ switch (_difficulty) do {
 
 _objects 	= selectRandom ["EnemyBunker","EnemyBunkerV2"];
 _objList 	= [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects;
-uisleep 5;
+uisleep 1;
 _grpInf = [ 
 		_pos,
 		_missionID,
@@ -103,7 +103,7 @@ _grpInf = [
 		_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 		_difficulty
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 5;
+uisleep 1;
 
 _grpInf2 = [ 
 	_pos,
@@ -118,7 +118,7 @@ _grpInf2 = [
 	_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 	_difficulty	
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 5;
+uisleep 1;
 _Mines = [
 	_pos,
 	_radius,	//"_radius", //100

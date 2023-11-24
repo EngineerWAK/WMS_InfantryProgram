@@ -88,7 +88,7 @@ uisleep 1;
 	};
 	_objects = "missiontest2";
 	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects;
-uisleep 5;
+uisleep 1;
 	_grpInf2 = [ 
 			_pos,
 			_missionID,
@@ -102,7 +102,7 @@ uisleep 5;
 			_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 			_difficulty
 	] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 5;	
+uisleep 1;	
 
 	_grpInf = [ 
 			_pos,
@@ -117,7 +117,7 @@ uisleep 5;
 			_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 			_difficulty	
 	] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 5;
+uisleep 1;
 
 _trigg = [_pos,(_grpInf+_grpInf2)]call WMS_fnc_AMS_createTriggCallBackGrps;
 
@@ -126,7 +126,7 @@ _trigg = [_pos,(_grpInf+_grpInf2)]call WMS_fnc_AMS_createTriggCallBackGrps;
 		_radius,//"_radius", //100
 		_howMany//"_howMany", //20
 	] call WMS_fnc_AMS_SpawnMineField;
-uisleep 5;
+uisleep 1;
 	_grps = _grpInf+_grpInf2; //array of all the different groups spawned: _grps = _grpInf+_grpVHL;
 	_objList = _objList;
 	WMS_AMS_Running_Array pushback [

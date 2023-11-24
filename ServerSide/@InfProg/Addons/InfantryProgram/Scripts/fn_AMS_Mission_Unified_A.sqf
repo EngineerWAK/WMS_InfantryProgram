@@ -190,7 +190,7 @@ switch (_difficulty) do {
 };
 
 _objList = [_pos, _objects, _dir, _missionID,_radiusObjects] call WMS_fnc_AMS_SpawnObjects;
-uisleep 5;
+uisleep 1;
 
 _grpInf = [ 
 		_pos,
@@ -205,7 +205,7 @@ _grpInf = [
 		_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 		_difficulty
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 5;
+uisleep 1;
 
 _trigg = [_pos,_grpInf]call WMS_fnc_AMS_createTriggCallBackGrps;
 
@@ -218,7 +218,7 @@ _Mines = [
 	//"_signs", //true
 	//"_steps" //36
 ] call WMS_fnc_AMS_SpawnMineField;
-uisleep 5;
+uisleep 1;
 
 _grps = _grpInf; //array of all the different groups spawned: _grps = _grpInf+_grpVHL;
 

@@ -39,15 +39,19 @@ if (_playerCount == 3) then {
 //Looking for a target
 if (_playerCount > 0 && {(time > (WMS_DynAI_LastTime+_waitingTime))} && {((OPFOR countSide allUnits) < WMS_AI_MaxUnits_C)}) then {
 	//WMS_DynAI_TargetList = allplayers; //allPlayers include HCs
-	WMS_DynAI_TargetList = (allPlayers select {alive _x && {count getplayerUID _x == 17 }} apply {_x}); //yeah, it's a stupid way but it works
+	//WMS_DynAI_TargetList = (allPlayers select {alive _x && {count getplayerUID _x == 17 }} apply {_x}); //yeah, it's a stupid way but it works
+	WMS_DynAI_TargetList = (allPlayers select {alive _x && {count getplayerUID _x == 17 }}); //yeah, it's a stupid way but it works
 	_DynamicThreatTarget = selectrandom WMS_DynAI_TargetList;
 	/////
 	//_playerConnect = missionNameSpace setVariable ["WMS_PlayerConnect", serverTime]; //registered as serverTime in initPlayerLocal
 	//_target setVariable ["WMS_PlayerConnect", _playerConnect]; //from RamdomizeSpawnZone
 	/////
 	_threatScenario = "GoForIt";
-	_playerConnect = _DynamicThreatTarget getVariable ["WMS_PlayerConnect", serverTime];
-	if (serverTime < _playerConnect+900) then {
+	_playerConnect = _DynamicThreatTarget getVariable ["WMS_PlayerConnect", -999];
+	if (_playerConnect == -999) then {
+		_DynamicThreatTarget setVariable ["WMS_PlayerConnect", serverTime, true];
+	};
+	if (serverTime < _playerConnect+900) then { //first 15 minutes, nothing will happen
 		_threatScenario = "Nothing";
 	};
 	//here look for the JudgementDay Marker, if true _threatScenario = "judgementDay";

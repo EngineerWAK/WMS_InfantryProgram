@@ -21,9 +21,10 @@ if (time > _timeToWait) then {
 		["", (Random 359), WMS_AMS_CenterMap, ((worldsize/2)*1.413), _pos, 14400, 0, 999, 0] spawn WMS_fnc_Compo_RepairCamp;
 	};
 
-	if (_type == "HeliCrash") then {
+	if (_type == "HeliCrash") then { //something is freezing the server for few seconds when helicrash is spawning, need investigation
 		//MUST CALL A BLACKLIST
-		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull;
+		_blackList = [] call WMS_fnc_AMS_SpnAiBlkListFull; //this one takes 31 secondes with 1 player and 11 results total...
+		//_blackList = []; //need to fix this later //should be fixed
 		_pos = [WMS_AMS_CenterMap, 0, (worldsize/2), 15, 0, 0.20,0,_blackList] call BIS_fnc_findSafePos;
 		if (WMS_IP_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Processing Event: %1 @%2", _type, _pos];};
 		if (surfaceIsWater _pos && {(((ATLtoASL _pos) select 2) < -1)}) then {

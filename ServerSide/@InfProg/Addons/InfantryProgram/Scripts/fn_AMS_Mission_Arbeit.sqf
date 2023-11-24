@@ -96,7 +96,7 @@ switch (_difficulty) do {
 //_objects = selectRandom [WMS_AMS_Obj_Arbeit,WMS_AMS_Obj_ArbeitV2,WMS_AMS_Obj_ArbeitV3];
 _objects = selectRandom ["arbeit","arbeitv2","arbeitv3"];
 _objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects;
-uisleep 5;
+uisleep 1;
 _grpInf = [ 
 		_pos,
 		_missionID,
@@ -110,7 +110,7 @@ _grpInf = [
 		_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 		_difficulty
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 5;
+uisleep 1;
 
 _grpInf2 = [ 
 	_pos,
@@ -125,7 +125,7 @@ _grpInf2 = [
 	_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 	_difficulty	
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 5;
+uisleep 1;
 
 _trigg = [_pos,(_grpInf+_grpInf2)]call WMS_fnc_AMS_createTriggCallBackGrps;
 
@@ -134,7 +134,7 @@ _Mines = [
 	_radius,	//"_radius", //100
 	_howMany	//"_howMany", //20
 ] call WMS_fnc_AMS_SpawnMineField;
-uisleep 5;
+uisleep 1;
 _grps = _grpInf+_grpInf2; //array of all the different groups spawned: _grps = _grpInf+_grpVHL;
 _Mines = _Mines;
 _objList = _objList;

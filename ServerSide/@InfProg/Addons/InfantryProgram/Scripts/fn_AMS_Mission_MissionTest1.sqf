@@ -89,7 +89,7 @@ uisleep 1;
 	//_objects = [["CamoNet_OPFOR_open_F",[0,0,0],90]];
 	_objects = "missiontest1";
 	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects;
-uisleep 5;
+uisleep 1;
 	_grpInf = [ 
 			_pos,
 			_missionID,
@@ -103,7 +103,7 @@ uisleep 5;
 			_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 			_difficulty
 	] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 5;
+uisleep 1;
 
 _trigg = [_pos,_grpInf]call WMS_fnc_AMS_createTriggCallBackGrps;
 
@@ -112,7 +112,7 @@ _trigg = [_pos,_grpInf]call WMS_fnc_AMS_createTriggCallBackGrps;
 		_radius,//"_radius", //100
 		_howMany//"_howMany", //20
 	] call WMS_fnc_AMS_SpawnMineField;
-uisleep 5;
+uisleep 1;
 	_vehic = [
 		_pos,
 		_skill,

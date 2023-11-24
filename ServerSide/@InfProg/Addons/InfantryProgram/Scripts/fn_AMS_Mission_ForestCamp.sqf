@@ -68,7 +68,7 @@ uisleep 1;
 	};
 	_objects = "forestcamp";
 	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects;
-uisleep 5;
+uisleep 1;
 	_grpInf = [ 
 			_pos,
 			_missionID,
@@ -82,7 +82,7 @@ uisleep 5;
 			_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 			_difficulty
 	] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 5;
+uisleep 1;
 
 _trigg = [_pos,_grpInf]call WMS_fnc_AMS_createTriggCallBackGrps;
 

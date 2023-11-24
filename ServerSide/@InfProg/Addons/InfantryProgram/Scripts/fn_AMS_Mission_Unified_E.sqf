@@ -148,7 +148,7 @@ switch (_difficulty) do {
 };
 
 _objList = [_pos, _objects, _dir, _missionID,_radiusObjects] call WMS_fnc_AMS_SpawnObjects;
-uisleep 5;
+uisleep 1;
 
 _grpInf = [ 
 		_pos,
@@ -163,7 +163,7 @@ _grpInf = [
 		_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 		_difficulty
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 5;
+uisleep 1;
 
 _grpInf2 = [ 
 	_pos,
@@ -178,7 +178,7 @@ _grpInf2 = [
 	_launcherChance,//"_launcherChance"//WMS_AMS_LauncherChance
 	_difficulty	
 ] call WMS_fnc_AMS_SpawnGroups; //return an Array of group(s)
-uisleep 5;
+uisleep 1;
 
 _trigg = [_pos,(_grpInf+_grpInf2)]call WMS_fnc_AMS_createTriggCallBackGrps;
 
@@ -191,7 +191,7 @@ _Mines = [
 	//"_signs", //true
 	//"_steps" //36
 ] call WMS_fnc_AMS_SpawnMineField;
-uisleep 5;
+uisleep 1;
 
 _rwd = ObjNull;
 if (_forceParaRwd) then {
@@ -212,7 +212,7 @@ _vehic = [
 	false, //_strictPos //true for statics with coordinates
 	_difficulty
 ] call WMS_fnc_AMS_SpawnAiVHL; //return [_VHL,_VHLgrp]
-uisleep 5;
+uisleep 1;
 _VHL = (_vehic select 0);
 _VHLgrp = (_vehic select 1);
 
