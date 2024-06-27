@@ -548,6 +548,14 @@ if (worldName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global M
 																		"gm_pl_army_sf_machinegunner_rpk_80_moro","gm_pl_army_sf_marksman_svd_80_moro","gm_pl_army_sf_antitank_akmn_fagot_80_moro","gm_pl_army_sf_demolition_pm63_80_moro",
 																		"gm_pl_army_sf_grenadier_akm_pallad_80_moro"
 																	];
+										WMS_Loadout_LocalOPFOR 		= [ //this is a new NPC loadout using equipement specific from the map or main mod like german army for GM, VC for SOG, etc...
+						   												// this loadout will be changed in customMapSettings
+	 																	["rhsgref_uniform_flecktarn_full","rhsgref_uniform_gorka_1_f","rhs_uniform_afghanka_moldovan_ttsko_desat","rhs_uniform_mvd_izlom","gm_xx_army_uniform_fighter_04_grn","gm_ge_army_uniform_crew_90_flk"],
+																		["gm_ge_vest_armor_90_rifleman_flk","gm_dk_army_vest_54_rifleman","V_CarrierRigKBT_01_light_Olive_F","gm_ge_vest_armor_90_leader_flk","V_PlateCarrier1_rgr_noflag_F","rhs_6b13_6sh92_vog","rhs_lifchik_vog","gm_ge_vest_armor_90_machinegunner_flk"],
+																		["gm_xx_headgear_headwrap_crew_01_flk","rhsgref_helmet_m1940","rhsgref_helmet_pasgt_flecktarn","gm_ge_headgear_hat_90_flk","gm_ge_headgear_hat_boonie_flk","gm_ge_bgs_headgear_m35_53_net_blk"],
+																		["B_AssaultPack_rgr","rhs_sidor","gm_dk_army_backpack_73_oli","gm_ge_army_backpack_90_flk","gm_pl_army_backpack_80_oli","gm_ge_backpack_satchel_80_blk"],
+																		["G_Balaclava_Flames1","G_Balaclava_Flecktarn","G_Balaclava_Scarecrow_01","G_Balaclava_Skull1","G_Balaclava_Tropentarn","G_Balaclava_BlueStrips"]//_googles/_facewear
+																	];
 										WMS_AMS_UnitClass 			= WMS_AI_Units_Class;
 										WMS_AL_VhlBalance			= [1,1,0,1,1,0,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 										WMS_AL_UnitMax				= 10; //Max units (groups if _CombatBehav true) patroling at the same time
