@@ -537,9 +537,9 @@ if (worldName == "lingor3") then {
 if (worldName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global Mobilization assets
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_CHAM_gm.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_CHAM_gm.sqf";
-										WMS_AI_MaxUnits_A 			= 120; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
-										WMS_AI_MaxUnits_B 			= 140; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
-										WMS_AI_MaxUnits_C 			= 160; //stop Base attack and missions
+										WMS_AI_MaxUnits_A 			= 140; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
+										WMS_AI_MaxUnits_B 			= 160; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
+										WMS_AI_MaxUnits_C 			= 180; //stop Base attack and missions
 										WMS_AI_Units_Class 			= [ //KEEP OPFOR UNITS ONLY!!!
 																		"gm_gc_army_sf_squadleader_mpikms72_80_str","gm_gc_army_sf_machinegunner_lmgrpk_80_str","gm_gc_army_sf_marksman_svd_80_str","gm_gc_army_sf_antitank_mpikms72_rpg7_80_str",
 																		"gm_gc_army_sf_demolition_pm63_80_str","gm_gc_army_sf_antitank_mpikms72_rpg18_80_str","gm_gc_army_squadleader_mpiak74n_80_str","gm_gc_army_rifleman_mpiak74n_80_str",
@@ -557,8 +557,19 @@ if (worldName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global M
 																		["G_Balaclava_Flames1","G_Balaclava_Flecktarn","G_Balaclava_Scarecrow_01","G_Balaclava_Skull1","G_Balaclava_Tropentarn","G_Balaclava_BlueStrips"]//_googles/_facewear
 																	];
 										WMS_AMS_UnitClass 			= WMS_AI_Units_Class;
+										WMS_AL_VHLmax				= 14; //Max vehicles (all included) running at the same time
 										WMS_AL_VhlBalance			= [1,1,0,1,1,0,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
 										WMS_AL_UnitMax				= 10; //Max units (groups if _CombatBehav true) patroling at the same time
+										WMS_AL_Vehicles				= [[ //[[AIR],[GROUND],[SEA]]
+																		"gm_gc_civ_mi2p","gm_ge_adak_bo105m_vbh","RHS_Mi8t_civilian",
+																		"C_Heli_Light_01_civil_F","C_IDAP_Heli_Transport_02_F","C_Heli_light_01_digital_F","C_Heli_light_01_shadow_F"
+																	],[
+																		"gm_gc_ff_p601","gm_gc_dp_p601","gm_gc_civ_ural375d_cargo","gm_ge_ff_typ1200","gm_ge_pol_typ1200","gm_ge_dbp_typ1200","gm_ge_dbp_typ247","gm_ge_dbp_typ251","gm_ge_ff_u1300l_medic","gm_ge_civ_w123","gm_ge_taxi_w123",
+																		"RHS_Ural_Open_Civ_01","rhsgref_un_zil131_flatbed",
+																		"C_Van_01_fuel_F","C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_02_unarmed_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_01_F","C_Offroad_01_comms_F","C_Offroad_01_repair_F","C_Quadbike_01_F","C_SUV_01_F","C_Tractor_01_F","C_Van_01_transport_F","C_Van_01_box_F","C_Van_02_medevac_F","C_Van_02_transport_F"
+																	],[
+																		"C_Boat_Civil_01_F","C_Boat_Civil_01_police_F","C_Boat_Civil_01_rescue_F","C_Rubberboat","C_Boat_Transport_02_F","C_Scooter_Transport_01_F"
+																	]];
 										WMS_AI_LaunchersOPF 		= [["gm_m72a3_oli","gm_pzf44_2_oli","rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
 										WMS_AI_Planes				= ["gm_ge_airforce_do28d2_medevac","gm_ge_airforce_do28d2_medevac","gm_ge_airforce_do28d2_medevac"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
@@ -586,7 +597,7 @@ if (worldName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global M
 										WMS_DynAI_GunshipMedium 	= ["rhs_uh1h_hidf",["hidf_tan",1],[[],[]]];
 										WMS_DynAI_GunshipHeavy 		= ["rhs_uh1h_hidf_gunship",["hidf_tan",1],[[],[]]];
 										WMS_para_small				= "rhs_d6_Parachute";
-										WMS_AMS_ToRun 				= 2; //with all the reinforcement and vehicles crew, 3 missions it's a lot
+										WMS_AMS_ToRun 				= 3; //with all the reinforcement and vehicles crew, 3 missions it's a lot
 										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
 										WMS_AI_HMG 					= "rhs_KORD_high_MSV";
@@ -612,6 +623,7 @@ if (worldName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global M
 										WMS_Military_CoolD			= 240;
 										//Let's make it more challenging on Ruha //FastCombat	
 										WMS_FastCombat 				= true;
+										WMS_CaptureZone_Lyt			= ["layout1","layout2","layout6","layout4","layout5","layout6"]; //layouts objects are in fn_Event_CaptureZone.sqf //removed the farm layout3
 										WMS_CaptureZone_Vhl			= [ //[air],[gnd]
 																		["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],
 																		["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_t72bb_tv","rhs_t72bd_tv","rhs_t80bvk","rhs_t90am_tv","rhs_bmd1r","rhs_bmd2","rhs_bmd4m_vdv","rhs_bmp1k_vdv","rhs_bmp2_vdv"]

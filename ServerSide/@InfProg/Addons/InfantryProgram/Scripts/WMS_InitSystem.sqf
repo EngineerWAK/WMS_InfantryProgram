@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.896_2024JUN23_GitHub"; //fix for WMS_fnc_AMS_SpnAiBlkListFull, from 31 sec to 1.
+WMS_System_Version 			= "v2.900_2024JUL26_GitHub"; //some updates on Capture Zone
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -201,6 +201,7 @@ WMS_CaptureZone_CC		= true; //dynamic, create a chopper in case of farming
 WMS_CaptureZoneDelay	= 300;
 WMS_CaptureZone_Rad 	= [25,35,50]; //Capture zone Radius //only _radius select 0 is used
 WMS_CaptureZone_Tmr		= [240, 400, 600, 900]; //time to capture the zone //easy, moderate, difficult, hardcore
+WMS_CaptureZone_Lyt		= ["layout1","layout2","layout3","layout4","layout5","layout6"]; //layouts objects are in fn_Event_CaptureZone.sqf
 WMS_CaptureZone_Mkr		= "selector_selectedEnemy";
 WMS_CaptureZone_Vhl		= [["O_Heli_Light_02_dynamicLoadout_F","O_Heli_Attack_02_dynamicLoadout_F"],["O_APC_Tracked_02_cannon_F","O_APC_Wheeled_02_rcws_v2_F","O_MBT_04_command_F"]]; //[air],[gnd]
 WMS_CaptureZone_Farm 	= 0; //dynamic, Capture zone farming check

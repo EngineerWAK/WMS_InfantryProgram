@@ -52,7 +52,11 @@ if (time > _timeToWait) then {
 
 	if (_type == "CaptureZone") then {
 		if (WMS_IP_LOGs) then {diag_log format ["[EVENTS WATCH]|WAK|TNA|WMS| Processing Event: %1", _type];};
-		["random", (selectRandom ["layout1","layout2","layout3","layout4","layout5"])] spawn WMS_fnc_Event_CaptureZone;
+		private _lyt = (selectRandom WMS_CaptureZone_Lyt);
+		if ((count WMS_CaptureZone_Lyt) > 1) then {
+			WMS_CaptureZone_Lyt deleteAt (WMS_CaptureZone_Lyt find _lyt); //should prevent to keep respawning the same layout, until the last one
+		};
+		["random", _lyt] spawn WMS_fnc_Event_CaptureZone;
 	};
 	//TargetConvoy
 	if (_type == "TargetConvoy" && {count WMS_TargetConvoyUnits == 0}) then {

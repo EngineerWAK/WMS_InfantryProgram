@@ -201,14 +201,18 @@ WMS_OPFOR_CustomAIR_Spec = [
 	//["O_T_VTOL_02_infantry_grey_F",[],[[],[]]], //big OP shit from bohemia, as usual
 
 	//new
-	["gm_pl_airforce_mi2urpg",["gm_pl_wdl",1],[[true],[]]], // Side canon, AA miss, AT miss,
+	//["gm_pl_airforce_mi2urpg",["gm_pl_wdl",1],[[true],[]]], // Side canon, AA miss, AT miss,
 	["gm_gc_airforce_mi2us",["gm_gc_brb",1],[[false],[]]], //true, 4 HMG
-	["gm_gc_airforce_mi2urn",["gm_gc_brb",1],[[false],[]]], //true, 2 rockets pods
-	["gm_ge_army_bo105p_pah1",["gm_ge_hornet",1],[[true],[]]], //side HOT x6
+	["gm_gc_airforce_mi2urn",["gm_gc_brb",1],[[false],[]]], //true, 2 rockets pods 
+		["gm_gc_airforce_mi2us",["gm_gc_brb",1],[[false],[]]], //true, 4 HMG
+		["gm_gc_airforce_mi2urn",["gm_gc_brb",1],[[false],[]]], //true, 2 rockets pods
+	//["gm_ge_army_bo105p_pah1",["gm_ge_hornet",1],[[true],[]]], //side HOT x6 //F U C K O F F missiles fired 20kms away
 	
 	["RHS_Ka52_UPK23_vvsc",[],[[],[]]],
 	["RHS_Mi8AMTSh_UPK23_vvsc",[],[[],[]]],
 	["RHS_Mi8MTV3_UPK23_vvsc",[],[[],[]]],
+		["RHS_Mi8AMTSh_UPK23_vvsc",[],[[],[]]],
+		["RHS_Mi8MTV3_UPK23_vvsc",[],[[],[]]],
 	["RHS_Mi24P_vvsc",[],[[],[]]],
 	["RHS_Mi24V_FAB_vvsc",[],[[],[]]]
 ];
@@ -217,6 +221,19 @@ WMS_OPFOR_CustomSEA = [
 	["O_T_Boat_Armed_01_hmg_F",[],[[],[]]]
 ];
 WMS_AMS_LightArmed = [
+	["gm_gc_army_uaz469_dshkm",["gm_gc_des",1],[[],[]]],
+	["gm_gc_army_uaz469_spg9",["gm_carc_tan",1],[[],[]]],
+	["gm_ge_army_iltis_mg3",["gm_ge_des",1],[[],[]]],
+	["gm_ge_army_u1300l_container",["gm_carc_tan",1],[[],[]]],
+	["gm_ge_army_m113a1g_apc",["gm_ge_des",1],[[],[]]],
+	["gm_ge_army_m113a1g_apc_milan",["gm_ge_trp",1],[[],[]]],
+		["gm_gc_army_uaz469_dshkm",["gm_gc_des",1],[[],[]]],
+		["gm_gc_army_uaz469_spg9",["gm_carc_tan",1],[[],[]]],
+		["gm_ge_army_iltis_mg3",["gm_ge_des",1],[[],[]]],
+		["gm_ge_army_u1300l_container",["gm_carc_tan",1],[[],[]]],
+		["gm_ge_army_m113a1g_apc",["gm_ge_des",1],[[],[]]],
+		["gm_ge_army_m113a1g_apc_milan",["gm_ge_trp",1],[[],[]]],
+
 	["rhsusf_m1165a1_gmv_m134d_m240_socom_d",[],[[],[]]],
 	["B_T_LSV_01_armed_sand_F",[],[[],[]]],
 	["O_LSV_02_armed_black_F",[],[[],[]]],
@@ -228,8 +245,19 @@ WMS_AMS_LightArmed = [
 	["rhs_tigr_sts_3camo_vdv",[],[[],[]]] //TO ADD TO TRADER //
 ];
 WMS_AMS_APC = [
+	["gm_dk_army_m113a2dk",["gm_dk_des",1],[[],[]]],
+	["gm_ge_army_marder1a2",["gm_ge_trp",1],[[],[]]],
+	["gm_ge_army_luchsa2",["gm_ge_trp",1],[[],[]]],
+	["gm_pl_army_ot64a",["gm_carc_tan",1],[[],[]]],
+		["gm_dk_army_m113a2dk",["gm_dk_des",1],[[],[]]],
+		["gm_ge_army_marder1a2",["gm_ge_trp",1],[[],[]]],
+		["gm_ge_army_luchsa2",["gm_ge_trp",1],[[],[]]],
+		["gm_pl_army_ot64a",["gm_carc_tan",1],[[],[]]],
+
 	["gm_gc_army_brdm2",["gm_gc_ols",1],[[],[]]],
 	["gm_gc_army_btr60pb",["gm_gc_ols",1],[[],[]]],
+		["gm_gc_army_brdm2",["gm_gc_ols",1],[[],[]]],
+		["gm_gc_army_btr60pb",["gm_gc_ols",1],[[],[]]],
 
 	["B_APC_Wheeled_01_cannon_F",[],[[],[]]], //Marshall
 	["B_APC_Wheeled_03_cannon_F",["Guerilla_02",1],[[],[]]],
@@ -246,6 +274,9 @@ WMS_AMS_HeavyArmed = [
 	["gm_gc_army_t55",["gm_gc_ols",1],[[],[]]],
 	["gm_gc_army_t55am2b",["gm_gc_ols",1],[[],[]]],
 	["gm_dk_army_Leopard1a3",["gm_dk_des",1],[[],[]]],
+		["gm_gc_army_t55",["gm_gc_ols",1],[[],[]]],
+		["gm_gc_army_t55am2b",["gm_gc_ols",1],[[],[]]],
+		["gm_dk_army_Leopard1a3",["gm_dk_des",1],[[],[]]],
 
 	["rhs_t72bc_tv",[0,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_01_sand_co.paa",1,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_02_sand_co.paa",2,"rhsafrf\addons\rhs_t72_camo\data\rhs_t72b_03_sand_co.paa"],[[],[]]],
 	["B_AFV_Wheeled_01_cannon_F",[],[[],[]]], //Rhino
@@ -258,6 +289,17 @@ WMS_AMS_HeavyArmed = [
 	["rhsusf_m1a2sep1tuskid_usarmy",[],[[],[]]]
 ];
 WMS_AMS_LightRwds = [
+	["gm_ge_army_typ247_firefighter",[],[[],[]]],
+	["gm_dk_army_typ253_cargo",[],[[],[]]],
+	["gm_dk_army_typ1200_cargo",[],[[],[]]],
+	["gm_ge_army_w123_cargo",[],[[],[]]],
+	["gm_ge_army_iltis_cargo",[],[[],[]]],
+	["gm_gc_army_uaz469_cargo",[],[[],[]]],
+	["gm_gc_bgs_p601",[],[[],[]]],
+	["gm_ge_civ_u1300l",[],[[],[]]],
+	["gm_ge_dbp_typ247",[],[[],[]]],
+	["gm_ge_army_u1300l_firefighter",[],[[],[]]],
+
 	["B_LSV_01_unarmed_olive_F",[],[[],[]]],
 	["B_CTRG_LSV_01_light_F",[],[[],[]]],
 	["O_LSV_02_unarmed_ghex_F",[],[[],[]]],
@@ -269,6 +311,19 @@ WMS_AMS_LightRwds = [
 	["C_Offroad_02_unarmed_blue_F",[],[[],[]]]
 ];
 WMS_AMS_TruckRwds = [
+	["gm_ge_army_kat1_454_cargo",[],[[],[]]],
+	["gm_ge_army_kat1_452_container",[],[[],[]]],
+	["gm_ge_army_kat1_451_cargo",[],[[],[]]],
+	["gm_gc_army_ural375d_cargo",[],[[],[]]],
+	["gm_gc_bgs_ural4320_cargo",[],[[],[]]],
+	["gm_pl_army_ural4320_cargo",[],[[],[]]],
+		["gm_ge_army_kat1_454_cargo",[],[[],[]]],
+		["gm_ge_army_kat1_452_container",[],[[],[]]],
+		["gm_ge_army_kat1_451_cargo",[],[[],[]]],
+		["gm_gc_army_ural375d_cargo",[],[[],[]]],
+		["gm_gc_bgs_ural4320_cargo",[],[[],[]]],
+		["gm_pl_army_ural4320_cargo",[],[[],[]]],
+	
 	["O_T_Truck_03_transport_ghex_F",[],[[],[]]],
 	["O_T_Truck_03_covered_ghex_F",[],[[],[]]],
 	["O_T_Truck_03_device_ghex_F",[],[[],[]]],
@@ -283,6 +338,21 @@ WMS_AMS_TruckRwds = [
 	["I_E_Truck_02_transport_F",[],[[],[]]]
 ];
 WMS_AMS_SpclRwds = [
+	["gm_gc_bgs_ural4320_reammo",[],[[],[]]],
+	["gm_gc_bgs_ural4320_repair",[],[[],[]]],
+	["gm_ge_army_u1300l_repair",[],[[],[]]],
+	["gm_ge_army_kat1_451_reammo",[],[[],[]]],
+	["gm_ge_army_kat1_451_refuel",[],[[],[]]],
+	["gm_ge_army_kat1_454_reammo",[],[[],[]]],
+	["gm_ge_army_kat1_463_mlrs",[],[[],[]]], //MLRS
+		["gm_gc_bgs_ural4320_reammo",[],[[],[]]],
+		["gm_gc_bgs_ural4320_repair",[],[[],[]]],
+		["gm_ge_army_u1300l_repair",[],[[],[]]],
+		["gm_ge_army_kat1_451_reammo",[],[[],[]]],
+		["gm_ge_army_kat1_451_refuel",[],[[],[]]],
+		["gm_ge_army_kat1_454_reammo",[],[[],[]]],
+		["gm_ge_army_kat1_463_mlrs",[],[[],[]]], //MLRS
+
 	["B_Truck_01_ammo_F",[],[[],[]]],
 	["B_T_Truck_01_ammo_F",[],[[],[]]],
 	["O_Truck_03_ammo_F",[],[[],[]]],
@@ -300,8 +370,14 @@ WMS_AMS_SpclRwds = [
 	["O_T_Truck_02_Ammo_F",[],[[],[]]]
 ];
 WMS_AMS_ArmoredLightRwds = [
-	//["R3F_FENNEC_CE",[],[[],[]]],
-	//["R3F_MATV_CE",[],[[],[]]],
+	["gm_ge_army_m113a1g_apc",[],[[],[]]],
+	["gm_ge_army_m113a1g_apc_milan",[],[[],[]]],
+	["gm_ge_army_m113a1g_command",[],[[],[]]],
+	["gm_ge_army_fuchsa0_reconnaissance",[],[[],[]]],
+	["gm_ge_army_fuchsa0_command",[],[[],[]]],
+	["gm_pl_army_brdm2",[],[[],[]]],
+	["gm_gc_army_btr60pa_dshkm",[],[[],[]]],
+
 	["rhsusf_m1240a1_m2crows_usarmy_wd",[],[[],[]]],
 	["rhsusf_m1240a1_m240_uik_usarmy_wd",[],[[],[]]],
 	["rhsusf_m1240a1_m2_uik_usarmy_wd",[],[[],[]]],
@@ -316,6 +392,15 @@ WMS_AMS_ArmoredLightRwds = [
 ];
 //NEW
 WMS_AMS_ArmoredREDRwds = [
+	["gm_gc_army_t55am2b",[],[[],[]]],
+	["gm_gc_army_t55",[],[[],[]]],
+	["gm_gc_army_pt76b",[],[[],[]]],
+	["gm_gc_army_bmp1sp2",[],[[],[]]],
+		["gm_gc_army_t55am2b",[],[[],[]]],
+		["gm_gc_army_t55",[],[[],[]]],
+		["gm_gc_army_pt76b",[],[[],[]]],
+		["gm_gc_army_bmp1sp2",[],[[],[]]],
+	
 	["rhs_t72ba_tv",[],[[],[]]],
 	["rhs_t72bb_tv",[],[[],[]]],
 	["rhs_t72bc_tv",[],[[],[]]],
@@ -333,13 +418,21 @@ WMS_AMS_ArmoredREDRwds = [
 	["rhs_t90sab_tv",[],[[],[]]]
 ];
 WMS_AMS_ArmoredBLUERwds = [
+	["gm_ge_army_Leopard1a1",[],[[],[]]],
+	["gm_ge_army_Leopard1a3",[],[[],[]]],
+	["gm_ge_army_Leopard1a5",[],[[],[]]],
+	["gm_ge_army_luchsa2",[],[[],[]]],
+	["gm_ge_army_marder1a1a",[],[[],[]]],
+	["gm_ge_army_gepard1a1",[],[[],[]]],
+	["gm_dk_army_m113a2dk",[],[[],[]]],
+
 	["rhsusf_m1a1aimwd_usarmy",[],[[],[]]],
 	["rhsusf_m1a2sep1tuskiiwd_usarmy",[],[[],[]]],
 	["rhsusf_m1a2sep2wd_usarmy",[],[[],[]]],
 	["rhsusf_m1a1fep_wd",[],[[],[]]],
 	["rhsusf_m1a1hc_wd",[],[[],[]]],
 	["B_T_APC_Wheeled_01_cannon_F",[],[[],[]]],
-	["rhsusf_stryker_m1134_d",[],[[],[]]],
+	//["rhsusf_stryker_m1134_d",[],[[],[]]],
 	["RHS_M2A2_wd",[],[[],[]]],
 	["RHS_M2A2_BUSKI_WD",[],[[],[]]],
 	["RHS_M2A3_wd",[],[[],[]]],
@@ -351,12 +444,21 @@ WMS_AMS_ArmoredBLUERwds = [
 ];
 //NEW
 WMS_AMS_LightArmedRwds = [ //I_LT_01_cannon_F
+	["gm_ge_army_iltis_mg3",[],[[],[]]],
+	["gm_ge_army_u1300l_cargo",[],[[],[]]],
+	["gm_ge_army_kat1_451_container",[],[[],[]]],
+
 	["B_LSV_01_armed_olive_F",[],[[],[]]],
 	["O_LSV_02_armed_ghex_F",[],[[],[]]],
 	["B_G_Offroad_01_armed_F",[],[[],[]]],
 	["I_C_Offroad_02_LMG_F",[],[[],[]]]
 ];
 WMS_AMS_ChopperRwds = [
+	["gm_ge_adak_bo105m_vbh",[],[[],[]]],
+	["gm_ge_army_bo105p1m_vbh",[],[[],[]]],
+	["gm_ge_army_bo105p_pah1a1",[],[[],[]]],
+	["gm_gc_airforce_mi2urn",[],[[],[]]],
+
 	["B_Heli_Light_01_F",[],[[],[]]],
 	["O_Heli_Light_02_unarmed_F",[],[[],[]]],
 	["I_Heli_Transport_02_F",[],[[],[]]],
@@ -365,15 +467,15 @@ WMS_AMS_ChopperRwds = [
 	["O_Heli_Transport_04_bench_F",[],[[],[]]],
 	["I_C_Heli_Light_01_civil_F",[],[[],[]]],
 	["I_E_Heli_light_03_unarmed_F",[],[[],[]]],
-	["vtx_UH60M_MEDEVAC",[],[[],[]]],
-	["vtx_UH60M_SLICK",[],[[],[]]],
-	["vtx_HH60",[],[[],[]]],
-	["vtx_UH60M",[],[[],[]]],
-	["vtx_MH60M",[],[[],[]]],
-	//["vtx_MH60S",[],[[],[]]], //REMOVED BY HATCHET
-	//["vtx_MH60S_GAU21L",[],[[],[]]], //REMOVED BY HATCHET
-	//["vtx_MH60S_Pylons",[],[[],[]]], //REMOVED BY HATCHET
-	["vtx_MH60M_DAP",[],[[],[]]],
+	//["vtx_UH60M_MEDEVAC",[],[[],[]]],
+	//["vtx_UH60M_SLICK",[],[[],[]]],
+	//["vtx_HH60",[],[[],[]]],
+	//["vtx_UH60M",[],[[],[]]],
+	//["vtx_MH60M",[],[[],[]]],
+	//["vtx_MH60M_DAP",[],[[],[]]],
+		//["vtx_MH60S",[],[[],[]]], //REMOVED BY HATCHET
+		//["vtx_MH60S_GAU21L",[],[[],[]]], //REMOVED BY HATCHET
+		//["vtx_MH60S_Pylons",[],[[],[]]], //REMOVED BY HATCHET
 	["RHS_Mi24Vt_vvs",[],[[],[]]], //1 minigun
 	["RHS_Mi8mt_Cargo_vvs",[],[[],[]]],
 	["RHS_Mi8amt_civilian",[],[[],[]]]
@@ -410,6 +512,14 @@ WMS_AMS_COMMSRwds = [
 	["rhs_prp3_msv",[],[[],[]]]
 ];
 WMS_AMS_MEDRwds = [
+	["gm_dk_army_m113a1dk_medic",[],[[],[]]],
+	["gm_ge_army_m113a1g_medic",[],[[],[]]],
+	["gm_ge_army_u1300l_medic",[],[[],[]]],
+	["gm_pl_army_ural375d_medic",[],[[],[]]],
+	["gm_ge_ff_u1300l_firefighter",[],[[],[]]],
+	["gm_gc_ff_p601",[],[[],[]]],
+	["gm_ge_ff_typ1200",[],[[],[]]],
+
 	["B_Truck_01_medical_F",[],[[],[]]],
 	["B_T_Truck_01_medical_F",[],[[],[]]],
 	["O_Truck_02_medical_F",[],[[],[]]],
@@ -418,13 +528,6 @@ WMS_AMS_MEDRwds = [
 	["O_T_Truck_02_Medical_F",[],[[],[]]],
 	["I_E_Truck_02_Medical_F",[],[[],[]]],
 	["C_IDAP_Van_02_medevac_F",[],[[],[]]],
-	["gm_dk_army_m113a1dk_medic",[],[[],[]]],
-	["gm_ge_army_m113a1g_medic",[],[[],[]]],
-	["gm_ge_army_u1300l_medic",[],[[],[]]],
-	["gm_pl_army_ural375d_medic",[],[[],[]]],
-	["gm_ge_ff_u1300l_firefighter",[],[[],[]]],
-	["gm_gc_ff_p601",[],[[],[]]],
-	["gm_ge_ff_typ1200",[],[[],[]]],
 	["rhsusf_m113_usarmy_medical",[],[[],[]]],
 	["rhsusf_M1230a1_usarmy_wd",[],[[],[]]],
 	["rhsusf_M1085A1P2_B_WD_Medical_fmtv_usarmy",[],[[],[]]]

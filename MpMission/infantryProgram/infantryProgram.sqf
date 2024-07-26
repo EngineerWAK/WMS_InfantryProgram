@@ -197,6 +197,27 @@ WMS_IP_buildComputer = {
 		5
 	];
 	_allActionsID pushBack _IDnumber;
+	//
+	//EMPTY LINE to prevent buying wrong stuff while missing the "Spawn Beacon" line
+	_IDnumber = _IPcomputer addAction
+	[
+		"<t size='0.9' color='#068604'>-------------------</t>",
+		"
+		", 
+		nil,
+		1,
+		true,
+		true,
+		"",
+		"	
+			(alive _target) &&
+			{('rhs_radio_R187P1' in (assigneditems _this))} &&
+			{((_this getVariable ['playerInRestrictionZone',-1]) == 0)} &&
+			{(vehicle _this == _this)};
+		",
+		5
+	];
+	_allActionsID pushBack _IDnumber;
 	//[player, position player, getDir player, (1800 + random 1800), 1, 999] call WMS_fnc_Compo_BunkerCamp;
 	_IDnumber = _IPcomputer addAction
 	[
