@@ -547,7 +547,7 @@ WMS_fnc_spawnCaptureZoneObjects = {
 				["Land_SharpStone_02",[17.4,-4.8,0],310.2],
 				["Land_StoneWall_02_s_10m_F",[-13.4,-7.3,0.5],72.1,"flat"],
 				["Land_StoneWall_02_s_10m_F",[10.3,11.7,0.5],179.9,"flat"],
-				["Land_StoneWall_02_s_10m_F",[16.6,7,0],239.3],"flat",
+				["Land_StoneWall_02_s_10m_F",[16.6,7,0],239.3,"flat"],
 				["Land_StoneWell_01_F",[-4,1.2,0],0]
 			];
 		};
