@@ -151,8 +151,10 @@ if !(_DynAIrunning == 0) then {
 				};
 				{
 					{ 
-						if (WMS_magicSmoke) then {_Shaft = "CMflare_Chaff_Ammo" createVehicle position _x};
-						deleteVehicle _x;
+						if (alive _x) then { //this should prevent dead NPC bodies to be deleted at cleanup before they get out of the group
+							if (WMS_magicSmoke) then {_Shaft = "CMflare_Chaff_Ammo" createVehicle position _x};
+							deleteVehicle _x;
+						};
 					} foreach units _x;
 				} forEach _grpArray; 
 				{deleteVehicle _x;} forEach _vhl; 

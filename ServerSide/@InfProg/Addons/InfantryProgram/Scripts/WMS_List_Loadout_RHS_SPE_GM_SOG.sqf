@@ -18,7 +18,7 @@ WMS_AI_inventory = [//"AntimalaricumVaccine",//"Laptop_Unfolded",
 	"gm_ge_army_medkit_80","gm_bayonet_6x3_wud","gm_suppressor_safloryt_blk","gm_c79a1_oli","gm_zfk4x25_blk","gm_explosive_petn_charge","gm_explosive_plnp_charge","gm_1rnd_67mm_heat_dm22a1_g3",//GM
 	"ACE_EarPlugs","ACE_EarPlugs",
 	"rhs_ec200_sand_mag","rhs_ec75_sand_mag","1Rnd_HE_Grenade_shell","rhs_rpg7_OG7V_mag","rhs_VOG25",//explo
-	"Antimalaricum","Antibiotic",
+	"Antimalaricum","Antibiotic","ACE_painkillers","ACE_suture","ACE_painkillers","ACE_suture",
 	"ACE_bloodIV_250","ACE_plasmaIV_250","ACE_bloodIV_500","ACE_plasmaIV_500","ACE_salineIV_250","ACE_splint",
 	"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
 	"Laserbatteries",

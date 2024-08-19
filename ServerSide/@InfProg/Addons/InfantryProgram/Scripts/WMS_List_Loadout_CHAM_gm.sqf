@@ -14,17 +14,16 @@ MODS LIST:
 ACE3, RHSAFRF, RHSUSAF, RHSGREF, VSM National Gear Pack
 */
 if !(WMS_exileFireAndForget) then {
-WMS_AI_inventory = [//"AntimalaricumVaccine",//"Laptop_Unfolded",
-	
+WMS_AI_inventory = [
 	"gm_ge_army_medkit_80","gm_bayonet_6x3_wud","gm_suppressor_safloryt_blk","gm_c79a1_oli","gm_zfk4x25_blk","gm_explosive_petn_charge","gm_explosive_plnp_charge","gm_1rnd_67mm_heat_dm22a1_g3",//GM
 	"hlc_acc_DBALPL_side_FL","hlc_acc_Surefiregrip","HLC_optic_DocterV","hlc_optic_HensoldtZO_lo_Docter","rhsusf_acc_su230a_mrds_c",
 	"ACE_EarPlugs","ACE_EarPlugs",
-	"rhs_ec200_sand_mag","rhs_ec75_sand_mag","1Rnd_HE_Grenade_shell","rhs_rpg7_OG7V_mag","rhs_VOG25",//explo
-	"Antimalaricum","Antibiotic",
+	"rhs_ec200_sand_mag","rhs_ec75_sand_mag","1Rnd_HE_Grenade_shell","rhs_rpg7_OG7V_mag","rhs_VOG25",
+	"Antimalaricum","Antibiotic","ACE_painkillers","ACE_suture","ACE_painkillers","ACE_suture",
 	"ACE_bloodIV_250","ACE_plasmaIV_250","ACE_bloodIV_500","ACE_plasmaIV_500","ACE_salineIV_250","ACE_splint",
 	"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
 	"Laserbatteries","Laserbatteries",
-	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",//"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05", //twice, since now there is a lot more items in the list
+	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",
 	"FilesSecret","FileNetworkStructure","FileTopSecret","DocumentsSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys",
 	"ACE_Can_Franta","ACE_Can_RedGull","ACE_Can_Spirit","ACE_Canteen","ACE_Canteen_Empty","ACE_Canteen_Half","ACE_WaterBottle","ACE_WaterBottle_Empty","ACE_WaterBottle_Half",
 	"ACE_Humanitarian_Ration","ACE_MRE_BeefStew","ACE_MRE_ChickenTikkaMasala","ACE_MRE_ChickenHerbDumplings","ACE_MRE_CreamChickenSoup","ACE_MRE_CreamTomatoSoup","ACE_MRE_LambCurry","ACE_MRE_MeatballsPasta","ACE_MRE_SteakVegetables",
@@ -34,6 +33,7 @@ WMS_AI_inventory = [//"AntimalaricumVaccine",//"Laptop_Unfolded",
 	"rhs_pdu4","ACE_Yardage450","rhsusf_bino_lrf_Vector21","ACE_Vector","I_UavTerminal","rhs_tr8_periscope","SatPhone","ACE_RangeCard","ACE_Flashlight_Maglite_ML300L","rhsusf_bino_m24_ARD","rhsusf_bino_leopold_mk4","rhsusf_bino_lerca_1200_black",
 	"Laserdesignator_03"
 	];
+	//"AntimalaricumVaccine",//"Laptop_Unfolded",
 };
 
 /////////////////////////////////

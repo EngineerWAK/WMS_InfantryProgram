@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.901_2024JUL27_GitHub"; //some updates on Capture Zone
+WMS_System_Version 			= "v2.903_2024AUG19_GitHub"; //some updates on Capture Zone/ cleanup
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -219,15 +219,15 @@ WMS_JudgementDay_Ban 	= [ //banned "house" like freacking ricefield
 WMS_JudgementDay_Drop	= [
 								["Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
 								["SmokeShellRed","Chemlight_blue","mini_Grenade","Land_HumanSkull_F"], //wave 3 & 4
-								["SmokeShellRed","Chemlight_blue","mini_Grenade","GrenadeHand"], //wave 5 & 6
-								["SmokeShellRed","mini_Grenade","GrenadeHand"], //wave 7 & 8
+								["SmokeShellRed","mini_Grenade","GrenadeHand"], //wave 5 & 6
+								["GrenadeHand","mini_Grenade","GrenadeHand"], //wave 7 & 8
 								["Sh_155mm_AMOS","GrenadeHand","GrenadeHand"] //wave 9 & 10
 							]; //because otherwhise that wont be fun, custom rain object at each wave
 WMS_JudgementDay_items	= [ //ABSOLUTLY NOT VANILLA YET! xD //in fn_setUnits.sqf
 							["ACE_fortify","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_bunch","ACE_wirecutter"],
 							["ACE_fortify","ACE_NVG_Wide","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_roll","ACE_wirecutter", "rhsusf_acc_rotex_mp7"],
 							["ACE_fortify","ACE_NVG_Wide","rhs_radio_R187P1","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_stack","ACE_personalAidKit","ACE_wirecutter", "rhsusf_acc_rotex5_grey","rhs_acc_tgpa"],
-							["ACE_fortify","ACE_NVG_Wide","rhs_radio_R187P1","ToolKit","Money_stack_quest","ACE_personalAidKit", "rhsusf_acc_aac_762sdn6_silencer","rhs_acc_pbs1"]
+							["ACE_NVG_Wide","rhs_radio_R187P1","ToolKit","Money_stack_quest","ACE_personalAidKit", "rhsusf_acc_aac_762sdn6_silencer","rhs_acc_pbs1"]
 						];
 WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]]; //dynamic, NO TOUCH //[_playerObject,_pos(computer),_waveNumber(1 to 10),[_CIVgroup],[_OPFgroup],[],[_triggerOPF,_triggerCIV,_triggerPLAYER],[_markers],[_objectsOrMines]];
 
@@ -518,11 +518,11 @@ WMS_AMS_ForceRadius		= false; //when mission spawn, use default radius to look f
 WMS_AMS_DefRad			= 0; //Defaut Forced radius. You might want to keep 0 since anyway, objects will be hidden
 			   //skills = "spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"//,"endurance"
 WMS_AMS_skillsMin 		= [0.1, 0.1, 0.005, 0.1, 0.05, 0.1, 0, 0.1, 0.1]; //MINIMUM skill mission NPCs can have //will be used to compile custom skills
-WMS_AMS_skillsMax 		= [1, 0.85, 0.85, 0.7, 0.75, 0.8, 0, 1, 0.85]; //MAXIMUM skill mission NPCs can have //will be used to compile custom skills
+WMS_AMS_skillsMax 		= [1, 0.85, 0.85, 0.7, 0.5, 0.8, 0, 1, 0.85]; //MAXIMUM skill mission NPCs can have //will be used to compile custom skills
 WMS_AMS_skilleasy 		= [0.80, 0.8, 0.25, 0.3, 0.1, 0.6, 0, 0.6, 0.6];
-WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.35, 0.4, 0.2, 0.6, 0, 0.6, 0.8];
-WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.5, 0.5, 0.3, 0.8, 0, 0.8, 1];
-WMS_AMS_skillhardcore 	= [0.95, 1, 0.6, 0.6, 0.4, 1, 0, 1, 1];
+WMS_AMS_skillmoderate 	= [0.85, 0.9, 0.35, 0.4, 0.15, 0.6, 0, 0.6, 0.8];
+WMS_AMS_skilldifficult 	= [0.90, 0.95, 0.5, 0.5, 0.2, 0.8, 0, 0.8, 1];
+WMS_AMS_skillhardcore 	= [0.95, 1, 0.6, 0.6, 0.25, 1, 0, 1, 1];
 WMS_AMS_skillstatic 	= [0.9, 0.9, 0.005, 0.25, 0.1, 0.5, 0, 0.2, 0.6]; //what ever you do, Statics destroy your ass... this skill is apply on the NPC when he get on the static (EH "getin")
 WMS_AMS_skillsniper 	= [1,0.95,0.9,0.9];  //hardcore level, easy = -0.15, moderate = -0.1, difficult = -0.05 //"spotDistance","spotTime","aimingAccuracy","aimingShake"
 WMS_AMS_SniperLoadout	= [["H_Cap_grn_BI"],["V_Chestrig_rgr","V_SmershVest_01_radio_F"]]; //[[headGears],[vests]]//custom "loadout" for NPC snipers, lighter gear so they don't neet 15 headshots to get killed
@@ -783,9 +783,9 @@ CIVILIAN setFriend [WEST, 1];
 East setFriend [CIVILIAN, 0.8];
 CIVILIAN setFriend [East, 0.8];
 
-////////////////////////////////////////////////////
-//////////NOTHING TO SETUP AFTER THIS
-////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////NOTHING TO SETUP AFTER THIS Unless you know what you are doing. if you have to ask, then you do not know what you are doing.//////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 execVM "\InfantryProgram\Scripts\WMS_yourServCustSettings.sqf"; //I won't ever update this file, it's for you to use it to keep your own variables configs
 
 // Random server start time
@@ -795,7 +795,7 @@ if (WMS_RandomStartTime && isDedicated) then {
 	if (true) then {diag_log format ["[SERVER DATE/TIME]|WAK|TNA|WMS| Changing server date/time, target time: %1, real time: %2", WMS_Date, date]};
 };
 WMS_AMS_CenterMap = [worldsize/2,worldsize/2,0];
-WMS_AMS_TradersArr = [];
+WMS_AMS_TradersArr = [];//NO TOUCH
 {
 	_markerType = markertype _x;
 	_traderPos = getMarkerPos _x;
@@ -832,48 +832,52 @@ WMS_DynAI_BaseAtkTList 			= [];//Leave it empty //Territories already spoted
 WMS_AMS_Running_Array 			= [];//Leave it empty //super big array with all missions running
 WMS_AMS_Missions 				= [];//Leave it empty //processed/weighted missions list
 WMS_AMS_Missions_Running 		= [];//Leave it empty //Mission actualy running to be sure all running missions are different
-WMS_activatedTriggs 			= []; //Leave it empty
-WMS_IP_Active_list 				= []; //player get in there if they are in the InfantryProgram list and they do "join the program" on the built computer
+WMS_activatedTriggs 			= [];//Leave it empty
+WMS_IP_Active_list 				= [];//player get in there if they are in the InfantryProgram list and they do "join the program" on the built computer
 
 if (isDedicated) then {
-publicVariable "WMS_DynAI_BaseFlag";//NO TOUCH //used to build the computer/spawn beacon
-publicVariable "WMS_InfantryProgram_list";//NO TOUCH
-publicVariable "WMS_IP_Active_list";//NO TOUCH
-publicVariable "WMS_InfantryProgram_Vehicles";//NO TOUCH
-publicVariable "WMS_Compo_BunkerCamp_LastTime";//NO TOUCH
-publicVariable "WMS_Compo_BunkerCamp_CoolDown";//NO TOUCH
-publicVariable "WMS_IP_ArtySup_LastT";//NO TOUCH
-publicVariable "WMS_IP_ArtySup_CoolD";//NO TOUCH
-publicVariable "WMS_IP_BlackFishSup_LastT";//NO TOUCH
-publicVariable "WMS_IP_BlackFishSup_CoolD";//NO TOUCH
-publicVariable "WMS_IP_ExtractChop_LastT";//NO TOUCH
-publicVariable "WMS_IP_ExtractChop_CoolD";//NO TOUCH
-publicVariable "WMS_Extraction_GND_LastTime";//NO TOUCH
-publicVariable "WMS_Extraction_GND_CoolDown";//NO TOUCH
-publicVariable "WMS_INFbyChopper_LastTime";//NO TOUCH
-publicVariable "WMS_INFbyChopper_CoolDown";//NO TOUCH
-publicVariable "WMS_INFsquad_LastTime";//NO TOUCH
-publicVariable "WMS_INFsquad_CoolDown";//NO TOUCH
-publicVariable "WMS_WDtrader_LastTime";//NO TOUCH
-publicVariable "WMS_WDtrader_CoolDown";//NO TOUCH
-publicVariable "WMS_MoveInCargo_C130_LastTime";//NO TOUCH
-publicVariable "WMS_InfantryProgram_C130CoolDown";//NO TOUCH
-publicVariable "WMS_JudgementDay"; //NO TOUCH
-publicVariable "WMS_JudgementDay_Run"; //NO TOUCH
-publicVariable "WMS_JudgementDay_Rad"; //NO TOUCH
-publicVariable "WMS_DFO_Running"; //NO TOUCH
-publicVariable "WMS_DFO_MaxRunning"; //NO TOUCH
-publicVariable "WMS_DFO_LastCall"; //NO TOUCH
-publicVariable "WMS_DFO_CoolDown"; //NO TOUCH
-publicVariable "WMS_DFO_UsePilotsList"; //NO TOUCH
-publicVariable "WMS_DFO_PilotsList"; //NO TOUCH
-publicVariable "WMS_DFO_MissionTypes"; //NO TOUCH
-publicVariable "WMS_DFO_AceIsRunning"; //NO TOUCH
-publicVariable "WMS_DFO_Reward"; //NO TOUCH
-publicVariable "WMS_IP_Active_list";
-publicVariable "WMS_exileFireAndForget";
-publicVariable "WMS_ServRestartSeconds"; //so TheLastCartridges clients can get the timer for the statBar
-publicVariable "WMS_AMS_TradersArr";
+	{
+		publicVariable _x
+	}forEach [
+		"WMS_DynAI_BaseFlag",//NO TOUCH //used to build the computer/spawn beacon
+		"WMS_InfantryProgram_list",//NO TOUCH
+ 		"WMS_IP_Active_list",//NO TOUCH
+		"WMS_InfantryProgram_Vehicles",//NO TOUCH
+		"WMS_Compo_BunkerCamp_LastTime",//NO TOUCH
+		"WMS_Compo_BunkerCamp_CoolDown",//NO TOUCH
+		"WMS_IP_ArtySup_LastT",//NO TOUCH
+		"WMS_IP_ArtySup_CoolD",//NO TOUCH
+		"WMS_IP_BlackFishSup_LastT",//NO TOUCH
+		"WMS_IP_BlackFishSup_CoolD",//NO TOUCH
+		"WMS_IP_ExtractChop_LastT",//NO TOUCH
+		"WMS_IP_ExtractChop_CoolD",//NO TOUCH
+		"WMS_Extraction_GND_LastTime",//NO TOUCH
+		"WMS_Extraction_GND_CoolDown",//NO TOUCH
+		"WMS_INFbyChopper_LastTime",//NO TOUCH
+		"WMS_INFbyChopper_CoolDown",//NO TOUCH
+		"WMS_INFsquad_LastTime",//NO TOUCH
+		"WMS_INFsquad_CoolDown",//NO TOUCH
+		"WMS_WDtrader_LastTime",//NO TOUCH
+		"WMS_WDtrader_CoolDown",//NO TOUCH
+		"WMS_MoveInCargo_C130_LastTime",//NO TOUCH
+		"WMS_InfantryProgram_C130CoolDown",//NO TOUCH
+		"WMS_JudgementDay", //NO TOUCH
+		"WMS_JudgementDay_Run", //NO TOUCH
+		"WMS_JudgementDay_Rad", //NO TOUCH
+		"WMS_DFO_Running", //NO TOUCH
+		"WMS_DFO_MaxRunning", //NO TOUCH
+		"WMS_DFO_LastCall", //NO TOUCH
+		"WMS_DFO_CoolDown", //NO TOUCH
+		"WMS_DFO_UsePilotsList", //NO TOUCH
+		"WMS_DFO_PilotsList", //NO TOUCH
+		"WMS_DFO_MissionTypes", //NO TOUCH
+		"WMS_DFO_AceIsRunning", //NO TOUCH
+		"WMS_DFO_Reward", //NO TOUCH
+		"WMS_IP_Active_list", //NO TOUCH used for players joining the Infantry Program on the computer
+		"WMS_exileFireAndForget",
+		"WMS_ServRestartSeconds", //so TheLastCartridges clients can get the timer for the statBar
+		"WMS_AMS_TradersArr" //NO TOUCH, trader position list
+	];
 };
 // Get position from location and water position
 [] call WMS_fnc_CollectPos;

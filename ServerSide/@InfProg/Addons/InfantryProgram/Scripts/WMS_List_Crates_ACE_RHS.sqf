@@ -48,6 +48,8 @@ WMS_MeatList = [ //waiting for food classename
 	"ACE_MRE_SteakVegetables"
 ];
 WMS_medsList = [
+	"ACE_painkillers",
+	"ACE_suture",
 	"ACE_splint",
 	"ACE_adenosine",
 	"ACE_atropine", // 	Atropin auto injector 	ACE_ItemCore
@@ -73,6 +75,7 @@ WMS_medsList = [
 ];
 /////
 WMS_IP_ToolKit = [ //"rhs_radio_R187P1"
+	["ACE_painkillers",1,5],
 	["ACE_fortify",1,1],
 	["rhs_radio_R187P1",1,1],
 	["ACE_fieldDressing",5,5],
@@ -91,6 +94,8 @@ WMS_IP_ToolKit = [ //"rhs_radio_R187P1"
 	["ACE_HuntIR_M203",1,10]
 ];
 WMS_medicList = [
+	["ACE_painkillers",2,5],
+	["ACE_suture",2,5],
 	["ACE_splint",2,5],
 	["ACE_adenosine",2,2],
 	["ACE_atropine",2,2], // 	Atropin auto injector 	ACE_ItemCore
@@ -105,14 +110,14 @@ WMS_medicList = [
 	["ACE_epinephrine",1,2], // 	Epinephrine auto injector 	ACE_ItemCore
 	["ACE_morphine",2,5], // 	Morphine auto injector 	ACE_ItemCore
 	["ACE_packingBandage",5,5], // 	Packing Bandage 	ACE_ItemCore
-	["ACE_personalAidKit",1,1], // 	Personal Aid Kit 	ACE_ItemCore
+	["ACE_personalAidKit",1,31], // 	Personal Aid Kit 	ACE_ItemCore
 	["ACE_plasmaIV",1,2], // 	Plasma IV (1000ml) 	ACE_ItemCore
 	["ACE_plasmaIV_500",2,5], // 	Plasma IV (500ml) 	ACE_ItemCore
 	["ACE_plasmaIV_250",4,2], // 	Plasma IV (250ml) 	ACE_ItemCore
 	["ACE_salineIV",1,2], // 	Saline IV (1000ml) 	ACE_ItemCore
 	["ACE_salineIV_500",2,5], // 	Saline IV (500ml) 	ACE_ItemCore
 	["ACE_salineIV_250",5,5], // 	Saline IV (250ml) 	ACE_ItemCore
-	["ACE_surgicalKit",4,2], // 	Surgical Kit 	ACE_ItemCore
+	["ACE_surgicalKit",1,3], // 	Surgical Kit 	ACE_ItemCore
 	["ACE_tourniquet",2,3] // 	Tourniquet (CAT) 	ACE_ItemCore
 ];
 WMS_foodList = [//waiting for food classename
@@ -157,8 +162,9 @@ WMS_weapsList = [
 ];
 WMS_humaniDropList = [
 	[//items
-		["ACE_WMM3",2,3], //mine detector
-		["ACE_WMH3",2,3], //mine detector
+		["ACE_painkillers",10,10],
+			//["ACE_WMM3",2,3], //mine detector //doesnt seems to work
+			//["ACE_WMH3",2,3], //mine detector //doesnt seems to work
 		["ACE_fortify",2,3],
 		["rhs_radio_R187P1",1,2],
 		["ACE_Sandbag_empty",10,5],
