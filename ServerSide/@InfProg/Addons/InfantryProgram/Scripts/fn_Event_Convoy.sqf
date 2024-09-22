@@ -13,7 +13,7 @@
 	Target Convoy event spawn a "convoy" 3~4 vehicles, "resting" on the road/side of the road/sea.
 	All weapons authorized, no punishment, no abuse check, made to use all the crap we usualy can't on missions like artillery, planes, bombes, whatever, at any distance.
 	Need a friendly message. probably no rewards for the "kills" but spawn rewards crate after dead units check by trigger or loop, so players have to come back to get the loot.
-	Create another loot won't be server performance friendly, probably add a check in the 60 or 90sec watch.
+	Create another loop won't be server performance friendly, probably add a check in the 60 or 90sec watch.
 */
 /*
 WMS_TargetConvoy = true;

@@ -11,7 +11,7 @@
 */
 WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= [];	//list of player's UID "BlackListed" //define the player at 100000 respect for all AI spawn/reinforcement with custom setup in WMS_fnc_DynAI_selScen
-WMS_InfantryProgram_list 	= [];	//list of player's UID autorised to use InfantryProgram Functions, Do not use in Exile right newOverlay
+WMS_InfantryProgram_list 	= [];	//list of player's UID autorised to use InfantryProgram Functions, Do not use in Exile
 WMS_ServRestartSeconds 		= 18000; //5h	
 WMS_DynamicFlightOps		= true; //Module //DFO, for Arma "Pilots" who want to keep busy, call from a chopper or from DFO base(s)
 WMS_AmbientLife				= false; //Module  //spawn some little dudes, flying, drivinng, walking using boats, CIVILIAN by default //AL can spawn A LOT of units/vehicles/waypoints, be sure your box can handle it with other regular mission/roaming AI
@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.903_2024AUG19_GitHub"; //some updates on Capture Zone/ cleanup
+WMS_System_Version 			= "v2.906_2024SEP21_GitHub"; //some updates on Capture Zone/ cleanup
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
