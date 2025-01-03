@@ -111,7 +111,8 @@ if (_AMSRunningMissions > 0) then {
 				}foreach _grps;
 				if (count _unitsToFire != 0)then{
 					[_unitsToFire] spawn WMS_fnc_AMS_Mission_Static_DoFire;
-					_flag setVariable ["WMS_AMS_DoFireNext",serverTime+300+(random 450)];
+					//_flag setVariable ["WMS_AMS_DoFireNext",serverTime+300+(random 450)];
+					_flag setVariable ["WMS_AMS_DoFireNext",serverTime+(WMS_AMS_DoFireTime select 0)+(random (WMS_AMS_DoFireTime select 1))];
 				};
 			};
 		};

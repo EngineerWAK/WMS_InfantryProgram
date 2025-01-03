@@ -30,7 +30,7 @@
 */
 
 if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS| _this = %1", _this]}; //if (WMS_IP_LOGs)
-private ["_WHlist","_triggerOPF","_triggerCIV","_triggerPLAYER","_CIVgroup","_OPFgroup","_JMD_mkr1","_JMD_mkr2","_JMD_mkr3","_JMD_mkr4","_JMD_mkr5"];
+private ["_CIVgroup1","_CIVgroup2","_CIVgroup3","_CIVgroup4","_CIVgroup5","_WHlist","_triggerOPF","_triggerCIV","_triggerPLAYER","_CIVgroup","_OPFgroup","_JMD_mkr1","_JMD_mkr2","_JMD_mkr3","_JMD_mkr4","_JMD_mkr5"];
 params[  
 	"_playerObject",
 	"_pos",
@@ -208,14 +208,14 @@ if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_PLAYER_CREATE]|WAK|TNA|W
 
 WMS_JMD_createOPF = {
 	if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF _this = %1", _this]}; //if (WMS_IP_LOGs)
-	private ["_wave","_unitsClass","_houseCount","_houseCountMax","_launcherChance","_playerKills","_timeStart","_playerRep","_playersPosList","_spawnPosList","_houses","_posToPush","_spawnPos"];
+	private ["_delay","_iterO","_radius","_alti","_load","_dropList","_wave","_unitsClass","_houseCount","_houseCountMax","_launcherChance","_playerKills","_timeStart","_playerRep","_playersPosList","_spawnPosList","_houses","_posToPush","_spawnPos"];
 	params[  
 		"_pos",
 		"_OPFgroup",
 		["_playerObject",selectRandom allPlayers], //CAN NOT BE null
 		["_count",10],
 		["_skill",0.4],
-		["_loadout", selectRandom ["BlackOps","livonia","tiger","scientist"]],
+		["_loadout", selectRandom ["localopfor","BlackOps","livonia","tiger","scientist"]],
 		["_difficulty", "difficult"]
 	];
 	uisleep 3;
@@ -245,13 +245,16 @@ WMS_JMD_createOPF = {
 	_unitsClass = selectRandom WMS_AMS_UnitClass;
 	_timeStart = serverTime;
 	_playerRep = 0;
-	_playerKills = 100;
+	_playerKills = 1000;
 	_launcherChance = 15;
+	//this need some attention
 	_playersPosList = allPlayers select {alive _x && (_x distance2D _pos < WMS_JudgementDay_Rad)} apply {GetPosATL _x};
+	//
 	_spawnPosList = [];
+	_posToPush = [-999,-999,-999];
 	_houseCountMax = 250;//about 6 secondes at sleep 0.025 //maximum house to look for positions, otherwise it can take "quite some time"...
 	_houses = _pos nearObjects ["house", WMS_JudgementDay_Rad]; //building = 660 = 1752 positions...
-	_houses = _houses select {!(typeOf _x in WMS_JudgementDay_Ban)};
+	_houses = _houses select {!(typeOf _x in WMS_JudgementDay_Ban) && !(isObjectHidden _x)};// !(isObjectHidden _x)
 	_houseCount = (count _houses);
 
 	if (_houseCount < _houseCountMax) then {_houseCountMax = _houseCount};
@@ -259,7 +262,7 @@ WMS_JMD_createOPF = {
 	/////Will be used later to modify NPCs skill/number
 	if !(isnull _playerObject)then{
 		//_playerRep = _playerObject getVariable ["exileScore",0];
-		_playerKills = _playerObject getVariable ["exileKills",100];
+		_playerKills = _playerObject getVariable ["exileKills",1000];
 	};
 	if (_playerKills <= 99) then {_difficulty = "moderate"; _skill = 0.35};
 	if (_playerKills >= 1000) then {_difficulty = "hardcore"; _skill = 0.5};
@@ -270,16 +273,16 @@ WMS_JMD_createOPF = {
 		_targetHouse = selectRandom _houses;
 		_houses deleteAt (_houses find _targetHouse);
 		{
-			_posToPush = _x;
+			_posToPush = _x; //AGL
 			{
 				if (_posToPush distance2d _x > 25) then {
-						//_spawnPosList pushBack (AGLtoASL _posToPush); //TRY TO USE AGL POSITIONS TO PREVENT AI TO SPAWN UNDER BUILDINGS
-						_spawnPosList pushBack _posToPush;
+						_spawnPosList pushBack (AGLtoASL _posToPush); //PUSH ASL!!!
+						//_spawnPosList pushBack _posToPush;
 					}else{
 						if (true) then {diag_log format ["[JUDGEMENTDAY]|WAK|TNA|WMS|WMS_JMD_createOPF Position %1 to close to player %2",_posToPush,_x]}; //if (WMS_IP_LOGs)
 					};
 			}forEach _playersPosList;
-		}forEach (_targetHouse buildingPos -1);
+		}forEach (_targetHouse buildingPos -1); //Array in format PositionAGL - a single building position. If building position with given index does not exist, [0, 0, 0] is returned
 		uisleep 0.02;
 	};
 
@@ -290,7 +293,9 @@ WMS_JMD_createOPF = {
 	for "_i" from 1 to _count do {
 		_spawnPos = selectRandom _spawnPosList;
 		_spawnPosList deleteAt (_spawnPosList find _spawnPos);
-		_unitsClass createUnit [_spawnPos, _OPFgroup];
+		//_unitsClass createUnit [_spawnPos, _OPFgroup]; //spawn on the ground under the building
+		_unitOPF = _OPFgroup createUnit [_unitsClass, [(-500+random 100),(-500+random 100),0], [], 0, "NONE"]; //spawn at the right position IN the building
+		_unitOPF setPosASL _spawnPos; //_soldier setPosATL (_house1 buildingPos 2);
 		uisleep 0.1;
 	};
 	[(units _OPFgroup), "judgementday", _launcherChance, _skill,_difficulty,_loadout,nil,"JMD"] call WMS_fnc_SetUnits;

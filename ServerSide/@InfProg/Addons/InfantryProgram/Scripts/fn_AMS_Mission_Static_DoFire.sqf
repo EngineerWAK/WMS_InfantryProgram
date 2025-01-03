@@ -21,6 +21,17 @@ _fireCrackersPos = selectRandom (WMS_Pos_Cities+WMS_Pos_Locals);
 if (true) then {diag_log format ["[WMS_fnc_Mission_Static_DoFire]|WAK|TNA|WMS|_fireCrackersPos = %1", _fireCrackersPos]};
 _target = nearestBuilding _fireCrackersPos;
 if (true) then {diag_log format ["[WMS_fnc_Mission_Static_DoFire]|WAK|TNA|WMS|_target nearest building = %1, %2", _target, getpos _target]};
+//playSound3D ["A3\Sounds_F\sfx\Alarm_BLUFOR.wss", player, false, position _target, 2, 1, 0]; //"player" is not used here
+//playSound3D [getMissionPath	'Custom\Ogg\airRaid.ogg', _target, false, _fireCrackersPos, 3, 1, 0]; //good but need more than one 
+[_fireCrackersPos, _target] spawn {
+	playSound3D [getMissionPath 'Custom\Ogg\airRaid.ogg', (_this select 1), false, (_this select 0), 3, 1, 0];
+	uisleep 12;
+	playSound3D [getMissionPath 'Custom\Ogg\airRaid.ogg', (_this select 1), false, (_this select 0), 3, 1, 0];
+	uisleep 12;
+	playSound3D [getMissionPath 'Custom\Ogg\airRaid.ogg', (_this select 1), false, (_this select 0), 3, 1, 0];
+	uisleep 12;
+};
+
 //enableEngineArtillery true; //do not really need anymore
 {
 	_x setVariable ["WMS_pos",(getposASL _x)];

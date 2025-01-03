@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.906_2024SEP21_GitHub"; //some updates on Capture Zone/ cleanup
+WMS_System_Version 			= "v2.913_2024OCT12_GitHub"; //airRaid siren for VC Arty in MPmission
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -539,6 +539,7 @@ WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check,
 						];
 WMS_AMS_UnitClass 		= ["O_G_Soldier_F","O_Soldier_F","O_T_Soldier_A_F"]; //AI classename, will be used to create mission AIs, Maybe engineer can repair in Exile?
 WMS_AMS_ArtyDoFire 		= ["vn_o_pl_static_d44_01","vn_b_aus_army_static_m101_02","vn_o_kr_static_h12"];//vn_o_pl_static_mortar_type53 //will force artillery fire on a random city every x minutes;
+WMS_AMS_DoFireTime		= [300,450]; //timer before next fire + random select 1 | serverTime+300+(random 450)
 WMS_AMS_LauncherChance 	= 25; //% chance to get a launcher
 WMS_AMS_remRPG 			= 50; //% chance to delete the launcher at NPC death
 WMS_AMS_Crate_S 		= "Box_NATO_Wps_F"; //Mission small crate

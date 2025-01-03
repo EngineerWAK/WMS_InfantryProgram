@@ -857,9 +857,9 @@ if (worldName == "Altis") then {
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_SOG.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_Crates_ACE_RHS_SOG.sqf";
 										WMS_forceNoFog				= true;
-										WMS_AI_MaxUnits_A 			= 140; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
-										WMS_AI_MaxUnits_B 			= 165; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
-										WMS_AI_MaxUnits_C 			= 190; //stop Base attack and missions
+										WMS_AI_MaxUnits_A 			= 150; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
+										WMS_AI_MaxUnits_B 			= 175; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
+										WMS_AI_MaxUnits_C 			= 200; //stop Base attack and missions
 										WMS_Pos_Forests 			= [[4358.39,18767.3,0],[3681.54,18395.7,0],[2889.47,19979.5,0],[3302.02,20703.5,0],[3826.2,21799.7,0],[3956.3,21254.3,0],[5549.58,21388,0],[4228.95,22215.2,0],[6616.83,19200.7,0],[8338.43,23208.9,0],
 																		[7174.29,20686.1,0],[8083.19,18882,0],[6126.05,16848.4,0],[14304.1,21952.5,0],[23865.5,22523.3,0],[23240.2,22503.7,0],[23902.9,23063.3,0],[26027.8,22565.2,0],[24065.5,15786.8,0],[11670.8,8949.45,0],[8376.4,22088.5,0]]; //not autoScan
 										WMS_Pos_Military 			= [
@@ -933,8 +933,10 @@ if (worldName == "Altis") then {
 										WMS_AMS_MineAT 				= ["vn_mine_m15","vn_mine_tm57","rhsusf_mine_M19","ATMine"];
 										WMS_OPFOR_Flag				= "vn_flag_vc"; //default flag for Bandits, different than AMS so no interactions with findpositions //vn_flag_vc
 										WMS_AI_Units_Class 			= [ //KEEP OPFOR UNITS ONLY!!!
-																	"vn_o_men_nva_dc_01","vn_o_men_nva_dc_13","vn_o_men_nva_dc_08",
-																	"vn_o_men_nva_marine_03","vn_o_men_nva_marine_10","vn_o_men_nva_marine_04"];
+																			"vn_o_men_nva_44","vn_o_men_nva_28","vn_o_men_nva_36","vn_o_men_nva_40","vn_o_men_nva_41","vn_o_men_nva_42","vn_o_men_nva_21","vn_o_men_nva_25","vn_o_men_nva_24","vn_o_men_nva_48","vn_o_men_nva_46",
+																			"vn_o_men_nva_22","vn_o_men_nva_34","vn_o_men_nva_33","vn_o_men_nva_35","vn_o_men_nva_15","vn_o_men_nva_50","vn_o_men_nva_20","vn_o_men_nva_17","vn_o_men_nva_16","vn_o_men_nva_19","vn_o_men_nva_18",
+																			"vn_o_men_nva_27","vn_o_men_nva_23","vn_o_men_nva_26"
+																		];
 										WMS_AMS_UnitClass 			= WMS_AI_Units_Class;
 										WMS_AL_Units				= [//infantry classname, do not mix SIDES!
 																	"vn_c_men_22","vn_c_men_29","vn_c_men_30","vn_c_men_32","vn_c_men_18","vn_c_men_06","vn_c_men_08","vn_c_men_01","vn_c_men_03","vn_c_men_09","vn_c_men_11"
@@ -946,6 +948,37 @@ if (worldName == "Altis") then {
 																	],[
 																	"vn_c_boat_01_03","vn_c_boat_01_01","vn_c_boat_02_03","vn_c_boat_02_04","vn_c_boat_08_02","vn_c_boat_07_02","vn_c_boat_07_01","vn_c_boat_08_01"
 																	]];
+										//DFO
+										WMS_DFO_UseJVMF				= false; //https://github.com/Project-Hatchet/H-60
+										WMS_DFO_Choppers			= [ //[["pylons","pylons"],["doorGunners","doorGunners"],["transport","transport"],["medevac","medevac"]];
+																		//vtx_ hatchets are going away
+																		["vn_b_air_ah1g_04","vn_b_air_ach47_03_01","vn_b_air_uh1c_05_01","vn_b_air_uh1b_02_05","vn_b_air_oh6a_04","vn_b_air_ch34_04_02"],
+																		["vn_b_air_ch34_03_01","vn_b_air_uh1e_03_04","vn_b_air_uh1d_02_02","vn_b_air_oh6a_01","vn_b_air_ch47_01_02"],
+																		["vn_b_air_ch34_01_01","vn_b_air_ch47_01_01","vn_b_air_uh1d_02_07"],
+																		["vn_b_air_ch47_02_01","vn_b_air_uh1d_01_01","vn_b_air_uh1b_01_02"]];
+										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
+																		["RHS_Ka52_vvsc","RHS_Mi24V_vvsc","RHS_Mi8MTV3_vvsc","vn_o_air_mi2_04_03","vn_o_air_mi2_04_02"],
+																		["RHS_Mi24Vt_vvsc","RHS_Mi8mt_vvsc","vn_o_air_mi2_03_06"],
+																		["rhs_ka60_c","RHS_Mi8T_vvsc","vn_o_air_mi2_02_01"],
+
+																		["vn_o_wheeled_btr40_mg_03_nvam","rhsgref_ins_zsu234","rhsgref_ins_t72bb","rhsgref_ins_bmp2e","rhsgref_ins_2s1_at","rhs_t80ue1","vn_o_armor_m41_01","vn_o_armor_pt76b_01","vn_o_armor_t54b_01","vn_o_armor_type63_01"],//AA first
+																		["vn_o_wheeled_z157_mg_02_nvam","rhsgref_ins_ural_Zu23","rhsgref_ins_btr70","rhsgref_ins_btr60","rhsgref_BRDM2_ins","rhs_btr80a_msv","vn_o_armor_btr50pk_02","vn_o_armor_m113_acav_01","vn_o_armor_m113_acav_03","vn_o_armor_m113_01","vn_o_armor_m113_acav_02_kr","vn_o_armor_m113_acav_06_kr"],//"AA" first
+																		["rhsgref_ins_uaz_dshkm","rhsgref_ins_uaz_spg9","O_LSV_02_armed_F","O_G_Offroad_01_armed_F","rhs_tigr_sts_3camo_vmf","vn_o_wheeled_z157_mg_01_nvam","vn_o_wheeled_btr40_mg_06_nvam","vn_o_car_04_mg_01"],
+
+																		["rhsgref_ins_uaz_open","rhsgref_ins_gaz66","rhsgref_ins_ural","rhsgref_ins_zil131_open","rhs_tigr_m_3camo_vmf","vn_o_wheeled_btr40_02_kr","vn_o_wheeled_z157_ammo_kr","vn_o_wheeled_z157_fuel_pl","vn_o_wheeled_z157_01_pl","vn_o_armor_btr50pk_03","vn_o_armor_m577_01","vn_o_wheeled_z157_repair"],
+																		["C_Hatchback_01_F","C_Offroad_02_unarmed_F","C_Van_02_medevac_F","C_Truck_02_transport_F","vn_c_car_01_01","vn_c_car_03_01","vn_c_car_02_01","vn_c_wheeled_m151_02","vn_c_wheeled_m151_01","vn_c_car_01_02","vn_c_car_04_01"],
+
+																		["vn_o_nva_static_zpu4","rhsgref_ins_ZU23","rhsgref_ins_Igla_AA_pod","rhsgref_ins_DSHKM","rhs_KORD_high_VDV","vn_o_nva_static_dshkm_high_02","vn_o_nva_static_m1910_high_01","vn_o_nva_static_sgm_high_01","vn_o_nva_static_zgu1_01","vn_o_nva_65_static_pk_high"],//AA first
+																		["O_T_Boat_Armed_01_hmg_F","vn_o_boat_03_01","vn_o_boat_04_01","vn_b_boat_12_03","vn_b_boat_13_03","vn_b_boat_06_01","vn_b_boat_05_01"]];
+										WMS_DFO_NPCs				= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone version
+																		[
+																			"rhs_vdv_combatcrew","rhs_vdv_mflora_at","rhs_vdv_mflora_aa","rhs_vdv_medic","rhs_mvd_izlom_arifleman_rpk","rhs_mvd_izlom_machinegunner","rhs_vdv_efreitor","rhs_vdv_rifleman","rhs_vdv_grenadier",
+																			"vn_o_men_nva_44","vn_o_men_nva_28","vn_o_men_nva_36","vn_o_men_nva_40","vn_o_men_nva_41","vn_o_men_nva_42","vn_o_men_nva_21","vn_o_men_nva_25","vn_o_men_nva_24","vn_o_men_nva_48","vn_o_men_nva_46",
+																			"vn_o_men_nva_22","vn_o_men_nva_34","vn_o_men_nva_33","vn_o_men_nva_35","vn_o_men_nva_15","vn_o_men_nva_50","vn_o_men_nva_20","vn_o_men_nva_17","vn_o_men_nva_16","vn_o_men_nva_19","vn_o_men_nva_18",
+																			"vn_o_men_nva_27","vn_o_men_nva_23","vn_o_men_nva_26"
+																			], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
+																		["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
+																		["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
 										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
 																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
@@ -1032,7 +1065,20 @@ if (worldName == "Altis") then {
 										WMS_AMS_StaticPos_2			= []; //PATHET //patrol, garrison positions
 										WMS_AMS_StaticPos_3			= []; //PAVN  //patrol, garrison positions //ARTY 1
 										WMS_AMS_StaticPos_4			= []; //KHMER //patrol, garrison positions //ARTY 2
+										WMS_AMS_DoFireTime			= [100,100]; //timer before next fire + random select 1 | serverTime+300+(random 450)
 										execVM "\InfantryProgram\Scripts\AMS_StaticMissionsOBJ_Altis_SOG.sqf";
+										WMS_CaptureZone_Lyt			= ["layout1","layout2","layout6","layout4","layout5","layout6"];
+										WMS_Loadout_LocalOPFOR 		= [		//this is a new NPC loadout using equipement specific from the map or main mod like german army for GM, VC for SOG, etc...
+						   													//this loadout will be changed in customMapSettings
+																		[
+																			//"vn_o_uniform_vc_mf_01_07","vn_o_uniform_vc_mf_02_07","vn_o_uniform_vc_mf_04_07", //black VC
+																			"vn_b_uniform_macv_01_18","vn_b_uniform_macv_02_18","vn_b_uniform_macv_03_18","vn_b_uniform_macv_04_18","vn_b_uniform_macv_05_18","vn_b_uniform_macv_06_18" //frog
+																		], //uniform
+																		["vn_b_vest_aircrew_01","vn_b_vest_anzac_09","vn_b_vest_aircrew_05","vn_b_vest_usarmy_02","vn_o_vest_02","vn_b_vest_usmc_06","vn_b_vest_usmc_03","vn_o_vest_vc_04","vn_b_vest_seal_02"], //vest
+																		["rhs_ssh60","rhs_altyn_novisor_ess","vn_o_boonie_vc_02_02","vn_o_cap_02","rhsgref_ssh68_vsr","vn_o_helmet_vc_05","vn_b_boonie_06_02","vn_o_helmet_vc_04","vn_b_helmet_aph6_01_02"], //headgear
+																		["vn_o_pack_04","vn_b_pack_lw_01","vn_b_pack_arvn_02","vn_o_pack_06","vn_b_pack_lw_03","vn_b_pack_lw_07","vn_b_pack_p44_03","vn_b_pack_pfield_02","vn_b_pack_pfield_01"], //backpack
+																		["vn_b_bandana_a","vn_o_acc_goggles_01","vn_o_bandana_b","vn_o_poncho_01_01","vn_b_acc_towel_02","vn_b_acc_ms22001_01","vn_b_aviator","vn_b_acc_m17_01","vn_b_acc_m17_02"] //goggles
+																	];
 									} else {
 			/////////////////////////////////////////////////////////////////////////
 			//REGULAR ALTIS
