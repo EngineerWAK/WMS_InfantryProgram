@@ -30,6 +30,138 @@ WMS_Loadout_LocalOPFOR = [ 	//HERE IN CASE IT IS FORGOTEN IN THE CUSTOM SETTINGS
 						];
 						//[["U_B_CTRG_Soldier_Arid_F"],["rhsusf_spcs_ucp"],["rhsusf_hgu56p_visor_mask_green"],["B_Kitbag_sgg"],["G_Balaclava_TI_blk_F"]]; //alternative CTGR
 
+if (worldName == "brf_sumava") then {
+										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
+										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
+										execVM "\InfantryProgram\Scripts\WMS_List_Crates_ACE_RHS.sqf";
+										WMS_Date 					= [2022,9,23,07,00];//full moon next night, almost
+										WMS_AI_MaxUnits_A 			= 100; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
+										WMS_AI_MaxUnits_B 			= 120; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
+										WMS_AI_MaxUnits_C 			= 140; //stop Base attack and missions
+										WMS_AL_VhlBalance			= [1,1,0,1,1,1,1,1]; //0 = AIR, 1 = GROUND, 2 = SEA //Random select at vehicle creation
+										WMS_AL_UnitMax				= 5; //Max units (groups if _CombatBehav true) patroling at the same time
+										WMS_AI_LaunchersOPF 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_m72a7","rhs_weap_M136","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_LaunchersBLU 		= [["rhs_weap_rpg26","rhs_weap_rpg18","rhs_weap_rshg2","rhs_weap_M136_hedp","rhs_weap_M136_hp","rhs_weap_M136","rhs_weap_m72a7","launch_RPG7_F"],["rhs_weap_igla","rhs_weap_fim92"],["launch_O_Titan_short_F"]]; //[_rocketLauncher,[_AAMissiles],[ATMissiles]];
+										WMS_AI_Planes				= ["RHS_C130J_Cargo","RHS_C130J_Cargo","RHS_C130J_Cargo"];//heavy, medium, light //GNT_C185F spawn on the ground //sab_C130_J_C
+										WMS_AI_grenades 			= ["HandGrenade","MiniGrenade","rhs_mag_rgd5","SmokeShellRed","rhs_mag_m67","rhs_mag_m7a3_cs","rhs_mag_mk3a2","rhs_mag_an_m14_th3",
+																		"rhs_grenade_m1939e_f_mag","rhs_grenade_sthgr43_heerfrag_mag","rhs_grenade_sthgr43_SSfrag_mag","rhs_grenade_m15_mag","ACE_M14",
+																		"ACE_CTS9","ACE_M84","rhs_grenade_mkii_mag","rhs_grenade_mkiiia1_mag","rhs_mag_plamyam","rhs_mag_rgo","rhs_grenade_khattabka_vog17_mag","rhs_grenade_khattabka_vog25_mag"];
+										WMS_BombList 				= ["rhs_ammo_rbk500_ofab50", "Bo_GBU12_LGB", "Bomb_03_F", "Bomb_04_F", "ammo_Bomb_SDB", "rhs_ammo_fab500_m54", "Bo_Mk82"]; //DynAI bombing is (select 0)										
+										WMS_DynAI_EODBombs 			= ["Bomb_04_F","Bomb_03_F","rhs_ammo_kab500","rhs_ammo_fab500_m54"];
+										WMS_DynAI_RainObjects 		= [["Chemlight_blue","Land_HumanSkull_F"],["rhs_ammo_nspn_red","Chemlight_blue","rhs_ammo_fakels","Land_HumanSkull_F"],["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_m397"],["rhs_rpg7v2_type63_airburst","rhs_ammo_nspn_red","rhs_ammo_m397","rhs_ammo_fakels","rhs_ammo_an_m14_th3"],["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","AT_Mine_155mm_AMOS_range","rhs_ammo_m397","rhs_ammo_an_m14_th3"]]; //Rain Objects [[<1000rep],[1000 to 25000],[25000 to 75000],[> 75000],[reinforcementpunisher]]
+										WMS_AI_RdoTruck 			= "rhs_gaz66_r142_vdv";
+										WMS_AI_ATstation 			= "rhs_D30_at_msv"; //roadBlock
+										WMS_AI_AAstation 			= "RHS_ZU23_VDV"; //AA battery
+										WMS_AI_Attachements			= ["acc_flashlight","acc_pointer_IR","rhsusf_acc_anpeq15","rhsusf_acc_anpeq15A","rhsusf_acc_anpeq15side","rhsusf_acc_anpeq15_bk_light","rhsusf_acc_anpeq15_bk_sc","rhsusf_acc_anpeq15_bk_top_h","rhsusf_acc_anpeq15_wmx_h","rhsusf_acc_anpeq15_wmx_light","rhsusf_acc_anpeq16a_light_top_sc","rhsusf_acc_anpeq16a_top"];
+										WMS_AMS_Crate_noMove 		= "rhs_weapon_crate"; //"CargoNet_01_box_F"
+										WMS_IP_Extract_Alt 			= 100;
+										WMS_C130_Altitude 			= 150;
+										WMS_Pos_Forests 			= [ //removed north forests positions to push forest missions to the south
+																		[9831.96,5259.6,0],[11467.1,4886.43,0],[11175.4,4004.39,0],[11833.5,3420.89,0],[10866.7,3081.65,0],[11582.5,2294.59,0],[10503.7,2165.68,0],[11005.6,1329.58,0],[11862.2,961.311,0],[9359.05,1633.8,0],[9457.79,707.793,0],[9163.46,3523.51,0],[8221.69,3294.83,0],[8320.98,2301.92,0],[7430.37,2723.15,0],[7117.45,1769.35,0],
+																		[8011.07,1345.11,0],[8399.21,499.622,0],[7294.97,704.224,0],[6136.57,797.497,0],[5950.02,2539.61,0],[5300.11,1700.15,0],[5998.16,4356.95,0],[5047.37,743.336,0],[3834.81,478.557,0],[3591.09,1748.29,0],[2264.2,463.513,0],[401.725,1582.8,0],[395.707,2422.27,0],[3913.36,4507.44,0],[1772.01,5154.7,0]
+																		//[8171.68,9352.26,0],[9038.84,11860.6,0],[9941.49,11827.5,0],[11425.2,9701.88,0],[11828.8,9011.41,0],[11396,8354.97,0],[9282.39,5988.98,0],[10144.1,6107.72,0],[9831.96,5259.6,0],[11307.7,5782.04,0],[11467.1,4886.43,0],[11175.4,4004.39,0],[11833.5,3420.89,0],[10866.7,3081.65,0],[11582.5,2294.59,0],[10503.7,2165.68,0],
+																		//[11005.6,1329.58,0],[11862.2,961.311,0],[9359.05,1633.8,0],[9457.79,707.793,0],[9163.46,3523.51,0],[8221.69,3294.83,0],[8320.98,2301.92,0],[7430.37,2723.15,0],[7117.45,1769.35,0],[8011.07,1345.11,0],[8399.21,499.622,0],[7294.97,704.224,0],[6136.57,797.497,0],[5950.02,2539.61,0],[5300.11,1700.15,0],[5998.16,4356.95,0],[5047.37,743.336,0],[3834.81,478.557,0],[3591.09,1748.29,0],[2264.2,463.513,0],[401.725,1582.8,0],[395.707,2422.27,0],[3913.36,4507.44,0],[4842.74,5101.79,0],[6160.46,5706.34,0],[1772.01,5154.7,0],[2740.86,5479.65,0],[2256.43,7603.89,0],[3153.07,7877.7,0],[424.05,11064.1,0]
+																	]; //not autoScan
+										WMS_Pos_Military 			= [ [7084.67,1315.89,0],[7434.37,1324.18,0],[7778.5,1390,0],[7115.4,940.607,0],[7469.17,873.442,0],[7781.88,1013.45,0], //south front line
+																		[2974.14,298.707,0],[9068.37,2627.9,0],[8943.93,2336.83,0],[9186.15,1909.45,0],[9409.49,2378.25,0],[269.461,2026.43,0],[9720.7,3399.85,0],[747.045,3059.1,0],[7770.16,3934.05,0],[7146.8,6007.4,0],[9780.47,6073.79,0],[9571.38,5910.84,0],[4930.28,7484.74,0],
+																		[522.595,7217.36,0],[9609.02,9388.4,0],[11507,9884.67,0],[9604.96,11041.9,0],[9421.94,11054.8,0],[739.758,11496.9,0],[3048.23,12189.5,0],[6672.74,8614.71,0],[6379.01,8944.93,0],[3403.08,5641.03,0],[6152.02,11349.5,0],[640.441,319.792,0],[691.283,12000.9,0],[11474.7,673.044,0]
+																	]; //not autoScan
+										WMS_Pos_Factory 			= [[913.942,311.633,0],[937.521,361.441,0],[1529.85,1242.31,0],[1561.41,1305.63,0],[3127.23,880.793,0],[4137.62,254.28,0],[4197.93,215.862,0],[7738.6,833.99,0],[7758.46,876.638,0],[11076,1755.99,0],[9176.03,2786.63,0],[1318.97,1935.89,0],[1550.4,2360.22,0],[1555.72,2528.08,0],[1595.69,2664.3,0],[1762,2675.5,0],[1925.4,2719.1,0],[2182.55,2740.72,0],[1952.79,2514.3,0],[1212.73,3225.57,0],[1162.27,3407.58,0],[2753.16,3321.8,0],[2413.01,3311.25,0],[6681.59,3367.14,0],
+																		[10452.8,2987.19,0],[10388.6,2966.27,0],[3900.21,3930.18,0],[3760.99,3950.9,0],[7055.9,4789.49,0],[7402.3,4825.03,0],[7775.03,5813.85,0],[4688.09,6031.73,0],[10294.9,6809.02,0],[10290.4,6895.62,0],[9975.17,7867.05,0],[9795.32,7703.1,0],[5364.25,8726.7,0],[825.341,8869.42,0],[799.995,8986.55,0],[2712.07,9491.23,0],[9900.11,9428.8,0],[5488.8,10273.1,0],[5564.27,10286.1,0],[5465.53,10214.6,0],[5639.27,10878.8,0],[5627.53,10840.5,0],[11173.9,10692.4,0],[4078.74,11978,0],[2430.75,11571.1,0],[1795.33,11884.5,0]
+																	]; //not autoScan
+										WMS_DynAI_GunshipMedium 	= ["rhs_uh1h_hidf",["hidf_tan",1],[[],[]]];
+										WMS_DynAI_GunshipHeavy 		= ["rhs_uh1h_hidf_gunship",["hidf_tan",1],[[],[]]];
+										WMS_para_small				= "rhs_d6_Parachute";
+										WMS_AMS_ToRun 				= 3; //with all the reinforcement and vehicles crew, 3 missions it's a lot
+										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
+										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
+										WMS_AMS_CustomDif			= [
+																		["Moderate","Difficult","Difficult"], //easier
+																		["Moderate","Difficult","Difficult","Hardcore"], //medium
+																		["Difficult","Hardcore","Hardcore"] //harder
+																		];
+										WMS_AI_HMG 					= "rhs_KORD_high_MSV";
+										//WMS_AI_HMG_Scope 			= "O_HMG_01_high_F";
+										//WMS_AI_HMG_Shield			= "B_G_HMG_02_high_F";
+										//WMS_AI_GMG 					= "O_GMG_01_high_F"; //AMS AA battery //"RHS_ZU23_VDV"
+										WMS_AI_Arty					= "rhs_2b14_82mm_msv";
+										WMS_AMS_MineAT 				= ["rhsusf_mine_M19","ATMine"];
+										WMS_ATMines					= ["rhs_mine_TM43","ATMine"]; //"ATMine";"BWA3_DM31AT";
+										WMS_AMS_SpnDistMission 		= 2000;
+										WMS_AI_RoamingVHLcount 		= 14; //10
+										WMS_AI_CargoUnits	 		= 1;
+										WMS_AMS_remRPG 				= 75;
+										WMS_AMS_ClnObj 				= false;
+										WMS_AMS_DelMissionFlag 		= true;
+										WMS_FastNight_Morning 		= 5; //morning start at
+										WMS_FastNight_Evening		= 18; //evening start at
+										WMS_FastNight_Night 		= 20;  //time speed
+										WMS_DynAI_DestroyVHL 		= 60;
+										WMS_trig_Glob_CoolD 		= 240;
+										WMS_Forests_CoolD			= 300;
+										WMS_Military_CoolD			= 240;
+										WMS_CaptureZone_Vhl			= [ //[air],[gnd]
+																		["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],
+																		["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv","rhs_t72bb_tv","rhs_t72bd_tv","rhs_t80bvk","rhs_t90am_tv","rhs_bmd1r","rhs_bmd2","rhs_bmd4m_vdv","rhs_bmp1k_vdv","rhs_bmp2_vdv"]
+																	];
+										WMS_JudgementDay_Drop 		= [ //because otherwhise that wont be fun, custom rain object at each wave
+																		["SmokeShellRed","Chemlight_blue","Land_HumanSkull_F"], //wave 1 & 2
+																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
+																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
+																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																	];
+										//DFO
+										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60M_DAP_MLASS"],["vtx_HH60","vtx_MH60M","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
+										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
+																	["RHS_Ka52_vvsc","RHS_Mi24V_vvsc","RHS_Mi8MTV3_vvsc"],
+																	["RHS_Mi24Vt_vvsc","RHS_Mi8mt_vvsc"],
+																	["rhs_ka60_c","RHS_Mi8T_vvsc"],
+																	["rhsgref_ins_zsu234","rhsgref_ins_t72bb","rhsgref_ins_bmp2e","rhsgref_ins_2s1_at","rhs_t80ue1"],//AA first
+																	["rhsgref_ins_ural_Zu23","rhsgref_ins_btr70","rhsgref_ins_btr60","rhsgref_BRDM2_ins","rhs_btr80a_msv"],//"AA" first
+																	["rhsgref_ins_uaz_dshkm","rhsgref_ins_uaz_spg9","O_LSV_02_armed_F","O_G_Offroad_01_armed_F","rhs_tigr_sts_3camo_vmf"],
+																	["rhsgref_ins_uaz_open","rhsgref_ins_gaz66","rhsgref_ins_ural","rhsgref_ins_zil131_open","rhs_tigr_m_3camo_vmf"],
+																	["C_Hatchback_01_F","C_Offroad_02_unarmed_F","C_Van_02_medevac_F","C_Truck_02_transport_F"],
+																	["rhsgref_ins_ZU23","rhsgref_ins_Igla_AA_pod","rhsgref_ins_DSHKM","rhs_KORD_high_VDV"],//AA first
+																	["O_T_Boat_Armed_01_hmg_F"]];
+										WMS_DFO_NPCs				= [ //[[OPFOR],[CIV_SOLDIER],[CIV]] //mainly for standalone version
+																	["rhs_vdv_combatcrew","rhs_vdv_mflora_at","rhs_vdv_mflora_aa","rhs_vdv_medic","rhs_mvd_izlom_arifleman_rpk","rhs_mvd_izlom_machinegunner","rhs_vdv_efreitor","rhs_vdv_rifleman","rhs_vdv_grenadier"], //"O_Soldier_AA_F", no AA for now, it's pain in the ass for debugging //crew first //AA second
+																	["B_W_Helicrew_F","rhsusf_socom_swcc_crewman","rhsusf_socom_marsoc_cso_grenadier","rhsusf_socom_marsoc_marksman","rhsusf_socom_marsoc_sarc","rhsusf_socom_marsoc_jtac","rhsusf_usmc_marpat_wd_stinger","B_T_ghillie_tna_F","rhsusf_usmc_lar_marpat_wd_machinegunner","rhsusf_usmc_marpat_wd_autorifleman_m249","B_soldier_LAT2_F"], //crew first //in arma civillian can not have weapon...
+																	["C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F","C_journalist_F","C_Man_Fisherman_01_F","C_man_polo_1_F","C_Man_casual_1_F_afro_sick"]];
+										
+																	
+										//NEW CONVOY EVENT
+										WMS_TargetConvoy 			= true;
+										WMS_TargetConvoyPos 		= [ //[[pos,dir],[pos,dir],[pos,dir],[pos,dir],...]
+																		[[10399.7,434.225,0],305.802],[[9145.25,1272.76,0],119.559],[[7781.27,1709.55,0],267.842],[[5687.34,186.858,0],71.4867],[[4628.58,1092.24,0],336.071],[[3956.76,1052.38,0],211.4],[[2985.52,328.58,0],81.4055],[[644.467,291.133,0],23.2518],[[947.134,1367.41,0],29.1644],[[1541.96,1876.23,0],197.508],[[235.574,2034.62,0],125.193],[[759.497,3041.07,0],144.303],[[9137.68,2554.86,0],5.00671],[[7851.71,2921.96,0],357.907],[[1678.51,4646.1,0],177.095],[[9766.67,4364.35,0],113.184],[[10128.6,3578.45,0],170.546],[[11116.8,4936.42,0],350.894],[[5137.05,4675.73,0],73.2446],[[4262.53,5062.74,0],313.152],
+																		[[3341.03,5093.01,0],314.421],[[4391.33,2954.46,0],88.5641],[[1836.97,7000.71,0],300.511],[[1300.97,8859.14,0],90.7604],[[962.359,8953.75,0],214.237],[[2186.2,9238.21,0],277.721],[[2102.45,10592,0],92.7878],[[2165.12,11244.4,0],288.673],[[405.03,11632.6,0],172.786],[[551.148,10560.8,0],288.314],[[5100.43,7670.43,0],63.5131],[[5056.16,8013.97,0],234.669],[[4438.82,11246.1,0],108.688],[[3497.03,10723,0],141.599],[[7394.51,11086.1,0],282.211],[[8869.18,11626.8,0],151.219],[[8275.09,9748.62,0],263.859],[[8519.25,9476.57,0],88.3711],[[8423.58,7478.47,0],254.679],[[8587.81,7268.03,0],46.202],[[10298.4,9673.35,0],87.8909]
+																	];
+										WMS_TargetConvoyVHL 		= [ //[[logistic],[escort],[SEA_logistic],[SEA_escort]]
+																	[
+																		"rhs_gaz66_ammo_vv","rhs_gaz66_r142_vv","rhs_gaz66_ap2_vv","rhs_kamaz5350_ammo_vv","RHS_Ural_Repair_VV_01","rhs_zil131_flatbed_cover_vv",
+																		"rhs_9k79_K","O_Radar_System_02_F","O_SAM_System_04_F","O_SAM_System_04_F","O_SAM_System_04_F","O_SAM_System_04_F","O_SAM_System_04_F","O_SAM_System_04_F"
+																	],[
+																		"RHS_M6_wd","rhs_zsu234_aa","RHS_M6_wd","rhs_zsu234_aa","rhsgref_tla_btr60","rhsgref_tla_offroad_armed",
+																		"rhs_btr80a_vv","rhs_tigr_sts_3camo_vv","rhs_bmp2k_vv","rhs_bmp1d_vv","rhs_zsu234_aa","rhs_2s1_at_tv",
+																		"RHS_M6_wd","rhs_2s3_at_tv","rhs_t72ba_tv","rhs_t80","rhs_bmp3_msv","rhsgref_BRDM2_msv"		
+																	],[
+																		"rhsgref_hidf_rhib","B_Boat_Armed_01_minigun_F","B_SDV_01_F","rhsusf_mkvsoc"		
+																	],[
+																		"O_Boat_Armed_01_hmg_F","rhsusf_mkvsoc","B_Boat_Armed_01_minigun_F"	
+																	]
+																	];
+										//NEW CONVOY EVENT\\
+																	
+										WMS_Loadout_LocalOPFOR 		= [ //this is a new NPC loadout using equipement specific from the map or main mod like german army for GM, VC for SOG, etc...
+						   												// this loadout will be changed in customMapSettings
+	 																	["rhs_uniform_acu_ucpd","rhs_uniform_acu_ucp2"],//uniform
+																		["rhsusf_spcs_ucp_crewman","rhsusf_spcs_ucp_grenadier","rhsusf_spcs_ucp_machinegunner","rhsusf_spcs_ucp_medic","rhsusf_spcs_ucp_rifleman_alt",
+																		"rhsusf_spcs_ucp_rifleman","rhsusf_spcs_ucp_saw","rhsusf_spcs_ucp_sniper","rhsusf_spcs_ucp_squadleader","rhsusf_spcs_ucp_teamleader_alt","rhsusf_spcs_ucp_teamleader","rhsusf_spcs_ucp"],//vest
+																		["rhs_Booniehat_ucp","rhsusf_patrolcap_ucp","rhsusf_ach_helmet_ucp_norotos","rhsusf_ach_helmet_headset_ess_ucp_alt","rhsusf_ach_helmet_headset_ucp_alt","rhsusf_ach_helmet_ucp_alt"],//helmet
+																		["rhsusf_assault_eagleaiii_ucp","rhs_tortila_grey","AOR1_Backpack_Kitbag","B_AssaultPack_mcamo"],//backpack
+																		["G_Balaclava_Flames1","G_Balaclava_Flecktarn","G_Balaclava_Scarecrow_01","G_Balaclava_Skull1","G_Balaclava_Tropentarn","G_Balaclava_BlueStrips"]//_googles/_facewear
+																	];
+};
 if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 										
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_SPE_GM_SOG.sqf";
@@ -298,14 +430,14 @@ if (worldName == "Cam_Lao_Nam") then {
 										WMS_AI_RoamingVHLcount 		= 16; //10
 										WMS_AI_CargoUnits	 		= 1;
 										//WMS_SupplyDropCount 		= 2; //default 2
-										//WMS_HumaniDropCount 		= 4; //default 3
+										//WMS_HumaniDropCount 		= 4; //default 3 
 										WMS_AMS_ToRun 				= 3; 
 										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
 										WMS_AMS_CustomPosFact		= ["factory"]; //used to spawn "Factory Sales"
 										WMS_AMS_remRPG 				= 75;
 										WMS_AMS_ClnObj 				= true;
 										WMS_AMS_DelMissionFlag 		= true;
-										WMS_AMS_CleanMapObj			= false;
+										WMS_AMS_CleanMapObj			= true;
 										WMS_AMS_ForceRadius			= true; //3m
 										WMS_CaptureZone_Vhl			= [["rhs_mi28n_vvsc","RHS_Mi24P_vvsc","RHS_Mi24V_vvsc","RHS_Ka52_vvsc","RHS_Mi8MTV3_heavy_vvsc","RHS_Mi8AMTSh_vvsc"],["vn_o_armor_ot54_01","vn_o_armor_m41_01","vn_o_armor_t54b_01","vn_o_armor_type63_01"]]; //[air],[gnd] //rhsgref_mi204g_CAS
 										WMS_RandomStart_Hour 		= 4;
@@ -326,6 +458,17 @@ if (worldName == "Cam_Lao_Nam") then {
 										WMS_AI_Units_Class 			= [ //KEEP OPFOR UNITS ONLY!!!
 																	"vn_o_men_nva_dc_01","vn_o_men_nva_dc_13","vn_o_men_nva_dc_08",
 																	"vn_o_men_nva_marine_03","vn_o_men_nva_marine_10","vn_o_men_nva_marine_04"];
+										WMS_Loadout_LocalOPFOR 		= [		//this is a new NPC loadout using equipement specific from the map or main mod like german army for GM, VC for SOG, etc...
+						   													//this loadout will be changed in customMapSettings
+																		[
+																			//"vn_o_uniform_vc_mf_01_07","vn_o_uniform_vc_mf_02_07","vn_o_uniform_vc_mf_04_07", //black VC
+																			"vn_b_uniform_macv_01_18","vn_b_uniform_macv_02_18","vn_b_uniform_macv_03_18","vn_b_uniform_macv_04_18","vn_b_uniform_macv_05_18","vn_b_uniform_macv_06_18" //frog
+																		], //uniform
+																		["vn_b_vest_aircrew_01","vn_b_vest_anzac_09","vn_b_vest_aircrew_05","vn_b_vest_usarmy_02","vn_o_vest_02","vn_b_vest_usmc_06","vn_b_vest_usmc_03","vn_o_vest_vc_04","vn_b_vest_seal_02"], //vest
+																		["rhs_ssh60","rhs_altyn_novisor_ess","vn_o_boonie_vc_02_02","vn_o_cap_02","rhsgref_ssh68_vsr","vn_o_helmet_vc_05","vn_b_boonie_06_02","vn_o_helmet_vc_04","vn_b_helmet_aph6_01_02"], //headgear
+																		["vn_o_pack_04","vn_b_pack_lw_01","vn_b_pack_arvn_02","vn_o_pack_06","vn_b_pack_lw_03","vn_b_pack_lw_07","vn_b_pack_p44_03","vn_b_pack_pfield_02","vn_b_pack_pfield_01"], //backpack
+																		["vn_b_bandana_a","vn_o_acc_goggles_01","vn_o_bandana_b","vn_o_poncho_01_01","vn_b_acc_towel_02","vn_b_acc_ms22001_01","vn_b_aviator","vn_b_acc_m17_01","vn_b_acc_m17_02"] //goggles
+																	];
 										WMS_AMS_UnitClass 			= WMS_AI_Units_Class;
 										WMS_AL_Units				= [//infantry classname, do not mix SIDES!
 																	"vn_c_men_22","vn_c_men_29","vn_c_men_30","vn_c_men_32","vn_c_men_18","vn_c_men_06","vn_c_men_08","vn_c_men_01","vn_c_men_03","vn_c_men_09","vn_c_men_11"

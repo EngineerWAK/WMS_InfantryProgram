@@ -12,7 +12,7 @@
 WMS_serverCMDpwd			= "CHANGEME";
 WMS_BlackList 				= [];	//list of player's UID "BlackListed" //define the player at 100000 respect for all AI spawn/reinforcement with custom setup in WMS_fnc_DynAI_selScen
 WMS_InfantryProgram_list 	= [];	//list of player's UID autorised to use InfantryProgram Functions, Do not use in Exile
-WMS_ServRestartSeconds 		= 18000; //5h	
+WMS_ServRestartSeconds 		= 18000; //5h
 WMS_DynamicFlightOps		= true; //Module //DFO, for Arma "Pilots" who want to keep busy, call from a chopper or from DFO base(s)
 WMS_AmbientLife				= false; //Module  //spawn some little dudes, flying, drivinng, walking using boats, CIVILIAN by default //AL can spawn A LOT of units/vehicles/waypoints, be sure your box can handle it with other regular mission/roaming AI
 WMS_exileFireAndForget 		= false; //FireAndForget is ONLY for Exile DB means Exile mod is running //auto activate WMS_exileToastMsg with Exile override
@@ -39,10 +39,10 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.913_2024OCT12_GitHub"; //airRaid siren for VC Arty in MPmission
+WMS_System_Version 			= "v2.919_2026MAY08_GitHub"; //WMS_Loadout_LocalOPFOR Cam_Lao_Nam
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
-WMS_CustomizedMap			= ["SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
+WMS_CustomizedMap			= ["brf_sumava","SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
 if (isDedicated) then {	
 	diag_log format ["[WMS Starting Server Side]|WAK|TNA|WMS|Initializing AI/Missions system at %1, rev %2", servertime, WMS_System_Version]
 }else{
@@ -147,7 +147,7 @@ WMS_ThanksForRiding = "rhsgref_hidf_canoe"; //"Exile_bike_MountainBike"; //NOT A
 WMS_RandomStartTime 	= true;
 WMS_RandomStart_Hour 	= 5;
 WMS_RandomStart_Random 	= 4;
-WMS_Date 				= [2022,8,25,7,00];//full moon
+WMS_Date 				= [2022,8,25,7,00];//full moon //[2022,9,23,07,00]
 WMS_FastNight 			= true;
 WMS_FastNight_Morning 	= 7; 	//morning start at
 WMS_FastNight_Evening 	= 15; 	//evening start at, 1 hour before the night
@@ -516,6 +516,11 @@ WMS_AMS_PoptabsRwd 		= [1000,500]; //Add poptabs in the mission reward crate/veh
 WMS_AMS_CleanMapObj		= false; //when mission spawn, clean trees and maybe buildings around
 WMS_AMS_ForceRadius		= false; //when mission spawn, use default radius to look for a position witout objects
 WMS_AMS_DefRad			= 0; //Defaut Forced radius. You might want to keep 0 since anyway, objects will be hidden
+WMS_AMS_CustomDif		= [ //new difficulty setup, some mission needs to be more difficult than other, some servers migh not need to be easy. easier difficulty: WMS_AMS_CustomDif select 0;
+							["Easy","Easy","Moderate","Difficult"], //easier
+							["Moderate","Moderate","Difficult","Difficult","Hardcore"], //medium
+							["Difficult","Hardcore","Hardcore"] //harder
+							];
 			   //skills = "spotDistance","spotTime","aimingAccuracy","aimingShake","aimingSpeed","reloadSpeed","courage","commanding","general"//,"endurance"
 WMS_AMS_skillsMin 		= [0.1, 0.1, 0.005, 0.1, 0.05, 0.1, 0, 0.1, 0.1]; //MINIMUM skill mission NPCs can have //will be used to compile custom skills
 WMS_AMS_skillsMax 		= [1, 0.85, 0.85, 0.7, 0.5, 0.8, 0, 1, 0.85]; //MAXIMUM skill mission NPCs can have //will be used to compile custom skills

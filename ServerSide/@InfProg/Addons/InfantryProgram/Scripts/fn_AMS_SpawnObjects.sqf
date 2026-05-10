@@ -34,7 +34,9 @@ if (WMS_AMS_CleanMapObj) then {
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Start cleanMapObjects, server time %1, %2", serverTime, _objects]};
 /////////////////
-	if !(_objects in _noCleanMap) then {
+	if (_objects in _noCleanMap) then {
+		if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|NO cleanMapObjects for this one, server time %1, %2", serverTime, _objects]};
+	} else {
 		_objectsToDespawn = ["TREE", "SMALL TREE", "BUSH", "BUILDING", "HOUSE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE","BUNKER","FOUNTAIN", "FENCE", "WALL", "HIDE", "BUSSTOP", "FOREST", "STACK", "RUIN", "TOURISM", "ROCK", "ROCKS", "RAILWAY"];
 		_terrainobjects = nearestTerrainObjects [_pos,_objectsToDespawn,(_radius*1.1)];
 		{hideObjectGlobal _x} foreach _terrainobjects;

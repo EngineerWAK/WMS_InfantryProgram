@@ -15,6 +15,8 @@ ACE3, RHSAFRF, RHSUSAF, RHSGREF, VSM National Gear Pack
 */
 if !(WMS_exileFireAndForget) then {
 WMS_AI_inventory = [//"AntimalaricumVaccine",//"Laptop_Unfolded",
+	"ACE_ChalkRed","ACE_ChalkYellow","ace_flags_orange","ace_flags_white","ACE_SpraypaintGreen","ACE_PlottingBoard","ACE_Fortify","ACE_ATragMX","HLC_Acc_VFG_PCAP_OD","hlc_grip_PMVFG","HLC_ISOPOD","hlc_muzzle_Octane45",
+	"hlc_muzzle_Octane9","HLC_optic_Aimpoint3000","HLC_optic_ATT","HLC_optic228_VTAC","HLC_optic_Aimpoint5000_Sunshade","rhs_ec400_sand_mag",
 	"hlc_acc_DBALPL_side_FL","hlc_acc_Surefiregrip","HLC_optic_DocterV","hlc_optic_HensoldtZO_lo_Docter","rhsusf_acc_su230a_mrds_c",
 	"ACE_EarPlugs","ACE_EarPlugs",
 	"rhs_ec200_sand_mag","rhs_ec75_sand_mag","1Rnd_HE_Grenade_shell","rhs_rpg7_OG7V_mag","rhs_VOG25",//explo
@@ -22,7 +24,7 @@ WMS_AI_inventory = [//"AntimalaricumVaccine",//"Laptop_Unfolded",
 	"ACE_bloodIV_250","ACE_plasmaIV_250","ACE_bloodIV_500","ACE_plasmaIV_500","ACE_salineIV_250","ACE_splint",
 	"Money_bunch","Money_roll","Money_stack","Money_stack_quest",
 	"Laserbatteries","Laserbatteries",
-	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05",//"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05", //twice, since now there is a lot more items in the list
+	"Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05","Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05", //twice, since now there is a lot more items in the list
 	"FilesSecret","FileNetworkStructure","FileTopSecret","DocumentsSecret","Wallet_ID","FlashDisk","ButaneCanister","Keys",
 	"ACE_Can_Franta","ACE_Can_RedGull","ACE_Can_Spirit","ACE_Canteen","ACE_Canteen_Empty","ACE_Canteen_Half","ACE_WaterBottle","ACE_WaterBottle_Empty","ACE_WaterBottle_Half",
 	"ACE_Humanitarian_Ration","ACE_MRE_BeefStew","ACE_MRE_ChickenTikkaMasala","ACE_MRE_ChickenHerbDumplings","ACE_MRE_CreamChickenSoup","ACE_MRE_CreamTomatoSoup","ACE_MRE_LambCurry","ACE_MRE_MeatballsPasta","ACE_MRE_SteakVegetables",
@@ -109,6 +111,8 @@ WMS_Loadout_DMR = [
 ];
 WMS_Loadout_MG = [ //arifle_RPK12_F, LMG_Mk200_black_F
 	 [
+		"hlc_rifle_L4A3",//BREN
+		"hlc_rifle_M1941LMG","hlc_lmg_mk48","hlc_rifle_rpk",
 		"hlc_lmg_minimipara","hlc_rifle_RPK12","rhs_weap_m249","hlc_lmg_m60","rhs_weap_mg42","LMG_03_F","hlc_rifle_MG36",//NIarms
 		"arifle_SPAR_02_khk_F","arifle_CTARS_blk_F",
 		"rhs_weap_fnmag","rhs_weap_m240G","rhs_weap_m240B","LMG_03_F","rhs_weap_m249","arifle_MX_SW_Black_F","rhs_weap_pkp","rhs_weap_rpk74m",
@@ -154,6 +158,8 @@ WMS_Loadout_AORU = [//light green/tan camo //NPC
 		"AORU_GP_Camo","AORU_GS_Camo","AORU_TP_Camo","AORU_TS_Camo","AORU_Camo_SS","AORU_GP_Camo_SS","AORU_GS_Camo_SS","AORU_TP_Camo_SS","AORU_TS_Camo_SS"
 	],
 	[//Vest
+		"V_PlateCarrierGL_mtp","V_PlateCarrierSpec_mtp","V_PlateCarrierGL_mtp","V_PlateCarrierSpec_mtp", //better ones
+		
 		"V_Chestrig_khk","V_TacVest_khk","V_PlateCarrier1_rgr_noflag_F","V_PlateCarrier2_rgr_noflag_F",//Vanilla
 		//"gm_ge_vest_armor_90_machinegunner_flk","gm_ge_vest_90_medic_flk","gm_ge_army_vest_80_demolition", //GM
 		//"V_SPE_DAK_PioneerVest","V_SPE_GER_VestUnterofficer", //SPE
@@ -184,35 +190,40 @@ WMS_Loadout_AORU = [//light green/tan camo //NPC
 
 WMS_Loadout_SURPAT = [//grey green brown
 	["SURPAT_TP_Camo","SURPAT_TP_Camo_SS","SURPAT_Camo_Cyre","SURPAT_Camo_Cyre_TP","SURPAT_Camo_Cyre_TS"],//Uniform
-	["SURPAT_Vest_1","SURPAT_Vest_2","SURPAT_Vest_3","SURPAT_Vest_4","SURPAT_Vest_5","SURPAT_Vest_6","SURPAT_Vest_7","V_Chestrig_khk","V_HarnessOGL_gry","rhs_lifchik_vog","V_TacVest_brn"],//Vest
+	["V_PlateCarrierGL_rgr","V_PlateCarrier2_rgr_noflag_F","V_PlateCarrierSpec_rgr","V_PlateCarrier1_rgr_noflag_F", //better ones
+		"SURPAT_Vest_1","SURPAT_Vest_2","SURPAT_Vest_3","SURPAT_Vest_4","SURPAT_Vest_5","SURPAT_Vest_6","SURPAT_Vest_7","V_Chestrig_khk","V_HarnessOGL_gry","rhs_lifchik_vog","V_TacVest_brn"],//Vest
 	["SURPAT_Helmet1","SURPAT_Helmet1","SURPAT_Helmet2","SURPAT_Helmet1","SURPAT_Helmet1","SURPAT_Helmet2","SURPAT_Helmet3","H_Booniehat_mgrn","H_Booniehat_khk","H_Booniehat_oli","H_Cap_grn","H_Cap_oli"],//Helmet,"H_Watchcap_khk","SURPAT_Boonie"
 	["SURPAT_Backpack_Compact","SURPAT_Backpack_Kitbag"],//Backpack
 	["G_Balaclava_oli","G_Balaclava_blk"]  //_googles/_facewear
 ];
 WMS_Loadout_AOR1 = [//desert
 	["AOR1_Camo_SS","AOR1_TP_Camo","AOR1_Camo_Cyre","AOR1_Camo_Cyre_TS","AOR1_Camo_Cyre_TP","AOR1_Camo_Cyre_GP"],//Uniform
-	["AOR1_Vest_1","AOR1_Vest_2","AOR1_Vest_3","AOR1_Vest_4","AOR1_Vest_5","V_Chestrig_khk","V_HarnessOGL_gry","rhs_lifchik_vog","V_TacVest_brn"],//Vest
+	["V_PlateCarrierGL_mtp","V_PlateCarrierSpec_mtp","V_PlateCarrierGL_mtp","V_PlateCarrierSpec_mtp", //better ones
+		"AOR1_Vest_1","AOR1_Vest_2","AOR1_Vest_3","AOR1_Vest_4","AOR1_Vest_5","V_Chestrig_khk","V_HarnessOGL_gry","rhs_lifchik_vog","V_TacVest_brn"],//Vest
 	["AOR1_Helmet1","AOR1_Helmet1","AOR1_Helmet2","AOR1_Helmet1","AOR1_Helmet1","AOR1_Helmet2","H_Booniehat_khk_hs","H_Booniehat_tan","H_Watchcap_cbr","H_Cap_brn_SPECOPS"],//Helmet,"AOR1_Boonie","H_Bandanna_sand","H_Bandanna_cbr"
 	["AOR1_Backpack_Kitbag","AOR1_Backpack_Compact","B_Kitbag_cbr"],//Backpack
 	["G_Balaclava_oli","G_Balaclava_blk"]  //_googles//_facewear
 ];
 WMS_Loadout_MCB = [ //black
 	 ["MCB_Camo_Cyre","MCB_Camo_Cyre_TS","MCB_Camo_Cyre_TP","MCB_Camo_Cyre_GS","MCB_Camo_Cyre_GP"], //_uniforms
-	 ["MCB_Vest_1","MCB_Vest_2","MCB_Vest_3","MCB_Vest_4","MCB_Vest_5","MCB_Vest_6","MCB_Vest_7","V_Pocketed_black_F","V_Chestrig_blk","V_BandollierB_blk"], //_vests
+	 ["V_PlateCarrierGL_blk","V_PlateCarrier2_blk","V_PlateCarrierSpec_blk","V_PlateCarrier1_blk", //better ones
+		"MCB_Vest_1","MCB_Vest_2","MCB_Vest_3","MCB_Vest_4","MCB_Vest_5","MCB_Vest_6","MCB_Vest_7","V_Pocketed_black_F","V_Chestrig_blk","V_BandollierB_blk"], //_vests
 	 ["MCB_Helmet1","MCB_Helmet1","MCB_Helmet2","MCB_Helmet1","MCB_Helmet1","MCB_Helmet2","H_HelmetSpecO_blk","H_HelmetB_black","H_HelmetSpecB_blk","H_HelmetB_light_black","H_Cap_blk","rhsusf_hgu56p_visor_mask_black_skull","H_Cap_usblack"], //,"rhsgref_helmet_m1942","H_Beret_blk"_helmets,"H_Bandanna_gry","MCB_Boonie"
 	 ["MCB_Backpack_Compact","MCB_Backpack_KitBag","MCB_Backpack_KitBag"], //_Backpacks
 	 ["G_Balaclava_oli","G_Balaclava_blk"]  //_googles//_facewear
 ];
 WMS_Loadout_M90d = [//desert
 	 ["M90d_Camo_Cyre","M90d_Camo_Cyre_GS","M90d_Camo_Cyre_GP"], //_uniforms
-	 ["M90d_Vest_1","M90d_Vest_2","M90d_Vest_3","M90d_Vest_4","V_Chestrig_khk","V_HarnessOGL_gry","rhs_lifchik_vog","V_TacVest_brn"], //_vests
+	 ["V_PlateCarrierGL_mtp","V_PlateCarrierSpec_mtp","V_PlateCarrierGL_mtp","V_PlateCarrierSpec_mtp", //better ones
+		"M90d_Vest_1","M90d_Vest_2","M90d_Vest_3","M90d_Vest_4","V_Chestrig_khk","V_HarnessOGL_gry","rhs_lifchik_vog","V_TacVest_brn"], //_vests
 	 ["M90d_Helmet1","M90d_Helmet1","M90d_Helmet2","M90d_Helmet1","M90d_Helmet1","M90d_Helmet2","H_Booniehat_khk_hs","H_Booniehat_tan","H_Cap_brn_SPECOPS"], //_helmets,"H_Watchcap_cbr","M90d_Boonie""H_Bandanna_sand","H_Bandanna_cbr",
 	 ["M90d_Backpack_KitBag","B_AssaultPack_ocamo","B_Carryall_ocamo"], //_Backpacks
 	 ["G_Balaclava_oli","G_Balaclava_blk"]  //_googles/_facewear
 ];
 WMS_Loadout_ABU = [ //grey
 	 ["ABU_Camo_Cyre_Tee", "ABU_BS_Camo","ABU_BS_Camo_SS","ABU_Camo","ABU_Camo_Cyre","ABU_Camo_Cyre_GS","ABU_Camo_Cyre_TP","ABU_Camo_Cyre_TS","ABU_Camo_SS","ABU_GP_Camo","ABU_GP_Camo_SS","ABU_GS_Camo","ABU_GS_Camo_SS","ABU_Camo_Cyre_GP","ABU_BP_Camo","ABU_BP_Camo_SS"], //_uniforms
-	 ["V_Chestrig_blk","V_TacVest_blk","V_TacVestIR_blk","ABU_Vest_1","ABU_Vest_2","ABU_Vest_3","ABU_Vest_4","ABU_Vest_5","V_Pocketed_black_F","V_Chestrig_blk","V_BandollierB_blk"], //_vests
+	 ["V_PlateCarrierGL_rgr","V_PlateCarrier2_rgr_noflag_F","V_PlateCarrierSpec_rgr","V_PlateCarrier1_rgr_noflag_F", //better ones
+		"V_Chestrig_blk","V_TacVest_blk","V_TacVestIR_blk","ABU_Vest_1","ABU_Vest_2","ABU_Vest_3","ABU_Vest_4","ABU_Vest_5","V_Pocketed_black_F","V_Chestrig_blk","V_BandollierB_blk"], //_vests
 	 ["H_HelmetB_black","H_HelmetB_plain_blk","ABU_Helmet1","ABU_Helmet2","H_HelmetB_black","H_HelmetB_plain_blk","ABU_Helmet1","ABU_Helmet2","H_Beret_blk","H_Cap_blk","H_Cap_usblack","H_Cap_blk","H_Cap_usblack"], //_helmets,"H_Beret_blk","H_Bandanna_gry","H_Bandanna_gry","ABU_Boonie","ABU_Cap"
 	 ["B_Bergen_blk","B_FieldPack_blk","B_OutdoorPack_blk","B_TacticalPack_blk","ABU_Backpack_Compact","ABU_Backpack_Kitbag","MCB_Backpack_Kitbag"], //_Backpacks
 	 ["G_Balaclava_oli","G_Balaclava_blk"]  //_googles/_facewear
@@ -250,7 +261,7 @@ WMS_Loadout_LightWeaps = [
 WMS_Loadout_HeavyBandit = [
 	["U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F","U_I_C_Soldier_Para_5_F","U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_5_F","U_I_L_Uniform_01_camo_F","U_I_L_Uniform_01_deserter_F","U_I_L_Uniform_01_tshirt_skull_F","U_I_L_Uniform_01_tshirt_black_F","U_I_L_Uniform_01_tshirt_olive_F","U_C_E_LooterJacket_01_F"], //_uniforms
 	 //["V_BandollierB_khk","V_Chestrig_khk","V_TacVest_khk","V_TacVestCamo_khk","V_HarnessOSpec_brn","V_TacChestrig_cbr_F","V_PlateCarrierGL_rgr"], //_vests
-	[
+	[	"V_PlateCarrierGL_mtp","V_PlateCarrierGL_wdl","V_PlateCarrierGL_rgr","V_PlateCarrier2_rgr_noflag_F","V_PlateCarrier2_wdl","V_PlateCarrierSpec_mtp","V_PlateCarrierSpec_wdl","V_PlateCarrierSpec_rgr","V_PlateCarrier1_rgr_noflag_F","V_PlateCarrier1_wdl", //better ones
 		"rhs_6b45_desert","rhs_6b23_ML_6sh92_vog","rhs_6b5_sniper_ttsko","rhsusf_iotv_ocp_Squadleader",
 		"Specter_MBSS_light_TAN","Specter_MBSS","MCB_LBT_vest",//VSM
 		"rhs_6b2_chicom","rhs_6b2_lifchik","rhs_6sh117_grn","rhs_6sh117_rifleman","rhs_6sh92_vog","rhs_6sh92_vsr_radio","rhs_6b3_VOG_2","rhsgref_TacVest_ERDL"//RHS light
@@ -315,6 +326,7 @@ WMS_Weaps_HeavyBandit = [
 WMS_Loadout_Livonia = [
 	["U_O_R_Gorka_01_brown_F","U_O_R_Gorka_01_camo_F","U_O_R_Gorka_01_F"], //_uniforms
 	[
+		"V_PlateCarrier2_wdl","V_PlateCarrierSpec_wdl","V_CarrierRigKBT_01_heavy_EAF_F","V_CarrierRigKBT_01_heavy_olive_F","V_CarrierRigKBT_01_light_olive_F","V_CarrierRigKBT_01_light_olive_F", //better ones
 		"rhs_6b45_rifleman","rhs_6b45_rifleman_2","rhs_6b45_grn","rhs_6b45_mg",
 		"V_CarrierRigKBT_01_heavy_Olive_F","V_CarrierRigKBT_01_heavy_Olive_F","V_SmershVest_01_radio_F","V_CarrierRigKBT_01_light_Olive_F","V_CarrierRigKBT_01_Olive_F","V_CarrierRigKBT_01_Olive_F"], //_vests
 	[

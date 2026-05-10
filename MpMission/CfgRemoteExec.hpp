@@ -43,6 +43,10 @@ class CfgRemoteExec
 		class vtx_uh60_weapons_fnc_updatePylonAssignment{ allowedTargets=0; };
 		class vtx_uh60_mfd_fnc_tac_sync					{ allowedTargets=0; };
 		class vtx_uh60_weapons_fnc_interaction			{ allowedTargets=0; };
+		
+		class hct_interaction_fnc_pointnetreceive		{ allowedTargets=0; }; //FFUUCCKKIINNGG NEW
+		class vtx_uh60_sound_fnc_playapuglobal			{ allowedTargets=0; }; //FFUUCCKKIINNGG NEW
+		class vtx_uh60_sound_fnc_playengineglobal		{ allowedTargets=0; }; //FFUUCCKKIINNGG NEW
 
 		class bis_fnc_debugconsoleexec					{ allowedTargets=0; };
 		//class bis_fnc_execvm							{ allowedTargets=0; };

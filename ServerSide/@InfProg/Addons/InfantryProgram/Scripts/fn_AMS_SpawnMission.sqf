@@ -35,7 +35,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		_behav 		= "random";
 		[_pos,(random 359),1,3,0.5,[100,3],150,10, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 			[
-				["VC Arty"],["Moderate","Difficult","Difficult","Hardcore"],["heavyBandit","heavyBandit","bandit"],["Assault","HeavyBandit"],[_behav],
+				["VC Arty"],(WMS_AMS_CustomDif select 1),["heavyBandit","heavyBandit","bandit"],["Assault","HeavyBandit"],[_behav],
 				[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, count of each, + random]
 				[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
 				[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -49,7 +49,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		_behav 		= "random";
 		[_pos,(random 359),1,4,0.5,[150,3],150,10, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 			[
-				["VC Patrol"],["Moderate","Difficult","Difficult","Hardcore"],["heavyBandit","bandit","bandit"],["Assault","HeavyBandit"],[_behav],
+				["VC Patrol"],(WMS_AMS_CustomDif select 1),["heavyBandit","bandit","bandit"],["Assault","HeavyBandit"],[_behav],
 				[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, count of each, + random]
 				[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
 				[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -66,7 +66,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		_behav 		= (selectRandom ["patrol","defend","hide"]);
 		[_pos,(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 			[
-				["BlackHawk Down"],["Moderate","Difficult","Difficult","Hardcore"],["heavyBandit","bandit"],["Assault","HeavyBandit"],[_behav],
+				["BlackHawk Down"],(WMS_AMS_CustomDif select 1),["heavyBandit","bandit"],["Assault","HeavyBandit"],[_behav],
 				[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, count of each, + random]
 				[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
 				[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -79,7 +79,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		_behav 		= (selectRandom ["patrol","defend","hide"]);
 		[(selectRandom WMS_AMS_CustomPos),(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 			[
-				["Bastogne"],["Easy","Moderate","Difficult","Hardcore"],["army"],["Assault","HeavyBandit"],[_behav],
+				["Bastogne"],(WMS_AMS_CustomDif select 1),["army"],["Assault","HeavyBandit"],[_behav],
 				[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, count of each, + random]
 				[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
 				[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -90,7 +90,7 @@ if (_mission == "no") then { //obiously can not work anymore
 	};
 	if(_mission == "strelnikovtrain")then{
 		_rwd 		= WMS_AMS_Crate_XL;
-		_diff 		= (selectRandom ["Moderate","Difficult","Difficult","Hardcore"]);
+		_diff 		= (selectRandom (WMS_AMS_CustomDif select 1));
 		_objects 	= (selectRandom ["strelnikovtrain","strelnikovtrain2"]);
 		_behav 		= (selectRandom ["patrol","defend","hide"]);
 		_loadouts 	= (selectRandom ["army","bandit","heavyBandit"]);
@@ -111,7 +111,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		_rwd = ((selectRandom WMS_AMS_COMMSRwds)select 0);//"classename"
 		[_pos,(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 			[
-				["COMMS Relay"],["Difficult","Difficult","Hardcore"],["army","livonia"],["Assault","livoniapatrol"],["defend"],
+				["COMMS Relay"],(WMS_AMS_CustomDif select 2),["army","livonia"],["Assault","livoniapatrol"],["defend"],
 				[
 					[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 					[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -128,7 +128,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		if (_unified == "a")then{
 			["occupation",(random 359),2,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 				[
-					["Occupation"],["Moderate","Difficult","Easy","Moderate","Difficult","Hardcore"],["heavyBandit","army"],["Assault","HeavyBandit"],["defend"],
+					["Occupation"],(WMS_AMS_CustomDif select 2),["heavyBandit","army"],["Assault","HeavyBandit"],["defend"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
 					[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
 					[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -139,7 +139,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		}else{
 			["occupation",(random 359),2,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 				[
-					["Occupation"],["Easy","Moderate","Difficult","Hardcore","Moderate","Difficult"],["heavyBandit","army"],["Assault","HeavyBandit"],["hide"],
+					["Occupation"],(WMS_AMS_CustomDif select 1),["heavyBandit","army"],["Assault","HeavyBandit"],["hide"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
 					[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
 					[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -155,7 +155,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		_objects = (selectRandom ["shipyard","shipyard2"]);//"classename"
 		[_pos,(random 359),2,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 			[
-				["Shipyard"],["Moderate","Difficult","Difficult","Hardcore"],["heavyBandit","army"],["Assault","HeavyBandit"],["patrol"],
+				["Shipyard"],(WMS_AMS_CustomDif select 1),["heavyBandit","army"],["Assault","HeavyBandit"],["patrol"],
 				[
 					[[1,1,1],[1,1,1],[5,1,2],[1,2,2],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
 					[[2,1,1],[1,1,1],[6,1,3],[1,2,3],[0,0,0]],
@@ -172,7 +172,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		if (_unified == "a")then{
 			[_pos,(random 359),2,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 				[
-					["The Community"],["Moderate","Moderate","Difficult","Hardcore"],["heavyBandit"],["Assault","HeavyBandit"],["defend"],
+					["The Community"],(WMS_AMS_CustomDif select 1),["heavyBandit"],["Assault","HeavyBandit"],["defend"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
 					[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
 					[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -183,7 +183,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		}else{
 			[_pos,(random 359),2,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 				[
-					["The Community"],["Moderate","Moderate","Difficult","Hardcore"],["heavyBandit"],["Assault","HeavyBandit"],["hide"],
+					["The Community"],(WMS_AMS_CustomDif select 1),["heavyBandit"],["Assault","HeavyBandit"],["hide"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
 					[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
 					[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -199,7 +199,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		_rwd = ((selectRandom WMS_AMS_ArmoredRedRwds)select 0);//"classename"
 		[_pos,(random 359),1,3,0.5,[20,3],30,5,
 			[
-				["Object 172M"],["Hardcore","Difficult","Hardcore","Hardcore"],["army"],["Assault","HeavyBandit"],["patrol"],
+				["Object 172M"],(WMS_AMS_CustomDif select 2),["army"],["Assault","HeavyBandit"],["patrol"],
 				[
 					[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 					[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -216,7 +216,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_rwd = ((selectRandom WMS_AMS_ArmoredBlueRwds)select 0);//"classename"
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Uncle Abrams"],["Hardcore","Difficult","Hardcore","Hardcore"],["army"],["Assault","HeavyBandit"],["patrol"],
+					["Uncle Abrams"],(WMS_AMS_CustomDif select 2),["army"],["Assault","HeavyBandit"],["patrol"],
 					[
 						[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -232,7 +232,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_rwd = ((selectRandom WMS_AMS_MEDRwds)select 0);//"classename" //test to paradrop a vehicle
 			[_pos,(random 359),1,3,0.5,[20,3],30,5, //position type, direction, grp count, units count, skill, [wpts], minefield radius, mine count
 				[
-					["Field Hospital"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["scientist","bandit","heavyBandit"],["Assault","HeavyBandit"],["patrol"],
+					["Field Hospital"],(WMS_AMS_CustomDif select 2),["scientist","bandit","heavyBandit"],["Assault","HeavyBandit"],["patrol"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag] //[how many different items, counf of each, + random]
 					[[3,1,2],[1,1,2],[4,1,2],[1,3,3],[0,0,0]],
 					[[4,1,2],[1,1,2],[5,1,2],[1,3,3],[0,0,0]],
@@ -246,7 +246,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["GrandPaJoe","GrandPaJoe_v2"]);
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Grandpa Joe's Farm"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army"],["Assault","HeavyBandit"],["defend"],//"CBTpatrol" "hide" "patrol" maybe hide
+					["Grandpa Joe's Farm"],(WMS_AMS_CustomDif select 1),["army"],["Assault","HeavyBandit"],["defend"],//"CBTpatrol" "hide" "patrol" maybe hide
 					[[[2,1,2],[1,1,2],[3,1,2],[1,2,3],[0,0,0]],
 					[[3,1,2],[1,1,2],[3,1,2],[1,2,4],[0,0,0]],
 					[[4,1,2],[1,1,2],[3,1,2],[1,3,4],[0,0,0]],
@@ -261,7 +261,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["Market","Market_v2"]);
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Happy Market"],["Easy","Moderate","Difficult","Difficult","Hardcore"],["heavyBandit"],["HeavyBandit"],["hide"],
+					["Happy Market"],(WMS_AMS_CustomDif select 2),["heavyBandit"],["HeavyBandit"],["hide"],
 					[
 						[[2,1,1],[2,1,1],[4,1,2],[1,2,2],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[3,1,1],[2,1,1],[5,1,2],[1,2,3],[0,0,0]],
@@ -273,7 +273,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			] spawn WMS_fnc_AMS_Mission_Unified_C;
 		};
 		if(_mission == "OldPowerPlant")then{
-			_diff = selectRandom ["Moderate","Difficult","Hardcore"];
+			_diff = selectRandom (WMS_AMS_CustomDif select 2);
 			_AIvhlList = WMS_AMS_LightArmed ;
 			if (_diff == "Difficult") then {_AIvhlList = WMS_AMS_APC};
 			if (_diff == "Hardcore") then {_AIvhlList = WMS_AMS_HeavyArmed};
@@ -296,7 +296,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["LumberYard","LumberYard_v2","LumberYard_v3","LumberYard_v4"]);//"classename"
 			[(selectRandom WMS_AMS_CustomPos),(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["LumberYard"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army"],["Assault","HeavyBandit"],["patrol"],
+					["LumberYard"],(WMS_AMS_CustomDif select 1),["army"],["Assault","HeavyBandit"],["patrol"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
 					[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
 					[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -310,7 +310,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["JunkYard","JunkYard_v2"]);//"classename"
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["JunkYard"],["Easy","Moderate","Difficult","Difficult","Hardcore"],["heavyBandit"],["HeavyBandit"],["patrol"],
+					["JunkYard"],(WMS_AMS_CustomDif select 2),["heavyBandit"],["HeavyBandit"],["patrol"],
 					[
 						[[2,1,1],[2,1,1],[2,1,2],[1,2,2],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[3,1,1],[2,1,1],[3,1,2],[1,2,3],[0,0,0]],
@@ -324,7 +324,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		if(_mission == "ArmedBandits")then{
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Armed Bandits"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["heavyBandit","bandit"],["HeavyBandit"],["patrol"],
+					["Armed Bandits"],(WMS_AMS_CustomDif select 0),["heavyBandit","bandit"],["HeavyBandit"],["patrol"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
 					"military",50,true,"ArmedBandits",9,nil,nil,[4,"MG","garrison"]
 				],_mission
@@ -333,7 +333,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		if(_mission == "C192Crash")then{
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["C192 Crash"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army"],["Assault","HeavyBandit"],["patrol"],
+					["C192 Crash"],(WMS_AMS_CustomDif select 1),["army"],["Assault","HeavyBandit"],["patrol"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
 					"military",50,true,"C192Crash",19,nil,nil,[6,"MG","garrison"]
 				],_mission
@@ -342,7 +342,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		if(_mission == "AmazonWH")then{
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Amazon WareHouse"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army","heavyBandit","bandit"],["HeavyBandit","Assault"],["patrol"],
+					["Amazon WareHouse"],(WMS_AMS_CustomDif select 1),["army","heavyBandit","bandit"],["HeavyBandit","Assault"],["patrol"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
 					"military",50,true,"AmazonWH",17,nil,nil,[5,"MG","garrison"]
 				],_mission
@@ -351,7 +351,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		if(_mission == "TransmissionTower")then{
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Transmission Towers"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army","heavyBandit"],["HeavyBandit"],["patrol"],
+					["Transmission Towers"],(WMS_AMS_CustomDif select 1),["army","heavyBandit"],["HeavyBandit"],["patrol"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
 					"military",50,true,"TransmissionTower",25,nil,nil,[6,"MG","garrison"]
 				],_mission
@@ -363,7 +363,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_rwd = ((selectRandom WMS_AMS_SpclRwds)select 0);//"classename"
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Gun, Guns, GUNS!"],["Moderate","Modarate","Difficult","Difficult","Hardcore"],["army"],["Assault","HeavyBandit"],["patrol"],
+					["Gun, Guns, GUNS!"],(WMS_AMS_CustomDif select 2),["army"],["Assault","HeavyBandit"],["patrol"],
 					[
 						[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -377,7 +377,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		if(_mission == "Arena")then{
 			[_pos,(random 359),1,5,0.5,[20,3],30,5,
 				[
-					["Thats a Fucking Arena, Bro"],["Moderate","Difficult","Hardcore"],["army","heavyBandit"],["Assault"],["CBTpatrol"],
+					["Thats a Fucking Arena, Bro"],(WMS_AMS_CustomDif select 2),["army","heavyBandit"],["Assault"],["CBTpatrol"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
 					"military",50,true,"Arena",70,nil,nil,[10,"MG","garrison"]
 				],_mission
@@ -386,7 +386,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		if(_mission == "Factory")then{
 			[(selectRandom WMS_AMS_CustomPosFact),(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Factory Sales"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army","bandit","heavyBandit"],["Assault","HeavyBandit"],["patrol"],
+					["Factory Sales"],(WMS_AMS_CustomDif select 1),["army","bandit","heavyBandit"],["Assault","HeavyBandit"],["patrol"],
 					[[[2,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[3,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[4,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],[[5,1,2],[1,1,2],[3,1,2],[1,3,3],[0,0,0]]],
 					"military",50,true,"Factory",6,nil,nil,[3,"MG","garrison"]
 				],_mission
@@ -396,7 +396,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_rwd = ((selectRandom WMS_AMS_ArmoredLightRwds)select 0);//"classename"
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Light Armored Hijack"],["Moderate","Difficult","Hardcore"],["army"],["HeavyBandit"],["patrol"],
+					["Light Armored Hijack"],(WMS_AMS_CustomDif select 2),["army"],["HeavyBandit"],["patrol"],
 					[
 						[[1,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[2,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -414,7 +414,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["HeliSteal","HeliStealV2"]);//"classename"
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Heli Steal"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army"],["HeavyBandit"],["patrol"],
+					["Heli Steal"],(WMS_AMS_CustomDif select 1),["army"],["HeavyBandit"],["patrol"],
 					[
 						[[1,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[2,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -430,7 +430,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["AABattery","AABatteryV2"]);
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["AA Battery"],["Moderate","Difficult","Difficult","Hardcore"],["BlackOps"],["HeavyBandit"],["patrol"],
+					["AA Battery"],(WMS_AMS_CustomDif select 2),["BlackOps"],["HeavyBandit"],["patrol"],
 					[
 						[[1,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[2,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -444,7 +444,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		if(_mission == "Escobar")then{
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Escobars Mansion"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["heavyBandit"],["HeavyBandit"],["patrol"],
+					["Escobars Mansion"],(WMS_AMS_CustomDif select 0),["heavyBandit"],["HeavyBandit"],["patrol"],
 					[
 						[[1,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[2,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -458,7 +458,7 @@ if (_mission == "no") then { //obiously can not work anymore
 		if(_mission == "Forgotten")then{
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["The Forgotten Expedition"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["heavyBandit"],["HeavyBandit"],["hide"],
+					["The Forgotten Expedition"],(WMS_AMS_CustomDif select 0),["heavyBandit"],["HeavyBandit"],["hide"],
 					[
 						[[1,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[2,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -473,7 +473,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_rwd = WMS_AMS_Crate_XL;//"classename"
 			[_pos,(random 359),1,3,0.5,[20,3],50,5,
 				[
-					["Radar Station"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["BlackOps"],["HeavyBandit"],["patrol"],
+					["Radar Station"],(WMS_AMS_CustomDif select 0),["BlackOps"],["HeavyBandit"],["patrol"],
 					[
 						[[2,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[3,1,1],[1,1,2],[3,1,2],[1,3,3],[0,0,0]],
@@ -489,7 +489,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["Construction","ConstructionV2"]);//"classename"
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["Construction Site"],["Moderate","Difficult","Difficult","Hardcore"],["heavyBandit"],["HeavyBandit"],["patrol"],
+					["Construction Site"],(WMS_AMS_CustomDif select 2),["heavyBandit"],["HeavyBandit"],["patrol"],
 					[
 						[[1,1,1],[1,1,1],[5,1,2],[1,2,2],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[2,1,1],[1,1,1],[6,1,3],[1,2,3],[0,0,0]],
@@ -504,7 +504,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_rwd = WMS_AMS_Crate_noMove;//"classename"
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["MatchuPicachu Chu"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["heavyBandit"],["HeavyBandit"],["patrol"],
+					["MatchuPicachu Chu"],(WMS_AMS_CustomDif select 2),["heavyBandit"],["HeavyBandit"],["patrol"],
 					[
 						[[2,1,1],[0,0,0],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[3,1,1],[0,0,0],[3,1,2],[1,3,3],[0,0,0]],
@@ -519,7 +519,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["OutpostAlpha","OutpostAlpha","OutpostBravo"]);
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["OutPost Alpha"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army"],["HeavyBandit"],["patrol"],
+					["OutPost Alpha"],(WMS_AMS_CustomDif select 0),["army"],["HeavyBandit"],["patrol"],
 					[
 						[[3,1,1],[0,0,0],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[4,1,1],[0,0,0],[2,1,2],[1,3,3],[0,0,0]],
@@ -534,7 +534,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["OutpostBravo","OutpostBravo","OutpostAlpha","OutpostCharlie","OutpostBravo"]);
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["OutPost Bravo"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army"],["HeavyBandit"],["patrol"],
+					["OutPost Bravo"],(WMS_AMS_CustomDif select 1),["army"],["HeavyBandit"],["patrol"],
 					[
 						[[3,1,1],[0,0,0],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[4,1,1],[0,0,0],[2,1,2],[1,3,3],[0,0,0]],
@@ -549,7 +549,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["OutpostCharlie","OutpostCharlie","OutpostBravo","OutpostDeltaV2","OutpostCharlie"]);
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["OutPost Charlie"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army","army","heavyBandit"],["HeavyBandit"],["patrol"],
+					["OutPost Charlie"],(WMS_AMS_CustomDif select 1),["army","army","heavyBandit"],["HeavyBandit"],["patrol"],
 					[
 						[[3,1,1],[0,0,0],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[4,1,1],[0,0,0],[2,1,2],[1,3,3],[0,0,0]],
@@ -564,7 +564,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["OutpostDelta","OutpostDelta","OutpostDeltaV2","OutpostBravo","OutpostEcho"]);
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["OutPost Delta"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army","heavyBandit"],["HeavyBandit"],["patrol"],
+					["OutPost Delta"],(WMS_AMS_CustomDif select 1),["army","heavyBandit"],["HeavyBandit"],["patrol"],
 					[
 						[[3,1,1],[0,0,0],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[4,1,1],[0,0,0],[2,1,2],[1,3,3],[0,0,0]],
@@ -579,7 +579,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["OutpostEcho","OutpostEcho","OutpostDeltaV2","OutpostFoxtrot","OutpostEcho"]);
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["OutPost Echo"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["army","heavyBandit","heavyBandit"],["HeavyBandit"],["patrol"],
+					["OutPost Echo"],(WMS_AMS_CustomDif select 1),["army","heavyBandit","heavyBandit"],["HeavyBandit"],["patrol"],
 					[
 						[[2,1,1],[0,0,0],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[3,1,1],[0,0,0],[2,1,2],[1,3,3],[0,0,0]],
@@ -594,7 +594,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["OutpostFoxtrot","OutpostFoxtrot","OutpostEcho","OutpostGolfV2","OutpostFoxtrot"]);
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["OutPost Foxtrot"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["heavyBandit"],["HeavyBandit"],["patrol"],
+					["OutPost Foxtrot"],(WMS_AMS_CustomDif select 2),["heavyBandit"],["HeavyBandit"],["patrol"],
 					[
 						[[2,1,1],[0,0,0],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[3,1,1],[0,0,0],[2,1,2],[1,3,3],[0,0,0]],
@@ -609,7 +609,7 @@ if (_mission == "no") then { //obiously can not work anymore
 			_objects = (selectRandom ["OutpostGolf","OutpostGolf","OutpostGolfV2","OutpostFoxtrot"]);
 			[_pos,(random 359),1,3,0.5,[20,3],30,5,
 				[
-					["OutPost Golf"],["Easy","Moderate","Moderate","Difficult","Hardcore"],["heavyBandit"],["HeavyBandit"],["patrol"],
+					["OutPost Golf"],(WMS_AMS_CustomDif select 2),["heavyBandit"],["HeavyBandit"],["patrol"],
 					[
 						[[2,1,1],[0,0,0],[3,1,2],[1,3,3],[0,0,0]],//[_weap,_bag,_items,_ammoList,_mag]
 						[[3,1,1],[0,0,0],[2,1,2],[1,3,3],[0,0,0]],

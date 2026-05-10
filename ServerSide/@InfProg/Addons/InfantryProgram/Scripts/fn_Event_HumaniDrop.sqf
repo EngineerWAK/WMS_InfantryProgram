@@ -167,6 +167,7 @@ switch (_type) do {
 				[_cargo,_grp,_veh]spawn {
 					waitUntil {((position (_this select 0)) select 2) < 25};
 					detach (_this select 0);
+					(_this select 0) enableRopeAttach false;
 					[
 						(_this select 0),
 						[
