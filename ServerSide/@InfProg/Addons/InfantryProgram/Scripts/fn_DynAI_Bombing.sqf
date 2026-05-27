@@ -35,7 +35,8 @@ _smoke4 = "SmokeShellgreen" createVehicle _possafe;
 _possafe2 = _smoke modelToWorld [-_radius,0,0];
 _smoke5 = "SmokeShellgreen" createVehicle _possafe2;
 uisleep 10;
-playSound3D ["A3\Sounds_F\ambient\battlefield\battlefield_jet1.wss", player, false, [(_posCenter select 0),(_posCenter select 1),_hight], 8, 1, 0];
+//playSound3D ["A3\Sounds_F\ambient\battlefield\battlefield_jet1.wss", player, false, [(_posCenter select 0),(_posCenter select 1),_hight], 8, 1, 0];
+playSound3D ["a3\sounds_f_aow\SFX\Showcase_Future\Planes_PassBy.wss", player, false, [(_posCenter select 0),(_posCenter select 1),_hight], 8, 1, 0];
 
 _plane = "Sign_Sphere100cm_F";
 _veh2 = createVehicle [_plane, [(_posStart select 0),(_posStart select 1),_hight], [], 0, "CAN_COLLIDE"];

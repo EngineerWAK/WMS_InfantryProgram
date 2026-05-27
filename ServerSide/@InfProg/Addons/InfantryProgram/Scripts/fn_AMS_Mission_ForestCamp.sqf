@@ -67,7 +67,7 @@ uisleep 1;
 		case "hardcore" 	: {_grpCount = 3; _unitsCount = (3+(round random 2)); _skill = (0.70 + random 0.29); _wpts = [125,4]; _radius = 100; _howMany = 25;_lootCount = [[4,2,2],[2,1,1],[5,2,2],[1,3,3],[0,0,0]]; _loadout = "livonia";_unitFunction = "LivoniaPatrol";};
 	};
 	_objects = "forestcamp";
-	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects;
+	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects; //RETURN netIDs//////////////////////////////////////////////////
 uisleep 1;
 	_grpInf = [ 
 			_pos,
@@ -104,7 +104,7 @@ _trigg = [_pos,_grpInf]call WMS_fnc_AMS_createTriggCallBackGrps;
 		_grps, //[_INFgrp1,_INFgrp2,_VHLgrp], //groups
 		[], //[_vehic1, _vehic2], //AI vehicles
 		_objList, //objects
-		[_trigg],//_Mines
+		[netID _trigg],//_Mines
 		_Mkrs, //marker
 		[], //waypoints //CBA Takes care of that
 		_MissionID, //option //MissionID 

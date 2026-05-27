@@ -101,7 +101,7 @@ uisleep 1;
 		case "hardcore" 	: {_grpCount = 1; _unitsCount = (12+(round random 2)); _skill = (0.70 + random 0.29); _wpts = [200,4]; _radius = 200; _howMany = 40;	_lootCount = [[7,2,2],[2,1,2],[3,2,2],[1,2,2],[0,0,0]]; _loadout = "livonia";_unitFunction = "LivoniaPatrol";};
 	};
 	_objects = "cbtpatrol";
-	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects; //always keep it for the flag
+	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects; //always keep it for the flag //RETURN netIDs//////////////////////////////////////////////////
 uisleep 1;
 	_grpInf = [ 
 			_pos,
@@ -120,11 +120,11 @@ uisleep 1;
 
 _trigg = [_pos,_grpInf]call WMS_fnc_AMS_createTriggCallBackGrps;
 
-	_Mines = [
+	_Mines = [ //RETURN netIDs//////////////////////////////////////////////////
 		_pos,
 		_radius,//"_radius", //100
 		_howMany
-	] call WMS_fnc_AMS_SpawnMineField;
+	] call WMS_fnc_AMS_SpawnMineField; //RETURN netIDs//////////////////////////////////////////////////
 uisleep 1;
 	_grps = _grpInf; //array of all the different groups spawned: _grps = _grpInf+_grpVHL;
 	WMS_AMS_Running_Array pushback [
@@ -133,7 +133,7 @@ uisleep 1;
 		_grps, //[_INFgrp1,_INFgrp2,_VHLgrp], //groups
 		[], //[_vehic1, _vehic2], //AI vehicles
 		_objList, //objects
-		_Mines+[_trigg],//_Mines
+		_Mines+[netID _trigg],//_Mines
 		_Mkrs, //marker
 		[], //waypoints //CBA Takes care of that
 		_MissionID, //option //MissionID 

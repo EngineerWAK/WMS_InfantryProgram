@@ -243,6 +243,10 @@
 			};
 		};
 	};
+	if (_mission == "sea" || _mission == "csea") then { //maps without oceans will mostly spawn the dudes in the rivers, with trees around
+		_treeToCut = nearestTerrainObjects [_posLZ1,["TREE", "SMALL TREE"],22];
+		{_x setDamage 1} foreach _treeToCut;
+	};
 	//chopper, for the poors
 	if (_createChopper) then { //should not be used with WMS_TheLastCartridges but anyway the chopper can not sell (addAction/sell), however Exile Mod will sell it (sell/Classname)
 		private _selectedChoppa = (selectRandom _selectedChoprs);

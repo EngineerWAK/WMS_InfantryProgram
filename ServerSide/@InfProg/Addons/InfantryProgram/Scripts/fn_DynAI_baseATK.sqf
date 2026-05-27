@@ -14,7 +14,7 @@
 //((_countFlag != 0) && (_targetSpeed < 100) && !((getplayerUID _DynamicThreatTarget) in WMS_DynAI_BaseAtkUIDList) && (WMS_DynAI_BaseAtkRunning < WMS_DynAI_BaseAtkMax))
 //[_DynamicThreatTarget, (_flagList select 0), _threatScenario] call WMS_fnc_DynAI_baseATK;
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAI BASEATK]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_unitsClass","_shipsButForLand","_ships","_grp1","_timer","_AIcount","_AIgrps","_RPGChance","_skill","_loadout","_unitFunction","_pos","_grps","_Towner","_Tname","_Trights","_Tlevel","_blacklist","_safePos","_startPatrol","_crows"];
+private ["_flagID","_unitsClass","_shipsButForLand","_ships","_grp1","_timer","_AIcount","_AIgrps","_RPGChance","_skill","_loadout","_unitFunction","_pos","_grps","_Towner","_Tname","_Trights","_Tlevel","_blacklist","_safePos","_startPatrol","_crows"];
 params[
 	"_target",
 	"_flag",
@@ -45,6 +45,7 @@ _Tlevel 	= _flag getvariable ["exileterritorylevel",6];
 _Ttravelers = _flag getVariable ["WMS_BaseFriends", ["1","1","1","1","1"]]; //fasttravelers UID added to the territory
 _Tlevel 	= (_Tlevel+(count _Ttravelers)-1);
 _unitsClass = selectRandom WMS_AI_Units_Class;
+_flagID 	= _flag getVariable ["WMS_vehicleid", "xxxxxxxx"];
 if (_The1M) then {_Tlevel = 11};
 _blacklist = [_pos,750,200,150,100]call WMS_fnc_AMS_SpnAiBlkListFull;
 
@@ -142,7 +143,11 @@ WMS_DynAI_Running pushback [_flag,(time+(_timer)),_grps,[],[_fire],[],[],_threat
 //////////
 _flag setvariable ["BaseATK", true, true];
 //_flag setVariable ["BaseATKReinforce", ["runner","paradrop","VHLpatrol","AIRpatrol","AIRassault"],true];
-WMS_DynAI_BaseAtkUIDList pushBack (getplayerUID _target);
+/////////////////////////////////
+//WMS_DynAI_BaseAtkUIDList pushBack (getplayerUID _target); //Need to change UID for a base ID so the same player can get different base attack on different territories
+WMS_DynAI_BaseAtkUIDList pushBack _flagID;
+//_flagID
+/////////////////////////////////
 if (WMS_exileToastMsg) then {
 	private _sessionID = _target getVariable ['ExileSessionID','']; 
 	[_sessionID, 'toastRequest', ['InfoTitleAndText', ['BaseAttack', 'Yes, they are coming for you']]] call ExileServer_system_network_send_to;

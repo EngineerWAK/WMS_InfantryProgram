@@ -171,7 +171,7 @@ if (_mission == "VC Arty") then {
 	_flag setVariable ["WMS_AMS_DoFireNext",WMS_ServRestartSeconds];
 };
 //_flag setVariable ["WMS_StaticsList", _staticsList]; //no statics skill managment yet
-_objList = [_flag]; //no objects to spawn with static missions, just the flag
+_objList = [(NetID _flag)]; //no objects to spawn with static missions, just the flag
 
 //but, neet to set up the statics:
 if (_mission == "VC Arty")then {
@@ -236,7 +236,7 @@ uisleep 5;
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Creating markers and trigger, server time %1, %2", serverTime, _name]};
 /////////////////
-_trigg = [_pos,(_grpInf+_grpInf2)]call WMS_fnc_AMS_createTriggCallBackGrps;
+_trigg = [_pos,(_grpInf+_grpInf2)]call WMS_fnc_AMS_createTriggCallBackGrps; //need to return netID
 /*
 _trigg =  createTrigger ["EmptyDetector", _pos, true];
 _trigg setVariable ["WMS_CallAIgroup",[_grpInf, _pos],true];
@@ -255,7 +255,7 @@ _trigg setTriggerStatements ["this && ({ thisTrigger distance _x <= 5 } count th
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Spawning mineField, server time %1, %2", serverTime, _name]};
 /////////////////
-_Mines = [
+_Mines = [ //need to return netIDs
 	_pos,
 	_radius,	//"_radius", //100
 	_howMany	//"_howMany", //20
@@ -263,7 +263,7 @@ _Mines = [
 	//"_fireExplode", //false
 	//"_signs", //true
 	//"_steps" //36
-] call WMS_fnc_AMS_SpawnMineField;
+] call WMS_fnc_AMS_SpawnMineField; //RETURN netIDs//////////////////////////////////////////////////
 uisleep 5;
 //SPAWN LAG DEBUG
 if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|MineField Spawned, server time %1, %2", serverTime, _name]};
@@ -276,7 +276,7 @@ WMS_AMS_Running_Array pushback [
 	_grps, //[_INFgrp1,_INFgrp2,_VHLgrp], //groups
 	[], //[_vehic1, _vehic2], //AI vehicles
 	_objList, //objects
-	_Mines+[_trigg],
+	_Mines+[NetID _trigg],
 	_Mkrs, //marker
 	[], //waypoints //CBA Takes care of that
 	_MissionID, //option //MissionID 

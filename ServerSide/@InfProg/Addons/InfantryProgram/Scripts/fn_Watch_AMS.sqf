@@ -74,7 +74,7 @@ if (_AMSRunningMissions > 0) then {
 		_lootCount = (_x select 13);
 		_lootType = (_x select 14);
 		_mission = (_x select 15);
-		_flag 	= (_objs select 0);
+		_flag 	= objectFromNetID (_objs select 0);
 		_cnt = 0;
 		{
 			_cnt = _cnt + ({alive _x} count units _x);

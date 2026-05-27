@@ -146,7 +146,7 @@ switch (_difficulty) do {
 		};
 };
 
-_objList = [_pos, _objects, _dir, _missionID,_radiusObjects] call WMS_fnc_AMS_SpawnObjects;
+_objList = [_pos, _objects, _dir, _missionID,_radiusObjects] call WMS_fnc_AMS_SpawnObjects; //RETURN netIDs//////////////////////////////////////////////////
 uisleep 1;
 
 _grpInf = [ 

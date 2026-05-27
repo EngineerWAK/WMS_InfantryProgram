@@ -10,13 +10,14 @@
 * Do Not Re-Upload
 */
 
-private ["_playerConnect","_playerCount","_waitingTime","_DynamicThreatTarget","_threatScenario","_threatCoefs","_flagList","_countFlag","_targetSpeed"];
+private ["_flagID","_playerConnect","_playerCount","_waitingTime","_DynamicThreatTarget","_threatScenario","_threatCoefs","_flagList","_countFlag","_targetSpeed"];
 _playerCount = count (allPlayers select {alive _x && {count getplayerUID _x == 17 }} apply {_x});
 if (WMS_IP_LOGs) then {diag_log format ["[DynAI DYNAMIC THREAT]|WAK|TNA|WMS| Player(s) connected: %1", _playerCount]};
 _waitingTime = WMS_DynAI_threatFrequency;
 _threatCoefs = WMS_DynAI_threatCoefs;
 _DynamicThreatTarget = objNull;
 _threatScenario = "Nothing";
+_flagID = "zzzzzzzz";
 if (WMS_FastCombat) then {
 	_waitingTime = WMS_DynAI_threatFrequencyFC;
 	_threatCoefs = WMS_DynAI_threatCoefsFC;
@@ -88,8 +89,24 @@ if (_playerCount > 0 && {(time > (WMS_DynAI_LastTime+_waitingTime))} && {((OPFOR
 		_flagList = (position _DynamicThreatTarget) nearObjects [WMS_DynAI_BaseFlag, WMS_DynAI_distToFlag];
 		_countFlag = count _flaglist;
 		_targetSpeed = speed _DynamicThreatTarget;
-
-		if ((_countFlag != 0) && {sunOrMoon > 0.9} && {time > (WMS_DynAI_BaseAtkLast+WMS_DynAI_BaseAtkCoolDown)} && {_targetSpeed < 40} && {!((getplayerUID _DynamicThreatTarget) in WMS_DynAI_BaseAtkUIDList)} && {WMS_DynAI_BaseAtkRunning < WMS_DynAI_BaseAtkMax}) then { //Base attack filter //need a filter for non-base owner
+		/* 	
+			use the Flag HexaID and not the player UID
+			_flag setVariable ["WMS_vehicleid", _flagID, true]; 
+			_territoriesArray pushBack [_flagID,_pos,_territoryLevel,_targetUID,[_targetUID],_flagDir,_layout];
+		*/
+		if (_countFlag != 0) then {
+			_flagID = (_flagList select 0) getVariable ["WMS_vehicleid", "xxxxxxxx"];
+		};
+		
+		if ( //Base attack filter //need a filter for non-base owner
+			(_countFlag != 0) 
+			&& {sunOrMoon > 0.9} 
+			&& {time > (WMS_DynAI_BaseAtkLast+WMS_DynAI_BaseAtkCoolDown)} 
+			&& {_targetSpeed < 40} 
+			//&& {!((getplayerUID _DynamicThreatTarget) in WMS_DynAI_BaseAtkUIDList)} //Need to change UID for a base ID so the same player can get different base attack on different territories
+			&& {!(_flagID in WMS_DynAI_BaseAtkUIDList)}//(_flagList select 0) getVariable ["WMS_vehicleid", "xxxxxxxx"];
+			&& {WMS_DynAI_BaseAtkRunning < WMS_DynAI_BaseAtkMax}
+			) then {
 			_threatScenario = "BaseAtk";
 			WMS_DynAI_LastTime = time;
 			[_DynamicThreatTarget, (_flagList select 0), _threatScenario]spawn WMS_fnc_DynAI_baseATK; //WMS_fnc_DynAI_baseATK need to check if territory already under attack

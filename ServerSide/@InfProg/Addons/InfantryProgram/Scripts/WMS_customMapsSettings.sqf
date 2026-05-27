@@ -69,8 +69,8 @@ if (worldName == "brf_sumava") then {
 										WMS_Pos_Factory 			= [[913.942,311.633,0],[937.521,361.441,0],[1529.85,1242.31,0],[1561.41,1305.63,0],[3127.23,880.793,0],[4137.62,254.28,0],[4197.93,215.862,0],[7738.6,833.99,0],[7758.46,876.638,0],[11076,1755.99,0],[9176.03,2786.63,0],[1318.97,1935.89,0],[1550.4,2360.22,0],[1555.72,2528.08,0],[1595.69,2664.3,0],[1762,2675.5,0],[1925.4,2719.1,0],[2182.55,2740.72,0],[1952.79,2514.3,0],[1212.73,3225.57,0],[1162.27,3407.58,0],[2753.16,3321.8,0],[2413.01,3311.25,0],[6681.59,3367.14,0],
 																		[10452.8,2987.19,0],[10388.6,2966.27,0],[3900.21,3930.18,0],[3760.99,3950.9,0],[7055.9,4789.49,0],[7402.3,4825.03,0],[7775.03,5813.85,0],[4688.09,6031.73,0],[10294.9,6809.02,0],[10290.4,6895.62,0],[9975.17,7867.05,0],[9795.32,7703.1,0],[5364.25,8726.7,0],[825.341,8869.42,0],[799.995,8986.55,0],[2712.07,9491.23,0],[9900.11,9428.8,0],[5488.8,10273.1,0],[5564.27,10286.1,0],[5465.53,10214.6,0],[5639.27,10878.8,0],[5627.53,10840.5,0],[11173.9,10692.4,0],[4078.74,11978,0],[2430.75,11571.1,0],[1795.33,11884.5,0]
 																	]; //not autoScan
-										WMS_DynAI_GunshipMedium 	= ["rhs_uh1h_hidf",["hidf_tan",1],[[],[]]];
-										WMS_DynAI_GunshipHeavy 		= ["rhs_uh1h_hidf_gunship",["hidf_tan",1],[[],[]]];
+										WMS_DynAI_GunshipMedium 	= ["RHS_Mi8mt_vdv",["hidf_tan",1],[[],[]]];//["rhs_uh1h_hidf",["hidf_tan",1],[[],[]]]; //RHS_Mi8mt_vdv "Camo5",1
+										WMS_DynAI_GunshipHeavy 		= ["RHS_MELB_AH6M",[],[[],[]]];//["rhs_uh1h_hidf_gunship",["hidf_tan",1],[[],[]]]; //RHS_MELB_AH6M
 										WMS_para_small				= "rhs_d6_Parachute";
 										WMS_AMS_ToRun 				= 3; //with all the reinforcement and vehicles crew, 3 missions it's a lot
 										WMS_AMS_CustomPos			= ["forest"]; //used to spawn "combatPatrol" and LumberYard" in the forest but some maps doesnt have "forest" zones
@@ -161,6 +161,75 @@ if (worldName == "brf_sumava") then {
 																		["rhsusf_assault_eagleaiii_ucp","rhs_tortila_grey","AOR1_Backpack_Kitbag","B_AssaultPack_mcamo"],//backpack
 																		["G_Balaclava_Flames1","G_Balaclava_Flecktarn","G_Balaclava_Scarecrow_01","G_Balaclava_Skull1","G_Balaclava_Tropentarn","G_Balaclava_BlueStrips"]//_googles/_facewear
 																	];
+										/////////////////////////////////////this is a very heavy cleanup for christmass trees//////////////////////////////////////////
+										//[7084.67,1315.89,0],[7434.37,1324.18,0],[7778.5,1390,0],[7115.4,940.607,0],[7469.17,873.442,0],[7781.88,1013.45,0] //6 positions in the south
+										if (true) then {diag_log format ["[WMS_CustomMapsSettings]|WAK|TNA|WMS| Starting cleaning stupid christmas trees %1", servertime]};
+										{ 
+ 											private _obj = format ["%1",(ObjectFromNetID (netId _x))]; 
+ 											if ( 
+  												"piceaabies_1f" in _obj||"piceaabies_1sb" in _obj||"piceaabies_1s" in _obj||"piceaabies_2sb" in _obj||"piceaabies_2s" in _obj 
+ 											) then { 
+  												_x setDamage 1; 
+ 											}; 
+										}forEach (nearestTerrainObjects [[7084.67,1315.89,0],["TREE"],350]); 
+  
+										{_x hideObjectGlobal true} forEach (nearestTerrainObjects [[7084.67,1315.89,0], ['Tree'], 350] select {damage _x == 1});
+										//2
+										{ 
+ 											private _obj = format ["%1",(ObjectFromNetID (netId _x))]; 
+ 											if ( 
+  												"piceaabies_1f" in _obj||"piceaabies_1sb" in _obj||"piceaabies_1s" in _obj||"piceaabies_2sb" in _obj||"piceaabies_2s" in _obj 
+ 											) then { 
+  												_x setDamage 1; 
+ 											}; 
+										}forEach (nearestTerrainObjects [[7434.37,1324.18,0],["TREE"],350]); 
+  
+										{_x hideObjectGlobal true} forEach (nearestTerrainObjects [[7434.37,1324.18,0], ['Tree'], 350] select {damage _x == 1});
+										//3
+										{ 
+ 											private _obj = format ["%1",(ObjectFromNetID (netId _x))]; 
+ 											if ( 
+  												"piceaabies_1f" in _obj||"piceaabies_1sb" in _obj||"piceaabies_1s" in _obj||"piceaabies_2sb" in _obj||"piceaabies_2s" in _obj 
+ 											) then { 
+  												_x setDamage 1; 
+ 											}; 
+										}forEach (nearestTerrainObjects [[7778.5,1390,0],["TREE"],350]); 
+  
+										{_x hideObjectGlobal true} forEach (nearestTerrainObjects [[7778.5,1390,0], ['Tree'], 350] select {damage _x == 1});
+										//4
+										{ 
+ 											private _obj = format ["%1",(ObjectFromNetID (netId _x))]; 
+ 											if ( 
+  												"piceaabies_1f" in _obj||"piceaabies_1sb" in _obj||"piceaabies_1s" in _obj||"piceaabies_2sb" in _obj||"piceaabies_2s" in _obj 
+ 											) then { 
+  												_x setDamage 1; 
+ 											}; 
+										}forEach (nearestTerrainObjects [[7115.4,940.607,0],["TREE"],350]); 
+  
+										{_x hideObjectGlobal true} forEach (nearestTerrainObjects [[7115.4,940.607,0], ['Tree'], 350] select {damage _x == 1});
+										//5
+										{ 
+ 											private _obj = format ["%1",(ObjectFromNetID (netId _x))]; 
+ 											if ( 
+  												"piceaabies_1f" in _obj||"piceaabies_1sb" in _obj||"piceaabies_1s" in _obj||"piceaabies_2sb" in _obj||"piceaabies_2s" in _obj 
+ 											) then { 
+  												_x setDamage 1; 
+ 											}; 
+										}forEach (nearestTerrainObjects [[7469.17,873.442,0],["TREE"],350]); 
+  
+										{_x hideObjectGlobal true} forEach (nearestTerrainObjects [[7469.17,873.442,0], ['Tree'], 350] select {damage _x == 1});
+										//6
+										{ 
+ 											private _obj = format ["%1",(ObjectFromNetID (netId _x))]; 
+ 											if ( 
+  												"piceaabies_1f" in _obj||"piceaabies_1sb" in _obj||"piceaabies_1s" in _obj||"piceaabies_2sb" in _obj||"piceaabies_2s" in _obj 
+ 											) then { 
+  												_x setDamage 1; 
+ 											}; 
+										}forEach (nearestTerrainObjects [[7781.88,1013.45,0],["TREE"],350]); 
+  
+										{_x hideObjectGlobal true} forEach (nearestTerrainObjects [[7781.88,1013.45,0], ['Tree'], 350] select {damage _x == 1});
+										if (true) then {diag_log format ["[WMS_CustomMapsSettings]|WAK|TNA|WMS| Stupid christmas trees cleaning DONE %1", servertime]};
 };
 if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 										
@@ -1806,3 +1875,4 @@ if (isdedicated && WMS_AMS_CleanMapObj && WMS_AMS_ForceRadius && WMS_AMS_CanSele
 	WMS_AMS_CanSelect = false;//to prevent server to "re-select" position if FastCombat change from true to false
 	if (true) then {diag_log format ["[WMS_CustomMapsSettings]|WAK|TNA|WMS| Pre_selection of AMS Positions DONE at %1, %2 positions", servertime, count WMS_AMS_preSelectPos]};
 };
+execVM "\InfantryProgram\Scripts\WMS_yourServCustSettings.sqf"; //I won't ever update this file, it's for you to use it to keep your own variables configs

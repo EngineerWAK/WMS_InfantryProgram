@@ -10,6 +10,7 @@
 * Do Not Re-Upload
 */
 
+ //RETURN netIDs//////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 //[_pos, _radius, _howMany, _mineTypes, _fireExplode, _signs, _steps]call WMS_fnc_AMS_SpawnMineField
 //[_pos, 100, 30, ["ATMine"], true, true, nil]call WMS_fnc_AMS_SpawnMineField
@@ -26,7 +27,7 @@ params[
 _mineList = [];
 for "_i" from 1 to _howMany do {
 	_mine = createMine [(selectRandom _mineTypes), ([_pos, 5, _radius, 0.5, 0, 0.5, 0] call BIS_fnc_findSafePos), [], 0 ];
-	_mineList pushback _mine;
+	_mineList pushback (NetID _mine);
 	_mine allowDamage _fireExplode;
 	if ((typeOf _mine) in WMS_DirectionnalMines) then {
 		_direction = (random 360) ;
@@ -42,10 +43,10 @@ for "_i" from 1 to _howMany do {
 _randDirOffset = random 45;
 for "_i" from 0 to 359 step _steps do {
 	_sign = createVehicle [WMS_AMS_MineSign, [0,0,0], [], 0, "CAN_COLLIDE"];
-	_mineList pushback _sign;
+	_mineList pushback (NetID _sign);
 	_sign setDir (180+_i);
 	_sign setPosATL (_Pos getPos [_radius, _randDirOffset+_i]);
 	_sign setVectorUp [0,0,1];
 };
 if (WMS_IP_LOGs) then {diag_log format ["[AMS MINEFIELD]|WAK|TNA|WMS| return _minelist: %1,", _minelist]};
-_minelist
+_minelist //RETURN netIDs//////////////////////////////////////////////////

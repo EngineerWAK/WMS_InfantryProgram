@@ -37,9 +37,9 @@ AMS_ArmoredServer 			= false; //custom setup at end of WMS_customMapsSettings fo
 //v2.758
 WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NPC //It's fun but 3 bullets in a NPC's leg and arma think it's a headshot...
 /////////////////////////////////////////////////
-///////////ALL VARIABLES, UPDATE ONLY AFTER HERE
+///////////ALL VARIABLES, UPDATE ONLY AFTER HERE, START COPY/PAST HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.919_2026MAY08_GitHub"; //WMS_Loadout_LocalOPFOR Cam_Lao_Nam
+WMS_System_Version 			= "v2.923_2026MAY27_GitHub"; //switching to netIDs and objectFromNetIds for AMS objects and mines //baseATK based on flag ID, not player UID
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["brf_sumava","SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -261,9 +261,13 @@ if (WMS_AmbientLife) then { //spawn some little dudes, flying, drivinng, walking
 						"C_Man_ConstructionWorker_01_Black_F","C_Man_ConstructionWorker_01_Blue_F","C_Man_ConstructionWorker_01_Red_F","C_Man_ConstructionWorker_01_Vrana_F","C_man_p_fugitive_F","C_man_p_shorts_1_F","C_man_hunter_1_F","C_Man_Paramedic_01_F","C_Man_UtilityWorker_01_F"
 					]; 
 	WMS_AL_Vehicles		= [[ //[[AIR],[GROUND],[SEA]]
-						"C_Heli_Light_01_civil_F","C_IDAP_Heli_Transport_02_F","C_Heli_light_01_digital_F","C_Heli_light_01_shadow_F"
+						//"C_Heli_Light_01_civil_F","C_IDAP_Heli_Transport_02_F","C_Heli_light_01_digital_F","C_Heli_light_01_shadow_F"
+						"C_UAV_06_medical_F","C_IDAP_UAV_06_medical_F", //Test UAV
+						"RHS_Mi8t_civilian","C_Heli_light_01_digital_F","C_Heli_Light_01_civil_F","C_IDAP_Heli_Transport_02_F","rhs_uh1h_idap"
 					],[
-						"C_Van_01_fuel_F","C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_02_unarmed_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_01_F","C_Offroad_01_comms_F","C_Offroad_01_repair_F","C_Quadbike_01_F","C_SUV_01_F","C_Tractor_01_F","C_Van_01_transport_F","C_Van_01_box_F","C_Van_02_medevac_F","C_Van_02_transport_F"
+						//"C_Van_01_fuel_F","C_Hatchback_01_F","C_Hatchback_01_sport_F","C_Offroad_02_unarmed_F","C_Truck_02_transport_F","C_Truck_02_covered_F","C_Offroad_01_F","C_Offroad_01_comms_F","C_Offroad_01_repair_F","C_Quadbike_01_F","C_SUV_01_F","C_Tractor_01_F","C_Van_01_transport_F","C_Van_01_box_F","C_Van_02_medevac_F","C_Van_02_transport_F"
+						"C_IDAP_UGV_01_F", //Test UGV
+						"C_Van_01_fuel_F","C_Hatchback_01_F","C_Truck_02_box_F","C_Truck_02_fuel_F","C_Kart_01_Vrana_F","C_Tractor_01_F","C_Van_01_box_F","C_SUV_01_F","C_Quadbike_01_F","C_Offroad_01_F"
 					],[
 						"C_Boat_Civil_01_F","C_Boat_Civil_01_police_F","C_Boat_Civil_01_rescue_F","C_Rubberboat","C_Boat_Transport_02_F","C_Scooter_Transport_01_F"
 					]];
@@ -274,7 +278,7 @@ if (WMS_AmbientLife) then { //spawn some little dudes, flying, drivinng, walking
 //////////////////////////////
 //Dynamic Flight Ops
 //////////////////////////////
-WMS_DFO_Version			= "v1.15_2022OCT19_GitHub";
+WMS_DFO_Version			= "v1.16_2026MAY14_GitHub"; //cutting trees around LZ1 SEA rescue
 if (WMS_DynamicFlightOps) then { //Dynamic Flight Operations, for REAL Arma "pilots"!
 	WMS_DFO_LOGs			= false; //For Debug
 	WMS_DFO_Standalone		= false; //keep true if you don't use WMS_InfantryProgram
@@ -741,6 +745,7 @@ if (worldName in WMS_CustomizedMap) then {
 }else {
 	execVM "\InfantryProgram\Scripts\WMS_List_VHL_Vanilla.sqf";
 	execVM "\InfantryProgram\Scripts\WMS_List_Loadout_Vanilla.sqf";
+	execVM "\InfantryProgram\Scripts\WMS_yourServCustSettings.sqf"; //I won't ever update this file, it's for you to use it to keep your own variables configs
 };
 //Variables override for Exile Users
 if (WMS_exileFireAndForget) then {
@@ -792,7 +797,6 @@ CIVILIAN setFriend [East, 0.8];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////NOTHING TO SETUP AFTER THIS Unless you know what you are doing. if you have to ask, then you do not know what you are doing.//////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-execVM "\InfantryProgram\Scripts\WMS_yourServCustSettings.sqf"; //I won't ever update this file, it's for you to use it to keep your own variables configs
 
 // Random server start time
 if (WMS_RandomStartTime && isDedicated) then {

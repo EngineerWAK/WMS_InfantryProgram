@@ -190,7 +190,7 @@ switch (_difficulty) do {
 		};
 };
 
-_objList = [_pos, _objects, _dir, _missionID,_radiusObjects] call WMS_fnc_AMS_SpawnObjects;
+_objList = [_pos, _objects, _dir, _missionID,_radiusObjects] call WMS_fnc_AMS_SpawnObjects; //RETURN netIDs//////////////////////////////////////////////////
 uisleep 1;
 
 _grpInf = [ 
@@ -210,7 +210,7 @@ uisleep 1;
 
 _trigg = [_pos,_grpInf]call WMS_fnc_AMS_createTriggCallBackGrps;
 
-_Mines = [
+_Mines = [ //RETURN netIDs//////////////////////////////////////////////////
 	_pos,
 	_radius,	//"_radius", //100
 	_howMany	//"_howMany", //20
@@ -218,7 +218,7 @@ _Mines = [
 	//"_fireExplode", //false
 	//"_signs", //true
 	//"_steps" //36
-] call WMS_fnc_AMS_SpawnMineField;
+] call WMS_fnc_AMS_SpawnMineField; //RETURN netIDs//////////////////////////////////////////////////
 uisleep 1;
 
 _grps = _grpInf; //array of all the different groups spawned: _grps = _grpInf+_grpVHL;
@@ -229,7 +229,7 @@ WMS_AMS_Running_Array pushback [
 	_grps, //[_INFgrp1,_INFgrp2,_VHLgrp], //groups
 	[], //[_vehic1, _vehic2], //AI vehicles
 	_objList, //objects
-	_Mines+[_trigg],
+	_Mines+[netID _trigg],
 	_Mkrs, //marker
 	[], //waypoints //CBA Takes care of that
 	_MissionID, //option //MissionID 

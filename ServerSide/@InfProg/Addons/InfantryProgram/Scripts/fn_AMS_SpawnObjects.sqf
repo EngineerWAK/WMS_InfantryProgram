@@ -9,8 +9,8 @@
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
 * Do Not Re-Upload
 */
-
-//////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////RETURN [NETIDs]//////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if (WMS_IP_LOGs) then {diag_log format ["[AMS SPAWN OBJECTS]|WAK|TNA|WMS| _this: %1,", _this]};
 private ["_objectsToDespawn","_terrainobjects","_noCleanMap","_staticsList","_objList","_compoRefPoint","_object","_objectVectoriel","_gradient"];
 params[  
@@ -128,14 +128,14 @@ if (true) then {diag_log format ["[AMS SPAWN LAG DEBUG]|WAK|TNA|WMS|Mission Obje
 /////////////////
 
 _compoRefPoint = createVehicle [WMS_AMS_Flag, _pos, [], 0, "CAN_COLLIDE"];
-_objList pushback _compoRefPoint;
+_objList pushback (NetID _compoRefPoint);
 _compoRefPoint setDir _dirCompo;
 _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 {    
 	//_object = createVehicle [(_x select 0), (_compoRefPoint modeltoworld [(_x select 1 select 0),(_x select 1 select 1),(_x select 1 select 2)]), [], 0, "CAN_COLLIDE"];
 	_object = createVehicle [(_x select 0), [0,0,4000], [], 0, "CAN_COLLIDE"];
 	_object setdir _dirCompo + (_x select 2);
-	_objList pushback _object; 
+	_objList pushback (NetID _object); 
 	_objectVectoriel = (_compoRefPoint modeltoworld  [(_x select 1 select 0),(_x select 1 select 1),0]);
 	_object setposATL [(_objectVectoriel select 0),(_objectVectoriel select 1),((_x select 1) select 2)];
 	_gradient = surfaceNormal position _object;
@@ -206,4 +206,5 @@ _compoRefPoint setVariable ["AMS_MissionID",_missionID,true];
 _compoRefPoint setVariable ["WMS_StaticsList", _staticsList];
 if (WMS_IP_LOGs) then {diag_log format ["[AMS OBJECTS]|WAK|TNA|WMS| setVariable _staticsList: %1", _staticsList]};
 if (WMS_IP_LOGs) then {diag_log format ["[AMS OBJECTS]|WAK|TNA|WMS| return _objList: %1", _objList]};
-_objList
+
+_objList //RETURN [NETIDs]//////////////////////////////////////////////////////////////////

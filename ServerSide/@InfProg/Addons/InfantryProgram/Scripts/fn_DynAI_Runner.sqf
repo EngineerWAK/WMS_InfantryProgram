@@ -36,11 +36,12 @@ if (_spawnType == 'player') then {
 };
 if (_spawnType == 'trigger') then {_safePos = _pos};
 if (_spawnType == 'para') then {
-	if(surfaceIsWater (position _target))then{
+	/*if(surfaceIsWater (position _target))then{
 		_safePos = [position _target, 50, 200, 0, 1, 0, 0, [], [[(position _target select 0),(position _target select 1)+100,300],[]]] call BIS_fnc_findSafePos;
 	}else{
 		_safePos = [position _target, 50, 200, 0, 0, 0, 0, [], [[(position _target select 0),(position _target select 1)+100,300],[]]] call BIS_fnc_findSafePos;
-	};
+	};*/
+	_safePos = [-500,-500,500]; //prevent this sucker to spawn stait on the player
 };
 _grp = createGroup [civilian, false];
 _runner = _grp createUnit ["C_man_p_fugitive_F_afro",_safePos, [], 0, "FORM"];	
@@ -51,7 +52,14 @@ _runner setVariable ["lambs_danger_disableAI", true];//deactivate LambsDanger
 _runner setVariable ["lambs_danger_disableGroupAI", true];//deactivate LambsDanger
 
 if (_spawnType == 'para') then {
-	_runner setPos [(position _runner select 0),(position _runner select 1),100];
+	//private _safePosToPara = [position _target, 75, 200, 0, 0, 0, 0, [], [[(position _target select 0),(position _target select 1)+100,300],[]]] call BIS_fnc_findSafePos;
+	private _safePosToPara = selectRandom [
+		[(position _target select 0)+111, position _target select 1, 111],
+		[(position _target select 0)-111, position _target select 1, 111],
+		[position _target select 0, (position _target select 1)+111, 111],
+		[position _target select 0, (position _target select 1)-111, 111]
+		];
+	_runner setPos _safePosToPara;
 	};
 [(units _grp),"SuicideBomber",0,1,nil,"bandit",nil,"DYNAI"] call WMS_fnc_SetUnits;
 

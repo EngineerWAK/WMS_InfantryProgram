@@ -37,7 +37,8 @@ _smoketest = createVehicle ["SmokeShellBlue", [_posAdjusted select 0,_posAdjuste
 _smoke = createVehicle ["SmokeShellRed", [_posCenter select 0,_posCenter select 1, 50], [], 0, "CAN_COLLIDE"];
 uisleep 3;
 deleteVehicle _ref;
-playSound3D ["A3\Sounds_F\ambient\battlefield\battlefield_jet1.wss", player, false, [(_posCenter select 0),(_posCenter select 1),_hight], 8, 1, 0];
+//playSound3D ["A3\Sounds_F\ambient\battlefield\battlefield_jet1.wss", player, false, [(_posCenter select 0),(_posCenter select 1),_hight], 8, 1, 0];
+playSound3D ["a3\sounds_f_aow\SFX\Showcase_Future\Planes_PassBy.wss", player, false, [(_posCenter select 0),(_posCenter select 1),_hight], 8, 1, 0];
 uisleep 7;
 
 for "_i" from 1 to _iteration do  {

@@ -218,7 +218,15 @@ if (_AIcount > 0) then {
 	};
 };
 if (WMS_DynAI_RdoChatter && !(WMS_FastCombat)) then {
-	_number = selectRandom [12,11,2,1,6,8];
+	//_number = selectRandom [12,11,2,1,6,8];
+	_number = selectRandom [3,7,19];
+	/*
+	"A3\Sounds_F\sfx\radio\ambient_radio7.wss"
+	3 female radio
+	5 "altiture 2000 feet"
+	7 "car accident" female radio
+	19 "bike accident" female
+	*/
 	_sound = format ["A3\sounds_f\sfx\radio\ambient_radio%1.wss",_number];
 	playSound3D [_sound, player, false, _pos, 2, 1, 0];
 };

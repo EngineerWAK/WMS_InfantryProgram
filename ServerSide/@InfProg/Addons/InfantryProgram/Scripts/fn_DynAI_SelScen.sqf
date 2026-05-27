@@ -47,15 +47,15 @@ _playerKill = 0;
 if ((vehicle _target) iskindOf "man") then { //it's overkill but I need datas for debug
 	_playerRep = _target getVariable ['ExileScore', 99999]; //this do not work 100% of the time if in vehicle!
 	_playerKill = _target getVariable ['ExileKills', 99999];
-	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player NOT in vehicle, ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
-	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player NOT in vehicle, ExileKills: target = %1, position = %2, Kills = %3, vehicle = %4", _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
+	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player NOT in vehicle, ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", name _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
+	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player NOT in vehicle, ExileKills: target = %1, position = %2, Kills = %3, vehicle = %4", name _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
 	if (_playerRep == 99999) then {
 		if (WMS_exileFireAndForget)then{//Will do the Exile later
 			_playerRep = 25999;
 		}else{ //TheLastCartridges
 			_playerRep = profileNamespace getVariable ["ExileScore_"+_playerUID,25999];
 		};
-		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
+		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", name _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
 	};
 	if (_playerKill == 99999) then {
 		if (WMS_exileFireAndForget)then{//Will do the Exile later
@@ -63,20 +63,20 @@ if ((vehicle _target) iskindOf "man") then { //it's overkill but I need datas fo
 		}else{ //TheLastCartridges
 			_playerKill = profileNamespace getVariable ["ExileKills_"+_playerUID,4999];
 		};
-		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileKills: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
+		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileKills: target = %1, position = %2, respect = %3, vehicle = %4", name _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
 	};
 }else{
 	_playerRep = _target getVariable ['ExileScore', 99999]; //this do not work 100% of the time if in vehicle!
 	_playerKill = _target getVariable ['ExileKills', 99999];
-	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player IS in vehicle, ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
-	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player IS in vehicle, ExileKills: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
+	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player IS in vehicle, ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", name _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
+	if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|Player IS in vehicle, ExileKills: target = %1, position = %2, respect = %3, vehicle = %4", name _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
 	if (_playerRep == 99999) then {
 		if (WMS_exileFireAndForget)then{//Will do the Exile later
 			_playerRep = 25999;
 		}else{ //TheLastCartridges
 			_playerRep = profileNamespace getVariable ["ExileScore_"+_playerUID,25999];
 		};
-		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
+		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileScore: target = %1, position = %2, respect = %3, vehicle = %4", name _target, (position _target), _playerRep, (TypeOf (vehicle _target))]};
 	};
 	if (_playerKill == 99999) then {
 		if (WMS_exileFireAndForget)then{//Will do the Exile later
@@ -84,7 +84,7 @@ if ((vehicle _target) iskindOf "man") then { //it's overkill but I need datas fo
 		}else{ //TheLastCartridges
 			_playerKill = profileNamespace getVariable ["ExileKills_"+_playerUID,4999];
 		};
-		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileKills: target = %1, position = %2, Kills = %3, vehicle = %4", _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
+		if (true) then {diag_log format ["[DYNAMIC THREAT]|WAK|TNA|WMS|SOMETING IS WRONG WITH ExileKills: target = %1, position = %2, Kills = %3, vehicle = %4", name _target, (position _target), _playerKill, (TypeOf (vehicle _target))]};
 	};
 };
 

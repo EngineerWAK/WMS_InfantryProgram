@@ -13,7 +13,7 @@
 //[_objs,_mkrs,_wps,_grps] call WMS_fnc_AMS_Succes;
 private ["_shitDrop","_AMS_Abuse","_AMS_Start","_missionID","_staticsList","_target","_talk","_music","_crateOwner"];
 params ["_objs","_Mines","_mkrs","_wps","_grps","_msg","_pos","_rwds","_difficulty","_clnObj","_lootCount","_lootType"];
-_target = (_objs select 0);
+_target = objectFromNetID (_objs select 0);
 _staticsList 	= _target getVariable ["WMS_StaticsList", []];
 _missionID 		= _target getVariable ["AMS_MissionID", ""];
 //////////here we need an "ABUSE" check, before spawning the reward, so players who bomb the mission from 10km away won't get anything
@@ -96,7 +96,7 @@ if (_spawnReward) then {
 
 WMS_AMS_MissionsCount = WMS_AMS_MissionsCount -1;
   
-{deleteVehicle _x} forEach _Mines;
+{deleteVehicle (objectFromNetID _x)} forEach _Mines;
 if (_clnObj && WMS_AMS_ClnObj) then {
 	if (WMS_AMS_DestroyStatics) then {
 		{//(gunner _x) action ["moveout",_x];
@@ -108,7 +108,7 @@ if (_clnObj && WMS_AMS_ClnObj) then {
 	};
 	uisleep 10;
 	{
-		 deleteVehicle _x
+		 deleteVehicle (objectFromNetID _x)
 	}foreach _objs;
 } else {
 	if (WMS_AMS_DestroyStatics) then {
@@ -121,7 +121,7 @@ if (_clnObj && WMS_AMS_ClnObj) then {
 	};
 	uisleep 10;*/
 	{
-		_x allowDamage true;
+		(objectFromNetID _x) allowDamage true;
 	}foreach _objs;
 	if(WMS_AMS_DelMissionFlag) then {
 		deleteVehicle _target;

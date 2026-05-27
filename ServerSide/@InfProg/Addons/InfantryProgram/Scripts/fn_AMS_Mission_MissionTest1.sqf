@@ -88,7 +88,7 @@ uisleep 1;
 
 	//_objects = [["CamoNet_OPFOR_open_F",[0,0,0],90]];
 	_objects = "missiontest1";
-	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects;
+	_objList = [_pos, _objects, _dir, _missionID,_radius] call WMS_fnc_AMS_SpawnObjects; //RETURN netIDs//////////////////////////////////////////////////
 uisleep 1;
 	_grpInf = [ 
 			_pos,
@@ -107,11 +107,11 @@ uisleep 1;
 
 _trigg = [_pos,_grpInf]call WMS_fnc_AMS_createTriggCallBackGrps;
 
-	_Mines = [
+	_Mines = [ //RETURN netIDs//////////////////////////////////////////////////
 		_pos,
 		_radius,//"_radius", //100
 		_howMany//"_howMany", //20
-	] call WMS_fnc_AMS_SpawnMineField;
+	] call WMS_fnc_AMS_SpawnMineField; //RETURN netIDs//////////////////////////////////////////////////
 uisleep 1;
 	_vehic = [
 		_pos,
@@ -136,7 +136,7 @@ uisleep 3;
 		_grps, //[_INFgrp1,_INFgrp2,_VHLgrp], //groups
 		[_VHL], //[_vehic1, _vehic2], //AI vehicles
 		_objList, //objects
-		_Mines+[_trigg],
+		_Mines+[netID _trigg],
 		_Mkrs, //marker
 		[], //waypoints //CBA Takes care of that
 		_MissionID, //option //MissionID 
