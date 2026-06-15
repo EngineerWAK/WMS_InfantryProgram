@@ -82,6 +82,7 @@ class CfgFunctions {
 			class sys_ServerMarkersUpdate 	{};
 			class sys_ServerRestart 		{};
 			class sys_Init_Watchs 			{};
+			class sys_ActionReaction		{};
 
 			class Watch_AMS 		{};
 			class Watch_DynAI 		{};

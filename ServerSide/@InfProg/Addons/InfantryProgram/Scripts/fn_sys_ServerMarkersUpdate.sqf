@@ -40,14 +40,19 @@ if (_servUnits < WMS_AI_MaxUnits_A) then {
 		WMS_markerUnits setMarkerColor "ColorRed"; //_servUnits > WMS_AI_MaxUnits_C;
 	};
 };
-if (_servDeads < 50) then {
+if (_servDeads < (WMS_servDeads select 0)) then {
 	WMS_markerDeads setMarkerColor "ColorGreen";
 } else {
-	if (_servDeads >= 50 && _servDeads <= 75) then {
+	if (_servDeads >= (WMS_servDeads select 0) && _servDeads <= (WMS_servDeads select 1)) then {
 		WMS_markerDeads setMarkerColor "ColorYellow";
 	} else {
 		WMS_markerDeads setMarkerColor "ColorRed"; //_servDeads > 50;
-		{if !(_x getVariable ["_spawnedPlayerReadyToFight", false])then {deleteVehicle _x}; } forEach allDeadMen;
+		{
+			if !(_x getVariable ["_spawnedPlayerReadyToFight", false]) //I have some doubts on this one
+			then {
+				deleteVehicle _x
+				}; 
+		} forEach allDeadMen;
 	};
 };
 //WMS_FastCombatMkr = false;

@@ -55,16 +55,24 @@ _markerType = "b_unknown";
 _randomPosTarget = [_pos, _dist1, _dist2, 15, 0, 0.15, 0, _blackList, [([] call BIS_fnc_randomPos),[]]] call WMS_fnc_BIS_FindSafePosModified;
 if(surfaceIsWater _randomPosTarget)then{_VHLselected = ((selectRandom WMS_OPFOR_CustomSEA) select 0)};
 _VHLgrp = createGroup [_grpSide, false];
-//_vehic = _VHLselected createVehicle _randomPosTarget;
-_vehic = createVehicle [_VHLselected, _randomPosTarget, [], 0, "NONE"];
+if (_VHLselected isKindOf "plane") then {
+	_vehic = createVehicle [_VHLselected, [(_randomPosTarget select 0),(_randomPosTarget select 0),400], [], 0, "FLY"];
+	_unitClassName createUnit [_randomPosTarget, _VHLgrp, "this moveinDriver _vehic"];
+} else {
+	_vehic = createVehicle [_VHLselected, _randomPosTarget, [], 0, "NONE"];
+};
+
 _VHLgrp addVehicle _vehic;
-_VHLgrp setVariable ["WMS_VehicleObject", _vehic, true]; //will be used to prevent NPC to keep walking for hours if thay abandon their vehicle
+_VHLgrp setVariable ["WMS_VehicleObject", _vehic, true]; //will be used to prevent NPC to keep walking for hours if they abandon their vehicle
 if (_vehic isKindOf "tank"||_vehic isKindOf "Wheeled_Apc_F") then {_vehic setVariable ["ace_cookoff_enable", true, true];};
 _cargoSits = _vehic emptyPositions "cargo"; //"Commander", "Driver", "Gunner"
-_drvSits = _vehic emptyPositions "Driver";
-if (_drvSits != 0) then {
-	_unitClassName createUnit [_randomPosTarget, _VHLgrp, "this moveinDriver _vehic"];
+if!(_VHLselected isKindOf "plane") then {
+	_drvSits = _vehic emptyPositions "Driver";
+	if (_drvSits != 0) then {
+		_unitClassName createUnit [_randomPosTarget, _VHLgrp, "this moveinDriver _vehic"];
+	};
 };
+
 ////////////////////////from "Lost enemy convoy"
 	_turArray = allTurrets [_vehic, false];
 	_turSits = count _turArray;
@@ -275,8 +283,12 @@ if (_grpSide == OPFOR ) then {
 	};
 };
 if (_triggType == "reinforcementpunisher") then {
-	(units _VHLgrp) doTarget _target;
-	(units _VHLgrp) doMove _target;
+	(leader _VHLgrp) doTarget position _target;
+	(leader _VHLgrp) doMove position _target;
+};
+if (_triggType == "actionreaction") then {
+	//(units _VHLgrp) doTarget _target;
+	(leader _VHLgrp) doMove position _target;
 };
 if (_grpSide == BLUFOR ) then {
 	if (_loadout == "army") then {_loadout = "army_b"};

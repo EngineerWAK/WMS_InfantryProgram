@@ -86,9 +86,9 @@ _WPT_2 setwaypointSpeed "LIMITED";
 _WPT_2 setWaypointCombatMode "RED";  
 _WPT_2 setWaypointbehaviour  "COMBAT";   
   
-_transport = [_posStart, (random 359), _choppa2 select 0, OPFOR] call bis_fnc_spawnvehicle;
+_transport = [_posStart, (random 359), _choppa2 select 0, OPFOR] call bis_fnc_spawnvehicle; //transport need some kind of "protection" or player "punishment"
 _transportGRP = _transport select 2;  
-_vehic2 = _transport select 0;
+_vehic2 = _transport select 0; //EH "killed" on _vehic2
 _vehic2 lockDriver true;
 _vehic2 setVehicleLock "LOCKEDPLAYER";
 //_vehic2 setUnloadInCombat [true, false];
@@ -100,6 +100,22 @@ _WPT_1b setWaypointType "TR UNLOAD";
 _WPT_1b setwaypointSpeed "NORMAL";  
 _WPT_1b setWaypointCombatMode "BLUE";  
 _WPT_1b setWaypointbehaviour  "CARELESS"; 
+
+/*case "arty" : { //EH "killed" on _vehic2
+		_randomPos = [_pos, (300+_dist1VHL), (300+_dist2VHL), 5, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
+		[_target, _randomPos, _artyChanceHE, _iterA] spawn WMS_fnc_DynAI_arty; //Optional: _artyChanceHE, _iterA
+};*/
+
+_vehic2 addMPEventHandler ["MPKilled",{ 
+	params ['_vehic2', '_killer', '_instigator', '_useEffects'];
+	if(isPlayer _instigator)then{_killer = _instigator};
+	if (isServer && {isPlayer _killer})then{
+		//private _randomPos = [(position _killer), 500, 1500, 5, 0, 0, 0, [], [[],[]]] call BIS_fnc_findSafePos;
+		//[_killer, _randomPos, 90, selectRandom [3,5,7,9]] spawn WMS_fnc_DynAI_arty;
+		[_vehic2,_killer,"airassault"] call WMS_fnc_sys_ActionReaction;
+	};
+	_vehic2 removeMPEventHandler ["MPKilled", 0];
+}];
 
 uisleep 1;
 _INFgrp = [_posInfGrp, EAST, _units] call BIS_fnc_spawnGroup;

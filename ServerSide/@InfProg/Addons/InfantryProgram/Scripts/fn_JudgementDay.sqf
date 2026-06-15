@@ -130,7 +130,7 @@ _triggerOPF setTriggerStatements [
 		_OPFgroups =  (WMS_JudgementDay_Array select 4);
 		if (true) then {diag_log format ['[JUDGEMENTDAY_TRIGGER_OPF_DEACTIVATE]|WAK|TNA|WMS| thisTrigger = %1, _pos = %2, _OPFgroups = %3', thisTrigger, _pos, _OPFgroups]};
 		if (WMS_JudgementDay_Run) then {
-			if ((WMS_JudgementDay_Array select 2) == 10) then {
+			if ((WMS_JudgementDay_Array select 2) == (WMS_JudgementDay_Num select 4)) then {
 				[_pos,_playerObject]call WMS_JMD_Heaven;
 			}else{
 				WMS_JudgementDay_Array set [2,((WMS_JudgementDay_Array select 2)+1)];
@@ -220,7 +220,7 @@ WMS_JMD_createOPF = {
 	];
 	uisleep 3;
 	_wave = (WMS_JudgementDay_Array select 2);
-	if (_wave == 10) then {_count = round(_count+(_count/2))};
+	if (_wave >= 10) then {_count = round(_count+(_count/2))};
 	playSound3D ["A3\sounds_f\ambient\objects\bell_big.wss", player, false, [_pos select 0, _pos select 1, 100], 3, 1, 0];
 	
 	//a little rain Object before AI spawn
@@ -230,6 +230,18 @@ WMS_JMD_createOPF = {
 	if(_wave == 5||_wave == 6)then{_dropList = (WMS_JudgementDay_Drop select 2)};
 	if(_wave == 7||_wave == 8)then{_dropList = (WMS_JudgementDay_Drop select 3)};
 	if(_wave == 9||_wave == 10)then{_dropList = (WMS_JudgementDay_Drop select 4)};
+	if(_wave == 11||_wave == 12)then{
+		_dropList = (WMS_JudgementDay_Drop select 4);
+		_loadout = selectRandom ["localopfor","BlackOps","livonia"];
+		}; //not yet but it's coming soooooooon
+	if(_wave == 13||_wave == 14)then{
+		_dropList = (WMS_JudgementDay_Drop select 5);
+		_loadout = selectRandom ["BlackOps","livonia"];
+		}; //not yet but it's coming soooooooon
+	if(_wave >= 15)then{
+		_dropList = (WMS_JudgementDay_Drop select 5);
+		_loadout = "viper";
+		}; //not yet but it's coming soooooooon //NEW
 	_load = selectRandom _dropList;
 	_alti = 80;
 	_radius = 100;
@@ -237,10 +249,12 @@ WMS_JMD_createOPF = {
 	_delay = 0.25;
 	if (_load == "rhs_ammo_nspn_red") then {_alti = 150;_delay = 1;};
 	if (_load == "rhs_ammo_fakels") then {_alti = 65;_delay = 0.8;};
-	if (_load == "rhs_ammo_m397" || _load == "rhs_rpg7v2_type63_airburst") then {_iterO = 8;_delay = 0.6; _alti = 350};
-	if (_load == "vn_bomb_100_m47_wp_ammo"||_load == "vn_bomb_mk36_destructor_mine_ammo"||_load == "vn_bomb_750_m117_he_ammo") then {_delay = 1.6;_alti = 250;_iterO = 4;_radius = 150;};
+	if (_load == "rhs_ammo_m397" || _load == "rhs_rpg7v2_type63_airburst") then {_iterO = 8;_delay = 0.6; _alti = 250};
+	if (_load == "vn_bomb_100_m47_wp_ammo"||_load == "vn_bomb_mk36_destructor_mine_ammo"||_load == "vn_bomb_750_m117_he_ammo"||
+		_load == "rhs_ammo_rbk500_ofab50"||_load == "Sh_155mm_AMOS"||_load == "rhs_ammo_fab500_m54"||_load == "Bo_Mk82"
+		) then {_delay = 1.5;_alti = 250;_iterO = 5;_radius = 150;};
 	[_pos,_load,_radius,_alti,_iterO,_delay] spawn WMS_fnc_DynAI_RainObjects; //optional: _load,_radius,_altitude,_iterations,_delay
-	uisleep 6;
+	uisleep 7;
 
 	_unitsClass = selectRandom WMS_AMS_UnitClass;
 	_timeStart = serverTime;
@@ -266,6 +280,7 @@ WMS_JMD_createOPF = {
 	};
 	if (_playerKills <= 99) then {_difficulty = "moderate"; _skill = 0.35};
 	if (_playerKills >= 1000) then {_difficulty = "hardcore"; _skill = 0.5};
+	if (_loadout == "viper") then {_difficulty = "hardcore"; _skill = 0.7};
 	if !(vehicle _playerObject iskindOf "man") then {_launcherChance = 100; _difficulty = "hardcore"; _skill = 0.85};
 	/////
 	uisleep 0.2;
@@ -275,7 +290,7 @@ WMS_JMD_createOPF = {
 		{
 			_posToPush = _x; //AGL
 			{
-				if (_posToPush distance2d _x > 25) then {
+				if (_posToPush distance2d _x > (WMS_JudgementDay_Num select 2)) then {
 						_spawnPosList pushBack (AGLtoASL _posToPush); //PUSH ASL!!!
 						//_spawnPosList pushBack _posToPush;
 					}else{

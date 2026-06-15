@@ -12,7 +12,7 @@
 
 //[_killed,_killer] call WMS_fnc_DynAI_RwdMsgOnKill
 if (WMS_IP_LOGs) then {diag_log format ["[DYNAI REWARDS]|WAK|TNA|WMS| _this = %1", _this]};
-private ["_info","_unit","_msgx","_sessionID","_unitName","_payload","_bonus","_distanceKill","_playerRep","_bonusDist","_malusDist","_type"];
+private ["_killerName","_hideBodyColor","_info","_unit","_msgx","_sessionID","_unitName","_payload","_bonus","_distanceKill","_playerRep","_bonusDist","_malusDist","_type"];
 params[
 	"_killed",
 	"_killer",
@@ -23,7 +23,7 @@ params[
 	}; //might help with artillery shit
 	WMS_AllDeadsMgr pushBack [_killed,(serverTime+WMS_DynAi_AllDeads)];
 	_info 			= _killed getVariable ["WMS_Info", "nothingYet"]; //"BaseATK" //"JMD"
-	_hideBodyColor	= "<t size='1' color='#00dcf5'>Hide Body</t>";//LightBlue
+	_hideBodyColor	= "<t size='1' color='#ffffff'>Hide Body, default color</t>";//white default
 	_killerName 	= name _killer;
 	//_distanceKill	= (round(_killer distance2D _killed));
 	_distanceKill	= (round(_killer distance _killed));
@@ -181,6 +181,8 @@ params[
 			};
 		};
 		if (WMS_DynAI_ejectDeads) then {moveout _killed};
+		if (_info == "AMS" || _info == "CaptureZone") then {_hideBodyColor	= "<t size='1' color='#f50000'>Hide Body, The mAtriX HAs bEEN HaCKeD</t>"};//this should not be possible, it's for debug to find out why some of them show "light blue"
+		if (_info == "DYNAI") then {_hideBodyColor	= "<t size='1' color='#00dcf5'>Hide Body</t>"};
 		if (_info == "BaseATK") then {_hideBodyColor	= "<t size='1' color='#f5d400'>Hide Body</t>"};
 		if (_info == "JMD") then {_hideBodyColor		= "<t size='1' color='#9000ff'>Hide Body</t>"};
 		if (_info == "VHLCrew") then {_hideBodyColor		= "<t size='1' color='#003df5'>Hide Body</t>"};
@@ -191,16 +193,22 @@ params[
 				{
 					params ["_target", "_caller", "_actionId", "_arguments"]; // script
 					hideBody _target;
+					private _poptabs = (_target getVariable ["ExileMoney",0]);
+					if (_poptabs != 0) then {
+						[_caller, -_poptabs] remoteExec ['WMS_fnc_smallTransactions'];//need to be "-" even if it looks weird
+						systemChat format ["You found %1 poptabs",_poptabs];
+						_target setVariable ["ExileMoney",0,true];
+					};
 					_caller removeAction _actionId;
 					[_target]spawn{uisleep 5; deleteVehicle (_this select 0)};
 				},
 				nil,		// arguments
-				1.5,		// priority
+				1,		// priority
 				true,		// showWindow
 				true,		// hideOnUse
 				"",			// shortcut
 				"!(alive _target)", 	// condition
-				1.5			// radius
+				2			// radius
 			]
 		] remoteExec [
 			"addAction",

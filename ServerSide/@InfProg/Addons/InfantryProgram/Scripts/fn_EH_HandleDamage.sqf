@@ -23,7 +23,13 @@ if (
 ) then {
 	if (headgear _unit != "") then {playSound3D [getMissionPath 'Custom\Ogg\HelmetShot.ogg', _unit, false, position _unit, 2]};
 	//[_unit, 1, "head", _projectile, _source] call ace_medical_fnc_addDamageToUnit; //ERROR: addDamageToUnit - badUnit
-	[_unit,_source] call WMS_fnc_DynAI_RwdMsgOnKill;
+
+	if (_unit getVariable ["WMS_Info", "nothingYet"] == "AMS") then {
+			[_unit,_source,_instigator]call WMS_fnc_AMS_EHonKilled;
+		} else {
+			[_unit,_source,_instigator] call WMS_fnc_DynAI_RwdMsgOnKill; //I found it!!!
+		};
+	
 	_unit removeEventHandler ["HandleDamage", 0];
 	_unit removeMPEventHandler ["MPKilled", 0];
 	if (WMS_HeadShotSound)then{["HeadShot"] remoteexec ["playsound",(owner _source)]};

@@ -60,7 +60,10 @@ if (_loadout == "army")then{
 	_loadout = selectRandom ["aoru","m90d","abu","blackops","aor1","surpat","localopfor","localopfor"]; //more "localopfor"
 	_loadoutTrack = _loadout;
 	}; //do the selectRandom before the switch
-if (_loadout == "army_b")then{_loadout = selectRandom ["aor2","m90","scorpion","tiger","fleck"]}; //do the selectRandom before the switch
+if (_loadout == "army_b")then{
+	_loadout = selectRandom ["aor2","m90","scorpion","tiger","fleck"];
+	_loadoutTrack = _loadout;
+	}; //do the selectRandom before the switch
 switch (toLower _loadout) do {
 	case "civilian" : {_loadout = WMS_Loadout_Civilian; _weaps = WMS_Loadout_LightWeaps};
 	case "bandit" 	: {_loadout = WMS_Loadout_Bandit; _weaps = WMS_Loadout_LightWeaps};
@@ -82,13 +85,19 @@ switch (toLower _loadout) do {
 						_weapRandom = [WMS_Weaps_LivoniaMix];
 						_weapRandomNoSnipNoMG = [WMS_Weaps_LivoniaMix];
 						};
-	//case "army_b" 		: {_Loadout = selectrandom [WMS_Loadout_AOR2, WMS_Loadout_M90, WMS_Loadout_Scorpion, WMS_Loadout_Tiger, WMS_Loadout_DEfleck]};
 	case "army_b" 		: {_Loadout = WMS_Loadout_AOR2}; //"army_b" should not happen anymore
 	case "aor2" 		: {_Loadout = WMS_Loadout_AOR2};
 	case "m90" 			: {_Loadout = WMS_Loadout_M90};
 	case "scorpion" 	: {_Loadout = WMS_Loadout_Scorpion};
 	case "tiger" 		: {_Loadout = WMS_Loadout_Tiger};
 	case "fleck"		: {_Loadout = WMS_Loadout_DEfleck}; //BWmod not used anymore
+
+	case "viper" 	: { //WARNING!!!
+						_Loadout = WMS_Loadout_VIPER;
+						_weaps = WMS_Weaps_VIPER; 
+						_weapRandom = [WMS_Weaps_VIPER];
+						_weapRandomNoSnipNoMG = [WMS_Weaps_VIPER];
+					};
 };
 _skills = [_skill,_difficulty]call WMS_fnc_AMS_ConvertSkills;
 _sniper = WMS_AMS_skillsniper; //[1,0.95,0.95,0.95]
@@ -253,7 +262,7 @@ _poptabs = 50;
 		_waveLevel = WMS_JudgementDay_Array select 2;
 		if (_waveLevel >= 0 && _waveLevel <= 2) then {
 			_weaps = WMS_Loadout_SMG;
-		}else{
+			}else{
 			if (_waveLevel >= 3 && _waveLevel <= 5) then {
 				_weaps = selectRandom [WMS_Loadout_SMG,WMS_Loadout_Assault,WMS_Loadout_Assault];
 				_inventoryItems = WMS_JudgementDay_items select 1;
@@ -262,33 +271,46 @@ _poptabs = 50;
 					_weaps = selectRandom [WMS_Loadout_Assault,WMS_Loadout_DMR,WMS_Loadout_Sniper,WMS_Loadout_MG];
 					_inventoryItems = WMS_JudgementDay_items select 2;
 				}else{
-					if (_waveLevel == 9 || _waveLevel == 10) then {
-						_weaps = selectRandom [WMS_Loadout_Sniper,WMS_Loadout_MG];
+					if (_waveLevel == 9 || _waveLevel == 10 || _waveLevel == 11) then {
+						_weaps = selectRandom [WMS_Weaps_LivoniaMix,WMS_Loadout_Sniper,WMS_Loadout_MG];
 						_inventoryItems = WMS_JudgementDay_items select 3;
-					}else{
-						_weaps = selectRandom _weapRandom;
+					}else{	
+						if (_waveLevel == 12 || _waveLevel == 13 || _waveLevel == 14) then {
+							_weaps = selectRandom [WMS_Loadout_Sniper,WMS_Loadout_MG,WMS_Loadout_DMR];
+							_inventoryItems = WMS_JudgementDay_items select 3;
+						}else{
+							if (_waveLevel > 14) then {
+								_weaps = WMS_Weaps_VIPER;
+								_inventoryItems = WMS_JudgementDay_items select 4;
+							}else{
+								_weaps = selectRandom _weapRandom; //DEFAULT
+							};
+						};
 					};
 				};
 			};
 		};
+		////////////////////main and pistol change depending the wave/////////////////////////
 		_mainWeap = [_unit, selectrandom (_weaps select 0), 5, 0] call BIS_fnc_addWeapon;
-		if ((_mainWeap in WMS_AMS_sniperList) && {_loadoutTrack != "livonia"}) then {
-			_unit addPrimaryWeaponItem selectrandom (WMS_Loadout_Sniper select 2); 
-			_unit addVest selectrandom (WMS_AMS_SniperLoadout select 1);
-			_unit addHeadGear selectrandom (WMS_AMS_SniperLoadout select 0);
-			_mags = ((getArray (configfile >> "CfgWeapons" >> _mainWeap >> "magazines")) select 0);
-			_unit addMagazine _mags;
-			_unit addMagazine _mags;
-			_unit addMagazine _mags;
-		}else{
-			_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
-		};
-		_pistol = [_unit, selectrandom (WMS_Loadout_Sniper select 3), 2] call BIS_fnc_addWeapon;
+		_unit addPrimaryWeaponItem selectrandom (_weaps select 2);
+		_pistol = [_unit, selectrandom (_weaps select 3), 2] call BIS_fnc_addWeapon;
+		/////////////////////////////no sniper specific loadout///////////////////////////////
+		_unit additem selectRandom WMS_AI_grenades;
 		_unit additem selectRandom WMS_AI_grenades;
 		_unit additem "ACE_bloodIV_250";
 		_unit additem "ACE_splint";
 		_unit additem "ACE_epinephrine";
-		_unit additem selectRandom _inventoryItems;
+		private _specItem = selectRandom _inventoryItems;
+		if (_specItem == "csat_id") then {
+			if (_loadoutTrack == "viper") then {
+				{_unit additem _x}forEach ["Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05"]; //all set for Vipers
+			} else {
+				_unit additem selectRandom ["Csat_Id_01","Csat_Id_02","Csat_Id_03","Csat_Id_04","Csat_Id_05"]; //only one for others
+			};
+		} else{
+			_unit additem _specItem;
+		};
+		
 	};
 	default {
 		_mainWeap = [_unit, selectrandom (WMS_Loadout_Assault select 0), 5, 0] call BIS_fnc_addWeapon;
@@ -310,8 +332,6 @@ _poptabs = 50;
 		_unit addBackpack "B_Parachute";
 		if (true) then {diag_log format ["[AMS/DynAI AI SETUP]|WAK|TNA|WMS|Something went wrong!!! Adding Emergency Parachute to %1, %2", (name _unit), (position _unit)]};
 	};
-	if (_loadoutTrack == "scientist") then {if (goggles _unit != "") then {removeGoggles _unit};_unit addGoggles selectrandom (WMS_Loadout_Scientist select 4);};
-	if (_loadoutTrack == "localopfor") then {if (goggles _unit != "") then {removeGoggles _unit};_unit addGoggles selectrandom (WMS_Loadout_LocalOPFOR select 4);};
 	if (_mainWeap in WMS_AMS_sniperList) then {
 		_unit setSkill ["spotDistance", (_sniper select 0)];
 		_unit setSkill ["spotTime", 	(_sniper select 1)];
@@ -356,7 +376,6 @@ _poptabs = 50;
 	_unit setVariable ["WMS_Difficulty",_difficulty, true]; //will be used for AI killfeed on player EH killed
 	_unit setVariable ["WMS_unitFunction",_unitFunction, false];
 	_unit allowFleeing 0;
-	//_unit setRank "PRIVATE"//,"CORPORAL","SERGEANT","LIEUTENANT","CAPTAIN","MAJOR","COLONEL"
 	_rankRef = _unit skill "aimingAccuracy";
 	if (_rankRef < 0.1) then {_unit setRank "PRIVATE"}else{
 	if (_rankRef >= 0.1 && _rankRef < 0.22) then {_unit setRank "CORPORAL"}else{
@@ -368,7 +387,7 @@ _poptabs = 50;
 	};};};};};};
 	//
 	if (random 100 > 50) then {
-		_unit addPrimaryWeaponItem (selectrandom WMS_AI_Attachements);
+		_unit addPrimaryWeaponItem (selectrandom WMS_AI_Attachements); //"acc_pointer_IR"
 	};
 	for "_i" from 1 to _itemsCount do {
 		_unit additem (selectRandom WMS_AI_inventory);
@@ -386,9 +405,21 @@ _poptabs = 50;
 			_unit assignItem _specialItem;
 		};
 	};
+	//////////////////ITEMS linked to the loadout://////////////////
+	if (_loadoutTrack == "scientist") then {if (goggles _unit != "") then {removeGoggles _unit};_unit addGoggles selectrandom (WMS_Loadout_Scientist select 4);};
+	if (_loadoutTrack == "localopfor") then {if (goggles _unit != "") then {removeGoggles _unit};_unit addGoggles selectrandom (WMS_Loadout_LocalOPFOR select 4);};
+	if (_loadoutTrack == "viper") then {
+		if (goggles _unit != "") then {removeGoggles _unit};
+		_unit addGoggles selectrandom (WMS_Loadout_VIPER select 4);
+		_unit addPrimaryWeaponItem "acc_pointer_IR";
+		_unit addItem "O_NVGoggles_ghex_F";
+		_unit assignItem "O_NVGoggles_ghex_F";
+		_unit addItem "Laserdesignator_02_ghex_F";
+		_unit assignItem "Laserdesignator_02_ghex_F";
+		};
 ////////////////AMS/DYNAI/WHATEVER CHANGES
 	if (_info == "AMS" || _info == "CaptureZone") then {
-		_unit setVariable ["WMS_Info", _info]; //not used yet
+		_unit setVariable ["WMS_Info", _info];
 		if((random 100) <= _launcherChance) then { 
 			if(WMS_AMS_AllowMissiles) then {
 				_launcher = [_unit, selectrandom ((WMS_AI_LaunchersOPF select 0)+(WMS_AI_LaunchersOPF select 1)+(WMS_AI_LaunchersOPF select 2)), 2] call BIS_fnc_addWeapon;
@@ -401,7 +432,8 @@ _poptabs = 50;
 		};
 		//////////EVENTHANDLER(s)//////////AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//AMS//
 		_unit addMPEventHandler ["MPKilled", {
-			if(isDedicated)then{[(_this select 0),(_this select 1),(_this select 2),((_this select 0) getVariable ['WMS_unitFunction','Assault']),((_this select 0) getVariable ['WMS_difficulty','moderate'])] call WMS_fnc_AMS_EHonKilled;};
+			if(isDedicated)then{
+				[(_this select 0),(_this select 1),(_this select 2),((_this select 0) getVariable ['WMS_unitFunction','Assault']),((_this select 0) getVariable ['WMS_difficulty','moderate'])] call WMS_fnc_AMS_EHonKilled;};
 			(_this select 0) removeMPEventHandler ["MPKilled", 0];	
 		}];//params ["_killed", "_killer", "_instigator", "_useEffects"];
 		/////
@@ -427,7 +459,7 @@ _poptabs = 50;
 		}];
 	} else{
 		if (_info == "DYNAI" ||_info == "VHLCrew" ||_info == "HeliCrash" ||_info == "Paradrop" ||_info == "Supplydrop" ||_info == "Recon") then {
-			_unit setVariable ["WMS_Info", _info]; //not used yet
+			_unit setVariable ["WMS_Info", _info];
 			if((random 100) <= _launcherChance) then { 
 				_launcher = [_unit, selectrandom (WMS_AI_LaunchersOPF select 0), 1] call BIS_fnc_addWeapon;
 			};
@@ -524,11 +556,11 @@ _poptabs = 50;
 					//NO REDUCED ACCURACY FOR THEM
 					/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY/////JUDGEMENTDAY
 				} else{
-					if (_info == "whatever") then {
+					/*if (_info == "whatever") then {
 
 					} else{
 
-					};
+					};*/
 				};
 			};
 		};

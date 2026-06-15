@@ -741,6 +741,76 @@ WMS_Weaps_Diver = [
 	["optic_Holosight_blk_F"], //scope
 	["vn_izh54_p","vn_m10","vn_m1911","vn_vz61_p","vn_hp","vn_type64_smg","rhsusf_weap_MP7A2_folded_desert","rhs_weap_pp2000_folded"] //pistol //NPC doesnt lnpw how to use SDAR outside of weater, they need better secondary
 ];
+///////////////////////////////////////////////
+//VIPER WILL BE USED IN JUDGEMENT DAY LEVEL 15+ or some hardcore punishments something
+
+/*_item = ["G_Balaclava_TI_G_blk_F","O_NVGoggles_ghex_F","Laserdesignator_02_ghex_F","optic_DMS_ghex_F","optic_Arco_ghex_F","optic_LRPS_ghex_F"];
+_laun = ["launch_RPG32_ghex_F"];*/
+
+WMS_Loadout_VIPER = [ //USE CARREFULY
+	["U_O_V_Soldier_Viper_F"], //uniforms
+	["V_PlateCarrierGL_wdl","V_PlateCarrierSpec_wdl","V_PlateCarrier2_wdl"], //vests
+	["H_HelmetSpecO_ghex_F","H_HelmetLeaderO_ghex_F","H_HelmetO_ghex_F"], //helmets
+	["B_Carryall_ghex_F","B_FieldPack_ghex_F","B_ViperHarness_ghex_F","B_ViperLightHarness_ghex_F"], //backpacks
+	["G_Balaclava_TI_G_blk_F"]	//facewears
+]; 
+WMS_Weaps_VIPER = [ //USE CARREFULY
+	[ //primary
+	//"srifle_GM6_ghex_F", //pretty bad idea
+
+	/*"hlc_lmg_mk48mod1", //NIA weap will need replacement later
+	"hlc_rifle_bcmblackjack",
+	"hlc_rifle_ACR68_full_black",
+	"hlc_rifle_aek971_mtk",
+	"hlc_rifle_aku12",
+	"hlc_lmg_M60E4",
+	"hlc_rifle_vendimus",
+	"hlc_rifle_awMagnum_BL_ghillie",
+	"hlc_rifle_Bushmaster300",
+	"hlc_rifle_falosw",
+	"hlc_rifle_FAL5061Rail",
+	"hlc_rifle_hk51",
+	"hlc_rifle_g3a3vris",
+	"hlc_rifle_G36KMLIC",
+	"hlc_rifle_G36CMLIC",
+	"hlc_rifle_PSG1A1_RIS",
+	"hlc_rifle_SG550Sniper_RIS",
+	"hlc_smg_mp5sd6", //suppressed
+	"hlc_wp_SCARL_CQC_300AAC_Blk",
+	"hlc_rifle_sg553RLB",*/
+
+	"rhs_weap_ak74mr_gp25",
+	"rhs_weap_akm_zenitco01_b33",
+	"rhs_weap_vss_grip_npz", //suppressed
+	"rhs_weap_asval_grip_npz", //suppressed
+	"rhs_weap_m14ebrri",
+	"rhs_weap_m14_socom_rail",
+	"rhs_weap_XM2010_wd",
+
+	"MMG_01_hex_F",
+	"MMG_02_camo_F",
+	"arifle_CTAR_ghex_F",
+	"arifle_CTAR_GL_ghex_F",
+	"arifle_CTARS_ghex_F",
+	"arifle_ARX_ghex_F",
+	"srifle_DMR_07_ghex_F",
+	"srifle_LRR_tna_F",
+	"arifle_SPAR_03_blk_F",
+	"arifle_MSBS65_Mark_black_F"
+	],
+	[], //primaryAmmo not used
+	["optic_DMS_ghex_F","optic_Arco_ghex_F","optic_LRPS_ghex_F"], //scope
+	[ //pistol
+	"rhsusf_weap_MP7A2_folded", //"rhsusf_acc_rotex_mp7"
+	"rhsusf_weap_glock17g4", //"rhsusf_acc_omega9k"
+	"hgun_Pistol_heavy_02_F",
+	"rhsusf_weap_m9",
+	"rhs_weap_pp2000_folded",
+	"rhs_weap_M320", //yep
+	"rhs_weap_pb_6p9", //suppressed
+	"rhs_weap_savz61_folded"
+	]
+];
 
 publicVariable "WMS_Loadout_AOR2";
 publicVariable "WMS_Loadout_M90";
@@ -756,482 +826,3 @@ publicVariable "WMS_Loadout_DMR";
 publicVariable "WMS_Loadout_MG";
 publicVariable "WMS_Loadout_Sniper";
 publicVariable "WMS_Loadout_SMG";
-
-/* //UNIFORMS
-VSM_CSAT_MulticamTropic_Camo
-VSM_AOR1_BDU_od_pants_Camo
-VSM_AOR1_BDU_tan_pants_Camo
-VSM_AOR1_BDU_Camo
-VSM_M81_BDU_od_pants_Camo
-VSM_M81_BDU_tan_pants_Camo
-VSM_M81_BDU_Camo
-VSM_Multicam_BDU_od_pants_Camo
-VSM_Multicam_BDU_tan_pants_Camo
-VSM_Multicam_BDU_Camo
-VSM_MulticamTropic_BDU_od_pants_Camo
-VSM_MulticamTropic_BDU_tan_pants_Camo
-VSM_MulticamTropic_BDU_Camo
-VSM_OCP_BDU_od_pants_Camo
-VSM_OCP_BDU_tan_pants_Camo
-VSM_OCP_BDU_Camo
-VSM_ProjectHonor_BDU_od_pants_Camo
-VSM_ProjectHonor_BDU_tan_pants_Camo
-VSM_ProjectHonor_BDU_Camo
-VSM_AOR1_Crye_grey_pants_Camo
-VSM_AOR1_Crye_grey_shirt_Camo
-VSM_AOR1_Crye_od_pants_Camo
-VSM_AOR1_Crye_od_shirt_Camo
-VSM_AOR1_Crye_tan_pants_Camo
-VSM_AOR1_Crye_tan_shirt_Camo
-VSM_AOR1_Crye_Camo
-VSM_M81_Crye_grey_pants_Camo
-VSM_M81_Crye_grey_shirt_Camo
-VSM_M81_Crye_od_pants_Camo
-VSM_M81_Crye_od_shirt_Camo
-VSM_M81_Crye_tan_pants_Camo
-VSM_M81_Crye_tan_shirt_Camo
-VSM_M81_Crye_Camo
-VSM_Multicam_Crye_grey_pants_Camo
-VSM_Multicam_Crye_grey_shirt_Camo
-VSM_Multicam_Crye_od_pants_Camo
-VSM_Multicam_Crye_od_shirt_Camo
-VSM_Multicam_Crye_tan_pants_Camo
-VSM_Multicam_Crye_tan_shirt_Camo
-VSM_Multicam_Crye_Camo
-VSM_MulticamTropic_Crye_grey_pants_Camo
-VSM_MulticamTropic_Crye_grey_shirt_Camo
-VSM_MulticamTropic_Crye_od_pants_Camo
-VSM_MulticamTropic_Crye_od_shirt_Camo
-VSM_MulticamTropic_Crye_tan_pants_Camo
-VSM_MulticamTropic_Crye_tan_shirt_Camo
-VSM_MulticamTropic_Crye_Camo
-VSM_OCP_Crye_grey_pants_Camo
-VSM_OCP_Crye_grey_shirt_Camo
-VSM_OCP_Crye_od_pants_Camo
-VSM_OCP_Crye_od_shirt_Camo
-VSM_OCP_Crye_tan_pants_Camo
-VSM_OCP_Crye_tan_shirt_Camo
-VSM_OCP_Crye_Camo
-VSM_OGA_Crye_Grey_pants_Camo
-VSM_OGA_Crye_od_pants_Camo
-VSM_OGA_Crye_grey_od_pants_Camo
-VSM_OGA_Crye_grey_tan_pants_Camo
-VSM_OGA_Crye_grey_Camo
-VSM_OGA_Crye_od_grey_pants_Camo
-VSM_OGA_Crye_od_tan_pants_Camo
-VSM_OGA_Crye_od_Camo
-VSM_OGA_Crye_Camo
-VSM_ProjectHonor_Crye_grey_pants_Camo
-VSM_ProjectHonor_Crye_grey_shirt_Camo
-VSM_ProjectHonor_Crye_od_pants_Camo
-VSM_ProjectHonor_Crye_od_shirt_Camo
-VSM_ProjectHonor_Crye_tan_pants_Camo
-VSM_ProjectHonor_Crye_tan_shirt_Camo
-VSM_ProjectHonor_Crye_Camo
-VSM_Scorpion_Crye_grey_pants_Camo
-VSM_Scorpion_Crye_grey_shirt_Camo
-VSM_Scorpion_Crye_od_pants_Camo
-VSM_Scorpion_Crye_od_shirt_Camo
-VSM_Scorpion_Crye_tan_pants_Camo
-VSM_Scorpion_Crye_tan_shirt_Camo
-VSM_Scorpion_Crye_Camo
-VSM_AOR1_casual_Camo
-VSM_M81_casual_Camo
-VSM_Multicam_casual_Camo
-VSM_MulticamTropic_casual_Camo
-VSM_OCP_casual_Camo
-VSM_OGA_grey_casual_Camo
-VSM_OGA_OD_casual_Camo
-VSM_OGA_tan_casual_Camo
-VSM_ProjectHonor_casual_Camo
-VSM_Scorpion_casual_Camo
-VSM_AOR1_Crye_SS_grey_pants_Camo
-VSM_AOR1_Crye_SS_grey_shirt_Camo
-VSM_AOR1_Crye_SS_od_pants_Camo
-VSM_AOR1_Crye_SS_od_shirt_Camo
-VSM_AOR1_Crye_SS_tan_pants_Camo
-VSM_AOR1_Crye_SS_tan_shirt_Camo
-VSM_AOR1_Crye_SS_Camo
-VSM_M81_Crye_SS_grey_pants_Camo
-VSM_M81_Crye_SS_grey_shirt_Camo
-VSM_M81_Crye_SS_od_pants_Camo
-VSM_M81_Crye_SS_od_shirt_Camo
-VSM_M81_Crye_SS_tan_pants_Camo
-VSM_M81_Crye_SS_tan_shirt_Camo
-VSM_M81_Crye_SS_Camo
-VSM_Multicam_Crye_SS_grey_pants_Camo
-VSM_Multicam_Crye_SS_grey_shirt_Camo
-VSM_Multicam_Crye_SS_od_pants_Camo
-VSM_Multicam_Crye_SS_od_shirt_Camo
-VSM_Multicam_Crye_SS_tan_pants_Camo
-VSM_Multicam_Crye_SS_tan_shirt_Camo
-VSM_Multicam_Crye_SS_Camo
-VSM_MulticamTropic_Crye_SS_grey_pants_Camo
-VSM_MulticamTropic_Crye_SS_grey_shirt_Camo
-VSM_MulticamTropic_Crye_SS_od_pants_Camo
-VSM_MulticamTropic_Crye_SS_od_shirt_Camo
-VSM_MulticamTropic_Crye_SS_tan_pants_Camo
-VSM_MulticamTropic_Crye_SS_tan_shirt_Camo
-VSM_MulticamTropic_Crye_SS_Camo
-VSM_OCP_Crye_SS_grey_pants_Camo
-VSM_OCP_Crye_SS_grey_shirt_Camo
-VSM_OCP_Crye_SS_od_pants_Camo
-VSM_OCP_Crye_SS_od_shirt_Camo
-VSM_OCP_Crye_SS_tan_pants_Camo
-VSM_OCP_Crye_SS_tan_shirt_Camo
-VSM_OCP_Crye_SS_Camo
-VSM_OGA_Crye_SS_grey_pants_Camo
-VSM_OGA_Crye_SS_od_pants_Camo
-VSM_OGA_Crye_SS_grey_od_pants_Camo
-VSM_OGA_Crye_SS_grey_tan_pants_Camo
-VSM_OGA_Crye_SS_grey_Camo
-VSM_OGA_Crye_SS_OD_grey_pants_Camo
-VSM_OGA_Crye_SS_OD_tan_pants_Camo
-VSM_OGA_Crye_SS_od_Camo
-VSM_OGA_Crye_SS_Camo
-VSM_ProjectHonor_Crye_SS_grey_pants_Camo
-VSM_ProjectHonor_Crye_SS_grey_shirt_Camo
-VSM_ProjectHonor_Crye_SS_od_pants_Camo
-VSM_ProjectHonor_Crye_SS_od_shirt_Camo
-VSM_ProjectHonor_Crye_SS_tan_pants_Camo
-VSM_ProjectHonor_Crye_SS_tan_shirt_Camo
-VSM_ProjectHonor_Crye_SS_Camo
-VSM_Scorpion_Crye_SS_grey_pants_Camo
-VSM_Scorpion_Crye_SS_grey_shirt_Camo
-VSM_Scorpion_Crye_SS_od_pants_Camo
-VSM_Scorpion_Crye_SS_od_shirt_Camo
-VSM_Scorpion_Crye_SS_tan_pants_Camo
-VSM_Scorpion_Crye_SS_tan_shirt_Camo
-VSM_Scorpion_Crye_SS_Camo
-VSM_AOR1_Crye_Tee_Camo
-VSM_M81_Crye_Tee_Camo
-VSM_Multicam_Crye_Tee_Camo
-VSM_MulticamTropic_Crye_Tee_Camo
-VSM_OCP_Crye_Tee_Camo
-VSM_ProjectHonor_Crye_Tee_Camo
-VSM_Scorpion_Crye_Tee_Camo
-VSM_AOR1_od_pants_Camo
-VSM_AOR1_od_shirt_Camo
-VSM_AOR1_tan_pants_Camo
-VSM_AOR1_tan_shirt_Camo
-VSM_AOR1_Camo
-VSM_M81_od_pants_Camo
-VSM_M81_od_shirt_Camo
-VSM_M81_tan_pants_Camo
-VSM_M81_tan_shirt_Camo
-VSM_M81_Camo
-VSM_Multicam_od_pants_Camo
-VSM_Multicam_od_shirt_Camo
-VSM_Multicam_tan_pants_Camo
-VSM_Multicam_tan_shirt_Camo
-VSM_Multicam_Camo
-VSM_MulticamTropic_od_pants_Camo
-VSM_MulticamTropic_od_shirt_Camo
-VSM_MulticamTropic_tan_pants_Camo
-VSM_MulticamTropic_tan_shirt_Camo
-VSM_MulticamTropic_Camo
-VSM_OCP_od_pants_Camo
-VSM_OCP_od_shirt_Camo
-VSM_OCP_tan_pants_Camo
-VSM_OCP_tan_shirt_Camo
-VSM_OCP_Camo
-VSM_OGA_od_pants_Camo
-VSM_OGA_od_tan_pants_Camo
-VSM_OGA_od_Camo
-VSM_OGA_Camo
-VSM_ProjectHonor_od_pants_Camo
-VSM_ProjectHonor_od_shirt_Camo
-VSM_ProjectHonor_tan_pants_Camo
-VSM_ProjectHonor_tan_shirt_Camo
-VSM_ProjectHonor_Camo
-VSM_AOR1_od_pants_Camo_SS
-VSM_AOR1_od_shirt_Camo_SS
-VSM_AOR1_tan_pants_Camo_SS
-VSM_AOR1_tan_shirt_Camo_SS
-VSM_AOR1_Camo_SS
-VSM_M81_od_pants_Camo_SS
-VSM_M81_od_shirt_Camo_SS
-VSM_M81_tan_pants_Camo_SS
-VSM_M81_tan_shirt_Camo_SS
-VSM_M81_Camo_SS
-VSM_Multicam_od_pants_Camo_SS
-VSM_Multicam_od_shirt_Camo_SS
-VSM_Multicam_tan_pants_Camo_SS
-VSM_Multicam_tan_shirt_Camo_SS
-VSM_Multicam_Camo_SS
-VSM_MulticamTropic_od_pants_Camo_SS
-VSM_MulticamTropic_od_shirt_Camo_SS
-VSM_MulticamTropic_tan_pants_Camo_SS
-VSM_MulticamTropic_tan_shirt_Camo_SS
-VSM_MulticamTropic_Camo_SS
-VSM_OCP_od_pants_Camo_SS
-VSM_OCP_od_shirt_Camo_SS
-VSM_OCP_tan_pants_Camo_SS
-VSM_OCP_tan_shirt_Camo_SS
-VSM_OCP_Camo_SS
-VSM_OGA_od_pants_Camo_SS
-VSM_OGA_od_tan_pants_Camo_SS
-VSM_OGA_od_Camo_SS
-VSM_OGA_Camo_SS
-VSM_ProjectHonor_od_pants_Camo_SS
-VSM_ProjectHonor_od_shirt_Camo_SS
-VSM_ProjectHonor_tan_pants_Camo_SS
-VSM_ProjectHonor_tan_shirt_Camo_SS
-VSM_ProjectHonor_Camo_SS
-VSM_AOR1_Camo_TShirt
-VSM_M81_Camo_TShirt
-VSM_Multicam_Camo_TShirt
-VSM_MulticamTropic_Camo_TShirt
-VSM_OCP_Camo_TShirt
-VSM_ProjectHonor_Camo_TShirt
-Alpine_Crye_Camo
-Alpine_white_Crye_camo
-Alpine_Crye_SS_Camo
-Alpine_white_Crye_SS_camo
-Multicam_Alpine_casual_Camo
-Alpine_Massif_Camo
-Alpine_Massif_Camo_SS
-Arid_Arid_Camo
-Arid_Arid_SS_Camo
-Arid_Crye_Camo
-Multicam_Arid_Black_casual_Camo
-Multicam_Arid_Blue_casual_Camo
-Multicam_Arid_casual_Camo
-Arid_Crye_SS_Camo
-Black_Black_Camo
-Black_Black_SS_Camo
-black_Crye_Camo
-Multicam_black_casual_Camo
-Black_Crye_SS_Camo
-black_Crye2_Camo
-//AOR2
-VSM_CSAT_AOR2_Camo
-AOR2_camo
-AOR2_SS_camo
-AOR2_Camo_TShirt
-AOR_2_BlkCasual_camo
-AOR_2_BCasual_camo
-AOR_2_TCasual_camo
-AOR_2_Crye_Tee_Camo
-AOR_2_Grey_Crye_Camo
-AOR_2_Crye_Camo
-AOR_2_GreySS_Crye_Camo
-AOR_2_CryeSS_Camo
-*/
-///////////////////////////
-/* //vest
-"VSM_LBT1961_Black";
-"VSM_LBT1961_CB";
-"VSM_LBT1961_GRN";
-“VSM_MBSS_CB”;
-“VSM_MBSS_Green”;
-“VSM_MBSS_TAN”;
-“VSM_MBSS_WTF”; //pink I guess
-“VSM_MBSS_PACA_CB”;
-“VSM_MBSS_PACA_Green”;
-“VSM_MBSS_PACA_TAN”;
-“VSM_MBSS_PACA_WTF”; //pink I guess
-
-//BONUS M81 //editor
-"VSM_FAPC_Breacher_M81"
-"VSM_FAPC_MG_M81"
-"VSM_FAPC_Operator_M81"
-“VSM_CarrierRig_Breacher_M81”
-“VSM_CarrierRig_Operator_M81”
-“VSM_CarrierRig_Gunner_M81”
-"VSM_LBT6094_breacher_M81";
-"VSM_LBT6094_MG_M81";
-"VSM_LBT6094_operator_M81";
-“VSM_RAV_Breacher_M81”;
-“VSM_RAV_MG_M81”;
-“VSM_RAV_operator_M81”;
-
-//Alpine
-“dr_ALPfapc_br”
-“dr_ALPfapc_mg”
-“dr_ALPfapc_op”
-“dr_ALPlbt_br”
-“dr_ALPlbt_mg”
-“dr_ALPlbt_op”
-“dr_ALPpar_br”
-“dr_ALPpar_mg”
-“dr_ALPpar_op”
-“dr_ALPfapc_br”
-“dr_ALPfapc_br”
-//Arid
-"LBT1961_Arid";
-“CarrierRig_Breacher_Arid”
-“CarrierRig_Operator_Arid”
-“CarrierRig_Gunner_Arid”
-“dr_ARDfapc_br”
-“dr_ARDfapc_mg”
-“dr_ARDfapc_op”
-“dr_ARDlbt_br”
-“dr_ARDlbt_mg”
-“dr_ARDlbt_op”
-“dr_ARDpar_br”
-“dr_ARDpar_mg”
-“dr_ARDpar_op”
-“dr_ARDfapc_br”
-//Multicam
-"VSM_FAPC_Breacher_Multicam";
-"VSM_FAPC_MG_Multicam";
-"VSM_FAPC_Operator_Multicam";
-"VSM_CarrierRig_Breacher_Multicam";
-"VSM_CarrierRig_Gunner_Multicam";
-"VSM_CarrierRig_Operator_Multicam";
-"VSM_LBT6094_breacher_Multicam";
-"VSM_LBT6094_MG_Multicam";
-"VSM_LBT6094_operator_Multicam";
-“VSM_RAV_Breacher_Multicam”;
-“VSM_RAV_MG_Multicam”;
-“VSM_RAV_operator_Multicam”;
-"VSM_FAPC_Breacher_Multicam";
-//MulticamTropic
-"VSM_FAPC_Breacher_MulticamTropic";
-"VSM_FAPC_MG_MulticamTropic";
-"VSM_FAPC_Operator_MulticamTropic";
-"VSM_CarrierRig_Breacher_MulticamTropic";
-"VSM_CarrierRig_Gunner_MulticamTropic";
-"VSM_CarrierRig_Operator_MulticamTropic";
-"VSM_LBT6094_breacher_MulticamTropic";
-"VSM_LBT6094_MG_MulticamTropic";
-"VSM_LBT6094_operator_MulticamTropic";
-“VSM_RAV_Breacher_MulticamTropic”;
-“VSM_RAV_MG_MulticamTropic”;
-“VSM_RAV_operator_MulticamTropic”;
-//OCP
-"VSM_FAPC_MG_OCP";
-"VSM_FAPC_Operator_OCP";
-"VSM_CarrierRig_Breacher_OCP";
-"VSM_CarrierRig_Gunner_OCP";
-"VSM_CarrierRig_Operator_OCP";
-"VSM_LBT6094_breacher_OCP";
-"VSM_LBT6094_MG_OCP";
-"VSM_LBT6094_operator_OCP";
-“VSM_RAV_Breacher_OCP”;
-“VSM_RAV_MG_OCP”;
-“VSM_RAV_operator_OCP”;
-//ProjectHonor
-"VSM_FAPC_Breacher_ProjectHonor";
-"VSM_FAPC_MG_ProjectHonor";
-"VSM_FAPC_Operator_ProjectHonor";
-"VSM_CarrierRig_Breacher_ProjectHonor";
-"VSM_CarrierRig_Gunner_ProjectHonor";
-"VSM_CarrierRig_Operator_ProjectHonor";
-"VSM_LBT6094_breacher_ProjectHonor";
-"VSM_LBT6094_MG_ProjectHonor";
-"VSM_LBT6094_operator_ProjectHonor";
-“VSM_RAV_Breacher_ProjectHonor”;
-“VSM_RAV_MG_ProjectHonor”;
-“VSM_RAV_operator_ProjectHonor”;
-//OGA
-"VSM_LBT1961_OGA_OD"
-"VSM_FAPC_Breacher_OGA"
-"VSM_FAPC_MG_OGA"
-"VSM_FAPC_Operator_OGA"
-"VSM_CarrierRig_Breacher_OGA"
-"VSM_CarrierRig_Gunner_OGA"
-"VSM_CarrierRig_Operator_OGA"
-"VSM_LBT6094_breacher_OGA"
-"VSM_LBT6094_MG_OGA"
-"VSM_LBT6094_operator_OGA"
-“VSM_RAV_Breacher_OGA”
-“VSM_RAV_MG_OGA”
-“VSM_RAV_operator_OGA”
-“VSM_OGA_IOTV_2”
-“VSM_OGA_OD_IOTV_2”
-“VSM_OGA_IOTV_1”
-“VSM_OGA_OD_IOTV_1”
-“VSM_OGA_Vest_2”
-“VSM_OGA_OD_Vest_2”
-“VSM_OGA_Vest_1”
-“VSM_OGA_OD_Vest_1”
-“VSM_OGA_OD_Vest_3”
-“VSM_OGA_Vest_3”
-//AOR1
-"VSM_FAPC_Breacher_AOR1";
-"VSM_FAPC_MG_AOR1";
-"VSM_FAPC_Operator_AOR1";
-"VSM_CarrierRig_Breacher_AOR1";
-"VSM_CarrierRig_Gunner_AOR1";
-"VSM_CarrierRig_Operator_AOR1";
-"VSM_LBT6094_breacher_AOR1";
-"VSM_LBT6094_MG_AOR1";
-"VSM_LBT6094_operator_AOR1";
-“VSM_RAV_Breacher_AOR1”;
-“VSM_RAV_MG_AOR1”;
-“VSM_RAV_operator_AOR1”;
-//MCB
-"VSM_MBSS_BLK";
-"VSM_MBSS_PACA_BLK";
-“dr_BLKfapc_mg”
-“dr_BLKfapc_op”
-“dr_BLKlbt_br”
-“dr_BLKlbt_mg”
-“dr_BLKlbt_op”
-“dr_BLKpar_br”
-“dr_BLKpar_mg”
-“dr_BLKpar_op”
-“dr_BLKfapc_br”
-//AOR2
-"LBT1961_AOR2";
-“dr_AOR2fapc_mg”
-“dr_AOR2fapc_op”
-“dr_AOR2lbt_br”
-“dr_AOR2lbt_mg”
-“dr_AOR2lbt_op”
-“dr_AOR2par_br”
-“dr_AOR2par_mg”
-“dr_AOR2par_op”
-“CarrierRig_Breacher_AOR2”
-“CarrierRig_Operator_AOR2”
-“CarrierRig_Gunner_AOR2”
-*/
-///////////////////////////////////
-/*//backpack
-Black_Backpack_kitbag
-Black_backpack_Compact
-Black_Carryall
-Arid_Backpack_kitbag
-Arid_Backpack_Compact
-Arid_Carryall
-Alpine_backpack_kitbag
-Alpine_Backpack_Compact
-Alpine_Carryall
-AOR2_Backpack_kitbag
-AOR2_Backpack_Compact
-AOR2_CarryAll
-VSM_ProjectHonor_Backpack_Kitbag
-VSM_ProjectHonor_Backpack_Compact
-VSM_ProjectHonor_carryall
-VSM_OCP_Backpack_Kitbag
-VSM_OGA_Backpack_Compact
-VSM_OGA_OD_Backpack_Kitbag
-VSM_OGA_Backpack_Kitbag
-VSM_OGA_OD_Backpack_Compact
-VSM_OGA_Backpack_Compact
-VSM_OGA_OD_carryall
-VSM_OGA_carryall
-VSM_OCP_carryall
-VSM_MulticamTropic_Backpack_Kitbag
-VSM_MulticamTropic_Backpack_Compact
-VSM_MulticamTropic_carryall
-VSM_Multicam_Backpack_Kitbag
-VSM_Multicam_Backpack_Compact
-VSM_Multicam_carryall
-VSM_M81_Backpack_Kitbag
-VSM_M81_Backpack_Compact
-VSM_M81_carryall
-VSM_AOR1_Backpack_Kitbag
-VSM_AOR1_Backpack_Compact
-VSM_AOR1_carryall
-*/
-/*
-
-23:26:29 Inventory item with given name: [black_black_SS_Uniform] not found
-23:26:30 Inventory item with given name: [black_Crye_SS_Uniform] not found
-23:26:31 Inventory item with given name: [black_Crye_Uniform] not found
-23:26:31 Inventory item with given name: [black_black_Uniform] not found
-23:26:40 Inventory item with given name: [Multicam_black_Casual_uniform] not found
-*/

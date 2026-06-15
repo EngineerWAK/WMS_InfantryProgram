@@ -10,7 +10,7 @@
 * Do Not Re-Upload
 */
 
-//[_killed,_killer,_unitFunction,_info] call WMS_fnc_DynAI_RwdMsgOnKill
+//[_killed,_killer,_unitFunction,_info] call WMS_fnc_DynAI_RwdMsgOnKill //NOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!
 if (WMS_IP_LOGs) then {diag_log format ["[AMS REWARDS]|WAK|TNA|WMS| _this = %1", _this]};
 private ["_unit","_msgx","_sessionID","_unitName","_payload","_bonus","_distanceKill","_playerRep","_bonusDist","_malusDist","_diffCoeff","_adjustedSkills"];
 params[
@@ -274,16 +274,22 @@ if (isplayer _killer) then {
 			{
 				params ["_target", "_caller", "_actionId", "_arguments"]; // script
 				hideBody _target;
+				private _poptabs = (_target getVariable ["ExileMoney",0]);
+				if (_poptabs != 0) then {
+					[_caller, -_poptabs] remoteExec ['WMS_fnc_smallTransactions'];//need to be "-" even if it looks weird
+					systemChat format ["You found %1 poptabs",_poptabs];
+					_target setVariable ["ExileMoney",0,true];
+				};
 				_caller removeAction _actionId;
 				[_target]spawn{uisleep 5; deleteVehicle (_this select 0)};
 			},
 			nil,		// arguments
-			1.5,		// priority
+			1,		// priority
 			true,		// showWindow
 			true,		// hideOnUse
 			"",			// shortcut
 			"!(alive _target)", 	// condition
-			1.5			// radius
+			2			// radius
 		]
 	] remoteExec [
 		"addAction",

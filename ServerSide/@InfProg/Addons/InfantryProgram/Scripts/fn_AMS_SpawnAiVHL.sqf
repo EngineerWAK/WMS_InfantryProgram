@@ -69,9 +69,16 @@ if (_VHLcount != 0) then {
 	if ((_VHLcount == 4) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_rwd setObjectTextureGlobal [_VHLcount0, _VHLcount1]; _rwd setObjectTextureGlobal [(_className select 1 select 2),(_className select 1 select 3)]};
 	if ((_VHLcount == 6) && {typeName _VHLcount0 == "SCALAR"} && {typeName _VHLcount1 == "STRING"}) then {_rwd setObjectTextureGlobal [_VHLcount0, _VHLcount1]; _rwd setObjectTextureGlobal [(_className select 1 select 2),(_className select 1 select 3)]; _rwd setObjectTextureGlobal [(_className select 1 select 4),(_className select 1 select 5)]};
 };
-
+/*
+ 7:48:48 Type rhsusf_m1a2sep1tuskid_usarmy, model rhsusf\addons\rhsusf_m1a2\m1a2v1_tuski.p3d - structure of turrets in config does not match the skeleton
+ 7:48:48 Error in expression <this moveinTurret [_rwd, _x]>
+ 7:48:48   Error position: <moveinTurret [_rwd, _x]>
+ 7:48:48   Error Type Any, expected Array
+ */
 {
-	_unitsClass createUnit [_emptyPos, _VHLgrp, "this moveinTurret [_rwd, _x]"];
+	//_unitsClass createUnit [_emptyPos, _VHLgrp, "this moveinTurret [_rwd, _x]"]; //NOPE, _x become 'ANY'
+	_unit = _VHLgrp createUnit [_unitsClass, _emptyPos, [], 0, "NONE"];
+	_unit moveinTurret [_rwd, _x]; //some vehicles (RHS...) are fucked up in the config and spawn more units
 }forEach (allTurrets _rwd);
 _drvSits = _rwd emptyPositions "Driver";
 if (_drvSits != 0) then {
@@ -88,7 +95,7 @@ _rwd allowCrewInImmobile true;
 _rwd allowDamage true;
 if (_rwd isKindOf "tank"||_rwd isKindOf "Wheeled_Apc_F") then {_rwd setVariable ["ace_cookoff_enable", true, true];};
 if (WMS_exileFireAndForget) then {
-	//nothing for exile yet
+	//nothing for exile
 }else{
 	_rwd addMPEventHandler ["mpkilled", {
 			//params ["_unit", "_killer", "_instigator", "_useEffects"];

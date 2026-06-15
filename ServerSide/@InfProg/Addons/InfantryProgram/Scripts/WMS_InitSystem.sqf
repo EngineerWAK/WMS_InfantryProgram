@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE, START COPY/PAST HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.923_2026MAY27_GitHub"; //switching to netIDs and objectFromNetIds for AMS objects and mines //baseATK based on flag ID, not player UID
+WMS_System_Version 			= "v2.929_2026JUN15_GitHub"; //WMS_sys_ActionReaction
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["brf_sumava","SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -105,7 +105,8 @@ WMS_Player_AllDeads			= 1800; //Not Used Yet
 WMS_AMS_AllDeads			= 1200;
 WMS_DynAI_AllDeads			= 600;
 WMS_DFO_AllDeads			= 180;
-WMS_Others_AllDeads			= 90; //Used for objects like weaponHolder created when NPC loose their helpmet
+WMS_Others_AllDeads			= 90; //Used for objects like weaponHolder created when NPC loose their helmet
+WMS_servDeads				= [50,75]; //used for dead bodies clean up, _this select 1 will trigger the cleanup
 //C130 variables
 WMS_MoveInCargo_C130_LastTime 		= time; //infantry program Active List only, halo jump from "C130"
 WMS_InfantryProgram_C130CoolDown 	= 300;
@@ -212,6 +213,7 @@ WMS_CaptureZone_Farm 	= 0; //dynamic, Capture zone farming check
 WMS_JudgementDay	 	= true;
 WMS_JudgementDay_Run 	= false; //dynamic, KEEP FALSE
 WMS_JudgementDay_Rad 	= 100; //Mission Radius
+WMS_JudgementDay_Num 	= [55,60,25,50,10]; //[distance to look for houses, minimum count houses, minimum distance from player, minimum inf positions, max wave]
 WMS_JudgementDay_Mkr	= "Contact_pencilTask2"; //will be used to slow down other dynamic spawns, keep something players can not put themself on the map
 WMS_JudgementDay_Ban 	= [ //banned "house" like freacking ricefield
 							"Land_vn_dyke_10"
@@ -221,13 +223,19 @@ WMS_JudgementDay_Drop	= [
 								["SmokeShellRed","Chemlight_blue","mini_Grenade","Land_HumanSkull_F"], //wave 3 & 4
 								["SmokeShellRed","mini_Grenade","GrenadeHand"], //wave 5 & 6
 								["GrenadeHand","mini_Grenade","GrenadeHand"], //wave 7 & 8
-								["Sh_155mm_AMOS","GrenadeHand","GrenadeHand"] //wave 9 & 10
+								["Sh_155mm_AMOS","GrenadeHand","GrenadeHand"], //wave 9 & 10
+								["Sh_155mm_AMOS","Bo_Mk82"] //11 and more
 							]; //because otherwhise that wont be fun, custom rain object at each wave
 WMS_JudgementDay_items	= [ //ABSOLUTLY NOT VANILLA YET! xD //in fn_setUnits.sqf
 							["ACE_fortify","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_bunch","ACE_wirecutter"],
 							["ACE_fortify","ACE_NVG_Wide","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_roll","ACE_wirecutter", "rhsusf_acc_rotex_mp7"],
 							["ACE_fortify","ACE_NVG_Wide","rhs_radio_R187P1","ACE_EarPlugs","ACE_Banana","ACE_EntrenchingTool","Money_stack","ACE_personalAidKit","ACE_wirecutter", "rhsusf_acc_rotex5_grey","rhs_acc_tgpa"],
-							["ACE_NVG_Wide","rhs_radio_R187P1","ToolKit","Money_stack_quest","ACE_personalAidKit", "rhsusf_acc_aac_762sdn6_silencer","rhs_acc_pbs1"]
+							["ACE_NVG_Wide","rhs_radio_R187P1","ToolKit","Money_stack_quest","ACE_personalAidKit", "rhsusf_acc_aac_762sdn6_silencer","rhs_acc_pbs1"],
+							[
+								"csat_id","rhs_radio_R169P1","ToolKit","Money_stack_quest","Money","ACE_personalAidKit","MineDetector", //"csat_id" is filtered later and replaced by the full set of cards
+								"muzzle_snds_H","muzzle_snds_570","muzzle_snds_338_green","muzzle_snds_B","muzzle_snds_93mmg","muzzle_snds_H_MG_blk_F","muzzle_snds_58_blk_F","muzzle_snds_65_TI_blk_F",
+								"rhs_charge_sb3kg_mag","rhs_grenade_sthgr24_x7bundle_mag","rhs_charge_tnt_x2_mag"
+							] //rhs_radio_R169P1 not used YET
 						];
 WMS_JudgementDay_Array 	= [nil,[0,0,0],0,[],[],[],[],["JMD_mkr1","JMD_mkr2","JMD_mkr3","JMD_mkr4","JMD_mkr5"],[]]; //dynamic, NO TOUCH //[_playerObject,_pos(computer),_waveNumber(1 to 10),[_CIVgroup],[_OPFgroup],[],[_triggerOPF,_triggerCIV,_triggerPLAYER],[_markers],[_objectsOrMines]];
 
@@ -240,6 +248,28 @@ WMS_TargetConvoyUnits 	= []; //pushBack from convoy spawn
 WMS_TargetConvoyMkrs 	= []; //pushBack
 WMS_TargetConvoyPosRew 	= []; //pushBack
 
+WMS_sys_ActionReaction 	= true;//WMS_fnc_sys_ActionReaction is made for a quick and "unfiltered" reaction to a player "action". Traders, territory/base flag will not prevent what is comming.
+WMS_sys_ActReactRainInc	= [// will mostLikely have a "dynamic" altitude 
+							"SmokeShellOrange","SmokeShellOrange","SmokeShellOrange","SmokeShellOrange",
+							"Chemlight_red","Chemlight_red","Chemlight_red","Chemlight_red",
+							"mini_Grenade","mini_Grenade","mini_Grenade","mini_Grenade",
+							"GrenadeHand","GrenadeHand","GrenadeHand","GrenadeHand",
+							"rhs_ammo_an_m14_th3","rhs_ammo_an_m14_th3","rhs_ammo_an_m14_th3","rhs_ammo_an_m14_th3",
+							"rhs_rpg7v2_type63_airburst","rhs_rpg7v2_type63_airburst","rhs_rpg7v2_type63_airburst","rhs_rpg7v2_type63_airburst",
+							"Sh_155mm_AMOS","Sh_155mm_AMOS","Sh_155mm_AMOS","Sh_155mm_AMOS",
+							"Bo_Mk82","Bo_Mk82","Bo_Mk82","Bo_Mk82",
+							"rhs_ammo_fab500_m54","rhs_ammo_fab500_m54","rhs_ammo_fab500_m54","rhs_ammo_fab500_m54",
+							"Bomb_03_F","Bomb_03_F","Bomb_03_F","Bomb_03_F",
+							"rhs_ammo_rbk500_ofab50",
+							"SmokeShellGreen","SmokeShellGreen","SmokeShellGreen"
+							];//incremental rainObject
+WMS_sys_ActReactRain	= ["mini_Grenade","GrenadeHand","rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","Bo_Mk82"];
+WMS_sys_ActReactJET		= ["O_Plane_CAS_02_dynamicLoadout_F","RHS_Su25SM_vvsc"];
+WMS_sys_ActReactAIR		= ["O_Heli_Attack_02_dynamicLoadout_F","rhs_mi28n_vvsc","rhsgref_mi24g_CAS"];
+WMS_sys_ActReactGND		= ["O_APC_Tracked_02_cannon_F","O_MBT_02_cannon_F","RHS_M2A3_BUSKIII","rhsusf_m1a2sep1tuskiid_usarmy"];
+
+WMS_sys_ActReactAntiTheftRad= 150;
+WMS_sys_ActReactAntiTheft	= []; //KEEP EMPTY!!! pushback list of protected crates/containers/vehicles objects that should not be moved/stollen. WMS_sys_ActReactAntiTheft pushback [position _this, netID _this];
 //////////////////////////////
 //AmbientLife
 //////////////////////////////
@@ -539,7 +569,7 @@ WMS_AMS_sniperList		= [ //This list can contain mods weapons, it's just a check,
 							"vn_k98k","vn_m1891","vn_m1903","vn_m1903_gl","vn_m36","vn_m38","vn_m40a1","vn_m9130","vn_vn_vz54", //SOG
 							"srifle_LRR_F","srifle_LRR_camo_F","srifle_LRR_tna_F",
 							"srifle_GM6_ghex_F","srifle_GM6_camo_F","srifle_GM6_F","srifle_DMR_04_Tan_F",
-							"hlc_rifle_FN3011Tactical_green","hlc_rifle_awmagnum","hlc_rifle_awmagnum_BL","hlc_rifle_awmagnum_FDE","hlc_rifle_FN3011Modern","hlc_rifle_M1903A1_unertl",
+							"hlc_rifle_awMagnum_BL_ghillie","hlc_rifle_FN3011Tactical_green","hlc_rifle_awmagnum","hlc_rifle_awmagnum_BL","hlc_rifle_awmagnum_FDE","hlc_rifle_FN3011Modern","hlc_rifle_M1903A1_unertl",
 							"rhs_weap_m24sws_blk","rhs_weap_m24sws_d","rhs_weap_m24sws_wd","rhs_weap_m24sws",
 							"rhs_weap_m40a5_wd","rhs_weap_m40a5_d","rhs_weap_m40a5","rhs_weap_dsr1",
 							"rhs_weap_t5000",
@@ -849,6 +879,7 @@ if (isDedicated) then {
 	{
 		publicVariable _x
 	}forEach [
+		"WMS_JudgementDay_Num",
 		"WMS_DynAI_BaseFlag",//NO TOUCH //used to build the computer/spawn beacon
 		"WMS_InfantryProgram_list",//NO TOUCH
  		"WMS_IP_Active_list",//NO TOUCH

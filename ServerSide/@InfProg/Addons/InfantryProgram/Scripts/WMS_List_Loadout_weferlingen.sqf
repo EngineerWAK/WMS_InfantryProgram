@@ -338,6 +338,76 @@ WMS_Weaps_Diver = [
 	["optic_Holosight_blk_F"], //scope
 	["hgun_P07_blk_F","hgun_Pistol_heavy_02_F","hgun_ACPC2_F","hgun_Rook40_F"] //pistol
 ];
+///////////////////////////////////////////////
+//VIPER WILL BE USED IN JUDGEMENT DAY LEVEL 15+ or some hardcore punishments something
+
+/*_item = ["G_Balaclava_TI_G_blk_F","O_NVGoggles_ghex_F","Laserdesignator_02_ghex_F","optic_DMS_ghex_F","optic_Arco_ghex_F","optic_LRPS_ghex_F"];
+_laun = ["launch_RPG32_ghex_F"];*/
+
+WMS_Loadout_VIPER = [ //USE CARREFULY
+	["U_O_V_Soldier_Viper_F"], //uniforms
+	["V_PlateCarrierGL_wdl","V_PlateCarrierSpec_wdl","V_PlateCarrier2_wdl"], //vests
+	["H_HelmetSpecO_ghex_F","H_HelmetLeaderO_ghex_F","H_HelmetO_ghex_F"], //helmets
+	["B_Carryall_ghex_F","B_FieldPack_ghex_F","B_ViperHarness_ghex_F","B_ViperLightHarness_ghex_F"], //backpacks
+	["G_Balaclava_TI_G_blk_F"]	//facewears
+]; 
+WMS_Weaps_VIPER = [ //USE CARREFULY
+	[ //primary
+	//"srifle_GM6_ghex_F", //pretty bad idea
+
+	/*"hlc_lmg_mk48mod1", //NIA weap will need replacement later
+	"hlc_rifle_bcmblackjack",
+	"hlc_rifle_ACR68_full_black",
+	"hlc_rifle_aek971_mtk",
+	"hlc_rifle_aku12",
+	"hlc_lmg_M60E4",
+	"hlc_rifle_vendimus",
+	"hlc_rifle_awMagnum_BL_ghillie",
+	"hlc_rifle_Bushmaster300",
+	"hlc_rifle_falosw",
+	"hlc_rifle_FAL5061Rail",
+	"hlc_rifle_hk51",
+	"hlc_rifle_g3a3vris",
+	"hlc_rifle_G36KMLIC",
+	"hlc_rifle_G36CMLIC",
+	"hlc_rifle_PSG1A1_RIS",
+	"hlc_rifle_SG550Sniper_RIS",
+	"hlc_smg_mp5sd6", //suppressed
+	"hlc_wp_SCARL_CQC_300AAC_Blk",
+	"hlc_rifle_sg553RLB",*/
+
+	"rhs_weap_ak74mr_gp25",
+	"rhs_weap_akm_zenitco01_b33",
+	"rhs_weap_vss_grip_npz", //suppressed
+	"rhs_weap_asval_grip_npz", //suppressed
+	"rhs_weap_m14ebrri",
+	"rhs_weap_m14_socom_rail",
+	"rhs_weap_XM2010_wd",
+
+	"MMG_01_hex_F",
+	"MMG_02_camo_F",
+	"arifle_CTAR_ghex_F",
+	"arifle_CTAR_GL_ghex_F",
+	"arifle_CTARS_ghex_F",
+	"arifle_ARX_ghex_F",
+	"srifle_DMR_07_ghex_F",
+	"srifle_LRR_tna_F",
+	"arifle_SPAR_03_blk_F",
+	"arifle_MSBS65_Mark_black_F"
+	],
+	[], //primaryAmmo not used
+	["optic_DMS_ghex_F","optic_Arco_ghex_F","optic_LRPS_ghex_F"], //scope
+	[ //pistol
+	"rhsusf_weap_MP7A2_folded", //"rhsusf_acc_rotex_mp7"
+	"rhsusf_weap_glock17g4", //"rhsusf_acc_omega9k"
+	"hgun_Pistol_heavy_02_F",
+	"rhsusf_weap_m9",
+	"rhs_weap_pp2000_folded",
+	"rhs_weap_M320", //yep
+	"rhs_weap_pb_6p9", //suppressed
+	"rhs_weap_savz61_folded"
+	]
+];
 
 publicVariable "WMS_Loadout_AOR2";
 publicVariable "WMS_Loadout_M90";

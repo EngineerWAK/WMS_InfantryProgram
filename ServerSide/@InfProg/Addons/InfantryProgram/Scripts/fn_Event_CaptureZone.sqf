@@ -568,7 +568,8 @@ WMS_fnc_spawnCaptureZoneObjects = {
 		};
 		_object enableSimulationGlobal true; 
 		_object allowDamage true;
-		_objectsList pushback _object;
+		//_objectsList pushback _object;
+		_objectsList pushback (netID _object);
 	} forEach _objects; 
 	deleteVehicle _compoRefPoint;
 	_objectsList
@@ -747,8 +748,10 @@ for '_i' from 0 to 360 step (250 / (_radius select 0))*2 do
 		_object = createVehicle ['Sign_Sphere25cm_F', _posObjects, [], 0, 'CAN_COLLIDE'];
 		_object setObjectTextureGlobal [0, _textureB];
 		_object enableSimulation false;
-		_CaptureZone_Bdr pushBack _object;
-		_CaptureZone_Obj pushback _object;
+		_CaptureZone_Bdr pushBack _object; //used for color changes, cleanup is local to this function
+		//_CaptureZone_Obj pushback _object;
+		//_CaptureZone_Bdr pushBack (netID _object); 
+		_CaptureZone_Obj pushback (netID _object); //this is actualy useless since there is no cleanup for object, beside spheres, mines and signes
 	}; 
 
 _triggCapture = createTrigger ["EmptyDetector", _pos, true];
@@ -832,7 +835,7 @@ _triggContest setTriggerStatements
 	];
 _layoutObjects = [_pos, _layout]call WMS_fnc_spawnCaptureZoneObjects;
 
-_Mines = [
+_Mines = [ //AMS mines field return Objects NetIDs !!!
 	_pos,
 	50 //"_radius", //100
 	//_howMany	//"_howMany", //20
@@ -876,7 +879,7 @@ while {_zoneStatus_Running} do {
 			deleteVehicle _triggContest;
 			{{deleteVehicle _x} foreach units _x} forEach _guardians;
 			{deleteGroup _x} forEach _guardians;
-			{deleteVehicle _x}forEach _Mines;
+			{deleteVehicle (ObjectFromNetID _x)}forEach _Mines;
 			{deleteMarker _x} foreach _mkrs;
 			{deleteVehicle _x}forEach _CaptureZone_Bdr;
 			WMS_CaptureZone_Farm = 0;

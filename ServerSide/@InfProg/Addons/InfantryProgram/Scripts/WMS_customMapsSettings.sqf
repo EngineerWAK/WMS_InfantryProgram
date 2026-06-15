@@ -34,7 +34,9 @@ if (worldName == "brf_sumava") then {
 										execVM "\InfantryProgram\Scripts\WMS_List_Loadout_RHS_NIA.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_VHL_RHS_Hatchet.sqf";
 										execVM "\InfantryProgram\Scripts\WMS_List_Crates_ACE_RHS.sqf";
-										WMS_Date 					= [2022,9,23,07,00];//full moon next night, almost
+										WMS_AMS_addPoptabsUnits 	= true; //test //remoteExec addAction "grab the money"
+										WMS_DynAI_addPoptabsINF 	= true; //test
+										WMS_Date 					= [2022,9,23,05,00];//full moon next night, almost
 										WMS_AI_MaxUnits_A 			= 100; //Stop adding cargo units  //((OPFOR countSide allUnits) < WMS_AI_MaxUnits_A)
 										WMS_AI_MaxUnits_B 			= 120; //stop to spawn Roaming VHL/cargo units //Stop AMS reinforce
 										WMS_AI_MaxUnits_C 			= 140; //stop Base attack and missions
@@ -109,8 +111,10 @@ if (worldName == "brf_sumava") then {
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"], //wave 9 & 10
+																		["rhs_ammo_rbk500_ofab50","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
 																	];
+										WMS_JudgementDay_Num 		= [60,40,22,50,15];
 										//DFO
 										WMS_DFO_Choppers			= [["vtx_MH60M_DAP","vtx_MH60M_DAP_MLASS"],["vtx_HH60","vtx_MH60M","vtx_UH60M"],["B_Heli_Transport_03_unarmed_F","vtx_UH60M_SLICK"],["vtx_UH60M_MEDEVAC"]];//Hatchet
 										WMS_DFO_NPCvehicles			= [//[[AIR_HEAVY],[AIR_LIGHT],[AIR_UNARMED],[HEAVY],[APC],[LIGHT],[UNARMED],[CIV],[STATICS],["BOATS"]]
@@ -372,8 +376,9 @@ if (worldName == "SPE_Normandy") then { //SPE, GM, SOG
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["vn_m34_grenade_ammo","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst","vn_bomb_mk36_destructor_mine_ammo"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"] //wave 9 & 10
-																	];
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
+																		];
 										//NEW CONVOY EVENT
 										WMS_TargetConvoy 			= false;
 										WMS_TargetConvoyPos 		= [ //[[pos,dir],[pos,dir],[pos,dir],[pos,dir],...]
@@ -554,8 +559,9 @@ if (worldName == "Cam_Lao_Nam") then {
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["vn_m34_grenade_ammo","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst","vn_bomb_mk36_destructor_mine_ammo"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"] //wave 9 & 10
-																	];
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
+																		];
 										//NEW CONVOY EVENT
 										WMS_TargetConvoy 			= true;
 										WMS_TargetConvoyPos 		= [ //[[pos,dir],[pos,dir],[pos,dir],[pos,dir],...]
@@ -720,8 +726,9 @@ if (worldName == "lingor3") then {
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
-																	];
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
+																		];
 																	
 										//NEW CONVOY EVENT
 										WMS_TargetConvoy 			= true;
@@ -844,7 +851,8 @@ if (worldName == "tem_cham") then {	//same as ruha, mostly but CHAM use Global M
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
 																	];
 										};
 if (worldName == "ruha") then {	
@@ -915,7 +923,8 @@ if (worldName == "ruha") then {
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
 																	];
 										};
 if (worldName == "Lythium") then {	
@@ -997,7 +1006,8 @@ if (worldName == "Lythium") then {
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
 																	];
 										};
 if (worldName == "gm_weferlingen_summer") then {
@@ -1057,7 +1067,8 @@ if (worldName == "gm_weferlingen_summer") then {
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
 																	];
 };
 if (worldName == "Altis") then {	
@@ -1196,8 +1207,9 @@ if (worldName == "Altis") then {
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","vn_m7_grenade_ammo","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["vn_m34_grenade_ammo","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst","vn_bomb_mk36_destructor_mine_ammo"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"] //wave 9 & 10
-																	];
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","vn_bomb_750_m117_he_ammo","vn_bomb_mk36_destructor_mine_ammo","vn_bomb_100_m47_wp_ammo"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
+																		];
 										//NEW CONVOY EVENT
 										WMS_TargetConvoy 			= true;
 										WMS_TargetConvoyPos 		= [ //[[pos,dir],[pos,dir],[pos,dir],[pos,dir],...]
@@ -1376,7 +1388,8 @@ if (worldName == "Altis") then {
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
 																	];
 										};
 									};
@@ -1502,7 +1515,8 @@ if (worldName == "Tanoa") then {
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
 																	];
 										};
 if (worldName == "Enoch") then {		//Livonia
@@ -1603,7 +1617,8 @@ if (worldName == "Enoch") then {		//Livonia
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
 																	];
 										};
 if (worldName == "vt7") then {//Virolahti
@@ -1705,7 +1720,8 @@ if (worldName == "vt7") then {//Virolahti
 																		["SmokeShellRed","rhs_ammo_nspn_red","rhs_ammo_fakels"], //wave 3 & 4
 																		["rhs_ammo_nspn_red","rhs_ammo_fakels","rhs_ammo_an_m14_th3 ","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 5 & 6
 																		["rhs_ammo_an_m14_th3","rhs_rpg7v2_type63_airburst","rhs_ammo_m397","rhs_rpg7v2_type63_airburst"], //wave 7 & 8
-																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //wave 9 & 10
+																		["rhs_rpg7v2_type63_airburst","Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"], //wave 9 & 10
+																		["Sh_155mm_AMOS","rhs_ammo_fab500_m54","Bo_Mk82"] //11 and more
 																	];
 										};
 
@@ -1874,5 +1890,12 @@ if (isdedicated && WMS_AMS_CleanMapObj && WMS_AMS_ForceRadius && WMS_AMS_CanSele
 	};
 	WMS_AMS_CanSelect = false;//to prevent server to "re-select" position if FastCombat change from true to false
 	if (true) then {diag_log format ["[WMS_CustomMapsSettings]|WAK|TNA|WMS| Pre_selection of AMS Positions DONE at %1, %2 positions", servertime, count WMS_AMS_preSelectPos]};
+};
+if (isDedicated) then { //from initSystem
+	{
+		publicVariable _x
+	}forEach [
+		"WMS_JudgementDay_Num"
+	];
 };
 execVM "\InfantryProgram\Scripts\WMS_yourServCustSettings.sqf"; //I won't ever update this file, it's for you to use it to keep your own variables configs
