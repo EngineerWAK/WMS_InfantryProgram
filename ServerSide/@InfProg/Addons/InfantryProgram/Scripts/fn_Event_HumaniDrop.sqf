@@ -188,6 +188,9 @@ switch (_type) do {
 						]
 					] call WMS_fnc_AMS_FillStuff;
 					uisleep (60+random 30); 
+					/////CRATE PROTECTION/////
+					[_cargo,(getposASL _cargo),'Humanidrop'] call WMS_fnc_sys_ActReactProtect;
+					/////////////////////////
 					{deleteVehicle _x} forEach units (_this select 1); 
 					(_this select 2) setDamage 0.9;
 				};

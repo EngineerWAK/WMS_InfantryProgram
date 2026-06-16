@@ -84,6 +84,10 @@ if (_crate != WMS_SupplyCrate) then {
 	0, //0 for all players //2 server only //-2 everyone but the server
 	false //JIP
 ];
+}else{
+	/////CRATE PROTECTION/////
+	//[_box,(getposASL _box)] call WMS_fnc_sys_ActReactProtect;// not here, down lower
+	/////////////////////////
 };
 switch (toLower _BoxType) do { //"medic","food","misc","weaps","IP_ammo","IP_toolKit","IP_launcher"
 	case "medic" 	: {{_Box addItemCargoGlobal [(_x select 0),(_x select 1)+(round(random (_x select 2)))]}foreach WMS_medicList};
@@ -127,6 +131,11 @@ switch (toLower _spawnType) do {
 			}; 
 			for "_i" from 1 to _iterations do {
 			sleep 2;
+			if (_crate == WMS_SupplyCrate || _crate == WMS_AMS_Crate_noMove) then {
+				/////CRATE PROTECTION/////
+				[_box,(getposASL _box),"DYNAI_spawnCrate"] call WMS_fnc_sys_ActReactProtect;
+				/////////////////////////
+			};
 			playSound3D ["a3\dubbing_radio_f\Sfx\out2b.ogg", player, false, position _Box, 2,1,0];
 			sleep 8;
 			};
@@ -149,6 +158,11 @@ switch (toLower _spawnType) do {
 			waitUntil {((position _Box) select 2) < 22};
 			uisleep 4;
 			detach _box;
+			if (_crate == WMS_SupplyCrate || _crate == WMS_AMS_Crate_noMove) then {
+				/////CRATE PROTECTION/////
+				[_box,(getposASL _box),"DYNAI_spawnCrate"] call WMS_fnc_sys_ActReactProtect;
+				/////////////////////////
+			};
 		};
 		case "infantryprogram" : {
 			_parachute = WMS_para_small;
@@ -174,6 +188,11 @@ switch (toLower _spawnType) do {
 			waitUntil {((position _Box) select 2) < 22};
 			uisleep 4;
 			detach _box;
+			if (_crate == WMS_SupplyCrate || _crate == WMS_AMS_Crate_noMove) then {
+				/////CRATE PROTECTION/////
+				[_box,(getposASL _box),"DYNAI_spawnCrate"] call WMS_fnc_sys_ActReactProtect;
+				/////////////////////////
+			};
 			for "_i" from 1 to 10 do {
 				playSound3D ["a3\dubbing_radio_f\Sfx\out2b.ogg", player, false, position _Box, 2,1,0];
 				sleep 6;

@@ -141,6 +141,9 @@ if (count _positions > 0) then {//Need to add a Player check
 			_marker = thisTrigger getVariable 'SupplyDropMarker';
 			_crate setVariable ['opened', true, true];
 			_crate setVariable ['openedTime', time, true];
+			/////CRATE PROTECTION/////
+			[_crate,(getposASL _crate),'ENY_supplyDrop'] call WMS_fnc_sys_ActReactProtect;
+			/////////////////////////
 			'smokeShellOrange' createVehicle position _crate;
 			deleteVehicle thisTrigger;
 			_marker setMarkerType 'MinefieldAP';

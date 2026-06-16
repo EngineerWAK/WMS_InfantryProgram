@@ -185,7 +185,8 @@ params[
 		if (_info == "DYNAI") then {_hideBodyColor	= "<t size='1' color='#00dcf5'>Hide Body</t>"};
 		if (_info == "BaseATK") then {_hideBodyColor	= "<t size='1' color='#f5d400'>Hide Body</t>"};
 		if (_info == "JMD") then {_hideBodyColor		= "<t size='1' color='#9000ff'>Hide Body</t>"};
-		if (_info == "VHLCrew") then {_hideBodyColor		= "<t size='1' color='#003df5'>Hide Body</t>"};
+		if (_info == "VHLCrew") then {_hideBodyColor		= "<t size='1' color='#003df5'>Hide Body</t>"}; 
+		if (_info == "Paradrop") then {_hideBodyColor		= "<t size='1' color='#610202'>Hide Body</t>"};
 		if (_info == "HeliCrash"||_info == "Supplydrop"||_info == "Recon") then {_hideBodyColor		= "<t size='1' color='#ff8000'>Hide Body</t>"};
 		[_killed,
 			[

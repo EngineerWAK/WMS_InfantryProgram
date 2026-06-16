@@ -39,7 +39,7 @@ WMS_HeadShotSound 			= false; //"Head Shhhhotttttt!" or not, when headshot to NP
 /////////////////////////////////////////////////
 ///////////ALL VARIABLES, UPDATE ONLY AFTER HERE, START COPY/PAST HERE
 /////////////////////////////////////////////////
-WMS_System_Version 			= "v2.929_2026JUN15_GitHub"; //WMS_sys_ActionReaction
+WMS_System_Version 			= "v2.930_2026JUN16_GitHub"; //WMS_sys_ActionReaction //[_box,(getposASL _box),"DYNAI_spawnCrate"] call WMS_fnc_sys_ActReactProtect;
 WMS_Thread_Start			= 15;	//how much to wait before starting all InfantryProgram loops
 WMS_SVRstartLock 			= 90;	//better spawn the first AMS mission BEFORE the server unlock, the first mission create a ~25 seconds lag for whatever reason
 WMS_CustomizedMap			= ["brf_sumava","SPE_Normandy","Cam_Lao_Nam","lingor3","tem_cham","ruha","xcam_taunus","Lythium","gm_weferlingen_summer","Altis","Tanoa","Malden","Enoch","tem_kujari","vt7"]; //TYPO !!!!!!!!! //Maps with custom config in WMS_customMapsSettings
@@ -269,8 +269,7 @@ WMS_sys_ActReactAIR		= ["O_Heli_Attack_02_dynamicLoadout_F","rhs_mi28n_vvsc","rh
 WMS_sys_ActReactGND		= ["O_APC_Tracked_02_cannon_F","O_MBT_02_cannon_F","RHS_M2A3_BUSKIII","rhsusf_m1a2sep1tuskiid_usarmy"];
 
 WMS_sys_ActReactAntiTheftRad= 150;
-WMS_sys_ActReactAntiTheft	= []; //KEEP EMPTY!!! pushback list of protected crates/containers/vehicles objects that should not be moved/stollen. WMS_sys_ActReactAntiTheft pushback [position _this, netID _this];
-//////////////////////////////
+//WMS_sys_ActReactAntiTheft	= []; //KEEP EMPTY!!! this one moved to MPmission/initServer so ammo crate from territories can be monitored
 //AmbientLife
 //////////////////////////////
 WMS_AL_Version		= "v0.26_2022JUN06";

@@ -147,4 +147,8 @@ if (isDedicated && _HC1)then{
 		[_Grp, _Pos, 100, 4, "MOVE", "STEALTH", "YELLOW", "NORMAL", "STAG COLUMN", "", [1,2,3]] call CBA_fnc_taskPatrol;
 	};
 };
+/////CRATE PROTECTION/////
+	[_compoRefPoint,(getposASL _compoRefPoint),"helicrash"] call WMS_fnc_sys_ActReactProtect;
+/////////////////////////
+
 //WMS_DynAI_Running pushback [time,(time+(_timer)),_grps,[],_objList,[],[],"ALARM"];
